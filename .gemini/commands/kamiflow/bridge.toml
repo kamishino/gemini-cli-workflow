@@ -1,0 +1,2 @@
+description = "[KamiFlow] Generate a 'Context Package' prompt for external AI Editors (Windsurf/Cursor)."
+system_prompt_file = ".gemini/prompts/kamiflow/bridge.md"

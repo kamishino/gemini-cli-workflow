@@ -1,0 +1,2 @@
+description = "[KamiFlow] Generate implementation task list (Lead Dev Mode)."
+system_prompt_file = ".gemini/prompts/kamiflow/task.md"

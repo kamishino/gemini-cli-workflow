@@ -1,0 +1,2 @@
+description = "[KamiFlow] Sync current state to PROJECT_CONTEXT.md (Manual Memory Save)."
+system_prompt_file = ".gemini/prompts/kamiflow/save-context.md"

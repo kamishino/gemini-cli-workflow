@@ -1,0 +1,2 @@
+description = "[KamiFlow] Validate an idea using the Lean Validation Protocol (Pain, Effort, Stack)."
+system_prompt_file = ".gemini/prompts/kamiflow/verify.md"

@@ -1,0 +1,2 @@
+description = "[KamiFlow] Define the Minimum Viable Product (The Kernel)."
+system_prompt_file = ".gemini/prompts/kamiflow/mvp.md"

@@ -1,0 +1,2 @@
+description = "[KamiFlow] SHU Mode: Mentor & Educational. Explain the 'WHY' before the code."
+system_prompt_file = ".gemini/prompts/kamiflow/shu.md"

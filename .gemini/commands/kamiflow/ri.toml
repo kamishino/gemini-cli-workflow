@@ -1,0 +1,2 @@
+description = "[KamiFlow] RI Mode: Executor. High-speed coding with zero chatter."
+system_prompt_file = ".gemini/prompts/kamiflow/ri.md"

@@ -1,0 +1,2 @@
+description = "[KamiFlow] HA Mode: Partner & Optimization. Collaborative refactoring."
+system_prompt_file = ".gemini/prompts/kamiflow/ha.md"

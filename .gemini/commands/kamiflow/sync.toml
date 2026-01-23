@@ -1,0 +1,2 @@
+description = "[KamiFlow] Read logs from docs/handoff_logs and sync Project Context."
+system_prompt_file = ".gemini/prompts/kamiflow/sync.md"

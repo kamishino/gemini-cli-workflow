@@ -1,0 +1,2 @@
+description = "[KamiFlow] Create a Technical Brief focusing on modularity and DoD."
+system_prompt_file = ".gemini/prompts/kamiflow/brief.md"

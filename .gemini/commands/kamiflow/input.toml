@@ -1,0 +1,2 @@
+description = "[KamiFlow] Capture a raw idea without judgment and summarize it."
+system_prompt_file = ".gemini/prompts/kamiflow/input.md"

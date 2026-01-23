@@ -1,0 +1,2 @@
+description = "[KamiFlow] Update and visualize the project roadmap in docs/ROADMAP.md."
+system_prompt_file = ".gemini/prompts/kamiflow/roadmap.md"

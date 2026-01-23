@@ -1,0 +1,2 @@
+description = "[KamiFlow] Create Product Requirements Document (PM Mode)."
+system_prompt_file = ".gemini/prompts/kamiflow/prd.md"

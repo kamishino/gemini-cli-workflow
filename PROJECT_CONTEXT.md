@@ -14,8 +14,9 @@
 
 ## 3. Knowledge Map (Directory Guide)
 - **Overview:** `docs/KAMIFLOW_OVERVIEW.md` (Start here)
-- **Commands:** `.gemini/commands/kamiflow/`
+- **Commands:** `.gemini/commands/kamiflow/` (*.toml configs)
+- **Prompts:** `.gemini/prompts/kamiflow/` (*.md instructions)
 - **Rules:** `.gemini/rules/`
 - **Skills:** `.gemini/skills/`
-- **IDE Config:** `.windsurf/`
+- **IDE Bridge:** `.windsurf/`
 - **Logs:** `docs/handoff_logs/`
