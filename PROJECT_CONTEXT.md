@@ -4,19 +4,18 @@
 
 ## 1. Project Identity
 - **Goal:** A rigorous, opinionated "Operating System" template for Indie Hackers using Gemini CLI + AI IDEs.
-- **Current Phase:** Template v1.0 (Ready for use)
-- **Key Tech:** Gemini CLI, Windsurf/Cursor, Markdown Protocols.
+- **Current Phase:** Template v1.0 (Stable & Compatible)
+- **Key Tech:** Gemini CLI (TOML Commands), Windsurf/Cursor, Markdown Protocols.
 
 ## 2. Active Context (The "Now")
-- **Last Completed Action:** Finalized v1.0 structure. Created README, Sync Protocol, Bridge Workflows, and Rules.
-- **Current Focus:** Template is complete. Ready for distribution/cloning.
-- **Next Step:** Commit to Git and start using for the next project.
+- **Last Completed Action:** Migrated all commands to TOML format. Added .geminiignore. Finalized documentation.
+- **Current Focus:** Ready for immediate use.
+- **Next Step:** Commit to Git and distribute.
 
 ## 3. Knowledge Map (Directory Guide)
 - **Overview:** `docs/KAMIFLOW_OVERVIEW.md` (Start here)
-- **Commands:** `.gemini/commands/kamiflow/` (*.toml configs)
-- **Prompts:** `.gemini/prompts/kamiflow/` (*.md instructions)
-- **Rules:** `.gemini/rules/`
-- **Skills:** `.gemini/skills/`
-- **IDE Bridge:** `.windsurf/`
-- **Logs:** `docs/handoff_logs/`
+- **Commands:** `.gemini/commands/kamiflow/*.toml` (Command Definitions)
+- **Rules:** `.gemini/rules/*.md` (Manifesto, Tech Stack, Style)
+- **Skills:** `.gemini/skills/` (Golden Snippets)
+- **IDE Bridge:** `.windsurf/` (Workflows & Rules)
+- **Logs:** `docs/handoff_logs/` (Sync Buffer)

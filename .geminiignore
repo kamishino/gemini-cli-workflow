@@ -1,0 +1,15 @@
+# Gemini CLI Ignore Rules
+# These files will be hidden from the AI's default context scan.
+
+.git/
+node_modules/
+dist/
+build/
+coverage/
+.DS_Store
+*.log
+
+# KamiFlow Specific
+# We ignore logs by default to keep context clean. 
+# They are only explicitly read by /kamiflow:sync
+docs/handoff_logs/
