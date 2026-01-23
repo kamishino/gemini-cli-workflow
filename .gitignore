@@ -269,3 +269,6 @@ $RECYCLE.BIN/
 
 # Task files
 tasks
+
+# Handoff logs (temporary sync files)
+docs/handoff_logs/

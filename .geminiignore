@@ -12,6 +12,7 @@ coverage/
 # KamiFlow Specific
 # We ignore logs by default to keep context clean. 
 # They are only explicitly read by /kamiflow:sync
-docs/handoff_logs/
+!/docs/handoff_logs/
 
 # NOTE: /tasks/ folder is explicitly tracked and NOT ignored.
+!/tasks/
