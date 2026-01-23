@@ -1,22 +1,13 @@
-# 🗺️ Project Roadmap: {{PROJECT_NAME}}
+# 🗺️ Project Roadmap: KamiFlow Template
 
-> **Status Legend:**
-> [ ] Todo | [x] Done | [~] In Progress | [-] Skipped
+## 🏁 Completed
+- [x] **v1.0 Core:** Command Suite, Rules, Skills, Documentation.
+- [x] **v1.1 Enhancement:** Centralized Document Management (`/tasks/`).
+- [x] **v1.1 Enhancement:** Starter Templates & Ignore Rules (`_TEMPLATE.md`).
 
-## 🚀 Phase 1: Strategy & Validation (Lean)
-- [ ] **Idea Verification:** Check "Painkiller" vs "Vitamin" (`/verify`).
-- [ ] **MVP Scope:** Define the "Kernel" feature set (`/mvp`).
-- [ ] **Architecture Brief:** High-level tech spec (`/brief`).
+## 🏗️ In Progress
+- [ ] Final Polish & Release.
 
-## 🏭 Phase 2: The Factory (Specs -> Code)
-- [ ] **PRD-001:** Core Feature Requirements.
-- [ ] **Task-Batch-001:** Setup Boilerplate & DB Schema.
-- [ ] **Task-Batch-002:** Core Logic Implementation.
-
-## 🛠 Phase 3: Construction & Polish
-- [ ] **UI Implementation:** Components & Screens (`/ri`).
-- [ ] **Integration Testing:** Verify flows.
-- [ ] **Deployment:** Ship to production.
-
-## 🧊 Icebox (Nice-to-have / Later)
-- [ ] (Add features here to prevent scope creep)
+## 📅 Backlog
+- [ ] Automated setup script (`setup.sh` / `setup.bat`).
+- [ ] Integration with more IDEs.
