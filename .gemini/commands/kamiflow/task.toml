@@ -23,8 +23,8 @@ Before generating tasks, analyze the input `{{args}}`:
     - **Phase 1: Foundation:** Setup, Config, Types.
     - **Phase 2: Logic:** Pure functions, Business Logic.
     - **Phase 3: Integration:** UI, Components, Wiring.
-    - **Phase 4: Verify:** Tests, Linting.
-3.  **Atomic Sub-tasks:** Each checkbox `[ ]` must be a single commit.
+    - **Phase 4: Quality Gate & Commit:** Lint, Security, Final Commit.
+3.  **Atomic Sub-tasks:** Each checkbox `[ ]` must be a single commit, EXCEPT for Phase 4 which commits everything at once.
 
 ## 4. OUTPUT FORMAT
 If validation passes, output the target file path and content.
@@ -50,6 +50,16 @@ If validation passes, output the target file path and content.
 ### Phase 2: Core Logic 🧠
 - [ ] **Task 2.1:** ...
 
+### Phase 3: Integration 🎨
+- [ ] **Task 3.1:** ...
+
+### Phase 4: Quality Gate & Commit ✨
+- [ ] **Task 4.1:** Lint/Style Check.
+    - *Action:* Run linting tools and fix any style violations.
+- [ ] **Task 4.2:** Security Check.
+    - *Action:* Review for security vulnerabilities and sensitive data exposure.
+- [ ] **Task 4.3:** Git Commit.
+    - *Action:* Commit all changes with conventional commit format.
 ...
 ```
 

@@ -33,6 +33,7 @@ graph TD
         GeminiMode(Gemini Mode: Shu/Ha/Ri)
         IdeMode(IDE Mode: Windsurf/Cursor)
         Code[[Coding...]]
+        QualityGate{{"Phase 4: Quality Gate"}}
         LogFile(Signal File: logs/*.md)
     end
     
@@ -63,7 +64,10 @@ graph TD
     GeminiMode --> Code
     IdeMode --> Code
     
-    Code --> LogFile
+    Code --> QualityGate
+    QualityGate -- PASS --> LogFile
+    QualityGate -- FAIL --> Code
+    
     LogFile --> Sync
     
     Rules -.-> Code
@@ -78,6 +82,7 @@ graph TD
     style Cook fill:#f96,stroke:#333,stroke-width:2px
     style Trash fill:#ccc,stroke:#333,stroke-dasharray: 5 5
     style Code fill:#9f6,stroke:#333,stroke-width:2px
+    style QualityGate fill:#ff9,stroke:#333,stroke-width:2px
     style Handoff fill:#69f,stroke:#333,stroke-width:2px
     style Sync fill:#69f,stroke:#333,stroke-width:2px
 ```
@@ -97,7 +102,7 @@ The **Management Commands** (`/kamiflow:update-roadmap` and `/kamiflow:save-cont
 | | `/kamiflow:mvp` | Scope Slasher | Define Kernel & Cut List. |
 | **Factory** | `/kamiflow:brief` | Architect | Define modules & boundaries. |
 | | `/kamiflow:prd` | Product Manager | User stories & Zod schemas. |
-| | `/kamiflow:task` | Lead Dev | Atomic task checklist. |
+| | `/kamiflow:task` | Lead Dev | Atomic task checklist + Quality Gate. |
 | **Bridge** | `/kamiflow:bridge` | Bridge Builder | **Pack context for IDE.** |
 | | `/kamiflow:sync` | Integrator | **Read IDE logs & Update Context.** |
 | **Build** | `/kamiflow:shu` | Mentor | Explain *WHY* before coding. |
