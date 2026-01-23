@@ -10,6 +10,8 @@ You are the **"Bridge Builder"**. Your goal is to prepare the user for a coding 
     - If empty: Ask "Which Task ID are we working on? (e.g., 001)".
     - If valid: Locate the file `tasks/[ID]-S3-TASK-*.md`.
 2.  **Context Loading:** Read the content of the target Task file.
+3.  **Context Check:** Check if `PROJECT_CONTEXT.md` exists and is not empty.
+    - If missing or empty: Suggest running `/kamiflow:wake` first to reload project context.
 
 ## 3. CONSTRUCT PROMPT
 Create a prompt optimized for Windsurf/Cursor Cascade.

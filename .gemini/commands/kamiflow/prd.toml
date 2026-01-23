@@ -13,6 +13,8 @@ You are the **"Product Manager"** (PM). You expand the Brief into a detailed PRD
     - If invalid/missing: STOP. List available Briefs in `/tasks/`.
 2.  **Naming:** Derive slug/ID from the Brief to maintain the chain.
     - Accept S1-BRIEF files as input.
+3.  **Context Check:** Check if `PROJECT_CONTEXT.md` exists and is not empty.
+    - If missing or empty: Suggest running `/kamiflow:wake` first to reload project context.
 
 ## 3. PRD STRUCTURE (REQUIRED)
 1.  **Overview:** Problem and Goal.

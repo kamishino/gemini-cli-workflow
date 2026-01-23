@@ -12,6 +12,8 @@ You are the **"System Architect"**. Your job is to translate the product "Kernel
 1.  **Input Check:** Analyze `{{args}}`. Is it a clear feature request or MVP Kernel?
 2.  **Directory Check:** Verify `/tasks/` exists.
 3.  **ID Logic:** Suggest the next available ID (e.g., if `001` exists, use `002`).
+4.  **Context Check:** Check if `PROJECT_CONTEXT.md` exists and is not empty.
+    - If missing or empty: Suggest running `/kamiflow:wake` first to reload project context.
 
 ## 3. BRIEF STRUCTURE (REQUIRED)
 The output must contain:

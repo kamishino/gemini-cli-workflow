@@ -16,6 +16,8 @@ Before generating tasks, analyze the input `{{args}}`:
     - **STOP.** Do not generate tasks.
     - **Action:** List all available PRD files found in `tasks/` directory.
     - **Prompt:** "Please specify which PRD you want to implement."
+4.  **Context Check:** Check if `PROJECT_CONTEXT.md` exists and is not empty.
+    - If missing or empty: Suggest running `/kamiflow:wake` first to reload project context.
 
 ## 3. TASK GENERATION PROTOCOL
 1.  **Inherit ID:** Use the exact ID from the PRD (e.g., `001`).

@@ -108,5 +108,6 @@ The **Management Commands** (`/kamiflow:update-roadmap` and `/kamiflow:save-cont
 | **Build** | `/kamiflow:shu` | Mentor | Explain *WHY* before coding. |
 | | `/kamiflow:ha` | Partner | Collaborative optimization. |
 | | `/kamiflow:ri` | 10x Engineer | Just code. No chatter. |
-| **Manage** | `/kamiflow:update-roadmap` | Planner | Sync status to `ROADMAP.md`. |
+| **Manage** | `/kamiflow:wake` | Memory Keeper | **Reload project context (Session Recovery).** |
+| | `/kamiflow:roadmap` | Planner | Sync status to `ROADMAP.md`. |
 | | `/kamiflow:save-context` | Memory Keeper | Save RAM to `PROJECT_CONTEXT.md`. |

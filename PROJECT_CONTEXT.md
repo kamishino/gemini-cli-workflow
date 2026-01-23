@@ -4,13 +4,13 @@
 
 ## 1. Project Identity
 - **Goal:** A rigorous, opinionated "Operating System" template for Indie Hackers using Gemini CLI + AI IDEs.
-- **Current Phase:** Template v1.3 (Git Sync Optimization)
+- **Current Phase:** Template v1.4 (Session Recovery & Robustness)
 - **Key Tech:** Gemini CLI (TOML Commands), Windsurf/Cursor, Markdown Protocols.
 
 ## 2. Active Context (The "Now")
-- **Last Completed Action:** Implemented Git Amend Strategy for `/kamiflow:sync`. Configured Optimzed Bridge & Sorting Protocol.
-- **Current Focus:** Ensuring clean git history and seamless sync.
-- **Next Step:** Verify the full workflow.
+- **Last Completed Action:** Implemented Session Recovery Protocol (`/kamiflow:wake` and "Lazy Checks"). Eliminates Session Amnesia.
+- **Current Focus:** Validating the robustness of the recovery system.
+- **Next Step:** Final verification and release v1.4.
 
 ## 3. Knowledge Map (Directory Guide)
 - **Overview:** `docs/KAMIFLOW_OVERVIEW.md` (Start here)
