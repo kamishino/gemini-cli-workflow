@@ -12,7 +12,7 @@ graph TD
     
     subgraph Strategy_Phase [🚀 Phase 1: Strategy]
         Input[/"/kamiflow:input"/]
-        Verify{{"/kamiflow:verify"}}
+        Cook{{"/kamiflow:cook"}}
         MVP[/"/kamiflow:mvp"/]
         Trash(Backlog/Trash)
     end
@@ -48,9 +48,9 @@ graph TD
 
     %% Flow
     Start --> Input
-    Input --> Verify
-    Verify -- NO GO --> Trash
-    Verify -- GO --> MVP
+    Input --> Cook
+    Cook -- NO GO --> Trash
+    Cook -- GO --> MVP
     MVP --> Brief
     Brief --> PRD
     PRD --> Tasks
@@ -75,7 +75,7 @@ graph TD
     Save --> Mode
     
     %% Styling
-    style Verify fill:#f96,stroke:#333,stroke-width:2px
+    style Cook fill:#f96,stroke:#333,stroke-width:2px
     style Trash fill:#ccc,stroke:#333,stroke-dasharray: 5 5
     style Code fill:#9f6,stroke:#333,stroke-width:2px
     style Handoff fill:#69f,stroke:#333,stroke-width:2px
@@ -93,7 +93,7 @@ The **Management Commands** (`/kamiflow:update-roadmap` and `/kamiflow:save-cont
 | Phase | Command | Role | Goal |
 | :--- | :--- | :--- | :--- |
 | **Strategy** | `/kamiflow:input` | Idea Collector | Capture raw thoughts. |
-| | `/kamiflow:verify` | Ruthless Validator | Check: Pain, Effort, Stack. |
+| | `/kamiflow:cook` | Critical Chef | Refine idea through technical debate. |
 | | `/kamiflow:mvp` | Scope Slasher | Define Kernel & Cut List. |
 | **Factory** | `/kamiflow:brief` | Architect | Define modules & boundaries. |
 | | `/kamiflow:prd` | Product Manager | User stories & Zod schemas. |

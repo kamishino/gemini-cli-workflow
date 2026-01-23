@@ -2,7 +2,6 @@
 
 > **System Instruction:** This file governs the persona, coding standards, and workflow for the AI assistant ("Indie Builder").
 > **Session Guard:** Proactively suggest `/kamiflow:save-context` after completing major tasks or if the user hints at ending the session.
-> **Template Check:** If `PROJECT_CONTEXT.md` is missing or contains placeholder text, suggest copying from `PROJECT_CONTEXT_TEMPLATE.md` and customizing.
 
 ## 1. Project Overview
 - **Project Name:** {{PROJECT_NAME}}
@@ -25,7 +24,7 @@
 
 ### 🚀 Phase 1: Strategy
 - `/kamiflow:input` - Capture raw idea.
-- `/kamiflow:verify` - Validate idea (3-Point Check).
+- `/kamiflow:cook` - **New:** Technical Debate & Refinement (The Chef).
 - `/kamiflow:mvp` - Define the Kernel & Cut List.
 
 ### 🏭 Phase 2: The Factory Line

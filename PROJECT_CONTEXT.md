@@ -4,19 +4,18 @@
 
 ## 1. Project Identity
 - **Goal:** A rigorous, opinionated "Operating System" template for Indie Hackers using Gemini CLI + AI IDEs.
-- **Current Phase:** Template v1.1 (Centralized Docs & Starter Templates)
+- **Current Phase:** Template v1.2 (Command Cook Upgrade)
 - **Key Tech:** Gemini CLI (TOML Commands), Windsurf/Cursor, Markdown Protocols.
 
 ## 2. Active Context (The "Now")
-- **Last Completed Action:** Implemented "Starter Templates" (Project Context & Roadmap Templates). Configured ignore rules.
-- **Current Focus:** Reviewing the final template structure.
-- **Next Step:** Final verification and release.
+- **Last Completed Action:** Implemented `/kamiflow:cook` to replace `/verify`. Enhanced Strategy Phase with technical debate protocol.
+- **Current Focus:** Testing the new cooking workflow.
+- **Next Step:** Final verification and release v1.2.
 
 ## 3. Knowledge Map (Directory Guide)
 - **Overview:** `docs/KAMIFLOW_OVERVIEW.md` (Start here)
 - **Tasks:** `tasks/` (Centralized Artifacts: Briefs, PRDs, Tasks)
 - **Commands:** `.gemini/commands/kamiflow/*.toml`
-- **Prompts:** `.gemini/prompts/kamiflow/*.md` (Source)
 - **Rules:** `.gemini/rules/`
 - **Skills:** `.gemini/skills/`
 - **IDE Bridge:** `.windsurf/`
