@@ -9,9 +9,10 @@
 - [x] **v1.3 Enhancement:** Optimized Bridge & Sorting Protocol (S1-S4).
 - [x] **v1.3 Enhancement:** Git Amend Sync Strategy.
 - [x] **v1.4 Enhancement:** Session Recovery Protocol (`/wake`).
+- [x] **v1.5 Enhancement:** Auto-Pilot Lazy & SuperLazy Modes.
 
 ## 🏗️ In Progress
-- [ ] Final Polish & Release v1.4.
+- [ ] Final Polish & Release v1.5.
 
 ## 📅 Backlog
 - [ ] Automated setup script (`setup.sh` / `setup.bat`).

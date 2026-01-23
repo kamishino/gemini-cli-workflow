@@ -52,6 +52,8 @@
 ### 🧠 Management
 
 - `/kamiflow:wake` - **New:** Reload project context (Session Recovery).
+- `/kamiflow:lazy` - **New:** Auto-generate S1-S4 artifacts in one chain.
+- `/kamiflow:superlazy` - **New:** Auto-generate AND execute immediately.
 - `/kamiflow:roadmap` - Sync `docs/ROADMAP.md`.
 - `/kamiflow:save-context` - Save RAM to `PROJECT_CONTEXT.md`.
 

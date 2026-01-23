@@ -37,6 +37,13 @@ graph TD
         LogFile(Signal File: logs/*.md)
     end
     
+    subgraph Autopilot_Phase [🚀 Auto-Pilot Mode]
+        Lazy{{"/kamiflow:lazy"}}
+        SuperLazy{{"/kamiflow:superlazy"}}
+        AutoCode[[Auto-Coding...]]
+        AutoLog(Signal File: logs/*_superlazy.md)
+    end
+    
     subgraph Knowledge_Base [🧠 Brain]
         Rules[(Rules & Manifesto)]
         Skills[(Skills Library)]
@@ -52,10 +59,18 @@ graph TD
     Input --> Cook
     Cook -- NO GO --> Trash
     Cook -- GO --> MVP
+    
+    %% Traditional Path
     MVP --> Brief
     Brief --> PRD
     PRD --> Tasks
     Tasks --> Handoff
+    
+    %% Auto-Pilot Path
+    MVP --> Lazy
+    Lazy --> SuperLazy
+    SuperLazy --> AutoCode
+    AutoCode --> AutoLog
     
     Handoff --> Mode
     Mode --> GeminiMode
@@ -69,11 +84,15 @@ graph TD
     QualityGate -- FAIL --> Code
     
     LogFile --> Sync
+    AutoLog --> Sync
     
     Rules -.-> Code
     Skills -.-> Code
+    Rules -.-> AutoCode
+    Skills -.-> AutoCode
     
     Code --> Roadmap
+    AutoCode --> Roadmap
     Sync --> Roadmap
     Roadmap --> Save
     Save --> Mode
@@ -85,6 +104,9 @@ graph TD
     style QualityGate fill:#ff9,stroke:#333,stroke-width:2px
     style Handoff fill:#69f,stroke:#333,stroke-width:2px
     style Sync fill:#69f,stroke:#333,stroke-width:2px
+    style Lazy fill:#f6f,stroke:#333,stroke-width:2px
+    style SuperLazy fill:#f66,stroke:#333,stroke-width:2px
+    style AutoCode fill:#6f6,stroke:#333,stroke-width:2px
 ```
 
 ## 🧭 Navigation Note
@@ -108,6 +130,8 @@ The **Management Commands** (`/kamiflow:update-roadmap` and `/kamiflow:save-cont
 | **Build** | `/kamiflow:shu` | Mentor | Explain *WHY* before coding. |
 | | `/kamiflow:ha` | Partner | Collaborative optimization. |
 | | `/kamiflow:ri` | 10x Engineer | Just code. No chatter. |
+| **Auto-Pilot** | `/kamiflow:lazy` | One-Man Band | **Generate S1-S4 artifacts in one chain.** |
+| | `/kamiflow:superlazy` | Autonomous Builder | **Generate S1-S4 AND execute immediately.** |
 | **Manage** | `/kamiflow:wake` | Memory Keeper | **Reload project context (Session Recovery).** |
 | | `/kamiflow:roadmap` | Planner | Sync status to `ROADMAP.md`. |
 | | `/kamiflow:save-context` | Memory Keeper | Save RAM to `PROJECT_CONTEXT.md`. |
