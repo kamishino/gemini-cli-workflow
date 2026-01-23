@@ -23,3 +23,17 @@ After completing a significant task, you **MUST** create a log file:
 
 - **Path:** `docs/handoff_logs/YYYY-MM-DD_HHMM_task-description.md`
 - **Content:** Status, Changes, Next Steps.
+
+## 4. ⚠️ GIT AMEND WARNING
+
+**IMPORTANT:** If you want the Git Amend flow to work for documentation updates:
+
+- **DO NOT PUSH** immediately after completing a task
+- The `/kamiflow:sync` command will offer to amend documentation updates into your last commit
+- This keeps git history clean with atomic feature commits
+- Only works if the commit is local (not pushed)
+
+**If you push before running sync:**
+- Documentation updates will create a separate commit
+- Git history will have an extra "docs:" commit
+- This is still safe, just less atomic

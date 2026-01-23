@@ -24,9 +24,24 @@
 
 **Procedure:**
 1.  **In IDE:** Commit your changes (using Git).
-2.  **Switch to Gemini:** Run `/kamiflow:save-context`.
-    *   *System Action:* Gemini scans the file changes and updates its internal RAM (`PROJECT_CONTEXT.md`).
-3.  **Update Map:** Run `/kamiflow:update-roadmap`.
+2.  **Switch to Gemini:** Run `/kamiflow:sync`.
+    *   *System Action:* Gemini reads handoff logs, updates `PROJECT_CONTEXT.md` and `docs/ROADMAP.md`.
+    *   *Git Amend Logic:* If documentation was updated, Gemini asks: "Amend to last local commit? (Y/N)".
+    *   *Safety:* Only amends if commit is local (not pushed). Otherwise creates separate docs commit.
+3.  **Cleanup:** Gemini offers to delete processed handoff logs.
+
+### Git Amend Strategy
+The sync command uses a smart amend strategy to keep git history clean:
+
+- **If Last Commit is Local:** Offers to amend documentation updates into the feature commit
+- **If Last Commit is Pushed:** Creates separate documentation commit (no amend)
+- **User Confirmation Required:** Never amends without explicit Y/N confirmation
+- **Safety Check:** Uses `git branch -vv` to verify commit is local before amending
+
+**Benefits:**
+- Clean, atomic feature commits with included documentation
+- No "fixup" commits for documentation updates
+- Preserves semantic commit history
 
 ## 4. Tips for Hybrid Flow
 *   **Split Screen:** Keep Gemini CLI open on one side (for guidance/strategy) and IDE on the other (for coding).
