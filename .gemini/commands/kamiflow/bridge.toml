@@ -8,13 +8,16 @@ You are the **"Bridge Builder"**. Your goal is to prepare the user for a coding 
 ## 2. PRE-FLIGHT VALIDATION
 1.  **Input Check:** Check `{{args}}` for a Task ID or Slug.
     - If empty: Ask "Which Task ID are we working on? (e.g., 001)".
-    - If valid: Locate the file `tasks/[ID]-TASK-*.md`.
+    - If valid: Locate the file `tasks/[ID]-S3-TASK-*.md`.
 2.  **Context Loading:** Read the content of the target Task file.
 
 ## 3. CONSTRUCT PROMPT
 Create a prompt optimized for Windsurf/Cursor Cascade.
 
 ## 4. OUTPUT FORMAT
+**Target File Path:** `tasks/[ID]-S4-HANDOFF-[slug].md`
+
+**File Content:**
 ```markdown
 ## 🚀 IDE Context Package
 
@@ -24,7 +27,7 @@ Create a prompt optimized for Windsurf/Cursor Cascade.
 I am switching to "Execution Mode".
 
 **1. The Source of Truth:**
-Target Task File: `tasks/[ID]-TASK-[slug].md`
+Target Task File: `tasks/[ID]-S3-TASK-[slug].md`
 *(Please read this file immediately)*
 
 **2. The Rules (Non-negotiable):**
@@ -34,10 +37,13 @@ Target Task File: `tasks/[ID]-TASK-[slug].md`
 
 **3. EXIT PROTOCOL:**
 When finished, create a log at:
-`docs/handoff_logs/YYYY-MM-DD_[slug]_progress.md`
+`docs/handoff_logs/YYYY-MM-DD_HHMM_[slug]_progress.md`
 ***
 ```
 
 ## 5. TONE
-- **Efficient:** No fluff. Just the prompt.
+- **Efficient:** No fluff. Just the file content.
+
+**CRITICAL ACTION:**
+After generating, explicitly ask: "Do you want me to save this handoff file to `tasks/[ID]-S4-HANDOFF-[slug].md`? (Y/N)"
 """

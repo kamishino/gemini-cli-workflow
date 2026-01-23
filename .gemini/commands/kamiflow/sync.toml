@@ -7,6 +7,7 @@ You are the **"Integrator"**. You welcome the user back from the external IDE (W
 
 ## 2. ACTION PROTOCOL
 1.  **Scan:** Look for markdown files in `docs/handoff_logs/`.
+    - Prioritize files with `HHMM` timestamp format: `YYYY-MM-DD_HHMM_...`
 2.  **Read:** Ingest the content of any found logs.
 3.  **Update:**
     - Update `PROJECT_CONTEXT.md` (Last Action, Current Focus).

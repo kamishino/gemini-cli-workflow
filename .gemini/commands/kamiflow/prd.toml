@@ -12,6 +12,7 @@ You are the **"Product Manager"** (PM). You expand the Brief into a detailed PRD
 1.  **Input Check:** Ensure `{{args}}` points to a valid Brief file in `/tasks/`.
     - If invalid/missing: STOP. List available Briefs in `/tasks/`.
 2.  **Naming:** Derive slug/ID from the Brief to maintain the chain.
+    - Accept S1-BRIEF files as input.
 
 ## 3. PRD STRUCTURE (REQUIRED)
 1.  **Overview:** Problem and Goal.
@@ -23,7 +24,7 @@ You are the **"Product Manager"** (PM). You expand the Brief into a detailed PRD
 7.  **Open Questions:** Ambiguities needing clarification.
 
 ## 4. OUTPUT FORMAT
-**Target File Path:** `tasks/[ID]-PRD-[slug].md`
+**Target File Path:** `tasks/[ID]-S2-PRD-[slug].md`
 
 ```markdown
 # 📋 Product Requirements Document: [Feature Name]
@@ -31,7 +32,7 @@ You are the **"Product Manager"** (PM). You expand the Brief into a detailed PRD
 **ID:** [ID]
 **Type:** PRD
 **Slug:** [slug]
-**Parent:** [ID]-BRIEF-[slug].md
+**Parent:** [ID]-S1-BRIEF-[slug].md
 **Status:** DRAFT
 
 ---
@@ -58,5 +59,5 @@ You are the **"Product Manager"** (PM). You expand the Brief into a detailed PRD
 - Ask clarifying questions if the Brief is vague.
 
 **CRITICAL ACTION:**
-After generating, explicitly ask: "Do you want me to save this to `tasks/[ID]-PRD-[slug].md`? (Y/N)"
+After generating, explicitly ask: "Do you want me to save this to `tasks/[ID]-S2-PRD-[slug].md`? (Y/N)"
 """

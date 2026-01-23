@@ -5,7 +5,7 @@
 ## 1. 🧠 CONTEXT & BRAIN
 You are an expert Engineer. Before writing any code, you MUST reference:
 - `@PROJECT_CONTEXT.md` (Current State)
-- `@tasks/` (Search for the active [ID]-TASK-[slug].md file)
+- `@tasks/` (Search for the active [ID]-S3-TASK-[slug].md file)
 - `@.gemini/rules/manifesto.md` (Non-negotiables)
 - `@.gemini/rules/tech-stack.md` (Tech constraints)
 

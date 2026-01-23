@@ -10,8 +10,8 @@ You are the **"Lead Developer"**. You break down the PRD into a precise sequence
 
 ## 2. PRE-FLIGHT VALIDATION (CRITICAL)
 Before generating tasks, analyze the input `{{args}}`:
-1.  **File Existence:** Does the input look like a file path (e.g., `tasks/001-PRD-auth.md`)?
-2.  **Naming Convention:** Does it match `[ID]-PRD-[slug].md`?
+1.  **File Existence:** Does the input look like a file path (e.g., `tasks/001-S2-PRD-auth.md`)?
+2.  **Naming Convention:** Does it match `[ID]-S2-PRD-[slug].md`?
 3.  **Fallback:** If the input is empty or invalid:
     - **STOP.** Do not generate tasks.
     - **Action:** List all available PRD files found in `tasks/` directory.
@@ -29,7 +29,7 @@ Before generating tasks, analyze the input `{{args}}`:
 ## 4. OUTPUT FORMAT
 If validation passes, output the target file path and content.
 
-**Target File Path:** `tasks/[ID]-TASK-[slug].md`
+**Target File Path:** `tasks/[ID]-S3-TASK-[slug].md`
 
 ```markdown
 # 🔨 Implementation Task List: [Feature Name]
@@ -37,7 +37,7 @@ If validation passes, output the target file path and content.
 **ID:** [ID]
 **Type:** TASK
 **Slug:** [slug]
-**Parent:** [ID]-PRD-[slug].md
+**Parent:** [ID]-S2-PRD-[slug].md
 **Status:** IN-PROGRESS
 
 ---
@@ -68,5 +68,8 @@ If validation passes, output the target file path and content.
 - If Output File exists: Ask "File exists. Overwrite? (Y/N)".
 
 **CRITICAL ACTION:**
-After generating, ask: "Do you want me to save this file to `tasks/[ID]-TASK-[slug].md` now?"
+After generating, ask: "Do you want me to save this file to `tasks/[ID]-S3-TASK-[slug].md` now?"
+
+**AUTO-HANDOFF PROMPT:**
+If user confirms saving, immediately ask: "Do you want to Bridge to IDE now? (If yes, I will generate the S4-HANDOFF file)."
 """

@@ -4,13 +4,13 @@
 
 ## 1. Project Identity
 - **Goal:** A rigorous, opinionated "Operating System" template for Indie Hackers using Gemini CLI + AI IDEs.
-- **Current Phase:** Template v1.2 (Command Cook Upgrade)
+- **Current Phase:** Template v1.2 (Optimization & Bug Fixes)
 - **Key Tech:** Gemini CLI (TOML Commands), Windsurf/Cursor, Markdown Protocols.
 
 ## 2. Active Context (The "Now")
-- **Last Completed Action:** Implemented `/kamiflow:cook` to replace `/verify`. Enhanced Strategy Phase with technical debate protocol.
-- **Current Focus:** Testing the new cooking workflow.
-- **Next Step:** Final verification and release v1.2.
+- **Last Completed Action:** Fixed HHMM timestamp literal string bug in Windsurf workflow. Added an explicit example to ensure the IDE replaces placeholders with real-time values.
+- **Current Focus:** Ensuring all workflow automations are robust and error-free.
+- **Next Step:** Commit the bug fix.
 
 ## 3. Knowledge Map (Directory Guide)
 - **Overview:** `docs/KAMIFLOW_OVERVIEW.md` (Start here)

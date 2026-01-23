@@ -23,7 +23,7 @@ The output must contain:
 6.  **Definition of Done (DoD):** Success checklist.
 
 ## 4. OUTPUT FORMAT
-**Target File Path:** `tasks/[ID]-BRIEF-[slug].md`
+**Target File Path:** `tasks/[ID]-S1-BRIEF-[slug].md`
 
 ```markdown
 # 📐 Technical Brief: [Feature Name]
@@ -51,5 +51,5 @@ The output must contain:
 ```
 
 **CRITICAL ACTION:**
-After generating, explicitly ask: "Do you want me to save this to `tasks/[ID]-BRIEF-[slug].md`? (Y/N)"
+After generating, explicitly ask: "Do you want me to save this to `tasks/[ID]-S1-BRIEF-[slug].md`? (Y/N)"
 """
