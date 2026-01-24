@@ -13,6 +13,7 @@
 - [x] **v1.6 Feature:** Sniper Model (3-Step Fused Workflow & 3-Layer Locks).
 - [x] **v1.6 Chore:** Cleaned up legacy commands and updated documentation.
 - [x] **v1.7 Enhancement:** Smart Git Sync Logic (Dirty Tree detection & Branching commits).
+- [x] **v1.8 Enhancement:** Diagnostic Idea Phase (Two-phase interview workflow for /idea).
 
 ## 🏗️ In Progress
 - [ ] Final polish and verification of Sniper Model.

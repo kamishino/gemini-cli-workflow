@@ -8,9 +8,9 @@
 - **Key Tech:** Gemini CLI (TOML Commands), Windsurf/Cursor, Markdown Protocols.
 
 ## 2. Active Context (The "Now")
-- **Last Completed Action:** Implemented Smart Git Sync Logic in `/sync` with Dirty Tree detection and branching commits.
-- **Current Focus:** Performing a full Dry Run of the Sniper workflow (Idea -> Spec -> Build -> Sync) to verify system integrity.
-- **Next Step:** Perform a Dry Run test of the new `/sync` logic.
+- **Last Completed Action:** Implemented Two-Phase Diagnostic Interview Workflow for `/idea` to prevent solution bias and hallucinations.
+- **Current Focus:** Performing a full Dry Run of the refined Sniper workflow (Idea -> Spec -> Build -> Sync) to verify system integrity.
+- **Next Step:** Run `/kamiflow:idea` to test the new diagnostic interview.
 
 ## 3. Knowledge Map (Directory Guide)
 - **Overview:** `docs/KAMIFLOW_OVERVIEW.md` (Start here)
