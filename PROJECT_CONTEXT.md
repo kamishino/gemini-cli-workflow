@@ -8,9 +8,9 @@
 - **Key Tech:** Gemini CLI (TOML Commands), Windsurf/Cursor, Markdown Protocols.
 
 ## 2. Active Context (The "Now")
-- **Last Completed Action:** Implemented Global ID Tracker with recursive archive scanning (The Scout protocol), ensuring ID continuity across sessions.
-- **Current Focus:** Testing ID continuity after session resets and verifying the conflict resolution suffix logic.
-- **Next Step:** Start a fresh session and verify that `/idea` correctly picks 008 as the next ID.
+- **Last Completed Action:** Synced all documentation in `docs/protocols/` with the Sniper Model (S1-S4) and Validator Loop logic.
+- **Current Focus:** Performing final verification of the end-to-end Sniper + Validator + Global ID workflow.
+- **Next Step:** Dry-run a complex task to ensure all systems cooperate seamlessly.
 
 ## 3. Knowledge Map (Directory Guide)
 - **Overview:** `docs/KAMIFLOW_OVERVIEW.md` (Start here)

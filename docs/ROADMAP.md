@@ -17,9 +17,10 @@
 - [x] **v1.9 Feature:** Smart Archive System (Preserve audit trails, clean workspace).
 - [x] **v2.0 Feature:** Smart Validator Loop (Execute-Validate-Heal) for /superlazy mode.
 - [x] **v2.1 Feature:** Global ID Tracker (The Scout) - Archive-aware ID continuity.
+- [x] **v2.2 Enhancement:** Protocol Documentation Sync - Unified Sniper & Validator docs.
 
 ## 🏗️ In Progress
-- [ ] Testing ID continuity after session resets and archiving.
+- [ ] Final verification of end-to-end Sniper + Validator + Global ID workflow.
 
 ## 📅 Backlog
 - [ ] Automated setup script (`setup.sh` / `setup.bat`).
