@@ -1,20 +1,25 @@
 # 🧠 MEMORY BANK: KamiFlow Template
+
 > **SYSTEM NOTE:** This file is the "Short-term Memory" (RAM) of the project.
 > **RULE:** Update this file at the end of every session using `/kamiflow:save-context`.
+> **INTEGRATOR RULE (ID Caching):** After running `/wake`, maintain `cached_max_id` in session memory for fast ID generation. Only re-scan when user requests correction.
 
 ## 1. Project Identity
+
 - **Goal:** A rigorous, opinionated "Operating System" template for Indie Hackers using Gemini CLI + AI IDEs.
-- **Current Phase:** Template v2.2 (Sniper + Validator + Global ID)
+- **Current Phase:** Template v2.4 (Smart Session & Logic Guard)
 - **Key Tech:** Gemini CLI (TOML Commands), Windsurf/Cursor, Markdown Protocols.
 
 ## 2. Active Context (The "Now")
+
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/sync`.
 
-- **Last Completed Action:** Implemented Unified Global Sync with README Showcase (Task 009).
-- **Current Focus:** Final verification of the integrated KamiFlow v2.2 ecosystem.
+- **Last Completed Action:** Implemented Smart Session Logic (ID Caching & Logical Guard) (Task 010).
+- **Current Focus:** Final verification of the integrated KamiFlow v2.4 ecosystem.
 - **Next Step:** Perform final end-to-end dry run.
 
 ## 3. Knowledge Map (Directory Guide)
+
 - **Overview:** `docs/KAMIFLOW_OVERVIEW.md` (Start here)
 - **Tasks:** `tasks/` (Centralized Artifacts: Briefs, PRDs, Tasks, Handoffs)
 - **Commands:** `.gemini/commands/kamiflow/*.toml` (Including lazy and superlazy modes)

@@ -255,11 +255,12 @@ Display reconnaissance results to user:
 
 ## 8. 🛡️ Safety Rules
 
-1. **Always Scan Before Generate:** Never assume the last ID from memory
+1. **Session-Based Caching:** After `/wake`, use cached MAX_ID for performance. Only re-scan if user requests correction.
 2. **Read-Only Archive:** Never modify files in `archive/` during ID resolution
 3. **Explicit Reporting:** Always show the user what ID was chosen and why
 4. **Conflict Preference:** Prefer suffixes over failing (non-blocking)
 5. **Case Sensitivity:** Treat filenames as case-insensitive on Windows
+6. **Reactive Scan Triggers:** Re-scan when user says "ID sai rồi", "Check lại ID", or "Scan lại đi"
 
 ---
 
@@ -317,6 +318,129 @@ if ($conflictingFiles.Count -gt 0) {
 7. AI displays: "Next ID: 007"
 8. AI proceeds: Create 007-S1-IDEA-build-x.md
 ```
+
+---
+
+## 11. 🚀 Session-Based Caching (Performance Optimization)
+
+### The Problem: Redundant Scanning
+
+**Before Caching:**
+
+- Every `/idea`, `/lazy`, `/superlazy` triggers a full Global Scan
+- Scans `tasks/` + `archive/` recursively each time
+- Performance cost: ~10-50ms per command
+- Unnecessary when MAX_ID hasn't changed
+
+**After Caching:**
+
+- Scan once during `/wake` (session initialization)
+- Store MAX_ID in session memory (RAM)
+- Use cached value for all subsequent commands
+- Re-scan only when user requests correction (Reactive Scan)
+
+### Implementation: Cached ID Workflow
+
+**Step 1: Initialization (`/wake`)**
+
+```
+1. Run Global Scan (Section 3)
+2. Calculate MAX_ID
+3. Store in session memory: cached_max_id = MAX_ID
+4. Display to user: "MAX ID Found: XXX"
+```
+
+**Step 2: Fast ID Generation (`/idea`, `/lazy`, `/superlazy`)**
+
+```
+1. Check if cached_max_id exists in session
+2. If YES:
+   - Use: next_id = cached_max_id + 1
+   - Increment: cached_max_id = next_id
+   - Skip file scan (performance boost)
+3. If NO:
+   - Fallback to Global Scan (Section 3)
+   - Cache the result
+```
+
+**Step 3: Reactive Scan (User Correction)**
+
+```
+Trigger Phrases:
+- "ID này sai rồi"
+- "Check lại ID đi"
+- "Scan lại archive"
+- "ID đúng phải là XXX"
+
+Action:
+1. AI detects correction request
+2. Execute Global Scan immediately
+3. Update cached_max_id with fresh result
+4. Display: "🔍 Reactive Scan Complete: MAX ID = XXX"
+5. Use corrected ID for current task
+```
+
+### Session Memory Structure
+
+```typescript
+interface SessionIDState {
+  cached_max_id: number; // Stored in AI's active session memory
+  last_scan_timestamp: string; // For debugging (optional)
+  scan_mode: "CACHED" | "REACTIVE"; // Current mode
+}
+```
+
+### User Feedback: Cached vs Reactive
+
+**Cached Mode (Fast):**
+
+```markdown
+🔍 Task ID (Cached)
+
+- Session MAX ID: 010
+- Next Task ID: 011
+```
+
+**Reactive Mode (Re-scan):**
+
+```markdown
+🔍 Task ID Reconnaissance (Reactive Scan)
+
+- Scanned: tasks/ and archive/
+- Max ID found: 012
+- Next Task ID: 013
+- Cache updated ✅
+```
+
+### Benefits
+
+1. **Performance:** ~10-50ms saved per command (no file I/O)
+2. **Consistency:** MAX_ID tracked throughout session
+3. **Flexibility:** User can force re-scan anytime
+4. **Transparency:** User knows when cache vs scan is used
+
+### Edge Cases
+
+**Case 1: User manually adds file during session**
+
+- Cached ID might be stale
+- User detects: "Ơ, ID 011 đã tồn tại rồi mà"
+- User requests: "Scan lại đi"
+- AI triggers Reactive Scan
+- Cache updated, conflict resolved
+
+**Case 2: Session ends and restarts**
+
+- Cache is lost (RAM cleared)
+- User runs `/wake` again
+- Cache re-initialized with fresh scan
+- All subsequent commands use new cache
+
+**Case 3: `/sync` archives tasks**
+
+- Cached ID still valid (MAX hasn't changed, files just moved)
+- No re-scan needed
+- Cache remains accurate
 
 ---
 
