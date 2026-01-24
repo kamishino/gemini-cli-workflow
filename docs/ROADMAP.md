@@ -22,6 +22,7 @@
 - [x] **v2.4 Feature:** Smart Session Logic (ID Caching & Logical Guard).
 - [x] **v2.5 Feature:** Submodule-Based Bootstrapper (Portal Network via Symlinks).
 - [x] **v2.6 Feature:** Global English Standardization (Tokenized Language Engine).
+- [x] **v2.7 Feature:** Onboarding Excellence - Comprehensive Integration & Troubleshooting guides.
 
 ## 🏗️ In Progress
 - [ ] Final end-to-end verification of Sniper + Validator + Global ID + Submodule + Token engine.

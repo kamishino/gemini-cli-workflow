@@ -7,16 +7,16 @@
 ## 1. Project Identity
 
 - **Goal:** A rigorous, opinionated "Operating System" template for Indie Hackers using Gemini CLI + AI IDEs.
-- **Current Phase:** Template v2.6 (Global Standardization)
+- **Current Phase:** Template v2.7 (Onboarding Excellence)
 - **Key Tech:** Gemini CLI (TOML Commands), Windsurf/Cursor, Markdown Protocols.
 
 ## 2. Active Context (The "Now")
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/sync`.
 
-- **Last Completed Action:** Implemented Global English Standardization and Language Tokenization (Task 012).
-- **Current Focus:** Final end-to-end verification of the multi-language capable global engine.
-- **Next Step:** Perform a full project audit to ensure 100% professional consistency.
+- **Last Completed Action:** Implemented Onboarding Excellence & Integration Guide (Task 013).
+- **Current Focus:** Final verification of the integrated KamiFlow v2.7 ecosystem.
+- **Next Step:** Perform a clean-room test of the Submodule bootstrapping on a fresh environment.
 
 ## 3. Knowledge Map (Directory Guide)
 

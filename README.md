@@ -1,6 +1,6 @@
 # 🌊 KamiFlow: The Indie Builder's Template for Gemini CLI
 
-**<!-- KAMI_VERSION_START -->v2.6 (Global English Engine)<!-- KAMI_VERSION_END -->**
+**<!-- KAMI_VERSION_START -->v2.7 (Onboarding Excellence)<!-- KAMI_VERSION_END -->**
 
 **KamiFlow** is a rigorous, opinionated "Operating System" for Indie Hackers using Gemini CLI. It transforms the AI from a generic chatbot into a disciplined **Technical Co-Founder**.
 
@@ -14,6 +14,7 @@
 
 - 🎯 **Sniper Model:** 3-Step Fused Kernel (Idea -> Spec -> Build) with 3-Layer Locks.
 - 🌍 **Global Engine:** 100% English core logic with configurable conversational language.
+- 📚 **Onboarding Excellence:** Comprehensive multi-track integration and troubleshooting guides.
 - 🧠 **Smart Session:** Logic-based requirement analysis and conflict blocking.
 - 📦 **Injectable OS:** Git Submodule distribution with automatic Symlink setup.
 - 🤖 **Validator Loop:** Autonomous execution with self-healing (Execute -> Validate -> Heal).
@@ -22,6 +23,55 @@
 - 📦 **Smart Archive:** Automated workspace cleanup with audit trail preservation.
 - 🌉 **IDE Bridge:** Seamless context handoff to Windsurf/Cursor/VS Code.
 <!-- KAMI_SHOWCASE_END -->
+
+---
+
+## 🚀 Quick Start (Choose Your Path)
+
+### Option A: Integrate into Existing Project (Recommended)
+
+Use KamiFlow as a **Git Submodule** for auto-updates and clean separation:
+
+```bash
+# Add KamiFlow as a submodule
+git submodule add https://github.com/YOUR_USERNAME/gemini-cli-workflow.git .kami-flow
+git submodule update --init --recursive
+
+# Start Gemini CLI
+gemini chat
+
+# Wake and bootstrap
+/kamiflow:wake
+/kamiflow:bootstrap
+/kamiflow:wake
+```
+
+**Result:** Portal network activated. KamiFlow operates at root via symbolic links.
+
+---
+
+### Option B: Use as Template (Clone)
+
+Clone KamiFlow directly for a standalone copy:
+
+```bash
+# Clone the repository
+git clone https://github.com/YOUR_USERNAME/gemini-cli-workflow.git my-project
+cd my-project
+
+# Start Gemini CLI
+gemini chat
+/kamiflow:wake
+```
+
+**Result:** Full KamiFlow copy ready to customize.
+
+---
+
+### 📚 Need More Help?
+
+- **[Full Integration Guide](docs/GETTING_STARTED.md)** - Detailed step-by-step instructions
+- **[Troubleshooting](docs/TROUBLESHOOTING.md)** - Solutions for common setup issues (Windows Symlinks, etc.)
 
 ---
 
