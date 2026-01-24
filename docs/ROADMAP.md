@@ -20,9 +20,10 @@
 - [x] **v2.2 Enhancement:** Protocol Documentation Sync - Unified Sniper & Validator docs.
 - [x] **v2.3 Feature:** Smart Unified Sync (Global Sync with README Showcase).
 - [x] **v2.4 Feature:** Smart Session Logic (ID Caching & Logical Guard).
+- [x] **v2.5 Feature:** Submodule-Based Bootstrapper (Portal Network via Symlinks).
 
 ## 🏗️ In Progress
-- [ ] Final verification of end-to-end Sniper + Validator + Global ID workflow.
+- [ ] Final verification of end-to-end Sniper + Validator + Global ID + Submodule workflow.
 
 ## 📅 Backlog
 - [ ] Automated setup script (`setup.sh` / `setup.bat`).

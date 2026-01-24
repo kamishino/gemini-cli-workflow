@@ -7,16 +7,16 @@
 ## 1. Project Identity
 
 - **Goal:** A rigorous, opinionated "Operating System" template for Indie Hackers using Gemini CLI + AI IDEs.
-- **Current Phase:** Template v2.4 (Smart Session & Logic Guard)
+- **Current Phase:** Template v2.5 (Submodule Distribution)
 - **Key Tech:** Gemini CLI (TOML Commands), Windsurf/Cursor, Markdown Protocols.
 
 ## 2. Active Context (The "Now")
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/sync`.
 
-- **Last Completed Action:** Implemented Smart Session Logic (ID Caching & Logical Guard) (Task 010).
-- **Current Focus:** Final verification of the integrated KamiFlow v2.4 ecosystem.
-- **Next Step:** Perform final end-to-end dry run.
+- **Last Completed Action:** Implemented Submodule-Based Bootstrapper & Injector (Task 011).
+- **Current Focus:** Testing the bootstrap flow in a fresh project environment.
+- **Next Step:** Perform final end-to-end verification of all v2.x features.
 
 ## 3. Knowledge Map (Directory Guide)
 

@@ -20,3 +20,9 @@
 - **Invariants:** Identify the 1 thing that must NEVER break, and protect it at all costs.
 - **ID Protocol:** Follow `@.gemini/rules/id-protocol.md` for task identity. Always scan `tasks/` and `archive/` to find MAX ID before generating.
 - **Validator Loop:** Follow `@.gemini/rules/validator-loop.md` for automated execution. Execute → Validate → Heal (max 3x) → Report.
+
+## 4. 📦 DISTRIBUTION (How We Share)
+
+- **Submodule Strategy:** Follow `@.gemini/rules/bootstrap-protocol.md` for project injection. KamiFlow operates as a reusable "OS" via Git Submodules + Symbolic Links.
+- **Portal Network:** Root visibility through symlinks, not file duplication. Single source of truth in `.kami-flow/`.
+- **Project-Specific:** `PROJECT_CONTEXT.md` and `tasks/` stay unique per project. Never overwrite user files.

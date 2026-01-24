@@ -1,6 +1,6 @@
 # 🌊 KamiFlow: The Indie Builder's Template for Gemini CLI
 
-**<!-- KAMI_VERSION_START -->v2.4 (Smart Session Logic)<!-- KAMI_VERSION_END -->**
+**<!-- KAMI_VERSION_START -->v2.5 (Submodule Distribution)<!-- KAMI_VERSION_END -->**
 
 **KamiFlow** is a rigorous, opinionated "Operating System" for Indie Hackers using Gemini CLI. It transforms the AI from a generic chatbot into a disciplined **Technical Co-Founder**.
 
@@ -12,6 +12,7 @@
 <!-- KAMI_SHOWCASE_START -->
 - 🎯 **Sniper Model:** 3-Step Fused Kernel (Idea -> Spec -> Build) with 3-Layer Locks.
 - 🧠 **Smart Session:** Logic-based requirement analysis and conflict blocking.
+- 📦 **Injectable OS:** Git Submodule distribution with automatic Symlink setup.
 - 🤖 **Validator Loop:** Autonomous execution with self-healing (Execute -> Validate -> Heal).
 - 🔍 **Global ID Scout:** Fast cached task ID tracking with reactive re-scan.
 - 🔄 **Unified Sync:** Automatic updates for Context, Roadmap, and README Showcase.
