@@ -11,6 +11,7 @@
 - [x] **v1.4 Enhancement:** Session Recovery Protocol (`/wake`).
 - [x] **v1.5 Enhancement:** Auto-Pilot Lazy & SuperLazy Modes.
 - [x] **v1.6 Feature:** Sniper Model (3-Step Fused Workflow & 3-Layer Locks).
+- [x] **v1.6 Chore:** Cleaned up legacy commands and updated documentation.
 
 ## 🏗️ In Progress
 - [ ] Final polish and verification of Sniper Model.

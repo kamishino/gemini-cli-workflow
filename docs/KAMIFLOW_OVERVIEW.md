@@ -11,13 +11,6 @@ graph TD
     %% Nodes
     Start((User Idea))
 
-    subgraph Strategy_Phase [🚀 Phase 1: Strategy]
-        Input[/"/kamiflow:input"/]
-        Cook{{"/kamiflow:cook"}}
-        MVP[/"/kamiflow:mvp"/]
-        Trash(Backlog/Trash)
-    end
-
     subgraph Sniper_Phase [🎯 Sniper Model: 3-Step Fused Kernel]
         Idea[/"/kamiflow:idea"/]
         Spec[/"/kamiflow:spec"/]
@@ -27,20 +20,12 @@ graph TD
         Lock3{{Lock 3: Legacy}}
     end
 
-    subgraph Factory_Phase [🏭 Phase 2: Factory Line]
-        Brief[/"/kamiflow:brief"/]
-        PRD[/"/kamiflow:prd"/]
-        Tasks[/"/kamiflow:task"/]
-    end
-
     subgraph Bridge [🌉 The Bridge]
         Handoff[/"/kamiflow:bridge"/]
         Sync[/"/kamiflow:sync"/]
     end
 
-    subgraph Construction_Phase [🛠 Phase 3: Construction]
-        Mode{Select Tool}
-        GeminiMode(Gemini Mode: Shu/Ha/Ri)
+    subgraph Construction_Phase [🛠 Construction & Execution]
         IdeMode(IDE Mode: Windsurf/Cursor)
         Code[[Coding...]]
         QualityGate{{"Phase 4: Quality Gate"}}
@@ -65,12 +50,7 @@ graph TD
     end
 
     %% Flow
-    Start --> Input
-    Input --> Cook
-    Cook -- NO GO --> Trash
-    Cook -- GO --> MVP
-
-    %% Sniper Path (NEW)
+    %% Sniper Path (Primary)
     Start --> Idea
     Idea --> Lock1
     Lock1 --> Spec
@@ -79,23 +59,13 @@ graph TD
     Build --> Lock3
     Lock3 --> Handoff
 
-    %% Traditional Path (Legacy)
-    MVP --> Brief
-    Brief --> PRD
-    PRD --> Tasks
-    Tasks --> Handoff
-
     %% Auto-Pilot Path
-    MVP --> Lazy
+    Start --> Lazy
     Lazy --> SuperLazy
     SuperLazy --> AutoCode
     AutoCode --> AutoLog
 
-    Handoff --> Mode
-    Mode --> GeminiMode
-    Mode --> IdeMode
-
-    GeminiMode --> Code
+    Handoff --> IdeMode
     IdeMode --> Code
 
     Code --> QualityGate
@@ -114,11 +84,9 @@ graph TD
     AutoCode --> Roadmap
     Sync --> Roadmap
     Roadmap --> Save
-    Save --> Mode
+    Save --> Start
 
     %% Styling
-    style Cook fill:#f96,stroke:#333,stroke-width:2px
-    style Trash fill:#ccc,stroke:#333,stroke-dasharray: 5 5
     style Code fill:#9f6,stroke:#333,stroke-width:2px
     style QualityGate fill:#ff9,stroke:#333,stroke-width:2px
     style Handoff fill:#69f,stroke:#333,stroke-width:2px
@@ -144,24 +112,15 @@ The **Management Commands** (`/kamiflow:update-roadmap` and `/kamiflow:save-cont
 
 ## ⚡ Quick Command Reference
 
-| Phase          | Command                  | Role               | Goal                                                 |
-| :------------- | :----------------------- | :----------------- | :--------------------------------------------------- |
-| **🎯 Sniper**  | `/kamiflow:idea`         | Critical Chef      | **Interactive refinement with 3 options (S1).**      |
-|                | `/kamiflow:spec`         | Spec Architect     | **Schema-First specification with Lock 1 & 2 (S2).** |
-|                | `/kamiflow:build`        | Build Architect    | **Legacy-Aware task generation with Lock 3 (S3).**   |
-| **Strategy**   | `/kamiflow:input`        | Idea Collector     | Capture raw thoughts.                                |
-|                | `/kamiflow:cook`         | Critical Chef      | Refine idea through technical debate.                |
-|                | `/kamiflow:mvp`          | Scope Slasher      | Define Kernel & Cut List.                            |
-| **Factory**    | `/kamiflow:brief`        | Architect          | Define modules & boundaries.                         |
-|                | `/kamiflow:prd`          | Product Manager    | User stories & Zod schemas.                          |
-|                | `/kamiflow:task`         | Lead Dev           | Atomic task checklist + Quality Gate.                |
-| **Bridge**     | `/kamiflow:bridge`       | Bridge Builder     | **Pack context for IDE.**                            |
-|                | `/kamiflow:sync`         | Integrator         | **Read IDE logs & Update Context.**                  |
-| **Build**      | `/kamiflow:shu`          | Mentor             | Explain _WHY_ before coding.                         |
-|                | `/kamiflow:ha`           | Partner            | Collaborative optimization.                          |
-|                | `/kamiflow:ri`           | 10x Engineer       | Just code. No chatter.                               |
-| **Auto-Pilot** | `/kamiflow:lazy`         | One-Man Band       | **Generate S1-S4 artifacts in one chain.**           |
-|                | `/kamiflow:superlazy`    | Autonomous Builder | **Generate S1-S4 AND execute immediately.**          |
-| **Manage**     | `/kamiflow:wake`         | Memory Keeper      | **Reload project context (Session Recovery).**       |
-|                | `/kamiflow:roadmap`      | Planner            | Sync status to `ROADMAP.md`.                         |
-|                | `/kamiflow:save-context` | Memory Keeper      | Save RAM to `PROJECT_CONTEXT.md`.                    |
+| Phase          | Command                  | Role               | Goal                                                       |
+| :------------- | :----------------------- | :----------------- | :--------------------------------------------------------- |
+| **🎯 Sniper**  | `/kamiflow:idea`         | Critical Chef      | **Interactive refinement with 3 options (S1-IDEA).**       |
+|                | `/kamiflow:spec`         | Spec Architect     | **Schema-First specification with Lock 1 & 2 (S2-SPEC).**  |
+|                | `/kamiflow:build`        | Build Architect    | **Legacy-Aware task generation with Lock 3 (S3-BUILD).**   |
+| **Bridge**     | `/kamiflow:bridge`       | Bridge Builder     | **Pack context for IDE (S4-HANDOFF).**                     |
+|                | `/kamiflow:sync`         | Integrator         | **Read IDE logs & Update Context.**                        |
+| **Auto-Pilot** | `/kamiflow:lazy`         | One-Man Band       | **Auto-generate all 4 Sniper artifacts in one chain.**     |
+|                | `/kamiflow:superlazy`    | Autonomous Builder | **Auto-generate all 4 Sniper artifacts AND execute code.** |
+| **Manage**     | `/kamiflow:wake`         | Memory Keeper      | **Reload project context (Session Recovery).**             |
+|                | `/kamiflow:roadmap`      | Planner            | Sync status to `ROADMAP.md`.                               |
+|                | `/kamiflow:save-context` | Memory Keeper      | Save RAM to `PROJECT_CONTEXT.md`.                          |

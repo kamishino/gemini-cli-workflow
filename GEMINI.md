@@ -28,7 +28,7 @@ _The detailed logic for these commands is imported below._
 
 ### 🎯 The Sniper Model (3-Step Fused Kernel)
 
-**NEW:** The core workflow has been streamlined into 3 steps with 3-Layer Locks:
+The core workflow uses 3 steps with 3-Layer Locks:
 
 - `/kamiflow:idea` - Interactive refinement with 3 options (Step 1: The Critical Chef).
 - `/kamiflow:spec` - Schema-First specification with Context Anchoring (Step 2: Lock 1 & 2).
@@ -40,34 +40,19 @@ _The detailed logic for these commands is imported below._
 - 🔒 **Lock 2 (Schema-First):** Mandates Data Models before Logic in SPEC.
 - 🔒 **Lock 3 (Legacy Awareness):** Requires codebase analysis before task creation.
 
-### 🚀 Phase 1: Strategy (Legacy Commands)
-
-- `/kamiflow:input` - Capture raw idea.
-- `/kamiflow:cook` - Technical Debate & Refinement (The Chef).
-- `/kamiflow:mvp` - Define the Kernel & Cut List.
-
-### 🏭 Phase 2: The Factory Line (Legacy Commands)
-
-- `/kamiflow:brief` - Technical Architecture.
-- `/kamiflow:prd` - Product Requirements & Schema.
-- `/kamiflow:task` - Implementation Tasks.
-
-### 🌉 Phase 3: The Bridge (Execution)
+### 🌉 The Bridge (Execution)
 
 - `/kamiflow:bridge` - Pack context for IDE (Windsurf/Cursor).
 - `/kamiflow:sync` - Read IDE logs & update Context.
 
-### 🛠 Phase 4: Native Construction (Optional)
+### 🚀 Auto-Pilot (Lazy Modes)
 
-- `/kamiflow:shu` - Learn (Explain First).
-- `/kamiflow:ha` - Optimize (Partner).
-- `/kamiflow:ri` - Execute (Just Code).
+- `/kamiflow:lazy` - Auto-generate all 4 Sniper artifacts (IDEA/SPEC/BUILD/HANDOFF) in one chain.
+- `/kamiflow:superlazy` - Auto-generate AND execute immediately.
 
 ### 🧠 Management
 
-- `/kamiflow:wake` - **New:** Reload project context (Session Recovery).
-- `/kamiflow:lazy` - **New:** Auto-generate S1-S4 artifacts in one chain.
-- `/kamiflow:superlazy` - **New:** Auto-generate AND execute immediately.
+- `/kamiflow:wake` - Reload project context (Session Recovery).
 - `/kamiflow:roadmap` - Sync `docs/ROADMAP.md`.
 - `/kamiflow:save-context` - Save RAM to `PROJECT_CONTEXT.md`.
 
