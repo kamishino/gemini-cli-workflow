@@ -1,44 +1,38 @@
 # 🌊 KamiFlow: The Indie Builder's Template for Gemini CLI
 
+**<!-- KAMI_VERSION_START -->v2.3 (Unified Sync)<!-- KAMI_VERSION_END -->**
+
 **KamiFlow** is a rigorous, opinionated "Operating System" for Indie Hackers using Gemini CLI. It transforms the AI from a generic chatbot into a disciplined **Technical Co-Founder**.
 
 > **Philosophy:** "Aesthetics + Utility". Ship fast, break nothing important.
 
 ---
 
-## 🚀 Quick Start
-
-1.  **Installation:**
-    Copy the `.gemini/`, `docs/`, `GEMINI.md`, and `PROJECT_CONTEXT.md` files into your new project root.
-
-2.  **Initialization:**
-    Run `gemini chat` in your terminal. The AI will automatically load the KamiFlow context.
-
-3.  **Start Building:**
-    Type `/kamiflow:input I have an idea for...`
+## 🚀 Key Features (Showcase)
+<!-- KAMI_SHOWCASE_START -->
+- 🎯 **Sniper Model:** 3-Step Fused Kernel (Idea -> Spec -> Build) with 3-Layer Locks.
+- 🤖 **Validator Loop:** Autonomous execution with self-healing (Execute -> Validate -> Heal).
+- 🔍 **Global ID Scout:** Continuous task ID tracking across active and archived tasks.
+- 🔄 **Unified Sync:** Automatic updates for Context, Roadmap, and README Showcase.
+- 📦 **Smart Archive:** Automated workspace cleanup with audit trail preservation.
+- 🌉 **IDE Bridge:** Seamless context handoff to Windsurf/Cursor/VS Code.
+<!-- KAMI_SHOWCASE_END -->
 
 ---
 
-## 🛠 The Workflow (KamiFlow)
+## 🛠 The Core Workflow (The Sniper Model)
 
-### 1. Strategy Phase (The Filter)
-*   `/kamiflow:input` - **Capture:** Dump your raw idea.
-*   `/kamiflow:verify` - **Validate:** Is it a "Painkiller" or a "Vitamin"? (3-Point Check).
-*   `/kamiflow:mvp` - **Strategy:** Define the "Kernel" and cut the rest.
+### Step 1: /kamiflow:idea (The Critical Chef)
+Diagnostic interview và tổng hợp ý tưởng thành 3 giải pháp tinh luyện.
 
-### 2. Factory Phase (The Blueprint)
-*   `/kamiflow:brief` - **Architect:** Define technical boundaries.
-*   `/kamiflow:prd` - **Product Manager:** Define user stories & schema.
-*   `/kamiflow:task` - **Lead Dev:** Generate atomic task checklist.
+### Step 2: /kamiflow:spec (The Specification Architect)
+Thiết kế chi tiết dựa trên Schema-First và Context Anchoring.
 
-### 3. Execution Phase (The Bridge)
-*   `/kamiflow:bridge` - **Handoff:** Generate a context package for Windsurf/Cursor.
-*   `/kamiflow:sync` - **Sync Back:** Read execution logs from IDE and update project memory.
-*   *(Optional Native Modes):* `/kamiflow:shu` (Learn), `/kamiflow:ha` (Refactor), `/kamiflow:ri` (Code).
+### Step 3: /kamiflow:build (The Build Architect)
+Bẻ nhỏ SPEC thành các task thực thi có tính đến Legacy Code (Legacy Awareness).
 
-### 4. Management (The Brain)
-*   `/kamiflow:update-roadmap` - Keep `docs/ROADMAP.md` alive.
-*   `/kamiflow:save-context` - Save state to `PROJECT_CONTEXT.md`.
+### Step 4: /kamiflow:bridge (The Bridge Builder)
+Đóng gói context để chuyển giao sang IDE hoặc chạy `/superlazy`.
 
 ---
 
@@ -46,22 +40,20 @@
 
 *   **`.gemini/rules/`**: The Constitution.
     *   `manifesto.md`: Non-negotiable mindset (e.g., "No files > 300 lines").
-    *   `tech-stack.md`: Dynamic stack detection.
-    *   `coding-style.md`: Naming & Git conventions.
-*   **`.gemini/skills/`**: The Knowledge Base.
-    *   Golden snippets for Backend, Design System, Adobe Scripting, etc.
-*   **`.windsurf/rules/`**:
-    *   `kamiflow-rules.md`: Auto-config for Windsurf IDE to respect KamiFlow.
+    *   `validator-loop.md`: Self-healing protocols.
+    *   `id-protocol.md`: Global ID tracking rules.
+*   **`.gemini/commands/kamiflow/`**:
+    *   `lazy.toml` & `superlazy.toml`: Auto-pilot modes for high-speed building.
 
 ---
 
 ## 🤝 IDE Integration (The Bridge)
 
-KamiFlow is designed to work *with* your IDE, not replace it.
+KamiFlow được thiết kế để hoạt động song song với IDE của bạn.
 
-1.  **Plan in Terminal:** Use Gemini CLI to strategize and plan.
-2.  **Code in IDE:** Use `/kamiflow:bridge` to get a prompt, paste it into Windsurf/Cursor.
-3.  **Sync Back:** After coding, Windsurf generates a log. Run `/kamiflow:sync` in terminal to update Gemini.
+1.  **Plan in Terminal:** Sử dụng Gemini CLI để hoạch định chiến lược.
+2.  **Code in IDE:** Sử dụng `/kamiflow:bridge` để lấy prompt và thực thi.
+3.  **Sync Back:** Sau khi code xong, chạy `/kamiflow:sync` để cập nhật bộ nhớ AI.
 
 ---
 

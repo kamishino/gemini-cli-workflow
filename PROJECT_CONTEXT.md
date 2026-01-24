@@ -4,13 +4,15 @@
 
 ## 1. Project Identity
 - **Goal:** A rigorous, opinionated "Operating System" template for Indie Hackers using Gemini CLI + AI IDEs.
-- **Current Phase:** Template v1.5 (Auto-Pilot & Speed)
+- **Current Phase:** Template v2.2 (Sniper + Validator + Global ID)
 - **Key Tech:** Gemini CLI (TOML Commands), Windsurf/Cursor, Markdown Protocols.
 
 ## 2. Active Context (The "Now")
-- **Last Completed Action:** Synced all documentation in `docs/protocols/` with the Sniper Model (S1-S4) and Validator Loop logic.
-- **Current Focus:** Performing final verification of the end-to-end Sniper + Validator + Global ID workflow.
-- **Next Step:** Dry-run a complex task to ensure all systems cooperate seamlessly.
+> **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/sync`.
+
+- **Last Completed Action:** Implemented Unified Global Sync with README Showcase (Task 009).
+- **Current Focus:** Final verification of the integrated KamiFlow v2.2 ecosystem.
+- **Next Step:** Perform final end-to-end dry run.
 
 ## 3. Knowledge Map (Directory Guide)
 - **Overview:** `docs/KAMIFLOW_OVERVIEW.md` (Start here)

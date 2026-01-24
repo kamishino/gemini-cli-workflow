@@ -18,6 +18,7 @@
 - [x] **v2.0 Feature:** Smart Validator Loop (Execute-Validate-Heal) for /superlazy mode.
 - [x] **v2.1 Feature:** Global ID Tracker (The Scout) - Archive-aware ID continuity.
 - [x] **v2.2 Enhancement:** Protocol Documentation Sync - Unified Sniper & Validator docs.
+- [x] **v2.3 Feature:** Smart Unified Sync (Global Sync with README Showcase).
 
 ## 🏗️ In Progress
 - [ ] Final verification of end-to-end Sniper + Validator + Global ID workflow.
