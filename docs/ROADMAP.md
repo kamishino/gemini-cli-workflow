@@ -23,6 +23,7 @@
 - [x] **v2.5 Feature:** Submodule-Based Bootstrapper (Portal Network via Symlinks).
 - [x] **v2.6 Feature:** Global English Standardization (Tokenized Language Engine).
 - [x] **v2.7 Feature:** Onboarding Excellence - Comprehensive Integration & Troubleshooting guides.
+- [x] **v2.8 Feature:** Hybrid Doc Portal - Standardized core structure and automated roadmap seeding.
 
 ## 🏗️ In Progress
 - [ ] Final end-to-end verification of Sniper + Validator + Global ID + Submodule + Token engine.

@@ -14,13 +14,13 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/sync`.
 
-- **Last Completed Action:** Implemented Onboarding Excellence & Integration Guide (Task 013).
+- **Last Completed Action:** Implemented Hybrid Doc Portal & Automated Management (Task 014).
 - **Current Focus:** Final verification of the integrated KamiFlow v2.7 ecosystem.
 - **Next Step:** Perform a clean-room test of the Submodule bootstrapping on a fresh environment.
 
 ## 3. Knowledge Map (Directory Guide)
 
-- **Overview:** `docs/KAMIFLOW_OVERVIEW.md` (Start here)
+- **Overview:** `docs/overview.md` (Start here)
 - **Tasks:** `tasks/` (Centralized Artifacts: Briefs, PRDs, Tasks, Handoffs)
 - **Commands:** `.gemini/commands/kamiflow/*.toml` (Including lazy and superlazy modes)
 - **Rules:** `.gemini/rules/`

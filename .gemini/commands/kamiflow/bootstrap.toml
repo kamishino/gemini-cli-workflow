@@ -50,7 +50,7 @@ try {
 }
 ```
 
-**Portal 3: Documentation**
+**Portal 3: Documentation (Hybrid Strategy)**
 ```powershell
 # Create docs/ directory if it doesn't exist
 if (!(Test-Path "docs")) {
@@ -58,12 +58,21 @@ if (!(Test-Path "docs")) {
     Write-Output "✅ Created docs/ directory"
 }
 
-# Create docs/protocols/ symlink
+# Create docs/protocols/ symlink (directory)
 try {
     New-Item -ItemType SymbolicLink -Path "docs\protocols" -Target ".kami-flow\docs\protocols" -ErrorAction Stop
     Write-Output "✅ Created docs/protocols/ portal"
 } catch {
     Write-Output "❌ Failed to create docs/protocols/ portal: $($_.Exception.Message)"
+    exit 1
+}
+
+# Create docs/overview.md symlink (file-level)
+try {
+    New-Item -ItemType SymbolicLink -Path "docs\overview.md" -Target ".kami-flow\docs\overview.md" -ErrorAction Stop
+    Write-Output "✅ Created docs/overview.md portal"
+} catch {
+    Write-Output "❌ Failed to create docs/overview.md portal: $($_.Exception.Message)"
     exit 1
 }
 ```
@@ -102,10 +111,10 @@ if (Test-Path "PROJECT_CONTEXT.md") {
     Write-Output "⚠️  PROJECT_CONTEXT.md already exists"
     Write-Output "   Skipping initialization to preserve existing context"
 } else {
-    # Check for template
-    if (Test-Path ".kami-flow\PROJECT_CONTEXT_TEMPLATE.md") {
+    # Check for template in new location
+    if (Test-Path ".kami-flow\docs\templates\context.md") {
         # Copy template
-        Copy-Item ".kami-flow\PROJECT_CONTEXT_TEMPLATE.md" "PROJECT_CONTEXT.md"
+        Copy-Item ".kami-flow\docs\templates\context.md" "PROJECT_CONTEXT.md"
         Write-Output "✅ Created PROJECT_CONTEXT.md from template"
     } else {
         # Use embedded fallback
@@ -132,12 +141,31 @@ if (Test-Path "PROJECT_CONTEXT.md") {
 
 ## 3. Knowledge Map (Directory Guide)
 
+- **Overview:** 'docs/overview.md' (Start here)
 - **Tasks:** 'tasks/' (Centralized Artifacts)
 - **Archive:** 'archive/' (Completed tasks)
 - **Logs:** 'docs/handoff_logs/'
 "@
         Set-Content -Path "PROJECT_CONTEXT.md" -Value $contextTemplate -Encoding UTF8
         Write-Output "✅ Created PROJECT_CONTEXT.md (fallback template)"
+    }
+}
+```
+
+**docs/roadmap.md (Seeded from Template)**
+```powershell
+# Check if docs/roadmap.md already exists
+if (Test-Path "docs\roadmap.md") {
+    Write-Output "⚠️  docs/roadmap.md already exists"
+    Write-Output "   Skipping initialization to preserve existing roadmap"
+} else {
+    # Check for template
+    if (Test-Path ".kami-flow\docs\templates\roadmap.md") {
+        # Copy template
+        Copy-Item ".kami-flow\docs\templates\roadmap.md" "docs\roadmap.md"
+        Write-Output "✅ Created docs/roadmap.md from template"
+    } else {
+        Write-Output "⚠️  Roadmap template not found, skipping"
     }
 }
 ```
@@ -173,7 +201,7 @@ if (Test-Path ".geminiignore") {
 **Symlink Verification**
 ```powershell
 # Verify all symlinks are valid
-$portals = @(".gemini", ".windsurf", "docs\protocols")
+$portals = @(".gemini", ".windsurf", "docs\protocols", "docs\overview.md")
 $allValid = $true
 
 foreach ($portal in $portals) {
@@ -205,14 +233,16 @@ if ($allValid) {
 
 ### 📊 Bootstrap Summary
 
-**Symbolic Links Created:**
+**Portal Network (Linked to Core):**
 - ✅ `.gemini/` → `.kami-flow/.gemini/`
 - ✅ `.windsurf/` → `.kami-flow/.windsurf/`
 - ✅ `docs/protocols/` → `.kami-flow/docs/protocols/`
+- ✅ `docs/overview.md` → `.kami-flow/docs/overview.md`
 
-**Proxy Files Initialized:**
-- ✅ `GEMINI.md` (import directive to submodule)
-- ✅ `PROJECT_CONTEXT.md` (project-specific context)
+**Project-Specific Files (Seeded from Templates):**
+- ✅ `GEMINI.md` (proxy with import directive)
+- ✅ `PROJECT_CONTEXT.md` (project context)
+- ✅ `docs/roadmap.md` (project roadmap)
 
 **Configuration:**
 - ✅ `.geminiignore` updated (prevents double vision)

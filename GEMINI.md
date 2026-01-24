@@ -64,7 +64,7 @@ The core workflow uses 3 steps with 3-Layer Locks:
 
 # These files inject the detailed "Brain" of the protocols.
 
-@docs/KAMIFLOW_OVERVIEW.md
+@docs/overview.md
 @.gemini/rules/manifesto.md
 @.gemini/rules/tech-stack.md
 @.gemini/rules/coding-style.md

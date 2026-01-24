@@ -1,6 +1,6 @@
 # 🚀 Getting Started with KamiFlow
 
-**Welcome to KamiFlow v2.6** - The rigorous, opinionated "Operating System" for Indie Hackers using Gemini CLI.
+**Welcome to KamiFlow v2.7** - The rigorous, opinionated "Operating System" for Indie Hackers using Gemini CLI.
 
 This guide will walk you through two integration methods to get KamiFlow running in your project.
 
@@ -128,6 +128,7 @@ The AI detected the submodule but needs to activate it. Run:
 .gemini/         → .kami-flow/.gemini/
 .windsurf/       → .kami-flow/.windsurf/
 docs/protocols/  → .kami-flow/docs/protocols/
+docs/overview.md → .kami-flow/docs/overview.md
 ```
 
 **Expected Output:**
@@ -139,16 +140,18 @@ docs/protocols/  → .kami-flow/docs/protocols/
 
 ### 📊 Bootstrap Summary
 
-**Symbolic Links Created:**
+**Portal Network (Linked to Core):**
 
 - ✅ `.gemini/` → `.kami-flow/.gemini/`
 - ✅ `.windsurf/` → `.kami-flow/.windsurf/`
 - ✅ `docs/protocols/` → `.kami-flow/docs/protocols/`
+- ✅ `docs/overview.md` → `.kami-flow/docs/overview.md`
 
-**Proxy Files Initialized:**
+**Project-Specific Files (Seeded from Templates):**
 
-- ✅ `GEMINI.md` (import directive to submodule)
-- ✅ `PROJECT_CONTEXT.md` (seeded from template)
+- ✅ `GEMINI.md` (proxy with import directive)
+- ✅ `PROJECT_CONTEXT.md` (project context)
+- ✅ `docs/roadmap.md` (project roadmap)
 
 **Next Steps:**
 
@@ -350,7 +353,7 @@ Encountering issues? Check the **[Troubleshooting Guide](TROUBLESHOOTING.md)** f
 
 ## 📚 Learn More
 
-- **[KamiFlow Overview](../docs/KAMIFLOW_OVERVIEW.md)** - System architecture and philosophy
+- **[KamiFlow Overview](overview.md)** - System architecture and philosophy
 - **[Bootstrap Protocol](../.gemini/rules/bootstrap-protocol.md)** - Technical details on the portal network
 - **[Manifesto](../.gemini/rules/manifesto.md)** - Core values and non-negotiables
 

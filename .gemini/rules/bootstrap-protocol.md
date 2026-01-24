@@ -21,17 +21,23 @@ project-root/
 ├── .kami-flow/              # Git Submodule (KamiFlow core)
 │   ├── .gemini/             # Commands, rules, skills
 │   ├── .windsurf/           # IDE workflows
-│   ├── docs/protocols/      # Documentation
-│   ├── GEMINI.md            # Source manifest
-│   └── PROJECT_CONTEXT_TEMPLATE.md
+│   ├── docs/
+│   │   ├── protocols/       # Protocol documentation
+│   │   ├── overview.md      # System overview
+│   │   └── templates/       # File templates
+│   │       ├── context.md   # PROJECT_CONTEXT template
+│   │       └── roadmap.md   # Roadmap template
+│   └── GEMINI.md            # Source manifest
 │
 ├── .gemini/                 # → Symlink to .kami-flow/.gemini
 ├── .windsurf/               # → Symlink to .kami-flow/.windsurf
 ├── docs/
-│   └── protocols/           # → Symlink to .kami-flow/docs/protocols
+│   ├── protocols/           # → Symlink to .kami-flow/docs/protocols
+│   ├── overview.md          # → Symlink to .kami-flow/docs/overview.md
+│   └── roadmap.md           # Seeded from template
 │
 ├── GEMINI.md                # Proxy file (import directive)
-├── PROJECT_CONTEXT.md       # Project-specific context
+├── PROJECT_CONTEXT.md       # Seeded from template
 ├── tasks/                   # Project-specific tasks
 └── archive/                 # Project-specific archive
 ```
@@ -112,8 +118,9 @@ New-Item -ItemType SymbolicLink -Path "docs\protocols" -Target ".kami-flow\docs\
 
 **Contents Exposed:**
 
-- `KAMIFLOW_OVERVIEW.md`
-- Other protocol documentation
+- Protocol documentation (lean-validation, factory-line, etc.)
+
+**Note:** The `overview.md` file is linked separately as a file-level symlink.
 
 ---
 
@@ -149,12 +156,12 @@ New-Item -ItemType SymbolicLink -Path "docs\protocols" -Target ".kami-flow\docs\
 
 **Purpose:** Project-specific context, seeded from template but fully independent.
 
-**Source Template:** `.kami-flow/PROJECT_CONTEXT_TEMPLATE.md`
+**Source Template:** `.kami-flow/docs/templates/context.md`
 
 **Bootstrap Behavior:**
 
 1. Check if `PROJECT_CONTEXT.md` exists at root
-2. If NO: Copy template from `.kami-flow/PROJECT_CONTEXT_TEMPLATE.md`
+2. If NO: Copy template from `.kami-flow/docs/templates/context.md`
 3. Prompt user for:
    - Project Name
    - Project Goal
@@ -254,7 +261,7 @@ if (!importPath.startsWith(".kami-flow/")) {
 
 **Rule 2: Template Validation**
 
-- Check if `.kami-flow/PROJECT_CONTEXT_TEMPLATE.md` exists
+- Check if `.kami-flow/docs/templates/context.md` exists
 - If missing, use embedded fallback template
 
 **Rule 3: User Input Validation**
