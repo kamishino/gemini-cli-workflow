@@ -8,9 +8,9 @@
 - **Key Tech:** Gemini CLI (TOML Commands), Windsurf/Cursor, Markdown Protocols.
 
 ## 2. Active Context (The "Now")
-- **Last Completed Action:** Implemented Two-Phase Diagnostic Interview Workflow for `/idea` to prevent solution bias and hallucinations.
-- **Current Focus:** Performing a full Dry Run of the refined Sniper workflow (Idea -> Spec -> Build -> Sync) to verify system integrity.
-- **Next Step:** Run `/kamiflow:idea` to test the new diagnostic interview.
+- **Last Completed Action:** Implemented Smart Archive System and integrated it into `/sync` to preserve audit trails.
+- **Current Focus:** Final verification of the end-to-end Sniper workflow (Idea -> Spec -> Build -> Sync -> Archive).
+- **Next Step:** Perform a full dry run test of the complete workflow.
 
 ## 3. Knowledge Map (Directory Guide)
 - **Overview:** `docs/KAMIFLOW_OVERVIEW.md` (Start here)

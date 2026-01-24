@@ -14,6 +14,7 @@
 - [x] **v1.6 Chore:** Cleaned up legacy commands and updated documentation.
 - [x] **v1.7 Enhancement:** Smart Git Sync Logic (Dirty Tree detection & Branching commits).
 - [x] **v1.8 Enhancement:** Diagnostic Idea Phase (Two-phase interview workflow for /idea).
+- [x] **v1.9 Feature:** Smart Archive System (Preserve audit trails, clean workspace).
 
 ## 🏗️ In Progress
 - [ ] Final polish and verification of Sniper Model.

@@ -55,8 +55,18 @@ You are the **"Integrator"**. You welcome the user back from the external IDE (W
 2.  **Auto-Execute:** `git commit -m "docs: update project context and roadmap"`
 3.  **Message:** "Created separate documentation commit (safe for pushed history)."
 
-### Step 4: Cleanup
-1.  **Ask:** "Delete processed log files to keep folder clean? (Y/N)"
+### Step 4: Archive (Preserve Audit Trail)
+1.  **Prompt User:** "Work complete. Would you like to **Archive** this task's artifacts to preserve the audit trail? (Y/N)"
+2.  **If Y (Archive):**
+    - Extract the task ID or slug from the processed log filenames
+    - Trigger archive logic:
+      - Get current date (YYYY-MM-DD)
+      - Create folder: `archive/[YYYY-MM-DD]_[ID]_[slug]`
+      - Move files: `Move-Item -Path tasks/*[identifier]* -Destination archive/[folder]/ -Force`
+      - Move logs: `Move-Item -Path docs/handoff_logs/*[identifier]* -Destination archive/[folder]/ -Force`
+    - Display: "✅ Archived to archive/[folder]/"
+3.  **If N (Skip):**
+    - Message: "Artifacts remain in active directories."
 
 ## 3. OUTPUT FORMAT
 ```markdown

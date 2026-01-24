@@ -272,3 +272,6 @@ tasks
 
 # Handoff logs (temporary sync files)
 docs/handoff_logs/
+
+# Archive folder (completed task artifacts)
+archive/

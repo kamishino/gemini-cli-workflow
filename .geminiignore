@@ -16,3 +16,6 @@ coverage/
 
 # NOTE: /tasks/ folder is explicitly tracked and NOT ignored.
 !/tasks/
+
+# Allow AI access to archived task history for context
+!archive/
