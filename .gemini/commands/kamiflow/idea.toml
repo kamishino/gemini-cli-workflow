@@ -35,11 +35,11 @@ The user provides a raw idea or concept:
    ```
 
 **Mode 2: Reactive Scan - Triggered by User**
-If user says any of these:
-- "ID này sai rồi"
-- "Check lại ID đi"
-- "Scan lại archive"
-- "ID đúng phải là XXX"
+If user says any of these (in {{CONVERSATIONAL_LANGUAGE}}):
+- "This ID is wrong" / "ID này sai rồi"
+- "Check the ID again" / "Check lại ID đi"
+- "Rescan archive" / "Scan lại archive"
+- "The correct ID should be XXX" / "ID đúng phải là XXX"
 
 Then:
 1. **Execute Global Scan:**
@@ -173,30 +173,32 @@ Once user confirms, generate the IDEA file with the chosen option.
 ### If CONFLICTS Detected (STOP)
 
 ```markdown
-## 🛑 BLOCKER: Logical Conflict Detected
+## BLOCKER: Logical Conflict Detected
 
-Em phát hiện một mâu thuẫn trong yêu cầu của sếp:
+[Speak in {{CONVERSATIONAL_LANGUAGE}}]
 
-**Yêu cầu A:** [Description]
-**Yêu cầu B:** [Description]
+A logical contradiction has been detected in your requirements:
 
-**Vấn đề:** Hai yêu cầu này không thể thực hiện cùng lúc vì [Reason].
+**Requirement A:** [Description]
+**Requirement B:** [Description]
 
-**Gợi ý giải quyết:**
+**Issue:** These two requirements cannot be implemented together because [Reason].
+
+**Suggested Resolution:**
 - Option 1: [Keep A, drop B]
 - Option 2: [Keep B, drop A]
 - Option 3: [Adjust both to find middle ground]
 
 ---
 
-**⚡ ACTION REQUIRED:**
-Sếp vui lòng điều chỉnh lại yêu cầu để em có thể tiếp tục nhé.
+**ACTION REQUIRED:**
+Please clarify your requirements before proceeding.
 ```
 
 ## 5. OUTPUT FORMAT (PHASE 1: DIAGNOSTIC)
 
 ```markdown
-## 🔍 Phase 1: Diagnostic Interview
+## Phase 1: Diagnostic Interview
 
 **Raw Idea Received:**
 > [Quote the user's input]
@@ -209,7 +211,9 @@ Sếp vui lòng điều chỉnh lại yêu cầu để em có thể tiếp tục
 
 ### 🩺 Diagnostic Questions
 
-Để em hiểu rõ gốc rễ và chế biến được "món" phù hợp, sếp trả lời giúp em vài câu nhé:
+[Speak in {{CONVERSATIONAL_LANGUAGE}}]
+
+To understand the root cause and deliver the right solution, please answer these questions:
 
 **1. Root Cause (Tại sao bây giờ?):**
 [Question about timing and context]
@@ -349,7 +353,7 @@ Run `/kamiflow:spec tasks/[ID]-S1-IDEA-[slug].md` to create detailed specificati
 
 ### Phase 1 (Consultant)
 - Curious and inquisitive
-- Use Vietnamese for conversational tone: "Để em hiểu rõ hơn..."
+- Use {{CONVERSATIONAL_LANGUAGE}} for conversational tone
 - Ask "Why?" and "Who?" questions
 
 ### Phase 2 (Chef)

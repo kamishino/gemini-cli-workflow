@@ -21,9 +21,10 @@
 - [x] **v2.3 Feature:** Smart Unified Sync (Global Sync with README Showcase).
 - [x] **v2.4 Feature:** Smart Session Logic (ID Caching & Logical Guard).
 - [x] **v2.5 Feature:** Submodule-Based Bootstrapper (Portal Network via Symlinks).
+- [x] **v2.6 Feature:** Global English Standardization (Tokenized Language Engine).
 
 ## 🏗️ In Progress
-- [ ] Final verification of end-to-end Sniper + Validator + Global ID + Submodule workflow.
+- [ ] Final end-to-end verification of Sniper + Validator + Global ID + Submodule + Token engine.
 
 ## 📅 Backlog
 - [ ] Automated setup script (`setup.sh` / `setup.bat`).

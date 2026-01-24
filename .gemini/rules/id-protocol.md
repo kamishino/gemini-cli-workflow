@@ -361,23 +361,12 @@ if ($conflictingFiles.Count -gt 0) {
 3. If NO:
    - Fallback to Global Scan (Section 3)
    - Cache the result
-```
-
-**Step 3: Reactive Scan (User Correction)**
-
-```
-Trigger Phrases:
-- "ID này sai rồi"
-- "Check lại ID đi"
-- "Scan lại archive"
-- "ID đúng phải là XXX"
 
 Action:
 1. AI detects correction request
 2. Execute Global Scan immediately
 3. Update cached_max_id with fresh result
 4. Display: "🔍 Reactive Scan Complete: MAX ID = XXX"
-5. Use corrected ID for current task
 ```
 
 ### Session Memory Structure
@@ -424,8 +413,8 @@ interface SessionIDState {
 **Case 1: User manually adds file during session**
 
 - Cached ID might be stale
-- User detects: "Ơ, ID 011 đã tồn tại rồi mà"
-- User requests: "Scan lại đi"
+- User detects issue (e.g., "This ID already exists")
+- User requests rescan in {{CONVERSATIONAL_LANGUAGE}}
 - AI triggers Reactive Scan
 - Cache updated, conflict resolved
 

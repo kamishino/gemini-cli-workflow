@@ -199,7 +199,9 @@ if ($allValid) {
 ```markdown
 ## 🔗 Portal Network Activated
 
-**Khởi tạo thành công!** KamiFlow đã được kích hoạt cho project này.
+[Speak in {{CONVERSATIONAL_LANGUAGE}}]
+
+**Success!** KamiFlow has been activated for this project.
 
 ### 📊 Bootstrap Summary
 
@@ -295,6 +297,6 @@ Then run `/kamiflow:bootstrap` again.
 
 - **Enthusiastic:** "Portal Network Activated! ✨"
 - **Clear Instructions:** Step-by-step guidance for errors
-- **Vietnamese for Messages:** Use "Khởi tạo thành công!" for success
+- **User Language:** Speak in {{CONVERSATIONAL_LANGUAGE}} for user messages
 - **Technical for Errors:** Precise error messages with solutions
 """

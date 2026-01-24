@@ -54,19 +54,21 @@ if ((Test-Path ".kami-flow") -and !(Test-Path ".gemini")) {
 ```markdown
 ## 🌊 KamiFlow Submodule Detected
 
-Chào sếp! Em thấy sếp vừa add KamiFlow vào thư mục `.kami-flow`.
+[Speak in {{CONVERSATIONAL_LANGUAGE}}]
 
-**Trạng thái hiện tại:**
-- ✅ Submodule: `.kami-flow/` tìm thấy
-- ❌ Portal Network: Chưa được thiết lập
-- ❌ Proxy Files: Chưa được khởi tạo
+KamiFlow submodule detected in `.kami-flow/` directory.
 
-**Để kích hoạt KamiFlow, sếp cần chạy:**
+**Current Status:**
+- ✅ Submodule: `.kami-flow/` found
+- ❌ Portal Network: Not configured
+- ❌ Proxy Files: Not initialized
+
+**To activate KamiFlow, run:**
 ```
 /kamiflow:bootstrap
 ```
 
-Sau đó chạy lại `/kamiflow:wake` để tải context.
+Then run `/kamiflow:wake` again to load context.
 ```
 
 ### If Normal Wake (Standard Output)

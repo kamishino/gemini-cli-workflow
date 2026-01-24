@@ -273,22 +273,24 @@ if (!importPath.startsWith(".kami-flow/")) {
 ```markdown
 ## 🌊 KamiFlow Submodule Detected
 
-Chào sếp! Em thấy sếp vừa add KamiFlow vào thư mục `.kami-flow`.
+[Speak in {{CONVERSATIONAL_LANGUAGE}}]
 
-**Trạng thái hiện tại:**
+KamiFlow submodule detected in `.kami-flow/` directory.
 
-- ✅ Submodule: `.kami-flow/` tìm thấy
-- ❌ Portal Network: Chưa được thiết lập
-- ❌ Proxy Files: Chưa được khởi tạo
+**Current Status:**
 
-**Để kích hoạt KamiFlow, sếp cần chạy:**
+- ✅ Submodule: `.kami-flow/` found
+- ❌ Portal Network: Not configured
+- ❌ Proxy Files: Not initialized
+
+**To activate KamiFlow, run:**
 ```
 
 /kamiflow:bootstrap
 
 ```
 
-Sau đó chạy lại `/kamiflow:wake` để tải context.
+Then run `/kamiflow:wake` again to load context.
 ```
 
 ---
@@ -296,31 +298,33 @@ Sau đó chạy lại `/kamiflow:wake` để tải context.
 ### 7.2 Bootstrap Execution
 
 ```markdown
-## 🔗 Khởi tạo Portal Network
+## 🔗 Portal Network Initialization
 
-**Bước 1: Tạo Symbolic Links**
+[Speak in {{CONVERSATIONAL_LANGUAGE}}]
 
-- 🔗 Tạo `.gemini/` → `.kami-flow/.gemini/` ✅
-- 🔗 Tạo `.windsurf/` → `.kami-flow/.windsurf/` ✅
-- 🔗 Tạo `docs/protocols/` → `.kami-flow/docs/protocols/` ✅
+**Step 1: Create Symbolic Links**
 
-**Bước 2: Khởi tạo Proxy Files**
+- 🔗 Create `.gemini/` → `.kami-flow/.gemini/` ✅
+- 🔗 Create `.windsurf/` → `.kami-flow/.windsurf/` ✅
+- 🔗 Create `docs/protocols/` → `.kami-flow/docs/protocols/` ✅
 
-- 📝 Tạo `GEMINI.md` (proxy) ✅
-- 📝 Tạo `PROJECT_CONTEXT.md` ✅
+**Step 2: Initialize Proxy Files**
 
-**Bước 3: Cấu hình Smart Ignore**
+- 📝 Create `GEMINI.md` (proxy) ✅
+- 📝 Create `PROJECT_CONTEXT.md` ✅
 
-- 📝 Cập nhật `.geminiignore` ✅
+**Step 3: Configure Smart Ignore**
+
+- 📝 Update `.geminiignore` ✅
 
 ---
 
-✨ **Hoàn tất!** KamiFlow đã được kích hoạt.
+✨ **Complete!** KamiFlow has been activated.
 
 **Next Steps:**
 
-1. Chạy `/kamiflow:wake` để tải context
-2. Chạy `/kamiflow:idea "Ý tưởng đầu tiên"` để bắt đầu
+1. Run `/kamiflow:wake` to load context
+2. Run `/kamiflow:idea "Your first feature"` to begin
 ```
 
 ---
