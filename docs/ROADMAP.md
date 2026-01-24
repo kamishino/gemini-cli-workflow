@@ -10,9 +10,10 @@
 - [x] **v1.3 Enhancement:** Git Amend Sync Strategy.
 - [x] **v1.4 Enhancement:** Session Recovery Protocol (`/wake`).
 - [x] **v1.5 Enhancement:** Auto-Pilot Lazy & SuperLazy Modes.
+- [x] **v1.6 Feature:** Sniper Model (3-Step Fused Workflow & 3-Layer Locks).
 
 ## 🏗️ In Progress
-- [ ] Final Polish & Release v1.5.
+- [ ] Final polish and verification of Sniper Model.
 
 ## 📅 Backlog
 - [ ] Automated setup script (`setup.sh` / `setup.bat`).

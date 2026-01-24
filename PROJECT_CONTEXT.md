@@ -8,9 +8,9 @@
 - **Key Tech:** Gemini CLI (TOML Commands), Windsurf/Cursor, Markdown Protocols.
 
 ## 2. Active Context (The "Now")
-- **Last Completed Action:** Implemented Lazy and SuperLazy macro-commands for automated development. Updated overview diagram with Auto-Pilot branch.
-- **Current Focus:** Ensuring seamless transition between manual and automated workflows.
-- **Next Step:** Final polish and release v1.5.
+- **Last Completed Action:** Implemented Fused 3-Step Sniper Model (/idea, /spec, /build) with 3-Layer Locks (Context, Schema, Legacy).
+- **Current Focus:** Testing and verifying the Sniper workflow in real scenarios.
+- **Next Step:** Perform a Dry Run of the full Sniper cycle.
 
 ## 3. Knowledge Map (Directory Guide)
 - **Overview:** `docs/KAMIFLOW_OVERVIEW.md` (Start here)

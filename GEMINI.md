@@ -24,15 +24,29 @@
 
 ## 4. Workflow & Commands (The Kami Flow)
 
-*The detailed logic for these commands is imported below.*
+_The detailed logic for these commands is imported below._
 
-### 🚀 Phase 1: Strategy
+### 🎯 The Sniper Model (3-Step Fused Kernel)
+
+**NEW:** The core workflow has been streamlined into 3 steps with 3-Layer Locks:
+
+- `/kamiflow:idea` - Interactive refinement with 3 options (Step 1: The Critical Chef).
+- `/kamiflow:spec` - Schema-First specification with Context Anchoring (Step 2: Lock 1 & 2).
+- `/kamiflow:build` - Legacy-Aware task generation (Step 3: Lock 3).
+
+**The 3-Layer Locks Architecture:**
+
+- 🔒 **Lock 1 (Context Anchoring):** Forces reading `PROJECT_CONTEXT.md` and tech stack rules.
+- 🔒 **Lock 2 (Schema-First):** Mandates Data Models before Logic in SPEC.
+- 🔒 **Lock 3 (Legacy Awareness):** Requires codebase analysis before task creation.
+
+### 🚀 Phase 1: Strategy (Legacy Commands)
 
 - `/kamiflow:input` - Capture raw idea.
-- `/kamiflow:cook` - **New:** Technical Debate & Refinement (The Chef).
+- `/kamiflow:cook` - Technical Debate & Refinement (The Chef).
 - `/kamiflow:mvp` - Define the Kernel & Cut List.
 
-### 🏭 Phase 2: The Factory Line
+### 🏭 Phase 2: The Factory Line (Legacy Commands)
 
 - `/kamiflow:brief` - Technical Architecture.
 - `/kamiflow:prd` - Product Requirements & Schema.
