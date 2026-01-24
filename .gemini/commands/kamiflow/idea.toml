@@ -17,6 +17,30 @@ The user provides a raw idea or concept:
 **RAW IDEA:**
 {{args}}
 
+## 2A. ID GENERATION (Global Protocol)
+**CRITICAL:** Follow `@.gemini/rules/id-protocol.md` before proceeding.
+
+1. **Scan History:**
+   - Execute: `Get-ChildItem -Path tasks, archive -Filter *.md -Recurse`
+   - Extract IDs using regex: `^(\d{3})`
+   - Find MAX ID across all discovered files
+
+2. **Calculate Next ID:**
+   - Next ID = MAX(discovered IDs) + 1
+   - Format as zero-padded 3-digit: e.g., 8 → "008"
+
+3. **Check Conflicts:**
+   - Verify no existing file matches `[ID]-S1-IDEA-*` in `tasks/`
+   - If conflict: Append suffix `-1`, `-2`, etc.
+
+4. **Report to User:**
+   ```
+   🔍 Task ID Reconnaissance
+   - Scanned: tasks/ and archive/
+   - Max ID found: [X]
+   - Next Task ID: [X+1]
+   ```
+
 ## 3. THE TWO-PHASE INTERACTIVE PROTOCOL
 
 ### PHASE 1: DIAGNOSTIC INTERVIEW (The Consultant)
@@ -176,7 +200,7 @@ Which option do you choose? (Type A, B, C, or 'none' to cancel)
 ## 6. OUTPUT FORMAT (AFTER USER CONFIRMS)
 **Target File Path:** `tasks/[NEXT_ID]-S1-IDEA-[slug].md`
 
-Generate the next available ID by checking existing files in `tasks/` directory.
+**IMPORTANT:** Use the ID generated in Section 2A (Global Protocol).
 
 ```markdown
 # 💡 IDEA: [Feature Name]

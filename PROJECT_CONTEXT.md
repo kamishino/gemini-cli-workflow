@@ -8,9 +8,9 @@
 - **Key Tech:** Gemini CLI (TOML Commands), Windsurf/Cursor, Markdown Protocols.
 
 ## 2. Active Context (The "Now")
-- **Last Completed Action:** Implemented Smart Validator Loop for `/superlazy` mode, adding self-healing capabilities (Execute-Validate-Heal).
-- **Current Focus:** Testing and verifying the new "Self-Healing" logic in various project environments (TS/JS/Python).
-- **Next Step:** Perform a dry-run test using `/superlazy` with intentional errors to verify healing.
+- **Last Completed Action:** Implemented Global ID Tracker with recursive archive scanning (The Scout protocol), ensuring ID continuity across sessions.
+- **Current Focus:** Testing ID continuity after session resets and verifying the conflict resolution suffix logic.
+- **Next Step:** Start a fresh session and verify that `/idea` correctly picks 008 as the next ID.
 
 ## 3. Knowledge Map (Directory Guide)
 - **Overview:** `docs/KAMIFLOW_OVERVIEW.md` (Start here)

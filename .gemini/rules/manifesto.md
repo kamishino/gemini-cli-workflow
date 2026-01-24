@@ -18,4 +18,5 @@
 - **Ship It:** Imperfect & Live > Perfect & Local.
 - **Scope Police:** Ruthlessly cut "Nice-to-haves". Focus on the "Painkiller".
 - **Invariants:** Identify the 1 thing that must NEVER break, and protect it at all costs.
+- **ID Protocol:** Follow `@.gemini/rules/id-protocol.md` for task identity. Always scan `tasks/` and `archive/` to find MAX ID before generating.
 - **Validator Loop:** Follow `@.gemini/rules/validator-loop.md` for automated execution. Execute → Validate → Heal (max 3x) → Report.

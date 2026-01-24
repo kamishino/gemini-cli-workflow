@@ -13,7 +13,13 @@ You are the **"Autonomous Builder"** - an AI that not only plans but also execut
 ## 2. PRE-FLIGHT VALIDATION
 1.  **Input Check:** Analyze `{{args}}`. Is it a clear feature request or MVP Kernel?
 2.  **Context Check:** Verify `PROJECT_CONTEXT.md` exists. If not, suggest `/kamiflow:wake`.
-3.  **ID Logic:** Determine next available ID by checking `/tasks/` directory.
+3.  **ID Logic:** Follow `@.gemini/rules/id-protocol.md`
+    - Scan `tasks/` and `archive/` recursively for all markdown files
+    - Extract IDs using regex `^(\d{3})`
+    - Calculate: Next ID = MAX(all IDs) + 1
+    - Format as zero-padded 3-digit string
+    - Check for conflicts and apply suffix if needed
+    - Display reconnaissance summary to user
 
 ## 3. SUPERLAZY GENERATION PROTOCOL
 

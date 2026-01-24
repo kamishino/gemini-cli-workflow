@@ -16,9 +16,10 @@
 - [x] **v1.8 Enhancement:** Diagnostic Idea Phase (Two-phase interview workflow for /idea).
 - [x] **v1.9 Feature:** Smart Archive System (Preserve audit trails, clean workspace).
 - [x] **v2.0 Feature:** Smart Validator Loop (Execute-Validate-Heal) for /superlazy mode.
+- [x] **v2.1 Feature:** Global ID Tracker (The Scout) - Archive-aware ID continuity.
 
 ## 🏗️ In Progress
-- [ ] Final verification of end-to-end Sniper + Validator workflow.
+- [ ] Testing ID continuity after session resets and archiving.
 
 ## 📅 Backlog
 - [ ] Automated setup script (`setup.sh` / `setup.bat`).
