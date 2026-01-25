@@ -31,6 +31,7 @@
 - [x] **v2.13 Feature:** Gemini-CLI KamiFlow Manager - Professional NPM global utility.
 - [x] **v2.14 Feature:** Self-Healing CLI Engine - Proactive Doctor & Gene Store architecture.
 - [x] **v2.15 Feature:** One-Liner Installer - Zero-friction installation bypassing NPM Registry.
+- [x] **v2.16 Feature:** Universal Update Command - Mode-aware updates via CLI and AI.
 
 ## 🏗️ In Progress
 - [ ] Final verification of the full KamiFlow v2.x suite.

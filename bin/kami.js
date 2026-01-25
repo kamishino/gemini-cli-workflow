@@ -4,6 +4,7 @@ const { Command } = require("commander");
 const chalk = require("chalk");
 const { initProject } = require("../src/logic/installer");
 const { runDoctor } = require("../src/logic/doctor");
+const { runUpdate } = require("../src/logic/updater");
 const path = require("path");
 const fs = require("fs-extra");
 
@@ -58,6 +59,24 @@ program
         console.log(chalk.green("\n✅ All systems operational!\n"));
       } else {
         console.log(chalk.yellow("\n⚠️  Some issues detected. See above for details.\n"));
+        process.exit(1);
+      }
+    } catch (error) {
+      console.error(chalk.red("\n❌ Error:"), error.message);
+      process.exit(1);
+    }
+  });
+
+// Update command
+program
+  .command("update")
+  .description("Update KamiFlow to the latest version")
+  .action(async () => {
+    try {
+      const projectPath = process.cwd();
+      const result = await runUpdate(projectPath);
+
+      if (!result.success) {
         process.exit(1);
       }
     } catch (error) {

@@ -14,6 +14,7 @@
 
 - 🎯 **Sniper Model:** 3-Step Fused Kernel (Idea -> Spec -> Build) with 3-Layer Locks.
 - 💎 **CLI Manager:** Professional NPM utility for global KamiFlow management across projects.
+- 🔄 **Universal Update:** Smart update system with mode detection (SUBMODULE/LINKED/STANDALONE).
 - 🔧 **Self-Healing Engine:** Automatic detection and repair of broken portals and missing files.
 - 🏥 **Smart Doctor:** Interactive health checks with auto-fix capabilities for missing dependencies.
 - 🌍 **Global Engine:** 100% English core logic with configurable conversational language.
@@ -39,6 +40,7 @@ powershell -c "irmo https://raw.githubusercontent.com/kamishino/gemini-cli-workf
 ```
 
 **What it does:**
+
 - ✅ Checks for Node.js and Git
 - ✅ Installs the `kami` CLI globally from GitHub
 - ✅ No NPM Registry required (Avoids 404 errors)
@@ -91,6 +93,39 @@ gemini
 
 - **[Full Integration Guide](docs/GETTING_STARTED.md)** - Detailed step-by-step instructions
 - **[Troubleshooting](docs/TROUBLESHOOTING.md)** - Solutions for common setup issues (Windows Symlinks, etc.)
+
+---
+
+## 🔄 Keeping KamiFlow Updated
+
+KamiFlow includes a smart update system that automatically detects your integration mode and updates accordingly.
+
+### Using the CLI
+
+```bash
+# From any KamiFlow project
+kami update
+```
+
+**What it does:**
+
+- 🔍 Detects integration mode (SUBMODULE/LINKED/STANDALONE)
+- 🚀 Runs appropriate update command
+- ⚠️ Guards against mode conflicts
+- ✅ Verifies successful update
+
+### Using Gemini CLI
+
+```bash
+# Inside Gemini CLI
+/kamiflow:upgrade
+```
+
+**Modes explained:**
+
+- **SUBMODULE:** Runs `git submodule update --remote --merge`
+- **LINKED:** Runs `npm install -g gemini-cli-kamiflow`
+- **STANDALONE:** Provides manual update instructions
 
 ---
 
