@@ -27,6 +27,7 @@
 - [x] **v2.9 Feature:** Universal Smart Bootstrapper - One-click Windows installer with Embed fallback.
 - [x] **v2.10 Feature:** Interactive Sculptor - Self-relocating bootstrapper with integration choice.
 - [x] **v2.11 Maintenance:** Standardized PowerShell path compliance (.\ prefix).
+- [x] **v2.12 Feature:** Smart Seed v2.0 - Same-window relocation and dependency helper.
 
 ## 🏗️ In Progress
 - [ ] Final verification of the full KamiFlow v2.x suite.
