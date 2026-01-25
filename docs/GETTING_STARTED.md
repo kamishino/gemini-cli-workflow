@@ -2,13 +2,48 @@
 
 **Welcome to KamiFlow v2.7** - The rigorous, opinionated "Operating System" for Indie Hackers using Gemini CLI.
 
-This guide will walk you through two integration methods to get KamiFlow running in your project.
+This guide will walk you through three integration methods to get KamiFlow running in your project.
 
 ---
 
 ## 🎯 Choose Your Integration Method
 
-### Method A: Git Submodule (Recommended)
+### Method A: One-Click Installer (Recommended for Windows)
+
+**Best for:** Windows users who want zero-friction setup with automatic environment detection.
+
+**Pros:**
+
+- ✅ Automatic dependency checks (Gemini CLI, Git)
+- ✅ Smart Git repository initialization
+- ✅ Automatic symlink creation with fallback
+- ✅ Handles permissions gracefully (Embed Mode)
+- ✅ No manual commands needed
+
+**Cons:**
+
+- ⚠️ Windows-only (Batch script)
+- ⚠️ Embed Mode requires manual updates
+
+**Setup:**
+
+1. Download or clone KamiFlow
+2. Double-click `start-kamiflow.bat`
+3. Follow the interactive prompts
+4. Done! 🎉
+
+**What it does:**
+
+- Checks for Gemini CLI and Git (provides install links if missing)
+- Offers to initialize Git repository if needed
+- Creates portal network via symlinks (or physical copy if permissions fail)
+- Launches Gemini CLI automatically
+
+**See detailed walkthrough:** [Method A Guide](#-method-a-one-click-installer-detailed)
+
+---
+
+### Method B: Git Submodule (Recommended for Multi-Project)
 
 **Best for:** Developers who want auto-updates and single-source-of-truth core logic.
 
@@ -26,7 +61,7 @@ This guide will walk you through two integration methods to get KamiFlow running
 
 ---
 
-### Method B: Git Clone (Template Mode)
+### Method C: Git Clone (Template Mode)
 
 **Best for:** Quick-starters who want a standalone copy to customize freely.
 
@@ -43,7 +78,150 @@ This guide will walk you through two integration methods to get KamiFlow running
 
 ---
 
-## 📦 Method A: Git Submodule Integration
+## 🚀 Method A: One-Click Installer (Detailed)
+
+### Prerequisites
+
+**Required:**
+
+- Windows OS
+- Internet connection (for dependency downloads if needed)
+
+**Optional but Recommended:**
+
+- Administrator privileges OR Developer Mode enabled
+- Git for Windows
+- Gemini CLI
+
+**Note:** The script will guide you through installing missing dependencies.
+
+---
+
+### Step 1: Get KamiFlow
+
+**Option 1: Download ZIP**
+
+```bash
+# Download from GitHub and extract
+# Navigate to the extracted folder
+```
+
+**Option 2: Git Clone**
+
+```bash
+git clone https://github.com/YOUR_USERNAME/gemini-cli-workflow.git
+cd gemini-cli-workflow
+```
+
+---
+
+### Step 2: Run the Installer
+
+Double-click `start-kamiflow.bat` or run from terminal:
+
+```cmd
+start-kamiflow.bat
+```
+
+---
+
+### Step 3: Follow Interactive Setup
+
+The script will guide you through:
+
+**1. Environment Check**
+
+```
+[✓] Gemini CLI: Found
+[✓] Git: Found
+```
+
+If missing, you'll see install instructions with direct links.
+
+**2. Git Repository Setup**
+
+```
+[?] Initialize Git repository? (Y/N):
+```
+
+Choose `Y` if this is a new project.
+
+**3. Submodule Setup (Optional)**
+
+```
+[?] Add KamiFlow as submodule? (Y/N):
+```
+
+- Choose `Y` for auto-updates (multi-project recommended)
+- Choose `N` if using as standalone template
+
+**4. Portal Network Creation**
+
+The script attempts to create symlinks:
+
+**Success Path:**
+
+```
+[✓] Created .gemini/ portal
+[✓] Created .windsurf/ portal
+[✓] Created docs/protocols/ portal
+[✓] Created docs/overview.md portal
+```
+
+**Permission Denied Path:**
+
+```
+[✗] Symlink creation failed (Permission Denied)
+[?] Switch to Embed Mode (Copying files physically)? (Y/N):
+```
+
+Choose `Y` for Embed Mode (physical copy, no admin needed).
+
+---
+
+### Step 4: Start Working
+
+After setup, Gemini CLI launches automatically. Run:
+
+```
+/kamiflow:wake
+```
+
+Then start building:
+
+```
+/kamiflow:idea "Your first feature"
+```
+
+---
+
+### Troubleshooting: Symlink Permissions
+
+If you see permission errors:
+
+**Option 1: Enable Developer Mode (Permanent Fix)**
+
+1. Open Windows Settings
+2. Go to: Update & Security → For Developers
+3. Enable "Developer Mode"
+4. Restart terminal and run script again
+
+**Option 2: Run as Administrator (One-Time Fix)**
+
+1. Right-click Command Prompt or PowerShell
+2. Select "Run as Administrator"
+3. Navigate to project folder
+4. Run `start-kamiflow.bat` again
+
+**Option 3: Use Embed Mode (No Permissions Needed)**
+
+- Choose `Y` when prompted for Embed Mode
+- Files are copied physically (no symlinks)
+- Trade-off: Manual updates required
+
+---
+
+## 📦 Method B: Git Submodule Integration
 
 ### Step 1: Add KamiFlow as a Submodule
 
@@ -185,7 +363,7 @@ Now that the portal network is active, reload the AI's context:
 
 ---
 
-## 🎨 Method B: Git Clone (Template Mode)
+## 🎨 Method C: Git Clone (Template Mode)
 
 ### Step 1: Clone the Repository
 
