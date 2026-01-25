@@ -32,27 +32,16 @@
 
 ### Option 0: CLI Manager (Premium - Recommended)
 
-**Global installation for professional developers:**
+**The absolute fastest way to install globally:**
 
-```bash
-# Install once globally
-npm install -g gemini-cli-kamiflow
-
-# Use in any project
-cd your-project
-kami init
-
-# Or
-gemini-cli-kamiflow init
+```powershell
+powershell -c "irmo https://raw.githubusercontent.com/kamishino/gemini-cli-workflow/main/install.ps1 | iex"
 ```
 
 **What it does:**
-
-- ✅ One-time global installation on your machine
-- ✅ Single command setup for any project
-- ✅ Automatic updates for all linked projects
-- ✅ Built-in health checks (`kami doctor`)
-- ✅ Cross-platform (Node.js)
+- ✅ Checks for Node.js and Git
+- ✅ Installs the `kami` CLI globally from GitHub
+- ✅ No NPM Registry required (Avoids 404 errors)
 
 **See:** [Full CLI Manager Guide](docs/GETTING_STARTED.md#-method-0-cli-manager-detailed)
 

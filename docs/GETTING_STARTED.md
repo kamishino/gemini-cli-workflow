@@ -10,43 +10,22 @@ This guide will walk you through four integration methods to get KamiFlow runnin
 
 ### Method 0: CLI Manager (Premium - Recommended)
 
-**Best for:** Professional developers who want global KamiFlow management across all projects.
+**The absolute fastest way to get started:**
 
-**Pros:**
-
-- ✅ One-time global installation
-- ✅ Single command project setup (`kami init`)
-- ✅ Automatic updates for all projects
-- ✅ Cross-platform (Node.js)
-- ✅ Professional CLI experience with validation
-- ✅ Built-in `doctor` command for troubleshooting
-
-**Cons:**
-
-- ⚠️ Requires Node.js 16+
-- ⚠️ NPM familiarity needed
-
-**Setup:**
-
-```bash
-# Install globally (one time per machine)
-npm install -g gemini-cli-kamiflow
-
-# Initialize any project
-cd your-project
-kami init
-
-# Or use full command
-gemini-cli-kamiflow init
+```powershell
+# Run this one-liner in your terminal (PowerShell)
+powershell -c "irmo https://raw.githubusercontent.com/kamishino/gemini-cli-workflow/main/install.ps1 | iex"
 ```
 
-**What it does:**
+**What this does:**
+1. Verifies you have Node.js and Git installed.
+2. Automatically runs `npm install -g` using the direct GitHub URL.
+3. Performs a handshake by running `kami --version`.
 
-- Installs KamiFlow core globally on your machine
-- Creates portal network (symlinks or physical copy)
-- Interactive setup with project metadata collection
-- Automatic Git initialization if needed
-- Built-in health checks (`kami doctor`)
+**Setup:**
+1. Open your project directory.
+2. Run `kami init`.
+3. Follow the interactive prompts.
 
 **See detailed walkthrough:** [Method 0 Guide](#-method-0-cli-manager-detailed)
 
@@ -143,13 +122,14 @@ gemini-cli-kamiflow init
 
 ### Step 1: Install CLI Manager Globally
 
-**Option 1: From NPM (When Published)**
+**The Zero-Friction One-Liner (Recommended):**
 
-```bash
-npm install -g gemini-cli-kamiflow
+```powershell
+# Run this in your terminal (PowerShell)
+powershell -c "irmo https://raw.githubusercontent.com/kamishino/gemini-cli-workflow/main/install.ps1 | iex"
 ```
 
-**Option 2: Local Installation (Development)**
+**Alternative: Local Installation (Development)**
 
 ```bash
 # Clone KamiFlow repository
