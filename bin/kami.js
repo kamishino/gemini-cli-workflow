@@ -33,7 +33,7 @@ program
       console.log(chalk.green("\n✅ KamiFlow initialization complete!"));
       console.log(chalk.gray("\nNext steps:"));
       console.log(chalk.gray("  1. cd " + (targetPath || ".")));
-      console.log(chalk.gray("  2. gemini chat"));
+      console.log(chalk.gray("  2. gemini"));
       console.log(chalk.gray("  3. /kamiflow:wake\n"));
     } catch (error) {
       console.error(chalk.red("\n❌ Error:"), error.message);
@@ -45,13 +45,14 @@ program
 program
   .command("doctor")
   .description("Check system health and KamiFlow configuration")
-  .action(async () => {
+  .option("--fix", "Attempt to automatically fix detected issues")
+  .action(async (options) => {
     try {
       console.log(chalk.cyan("\n========================================================"));
       console.log(chalk.cyan("  🏥 KamiFlow System Doctor"));
       console.log(chalk.cyan("========================================================\n"));
 
-      const results = await runDoctor();
+      const results = await runDoctor(options);
 
       if (results.allHealthy) {
         console.log(chalk.green("\n✅ All systems operational!\n"));

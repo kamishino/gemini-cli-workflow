@@ -14,11 +14,11 @@
 
 - 🎯 **Sniper Model:** 3-Step Fused Kernel (Idea -> Spec -> Build) with 3-Layer Locks.
 - 💎 **CLI Manager:** Professional NPM utility for global KamiFlow management across projects.
-- 🗿 **Interactive Sculptor:** Self-relocating bootstrapper with clean standalone fallback.
-- ⚡ **One-Click Setup:** Smart Windows bootstrapper with automatic portal linking and fallback.
+- 🔧 **Self-Healing Engine:** Automatic detection and repair of broken portals and missing files.
+- 🏥 **Smart Doctor:** Interactive health checks with auto-fix capabilities for missing dependencies.
 - 🌍 **Global Engine:** 100% English core logic with configurable conversational language.
 - 🧠 **Smart Session:** Logic-based requirement analysis and conflict blocking.
-- 📦 **Injectable OS:** Git Submodule distribution with automatic Symlink setup.
+- 📦 **Injectable OS:** Git Submodule distribution with Gene Store architecture.
 - 🤖 **Validator Loop:** Autonomous execution with self-healing (Execute -> Validate -> Heal).
 - 🔍 **Global ID Scout:** Fast cached task ID tracking with reactive re-scan.
 - 🔄 **Unified Sync:** Automatic updates for Context, Roadmap, and README Showcase.
@@ -58,27 +58,7 @@ gemini-cli-kamiflow init
 
 ---
 
-### Option A: One-Click Installer (Windows Only)
-
-**The fastest way to get started on Windows:**
-
-```powershell
-git submodule add https://github.com/kamishino/gemini-cli-workflow .kami-flow; .\.kami-flow\start-kamiflow.bat
-```
-
-**What it does:**
-
-- ✅ Auto-relocates bootstrapper to project root
-- ✅ Checks for Gemini CLI and Git
-- ✅ Creates portal network (symlinks or physical copy)
-- ✅ Choice between Synchronized Submodule or Clean Standalone copy
-- ✅ Launches Gemini CLI automatically
-
-**See:** [Full One-Click Guide](docs/GETTING_STARTED.md#-method-a-one-click-installer-detailed)
-
----
-
-### Option B: Integrate into Existing Project (Multi-Project)
+### Option A: Integrate into Existing Project (Multi-Project)
 
 Use KamiFlow as a **Git Submodule** for auto-updates and clean separation:
 
@@ -88,7 +68,7 @@ git submodule add https://github.com/YOUR_USERNAME/gemini-cli-workflow.git .kami
 git submodule update --init --recursive
 
 # Start Gemini CLI
-gemini chat
+gemini
 
 # Wake and bootstrap
 /kamiflow:wake
@@ -100,7 +80,7 @@ gemini chat
 
 ---
 
-### Option C: Use as Template (Clone)
+### Option B: Use as Template (Clone)
 
 Clone KamiFlow directly for a standalone copy:
 
@@ -110,7 +90,7 @@ git clone https://github.com/YOUR_USERNAME/gemini-cli-workflow.git my-project
 cd my-project
 
 # Start Gemini CLI
-gemini chat
+gemini
 /kamiflow:wake
 ```
 

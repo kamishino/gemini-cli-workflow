@@ -3,6 +3,7 @@ const { execSync } = require("child_process");
 const fs = require("fs-extra");
 const path = require("path");
 const os = require("os");
+const inquirer = require("inquirer");
 
 /**
  * Check if a command exists in PATH
@@ -54,13 +55,20 @@ function checkGeminiCLI() {
   if (commandExists("gemini")) {
     const version = getCommandVersion("gemini");
     console.log(chalk.gray("Gemini CLI:"), version || "installed");
-    console.log(chalk.green("  ✓ Gemini CLI found"));
-    return true;
+
+    // Validate version format
+    if (version && version.includes(".")) {
+      console.log(chalk.green("  ✓ Gemini CLI found and operational"));
+      return { installed: true, version };
+    } else {
+      console.log(chalk.yellow("  ⚠️  Gemini CLI found but version unclear"));
+      return { installed: true, version: "unknown" };
+    }
   } else {
     console.log(chalk.gray("Gemini CLI:"), "not found");
     console.log(chalk.red("  ✗ Gemini CLI not installed"));
     console.log(chalk.yellow("  → Install: npm install -g @google/gemini-cli"));
-    return false;
+    return { installed: false, version: null };
   }
 }
 
@@ -78,6 +86,39 @@ function checkGit() {
     console.log(chalk.red("  ✗ Git not installed"));
     console.log(chalk.yellow("  → Install: https://git-scm.com/download/win"));
     return false;
+  }
+}
+
+/**
+ * Check Windows Developer Mode (Windows 10+)
+ */
+function checkDeveloperMode() {
+  if (os.platform() !== "win32") {
+    return { applicable: false, enabled: null };
+  }
+
+  try {
+    // Check registry for Developer Mode setting
+    const output = execSync(
+      'reg query "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\AppModelUnlock" /v AllowDevelopmentWithoutDevLicense',
+      { encoding: "utf8", stdio: "pipe" },
+    );
+
+    const enabled = output.includes("0x1");
+    console.log(chalk.gray("Developer Mode:"), enabled ? "enabled" : "disabled");
+
+    if (enabled) {
+      console.log(chalk.green("  ✓ Developer Mode enabled"));
+    } else {
+      console.log(chalk.yellow("  ⚠️  Developer Mode disabled"));
+      console.log(chalk.yellow("  → Enable in: Settings > Update & Security > For developers"));
+    }
+
+    return { applicable: true, enabled };
+  } catch {
+    console.log(chalk.gray("Developer Mode:"), "unknown");
+    console.log(chalk.yellow("  ⚠️  Could not check Developer Mode status"));
+    return { applicable: true, enabled: false };
   }
 }
 
@@ -172,31 +213,81 @@ async function checkCurrentProject() {
 /**
  * Run all health checks
  */
-async function runDoctor() {
+async function runDoctor(options = {}) {
   console.log(chalk.cyan("Running system health checks...\n"));
 
+  const nodeHealthy = checkNode();
+  console.log();
+
+  const geminiResult = checkGeminiCLI();
+  console.log();
+
+  const gitHealthy = checkGit();
+  console.log();
+
+  const devModeResult = checkDeveloperMode();
+  console.log();
+
+  const symlinkHealthy = await checkSymlinkCapability();
+  console.log();
+
+  const projectHealthy = await checkCurrentProject();
+
   const results = {
-    node: checkNode(),
-    gemini: checkGeminiCLI(),
-    git: checkGit(),
-    symlink: await checkSymlinkCapability(),
-    project: await checkCurrentProject(),
+    node: nodeHealthy,
+    gemini: geminiResult,
+    git: gitHealthy,
+    developerMode: devModeResult,
+    symlink: symlinkHealthy,
+    project: projectHealthy,
   };
 
   console.log();
   console.log(chalk.cyan("─".repeat(50)));
 
-  const allHealthy = results.node && results.gemini && results.git;
+  const allHealthy = results.node && results.gemini.installed && results.git;
   results.allHealthy = allHealthy;
 
   if (!allHealthy) {
     console.log(chalk.red("\n⚠️  Some dependencies are missing"));
-    console.log(chalk.yellow("Please install missing components and run doctor again\n"));
+
+    if (options.fix) {
+      console.log(chalk.cyan("\n🔧 Attempting to fix missing dependencies...\n"));
+
+      if (!geminiResult.installed) {
+        const install = await inquirer.prompt([
+          {
+            type: "confirm",
+            name: "confirm",
+            message: "Install Gemini CLI now? (npm install -g @google/gemini-cli)",
+            default: true,
+          },
+        ]);
+
+        if (install.confirm) {
+          try {
+            console.log(chalk.cyan("\n[FIX] Installing Gemini CLI..."));
+            execSync("npm install -g @google/gemini-cli", { stdio: "inherit" });
+            console.log(chalk.green("[FIX] ✓ Gemini CLI installed\n"));
+          } catch (error) {
+            console.log(chalk.red("[FIX] ✗ Installation failed\n"));
+          }
+        }
+      }
+    } else {
+      console.log(chalk.yellow("Please install missing components and run doctor again"));
+      console.log(chalk.gray("Tip: Use 'kami doctor --fix' for interactive fixes\n"));
+    }
   }
 
   if (!results.symlink) {
     console.log(chalk.yellow("\n💡 Tip: Symlink support is optional"));
     console.log(chalk.yellow("   You can still use STANDALONE mode\n"));
+  }
+
+  if (options.fix && results.project) {
+    const { healProject } = require("./healer");
+    await healProject(process.cwd(), { autoFix: false });
   }
 
   return results;
