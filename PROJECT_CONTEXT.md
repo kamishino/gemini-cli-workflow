@@ -14,9 +14,9 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/sync`.
 
-- **Last Completed Action:** Upgraded start-kamiflow.bat with self-relocation and integration choice (Task 016).
-- **Current Focus:** Testing the "Zero-Friction" onboarding command and finalizing v2.x ecosystem.
-- **Next Step:** Ready for public release or further refinements.
+- **Last Completed Action:** Standardized PowerShell command prefixes (.\) across all documentation (Task 017).
+- **Current Focus:** Final verification of the integrated KamiFlow v2.9 ecosystem.
+- **Next Step:** Ready for release.
 
 ## 3. Knowledge Map (Directory Guide)
 

@@ -128,7 +128,7 @@ cd gemini-cli-workflow
 Double-click `start-kamiflow.bat` or run from terminal:
 
 ```cmd
-start-kamiflow.bat
+.\start-kamiflow.bat
 ```
 
 ---
@@ -219,7 +219,7 @@ If you see permission errors:
 1. Right-click Command Prompt or PowerShell
 2. Select "Run as Administrator"
 3. Navigate to project folder
-4. Run `start-kamiflow.bat` again
+4. Run `.\start-kamiflow.bat` again
 
 **Option 3: Use Embed Mode (No Permissions Needed)**
 
