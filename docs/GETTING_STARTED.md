@@ -1,14 +1,58 @@
 # 🚀 Getting Started with KamiFlow
 
-**Welcome to KamiFlow v2.7** - The rigorous, opinionated "Operating System" for Indie Hackers using Gemini CLI.
+**Welcome to KamiFlow v2.10** - The rigorous, opinionated "Operating System" for Indie Hackers using Gemini CLI.
 
-This guide will walk you through three integration methods to get KamiFlow running in your project.
+This guide will walk you through four integration methods to get KamiFlow running in your project.
 
 ---
 
 ## 🎯 Choose Your Integration Method
 
-### Method A: One-Click Installer (Recommended for Windows)
+### Method 0: CLI Manager (Premium - Recommended)
+
+**Best for:** Professional developers who want global KamiFlow management across all projects.
+
+**Pros:**
+
+- ✅ One-time global installation
+- ✅ Single command project setup (`kami init`)
+- ✅ Automatic updates for all projects
+- ✅ Cross-platform (Node.js)
+- ✅ Professional CLI experience with validation
+- ✅ Built-in `doctor` command for troubleshooting
+
+**Cons:**
+
+- ⚠️ Requires Node.js 16+
+- ⚠️ NPM familiarity needed
+
+**Setup:**
+
+```bash
+# Install globally (one time per machine)
+npm install -g gemini-cli-kamiflow
+
+# Initialize any project
+cd your-project
+kami init
+
+# Or use full command
+gemini-cli-kamiflow init
+```
+
+**What it does:**
+
+- Installs KamiFlow core globally on your machine
+- Creates portal network (symlinks or physical copy)
+- Interactive setup with project metadata collection
+- Automatic Git initialization if needed
+- Built-in health checks (`kami doctor`)
+
+**See detailed walkthrough:** [Method 0 Guide](#-method-0-cli-manager-detailed)
+
+---
+
+### Method A: One-Click Installer (Windows Only)
 
 **Best for:** Windows users who want zero-friction setup with automatic environment detection.
 
@@ -40,6 +84,8 @@ This guide will walk you through three integration methods to get KamiFlow runni
 - Launches Gemini CLI automatically
 
 **See detailed walkthrough:** [Method A Guide](#-method-a-one-click-installer-detailed)
+
+**Note:** For professional use, Method 0 (CLI Manager) is recommended over this batch script.
 
 ---
 
@@ -75,6 +121,215 @@ This guide will walk you through three integration methods to get KamiFlow runni
 
 - ⚠️ Manual updates required
 - ⚠️ File duplication if used across multiple projects
+
+---
+
+## 💎 Method 0: CLI Manager (Detailed)
+
+### Prerequisites
+
+**Required:**
+
+- Node.js 16+ ([Download](https://nodejs.org/))
+- npm (comes with Node.js)
+- Internet connection
+
+**Optional but Recommended:**
+
+- Git
+- Gemini CLI (CLI Manager can guide installation)
+
+---
+
+### Step 1: Install CLI Manager Globally
+
+**Option 1: From NPM (When Published)**
+
+```bash
+npm install -g gemini-cli-kamiflow
+```
+
+**Option 2: Local Installation (Development)**
+
+```bash
+# Clone KamiFlow repository
+git clone https://github.com/kamishino/gemini-cli-workflow.git
+cd gemini-cli-workflow
+
+# Install dependencies
+npm install
+
+# Link globally
+npm link
+```
+
+**Verify Installation:**
+
+```bash
+kami --version
+# or
+gemini-cli-kamiflow --version
+```
+
+---
+
+### Step 2: Check System Health
+
+Before initializing projects, verify your environment:
+
+```bash
+kami doctor
+```
+
+**Expected Output:**
+
+```
+🏽 KamiFlow System Doctor
+
+Node.js: v18.17.0
+  ✓ Node.js version is compatible
+
+Gemini CLI: installed
+  ✓ Gemini CLI found
+
+Git: git version 2.42.0
+  ✓ Git found
+
+Symlink Support: enabled
+  ✓ Can create symbolic links
+
+Current Directory: C:\Users\...
+  ⚠️  No KamiFlow portals found
+  → Run: gemini-cli-kamiflow init
+
+✓ All systems operational!
+```
+
+**If issues detected:**
+
+- Missing dependencies show install links
+- Symlink issues suggest Developer Mode or STANDALONE mode
+- All checks must pass for optimal experience
+
+---
+
+### Step 3: Initialize a Project
+
+Navigate to your project directory and run:
+
+```bash
+cd your-project
+kami init
+```
+
+**Interactive Setup:**
+
+```
+? Project name: my-awesome-app
+? Select integration mode:
+  > 🔗 Linked (Recommended - Auto-updates from global core)
+    📦 Standalone (Clean copy - Manual updates)
+```
+
+**What happens:**
+
+1. **Linked Mode:**
+   - Creates symlinks: `.gemini/`, `.windsurf/`, `docs/protocols/`, `docs/overview.md`
+   - Links point to global installation
+   - Updates propagate automatically
+
+2. **Standalone Mode:**
+   - Physical file copies
+   - Complete independence
+   - Manual updates required
+
+**Files Created:**
+
+- `GEMINI.md` (proxy or full copy)
+- `PROJECT_CONTEXT.md` (from template)
+- `docs/roadmap.md` (from template)
+- `.geminiignore` (smart ignore rules)
+
+---
+
+### Step 4: Start Working
+
+After initialization:
+
+```bash
+gemini chat
+```
+
+Then in Gemini CLI:
+
+```
+/kamiflow:wake
+/kamiflow:idea "Your first feature"
+```
+
+---
+
+### Advanced Usage
+
+**Initialize with Options:**
+
+```bash
+# Specify integration mode
+kami init --mode standalone
+
+# Skip interactive prompts
+kami init --skip-interview
+
+# Initialize in different directory
+kami init ../other-project
+```
+
+**Get Core Information:**
+
+```bash
+kami info
+```
+
+**Output:**
+
+```
+📦 KamiFlow Core Information:
+
+Version: 2.10.0
+Location: C:\Users\...\AppData\Roaming\npm\node_modules\gemini-cli-kamiflow
+Bin: C:\Users\...\AppData\Roaming\npm\kami.js
+```
+
+---
+
+### Troubleshooting
+
+**Issue: Command not found**
+
+```bash
+# Verify global installation
+npm list -g gemini-cli-kamiflow
+
+# Check PATH includes npm global bin
+echo %PATH%  # Windows
+echo $PATH   # Unix
+
+# Reinstall if needed
+npm uninstall -g gemini-cli-kamiflow
+npm install -g gemini-cli-kamiflow
+```
+
+**Issue: Symlink permission denied**
+
+- Run `kami doctor` to check symlink support
+- Enable Developer Mode (Windows Settings → For Developers)
+- Or use STANDALONE mode: `kami init --mode standalone`
+
+**Issue: Missing dependencies**
+
+- Run `kami doctor` for detailed diagnostics
+- Install missing tools (Gemini CLI, Git)
+- Re-run `kami init` after fixes
 
 ---
 

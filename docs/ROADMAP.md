@@ -28,6 +28,7 @@
 - [x] **v2.10 Feature:** Interactive Sculptor - Self-relocating bootstrapper with integration choice.
 - [x] **v2.11 Maintenance:** Standardized PowerShell path compliance (.\ prefix).
 - [x] **v2.12 Feature:** Smart Seed v2.0 - Same-window relocation and dependency helper.
+- [x] **v2.13 Feature:** Gemini-CLI KamiFlow Manager - Professional NPM global utility.
 
 ## 🏗️ In Progress
 - [ ] Final verification of the full KamiFlow v2.x suite.

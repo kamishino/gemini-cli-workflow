@@ -1,6 +1,6 @@
 # 🌊 KamiFlow: The Indie Builder's Template for Gemini CLI
 
-**<!-- KAMI_VERSION_START -->v2.9 (Interactive Sculptor)<!-- KAMI_VERSION_END -->**
+**<!-- KAMI_VERSION_START -->v2.10 (Global Hub)<!-- KAMI_VERSION_END -->**
 
 **KamiFlow** is a rigorous, opinionated "Operating System" for Indie Hackers using Gemini CLI. It transforms the AI from a generic chatbot into a disciplined **Technical Co-Founder**.
 
@@ -13,6 +13,7 @@
 <!-- KAMI_SHOWCASE_START -->
 
 - 🎯 **Sniper Model:** 3-Step Fused Kernel (Idea -> Spec -> Build) with 3-Layer Locks.
+- 💎 **CLI Manager:** Professional NPM utility for global KamiFlow management across projects.
 - 🗿 **Interactive Sculptor:** Self-relocating bootstrapper with clean standalone fallback.
 - ⚡ **One-Click Setup:** Smart Windows bootstrapper with automatic portal linking and fallback.
 - 🌍 **Global Engine:** 100% English core logic with configurable conversational language.
@@ -28,6 +29,34 @@
 ---
 
 ## 🚀 Quick Start (Choose Your Path)
+
+### Option 0: CLI Manager (Premium - Recommended)
+
+**Global installation for professional developers:**
+
+```bash
+# Install once globally
+npm install -g gemini-cli-kamiflow
+
+# Use in any project
+cd your-project
+kami init
+
+# Or
+gemini-cli-kamiflow init
+```
+
+**What it does:**
+
+- ✅ One-time global installation on your machine
+- ✅ Single command setup for any project
+- ✅ Automatic updates for all linked projects
+- ✅ Built-in health checks (`kami doctor`)
+- ✅ Cross-platform (Node.js)
+
+**See:** [Full CLI Manager Guide](docs/GETTING_STARTED.md#-method-0-cli-manager-detailed)
+
+---
 
 ### Option A: One-Click Installer (Windows Only)
 

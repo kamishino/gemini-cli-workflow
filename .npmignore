@@ -1,0 +1,23 @@
+# Development files
+tasks/
+archive/
+docs/handoff_logs/
+.git/
+.gitmodules
+
+# IDE files
+.vscode/
+.idea/
+
+# Test files
+test/
+*.test.js
+
+# Documentation (keep only essential)
+docs/templates/
+docs/TROUBLESHOOTING.md
+docs/GETTING_STARTED.md
+
+# Project-specific
+PROJECT_CONTEXT.md
+start-kamiflow.bat

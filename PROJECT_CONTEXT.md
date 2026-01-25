@@ -7,16 +7,16 @@
 ## 1. Project Identity
 
 - **Goal:** A rigorous, opinionated "Operating System" template for Indie Hackers using Gemini CLI + AI IDEs.
-- **Current Phase:** Template v2.9 (The Interactive Sculptor)
-- **Key Tech:** Gemini CLI (TOML Commands), Windsurf/Cursor, Markdown Protocols.
+- **Current Phase:** Template v2.10 (Global Hub)
+- **Key Tech:** Gemini CLI (TOML Commands), Node.js CLI, Windsurf/Cursor, Markdown Protocols.
 
 ## 2. Active Context (The "Now")
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/sync`.
 
-- **Last Completed Action:** Implemented Smart Seed v2.0 with same-window continuation (Task 018).
-- **Current Focus:** Final verification of the integrated KamiFlow v2.9 ecosystem.
-- **Next Step:** Full system regression test and release.
+- **Last Completed Action:** Implemented Gemini-CLI KamiFlow Manager (NPM Global Utility) (Task 019).
+- **Current Focus:** Final verification of the integrated KamiFlow v2.10 ecosystem.
+- **Next Step:** Perform a full project audit and release.
 
 ## 3. Knowledge Map (Directory Guide)
 

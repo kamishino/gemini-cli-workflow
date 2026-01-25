@@ -1,0 +1,37 @@
+{
+  "name": "gemini-cli-kamiflow",
+  "version": "2.10.0",
+  "description": "Professional CLI manager for KamiFlow - The Indie Builder's OS for Gemini CLI",
+  "main": "bin/kami.js",
+  "bin": {
+    "gemini-cli-kamiflow": "bin/kami.js",
+    "kami": "bin/kami.js"
+  },
+  "scripts": {
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": [
+    "gemini",
+    "cli",
+    "kamiflow",
+    "ai",
+    "workflow",
+    "template"
+  ],
+  "author": "KamiShino",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^11.1.0",
+    "inquirer": "^9.2.12",
+    "chalk": "^5.3.0",
+    "zod": "^3.22.4",
+    "fs-extra": "^11.2.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kamishino/gemini-cli-workflow.git"
+  }
+}
