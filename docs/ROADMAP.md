@@ -25,9 +25,10 @@
 - [x] **v2.7 Feature:** Onboarding Excellence - Comprehensive Integration & Troubleshooting guides.
 - [x] **v2.8 Feature:** Hybrid Doc Portal - Standardized core structure and automated roadmap seeding.
 - [x] **v2.9 Feature:** Universal Smart Bootstrapper - One-click Windows installer with Embed fallback.
+- [x] **v2.10 Feature:** Interactive Sculptor - Self-relocating bootstrapper with integration choice.
 
 ## 🏗️ In Progress
-- [ ] Final end-to-end verification of Sniper + Validator + Global ID + Submodule + Token + Bootstrapper engine.
+- [ ] Final verification of end-to-end Sniper + Validator + Global ID + Submodule + Token + Bootstrapper engine.
 
 ## 📅 Backlog
 - [ ] Automated setup script (`setup.sh` / `setup.bat`).

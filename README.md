@@ -1,6 +1,6 @@
 # 🌊 KamiFlow: The Indie Builder's Template for Gemini CLI
 
-**<!-- KAMI_VERSION_START -->v2.8 (Universal Bootstrapper)<!-- KAMI_VERSION_END -->**
+**<!-- KAMI_VERSION_START -->v2.9 (Interactive Sculptor)<!-- KAMI_VERSION_END -->**
 
 **KamiFlow** is a rigorous, opinionated "Operating System" for Indie Hackers using Gemini CLI. It transforms the AI from a generic chatbot into a disciplined **Technical Co-Founder**.
 
@@ -13,6 +13,7 @@
 <!-- KAMI_SHOWCASE_START -->
 
 - 🎯 **Sniper Model:** 3-Step Fused Kernel (Idea -> Spec -> Build) with 3-Layer Locks.
+- 🗿 **Interactive Sculptor:** Self-relocating bootstrapper with clean standalone fallback.
 - ⚡ **One-Click Setup:** Smart Windows bootstrapper with automatic portal linking and fallback.
 - 🌍 **Global Engine:** 100% English core logic with configurable conversational language.
 - 🧠 **Smart Session:** Logic-based requirement analysis and conflict blocking.
@@ -32,20 +33,16 @@
 
 **The fastest way to get started on Windows:**
 
-```cmd
-# Download or clone KamiFlow
-git clone https://github.com/YOUR_USERNAME/gemini-cli-workflow.git
-cd gemini-cli-workflow
-
-# Double-click start-kamiflow.bat (or run from terminal)
-start-kamiflow.bat
+```powershell
+git submodule add https://github.com/kamishino/gemini-cli-workflow .kami-flow; .\.kami-flow\start-kamiflow.bat
 ```
 
 **What it does:**
 
-- ✅ Checks for Gemini CLI and Git (provides install links if missing)
-- ✅ Offers to initialize Git repository
+- ✅ Auto-relocates bootstrapper to project root
+- ✅ Checks for Gemini CLI and Git
 - ✅ Creates portal network (symlinks or physical copy)
+- ✅ Choice between Synchronized Submodule or Clean Standalone copy
 - ✅ Launches Gemini CLI automatically
 
 **See:** [Full One-Click Guide](docs/GETTING_STARTED.md#-method-a-one-click-installer-detailed)

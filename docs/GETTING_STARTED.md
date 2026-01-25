@@ -99,17 +99,25 @@ This guide will walk you through three integration methods to get KamiFlow runni
 
 ### Step 1: Get KamiFlow
 
-**Option 1: Download ZIP**
+**Option 1: The One-Line Integration (Fastest)**
+
+Copy and paste this into your terminal (PowerShell) to add KamiFlow and start the setup automatically:
+
+```powershell
+git submodule add https://github.com/kamishino/gemini-cli-workflow .kami-flow; .\.kami-flow\start-kamiflow.bat
+```
+
+**Option 2: Download ZIP**
 
 ```bash
 # Download from GitHub and extract
 # Navigate to the extracted folder
 ```
 
-**Option 2: Git Clone**
+**Option 3: Git Clone**
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/gemini-cli-workflow.git
+git clone https://github.com/kamishino/gemini-cli-workflow.git
 cd gemini-cli-workflow
 ```
 

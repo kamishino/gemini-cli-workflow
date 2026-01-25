@@ -7,16 +7,16 @@
 ## 1. Project Identity
 
 - **Goal:** A rigorous, opinionated "Operating System" template for Indie Hackers using Gemini CLI + AI IDEs.
-- **Current Phase:** Template v2.8 (One-Click Onboarding)
+- **Current Phase:** Template v2.9 (The Interactive Sculptor)
 - **Key Tech:** Gemini CLI (TOML Commands), Windsurf/Cursor, Markdown Protocols.
 
 ## 2. Active Context (The "Now")
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/sync`.
 
-- **Last Completed Action:** Implemented Universal Smart Bootstrapper (start-kamiflow.bat) with Embed Fallback (Task 015).
-- **Current Focus:** Final polish and audit of the entire v2.x ecosystem before public release.
-- **Next Step:** Perform a full project audit to ensure 100% professional consistency and link integrity.
+- **Last Completed Action:** Upgraded start-kamiflow.bat with self-relocation and integration choice (Task 016).
+- **Current Focus:** Testing the "Zero-Friction" onboarding command and finalizing v2.x ecosystem.
+- **Next Step:** Ready for public release or further refinements.
 
 ## 3. Knowledge Map (Directory Guide)
 
