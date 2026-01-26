@@ -35,7 +35,7 @@ program
       console.log(chalk.gray("\nNext steps:"));
       console.log(chalk.gray("  1. cd " + (targetPath || ".")));
       console.log(chalk.gray("  2. gemini"));
-      console.log(chalk.gray("  3. /kamiflow:wake\n"));
+      console.log(chalk.gray("  3. /kamiflow:ops:wake\n"));
     } catch (error) {
       console.error(chalk.red("\n❌ Error:"), error.message);
       process.exit(1);
