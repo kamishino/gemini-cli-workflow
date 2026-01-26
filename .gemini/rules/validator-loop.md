@@ -211,7 +211,7 @@ Display this to the user after execution:
 
 This protocol is used by:
 
-- `.gemini/commands/kamiflow/superlazy.toml` (Auto-execution mode)
+- `/kamiflow:dev:superlazy` (Auto-execution mode)
 - Future commands that implement code changes
 
 **When to Skip:**

@@ -14,7 +14,7 @@ This guide addresses common issues encountered during KamiFlow setup and operati
 New-Item: A required privilege is not held by the client.
 ```
 
-This occurs when running `/kamiflow:bootstrap` without proper permissions.
+This occurs when running `/kamiflow:ops:bootstrap` without proper permissions.
 
 ---
 
@@ -32,7 +32,7 @@ This occurs when running `/kamiflow:bootstrap` without proper permissions.
    ```
 6. Run:
    ```
-   /kamiflow:bootstrap
+   /kamiflow:ops:bootstrap
    ```
 
 **Verification:**
@@ -58,7 +58,7 @@ Get-Item .gemini | Select-Object LinkType, Target
 3. Click **For developers** (left sidebar)
 4. Toggle **Developer Mode** to **ON**
 5. Restart your terminal
-6. Run `/kamiflow:bootstrap` again (no admin needed)
+6. Run `/kamiflow:ops:bootstrap` again (no admin needed)
 
 **Windows 11 Path:**
 `Settings > Privacy & Security > For developers > Developer Mode`
@@ -159,7 +159,7 @@ ls -la .gemini
 
 # If missing, run bootstrap again
 gemini chat
-/kamiflow:bootstrap
+/kamiflow:ops:bootstrap
 ```
 
 **Solution for Clone Users:**
@@ -209,8 +209,7 @@ cat .geminiignore | grep "kami-flow"
 After completing work, always run:
 
 ```
-/kamiflow:sync
-```
+/kamiflow:ops:sync```
 
 This updates `PROJECT_CONTEXT.md` with the latest state.
 
@@ -350,7 +349,7 @@ ls -la .windsurf
 If missing, run:
 
 ```
-/kamiflow:bootstrap
+/kamiflow:ops:bootstrap
 ```
 
 **Solution for Clone Users:**
@@ -365,7 +364,7 @@ ls .windsurf/workflows
 
 ## 📝 Command Not Working
 
-### Issue: AI doesn't respond to `/kamiflow:idea`
+/kamiflow:core:idea
 
 **Possible Causes:**
 
@@ -387,7 +386,7 @@ ls .windsurf/workflows
 3. Restart Gemini CLI:
    ```bash
    gemini chat
-   /kamiflow:wake
+   /kamiflow:ops:wake
    ```
 
 ---
@@ -401,7 +400,7 @@ Run through this checklist:
 - [ ] Confirmed `.kami-flow/` exists (Submodule) or `.gemini/` exists (Clone)
 - [ ] Verified symbolic links are created (Windows: `Get-Item .gemini`)
 - [ ] Checked `GEMINI.md` exists at project root
-- [ ] Ran `/kamiflow:wake` successfully
+- [ ] Ran `/kamiflow:ops:wake` successfully
 - [ ] Developer Mode is enabled (Windows Submodule users)
 - [ ] `.geminiignore` includes `.kami-flow/`
 - [ ] Restarted Gemini CLI after changes
@@ -414,7 +413,7 @@ If none of the above solutions work:
 
 1. **Check Bootstrap Protocol:** Read the technical details at `.gemini/rules/bootstrap-protocol.md`
 2. **Review Logs:** Check `docs/handoff_logs/` for error messages from previous sessions
-3. **Start Fresh:** Remove `.gemini/`, `.windsurf/`, `GEMINI.md` and re-run `/kamiflow:bootstrap`
+3. **Start Fresh:** Remove `.gemini/`, `.windsurf/`, `GEMINI.md` and re-run `/kamiflow:ops:bootstrap`
 
 ---
 

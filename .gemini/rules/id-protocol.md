@@ -182,9 +182,9 @@ Display reconnaissance results to user:
 
 ### Commands That Use This Protocol
 
-- `.gemini/commands/kamiflow/idea.toml` (Phase 1: Generate ID before creating S1-IDEA)
-- `.gemini/commands/kamiflow/lazy.toml` (Phase 1: Generate ID for all S1-S4 artifacts)
-- `.gemini/commands/kamiflow/superlazy.toml` (Phase 1: Generate ID before auto-execution)
+- `.gemini/commands/kamiflow/core/idea.toml` (Phase 1: Generate ID before creating S1-IDEA)
+- `.gemini/commands/kamiflow/dev/lazy.toml` (Phase 1: Generate ID for all S1-S4 artifacts)
+- `.gemini/commands/kamiflow/dev/superlazy.toml` (Phase 1: Generate ID before auto-execution)
 
 ### How to Invoke
 

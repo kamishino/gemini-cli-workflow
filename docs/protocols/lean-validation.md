@@ -19,4 +19,4 @@
 - **Output:** The "Grounding Statement" to keep you focused.
 
 ## 🚀 Automated Modes (Gated Enforcement)
-Even in `/lazy` or `/superlazy` modes, the AI is FORBIDDEN from generating secondary artifacts (SPEC, BUILD, HANDOFF) until the IDEA phase is explicitly approved. This ensures strategic alignment before execution.
+Even in `/kamiflow:dev:lazy` or `/kamiflow:dev:superlazy` modes, the AI is FORBIDDEN from generating secondary artifacts (SPEC, BUILD, HANDOFF) until the IDEA phase is explicitly approved. This ensures strategic alignment before execution.

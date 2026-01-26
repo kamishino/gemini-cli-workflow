@@ -40,6 +40,7 @@
 - [x] **v2.22 Feature:** Session Language Selection & Revise Guard (Task 012).
 - [x] **v2.23 Enhancement:** Self-Healing Wake & Docs Sync (Task 014).
 - [x] **v2.24 Feature:** Modular Command Architecture & Memory Enhancement (Task 015).
+- [x] **v2.25 Feature:** Core Sync Audit & Standard Alignment (Task 016).
 
 ## 🏗️ In Progress
 - [ ] Final verification of the full KamiFlow v2.x suite.

@@ -243,7 +243,7 @@ gemini chat
 Then in Gemini CLI:
 
 ```
-/kamiflow:wake
+/kamiflow:ops:wake
 /kamiflow:idea "Your first feature"
 ```
 
@@ -427,7 +427,7 @@ Choose `Y` for Embed Mode (physical copy, no admin needed).
 After setup, Gemini CLI launches automatically. Run:
 
 ```
-/kamiflow:wake
+/kamiflow:ops:wake
 ```
 
 Then start building:
@@ -501,7 +501,7 @@ gemini chat
 Then run:
 
 ```
-/kamiflow:wake
+/kamiflow:ops:wake
 ```
 
 **Expected Output:**
@@ -520,11 +520,11 @@ KamiFlow submodule detected in `.kami-flow/` directory.
 **To activate KamiFlow, run:**
 ```
 
-/kamiflow:bootstrap
+/kamiflow:ops:bootstrap
 
 ```
 
-Then run `/kamiflow:wake` again to load context.
+Then run `/kamiflow:ops:wake` again to load context.
 ```
 
 ---
@@ -534,7 +534,7 @@ Then run `/kamiflow:wake` again to load context.
 The AI detected the submodule but needs to activate it. Run:
 
 ```
-/kamiflow:bootstrap
+/kamiflow:ops:bootstrap
 ```
 
 **What this does:**
@@ -576,7 +576,7 @@ docs/overview.md → .kami-flow/docs/overview.md
 
 **Next Steps:**
 
-1. Run `/kamiflow:wake` to load context
+1. Run `/kamiflow:ops:wake` to load context
 2. Run `/kamiflow:idea "Your first feature"` to begin
 ```
 
@@ -584,11 +584,11 @@ docs/overview.md → .kami-flow/docs/overview.md
 
 ### Step 4: Reload Context
 
-Now that the portal network is active, reload the AI's context:
-
-```
-/kamiflow:wake
-```
+2.  **Wake Up (Auto-Bootstrap):**
+    ```bash
+    /kamiflow:ops:wake
+    ```
+    *The system will automatically detect the submodule, create necessary portals (symlinks), and load the project context.*
 
 **Expected Output:**
 
@@ -650,7 +650,7 @@ gemini chat
 Run:
 
 ```
-/kamiflow:wake
+/kamiflow:ops:wake
 ```
 
 **Expected Output:**
@@ -739,25 +739,25 @@ Now that KamiFlow is set up, try the core workflow:
 ### Step 1: Generate an Idea
 
 ```
-/kamiflow:idea "Your feature description"
+/kamiflow:core:idea "Your feature description"
 ```
 
 ### Step 2: Create Specification
 
 ```
-/kamiflow:spec tasks/001-S1-IDEA-your-feature.md
+/kamiflow:core:spec tasks/001-S1-IDEA-your-feature.md
 ```
 
 ### Step 3: Generate Build Plan
 
 ```
-/kamiflow:build tasks/001-S2-SPEC-your-feature.md
+/kamiflow:core:build tasks/001-S2-SPEC-your-feature.md
 ```
 
 ### Step 4: Execute in IDE
 
 ```
-/kamiflow:bridge tasks/001-S3-BUILD-your-feature.md
+/kamiflow:core:bridge tasks/001-S3-BUILD-your-feature.md
 ```
 
 ---

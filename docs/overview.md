@@ -12,17 +12,17 @@ graph TD
     Start((User Idea))
 
     subgraph Sniper_Phase [🎯 Sniper Model: 3-Step Fused Kernel]
-        Idea[/"/kamiflow:idea"/]
-        Spec[/"/kamiflow:spec"/]
-        Build[/"/kamiflow:build"/]
+        Idea[/"/kamiflow:core:idea"/]
+        Spec[/"/kamiflow:core:spec"/]
+        Build[/"/kamiflow:core:build"/]
         Lock1{{Lock 1: Context}}
         Lock2{{Lock 2: Schema}}
         Lock3{{Lock 3: Legacy}}
     end
 
     subgraph Bridge [🌉 The Bridge]
-        Handoff[/"/kamiflow:bridge"/]
-        Sync[/"/kamiflow:sync"/]
+        Handoff[/"/kamiflow:core:bridge"/]
+        Sync[/"/kamiflow:ops:sync"/]
     end
 
     subgraph Construction_Phase [🛠 Construction & Execution]
@@ -33,8 +33,8 @@ graph TD
     end
 
     subgraph Autopilot_Phase [🚀 Auto-Pilot Mode]
-        Lazy{{"/kamiflow:lazy"}}
-        SuperLazy{{"/kamiflow:superlazy"}}
+        Lazy{{"/kamiflow:dev:lazy"}}
+        SuperLazy{{"/kamiflow:dev:superlazy"}}
         AutoCode[[Auto-Coding...]]
         AutoLog(Signal File: logs/*_superlazy.md)
     end
@@ -45,8 +45,8 @@ graph TD
     end
 
     subgraph Management [🧠 Management]
-        Roadmap[/"/kamiflow:update-roadmap"/]
-        Save[/"/kamiflow:save-context"/]
+        Roadmap[/"/kamiflow:ops:roadmap"/]
+        Save[/"/kamiflow:ops:save-context"/]
     end
 
     %% Flow
@@ -104,7 +104,7 @@ graph TD
 
 ## 🧭 Navigation Note
 
-The **Management Commands** (`/kamiflow:update-roadmap` and `/kamiflow:save-context`) act as your Compass and Save Button. They can (and should) be invoked at **ANY stage** to:
+The **Management Commands** (`/kamiflow:ops:roadmap` and `/kamiflow:ops:save-context`) act as your Compass and Save Button. They can (and should) be invoked at **ANY stage** to:
 
 - Check where you are.
 - Update progress.
@@ -114,13 +114,13 @@ The **Management Commands** (`/kamiflow:update-roadmap` and `/kamiflow:save-cont
 
 | Phase          | Command                  | Role               | Goal                                                       |
 | :------------- | :----------------------- | :----------------- | :--------------------------------------------------------- |
-| **🎯 Sniper**  | `/kamiflow:idea`         | Critical Chef      | **Interactive refinement with 3 options (S1-IDEA).**       |
-|                | `/kamiflow:spec`         | Spec Architect     | **Schema-First specification with Lock 1 & 2 (S2-SPEC).**  |
-|                | `/kamiflow:build`        | Build Architect    | **Legacy-Aware task generation with Lock 3 (S3-BUILD).**   |
-| **Bridge**     | `/kamiflow:bridge`       | Bridge Builder     | **Pack context for IDE (S4-HANDOFF).**                     |
-|                | `/kamiflow:sync`         | Integrator         | **Read IDE logs & Update Context.**                        |
-| **Auto-Pilot** | `/kamiflow:lazy`         | One-Man Band       | **Auto-generate all 4 Sniper artifacts in one chain.**     |
-|                | `/kamiflow:superlazy`    | Autonomous Builder | **Auto-generate all 4 Sniper artifacts AND execute code.** |
-| **Manage**     | `/kamiflow:wake`         | Memory Keeper      | **Reload project context (Session Recovery).**             |
-|                | `/kamiflow:roadmap`      | Planner            | Sync status to `ROADMAP.md`.                               |
-|                | `/kamiflow:save-context` | Memory Keeper      | Save RAM to `PROJECT_CONTEXT.md`.                          |
+| **🎯 Sniper**  | `/kamiflow:core:idea`    | Critical Chef      | **Interactive refinement with 3 options (S1-IDEA).**       |
+|                | `/kamiflow:core:spec`    | Spec Architect     | **Schema-First specification with Lock 1 & 2 (S2-SPEC).**  |
+|                | `/kamiflow:core:build`   | Build Architect    | **Legacy-Aware task generation with Lock 3 (S3-BUILD).**   |
+| **Bridge**     | `/kamiflow:core:bridge`  | Bridge Builder     | **Pack context for IDE (S4-HANDOFF).**                     |
+|                | `/kamiflow:ops:sync`     | Integrator         | **Read IDE logs & Update Context.**                        |
+| **Auto-Pilot** | `/kamiflow:dev:lazy`     | One-Man Band       | **Auto-generate all 4 Sniper artifacts in one chain.**     |
+|                | `/kamiflow:dev:superlazy`| Autonomous Builder | **Auto-generate all 4 Sniper artifacts AND execute code.** |
+| **Manage**     | `/kamiflow:ops:wake`     | Memory Keeper      | **Reload project context (Session Recovery).**             |
+|                | `/kamiflow:ops:roadmap`  | Planner            | Sync status to `ROADMAP.md`.                               |
+|                | `/kamiflow:ops:save-context` | Memory Keeper      | Save RAM to `PROJECT_CONTEXT.md`.                          |

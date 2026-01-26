@@ -340,8 +340,8 @@ Then run `/kamiflow:wake` again to load context.
 
 ### Commands That Use This Protocol
 
-- `.gemini/commands/kamiflow/wake.toml` (Health Check)
-- `.gemini/commands/kamiflow/bootstrap.toml` (Setup Engine)
+- `/kamiflow:ops:wake` (Health Check)
+- `/kamiflow:ops:bootstrap` (Setup Engine)
 
 ### How to Invoke
 
@@ -353,7 +353,7 @@ Then run `/kamiflow:wake` again to load context.
 1. **Submodule Check:**
    - If `.kami-flow/` exists AND `.gemini/` doesn't exist:
      - Display "Submodule Detected" message
-     - Suggest running `/kamiflow:bootstrap`
+     - Suggest running `/kamiflow:ops:bootstrap`
      - STOP (don't proceed with normal wake)
 ```
 
@@ -361,7 +361,7 @@ Then run `/kamiflow:wake` again to load context.
 
 ```toml
 # User runs:
-/kamiflow:bootstrap
+/kamiflow:ops:bootstrap
 
 # AI executes:
 1. Create Portal Links

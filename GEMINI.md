@@ -32,9 +32,9 @@ _The detailed logic for these commands is imported below._
 
 The core workflow uses 3 steps with 3-Layer Locks:
 
-- `/kamiflow:idea` - Interactive refinement with 3 options (Step 1: The Critical Chef).
-- `/kamiflow:spec` - Schema-First specification with Context Anchoring (Step 2: Lock 1 & 2).
-- `/kamiflow:build` - Legacy-Aware task generation (Step 3: Lock 3).
+- `/kamiflow:core:idea` - Interactive refinement with 3 options (Step 1: The Critical Chef).
+- `/kamiflow:core:spec` - Schema-First specification with Context Anchoring (Step 2: Lock 1 & 2).
+- `/kamiflow:core:build` - Legacy-Aware task generation (Step 3: Lock 3).
 
 **The 3-Layer Locks Architecture:**
 
@@ -42,21 +42,21 @@ The core workflow uses 3 steps with 3-Layer Locks:
 - 🔒 **Lock 2 (Schema-First):** Mandates Data Models before Logic in SPEC.
 - 🔒 **Lock 3 (Legacy Awareness):** Requires codebase analysis before task creation.
 
-### 🌉 The Bridge (Execution)
+### Bridge (Execution)
 
-- `/kamiflow:bridge` - Pack context for IDE (Windsurf/Cursor).
-- `/kamiflow:sync` - Read IDE logs & update Context.
+- `/kamiflow:core:bridge` - Pack context for IDE (Windsurf/Cursor).
+- `/kamiflow:ops:sync` - Read IDE logs & update Context.
 
 ### 🚀 Auto-Pilot (Lazy Modes)
 
-- `/kamiflow:lazy` - Auto-generate all 4 Sniper artifacts (IDEA/SPEC/BUILD/HANDOFF) in one chain.
-- `/kamiflow:superlazy` - Auto-generate AND execute immediately.
+- `/kamiflow:dev:lazy` - Auto-generate all 4 Sniper artifacts (IDEA/SPEC/BUILD/HANDOFF) in one chain.
+- `/kamiflow:dev:superlazy` - Auto-generate AND execute immediately.
 
 ### 🧠 Management
 
-- `/kamiflow:wake` - Reload project context (Session Recovery).
-- `/kamiflow:roadmap` - Sync `docs/ROADMAP.md`.
-- `/kamiflow:save-context` - Save RAM to `PROJECT_CONTEXT.md`.
+- `/kamiflow:ops:wake` - Reload project context (Session Recovery).
+- `/kamiflow:ops:roadmap` - Sync `docs/ROADMAP.md`.
+- `/kamiflow:ops:save-context` - Save RAM to `PROJECT_CONTEXT.md`.
 
 ---
 

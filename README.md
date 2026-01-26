@@ -1,6 +1,6 @@
 # 🌊 KamiFlow: The Indie Builder's Template for Gemini CLI
 
-**<!-- KAMI_VERSION_START -->v2.10 (Global Hub)<!-- KAMI_VERSION_END -->**
+**<!-- KAMI_VERSION_START -->v2.15.1 (Modular Engine)<!-- KAMI_VERSION_END -->**
 
 **KamiFlow** is a rigorous, opinionated "Operating System" for Indie Hackers using Gemini CLI. It transforms the AI from a generic chatbot into a disciplined **Technical Co-Founder**.
 
@@ -70,34 +70,11 @@ Best for freelancers or studios managing multiple projects.
 
 2.  **Wake Up (Auto-Bootstrap):**
     ```bash
-    /kamiflow:wake
+    /kamiflow:ops:wake
     ```
     *The system will automatically detect the submodule, create necessary portals (symlinks), and load the project context.*
 
-### Option B: Start New Project (Template)
-
-Clone KamiFlow directly for a standalone copy:
-
-```bash
-# Clone the repository
-git clone https://github.com/YOUR_USERNAME/gemini-cli-workflow.git my-project
-cd my-project
-
-# Start Gemini CLI
-gemini
-/kamiflow:wake
-```
-
-**Result:** Full KamiFlow copy ready to customize.
-
----
-
-### 📚 Need More Help?
-
-- **[Full Integration Guide](docs/GETTING_STARTED.md)** - Detailed step-by-step instructions
-- **[Troubleshooting](docs/TROUBLESHOOTING.md)** - Solutions for common setup issues (Windows Symlinks, etc.)
-
----
+...
 
 ## 🔄 Keeping KamiFlow Updated
 
@@ -121,7 +98,7 @@ kami update
 
 ```bash
 # Inside Gemini CLI
-/kamiflow:upgrade
+/kamiflow:dev:upgrade
 ```
 
 **Modes explained:**
@@ -134,43 +111,31 @@ kami update
 
 ## 🛠 The Core Workflow (The Sniper Model)
 
-### Step 1: /kamiflow:idea (The Critical Chef)
+### Step 1: /kamiflow:core:idea (The Critical Chef)
 
 Diagnostic interview and synthesis into 3 refined solution approaches.
 
-### Step 2: /kamiflow:spec (The Specification Architect)
+### Step 2: /kamiflow:core:spec (The Specification Architect)
 
 Detailed specification using Schema-First design and Context Anchoring.
 
-### Step 3: /kamiflow:build (The Build Architect)
+### Step 3: /kamiflow:core:build (The Build Architect)
 
 Break down SPEC into executable tasks with Legacy Code awareness.
 
-### Step 4: /kamiflow:bridge (The Bridge Builder)
+### Step 4: /kamiflow:core:bridge (The Bridge Builder)
 
-Package context for IDE handoff or run `/superlazy` for auto-execution.
+Package context for IDE handoff or run `/kamiflow:dev:superlazy` for auto-execution.
 
----
-
-## 🧠 The "Brain" Structure
-
-- **`.gemini/rules/`**: The Constitution.
-  - `manifesto.md`: Non-negotiable mindset (e.g., "No files > 300 lines").
-  - `validator-loop.md`: Self-healing protocols.
-  - `id-protocol.md`: Global ID tracking rules.
-- **`.gemini/commands/kamiflow/`**:
-  - `lazy.toml` & `superlazy.toml`: Auto-pilot modes for high-speed building.
-
----
+...
 
 ## 🤝 IDE Integration (The Bridge)
 
 KamiFlow is designed to work seamlessly alongside your IDE.
 
 1.  **Plan in Terminal:** Use Gemini CLI for strategic planning.
-2.  **Code in IDE:** Use `/kamiflow:bridge` to get the prompt and execute.
-3.  **Sync Back:** After coding, run `/kamiflow:sync` to update AI memory.
-
+2.  **Code in IDE:** Use `/kamiflow:core:bridge` to get the prompt and execute.
+3.  **Sync Back:** After coding, run `/kamiflow:ops:sync` to update AI memory.
 ---
 
 _Built with ❤️ for the 10x Indie Hacker._
