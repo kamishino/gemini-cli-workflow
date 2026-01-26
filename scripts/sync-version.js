@@ -74,8 +74,10 @@ async function generateChangelog(newVersion) {
     // Get last tag
     let lastTag = '';
     try {
-      const { stdout } = await execa('git', ['describe', '--tags', '--abbrev=0']);
-      lastTag = stdout.trim();
+      // Use sort=-creatordate to find the most recently created tag, regardless of graph reachability
+      const { stdout } = await execa('git', ['tag', '--sort=-creatordate']);
+      const tags = stdout.split('\n').filter(Boolean);
+      lastTag = tags[0] || '';
     } catch (e) {
       log('No previous tags found. Generating full log.', 'info');
     }
