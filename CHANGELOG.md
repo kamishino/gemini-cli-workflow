@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [v2.11.0] - 2026-01-26
+
+### 🚀 Features
+- feat(cli): implement smart release command and versioning workflow (5ca60a0)
+
+
 ## [v2.10.1] - 2026-01-26
 
 ### 🚀 Features
