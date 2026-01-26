@@ -24,7 +24,15 @@ After completing a significant task, you **MUST** create a log file:
 - **Path:** `docs/handoff_logs/YYYY-MM-DD_HHMM_task-description.md`
 - **Content:** Status, Changes, Next Steps.
 
-## 4. ⚠️ GIT AMEND WARNING
+## 4. 🛡️ TOML INTEGRITY GUARD
+
+**MANDATORY:** If you modify any file in `.gemini/commands/`, you **MUST** run the validator before committing:
+
+- **Command:** `node bin/kami.js validate`
+- **Rule:** If the validator returns an error, you MUST fix the syntax (row/col provided in output) and re-run until it passes.
+- **NEVER** commit a broken TOML command.
+
+## 5. ⚠️ GIT AMEND WARNING
 
 **IMPORTANT:** If you want the Git Amend flow to work for documentation updates:
 

@@ -11,14 +11,15 @@ AI automatically searches for project-specific validation tools (e.g., `npm test
 
 ### 3. Validate
 AI runs the detected command and captures the output. 
-- **Critical Errors:** Syntax errors, failed tests, type mismatches.
+- **Critical Errors (BLOCKING):** TOML Syntax Errors, code syntax errors, failed tests, type mismatches.
 - **Warnings:** Format issues, minor lint warnings.
 
 ### 4. Heal (Self-Correction)
 If **Critical Errors** are found, the AI:
-1. Analyzes the error log.
+1. Analyzes the error log (Check row/column for TOML).
 2. Identifies the root cause.
 3. Applies a targeted fix.
+   - *Tip:* For TOML paths/PowerShell, use triple-single-quotes (`'''`) to avoid escape character issues.
 4. Restarts the validation (Max 3 attempts).
 
 ### 5. Report & Commit

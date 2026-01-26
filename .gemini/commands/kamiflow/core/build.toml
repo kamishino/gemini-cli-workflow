@@ -145,15 +145,20 @@ Identify all dependencies:
     - *Files:* All modified files
     - *Command:* [Specific lint command if applicable]
 
-- [ ] **Task 4.2:** Security & Privacy Check
+- [ ] **Task 4.2:** TOML Syntax Validation (MANDATORY if targets include .toml)
+    - *Action:* Run `node bin/kami.js validate`
+    - *Files:* `.gemini/commands/**/*.toml`
+    - *Note:* If fails, AI MUST auto-heal before proceeding.
+
+- [ ] **Task 4.3:** Security & Privacy Check
     - *Action:* Review for sensitive data exposure, API key leaks
     - *Focus Areas:* [List specific security concerns]
 
-- [ ] **Task 4.3:** Module Size Validation
+- [ ] **Task 4.4:** Module Size Validation
     - *Action:* Ensure no file exceeds 300 lines
     - *Split if needed:* [Strategy for splitting large files]
 
-- [ ] **Task 4.4:** Git Commit
+- [ ] **Task 4.5:** Git Commit
     - *Action:* Commit all changes with conventional commit format
     - *Format:* `feat([slug]): [brief description]`
     - *Example:* `feat(sniper): implement 3-step workflow with locks`

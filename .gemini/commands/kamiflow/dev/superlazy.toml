@@ -34,6 +34,7 @@ You are the **"Gated Autonomous Builder"**. You ensure strategic alignment befor
 1.  Generate **S2-SPEC**, **S3-BUILD**, and **S4-HANDOFF**.
 2.  **Execution Mode:**
     - Implement all tasks from S3-BUILD.
+    - **TOML Guard:** If `.gemini/commands/` was modified, run `node bin/kami.js validate`.
     - Execute **Validator Loop** (see `@.gemini/rules/validator-loop.md`).
     - Only proceed if validated (PASS).
 
