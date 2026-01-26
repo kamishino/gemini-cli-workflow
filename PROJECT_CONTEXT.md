@@ -14,9 +14,9 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/sync`.
 
-- **Last Completed Action:** Completed Core Sync Audit & Standard Alignment (Task 016).
-- **Current Focus:** Final polish and stability verification.
-- **Next Step:** Ready for release v2.15.1.
+- **Last Completed Action:** Refactored Onboarding Documentation (GETTING_STARTED & TROUBLESHOOTING) (Task 017).
+- **Current Focus:** Final verification of v2.15.1 stability.
+- **Next Step:** Official Release.
 
 ## 3. Knowledge Map (Directory Guide)
 
