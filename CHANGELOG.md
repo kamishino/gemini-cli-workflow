@@ -2,6 +2,12 @@
 ## [v2.15.7] - 2026-01-26
 
 ### 🚀 Features
+- feat(docs): categorize command documentation by logic flow and implement grouped markers (8b39aa0)
+
+
+## [v2.15.7] - 2026-01-26
+
+### 🚀 Features
 - feat(docs): implement smart command-doc synchronizer and placeholders (7f62377)
 - feat(core): implement structured diagnostic retention in S1-IDEA (12c5b26)
 - feat(core): implement universal TOML quality gate and auto-healing for all AI agents (005f295)

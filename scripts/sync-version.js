@@ -44,10 +44,11 @@ async function main() {
     // 3. Update PROJECT_CONTEXT.md
     if (fs.existsSync(CONTEXT_PATH)) {
       let context = fs.readFileSync(CONTEXT_PATH, 'utf8');
-      // "Template v2.11"
-      context = context.replace(/(Template v?)\d+\.\d+/g, `$1${newVersion}`);
-      // "Version: 2.11"
-      context = context.replace(/(Version:?\s*)\d+\.\d+\.\d+/g, `$1${newVersion}`);
+      // Fix: Use more specific regex to match the entire version string and avoid accumulation
+      // Matches "Template v2.15.7..." and replaces the version part
+      context = context.replace(/(Template v?)\d+\.\d+\.\d+[-\w.]*/g, `$1${newVersion}`);
+      // Matches "Version: 2.15.7..."
+      context = context.replace(/(Version:?\s*)\d+\.\d+\.\d+[-\w.]*/g, `$1${newVersion}`);
       fs.writeFileSync(CONTEXT_PATH, context);
       log(`Updated PROJECT_CONTEXT.md`, 'success');
     }
