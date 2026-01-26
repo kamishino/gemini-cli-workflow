@@ -60,6 +60,27 @@ The core workflow uses 3 steps with 3-Layer Locks:
 
 #### 📋 Quick Command Reference
 <!-- KAMI_COMMAND_LIST_START -->
+
+| Command | Folder | Goal |
+| :--- | :--- | :--- |
+| `/kamiflow:core:bridge` | core | **[KamiFlow] Generate a 'Context Package' prompt for external AI Editors (Windsurf/Cursor).** |
+| `/kamiflow:core:build` | core | **[KamiFlow Sniper] Generate implementation task list with Legacy Awareness (Step 3: Lock 3).** |
+| `/kamiflow:core:idea` | core | **[KamiFlow Sniper] Generate refined idea through diagnostic interview and synthesis (Step 1: Two-Phase Interactive).** |
+| `/kamiflow:core:spec` | core | **[KamiFlow Sniper] Create detailed specification with Schema-First approach (Step 2: Lock 1 & 2).** |
+| `/kamiflow:dev:archive` | dev | **[KamiFlow] Archive completed task artifacts to archive/ folder.** |
+| `/kamiflow:dev:lazy` | dev | **[KamiFlow] Auto-generate S1-S4 artifacts using Sniper Model with mandatory Diagnostic Gate.** |
+| `/kamiflow:dev:release` | dev | **[KamiFlow] Smart Release Manager - Analyze git history, context, and automate version bumping.** |
+| `/kamiflow:dev:revise` | dev | **[KamiFlow] Emergency Brake - Clarify context, resolve hallucinations, and question logic before implementation.** |
+| `/kamiflow:dev:superlazy` | dev | **[KamiFlow] Auto-generate S1-S4 artifacts AND execute immediately with mandatory Diagnostic Gate.** |
+| `/kamiflow:dev:upgrade` | dev | **[KamiFlow] Update KamiFlow to the latest version.** |
+| `/kamiflow:ops:bootstrap` | ops | **[KamiFlow] Bootstrap KamiFlow as a Git Submodule - create portal symlinks and initialize proxy files.** |
+| `/kamiflow:ops:help` | ops | **[KamiFlow] Interactive help system for commands and Sniper Model phases.** |
+| `/kamiflow:ops:roadmap` | ops | **[KamiFlow] Update and visualize the project roadmap in docs/ROADMAP.md.** |
+| `/kamiflow:ops:save-context` | ops | **[KamiFlow] Sync current state to PROJECT_CONTEXT.md (Manual Memory Save).** |
+| `/kamiflow:ops:sync` | ops | **[KamiFlow] Read logs from docs/handoff_logs and sync Project Context.** |
+| `/kamiflow:ops:tour` | ops | **[KamiFlow] Guided tour for new projects to explain the Sniper Model.** |
+| `/kamiflow:ops:wake` | ops | **[KamiFlow] Wake up and reload project context to eliminate session amnesia.** |
+
 <!-- KAMI_COMMAND_LIST_END -->
 
 ---

@@ -69,7 +69,7 @@ async function main() {
       const markerEnd = '<!-- KAMI_COMMAND_LIST_END -->';
       
       if (content.includes(markerStart) && content.includes(markerEnd)) {
-        const markerRegex = new RegExp(`${markerStart}[\s\S]*?${markerEnd}`, 'g');
+        const markerRegex = new RegExp(`${markerStart}[\\s\\S]*?${markerEnd}`, 'g');
         content = content.replace(markerRegex, `${markerStart}\n\n${tableMd}\n${markerEnd}`);
         updated = true;
       }
