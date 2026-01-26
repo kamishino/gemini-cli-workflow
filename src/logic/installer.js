@@ -1,8 +1,16 @@
-const inquirer = require("inquirer");
+#!/usr/bin/env node
+
+/**
+ * KamiFlow Universal Installer & Project Initializer
+ * Supported: Windows, MacOS, Linux
+ */
+
+const inquirer = require("inquirer").default || require("inquirer");
 const chalk = require("chalk");
 const fs = require("fs-extra");
 const path = require("path");
 const os = require("os");
+const { execSync } = require("child_process");
 const { z } = require("zod");
 const { isGitRepo, initGitRepo, addSubmodule } = require("./git-manager");
 
@@ -16,69 +24,136 @@ const ProjectConfigSchema = z.object({
 });
 
 const KAMIFLOW_REPO = "https://github.com/kamishino/gemini-cli-workflow.git";
+const INSTALL_DIR = path.join(os.homedir(), ".kami-flow");
 
 /**
- * Get Gene Store path (central KamiFlow repository)
+ * --- PART 1: UNIVERSAL INSTALLER (Direct Execution) ---
  */
-function getGeneStorePath() {
-  return path.join(os.homedir(), ".kami-flow", "core");
+
+async function runInstaller() {
+  console.log(chalk.cyan("\n========================================================"));
+  console.log(chalk.cyan("  🌊 KamiFlow Universal Installer"));
+  console.log(chalk.cyan("========================================================\n"));
+
+  try {
+    // 1. Environment Check
+    checkPrerequisites();
+
+    // 2. Install Directory Prep
+    prepareInstallDir();
+
+    // 3. Clone Repository
+    cloneRepo();
+
+    // 4. Install & Link
+    installAndLink();
+
+    // 5. Success
+    showSuccess();
+  } catch (error) {
+    console.error(chalk.red("\n❌ Installation failed:"), error.message);
+    process.exit(1);
+  }
+}
+
+function checkPrerequisites() {
+  process.stdout.write("🔍 Checking environment... ");
+  try {
+    // Check Node
+    const nodeVersion = process.version;
+    const major = parseInt(nodeVersion.replace("v", "").split(".")[0]);
+    if (major < 16) {
+      throw new Error(`Node.js version must be >= 16. Current: ${nodeVersion}`);
+    }
+
+    // Check Git
+    try {
+      execSync("git --version", { stdio: "ignore" });
+    } catch (e) {
+      throw new Error("Git is not installed. Please install Git from https://git-scm.com/");
+    }
+
+    console.log(chalk.green("Ready!"));
+  } catch (err) {
+    console.log(chalk.red("Failed"));
+    throw err;
+  }
+}
+
+function prepareInstallDir() {
+  if (fs.existsSync(INSTALL_DIR)) {
+    console.log(chalk.yellow(`⚠️  Installation directory already exists: ${INSTALL_DIR}`));
+    console.log(chalk.gray("   Updating existing installation..."));
+  } else {
+    console.log(chalk.gray(`📂 Target directory: ${INSTALL_DIR}`));
+  }
+}
+
+function cloneRepo() {
+  if (fs.existsSync(INSTALL_DIR)) {
+    console.log("📡 Updating source code...");
+    try {
+      execSync("git pull", { cwd: INSTALL_DIR, stdio: "inherit" });
+    } catch (e) {
+      console.log(chalk.yellow("   Pull failed, attempting fresh clone..."));
+      fs.removeSync(INSTALL_DIR);
+      execSync(`git clone ${KAMIFLOW_REPO} "${INSTALL_DIR}"`, { stdio: "inherit" });
+    }
+  } else {
+    console.log("📡 Cloning repository...");
+    execSync(`git clone ${KAMIFLOW_REPO} "${INSTALL_DIR}"`, { stdio: "inherit" });
+  }
+}
+
+function installAndLink() {
+  console.log("📦 Installing dependencies and linking CLI...");
+  execSync("npm install --production", { cwd: INSTALL_DIR, stdio: "inherit" });
+  console.log(chalk.gray("🔗 Linking globally..."));
+  execSync("npm install -g .", { cwd: INSTALL_DIR, stdio: "inherit" });
+}
+
+function showSuccess() {
+  console.log(chalk.green("\n✨ KamiFlow installed successfully!\n"));
+  console.log(chalk.white("You can now run:"));
+  console.log(chalk.cyan("  kami doctor  ") + chalk.gray("- To check your environment"));
+  console.log(chalk.cyan("  kami init    ") + chalk.gray("- To set up a new project\n"));
 }
 
 /**
- * Get the global core path (where this package is installed)
+ * --- PART 2: PROJECT INITIALIZER (Module Exports) ---
  */
+
+function getGeneStorePath() {
+  return path.join(os.homedir(), ".kami-flow");
+}
+
 function getGlobalCorePath() {
   return path.resolve(__dirname, "..", "..");
 }
 
-/**
- * Ensure Gene Store exists
- */
 async function ensureGeneStore() {
   const geneStorePath = getGeneStorePath();
-
   if (await fs.pathExists(geneStorePath)) {
-    console.log(chalk.green("[KAMI] ✓ Gene Store found:"), chalk.gray(geneStorePath));
     return geneStorePath;
   }
-
-  console.log(chalk.cyan("[KAMI] Gene Store not found. Initializing..."));
-  console.log(chalk.gray("[KAMI] Location:"), geneStorePath);
-
-  try {
-    await fs.ensureDir(path.dirname(geneStorePath));
-    const gitManager = require("./git-manager");
-    await gitManager.cloneRepo(KAMIFLOW_REPO, geneStorePath);
-    console.log(chalk.green("[KAMI] ✓ Gene Store initialized"));
-    return geneStorePath;
-  } catch (error) {
-    throw new Error(`Failed to initialize Gene Store: ${error.message}`);
-  }
+  // If gene store doesn't exist, we might be in a dev environment or first run
+  // For simplicity, we assume the user should run the installer first
+  throw new Error("KamiFlow Core not found. Please run the installer first.");
 }
 
-/**
- * Create a portal (symlink or copy)
- */
 async function createPortal(mapping, method) {
   const { source, target, isDirectory } = mapping;
-
   try {
-    // Check if target already exists
     if (await fs.pathExists(target)) {
       console.log(chalk.yellow(`[KAMI] ⚠️  ${path.basename(target)} already exists, skipping`));
       return;
     }
-
-    // Ensure parent directory exists
     await fs.ensureDir(path.dirname(target));
-
     if (method === "LINK") {
-      // Create symlink
       const type = isDirectory ? "junction" : "file";
       await fs.symlink(source, target, type);
       console.log(chalk.green(`[KAMI] ✓ Linked ${path.basename(target)}`));
     } else {
-      // Physical copy
       if (isDirectory) {
         await fs.copy(source, target);
       } else {
@@ -95,11 +170,7 @@ async function createPortal(mapping, method) {
   }
 }
 
-/**
- * Seed project-specific files
- */
 async function seedProjectFiles(projectPath, corePath, projectName, method) {
-  // Seed GEMINI.md
   const geminiPath = path.join(projectPath, "GEMINI.md");
   if (!(await fs.pathExists(geminiPath))) {
     if (method === "LINK") {
@@ -112,7 +183,6 @@ async function seedProjectFiles(projectPath, corePath, projectName, method) {
 `;
       await fs.writeFile(geminiPath, proxyContent, "utf8");
     } else {
-      // Copy full GEMINI.md for standalone
       const sourceGemini = path.join(corePath, "GEMINI.md");
       if (await fs.pathExists(sourceGemini)) {
         await fs.copyFile(sourceGemini, geminiPath);
@@ -121,20 +191,17 @@ async function seedProjectFiles(projectPath, corePath, projectName, method) {
     console.log(chalk.green("[KAMI] ✓ Created GEMINI.md"));
   }
 
-  // Seed PROJECT_CONTEXT.md from template
   const contextPath = path.join(projectPath, "PROJECT_CONTEXT.md");
   if (!(await fs.pathExists(contextPath))) {
     const templatePath = path.join(corePath, "docs", "templates", "context.md");
     if (await fs.pathExists(templatePath)) {
       let content = await fs.readFile(templatePath, "utf8");
-      // Replace placeholder with project name
       content = content.replace(/\[Project Name\]/g, projectName);
       await fs.writeFile(contextPath, content, "utf8");
       console.log(chalk.green("[KAMI] ✓ Created PROJECT_CONTEXT.md"));
     }
   }
 
-  // Seed docs/roadmap.md from template
   const roadmapPath = path.join(projectPath, "docs", "roadmap.md");
   if (!(await fs.pathExists(roadmapPath))) {
     const templatePath = path.join(corePath, "docs", "templates", "roadmap.md");
@@ -145,10 +212,8 @@ async function seedProjectFiles(projectPath, corePath, projectName, method) {
     }
   }
 
-  // Configure .geminiignore
   const ignorePath = path.join(projectPath, ".geminiignore");
   const ignoreEntry = "\n# Ignore KamiFlow core (accessed via portals)\n.gemini/\n.windsurf/\n";
-
   if (await fs.pathExists(ignorePath)) {
     const content = await fs.readFile(ignorePath, "utf8");
     if (!content.includes(".gemini/")) {
@@ -161,43 +226,28 @@ async function seedProjectFiles(projectPath, corePath, projectName, method) {
   }
 }
 
-/**
- * Main initialization function
- */
 async function initProject(projectPath, options) {
-  // Ensure project directory exists
   await fs.ensureDir(projectPath);
-
   console.log(chalk.cyan("[KAMI] Target path:"), chalk.gray(projectPath));
-  console.log();
 
-  // Determine if we should use Gene Store or global core
   let corePath;
-  let useGeneStore = false;
-
   if (options.mode && options.mode.toUpperCase() === "SUBMODULE") {
     corePath = await ensureGeneStore();
-    useGeneStore = true;
   } else {
     corePath = getGlobalCorePath();
     console.log(chalk.cyan("[KAMI] Core location:"), chalk.gray(corePath));
   }
 
-  console.log();
-
   let config;
-
   if (options.skipInterview) {
-    // Use defaults
     config = {
       name: path.basename(projectPath),
-      method: options.mode.toUpperCase(),
+      method: (options.mode || "LINK").toUpperCase(),
       corePath,
       rootPath: projectPath,
       features: ["core", "windsurf", "docs"],
     };
   } else {
-    // Interactive interview
     const answers = await inquirer.prompt([
       {
         type: "input",
@@ -210,13 +260,12 @@ async function initProject(projectPath, options) {
         name: "method",
         message: "Select integration mode:",
         choices: [
-          { name: "🔗 Submodule (Recommended - Git-tracked, updatable)", value: "SUBMODULE" },
+          { name: "🔗 Linked (Recommended - Auto-updates from global core)", value: "LINK" },
           { name: "📦 Standalone (Clean copy - Manual updates)", value: "STANDALONE" },
         ],
-        default: "SUBMODULE",
+        default: "LINK",
       },
     ]);
-
     config = {
       name: answers.name,
       method: answers.method,
@@ -226,188 +275,45 @@ async function initProject(projectPath, options) {
     };
   }
 
-  // Validate config
   const validConfig = ProjectConfigSchema.parse(config);
-
-  console.log();
-  console.log(chalk.cyan("[KAMI] Setting up portal network..."));
-  console.log();
-
-  // Handle SUBMODULE mode differently
   let method = validConfig.method;
 
-  if (method === "SUBMODULE") {
-    // Ensure Git repo exists
-    const isRepo = await isGitRepo(projectPath);
+  const portals = [
+    { source: path.join(corePath, ".gemini"), target: path.join(projectPath, ".gemini"), isDirectory: true },
+    { source: path.join(corePath, ".windsurf"), target: path.join(projectPath, ".windsurf"), isDirectory: true },
+    { source: path.join(corePath, "docs", "protocols"), target: path.join(projectPath, "docs", "protocols"), isDirectory: true },
+    { source: path.join(corePath, "docs", "overview.md"), target: path.join(projectPath, "docs", "overview.md"), isDirectory: false },
+  ];
 
-    if (!isRepo) {
-      console.log(chalk.cyan("[KAMI] Git repository required for SUBMODULE mode"));
-      const initGit = await inquirer.prompt([
-        {
+  for (const portal of portals) {
+    try {
+      await createPortal(portal, method);
+    } catch (error) {
+      if (error.message === "SYMLINK_PERMISSION_DENIED" && method === "LINK") {
+        const fallback = await inquirer.prompt([{ 
           type: "confirm",
-          name: "init",
-          message: "Initialize Git repository now?",
+          name: "useCopy",
+          message: "Fallback to physical copy mode?",
           default: true,
-        },
-      ]);
-
-      if (initGit.init) {
-        await initGitRepo(projectPath);
-        console.log(chalk.green("[KAMI] ✓ Git repository initialized"));
-        console.log();
+        }]);
+        if (fallback.useCopy) {
+          method = "STANDALONE";
+          await createPortal(portal, method);
+        } else {
+          throw new Error("Setup cancelled.");
+        }
       } else {
-        throw new Error("Git repository required for SUBMODULE mode. Aborting.");
-      }
-    }
-
-    // Add submodule
-    const submodulePath = ".kami-flow";
-    const submoduleFullPath = path.join(projectPath, submodulePath);
-
-    if (await fs.pathExists(submoduleFullPath)) {
-      console.log(chalk.yellow("[KAMI] ⚠️  .kami-flow already exists"));
-    } else {
-      console.log(chalk.cyan("[KAMI] Adding KamiFlow as Git submodule..."));
-      await addSubmodule(KAMIFLOW_REPO, projectPath, submodulePath);
-      console.log(chalk.green("[KAMI] ✓ Submodule added:"), chalk.gray(submodulePath));
-      console.log();
-    }
-
-    // Create symlinks to submodule content
-    const portals = [
-      {
-        source: path.join(submoduleFullPath, ".gemini"),
-        target: path.join(projectPath, ".gemini"),
-        isDirectory: true,
-      },
-      {
-        source: path.join(submoduleFullPath, ".windsurf"),
-        target: path.join(projectPath, ".windsurf"),
-        isDirectory: true,
-      },
-      {
-        source: path.join(submoduleFullPath, "docs", "protocols"),
-        target: path.join(projectPath, "docs", "protocols"),
-        isDirectory: true,
-      },
-      {
-        source: path.join(submoduleFullPath, "docs", "overview.md"),
-        target: path.join(projectPath, "docs", "overview.md"),
-        isDirectory: false,
-      },
-    ];
-
-    console.log(chalk.cyan("[KAMI] Creating portal network..."));
-    console.log();
-
-    for (const portal of portals) {
-      try {
-        await createPortal(portal, "LINK");
-      } catch (error) {
-        if (error.message === "SYMLINK_PERMISSION_DENIED") {
-          console.log(chalk.yellow("[KAMI] ⚠️  Symlink permission denied. Using physical copy as fallback."));
-          await createPortal(portal, "STANDALONE");
-        } else {
-          throw error;
-        }
-      }
-    }
-  } else {
-    // STANDALONE or LINK mode
-    const portals = [
-      {
-        source: path.join(corePath, ".gemini"),
-        target: path.join(projectPath, ".gemini"),
-        isDirectory: true,
-      },
-      {
-        source: path.join(corePath, ".windsurf"),
-        target: path.join(projectPath, ".windsurf"),
-        isDirectory: true,
-      },
-      {
-        source: path.join(corePath, "docs", "protocols"),
-        target: path.join(projectPath, "docs", "protocols"),
-        isDirectory: true,
-      },
-      {
-        source: path.join(corePath, "docs", "overview.md"),
-        target: path.join(projectPath, "docs", "overview.md"),
-        isDirectory: false,
-      },
-    ];
-
-    // Create portals
-    for (const portal of portals) {
-      try {
-        await createPortal(portal, method);
-      } catch (error) {
-        if (error.message === "SYMLINK_PERMISSION_DENIED" && method === "LINK") {
-          console.log();
-          console.log(chalk.yellow("[KAMI] ⚠️  Symlink creation requires admin rights or Developer Mode"));
-          console.log();
-
-          const fallback = await inquirer.prompt([
-            {
-              type: "confirm",
-              name: "useCopy",
-              message: "Fallback to physical copy mode?",
-              default: true,
-            },
-          ]);
-
-          if (fallback.useCopy) {
-            method = "STANDALONE";
-            console.log();
-            console.log(chalk.cyan("[KAMI] Switching to STANDALONE mode..."));
-            console.log();
-
-            // Retry this portal with STANDALONE
-            await createPortal(portal, method);
-          } else {
-            throw new Error("Setup cancelled. Please enable Developer Mode or run as Administrator.");
-          }
-        } else {
-          throw error;
-        }
+        throw error;
       }
     }
   }
 
-  console.log();
-  console.log(chalk.cyan("[KAMI] Seeding project files..."));
-  console.log();
-
-  // Seed project files
-  const seedCorePath = method === "SUBMODULE" ? path.join(projectPath, ".kami-flow") : corePath;
-  await seedProjectFiles(projectPath, seedCorePath, validConfig.name, method);
-
-  // Initialize Git if needed (only for non-SUBMODULE mode)
-  if (method !== "SUBMODULE") {
-    const gitPath = path.join(projectPath, ".git");
-    if (!(await fs.pathExists(gitPath))) {
-      console.log();
-      const initGit = await inquirer.prompt([
-        {
-          type: "confirm",
-          name: "init",
-          message: "Initialize Git repository?",
-          default: true,
-        },
-      ]);
-
-      if (initGit.init) {
-        try {
-          await initGitRepo(projectPath);
-          console.log(chalk.green("[KAMI] ✓ Git repository initialized"));
-        } catch (error) {
-          console.log(chalk.yellow("[KAMI] ⚠️  Git init failed (not critical)"));
-        }
-      }
-    }
-  }
-
+  await seedProjectFiles(projectPath, corePath, validConfig.name, method);
   return validConfig;
+}
+
+if (require.main === module) {
+  runInstaller();
 }
 
 module.exports = { initProject, getGlobalCorePath, getGeneStorePath, ensureGeneStore };

@@ -3,7 +3,7 @@ const { execSync } = require("child_process");
 const fs = require("fs-extra");
 const path = require("path");
 const os = require("os");
-const inquirer = require("inquirer");
+const inquirer = require("inquirer").default || require("inquirer");
 
 /**
  * Check if a command exists in PATH

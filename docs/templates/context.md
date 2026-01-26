@@ -13,7 +13,7 @@
 - **Next Step:** {{NEXT_STEP}}
 
 ## 3. Knowledge Map (Directory Guide)
-- **Overview:** `docs/KAMIFLOW_OVERVIEW.md` (Start here)
+- **Overview:** `docs/overview.md` (Start here)
 - **Tasks:** `tasks/` (Single source of truth for Briefs, PRDs, Tasks)
 - **Commands:** `.gemini/commands/kamiflow/*.toml` (Command Definitions)
 - **Rules:** `.gemini/rules/*.md` (Manifesto, Tech Stack, Style)
