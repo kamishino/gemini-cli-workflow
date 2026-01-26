@@ -53,14 +53,8 @@ graph TD
 
 ### Quick Command Reference
 
-| Command | Role | Goal |
-| :--- | :--- | :--- |
-| `/kamiflow:ops:wake` | Memory Keeper | **Reload project context & session memory.** |
-| `/kamiflow:core:idea` | Critical Chef | **Diagnostic interview & refined approaches.** |
-| `/kamiflow:core:spec` | Spec Architect | **Data Models & Schema-First specification.** |
-| `/kamiflow:core:build` | Build Architect | **Atomic, legacy-aware task breakdown.** |
-| `/kamiflow:core:bridge` | Bridge Builder | **Pack context for IDE (Windsurf/Cursor).** |
-| `/kamiflow:ops:sync` | Integrator | **Update AI memory & Git commit.** |
+<!-- KAMI_COMMAND_LIST_START -->
+<!-- KAMI_COMMAND_LIST_END -->
 
 ---
 

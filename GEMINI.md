@@ -58,6 +58,10 @@ The core workflow uses 3 steps with 3-Layer Locks:
 - `/kamiflow:ops:roadmap` - Sync `docs/ROADMAP.md`.
 - `/kamiflow:ops:save-context` - Save RAM to `PROJECT_CONTEXT.md`.
 
+#### 📋 Quick Command Reference
+<!-- KAMI_COMMAND_LIST_START -->
+<!-- KAMI_COMMAND_LIST_END -->
+
 ---
 
 # 📥 SYSTEM IMPORTS

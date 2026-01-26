@@ -15,9 +15,9 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/sync`.
 
-- **Last Completed Action:** Implemented Structured Diagnostic Retention in S1-IDEA (Task 020).
-- **Current Focus:** Ensuring knowledge continuity and decision auditability.
-- **Next Step:** Official Release v2.15.6.
+- **Last Completed Action:** Implemented Smart Command-Doc Synchronizer (Task 021).
+- **Current Focus:** Ensuring documentation consistency across project evolution.
+- **Next Step:** Official Release v2.15.7.
 
 ## 3. Knowledge Map (Directory Guide)
 

@@ -19,7 +19,7 @@
     "GEMINI.md"
   ],
   "scripts": {
-    "version": "node scripts/sync-version.js && git add .",
+    "version": "node scripts/sync-version.js && node scripts/sync-docs.js && git add .",
     "test": "echo \"No tests yet\" && exit 0"
   },
   "keywords": [

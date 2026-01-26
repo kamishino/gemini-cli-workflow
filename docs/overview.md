@@ -112,15 +112,5 @@ The **Management Commands** (`/kamiflow:ops:roadmap` and `/kamiflow:ops:save-con
 
 ## ⚡ Quick Command Reference
 
-| Phase          | Command                  | Role               | Goal                                                       |
-| :------------- | :----------------------- | :----------------- | :--------------------------------------------------------- |
-| **🎯 Sniper**  | `/kamiflow:core:idea`    | Critical Chef      | **Interactive refinement with 3 options (S1-IDEA).**       |
-|                | `/kamiflow:core:spec`    | Spec Architect     | **Schema-First specification with Lock 1 & 2 (S2-SPEC).**  |
-|                | `/kamiflow:core:build`   | Build Architect    | **Legacy-Aware task generation with Lock 3 (S3-BUILD).**   |
-| **Bridge**     | `/kamiflow:core:bridge`  | Bridge Builder     | **Pack context for IDE (S4-HANDOFF).**                     |
-|                | `/kamiflow:ops:sync`     | Integrator         | **Read IDE logs & Update Context.**                        |
-| **Auto-Pilot** | `/kamiflow:dev:lazy`     | One-Man Band       | **Auto-generate all 4 Sniper artifacts in one chain.**     |
-|                | `/kamiflow:dev:superlazy`| Autonomous Builder | **Auto-generate all 4 Sniper artifacts AND execute code.** |
-| **Manage**     | `/kamiflow:ops:wake`     | Memory Keeper      | **Reload project context (Session Recovery).**             |
-|                | `/kamiflow:ops:roadmap`  | Planner            | Sync status to `ROADMAP.md`.                               |
-|                | `/kamiflow:ops:save-context` | Memory Keeper      | Save RAM to `PROJECT_CONTEXT.md`.                          |
+<!-- KAMI_COMMAND_LIST_START -->
+<!-- KAMI_COMMAND_LIST_END -->

@@ -45,6 +45,7 @@
 - [x] **v2.27 Feature:** Interactive Mentor System (/ops:help & /ops:tour) (Task 018).
 - [x] **v2.28 Feature:** Universal TOML Quality Gate & Auto-Healing (Task 019).
 - [x] **v2.29 Feature:** Structured Diagnostic Retention in S1-IDEA (Task 020).
+- [x] **v2.30 Feature:** Smart Command-Doc Synchronizer (Task 021).
 
 ## 🏗️ In Progress
 - [ ] Final verification of the full KamiFlow v2.x suite.

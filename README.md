@@ -136,6 +136,13 @@ KamiFlow is designed to work seamlessly alongside your IDE.
 1.  **Plan in Terminal:** Use Gemini CLI for strategic planning.
 2.  **Code in IDE:** Use `/kamiflow:core:bridge` to get the prompt and execute.
 3.  **Sync Back:** After coding, run `/kamiflow:ops:sync` to update AI memory.
+
+---
+
+### 📋 Full Command Reference
+<!-- KAMI_COMMAND_LIST_START -->
+<!-- KAMI_COMMAND_LIST_END -->
+
 ---
 
 _Built with ❤️ for the 10x Indie Hacker._

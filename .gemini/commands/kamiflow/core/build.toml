@@ -150,7 +150,11 @@ Identify all dependencies:
     - *Files:* `.gemini/commands/**/*.toml`
     - *Note:* If fails, AI MUST auto-heal before proceeding.
 
-- [ ] **Task 4.3:** Security & Privacy Check
+- [ ] **Task 4.3:** Sync Documentation Commands
+    - *Action:* Run `node scripts/sync-docs.js` to ensure docs match codebase commands.
+    - *Files:* All .md files.
+
+- [ ] **Task 4.4:** Security & Privacy Check
     - *Action:* Review for sensitive data exposure, API key leaks
     - *Focus Areas:* [List specific security concerns]
 
