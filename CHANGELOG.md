@@ -1,4 +1,10 @@
 
+## [v2.15.4] - 2026-01-26
+
+### 🚀 Features
+- feat(ops): implement interactive mentor system with /help and /tour commands (e6db1e1)
+
+
 ## [v2.15.3] - 2026-01-26
 
 ### 🚀 Features
