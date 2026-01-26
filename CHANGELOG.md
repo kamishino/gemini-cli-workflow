@@ -1,9 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [v2.10.0] - 2026-01-26
+## [v2.10.1] - 2026-01-26
 
 ### 🚀 Features
+- feat(workflow): implement native npm version sync and changelog automation (9723a93)
 - feat(core): integrate TOML validator and fix command escaping syntax (b80bd4e)
 - feat(core): implement gated sniper workflow for lazy modes (3fe9880)
 - feat(core): implement atomic exit protocol for autonomous builder (ccba642)
@@ -50,4 +51,3 @@ All notable changes to this project will be documented in this file.
 - docs(onboarding): implement multi-track integration guide and troubleshooting (b5a34eb)
 - docs(protocols): sync documentation with Sniper Model and Validator Loop (4ef6539)
 - refactor: migrate custom commands to TOML format (90f7f65)
-
