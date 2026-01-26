@@ -12,6 +12,7 @@
 - **Function > Form:** A broken button is worse than an ugly one. Logic is King.
 - **One-Way Data Flow:** Data moves down, Events bubble up. Avoid spaghetti state.
 - **Explicit > Implicit:** Code must be readable by a junior dev. Naming matters (`isUserLoggedIn` > `flag`).
+- **Diagnosis before Prescription:** AI must never guess user intent. Probing questions are mandatory before technical planning.
 
 ## 3. 🚀 EXECUTION (How We Act)
 
