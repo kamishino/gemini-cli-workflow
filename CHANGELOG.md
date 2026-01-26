@@ -1,4 +1,10 @@
 
+## [v2.15.1] - 2026-01-26
+
+### 🐛 Fixes
+- fix(config): strip BOM characters from TOML files to fix parser error (d6d2d34)
+
+
 ## [v2.15.0] - 2026-01-26
 
 ### 🚀 Features
