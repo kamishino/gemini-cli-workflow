@@ -6,6 +6,7 @@
 - **Goal:** {{PROJECT_GOAL}}
 - **Current Phase:** {{CURRENT_PHASE}}
 - **Key Tech:** {{KEY_TECH_STACK}}
+- **Tour Completed:** false
 
 ## 2. Active Context (The "Now")
 - **Last Completed Action:** {{LAST_COMPLETED_ACTION}}

@@ -9,14 +9,15 @@
 - **Goal:** A rigorous, opinionated "Operating System" template for Indie Hackers using Gemini CLI + AI IDEs.
 - **Current Phase:** Template v2.15.3.2.1 (Modular Engine)
 - **Key Tech:** Gemini CLI (TOML Commands), Node.js CLI, Windsurf/Cursor, Markdown Protocols.
+- **Tour Completed:** true
 
 ## 2. Active Context (The "Now")
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/sync`.
 
-- **Last Completed Action:** Refactored Onboarding Documentation (GETTING_STARTED & TROUBLESHOOTING) (Task 017).
-- **Current Focus:** Final verification of v2.15.1 stability.
-- **Next Step:** Official Release.
+- **Last Completed Action:** Implemented Interactive Mentor System (/ops:help & /ops:tour) (Task 018).
+- **Current Focus:** Final polish and stability verification.
+- **Next Step:** Official Release v2.15.4.
 
 ## 3. Knowledge Map (Directory Guide)
 

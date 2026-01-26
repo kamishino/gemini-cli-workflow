@@ -42,6 +42,7 @@
 - [x] **v2.24 Feature:** Modular Command Architecture & Memory Enhancement (Task 015).
 - [x] **v2.25 Feature:** Core Sync Audit & Standard Alignment (Task 016).
 - [x] **v2.26 Feature:** Onboarding Documentation Refresh (Task 017).
+- [x] **v2.27 Feature:** Interactive Mentor System (/ops:help & /ops:tour) (Task 018).
 
 ## 🏗️ In Progress
 - [ ] Final verification of the full KamiFlow v2.x suite.
