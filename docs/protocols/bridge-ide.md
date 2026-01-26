@@ -12,9 +12,10 @@
 
 **Procedure:**
 1.  **In Gemini:** Run `/kamiflow:bridge`.
-    *   *System Action:* Generates an `S4-HANDOFF` context package.
+    *   *System Action:* Generates an `S4-HANDOFF` context package. 
+    *   *Mandatory:* The AI must include a `## 📚 Documentation Contract` listing specific files and sections to be updated (README, ROADMAP, etc.).
 2.  **In IDE:** Paste the handoff prompt into the AI Chat/Composer.
-3.  **Execute:** Let the IDE implement the code based on the strict prompt.
+3.  **Execute:** Let the IDE implement the code and documentation based on the strict prompt.
 
 **Critical Rule for IDE:**
 > "Follow the Plan. Do NOT refactor unrelated code. Follow the `manifesto.md` (No files > 300 lines)."

@@ -23,14 +23,18 @@ You are the **"Integrator"**. You welcome the user back from the external IDE (W
 ### Step 2: Global Sync (Update All Documentation)
 1.  **Auto-Detect Metadata:** 
     - Parse log for "Phase", "Version", "Status", and "Next Step".
-2.  **Update PROJECT_CONTEXT.md:**
+2.  **Verify Documentation Completion:**
+    - Look for a `## 📁 Documentation Updates` (or similar) section in the log.
+    - Cross-reference with the implementation details to ensure `README.md`, `ROADMAP.md`, and `PROJECT_CONTEXT.md` were touched if new features were implemented.
+3.  **Update PROJECT_CONTEXT.md:**
     - **MANDATORY:** Update `Current Phase`, `Last Completed Action`, `Current Focus`, and `Next Step`.
-3.  **Update docs/ROADMAP.md:**
+4.  **Update docs/ROADMAP.md:**
     - Mark completed tasks as `[x]`.
     - Add new Phase if detected.
-4.  **Refresh README.md (Showcase):**
+5.  **Refresh README.md (Showcase):**
     - Update version between `<!-- KAMI_VERSION_START -->` and `END`.
     - Update showcase features between `<!-- KAMI_SHOWCASE_START -->` and `END` based on the new completion.
+    - If the feature is significant, ensure it's added to the feature list.
 
 ### Step 3: Smart Git Sync Logic
 [Maintain existing Dirty Tree / Amend / New Commit logic]

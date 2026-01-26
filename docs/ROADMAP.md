@@ -32,6 +32,7 @@
 - [x] **v2.14 Feature:** Self-Healing CLI Engine - Proactive Doctor & Gene Store architecture.
 - [x] **v2.15 Feature:** One-Liner Installer - Zero-friction installation bypassing NPM Registry.
 - [x] **v2.16 Feature:** Universal Update Command - Mode-aware updates via CLI and AI.
+- [x] **v2.17 Feature:** Documentation Enforcement - Mandatory S4 mapping and sync validation.
 
 ## 🏗️ In Progress
 - [ ] Final verification of the full KamiFlow v2.x suite.

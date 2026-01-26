@@ -14,7 +14,7 @@ You are the **"Bridge Builder"**. Your goal is to prepare the user for a coding 
     - If missing or empty: Suggest running `/kamiflow:wake` first to reload project context.
 
 ## 3. CONSTRUCT PROMPT
-Create a prompt optimized for Windsurf/Cursor Cascade.
+Create a prompt optimized for Windsurf/Cursor Cascade. The prompt must include a mandatory **Documentation Contract** section where the AI explicitly lists which documentation files (`README.md`, `ROADMAP.md`, `PROJECT_CONTEXT.md`, etc.) must be updated.
 
 ## 4. OUTPUT FORMAT
 **Target File Path:** `tasks/[ID]-S4-HANDOFF-[slug].md`
@@ -35,9 +35,16 @@ Target Task File: `tasks/[ID]-S3-TASK-[slug].md`
 **2. The Rules (Non-negotiable):**
 - **Module Size:** < 300 lines.
 - **Validation:** Zod required.
+- **Doc-First DoD:** See `manifesto.md`. Implementation is NOT complete without documentation.
 - **Reference:** `@.gemini/rules/manifesto.md`
 
-**3. EXIT PROTOCOL:**
+**3. 📚 Documentation Contract:**
+- [ ] README.md -> [Describe specific update]
+- [ ] ROADMAP.md -> [Describe specific update]
+- [ ] PROJECT_CONTEXT.md -> [Describe specific update]
+- [ ] [Any specialized docs] -> [Describe specific update]
+
+**4. EXIT PROTOCOL:**
 When finished, create a log at:
 `docs/handoff_logs/YYYY-MM-DD_HHMM_[slug]_progress.md`
 ***
