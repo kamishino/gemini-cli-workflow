@@ -1,4 +1,13 @@
 
+## [v2.13.0] - 2026-01-26
+
+### 🚀 Features
+- feat(workflow): implement session language selection and revise guard (96b37dd)
+
+### 🐛 Fixes
+- fix(scripts): use date-based tag sorting to correct changelog range (4441b36)
+
+
 ## [v2.12.0] - 2026-01-26
 
 ### 🚀 Features
