@@ -36,6 +36,7 @@
 - [x] **v2.18 Feature:** Atomic Exit Protocol - Auto-Sync, Commit, and Archive for Native Mode.
 - [x] **v2.19 Feature:** Native NPM Version Sync (Task 009).
 - [x] **v2.20 Feature:** Smart Release Command (Task 010).
+- [x] **v2.21 Feature:** Universal Cross-OS Installer (Task 011).
 
 ## 🏗️ In Progress
 - [ ] Final verification of the full KamiFlow v2.x suite.

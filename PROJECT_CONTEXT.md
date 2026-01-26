@@ -14,8 +14,8 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/sync`.
 
-- **Last Completed Action:** Implemented Smart Release Command (Task 010) for AI-driven versioning.
-- **Current Focus:** Ready for public rollout.
+- **Last Completed Action:** Implemented Universal Cross-OS Installer (Task 011) via npx.
+- **Current Focus:** Final verification of the integrated KamiFlow v2.x ecosystem.
 - **Next Step:** Ready for release and public rollout.
 
 ## 3. Knowledge Map (Directory Guide)

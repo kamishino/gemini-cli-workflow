@@ -5,8 +5,19 @@
   "main": "bin/kami.js",
   "bin": {
     "gemini-cli-kamiflow": "bin/kami.js",
-    "kami": "bin/kami.js"
+    "kami": "bin/kami.js",
+    "kamiflow-install": "src/logic/installer.js"
   },
+  "files": [
+    "bin/",
+    "src/",
+    "docs/",
+    ".gemini/",
+    "scripts/",
+    "package.json",
+    "PROJECT_CONTEXT.md",
+    "GEMINI.md"
+  ],
   "scripts": {
     "version": "node scripts/sync-version.js && git add .",
     "test": "echo \"No tests yet\" && exit 0"
