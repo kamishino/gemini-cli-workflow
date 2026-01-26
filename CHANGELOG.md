@@ -1,4 +1,10 @@
 
+## [v2.15.9] - 2026-01-26
+
+### 🚀 Features
+- feat(docs): standardized all artifacts to english and improved TOML string safety (6a50e77)
+
+
 ## [v2.15.8] - 2026-01-26
 
 ### 🚀 Features
