@@ -106,6 +106,10 @@ async function generateChangelog(newVersion) {
     };
 
     commits.forEach(c => {
+      // Ignore release commits to prevent duplication
+      if (c.subject.match(/^chore\(release\):/)) return;
+      if (c.subject.match(/^\d+\.\d+\.\d+/)) return; // Ignore "2.10.1" style
+
       const match = c.subject.match(/^(feat|fix|chore|docs|refactor|test)(\(.*\))?: (.*)$/);
       if (match) {
         const type = match[1];
