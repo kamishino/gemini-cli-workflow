@@ -44,7 +44,7 @@ If user says any of these (in {{CONVERSATIONAL_LANGUAGE}}):
 Then:
 1. **Execute Global Scan:**
    - Run: `Get-ChildItem -Path tasks, archive -Filter *.md -Recurse`
-   - Extract IDs using regex: `^(\d{3})`
+   - Extract IDs using regex: `^(\\d{3})`
    - Calculate: `MAX_ID = MAX(all IDs)`
 
 2. **Update Cache:**

@@ -98,4 +98,33 @@ program
     console.log();
   });
 
+// Validate command
+program
+  .command("validate")
+  .description("Validate configuration files (TOML)")
+  .option("-p, --path <path>", "Path to directory or file to validate", ".gemini/commands/kamiflow")
+  .action(async (options) => {
+    try {
+      const { validateTomlFiles } = require("../src/validators/toml-validator");
+      const targetPath = path.resolve(process.cwd(), options.path);
+      
+      console.log(chalk.cyan("\n========================================================"));
+      console.log(chalk.cyan("  🔍 KamiFlow Configuration Validator"));
+      console.log(chalk.cyan("========================================================\n"));
+      
+      const result = await validateTomlFiles(targetPath);
+      
+      console.log(chalk.cyan("\n" + "─".repeat(50)));
+      if (result.invalid === 0) {
+        console.log(chalk.green(`\n✨ All ${result.total} TOML files are valid!\n`));
+      } else {
+        console.log(chalk.red(`\n⚠️  Found ${result.invalid} invalid TOML files.\n`));
+        process.exit(1);
+      }
+    } catch (error) {
+      console.error(chalk.red("\n❌ Error:"), error.message);
+      process.exit(1);
+    }
+  });
+
 program.parse();

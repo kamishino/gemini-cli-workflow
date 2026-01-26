@@ -210,6 +210,37 @@ async function checkCurrentProject() {
   }
 }
 
+const { validateTomlFiles } = require("../validators/toml-validator");
+
+/**
+ * Check KamiFlow TOML Configuration
+ */
+async function checkTomlConfig() {
+  try {
+    const kamiflowPath = path.join(process.cwd(), ".gemini", "commands", "kamiflow");
+    if (fs.existsSync(kamiflowPath)) {
+      const result = await validateTomlFiles(kamiflowPath, { verbose: false });
+      
+      console.log(chalk.gray("Configuration (TOML):"), `${result.valid}/${result.total} valid`);
+      
+      if (result.invalid === 0) {
+        console.log(chalk.green("  ✓ All configuration files are valid"));
+        return true;
+      } else {
+        console.log(chalk.red(`  ✗ ${result.invalid} invalid TOML files detected`));
+        console.log(chalk.yellow("  → Run: kami validate --path .gemini/commands/kamiflow"));
+        return false;
+      }
+    } else {
+      // Not critical if directory doesn't exist yet (maybe pre-init)
+      return true;
+    }
+  } catch (error) {
+    console.log(chalk.red("  ✗ Failed to validate TOML files"));
+    return false;
+  }
+}
+
 /**
  * Run all health checks
  */
@@ -231,6 +262,9 @@ async function runDoctor(options = {}) {
   const symlinkHealthy = await checkSymlinkCapability();
   console.log();
 
+  const tomlHealthy = await checkTomlConfig();
+  console.log();
+
   const projectHealthy = await checkCurrentProject();
 
   const results = {
@@ -239,13 +273,14 @@ async function runDoctor(options = {}) {
     git: gitHealthy,
     developerMode: devModeResult,
     symlink: symlinkHealthy,
+    toml: tomlHealthy,
     project: projectHealthy,
   };
 
   console.log();
   console.log(chalk.cyan("─".repeat(50)));
 
-  const allHealthy = results.node && results.gemini.installed && results.git;
+  const allHealthy = results.node && results.gemini.installed && results.git && results.toml;
   results.allHealthy = allHealthy;
 
   if (!allHealthy) {

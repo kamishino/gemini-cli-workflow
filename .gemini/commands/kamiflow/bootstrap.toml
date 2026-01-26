@@ -29,7 +29,7 @@ You are the **"Bootstrapper"** - responsible for activating KamiFlow when it's a
 ```powershell
 # Create .gemini/ symlink
 try {
-    New-Item -ItemType SymbolicLink -Path ".gemini" -Target ".kami-flow\.gemini" -ErrorAction Stop
+    New-Item -ItemType SymbolicLink -Path ".gemini" -Target ".kami-flow\\.gemini" -ErrorAction Stop
     Write-Output "✅ Created .gemini/ portal"
 } catch {
     Write-Output "❌ Failed to create .gemini/ portal: $($_.Exception.Message)"
@@ -42,7 +42,7 @@ try {
 ```powershell
 # Create .windsurf/ symlink
 try {
-    New-Item -ItemType SymbolicLink -Path ".windsurf" -Target ".kami-flow\.windsurf" -ErrorAction Stop
+    New-Item -ItemType SymbolicLink -Path ".windsurf" -Target ".kami-flow\\.windsurf" -ErrorAction Stop
     Write-Output "✅ Created .windsurf/ portal"
 } catch {
     Write-Output "❌ Failed to create .windsurf/ portal: $($_.Exception.Message)"
@@ -60,7 +60,7 @@ if (!(Test-Path "docs")) {
 
 # Create docs/protocols/ symlink (directory)
 try {
-    New-Item -ItemType SymbolicLink -Path "docs\protocols" -Target ".kami-flow\docs\protocols" -ErrorAction Stop
+    New-Item -ItemType SymbolicLink -Path "docs\\protocols" -Target ".kami-flow\\docs\\protocols" -ErrorAction Stop
     Write-Output "✅ Created docs/protocols/ portal"
 } catch {
     Write-Output "❌ Failed to create docs/protocols/ portal: $($_.Exception.Message)"
@@ -69,7 +69,7 @@ try {
 
 # Create docs/overview.md symlink (file-level)
 try {
-    New-Item -ItemType SymbolicLink -Path "docs\overview.md" -Target ".kami-flow\docs\overview.md" -ErrorAction Stop
+    New-Item -ItemType SymbolicLink -Path "docs\\overview.md" -Target ".kami-flow\\docs\\overview.md" -ErrorAction Stop
     Write-Output "✅ Created docs/overview.md portal"
 } catch {
     Write-Output "❌ Failed to create docs/overview.md portal: $($_.Exception.Message)"
@@ -112,9 +112,9 @@ if (Test-Path "PROJECT_CONTEXT.md") {
     Write-Output "   Skipping initialization to preserve existing context"
 } else {
     # Check for template in new location
-    if (Test-Path ".kami-flow\docs\templates\context.md") {
+    if (Test-Path ".kami-flow\\docs\\templates\\context.md") {
         # Copy template
-        Copy-Item ".kami-flow\docs\templates\context.md" "PROJECT_CONTEXT.md"
+        Copy-Item ".kami-flow\\docs\\templates\\context.md" "PROJECT_CONTEXT.md"
         Write-Output "✅ Created PROJECT_CONTEXT.md from template"
     } else {
         # Use embedded fallback
@@ -155,14 +155,14 @@ if (Test-Path "PROJECT_CONTEXT.md") {
 **docs/roadmap.md (Seeded from Template)**
 ```powershell
 # Check if docs/roadmap.md already exists
-if (Test-Path "docs\roadmap.md") {
+if (Test-Path "docs\\roadmap.md") {
     Write-Output "⚠️  docs/roadmap.md already exists"
     Write-Output "   Skipping initialization to preserve existing roadmap"
 } else {
     # Check for template
-    if (Test-Path ".kami-flow\docs\templates\roadmap.md") {
+    if (Test-Path ".kami-flow\\docs\\templates\\roadmap.md") {
         # Copy template
-        Copy-Item ".kami-flow\docs\templates\roadmap.md" "docs\roadmap.md"
+        Copy-Item ".kami-flow\\docs\\templates\\roadmap.md" "docs\\roadmap.md"
         Write-Output "✅ Created docs/roadmap.md from template"
     } else {
         Write-Output "⚠️  Roadmap template not found, skipping"
@@ -183,7 +183,7 @@ $ignoreEntry = @"
 if (Test-Path ".geminiignore") {
     # Check if already ignored
     $content = Get-Content ".geminiignore" -Raw
-    if ($content -notlike "*\.kami-flow/*") {
+    if ($content -notlike "*\\.kami-flow/*") {
         Add-Content -Path ".geminiignore" -Value $ignoreEntry -Encoding UTF8
         Write-Output "✅ Updated .geminiignore"
     } else {
@@ -201,7 +201,7 @@ if (Test-Path ".geminiignore") {
 **Symlink Verification**
 ```powershell
 # Verify all symlinks are valid
-$portals = @(".gemini", ".windsurf", "docs\protocols", "docs\overview.md")
+$portals = @(".gemini", ".windsurf", "docs\\protocols", "docs\\overview.md")
 $allValid = $true
 
 foreach ($portal in $portals) {
