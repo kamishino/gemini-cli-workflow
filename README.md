@@ -1,6 +1,6 @@
 # 🌊 KamiFlow: The Indie Builder's Template for Gemini CLI
 
-**<!-- KAMI_VERSION_START -->v2.15.2 (Modular Engine)<!-- KAMI_VERSION_END -->**
+**<!-- KAMI_VERSION_START -->v2.15.3 (Modular Engine)<!-- KAMI_VERSION_END -->**
 
 **KamiFlow** is a rigorous, opinionated "Operating System" for Indie Hackers using Gemini CLI. It transforms the AI from a generic chatbot into a disciplined **Technical Co-Founder**.
 

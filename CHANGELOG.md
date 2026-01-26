@@ -1,4 +1,14 @@
 
+## [v2.15.3] - 2026-01-26
+
+### 🚀 Features
+- feat(ops): implement smart onboarding protocol in /wake command (27aeb2a)
+
+### 🐛 Fixes
+- fix(ops): use forward slashes and ultra-safe TOML syntax in wake.toml (df0de82)
+- fix(cli): update next steps instruction to use modular wake command (48058d8)
+
+
 ## [v2.15.2] - 2026-01-26
 
 ### 🐛 Fixes
