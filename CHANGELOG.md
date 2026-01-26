@@ -1,4 +1,10 @@
 
+## [v2.15.0] - 2026-01-26
+
+### 🚀 Features
+- feat(workflow): implement modular command architecture and context synchronization preamble (039c3a3)
+
+
 ## [v2.14.0] - 2026-01-26
 
 ### 🚀 Features
