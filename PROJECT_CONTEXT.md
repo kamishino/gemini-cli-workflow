@@ -22,7 +22,7 @@
 
 - **Overview:** `docs/overview.md` (Start here)
 - **Tasks:** `tasks/` (Centralized Artifacts: Briefs, PRDs, Tasks, Handoffs)
-- **Commands:** `.gemini/commands/kamiflow/*.toml` (Including lazy and superlazy modes)
+- **Commands:** `.gemini/commands/kamiflow/` (Modular: `core/`, `ops/`, `dev/`)
 - **Rules:** `.gemini/rules/`
 - **Skills:** `.gemini/skills/`
 - **IDE Bridge:** `.windsurf/`
