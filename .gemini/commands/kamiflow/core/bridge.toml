@@ -1,4 +1,4 @@
-﻿description = "[KamiFlow] Generate a 'Context Package' prompt for external AI Editors (Windsurf/Cursor)."
+description = "[KamiFlow] Generate a 'Context Package' prompt for external AI Editors (Windsurf/Cursor)."
 prompt = """
 # 🧠 SYSTEM INSTRUCTION: THE BRIDGE BUILDER
 

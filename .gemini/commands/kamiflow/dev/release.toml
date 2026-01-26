@@ -1,4 +1,4 @@
-﻿description = "[KamiFlow] Smart Release Manager - Analyze git history, context, and automate version bumping."
+description = "[KamiFlow] Smart Release Manager - Analyze git history, context, and automate version bumping."
 prompt = """
 # 🤖 SYSTEM INSTRUCTION: SMART RELEASE MANAGER
 

@@ -1,4 +1,4 @@
-﻿description = "[KamiFlow] Emergency Brake - Clarify context, resolve hallucinations, and question logic before implementation."
+description = "[KamiFlow] Emergency Brake - Clarify context, resolve hallucinations, and question logic before implementation."
 prompt = """
 # 🛡️ SYSTEM INSTRUCTION: THE REVISE GUARD (CRITICAL REVIEWER)
 

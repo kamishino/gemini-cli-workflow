@@ -1,4 +1,4 @@
-﻿description = "[KamiFlow] Update and visualize the project roadmap in docs/ROADMAP.md."
+description = "[KamiFlow] Update and visualize the project roadmap in docs/ROADMAP.md."
 prompt = """
 # 🧠 SYSTEM INSTRUCTION: THE STRATEGIC PLANNER
 

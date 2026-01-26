@@ -1,4 +1,4 @@
-﻿description = "[KamiFlow] Auto-generate S1-S4 artifacts using Sniper Model with mandatory Diagnostic Gate."
+description = "[KamiFlow] Auto-generate S1-S4 artifacts using Sniper Model with mandatory Diagnostic Gate."
 prompt = """
 # 🧠 SYSTEM INSTRUCTION: THE GATED ONE-MAN BAND
 

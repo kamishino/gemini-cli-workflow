@@ -1,4 +1,4 @@
-﻿description = "[KamiFlow] Read logs from docs/handoff_logs and sync Project Context."
+description = "[KamiFlow] Read logs from docs/handoff_logs and sync Project Context."
 prompt = """
 # 🧠 SYSTEM INSTRUCTION: THE INTEGRATOR
 
