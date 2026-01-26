@@ -38,6 +38,7 @@
 - [x] **v2.20 Feature:** Smart Release Command (Task 010).
 - [x] **v2.21 Feature:** Universal Cross-OS Installer (Task 011).
 - [x] **v2.22 Feature:** Session Language Selection & Revise Guard (Task 012).
+- [x] **v2.23 Enhancement:** Self-Healing Wake & Docs Sync (Task 014).
 
 ## 🏗️ In Progress
 - [ ] Final verification of the full KamiFlow v2.x suite.

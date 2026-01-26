@@ -30,8 +30,13 @@ async function main() {
       let readme = fs.readFileSync(README_PATH, 'utf8');
       // Regex to find "Version: vX.Y.Z" or similar
       readme = readme.replace(/(Version:\s*v?)\d+\.\d+\.\d+/g, `$1${newVersion}`);
-      // Also check for badge urls like "v2.10.0"
+      // Badge urls like "v2.10.0"
       readme = readme.replace(/v\d+\.\d+\.\d+/g, `v${newVersion}`);
+      // GitHub npx/install urls: #v2.10.0
+      readme = readme.replace(/#v\d+\.\d+\.\d+/g, `#v${newVersion}`);
+      // Git checkout tags/v2.10.0
+      readme = readme.replace(/tags\/v\d+\.\d+\.\d+/g, `tags/v${newVersion}`);
+      
       fs.writeFileSync(README_PATH, readme);
       log(`Updated README.md`, 'success');
     }

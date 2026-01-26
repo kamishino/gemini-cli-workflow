@@ -14,7 +14,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/sync`.
 
-- **Last Completed Action:** Implemented Session Language Selection and Revise Guard (Task 012).
+- **Last Completed Action:** Implemented Self-Healing Wake & Docs Sync (Task 014).
 - **Current Focus:** Final verification of the integrated KamiFlow v2.x ecosystem.
 - **Next Step:** Ready for release and public rollout.
 

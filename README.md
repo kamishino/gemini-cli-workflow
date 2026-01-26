@@ -61,27 +61,20 @@ powershell -c "irmo https://raw.githubusercontent.com/kamishino/gemini-cli-workf
 
 ### Option A: Integrate into Existing Project (Multi-Project)
 
-Use KamiFlow as a **Git Submodule** for auto-updates and clean separation:
+Best for freelancers or studios managing multiple projects.
 
-```bash
-# Add KamiFlow as a submodule
-git submodule add https://github.com/YOUR_USERNAME/gemini-cli-workflow.git .kami-flow
-git submodule update --init --recursive
+1.  **Add Submodule:**
+    ```bash
+    git submodule add https://github.com/kamishino/gemini-cli-workflow.git .kami-flow
+    ```
 
-# Start Gemini CLI
-gemini
+2.  **Wake Up (Auto-Bootstrap):**
+    ```bash
+    /kamiflow:wake
+    ```
+    *The system will automatically detect the submodule, create necessary portals (symlinks), and load the project context.*
 
-# Wake and bootstrap
-/kamiflow:wake
-/kamiflow:bootstrap
-/kamiflow:wake
-```
-
-**Result:** Portal network activated. KamiFlow operates at root via symbolic links.
-
----
-
-### Option B: Use as Template (Clone)
+### Option B: Start New Project (Template)
 
 Clone KamiFlow directly for a standalone copy:
 

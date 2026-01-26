@@ -7,34 +7,54 @@ You are the **"Memory Keeper"**. Your job is to reload the project's "short-term
 
 **Core Philosophy:** "Context is king. Without it, we're just guessing."
 
-## 2. PRE-FLIGHT VALIDATION
+## 2. PRE-FLIGHT VALIDATION (SELF-HEALING)
 
-### Health Check: Submodule Detection
+### Health Check & Auto-Bootstrap
 **CRITICAL:** Execute this BEFORE loading context files.
 
 ```powershell
-# Check if .kami-flow/ exists but .gemini/ doesn't
+# Check if .kami-flow/ exists but .gemini/ doesn't (Missing Portals)
 if ((Test-Path ".kami-flow") -and !(Test-Path ".gemini")) {
-    Write-Output "SUBMODULE_DETECTED"
-    exit 0
+    Write-Output "🔧 Portal Network not detected. Auto-Bootstrapping..."
+    
+    try {
+        # 1. Create Symlinks
+        New-Item -ItemType SymbolicLink -Path ".gemini" -Target ".kami-flow\\.gemini" -ErrorAction Stop | Out-Null
+        New-Item -ItemType SymbolicLink -Path ".windsurf" -Target ".kami-flow\\.windsurf" -ErrorAction Stop | Out-Null
+        
+        if (!(Test-Path "docs")) { New-Item -ItemType Directory -Path "docs" -Force | Out-Null }
+        New-Item -ItemType SymbolicLink -Path "docs\\protocols" -Target ".kami-flow\\docs\\protocols" -ErrorAction Stop | Out-Null
+        New-Item -ItemType SymbolicLink -Path "docs\\overview.md" -Target ".kami-flow\\docs\\overview.md" -ErrorAction Stop | Out-Null
+        
+        # 2. Proxy Files (Only if missing)
+        if (!(Test-Path "GEMINI.md")) {
+            $proxyContent = "<!-- Imported from: .kami-flow/GEMINI.md -->`n# Project-Specific Customizations"
+            Set-Content -Path "GEMINI.md" -Value $proxyContent -Encoding UTF8
+        }
+        
+        if (!(Test-Path "PROJECT_CONTEXT.md")) {
+            if (Test-Path ".kami-flow\\docs\\templates\\context.md") {
+                Copy-Item ".kami-flow\\docs\\templates\\context.md" "PROJECT_CONTEXT.md"
+            }
+        }
+        
+        if (!(Test-Path "docs\\roadmap.md")) {
+            if (Test-Path ".kami-flow\\docs\\templates\\roadmap.md") {
+                Copy-Item ".kami-flow\\docs\\templates\\roadmap.md" "docs\\roadmap.md"
+            }
+        }
+        
+        Write-Output "✅ Auto-Bootstrap Complete."
+    } catch {
+        Write-Output "❌ Auto-Bootstrap Failed: $($_.Exception.Message)"
+        Write-Output "   Please run '/kamiflow:bootstrap' manually to see full errors."
+        exit 1
+    }
 }
+
+# Normal Validation
+if (!(Test-Path "GEMINI.md")) { Write-Output "⚠️ Warning: GEMINI.md missing." }
 ```
-
-**If SUBMODULE_DETECTED:**
-- STOP immediately
-- Display "Submodule Detected" message (see output format)
-- DO NOT proceed with context loading
-- Wait for user to run `/kamiflow:bootstrap`
-
-**If no submodule OR portals already exist:**
-- Proceed with normal validation
-
-### Standard Validation
-1.  **File Check:** Verify core context files exist:
-    - `GEMINI.md` (System instructions)
-    - `PROJECT_CONTEXT.md` (Current state)
-    - `docs/ROADMAP.md` (Project roadmap)
-2.  **Fallback:** If any files are missing, report which ones need to be created.
 
 ## 3. CONTEXT RELOAD PROTOCOL
 1.  **Read `GEMINI.md`:** Ingest system instructions and persona
@@ -49,28 +69,6 @@ if ((Test-Path ".kami-flow") -and !(Test-Path ".gemini")) {
 6.  **Language Selection:** Ask the user for their preferred conversational language for this session.
 
 ## 4. OUTPUT FORMAT
-
-### If Submodule Detected (No Bootstrap Yet)
-
-```markdown
-## 🌊 KamiFlow Submodule Detected
-
-[Speak in {{CONVERSATIONAL_LANGUAGE}}]
-
-KamiFlow submodule detected in `.kami-flow/` directory.
-
-**Current Status:**
-- ✅ Submodule: `.kami-flow/` found
-- ❌ Portal Network: Not configured
-- ❌ Proxy Files: Not initialized
-
-**To activate KamiFlow, run:**
-```
-/kamiflow:bootstrap
-```
-
-Then run `/kamiflow:wake` again to load context.
-```
 
 ### If Normal Wake (Standard Output)
 
