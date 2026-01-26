@@ -1,4 +1,14 @@
 
+## [v2.15.8] - 2026-01-26
+
+### 🚀 Features
+- feat(core): upgrade BUILD engine to Senior Architect standard with Subtasks and TDD (1243c52)
+- feat(docs): categorize command documentation by logic flow and implement grouped markers (8b39aa0)
+
+### 🐛 Fixes
+- fix(scripts): improve version sync regex to prevent string accumulation in PROJECT_CONTEXT.md (1abbcfa)
+
+
 ## [v2.15.7] - 2026-01-26
 
 ### 🚀 Features
