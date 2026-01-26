@@ -1,6 +1,6 @@
 # 🧠 MEMORY BANK: {{PROJECT_NAME}}
 > **SYSTEM NOTE:** This file is the "Short-term Memory" (RAM) of the project.
-> **RULE:** Update this file at the end of every session using `/kamiflow:save-context`.
+> **RULE:** Update this file at the end of every session using `/kamiflow:ops:save-context`.
 
 ## 1. Project Identity
 - **Goal:** {{PROJECT_GOAL}}

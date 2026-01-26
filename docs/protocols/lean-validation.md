@@ -9,7 +9,7 @@
 - **Rule:** Diagnosis before prescription. MANDATORY for all modes, including Lazy/SuperLazy.
 
 ### 2. Verify & Synthesize (Phase 2: The Chef)
-- **Goal:** Create 3 distinct approaches with a mandatory **Situation & Root Pain** summary.
+- **Goal:** Create 3 distinct approaches with a mandatory **Situation & Root Pain** summary and Star Ratings.
 - **Output:** S1-IDEA (DRAFT).
 - **The Gate:** AI must STOP and wait for user approval of the Situation and Option (A/B/C) before proceeding to SPEC/BUILD.
 
@@ -19,4 +19,4 @@
 - **Output:** The "Grounding Statement" to keep you focused.
 
 ## 🚀 Automated Modes (Gated Enforcement)
-Even in `/kamiflow:dev:lazy` or `/kamiflow:dev:superlazy` modes, the AI is FORBIDDEN from generating secondary artifacts (SPEC, BUILD, HANDOFF) until the IDEA phase is explicitly approved. This ensures strategic alignment before execution.
+Even in `/kamiflow:dev:lazy` or `/kamiflow:dev:superlazy` modes, the AI is FORBIDDEN from generating secondary artifacts (SPEC, BUILD, HANDOFF) until the IDEA phase is explicitly approved by the user (The Gate). This ensures strategic alignment before execution.

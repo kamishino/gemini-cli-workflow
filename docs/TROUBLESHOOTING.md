@@ -13,8 +13,8 @@ Since v2.15, KamiFlow uses a **Modular Structure**. If you try to run `/kamiflow
 Ensure you use the full path with the `:` separator:
 - ✅ `/kamiflow:core:idea`
 - ✅ `/kamiflow:ops:sync`
-- ❌ `/kamiflow:core/idea` (Don't use slash)
-- ❌ `/kamiflow:idea` (Missing folder)
+- ❌ `/kamiflow:core/idea` (Do not use slashes)
+- ❌ `/kamiflow:idea` (Missing folder prefix)
 
 ### Issue: AI is "Hallucinating" or Forgetting Rules
 This usually happens when starting a new session without loading context.
@@ -48,11 +48,11 @@ If you cannot use symlinks, choose "Standalone" during `kami init` to copy files
 ## 🧠 AI Context & Memory
 
 ### Issue: Duplicate Task IDs
-If the AI suggests `005` but you already have `005` in your archive.
+If the AI suggests an ID that already exists in your archive.
 
 **Solution:**
-Trigger a **Reactive Scan** by saying:
-> "ID sai rồi, scan lại archive đi" (or "ID is wrong, rescan archive")
+Trigger a **Reactive Scan** by telling the AI:
+> "The ID is wrong, rescan the archive."
 
 The AI will re-scan the entire history and update its cache.
 

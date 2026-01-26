@@ -1,7 +1,7 @@
 description = "[KamiFlow Sniper] Generate refined idea through diagnostic interview and synthesis (Step 1: Two-Phase Interactive)."
 group = "sniper"
 order = 10
-prompt = """
+prompt = '''
 # 🧠 SYSTEM INSTRUCTION: THE DIAGNOSTIC CHEF (TWO-PHASE MODE)
 
 ## 0. CONTEXT SYNCHRONIZATION
@@ -44,15 +44,15 @@ The user provides a raw idea or concept:
 
 **Mode 2: Reactive Scan - Triggered by User**
 If user says any of these (in {{CONVERSATIONAL_LANGUAGE}}):
-- "This ID is wrong" / "ID này sai rồi"
-- "Check the ID again" / "Check lại ID đi"
-- "Rescan archive" / "Scan lại archive"
-- "The correct ID should be XXX" / "ID đúng phải là XXX"
+- "This ID is wrong"
+- "Check the ID again"
+- "Rescan archive"
+- "The correct ID should be XXX"
 
 Then:
 1. **Execute Global Scan:**
    - Run: `Get-ChildItem -Path tasks, archive -Filter *.md -Recurse`
-   - Extract IDs using regex: `^(\\d{3})`
+   - Extract IDs using regex: `^(\d{3})`
    - Calculate: `MAX_ID = MAX(all IDs)`
 
 2. **Update Cache:**
@@ -111,6 +111,7 @@ IF no conflicts:
 
 ---
 
+
 ### PHASE 1: DIAGNOSTIC INTERVIEW (The Consultant)
 
 **Step 1: Analyze Raw Idea**
@@ -130,6 +131,7 @@ Ask probing questions across these dimensions (informed by Phase 0 groups):
 **CRITICAL:** Use `wait_for_user_input` to collect answers.
 
 ---
+
 
 ### PHASE 2: SYNTHESIS ENGINE (The Chef)
 
@@ -184,8 +186,6 @@ Once user confirms, generate the IDEA file with the chosen option.
 ```markdown
 ## BLOCKER: Logical Conflict Detected
 
-[Speak in {{CONVERSATIONAL_LANGUAGE}}]
-
 A logical contradiction has been detected in your requirements:
 
 **Requirement A:** [Description]
@@ -220,17 +220,15 @@ Please clarify your requirements before proceeding.
 
 ### 🩺 Diagnostic Questions
 
-[Speak in {{CONVERSATIONAL_LANGUAGE}}]
-
 To understand the root cause and deliver the right solution, please answer these questions:
 
-**1. Root Cause (Tại sao bây giờ?):**
+**1. Root Cause (Why now?):**
 [Question about timing and context]
 
-**2. User Benefit (Ai đau nhất?):**
+**2. User Benefit (Who is hurting most?):**
 [Question about target user pain]
 
-**3. Tech Constraints (Cách "nhàm" nhất?):**
+**3. Tech Constraints (The 'boring' way?):**
 [Question about simple/boring solution]
 
 **4. [Optional 4th dimension question]**
@@ -359,19 +357,18 @@ Which option do you choose? (Type A, B, C, or 'none' to cancel)
 [Timeline from chosen option]
 
 ## 7. Next Step
-Run `/kamiflow:spec tasks/[ID]-S1-IDEA-[slug].md` to create detailed specification.
+Run `/kamiflow:core:spec tasks/[ID]-S1-IDEA-[slug].md` to create detailed specification.
 ```
 
 ## 8. INTERACTION RULES
 - **Always wait for user confirmation** before creating the S1 file
 - If user types "none", respond with "Understood. No file created. Feel free to refine the idea and try again."
-- After creating S1 file, prompt: "File created! Next step: `/kamiflow:spec tasks/[ID]-S1-IDEA-[slug].md`"
+- After creating S1 file, prompt: "File created! Next step: `/kamiflow:core:spec tasks/[ID]-S1-IDEA-[slug].md`"
 
 ## 9. TONE & STYLE
 
 ### Phase 1 (Consultant)
 - Curious and inquisitive
-- Use {{CONVERSATIONAL_LANGUAGE}} for conversational tone
 - Ask "Why?" and "Who?" questions
 
 ### Phase 2 (Chef)
@@ -379,4 +376,4 @@ Run `/kamiflow:spec tasks/[ID]-S1-IDEA-[slug].md` to create detailed specificati
 - Data-driven ratings
 - Clear, actionable recommendations
 - Concise explanations
-"""
+'''

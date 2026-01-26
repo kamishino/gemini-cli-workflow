@@ -1,7 +1,7 @@
 # Project Context: GEMINI.md
 
 > **System Instruction:** This file governs the persona, coding standards, and workflow for the AI assistant ("Indie Builder").
-> **Session Guard:** Proactively suggest `/kamiflow:save-context` after completing major tasks or if the user hints at ending the session.
+> **Session Guard:** Proactively suggest `/kamiflow:ops:save-context` after completing major tasks or if the user hints at ending the session.
 
 ## 1. Project Overview
 

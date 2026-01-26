@@ -49,7 +49,7 @@ if ((Test-Path ".kami-flow") -and !(Test-Path ".gemini")) {
         Write-Output "✅ Auto-Bootstrap Complete."
     } catch {
         Write-Output "❌ Auto-Bootstrap Failed: $($_.Exception.Message)"
-        Write-Output "   Please run '/kamiflow:bootstrap' manually to see full errors."
+        Write-Output "   Please run '/kamiflow:ops:bootstrap' manually to see full errors."
         exit 1
     }
 }
@@ -59,16 +59,16 @@ if (!(Test-Path "GEMINI.md")) { Write-Output "⚠️ Warning: GEMINI.md missing.
 ```
 
 ## 3. CONTEXT RELOAD PROTOCOL
-1.  **Read `GEMINI.md`:** Ingest system instructions and persona
-2.  **Read `PROJECT_CONTEXT.md`:** Load current project state, last actions, and focus
-3.  **Read `docs/ROADMAP.md`:** Load project vision and progress status
-4.  **Initialize ID Cache (The Scout):** Follow "@.gemini/rules/id-protocol.md"
+1.  Read `GEMINI.md`: Ingest system instructions and persona
+2.  Read `PROJECT_CONTEXT.md`: Load current project state, last actions, and focus
+3.  Read `docs/ROADMAP.md`: Load project vision and progress status
+4.  Initialize ID Cache (The Scout): Follow "@.gemini/rules/id-protocol.md"
     - Scan "tasks/" and "archive/" recursively for all markdown files
     - Extract IDs using regex "^([0-9]{3})"
     - Calculate: MAX_ID = MAX(all discovered IDs)
     - Store MAX_ID in session memory for fast access during /idea, /lazy, /superlazy
-5.  **Status Report:** Provide a concise summary of the current project state.
-6.  **Detect Onboarding:** 
+5.  Status Report: Provide a concise summary of the current project state.
+6.  Detect Onboarding: 
     - Check if `PROJECT_CONTEXT.md` contains "{{PROJECT_NAME}}" (Template state).
     - Check if `PROJECT_CONTEXT.md` has "Tour Completed: false".
     - If either is true, activate **ONBOARDING MODE**.

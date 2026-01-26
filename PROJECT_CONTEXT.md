@@ -1,8 +1,8 @@
 # 🧠 MEMORY BANK: KamiFlow Template
 
 > **SYSTEM NOTE:** This file is the "Short-term Memory" (RAM) of the project.
-> **RULE:** Update this file at the end of every session using `/kamiflow:save-context`.
-> **INTEGRATOR RULE (ID Caching):** After running `/wake`, maintain `cached_max_id` in session memory for fast ID generation. Only re-scan when user requests correction.
+> **RULE:** Update this file at the end of every session using `/kamiflow:ops:save-context`.
+> **INTEGRATOR RULE (ID Caching):** After running `/kamiflow:ops:wake`, maintain `cached_max_id` in session memory for fast ID generation. Only re-scan when user requests correction.
 
 ## 1. Project Identity
 
@@ -13,11 +13,11 @@
 
 ## 2. Active Context (The "Now")
 
-> **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/sync`.
+> **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Implemented Smart Command-Doc Synchronizer (Task 021).
-- **Current Focus:** Ensuring documentation consistency across project evolution.
-- **Next Step:** Official Release v2.15.7.
+- **Last Completed Action:** Upgraded BUILD engine to Senior Architect standard (Task 023).
+- **Current Focus:** English standardization of all artifacts.
+- **Next Step:** Complete translation of documentation and protocols.
 
 ## 3. Knowledge Map (Directory Guide)
 
