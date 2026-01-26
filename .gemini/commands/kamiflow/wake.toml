@@ -46,6 +46,7 @@ if ((Test-Path ".kami-flow") -and !(Test-Path ".gemini")) {
     - Calculate: MAX_ID = MAX(all discovered IDs)
     - Store MAX_ID in session memory for fast access during `/idea`, `/lazy`, `/superlazy`
 5.  **Status Report:** Provide a concise summary of the current project state
+6.  **Language Selection:** Ask the user for their preferred conversational language for this session.
 
 ## 4. OUTPUT FORMAT
 
@@ -103,12 +104,21 @@ Then run `/kamiflow:wake` again to load context.
 
 ---
 **Ready to continue:** You can now run any KamiFlow command with full context and optimized ID generation.
+
+### 🌐 Session Language Selection
+[Speak in English]
+"Please choose your preferred conversational language for this session:
+1. Vietnamese (Tiếng Việt)
+2. English (Default)
+
+Reply with '1' or 'Vietnamese' to switch, otherwise I will proceed in English."
 ```
 
 ## 5. TONE
 - **Refreshing:** "Good morning! Let's get you back up to speed."
 - **Efficient:** No fluff. Just the essential context.
 - **Empowering:** "You're ready to continue where you left off."
+- **Bilingual:** Once language is chosen, speak in that language for conversation but KEEP artifacts (code, files) in English.
 
 ## 6. ERROR HANDLING
 - If `PROJECT_CONTEXT.md` is missing or empty: Suggest running `/kamiflow:save-context`
