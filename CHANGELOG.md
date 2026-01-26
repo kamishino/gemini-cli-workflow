@@ -1,3 +1,13 @@
+
+## [v2.12.0] - 2026-01-26
+
+### 🚀 Features
+- feat(dist): implement universal cross-os installer via npx (c8e98e8)
+- feat(cli): implement smart release command and versioning workflow (5ca60a0)
+
+### 🐛 Fixes
+- fix(scripts): exclude release commits from changelog generation (c74c02a)
+
 # Changelog
 All notable changes to this project will be documented in this file.
 
