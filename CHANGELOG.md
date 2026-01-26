@@ -1,4 +1,10 @@
 
+## [v2.14.0] - 2026-01-26
+
+### 🚀 Features
+- feat(workflow): implement self-healing wake logic and enhanced version sync (8d9019a)
+
+
 ## [v2.13.0] - 2026-01-26
 
 ### 🚀 Features
