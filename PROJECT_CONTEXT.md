@@ -15,9 +15,9 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/sync`.
 
-- **Last Completed Action:** Implemented Universal TOML Quality Gate & Auto-Healing (Task 019).
-- **Current Focus:** Ensuring command syntax stability across all AI agents.
-- **Next Step:** Official Release v2.15.5.
+- **Last Completed Action:** Implemented Structured Diagnostic Retention in S1-IDEA (Task 020).
+- **Current Focus:** Ensuring knowledge continuity and decision auditability.
+- **Next Step:** Official Release v2.15.6.
 
 ## 3. Knowledge Map (Directory Guide)
 

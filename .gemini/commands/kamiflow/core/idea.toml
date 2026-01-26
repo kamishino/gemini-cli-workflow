@@ -153,7 +153,8 @@ Rate each option on **4 criteria** (1-5 stars), using diagnostic insights:
 "Which option do you choose? (A/B/C or 'none' to cancel)"
 
 **Step 9: Generate S1 File (After Confirmation)**
-Once user confirms, generate the IDEA file with the chosen option.
+Once user confirms, generate the IDEA file with the chosen option. 
+**MANDATORY:** You MUST synthesize the "Diagnostic Insights" from Phase 1 and explain the "Decision Reasoning" (why this option won) inside Section 2 of the output format.
 
 ## 4. OUTPUT FORMAT (PHASE 0: LOGICAL GUARD)
 
@@ -330,6 +331,15 @@ Which option do you choose? (Type A, B, C, or 'none' to cancel)
 
 ## 2. Core Problem
 [The problem this solves]
+
+### 🔍 Diagnostic Insights
+> **From the interview:**
+> - [Key insight 1 from user responses]
+> - [Key insight 2 from user responses]
+
+### ⚖️ Decision Reasoning
+- **Chosen:** Option [A/B/C]
+- **Rationale:** [Explain why this option was selected over others based on Star Ratings and project constraints]
 
 ## 3. Key Features (MVP Scope)
 - [Feature 1]
