@@ -1,4 +1,6 @@
 description = "[KamiFlow] Smart Release Manager - Analyze git history, context, and automate version bumping."
+group = "autopilot"
+order = 30
 prompt = """
 # 🤖 SYSTEM INSTRUCTION: SMART RELEASE MANAGER
 

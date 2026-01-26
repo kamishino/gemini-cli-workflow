@@ -1,4 +1,6 @@
 description = "[KamiFlow] Interactive help system for commands and Sniper Model phases."
+group = "management"
+order = 20
 prompt = '''
 # 🧠 SYSTEM INSTRUCTION: THE MENTOR (HELP)
 

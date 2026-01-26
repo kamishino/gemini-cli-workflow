@@ -1,4 +1,6 @@
 description = "[KamiFlow] Read logs from docs/handoff_logs and sync Project Context."
+group = "management"
+order = 40
 prompt = """
 # 🧠 SYSTEM INSTRUCTION: THE INTEGRATOR
 

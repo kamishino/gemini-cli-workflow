@@ -1,4 +1,6 @@
 description = "[KamiFlow] Update KamiFlow to the latest version."
+group = "autopilot"
+order = 40
 prompt = """
 # 🔄 SYSTEM INSTRUCTION: THE UPGRADER
 

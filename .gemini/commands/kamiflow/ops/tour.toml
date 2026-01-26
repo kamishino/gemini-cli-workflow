@@ -1,4 +1,6 @@
 description = "[KamiFlow] Guided tour for new projects to explain the Sniper Model."
+group = "management"
+order = 30
 prompt = '''
 # 🧠 SYSTEM INSTRUCTION: THE GUIDE (TOUR)
 

@@ -11,9 +11,18 @@ const TARGET_FILES = [
   path.join(__dirname, '../GEMINI.md')
 ];
 
+const GROUP_TITLES = {
+  sniper: '🎯 Sniper Model (Core Flow)',
+  bridge: '🌉 The Bridge (IDE Integration)',
+  autopilot: '🚀 Auto-Pilot (Automation)',
+  management: '🧠 Management (Operations)'
+};
+
+const GROUP_ORDER = ['sniper', 'bridge', 'autopilot', 'management'];
+
 async function main() {
   try {
-    console.log(chalk.blue('ℹ️ Syncing command documentation...'));
+    console.log(chalk.blue('ℹ️ Syncing command documentation (Grouped Mode)...'));
 
     // 1. Build Command Map
     const commandMap = [];
@@ -21,18 +30,12 @@ async function main() {
 
     for (const cat of categories) {
       const catDir = path.join(COMMANDS_ROOT, cat);
-      console.log(chalk.gray(`   Scanning ${catDir}...`));
-      if (!fs.existsSync(catDir)) {
-          console.log(chalk.yellow(`   ⚠️ Directory not found: ${catDir}`));
-          continue;
-      }
+      if (!fs.existsSync(catDir)) continue;
 
       const files = fs.readdirSync(catDir).filter(f => f.endsWith('.toml'));
-      console.log(chalk.gray(`   Found ${files.length} commands in ${cat}`));
       for (const file of files) {
         const filePath = path.join(catDir, file);
         const content = fs.readFileSync(filePath, 'utf8');
-        // Handle BOM and other potential TOML parsing issues
         const cleanContent = content.replace(/^\uFEFF/, '');
         const parsed = toml.parse(cleanContent);
         const cmdName = file.replace('.toml', '');
@@ -41,20 +44,34 @@ async function main() {
           fullCommand: `/kamiflow:${cat}:${cmdName}`,
           folder: cat,
           name: cmdName,
-          description: parsed.description || 'No description provided.'
+          description: parsed.description || 'No description provided.',
+          group: parsed.group || 'management',
+          order: parsed.order || 999
         });
       }
     }
 
-    // 2. Generate Markdown Table
-    let tableMd = `| Command | Folder | Goal |\n| :--- | :--- | :--- |\n`;
-    commandMap.sort((a, b) => {
-        // Sort by folder then name
-        if (a.folder !== b.folder) return a.folder.localeCompare(b.folder);
-        return a.name.localeCompare(b.name);
-    }).forEach(cmd => {
-      tableMd += `| \`${cmd.fullCommand}\` | ${cmd.folder} | **${cmd.description}** |\n`;
-    });
+    // 2. Generate Grouped Markdown content
+    let fullMd = '';
+    
+    for (const groupKey of GROUP_ORDER) {
+      const groupCommands = commandMap
+        .filter(c => c.group === groupKey)
+        .sort((a, b) => a.order - b.order);
+
+      if (groupCommands.length === 0) continue;
+
+      fullMd += `\n### ${GROUP_TITLES[groupKey]}\n\n`;
+      fullMd += `| Command | Goal |\n| :--- | :--- |\n`;
+      
+      groupCommands.forEach(cmd => {
+        // Escape backticks for markdown table
+        const safeCommand = cmd.fullCommand.replace(/`/g, '\\`');
+        fullMd += `| \`${safeCommand}\` | **${cmd.description}** |\n`;
+      });
+      
+      fullMd += '\n';
+    }
 
     // 3. Update Markdown Files
     for (const file of TARGET_FILES) {
@@ -64,36 +81,39 @@ async function main() {
       let content = fs.readFileSync(file, 'utf8');
       let updated = false;
 
-      // A. Placeholder Update
+      // A. Placeholder Update (Safe split/join)
       const markerStart = '<!-- KAMI_COMMAND_LIST_START -->';
       const markerEnd = '<!-- KAMI_COMMAND_LIST_END -->';
       
-      if (content.includes(markerStart) && content.includes(markerEnd)) {
-        const markerRegex = new RegExp(`${markerStart}[\\s\\S]*?${markerEnd}`, 'g');
-        content = content.replace(markerRegex, `${markerStart}\n\n${tableMd}\n${markerEnd}`);
-        updated = true;
+      if (content.indexOf(markerStart) !== -1 && content.indexOf(markerEnd) !== -1) {
+        const parts = content.split(markerStart);
+        const pre = parts[0];
+        const rest = parts[1].split(markerEnd);
+        const post = rest[1];
+        
+        const newContent = pre + markerStart + '\n' + fullMd + markerEnd + post;
+        if (newContent !== content) {
+            content = newContent;
+            updated = true;
+            console.log(chalk.green(`      Markers updated in ${path.basename(file)}`));
+        }
       }
 
       // B. Regex Auto-Correction (Police)
-      // 1. Correct slashes to colons: /kamiflow:xxx/yyy -> /kamiflow:xxx:yyy
-      const slashRegex = /\/kamiflow:(\w+)\/(\w+)/g;
-      if (slashRegex.test(content)) {
-        content = content.replace(slashRegex, '/kamiflow:$1:$2');
-        updated = true;
-      }
+      const oldSlash = content;
+      content = content.replace(/\/kamiflow:(\w+)\/(\w+)/g, '/kamiflow:$1:$2');
+      if (oldSlash !== content) updated = true;
 
-      // 2. Fix legacy short commands /kamiflow:name to /kamiflow:folder:name
+      const oldShort = content;
       commandMap.forEach(cmd => {
-        const shortRegex = new RegExp(`\/kamiflow:${cmd.name}\b(?!:)`, 'g');
-        if (shortRegex.test(content)) {
-          content = content.replace(shortRegex, cmd.fullCommand);
-          updated = true;
-        }
+        const shortRegex = new RegExp(`\\/kamiflow:${cmd.name}\b(?!:)`, 'g');
+        content = content.replace(shortRegex, cmd.fullCommand);
       });
+      if (oldShort !== content) updated = true;
 
       if (updated) {
         fs.writeFileSync(file, content);
-        console.log(chalk.green(`✅ Updated ${path.relative(process.cwd(), file)}`));
+        console.log(chalk.green(`✅ File saved: ${path.relative(process.cwd(), file)}`));
       }
     }
 

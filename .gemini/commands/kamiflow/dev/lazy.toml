@@ -1,4 +1,6 @@
 description = "[KamiFlow] Auto-generate S1-S4 artifacts using Sniper Model with mandatory Diagnostic Gate."
+group = "autopilot"
+order = 10
 prompt = """
 # 🧠 SYSTEM INSTRUCTION: THE GATED ONE-MAN BAND
 

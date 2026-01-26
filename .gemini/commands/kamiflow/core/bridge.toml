@@ -1,4 +1,6 @@
 description = "[KamiFlow] Generate a 'Context Package' prompt for external AI Editors (Windsurf/Cursor)."
+group = "bridge"
+order = 10
 prompt = """
 # 🧠 SYSTEM INSTRUCTION: THE BRIDGE BUILDER
 

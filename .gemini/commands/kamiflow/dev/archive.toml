@@ -1,4 +1,6 @@
 description = "[KamiFlow] Archive completed task artifacts to archive/ folder."
+group = "autopilot"
+order = 50
 prompt = """
 # 🧠 SYSTEM INSTRUCTION: THE ARCHIVIST
 

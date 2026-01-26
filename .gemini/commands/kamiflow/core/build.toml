@@ -1,4 +1,6 @@
 description = "[KamiFlow Sniper] Generate implementation task list with Legacy Awareness (Step 3: Lock 3)."
+group = "sniper"
+order = 30
 prompt = """
 # 🧠 SYSTEM INSTRUCTION: THE BUILD ARCHITECT
 

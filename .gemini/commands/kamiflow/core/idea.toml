@@ -1,4 +1,6 @@
 description = "[KamiFlow Sniper] Generate refined idea through diagnostic interview and synthesis (Step 1: Two-Phase Interactive)."
+group = "sniper"
+order = 10
 prompt = """
 # 🧠 SYSTEM INSTRUCTION: THE DIAGNOSTIC CHEF (TWO-PHASE MODE)
 

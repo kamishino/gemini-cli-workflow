@@ -1,4 +1,6 @@
 description = "[KamiFlow] Update and visualize the project roadmap in docs/ROADMAP.md."
+group = "management"
+order = 50
 prompt = """
 # 🧠 SYSTEM INSTRUCTION: THE STRATEGIC PLANNER
 

@@ -1,4 +1,6 @@
 description = "[KamiFlow] Sync current state to PROJECT_CONTEXT.md (Manual Memory Save)."
+group = "management"
+order = 60
 prompt = """
 # 🧠 SYSTEM INSTRUCTION: THE MEMORY KEEPER
 

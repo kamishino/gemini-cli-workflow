@@ -1,4 +1,6 @@
 description = "[KamiFlow] Auto-generate S1-S4 artifacts AND execute immediately with mandatory Diagnostic Gate."
+group = "autopilot"
+order = 20
 prompt = """
 # 🧠 SYSTEM INSTRUCTION: THE GATED AUTONOMOUS BUILDER
 

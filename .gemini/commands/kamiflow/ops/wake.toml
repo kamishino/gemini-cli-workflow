@@ -1,4 +1,6 @@
 description = "[KamiFlow] Wake up and reload project context to eliminate session amnesia."
+group = "management"
+order = 10
 prompt = '''
 # 🧠 SYSTEM INSTRUCTION: THE MEMORY KEEPER
 

@@ -1,4 +1,6 @@
 description = "[KamiFlow] Bootstrap KamiFlow as a Git Submodule - create portal symlinks and initialize proxy files."
+group = "management"
+order = 70
 prompt = """
 # 🧠 SYSTEM INSTRUCTION: THE BOOTSTRAPPER
 

@@ -1,4 +1,6 @@
 description = "[KamiFlow] Emergency Brake - Clarify context, resolve hallucinations, and question logic before implementation."
+group = "autopilot"
+order = 60
 prompt = """
 # 🛡️ SYSTEM INSTRUCTION: THE REVISE GUARD (CRITICAL REVIEWER)
 
