@@ -8,6 +8,7 @@
     "kami": "bin/kami.js"
   },
   "scripts": {
+    "version": "node scripts/sync-version.js && git add .",
     "test": "echo \"No tests yet\" && exit 0"
   },
   "keywords": [
