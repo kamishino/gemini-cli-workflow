@@ -25,5 +25,11 @@ If **Critical Errors** are found, the AI:
 - **Success:** AI commits the code and provides a summary of the healing process.
 - **Failure:** If errors persist after 3 attempts, AI stops and notifies the user **without committing**.
 
+### 6. Atomic Exit (Native Mode Only)
+If the task is being executed via **Native Executor** (e.g., `/superlazy`), the AI will automatically:
+1.  **Silent Sync:** Update `PROJECT_CONTEXT.md`, `docs/ROADMAP.md`, and `README.md` showcase without prompting.
+2.  **Unified Commit:** Create a single commit containing both implementation and documentation updates.
+3.  **Autonomous Archive:** Move all task artifacts (`tasks/` and `handoff_logs/`) to the `archive/` folder immediately.
+
 ## 🧠 Memory Integration
 Successful healing patterns are logged to `PROJECT_CONTEXT.md` to prevent repetitive mistakes in future sessions.

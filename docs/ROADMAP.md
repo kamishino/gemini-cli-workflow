@@ -33,6 +33,7 @@
 - [x] **v2.15 Feature:** One-Liner Installer - Zero-friction installation bypassing NPM Registry.
 - [x] **v2.16 Feature:** Universal Update Command - Mode-aware updates via CLI and AI.
 - [x] **v2.17 Feature:** Documentation Enforcement - Mandatory S4 mapping and sync validation.
+- [x] **v2.18 Feature:** Atomic Exit Protocol - Auto-Sync, Commit, and Archive for Native Mode.
 
 ## 🏗️ In Progress
 - [ ] Final verification of the full KamiFlow v2.x suite.

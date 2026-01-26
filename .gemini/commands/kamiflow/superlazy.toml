@@ -30,7 +30,7 @@ Generate all 4 artifacts using the Sniper workflow:
 - S3-BUILD (Build Architect)
 - S4-HANDOFF (Bridge Builder)
 
-### Phase 2: IMMEDIATE EXECUTION (WITH VALIDATOR LOOP)
+### Phase 2: IMMEDIATE EXECUTION (WITH ATOMIC EXIT)
 After generating the S3-BUILD, you will:
 1. **Switch to Execution Mode**
 2. **Implement ALL tasks** from the S3-BUILD checklist
@@ -43,12 +43,13 @@ After generating the S3-BUILD, you will:
    - Step 4: If CRITICAL errors, heal (max 3 attempts)
    - Step 5: Report validation summary
 6. **Execute Phase 4 Quality Gate only after validation passes**
+7. **Atomic Exit (Native Only):**
+   - **Silent Sync:** Update `PROJECT_CONTEXT.md`, `docs/ROADMAP.md`, and `README.md` showcase without prompting.
+   - **Unified Commit:** Stage implementation AND documentation updates, then commit once.
+   - **Autonomous Archive:** Immediately move all artifacts (`tasks/` and `handoff_logs/`) to the `archive/` folder.
 
 ### Phase 3: SuperLazy Logging
-Create a handoff log with `_superlazy` tag documenting:
-- What was planned
-- What was implemented
-- Quality gate results
+Create a handoff log with `_superlazy` tag documenting implementation and automation results.
 
 ## 4. OUTPUT FORMAT
 
@@ -59,7 +60,7 @@ Create a handoff log with `_superlazy` tag documenting:
 ```markdown
 ## 🚀 SUPERLAZY EXECUTION REPORT
 
-**Mode:** SuperLazy (Plan + Execute + Validate)
+**Mode:** SuperLazy (Plan + Execute + Validate + Atomic Exit)
 **Timestamp:** [Current time]
 
 ### ✅ Tasks Implemented
@@ -79,21 +80,12 @@ Create a handoff log with `_superlazy` tag documenting:
 - **Attempt 2:** ✅ PASSED
   - All checks passed
 
-**Final Status:** ✅ Code validated and ready for commit
+### 📦 Atomic Exit Results
+- **Docs Synced:** ✅ README, ROADMAP, CONTEXT
+- **Unified Commit:** [Hash]
+- **Workspace:** ✅ CLEAN (Artifacts moved to archive/)
 
-### 📁 Files Created/Modified
-- `path/to/file1.ext` (CREATED)
-- `path/to/file2.ext` (MODIFIED)
-
-### 🔄 Git Commit
-- Hash: [commit hash]
-- Message: [conventional commit message]
-
-### 📝 Memory Bank Updates
-- [Any error patterns logged to PROJECT_CONTEXT.md]
-
----
-**SuperLazy Complete:** Feature implemented, validated, and committed.
+**Final Status:** ✅ Feature implemented, validated, and archived.
 ```
 
 ## 5. EXECUTION INSTRUCTIONS
@@ -103,15 +95,17 @@ After generating the 4 planning files, you must:
 2. **If Y:**
    - Switch to execution mode
    - Implement all S3-BUILD tasks
-   - **CRITICAL: Execute Validator Loop** (follow `@.gemini/rules/validator-loop.md`):
-     a. Discover validation commands (npm lint, tsc, pytest, etc.)
-     b. Run validation and capture output
-     c. If CRITICAL errors detected, attempt healing (max 3x)
-     d. Generate validation summary
-   - If validation passes: Run Phase 4 Quality Gate and commit
-   - If validation fails after 3 attempts: Report error, DO NOT commit
-   - Update Memory Bank in `PROJECT_CONTEXT.md` with learnings
-   - Create execution report with validator loop history
+   - **CRITICAL: Execute Validator Loop** (follow `@.gemini/rules/validator-loop.md`)
+   - If validation passes:
+     a. **Run Atomic Exit:**
+        - Update documentation (README, ROADMAP, CONTEXT) based on the implementation.
+        - `git add .` (Code + Docs).
+        - `git commit -m "feat([slug]): [description]"`
+        - `mkdir -p archive/[YYYY-MM-DD]_[ID]_[slug]`
+        - `Move-Item -Path "tasks/[ID]-*" -Destination "archive/[YYYY-MM-DD]_[ID]_[slug]/" -Force`
+        - `Move-Item -Path "docs/handoff_logs/*[ID]*" -Destination "archive/[YYYY-MM-DD]_[ID]_[slug]/" -Force`
+     b. Generate execution report with Atomic Exit results
+   - If validation fails after 3 attempts: Report error, DO NOT commit, DO NOT archive
 3. **If N:** Just provide the planning files (like lazy mode)
 
 ## 6. TONE

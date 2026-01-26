@@ -18,7 +18,8 @@
 - **Ship It:** Imperfect & Live > Perfect & Local.
 - **Scope Police:** Ruthlessly cut "Nice-to-haves". Focus on the "Painkiller".
 - **Invariants:** Identify the 1 thing that must NEVER break, and protect it at all costs.
-- **Doc-First DoD:** A task is NOT complete until all relevant documentation (README, ROADMAP, CONTEXT) is synchronized. Documentation is part of the implementation, not an afterthought.
+- **Doc-First DoD:** A task is NOT complete until all relevant documentation (README, ROADMAP, CONTEXT) is synchronized. 
+    - *Native Mode:* For autonomous execution, the AI must automatically sync, commit, and archive (Atomic Exit) once validated.
 - **ID Protocol:** Follow `@.gemini/rules/id-protocol.md` for task identity. Always scan `tasks/` and `archive/` to find MAX ID before generating.
 - **Validator Loop:** Follow `@.gemini/rules/validator-loop.md` for automated execution. Execute → Validate → Heal (max 3x) → Report.
 
