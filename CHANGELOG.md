@@ -1,4 +1,13 @@
 
+## [v2.15.2] - 2026-01-26
+
+### 🐛 Fixes
+- fix(docs): correct modular command separators and sync v2.15.1 standards (e461da4)
+
+### 🧹 Chores & Others
+- docs: refactor onboarding documents with dual-track track and modular syntax (5d80272)
+
+
 ## [v2.15.1] - 2026-01-26
 
 ### 🐛 Fixes
