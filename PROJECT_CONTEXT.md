@@ -7,7 +7,7 @@
 ## 1. Project Identity
 
 - **Goal:** A rigorous, opinionated "Operating System" template for Indie Hackers using Gemini CLI + AI IDEs.
-- **Current Phase:** Template v2.17.0 (Modular Engine)
+- **Current Phase:** Template v2.17.1 (Modular Engine)
 - **Key Tech:** Gemini CLI (TOML Commands), Node.js CLI, Windsurf/Cursor, Markdown Protocols.
 - **Tour Completed:** true
 
@@ -15,9 +15,9 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Upgraded BUILD engine to Senior Architect standard (Task 023).
-- **Current Focus:** English standardization of all artifacts.
-- **Next Step:** Complete translation of documentation and protocols.
+- **Last Completed Action:** Finalized total system audit and verified Hidden Core Architecture (Task 035).
+- **Current Focus:** Maintaining the "Aesthetics + Utility" standard after the major v3.0 refactor.
+- **Next Step:** Official Release v2.17.1 and preparation for public rollout.
 
 ## 3. Knowledge Map (Directory Guide)
 

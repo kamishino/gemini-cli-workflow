@@ -36,7 +36,7 @@
 - [x] **v2.18 Feature:** Atomic Exit Protocol - Auto-Sync, Commit, and Archive for Native Mode.
 - [x] **v2.19 Feature:** Native NPM Version Sync (Task 009).
 - [x] **v2.20 Feature:** Smart Release Command (Task 010).
-- [x] **v2.21 Feature:** Universal Cross-OS Installer (Task 011).
+- [x] **v2.21 Feature:** Universal Cross-OS Installer (Task 011/025).
 - [x] **v2.22 Feature:** Session Language Selection & Revise Guard (Task 012).
 - [x] **v2.23 Enhancement:** Self-Healing Wake & Docs Sync (Task 014).
 - [x] **v2.24 Feature:** Modular Command Architecture & Memory Enhancement (Task 015).
@@ -46,10 +46,24 @@
 - [x] **v2.28 Feature:** Universal TOML Quality Gate & Auto-Healing (Task 019).
 - [x] **v2.29 Feature:** Structured Diagnostic Retention in S1-IDEA (Task 020).
 - [x] **v2.30 Feature:** Smart Command-Doc Synchronizer (Task 021).
+- [x] **v2.31 Feature:** Logic-Driven Command Categorization (Task 022).
+- [x] **v2.32 Feature:** Senior Architect Refactor - Detailed Tasks & Subtasks (Task 023).
+- [x] **v2.33 Feature:** English Standardization of Artifacts (Task 024).
+- [x] **v2.34 Feature:** Cross-Platform Installer (Bash Version) (Task 025).
+- [x] **v2.35 Feature:** KamiFlow CLI Rebrand & Config Engine (Task 026).
+- [x] **v2.36 Feature:** Encyclopedia-Style Command Wiki (Task 027).
+- [x] **v2.37 Feature:** Interactive OS Navigator & Global Navbar (Task 028).
+- [x] **v2.38 Feature:** Visual Brand Identity - Banner & Badges (Task 029).
+- [x] **v2.39 Feature:** Power User Guide & Documentation Patch (Task 030).
+- [x] **v2.40 Feature:** Installer Optimization for Linked Mode (Task 031).
+- [x] **v2.41 Feature:** Rules Integrity & SSOT Refactor (Task 032).
+- [x] **v2.43 Feature:** High-Density Core & Tech-Stack engine (Task 033).
+- [x] **v2.44 Feature:** Hidden Core Architecture v3.0 & Self-Healing Portals (Task 034).
+- [x] **v2.45 Feature:** Total System Health Audit & Fire Test (Task 035).
 
 ## 🏗️ In Progress
-- [ ] Final verification of the full KamiFlow v2.x suite.
+- [ ] Final polishing for public rollout.
 
 ## 📅 Backlog
-- [ ] Automated setup script (`setup.sh` / `setup.bat`).
 - [ ] Integration with more IDEs.
+- [ ] Automated CI/CD for self-validation.

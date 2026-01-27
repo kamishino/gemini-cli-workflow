@@ -1,4 +1,13 @@
 
+## [v2.17.1] - 2026-01-27
+
+### 🚀 Features
+- feat(core): implement Hidden Core architecture v3.0 and self-healing portals (db9f1eb)
+
+### 🧹 Chores & Others
+- docs(audit): finalize system health report for v2.17.0 architecture (d1bf1f8)
+
+
 ## [v2.17.0] - 2026-01-27
 
 ### 🚀 Features
