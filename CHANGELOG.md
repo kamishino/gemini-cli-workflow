@@ -1,4 +1,10 @@
 
+## [v2.16.4] - 2026-01-27
+
+### 🐛 Fixes
+- fix(docs): patch command sync bug and refactor terminal guide for power users (1024faf)
+
+
 ## [v2.16.3] - 2026-01-27
 
 ### 🚀 Features
