@@ -1,4 +1,10 @@
 
+## [v2.16.6] - 2026-01-27
+
+### 🧹 Chores & Others
+- refactor(rules): consolidate execution rules to SSOT and implement strict instruction tone (003e451)
+
+
 ## [v2.16.5] - 2026-01-27
 
 ### 🧹 Chores & Others
