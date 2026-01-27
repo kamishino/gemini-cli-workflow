@@ -101,6 +101,17 @@ The core workflow uses 3 steps with 3-Layer Locks:
 | `/kamiflow:ops:save-context` | **[KamiFlow] Sync current state to PROJECT_CONTEXT.md (Manual Memory Save).** |
 | `/kamiflow:ops:bootstrap` | **[KamiFlow] Bootstrap KamiFlow as a Git Submodule - create portal symlinks and initialize proxy files.** |
 
+
+### 🖥️ Terminal CLI Guide (Flow Suite)
+
+| Command | Goal |
+| :--- | :--- |
+| `kamiflow init-flow` | **Initialize a project with KamiFlow.** |
+| `kamiflow doctor-flow` | **Check project health.** |
+| `kamiflow sync-flow` | **Synchronize command documentation.** |
+| `kamiflow archive-flow` | **Archive completed tasks.** |
+| `kamiflow config-flow` | **Manage persistent project settings.** |
+
 <!-- KAMI_COMMAND_LIST_END -->
 
 ---
