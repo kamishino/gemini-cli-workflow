@@ -23,7 +23,7 @@
   ],
   "scripts": {
     "sync": "node scripts/sync-docs.js",
-    "version": "node scripts/sync-version.js && node scripts/sync-docs.js && git add ..",
+    "version": "node scripts/sync-version.js && node scripts/sync-docs.js && git add ../README.md ../PROJECT_CONTEXT.md ../CHANGELOG.md ../GEMINI.md ../docs/",
     "test": "echo \"No tests yet\" && exit 0"
   },
   "keywords": [
