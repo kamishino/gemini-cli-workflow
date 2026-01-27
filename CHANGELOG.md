@@ -1,4 +1,10 @@
 
+## [v2.16.2] - 2026-01-27
+
+### 🚀 Features
+- feat(docs): implement interactive OS Navigator and Global Navbar across all pages (f59d25e)
+
+
 ## [v2.16.1] - 2026-01-27
 
 ### 🚀 Features

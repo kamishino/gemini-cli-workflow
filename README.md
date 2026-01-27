@@ -1,6 +1,6 @@
 # 🌊 KamiFlow: The Indie Builder's Template for Gemini CLI
 
-**<!-- KAMI_VERSION_START -->v2.16.1 (Modular Engine)<!-- KAMI_VERSION_END -->**
+**<!-- KAMI_VERSION_START -->v2.16.2 (Modular Engine)<!-- KAMI_VERSION_END -->**
 
 [ 🏠 Home ] | [ 🚀 Getting Started ](docs/GETTING_STARTED.md) | [ 📖 Command Wiki ](docs/commands/README.md) | [ 🆘 Troubleshooting ](docs/TROUBLESHOOTING.md)
 
