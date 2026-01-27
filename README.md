@@ -1,8 +1,20 @@
-# 🌊 KamiFlow: The Indie Builder's Template for Gemini CLI
+<p align="center">
+  <img src="docs/assets/banner.png" alt="KamiFlow Banner" width="100%">
+</p>
 
-**<!-- KAMI_VERSION_START -->v2.16.2 (Modular Engine)<!-- KAMI_VERSION_END -->**
+<p align="center">
+  <a href="#"><img src="https://img.shields.io/badge/version-v2.16.2-00bcd4?style=for-the-badge" alt="Version"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-2196f3?style=for-the-badge" alt="License"></a>
+  <a href="#"><img src="https://img.shields.io/badge/Designed_by-Kami_with_❤️-ff69b4?style=for-the-badge" alt="Designed by"></a>
+  <a href="#"><img src="https://img.shields.io/badge/Powered_by-Gemini_AI-ff9800?style=for-the-badge" alt="Powered by"></a>
+</p>
 
-[ 🏠 Home ] | [ 🚀 Getting Started ](docs/GETTING_STARTED.md) | [ 📖 Command Wiki ](docs/commands/README.md) | [ 🆘 Troubleshooting ](docs/TROUBLESHOOTING.md)
+<h1 align="center">🌊 KamiFlow</h1>
+<p align="center"><b>The Orchestrator for Indie Builders using Gemini CLI</b></p>
+
+<p align="center">
+  [ <a href="README.md">🏠 Home</a> ] | [ <a href="docs/GETTING_STARTED.md">🚀 Getting Started</a> ] | [ <a href="docs/commands/README.md">📖 Command Wiki</a> ] | [ <a href="docs/TROUBLESHOOTING.md">🆘 Troubleshooting</a> ]
+</p>
 
 ---
 
