@@ -5,20 +5,36 @@ const chalk = require('chalk');
 
 const COMMANDS_ROOT = path.join(__dirname, '../.gemini/commands/kamiflow');
 
-const WIKI_FILES = {
-  sniper: path.join(__dirname, '../docs/commands/core.md'),
-  bridge: path.join(__dirname, '../docs/commands/core.md'),
-  autopilot: path.join(__dirname, '../docs/commands/dev.md'),
-  management: path.join(__dirname, '../docs/commands/ops.md'),
-  terminal: path.join(__dirname, '../docs/commands/terminal.md'),
-  global: path.join(__dirname, '../docs/commands/README.md') // All commands listed here
-};
-
-// Target files that get the full grouped list
-const GLOBAL_TARGETS = [
-  path.join(__dirname, '../GEMINI.md'),
-  path.join(__dirname, '../docs/overview.md'),
-  WIKI_FILES.global
+// Mapping Files to Groups (Fixes the overwrite bug)
+const TARGET_MAP = [
+  {
+    file: path.join(__dirname, '../docs/commands/core.md'),
+    groups: ['sniper', 'bridge']
+  },
+  {
+    file: path.join(__dirname, '../docs/commands/ops.md'),
+    groups: ['management']
+  },
+  {
+    file: path.join(__dirname, '../docs/commands/dev.md'),
+    groups: ['autopilot']
+  },
+  {
+    file: path.join(__dirname, '../docs/commands/terminal.md'),
+    groups: ['terminal']
+  },
+  {
+    file: path.join(__dirname, '../docs/commands/README.md'),
+    groups: ['sniper', 'bridge', 'autopilot', 'management', 'terminal']
+  },
+  {
+    file: path.join(__dirname, '../GEMINI.md'),
+    groups: ['sniper', 'bridge', 'autopilot', 'management', 'terminal']
+  },
+  {
+    file: path.join(__dirname, '../docs/overview.md'),
+    groups: ['sniper', 'bridge', 'autopilot', 'management', 'terminal']
+  }
 ];
 
 const GROUP_TITLES = {
@@ -68,23 +84,23 @@ async function main() {
       { fullCommand: 'kamiflow doctor-flow', name: 'doctor-flow', group: 'terminal', order: 20, description: 'Check project health.' },
       { fullCommand: 'kamiflow sync-flow', name: 'sync-flow', group: 'terminal', order: 30, description: 'Synchronize command documentation.' },
       { fullCommand: 'kamiflow archive-flow', name: 'archive-flow', group: 'terminal', order: 40, description: 'Archive completed tasks.' },
-      { fullCommand: 'kamiflow config-flow', name: 'config-flow', group: 'terminal', order: 50, description: 'Manage persistent project settings.' }
+      { fullCommand: 'kamiflow config-flow', name: 'config-flow', group: 'terminal', order: 50, description: 'Manage persistent project settings.' },
+      { fullCommand: 'kamiflow update-flow', name: 'update-flow', group: 'terminal', order: 60, description: 'Update KamiFlow to the latest version.' },
+      { fullCommand: 'kamiflow info-flow', name: 'info-flow', group: 'terminal', order: 70, description: 'Display core location and version.' }
     ];
     commandMap.push(...cliCommands);
 
-    // 3. Update Global Files (Full List)
-    let fullMd = generateFullMd(commandMap);
-    for (const file of GLOBAL_TARGETS) {
-      updateFileWithMarkers(file, fullMd);
-    }
+    // 3. Process each target file
+    for (const target of TARGET_MAP) {
+      if (!fs.existsSync(target.file)) continue;
+      console.log(chalk.gray(`   Processing ${path.basename(target.file)}...`));
 
-    // 4. Update Specific Wiki Files (Categorized)
-    for (const groupKey of GROUP_ORDER) {
-      const targetFile = WIKI_FILES[groupKey];
-      if (!targetFile) continue;
+      let fullMd = '';
+      for (const groupKey of target.groups) {
+        fullMd += generateGroupTable(commandMap, groupKey);
+      }
 
-      const groupMd = generateGroupTable(commandMap, groupKey);
-      updateFileWithMarkers(targetFile, groupMd);
+      updateFileWithMarkers(target.file, fullMd);
     }
 
     console.log(chalk.blue('ℹ️ Documentation sync complete.'));
@@ -92,14 +108,6 @@ async function main() {
     console.error(chalk.red(`❌ Error: ${error.message}`));
     process.exit(1);
   }
-}
-
-function generateFullMd(commandMap) {
-  let md = '';
-  for (const groupKey of GROUP_ORDER) {
-    md += generateGroupTable(commandMap, groupKey);
-  }
-  return md;
 }
 
 function generateGroupTable(commandMap, groupKey) {
@@ -113,7 +121,7 @@ function generateGroupTable(commandMap, groupKey) {
   md += `| Command | Goal |\n| :--- | :--- |\n`;
   
   groupCommands.forEach(cmd => {
-    const safeCommand = cmd.fullCommand.replace(/`/g, '\\`');
+    const safeCommand = cmd.fullCommand.replace(/`/g, '\`');
     md += `| \`${safeCommand}\` | **${cmd.description}** |\n`;
   });
   
@@ -122,9 +130,6 @@ function generateGroupTable(commandMap, groupKey) {
 }
 
 function updateFileWithMarkers(file, newContent) {
-  if (!fs.existsSync(file)) return;
-  console.log(chalk.gray(`   Processing ${path.basename(file)}...`));
-
   let content = fs.readFileSync(file, 'utf8');
   const markerStart = '<!-- KAMI_COMMAND_LIST_START -->';
   const markerEnd = '<!-- KAMI_COMMAND_LIST_END -->';

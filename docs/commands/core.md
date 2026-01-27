@@ -8,6 +8,15 @@ These commands form the backbone of the **Sniper Model**, KamiFlow's rigorous 3-
 
 <!-- KAMI_COMMAND_LIST_START -->
 
+### 🎯 Sniper Model (Core Flow)
+
+| Command | Goal |
+| :--- | :--- |
+| `/kamiflow:core:idea` | **[KamiFlow Sniper] Generate refined idea through diagnostic interview and synthesis (Step 1: Two-Phase Interactive).** |
+| `/kamiflow:core:spec` | **[KamiFlow Sniper] Create detailed specification with Schema-First approach (Step 2: Lock 1 & 2).** |
+| `/kamiflow:core:build` | **[KamiFlow Sniper] Generate implementation task list with Legacy Awareness (Step 3: Lock 3).** |
+
+
 ### 🌉 The Bridge (IDE Integration)
 
 | Command | Goal |

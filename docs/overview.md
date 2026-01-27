@@ -164,5 +164,7 @@ The **Management Commands** (`/kamiflow:ops:roadmap` and `/kamiflow:ops:save-con
 | `kamiflow sync-flow` | **Synchronize command documentation.** |
 | `kamiflow archive-flow` | **Archive completed tasks.** |
 | `kamiflow config-flow` | **Manage persistent project settings.** |
+| `kamiflow update-flow` | **Update KamiFlow to the latest version.** |
+| `kamiflow info-flow` | **Display core location and version.** |
 
 <!-- KAMI_COMMAND_LIST_END -->

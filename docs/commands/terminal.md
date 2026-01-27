@@ -17,39 +17,88 @@ The **`kamiflow`** (alias **`kami`**) command is used for machine-level operatio
 | `kamiflow sync-flow` | **Synchronize command documentation.** |
 | `kamiflow archive-flow` | **Archive completed tasks.** |
 | `kamiflow config-flow` | **Manage persistent project settings.** |
+| `kamiflow update-flow` | **Update KamiFlow to the latest version.** |
+| `kamiflow info-flow` | **Display core location and version.** |
 
 <!-- KAMI_COMMAND_LIST_END -->
 
 ---
 
-## kamiflow init-flow
+## kamiflow init-flow `Alias: init`
 > **Goal:** Initialize a project with the KamiFlow ecosystem.
 
-### 🧠 Thinking Process
-1. **Config Detection:** It looks for `.kamirc.json` to skip repetitive setup questions.
-2. **Mode Choice:** It helps you choose between **Link** (best for updates), **Submodule** (best for teams), or **Standalone**.
-3. **Portal Creation:** It sets up the symlinks needed for the AI to "see" the core logic.
+### ⚡ Options for Speed
+- `-m, --mode <mode>`: Integration mode: `link` (default), `submodule`, or `standalone`.
+- `--skip-interview`: Skip all onboarding questions and use default templates.
 
----
-
-## kamiflow config-flow
-> **Goal:** Manage persistent project settings.
-
-### 🧠 Thinking Process
-1. **Persistence:** Saves settings like `language` or `project_name` to `.kamirc.json`.
-2. **AI Synergy:** The Gemini-CLI reads these settings via `/ops:wake` to provide a personalized experience.
-
-### 🛠️ Example
+### 🚀 Fast Track
 ```bash
-kamiflow config-flow set language vietnamese
+kami init --skip-interview
 ```
 
 ---
 
-## kamiflow archive-flow
+## kamiflow doctor-flow `Alias: doctor`
+> **Goal:** Check project health and configuration.
+
+### ⚡ Options for Speed
+- `--fix`: Automatically attempt to fix detected issues (e.g., missing symlinks, broken portals).
+
+### 🚀 Fast Track
+```bash
+kami doctor --fix
+```
+
+---
+
+## kamiflow sync-flow `Alias: sync`
+> **Goal:** Synchronize command documentation across all Wiki files.
+
+### 🧠 Thinking Process
+1. **Discovery:** Scans all TOML files in `.gemini/commands/kamiflow/`.
+2. **Classification:** Groups commands by their metadata (Sniper, Bridge, Ops, Dev).
+3. **Injection:** Updates Markdown tables in `README.md`, `GEMINI.md`, and the `docs/commands/` Wiki.
+
+### 🚀 Fast Track
+```bash
+kami sync
+```
+
+---
+
+## kamiflow archive-flow `Alias: archive`
 > **Goal:** Clean up your `tasks/` directory by moving completed files to the archive.
 
 ### 🧠 Thinking Process
 1. **Scan:** Finds all files starting with an ID (e.g., `001-`).
-2. **Grouping:** Groups them by task.
-3. **Interactive:** Presents a checkbox menu for you to select which tasks to move.
+2. **Interactive:** Presents a checkbox menu for you to select which tasks to move.
+
+### 🚀 Fast Track
+```bash
+kami archive
+```
+
+---
+
+## kamiflow config-flow `Alias: config`
+> **Goal:** Manage persistent project settings in `.kamirc.json`.
+
+### ⚡ Options for Speed
+- `set <key> <value>`: Save a setting.
+- `get <key>`: Retrieve a setting.
+- `list` (or `ls`): Show all settings.
+
+### 🚀 Fast Track
+```bash
+kami config set language vietnamese
+```
+
+---
+
+## kamiflow update-flow `Alias: upgrade`
+> **Goal:** Update KamiFlow core to the latest version.
+
+### 🚀 Fast Track
+```bash
+kami upgrade
+```

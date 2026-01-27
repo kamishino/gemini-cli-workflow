@@ -111,6 +111,8 @@ The core workflow uses 3 steps with 3-Layer Locks:
 | `kamiflow sync-flow` | **Synchronize command documentation.** |
 | `kamiflow archive-flow` | **Archive completed tasks.** |
 | `kamiflow config-flow` | **Manage persistent project settings.** |
+| `kamiflow update-flow` | **Update KamiFlow to the latest version.** |
+| `kamiflow info-flow` | **Display core location and version.** |
 
 <!-- KAMI_COMMAND_LIST_END -->
 
