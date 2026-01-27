@@ -1,4 +1,11 @@
 
+## [v2.16.0] - 2026-01-27
+
+### 🚀 Features
+- feat(cli): standardize brand to kamiflow and implement flow-based commands with config engine (924d12b)
+- feat(install): implement universal bash installer for Mac and Linux and update docs (1958190)
+
+
 ## [v2.15.9] - 2026-01-26
 
 ### 🚀 Features
