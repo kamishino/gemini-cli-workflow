@@ -31,10 +31,14 @@
 
 ## 🚀 Quick Install (Cross-Platform)
 
-Run this single command to install KamiFlow on Windows, MacOS, or Linux (Requires Node.js & Git):
+**Windows (PowerShell):**
+```powershell
+powershell -c "irmo https://raw.githubusercontent.com/kamishino/gemini-cli-workflow/main/install.ps1 | iex"
+```
 
+**MacOS / Linux (Bash):**
 ```bash
-npx -y github:kamishino/gemini-cli-workflow
+curl -sSL https://raw.githubusercontent.com/kamishino/gemini-cli-workflow/main/install.sh | bash
 ```
 
 *This will automatically clone the repo to `~/.kami-flow` and set up the `kami` global command.*

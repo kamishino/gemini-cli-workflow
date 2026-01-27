@@ -8,27 +8,16 @@ KamiFlow transforms the AI from a generic chatbot into a disciplined **Technical
 
 ## ⚡ Quick Start (Portable Track)
 
-Best for users who want to start building **immediately** with zero friction.
+Choose the command for your Operating System:
 
-### 1. Global Install
-Run this in your terminal (Requires Node.js 16+ & Git):
-```bash
-npx -y github:kamishino/gemini-cli-workflow
+### 🪟 Windows (PowerShell)
+```powershell
+powershell -c "irmo https://raw.githubusercontent.com/kamishino/gemini-cli-workflow/main/install.ps1 | iex"
 ```
-*This clones the core to `~/.kami-flow` and sets up the `kami` command globally.*
 
-### 2. Initialize Your Project
-Navigate to your project folder and run:
+### 🍎 MacOS / 🐧 Linux (Bash)
 ```bash
-kami init
-```
-Choose **🔗 Linked Mode** to keep your project updated with the global core.
-
-### 3. Wake Up the AI
-Launch Gemini CLI and initialize the session:
-```bash
-gemini
-/kamiflow:ops:wake
+curl -sSL https://raw.githubusercontent.com/kamishino/gemini-cli-workflow/main/install.sh | bash
 ```
 
 ---
