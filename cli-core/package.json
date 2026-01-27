@@ -1,6 +1,6 @@
 {
   "name": "gemini-cli-kamiflow",
-  "version": "2.17.2",
+  "version": "2.17.3",
   "description": "Professional CLI manager for KamiFlow - The Indie Builder's OS for Gemini CLI",
   "main": "bin/kami.js",
   "bin": {
@@ -23,8 +23,8 @@
   ],
   "scripts": {
     "sync": "node scripts/sync-docs.js",
-    "version": "node scripts/sync-version.js && node scripts/sync-docs.js && git add ../README.md ../PROJECT_CONTEXT.md ../CHANGELOG.md ../GEMINI.md ../docs/ ../package.json",
-    "postversion": "git commit -m \"chore(release): %s\" && git tag v%s",
+    "version": "node scripts/sync-version.js && node scripts/sync-docs.js",
+    "postversion": "node scripts/git-release.js",
     "test": "echo \"No tests yet\" && exit 0"
   },
   "keywords": [
