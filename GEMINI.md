@@ -124,7 +124,6 @@ The core workflow uses 3 steps with 3-Layer Locks:
 
 @.gemini/rules/manifesto.md
 @.gemini/rules/tech-stack.md
-@.gemini/rules/coding-style.md
 @.gemini/rules/factory-line.md
 @.gemini/rules/lean-validation.md
 @.gemini/rules/automated-execution.md

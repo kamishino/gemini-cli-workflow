@@ -1,29 +1,37 @@
-# 🧱 TECH STACK & CONSTRAINTS
+# 🧱 TECH STACK & ENVIRONMENT AWARENESS
 
-## 1. Core Principles (Immutable)
-*   **Context Driven:** Always analyze root configuration files (`package.json`, `go.mod`, `requirements.txt`, etc.) BEFORE proposing or writing code.
-*   **Minimalism:** Favor the "Boring Stack" for speed and reliability unless specified otherwise.
-*   **No Magic:** Do not use libraries you can't explain. Understand the lifecycle and internal workings deeply.
-*   **Design First:** Prefer Design Tokens driven styling (Variables/Tokens > Hardcoded values).
+> **Purpose:** Force the AI to adapt its technical strategy based on the detected environment.
 
-## 2. Dynamic Stack Behavior
-Adapt behavior based on the detected environment:
+---
 
-### Web Development
-*   Detect libraries from `package.json`. 
-*   Priority: Type Safety (TypeScript/Zod) + Modular CSS/SCSS + Standard Frameworks.
+## 1. 🔍 MANDATORY RECONNAISSANCE
+Before writing code or proposing a SPEC, you MUST:
+1. **Detect Stack:** Run `ls` and read root config files (`package.json`, `go.mod`, `requirements.txt`, etc.).
+2. **Anchor Behavior:** Adapt your syntax and library choices to the detected stack.
+3. **No Magic:** Do not use libraries not found in the project's dependency list unless explicitly asked to add them.
 
-### Adobe Scripting (ExtendScript)
-*   *Trigger:* Only apply when working on `.jsx` files.
-*   **Engine:** ES3 Strict. 
-*   **Forbidden:** NO `const`, `let`, or `arrow functions`. Use `var` and traditional functions.
-*   **Pattern:** Use `//@include` for modularity.
+---
 
-### CLI & Tools
-*   Favor simplicity and performance. 
-*   Follow the established patterns in the existing codebase.
+## 2. DYNAMIC ADAPTABILITY RULES
 
-## 3. Style Guidelines
-*   **Immutability:** Prefer immutable data patterns.
-*   **Validation:** Always validate external data/inputs (Schema validation).
-*   **Modularity:** Keep files small (<300 lines) and focused.
+### 🌐 Web Development
+- **Detection:** `package.json` with web libraries (React, Vue, etc.).
+- **Strategy:** Priority: Type Safety (TypeScript/Zod) + Modular CSS + Standard Frameworks.
+- **Design Tokens:** Prefer Variables/Tokens over hardcoded values.
+
+### 🎨 Adobe Scripting (ExtendScript)
+- **Detection:** `.jsx` files or project context.
+- **Engine:** ES3 Strict.
+- **FORBIDDEN:** NO `const`, `let`, or `arrow functions`. Use `var` and traditional functions.
+- **Pattern:** Use `//@include` for modularity.
+
+### 💻 CLI & Tools
+- **Detection:** `commander` or `yargs` in `package.json`.
+- **Strategy:** Favor simplicity, performance, and clear ANSI outputs.
+
+---
+
+## 3. PRINCIPLES
+- **Minimalism:** Favor the "Boring Stack" for speed and reliability.
+- **Immutability:** Prefer immutable data patterns where possible.
+- **Validation:** Always validate external data/inputs using Schema validation (e.g., Zod).
