@@ -1,52 +1,13 @@
 {
-  "name": "gemini-cli-kamiflow",
-  "version": "2.16.7",
-  "description": "Professional CLI manager for KamiFlow - The Indie Builder's OS for Gemini CLI",
-  "main": "bin/kami.js",
-  "bin": {
-    "kamiflow": "bin/kami.js",
-    "kami": "bin/kami.js",
-    "gemini-cli-kamiflow": "bin/kami.js",
-    "kamiflow-install": "src/logic/installer.js"
-  },
-  "files": [
-    "bin/",
-    "src/",
-    "docs/",
-    ".gemini/",
-    ".windsurf/",
-    "package.json",
-    "install.ps1",
-    "install.sh"
-  ],
-  "scripts": {
-    "version": "node scripts/sync-version.js && node scripts/sync-docs.js && git add .",
-    "test": "echo \"No tests yet\" && exit 0"
-  },
-  "keywords": [
-    "gemini",
-    "cli",
-    "kamiflow",
-    "ai",
-    "workflow",
-    "template"
-  ],
-  "author": "KamiShino",
-  "license": "MIT",
-  "dependencies": {
-    "@iarna/toml": "^2.2.5",
-    "chalk": "^4.1.2",
-    "commander": "^11.1.0",
-    "execa": "^5.1.1",
-    "fs-extra": "^11.2.0",
-    "inquirer": "^9.2.12",
-    "zod": "^3.22.4"
-  },
+  "name": "kamiflow",
+  "private": true,
+  "description": "Indie Builder's OS - Root Workspace",
   "engines": {
     "node": ">=16.0.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/kamishino/gemini-cli-workflow.git"
+  "scripts": {
+    "sync": "npm --prefix cli-core run sync",
+    "doctor": "npm --prefix cli-core run doctor",
+    "update": "npm --prefix cli-core run update"
   }
 }

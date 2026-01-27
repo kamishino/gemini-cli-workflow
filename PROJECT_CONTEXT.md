@@ -23,8 +23,7 @@
 
 - **Overview:** `docs/overview.md` (Start here)
 - **Tasks:** `tasks/` (Centralized Artifacts: Briefs, PRDs, Tasks, Handoffs)
-- **Commands:** `.gemini/commands/kamiflow/` (Modular: `core/`, `ops/`, `dev/`)
-- **Rules:** `.gemini/rules/`
-- **Skills:** `.gemini/skills/`
-- **IDE Bridge:** `.windsurf/`
+- **Blueprints:** `.gemini/` (Portal to cli-core/.gemini)
+- **Engine:** `cli-core/` (Hidden Core Architecture)
+- **IDE Bridge:** `.windsurf/` (Portal to cli-core/.windsurf)
 - **Logs:** `docs/handoff_logs/` (Lazy logs tagged with `_lazy`/`_superlazy`)

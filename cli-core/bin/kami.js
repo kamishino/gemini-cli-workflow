@@ -2,9 +2,9 @@
 
 const { Command } = require("commander");
 const chalk = require("chalk");
-const { initProject } = require("../src/logic/installer");
-const { runDoctor } = require("../src/logic/doctor");
-const { runUpdate } = require("../src/logic/updater");
+const { initProject } = require("../logic/installer");
+const { runDoctor } = require("../logic/doctor");
+const { runUpdate } = require("../logic/updater");
 const path = require("path");
 const fs = require("fs-extra");
 
@@ -113,7 +113,7 @@ program
   .option("-p, --path <path>", "Path to directory or file to validate", ".gemini/commands/kamiflow")
   .action(async (options) => {
     try {
-      const { validateTomlFiles } = require("../src/validators/toml-validator");
+      const { validateTomlFiles } = require("../validators/toml-validator");
       const targetPath = path.resolve(process.cwd(), options.path);
       
       console.log(chalk.cyan("\n========================================================"));
@@ -142,7 +142,7 @@ configFlow
   .command("set <key> <value>")
   .description("Set a configuration value")
   .action(async (key, value) => {
-    const { ConfigManager } = require("../src/logic/config-manager");
+    const { ConfigManager } = require("../logic/config-manager");
     const config = new ConfigManager();
     const success = await config.set(key, value);
     if (success) {
@@ -154,7 +154,7 @@ configFlow
   .command("get <key>")
   .description("Get a configuration value")
   .action(async (key) => {
-    const { ConfigManager } = require("../src/logic/config-manager");
+    const { ConfigManager } = require("../logic/config-manager");
     const config = new ConfigManager();
     const value = await config.get(key);
     console.log(value !== undefined ? value : chalk.yellow("Not set"));
@@ -165,7 +165,7 @@ configFlow
   .alias("ls")
   .description("List all configuration values")
   .action(async () => {
-    const { ConfigManager } = require("../src/logic/config-manager");
+    const { ConfigManager } = require("../logic/config-manager");
     const config = new ConfigManager();
     const data = await config.load();
     console.log(chalk.cyan("\n📊 KamiFlow Project Configuration:\n"));
@@ -182,7 +182,7 @@ program
     try {
       console.log(chalk.cyan("\n🔄 Synchronizing documentation...\n"));
       // We run the script directly via node to ensure it uses the project's logic
-      const { execa } = require("execa");
+      const execa = require("execa");
       const scriptPath = path.join(__dirname, "../scripts/sync-docs.js");
       await execa("node", [scriptPath], { stdio: "inherit" });
     } catch (error) {
@@ -197,7 +197,7 @@ program
   .description("Archive completed tasks")
   .action(async () => {
     try {
-      const { runArchivist } = require("../src/logic/archivist");
+      const { runArchivist } = require("../logic/archivist");
       await runArchivist();
     } catch (error) {
       console.error(chalk.red("\n❌ Archive failed:"), error.message);

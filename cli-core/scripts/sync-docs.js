@@ -3,38 +3,22 @@ const path = require('path');
 const toml = require('@iarna/toml');
 const chalk = require('chalk');
 
-const COMMANDS_ROOT = path.join(__dirname, '../.gemini/commands/kamiflow');
+// Path adjusted for deep structure (cli-core/scripts/)
+const COMMANDS_ROOT = path.join(__dirname, '../../.gemini/commands/kamiflow');
 
-// Mapping Files to Groups (Fixes the overwrite bug)
-const TARGET_MAP = [
-  {
-    file: path.join(__dirname, '../docs/commands/core.md'),
-    groups: ['sniper', 'bridge']
-  },
-  {
-    file: path.join(__dirname, '../docs/commands/ops.md'),
-    groups: ['management']
-  },
-  {
-    file: path.join(__dirname, '../docs/commands/dev.md'),
-    groups: ['autopilot']
-  },
-  {
-    file: path.join(__dirname, '../docs/commands/terminal.md'),
-    groups: ['terminal']
-  },
-  {
-    file: path.join(__dirname, '../docs/commands/README.md'),
-    groups: ['sniper', 'bridge', 'autopilot', 'management', 'terminal']
-  },
-  {
-    file: path.join(__dirname, '../GEMINI.md'),
-    groups: ['sniper', 'bridge', 'autopilot', 'management', 'terminal']
-  },
-  {
-    file: path.join(__dirname, '../docs/overview.md'),
-    groups: ['sniper', 'bridge', 'autopilot', 'management', 'terminal']
-  }
+const WIKI_FILES = {
+  sniper: path.join(__dirname, '../../docs/commands/core.md'),
+  bridge: path.join(__dirname, '../../docs/commands/core.md'),
+  autopilot: path.join(__dirname, '../../docs/commands/dev.md'),
+  management: path.join(__dirname, '../../docs/commands/ops.md'),
+  terminal: path.join(__dirname, '../../docs/commands/terminal.md'),
+  global: path.join(__dirname, '../../docs/commands/README.md')
+};
+
+const GLOBAL_TARGETS = [
+  path.join(__dirname, '../../GEMINI.md'),
+  path.join(__dirname, '../../docs/overview.md'),
+  WIKI_FILES.global
 ];
 
 const GROUP_TITLES = {
@@ -91,6 +75,21 @@ async function main() {
     commandMap.push(...cliCommands);
 
     // 3. Process each target file
+    for (const target of Object.keys(WIKI_FILES).map(k => ({ file: WIKI_FILES[k], groups: [k] })) ) {
+        // Special case for README and global targets handled below
+    }
+
+    // Manual targets processing for Task 030 logic
+    const TARGET_MAP = [
+        { file: WIKI_FILES.sniper, groups: ['sniper', 'bridge'] },
+        { file: WIKI_FILES.management, groups: ['management'] },
+        { file: WIKI_FILES.autopilot, groups: ['autopilot'] },
+        { file: WIKI_FILES.terminal, groups: ['terminal'] },
+        { file: WIKI_FILES.global, groups: GROUP_ORDER },
+        { file: path.join(__dirname, '../../GEMINI.md'), groups: GROUP_ORDER },
+        { file: path.join(__dirname, '../../docs/overview.md'), groups: GROUP_ORDER }
+    ];
+
     for (const target of TARGET_MAP) {
       if (!fs.existsSync(target.file)) continue;
       console.log(chalk.gray(`   Processing ${path.basename(target.file)}...`));
@@ -121,7 +120,7 @@ function generateGroupTable(commandMap, groupKey) {
   md += `| Command | Goal |\n| :--- | :--- |\n`;
   
   groupCommands.forEach(cmd => {
-    const safeCommand = cmd.fullCommand.replace(/`/g, '\`');
+    const safeCommand = cmd.fullCommand.replace(/`/g, '\\`');
     md += `| \`${safeCommand}\` | **${cmd.description}** |\n`;
   });
   

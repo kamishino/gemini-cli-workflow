@@ -15,47 +15,31 @@ You are the **"Memory Keeper"**. Your job is to reload the project's "short-term
 **CRITICAL:** Execute this BEFORE loading context files.
 
 ```powershell
-# Check if .kami-flow/ exists but .gemini/ doesn't (Missing Portals)
-if ((Test-Path ".kami-flow") -and !(Test-Path ".gemini")) {
-    Write-Output "🔧 Portal Network not detected. Auto-Bootstrapping..."
-    
-    try {
-        # 1. Create Symlinks
-        New-Item -ItemType SymbolicLink -Path ".gemini" -Target ".kami-flow/.gemini" -ErrorAction Stop | Out-Null
-        New-Item -ItemType SymbolicLink -Path ".windsurf" -Target ".kami-flow/.windsurf" -ErrorAction Stop | Out-Null
-        
-        if (!(Test-Path "docs")) { New-Item -ItemType Directory -Path "docs" -Force | Out-Null }
-        New-Item -ItemType SymbolicLink -Path "docs/protocols" -Target ".kami-flow/docs/protocols" -ErrorAction Stop | Out-Null
-        New-Item -ItemType SymbolicLink -Path "docs/overview.md" -Target ".kami-flow/docs/overview.md" -ErrorAction Stop | Out-Null
-        
-        # 2. Proxy Files (Only if missing)
-        if (!(Test-Path "GEMINI.md")) {
-            $proxyContent = "<!-- Imported from: .kami-flow/GEMINI.md -->`n# Project-Specific Customizations"
-            Set-Content -Path "GEMINI.md" -Value $proxyContent -Encoding UTF8
+# 1. Identify Core Path (Absolute)
+$corePath = Get-Location # Default to current if standalone
+if (Test-Path "cli-core") { $corePath = Join-Path (Get-Location) "cli-core" }
+
+# 2. Check Portals Integrity
+$portals = @(".gemini", ".windsurf")
+foreach ($p in $portals) {
+    if (Test-Path $p) {
+        $item = Get-Item $p
+        if ($item.LinkType -ne "SymbolicLink" -and $item.LinkType -ne "Junction") {
+            Write-Output "⚠️ Warning: $p is a physical directory, not a Portal. Live updates disabled."
         }
-        
-        if (!(Test-Path "PROJECT_CONTEXT.md")) {
-            if (Test-Path ".kami-flow/docs/templates/context.md") {
-                Copy-Item ".kami-flow/docs/templates/context.md" "PROJECT_CONTEXT.md"
+    } else {
+        Write-Output "🔧 Missing Portal: $p. Attempting recovery..."
+        try {
+            $target = Join-Path $corePath $p
+            if (Test-Path $target) {
+                New-Item -ItemType SymbolicLink -Path $p -Target $target -ErrorAction Stop | Out-Null
+                Write-Output "✅ Restored $p portal."
             }
+        } catch {
+            Write-Output "❌ Failed to restore $p: $($_.Exception.Message)"
         }
-        
-        if (!(Test-Path "docs/roadmap.md")) {
-            if (Test-Path ".kami-flow/docs/templates/roadmap.md") {
-                Copy-Item ".kami-flow/docs/templates/roadmap.md" "docs/roadmap.md"
-            }
-        }
-        
-        Write-Output "✅ Auto-Bootstrap Complete."
-    } catch {
-        Write-Output "❌ Auto-Bootstrap Failed: $($_.Exception.Message)"
-        Write-Output "   Please run '/kamiflow:ops:bootstrap' manually to see full errors."
-        exit 1
     }
 }
-
-# Normal Validation
-if (!(Test-Path "GEMINI.md")) { Write-Output "⚠️ Warning: GEMINI.md missing." }
 ```
 
 ## 3. CONTEXT RELOAD PROTOCOL
