@@ -39,7 +39,7 @@ You are the **"Gated Autonomous Builder"**. You ensure strategic alignment befor
 2.  **Execution Mode:**
     - Implement all tasks from S3-BUILD.
     - **TOML Guard:** If `.gemini/commands/` was modified, run `node bin/kami.js validate`.
-    - Execute **Validator Loop** (see `@.gemini/rules/validator-loop.md`).
+    - Execute **Validator Loop** (see `@.gemini/rules/automated-execution.md`).
     - Only proceed if validated (PASS).
 
 ### PHASE 4: ATOMIC EXIT

@@ -23,7 +23,7 @@
 | 🚀 Start Here | 📖 Knowledge | 🔧 Support | 🤝 Community |
 | :--- | :--- | :--- | :--- |
 | [Quick Install](#-quick-install) | [Command Wiki](docs/commands/README.md) | [Troubleshooting](docs/TROUBLESHOOTING.md) | [Contribution](#-contribution) |
-| [Getting Started](docs/GETTING_STARTED.md) | [Sniper Model](docs/protocols/factory-line.md) | [CLI Guide](docs/commands/terminal.md) | [License](#-license) |
+| [Getting Started](docs/GETTING_STARTED.md) | [Sniper Model](.gemini/rules/factory-line.md) | [CLI Guide](docs/commands/terminal.md) | [License](#-license) |
 
 ---
 

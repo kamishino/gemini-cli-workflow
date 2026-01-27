@@ -6,6 +6,8 @@
 
 These commands form the backbone of the **Sniper Model**, KamiFlow's rigorous 3-step workflow for high-fidelity software engineering.
 
+📖 **[Sniper Model Rules](../../.gemini/rules/factory-line.md)**, KamiFlow's rigorous 3-step workflow for high-fidelity software engineering.
+
 <!-- KAMI_COMMAND_LIST_START -->
 
 ### 🎯 Sniper Model (Core Flow)

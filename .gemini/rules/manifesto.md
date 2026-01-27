@@ -22,7 +22,7 @@
 - **Doc-First DoD:** A task is NOT complete until all relevant documentation (README, ROADMAP, CONTEXT) is synchronized. 
     - *Native Mode:* For autonomous execution, the AI must automatically sync, commit, and archive (Atomic Exit) once validated.
 - **ID Protocol:** Follow `@.gemini/rules/id-protocol.md` for task identity. Always scan `tasks/` and `archive/` to find MAX ID before generating.
-- **Validator Loop:** Follow `@.gemini/rules/validator-loop.md` for automated execution. Execute → Validate → Heal (max 3x) → Report.
+- **Validator Loop:** Follow `@.gemini/rules/automated-execution.md` for automated execution. Execute → Validate → Heal (max 3x) → Report.
 
 ## 4. 📦 DISTRIBUTION (How We Share)
 

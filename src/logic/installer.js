@@ -173,22 +173,11 @@ async function createPortal(mapping, method) {
 async function seedProjectFiles(projectPath, corePath, projectName, method) {
   const geminiPath = path.join(projectPath, "GEMINI.md");
   if (!(await fs.pathExists(geminiPath))) {
-    if (method === "LINK") {
-      const proxyContent = `<!-- Imported from: .gemini/GEMINI.md -->
-<!-- This file is a PROXY. Add project-specific rules below. -->
-
-# Project-Specific Customizations (Optional)
-
-<!-- Add your custom AI instructions here -->
-`;
-      await fs.writeFile(geminiPath, proxyContent, "utf8");
-    } else {
-      const sourceGemini = path.join(corePath, "GEMINI.md");
-      if (await fs.pathExists(sourceGemini)) {
-        await fs.copyFile(sourceGemini, geminiPath);
-      }
+    const templatePath = path.join(corePath, "docs", "templates", "gemini.md");
+    if (await fs.pathExists(templatePath)) {
+      await fs.copyFile(templatePath, geminiPath);
+      console.log(chalk.green("[KAMI] ✓ Created GEMINI.md from template"));
     }
-    console.log(chalk.green("[KAMI] ✓ Created GEMINI.md"));
   }
 
   const contextPath = path.join(projectPath, "PROJECT_CONTEXT.md");
@@ -281,8 +270,6 @@ async function initProject(projectPath, options) {
   const portals = [
     { source: path.join(corePath, ".gemini"), target: path.join(projectPath, ".gemini"), isDirectory: true },
     { source: path.join(corePath, ".windsurf"), target: path.join(projectPath, ".windsurf"), isDirectory: true },
-    { source: path.join(corePath, "docs", "protocols"), target: path.join(projectPath, "docs", "protocols"), isDirectory: true },
-    { source: path.join(corePath, "docs", "overview.md"), target: path.join(projectPath, "docs", "overview.md"), isDirectory: false },
   ];
 
   for (const portal of portals) {

@@ -14,10 +14,10 @@
     "src/",
     "docs/",
     ".gemini/",
-    "scripts/",
+    ".windsurf/",
     "package.json",
-    "PROJECT_CONTEXT.md",
-    "GEMINI.md"
+    "install.ps1",
+    "install.sh"
   ],
   "scripts": {
     "version": "node scripts/sync-version.js && node scripts/sync-docs.js && git add .",

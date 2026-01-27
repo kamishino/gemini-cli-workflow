@@ -40,7 +40,7 @@ graph TD
     end
 
     subgraph Knowledge_Base [🧠 Brain]
-        Rules[(Rules & Manifesto)]
+        Rules[(Rules & Protocols)]
         Skills[(Skills Library)]
     end
 
