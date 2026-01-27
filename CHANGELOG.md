@@ -1,4 +1,10 @@
 
+## [v2.16.5] - 2026-01-27
+
+### 🧹 Chores & Others
+- refactor(core): consolidate knowledge base into rules and optimize distribution for linked mode (f470044)
+
+
 ## [v2.16.4] - 2026-01-27
 
 ### 🐛 Fixes
