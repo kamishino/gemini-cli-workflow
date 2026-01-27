@@ -1,4 +1,10 @@
 
+## [v2.16.1] - 2026-01-27
+
+### 🚀 Features
+- feat(docs): overhaul documentation to Encyclopedia-style Wiki and simplify README (42ceb47)
+
+
 ## [v2.16.0] - 2026-01-27
 
 ### 🚀 Features
