@@ -13,11 +13,15 @@ const program = new Command();
 // Get version from package.json
 const packageJson = require("../package.json");
 
-program.name("gemini-cli-kamiflow").description("Professional CLI manager for KamiFlow - The Indie Builder's OS").version(packageJson.version);
+program
+  .name("kamiflow")
+  .description("KamiFlow CLI - The Orchestrator for Indie Builders")
+  .version(packageJson.version);
 
 // Init command
 program
-  .command("init [path]")
+  .command("init-flow [path]")
+  .alias("init")
   .description("Initialize KamiFlow in a project directory")
   .option("-m, --mode <mode>", "Integration mode: link, submodule, or standalone", "link")
   .option("--skip-interview", "Skip interactive questions and use defaults")
@@ -26,7 +30,7 @@ program
       const projectPath = path.resolve(process.cwd(), targetPath || ".");
 
       console.log(chalk.cyan("\n========================================================"));
-      console.log(chalk.cyan("  🌊 KamiFlow CLI Manager v" + packageJson.version));
+      console.log(chalk.cyan("  🌊 KamiFlow CLI v" + packageJson.version));
       console.log(chalk.cyan("========================================================\n"));
 
       await initProject(projectPath, options);
@@ -44,7 +48,8 @@ program
 
 // Doctor command
 program
-  .command("doctor")
+  .command("doctor-flow")
+  .alias("doctor")
   .description("Check system health and KamiFlow configuration")
   .option("--fix", "Attempt to automatically fix detected issues")
   .action(async (options) => {
@@ -69,7 +74,8 @@ program
 
 // Update command
 program
-  .command("update")
+  .command("update-flow")
+  .alias("upgrade")
   .description("Update KamiFlow to the latest version")
   .action(async () => {
     try {
@@ -87,7 +93,8 @@ program
 
 // Info command
 program
-  .command("info")
+  .command("info-flow")
+  .alias("info")
   .description("Display KamiFlow core location and version")
   .action(() => {
     const corePath = path.resolve(__dirname, "..");
@@ -100,7 +107,8 @@ program
 
 // Validate command
 program
-  .command("validate")
+  .command("validate-flow")
+  .alias("validate")
   .description("Validate configuration files (TOML)")
   .option("-p, --path <path>", "Path to directory or file to validate", ".gemini/commands/kamiflow")
   .action(async (options) => {
@@ -124,6 +132,75 @@ program
     } catch (error) {
       console.error(chalk.red("\n❌ Error:"), error.message);
       process.exit(1);
+    }
+  });
+
+// Config command
+const configFlow = program.command("config-flow").description("Manage project configuration");
+
+configFlow
+  .command("set <key> <value>")
+  .description("Set a configuration value")
+  .action(async (key, value) => {
+    const { ConfigManager } = require("../src/logic/config-manager");
+    const config = new ConfigManager();
+    const success = await config.set(key, value);
+    if (success) {
+      console.log(chalk.green(`✓ Set ${key} = ${value}`));
+    }
+  });
+
+configFlow
+  .command("get <key>")
+  .description("Get a configuration value")
+  .action(async (key) => {
+    const { ConfigManager } = require("../src/logic/config-manager");
+    const config = new ConfigManager();
+    const value = await config.get(key);
+    console.log(value !== undefined ? value : chalk.yellow("Not set"));
+  });
+
+configFlow
+  .command("list")
+  .alias("ls")
+  .description("List all configuration values")
+  .action(async () => {
+    const { ConfigManager } = require("../src/logic/config-manager");
+    const config = new ConfigManager();
+    const data = await config.load();
+    console.log(chalk.cyan("\n📊 KamiFlow Project Configuration:\n"));
+    console.table(data);
+    console.log();
+  });
+
+// Sync command
+program
+  .command("sync-flow")
+  .alias("sync")
+  .description("Synchronize command documentation")
+  .action(async () => {
+    try {
+      console.log(chalk.cyan("\n🔄 Synchronizing documentation...\n"));
+      // We run the script directly via node to ensure it uses the project's logic
+      const { execa } = require("execa");
+      const scriptPath = path.join(__dirname, "../scripts/sync-docs.js");
+      await execa("node", [scriptPath], { stdio: "inherit" });
+    } catch (error) {
+      console.error(chalk.red("\n❌ Sync failed:"), error.message);
+    }
+  });
+
+// Archive command
+program
+  .command("archive-flow")
+  .alias("archive")
+  .description("Archive completed tasks")
+  .action(async () => {
+    try {
+      const { runArchivist } = require("../src/logic/archivist");
+      await runArchivist();
+    } catch (error) {
+      console.error(chalk.red("\n❌ Archive failed:"), error.message);
     }
   });
 

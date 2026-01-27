@@ -1,6 +1,6 @@
 # 🌊 KamiFlow: The Indie Builder's Template for Gemini CLI
 
-**<!-- KAMI_VERSION_START -->v2.15.9 (Modular Engine)<!-- KAMI_VERSION_END -->**
+**<!-- KAMI_VERSION_START -->v2.16.0 (Modular Engine)<!-- KAMI_VERSION_END -->**
 
 **KamiFlow** is a rigorous, opinionated "Operating System" for Indie Hackers using Gemini CLI. It transforms the AI from a generic chatbot into a disciplined **Technical Co-Founder**.
 
@@ -13,7 +13,8 @@
 <!-- KAMI_SHOWCASE_START -->
 
 - 🎯 **Sniper Model:** 3-Step Fused Kernel (Idea -> Spec -> Build) with 3-Layer Locks.
-- 💎 **CLI Manager:** Professional NPM utility for global KamiFlow management across projects.
+- 💎 **CLI Orchestrator:** Professional `kamiflow` CLI for global project management.
+- ⚙️ **Config Engine:** Persistent project settings via `.kamirc.json`.
 - 🔄 **Universal Update:** Smart update system with mode detection (SUBMODULE/LINKED/STANDALONE).
 - 🔧 **Self-Healing Engine:** Automatic detection and repair of broken portals and missing files.
 - 🏥 **Smart Doctor:** Interactive health checks with auto-fix capabilities for missing dependencies.
@@ -41,54 +42,35 @@ powershell -c "irmo https://raw.githubusercontent.com/kamishino/gemini-cli-workf
 curl -sSL https://raw.githubusercontent.com/kamishino/gemini-cli-workflow/main/install.sh | bash
 ```
 
-*This will automatically clone the repo to `~/.kami-flow` and set up the `kami` global command.*
+*This will automatically clone the repo to `~/.kami-flow` and set up the `kamiflow` (alias `kami`) global command.*
 
-## 📦 Manual Installation (Local)
+## 📦 Project Operation
 
-### Option 0: CLI Manager (Premium - Recommended)
+### Using the CLI
 
-**The absolute fastest way to install globally:**
+```bash
+# Initialize a new project
+kamiflow init-flow
 
-```powershell
-powershell -c "irmo https://raw.githubusercontent.com/kamishino/gemini-cli-workflow/main/install.ps1 | iex"
+# Check project health
+kamiflow doctor-flow
+
+# Archive completed tasks
+kamiflow archive-flow
+
+# Sync documentation
+kamiflow sync-flow
 ```
-
-**What it does:**
-
-- ✅ Checks for Node.js and Git
-- ✅ Installs the `kami` CLI globally from GitHub
-- ✅ No NPM Registry required (Avoids 404 errors)
-
-**See:** [Full CLI Manager Guide](docs/GETTING_STARTED.md#-method-0-cli-manager-detailed)
 
 ---
 
-### Option A: Integrate into Existing Project (Multi-Project)
-
-Best for freelancers or studios managing multiple projects.
-
-1.  **Add Submodule:**
-    ```bash
-    git submodule add https://github.com/kamishino/gemini-cli-workflow.git .kami-flow
-    ```
-
-2.  **Wake Up (Auto-Bootstrap):**
-    ```bash
-    /kamiflow:ops:wake
-    ```
-    *The system will automatically detect the submodule, create necessary portals (symlinks), and load the project context.*
-
-...
-
 ## 🔄 Keeping KamiFlow Updated
-
-KamiFlow includes a smart update system that automatically detects your integration mode and updates accordingly.
 
 ### Using the CLI
 
 ```bash
 # From any KamiFlow project
-kami update
+kamiflow update-flow
 ```
 
 **What it does:**
@@ -105,12 +87,6 @@ kami update
 /kamiflow:dev:upgrade
 ```
 
-**Modes explained:**
-
-- **SUBMODULE:** Runs `git submodule update --remote --merge`
-- **LINKED:** Runs `npm install -g gemini-cli-kamiflow`
-- **STANDALONE:** Provides manual update instructions
-
 ---
 
 ## 🛠 The Core Workflow (The Sniper Model)
@@ -123,9 +99,9 @@ Diagnostic interview and synthesis into 3 refined solution approaches.
 
 Detailed specification using Schema-First design and Context Anchoring.
 
-### Step 3: /kamiflow:core:build (The Build Architect)
+### Step 3: /kamiflow:core:build (The Senior Tech Lead)
 
-Break down SPEC into executable tasks with Legacy Code awareness.
+Break down SPEC into executable Tasks & Subtasks with Legacy Code awareness (Lock 3).
 
 ### Step 4: /kamiflow:core:bridge (The Bridge Builder)
 
@@ -145,47 +121,6 @@ KamiFlow is designed to work seamlessly alongside your IDE.
 
 ### 📋 Full Command Reference
 <!-- KAMI_COMMAND_LIST_START -->
-
-### 🎯 Sniper Model (Core Flow)
-
-| Command | Goal |
-| :--- | :--- |
-| `/kamiflow:core:idea` | **[KamiFlow Sniper] Generate refined idea through diagnostic interview and synthesis (Step 1: Two-Phase Interactive).** |
-| `/kamiflow:core:spec` | **[KamiFlow Sniper] Create detailed specification with Schema-First approach (Step 2: Lock 1 & 2).** |
-| `/kamiflow:core:build` | **[KamiFlow Sniper] Generate implementation task list with Legacy Awareness (Step 3: Lock 3).** |
-
-
-### 🌉 The Bridge (IDE Integration)
-
-| Command | Goal |
-| :--- | :--- |
-| `/kamiflow:core:bridge` | **[KamiFlow] Generate a 'Context Package' prompt for external AI Editors (Windsurf/Cursor).** |
-
-
-### 🚀 Auto-Pilot (Automation)
-
-| Command | Goal |
-| :--- | :--- |
-| `/kamiflow:dev:lazy` | **[KamiFlow] Auto-generate S1-S4 artifacts using Sniper Model with mandatory Diagnostic Gate.** |
-| `/kamiflow:dev:superlazy` | **[KamiFlow] Auto-generate S1-S4 artifacts AND execute immediately with mandatory Diagnostic Gate.** |
-| `/kamiflow:dev:release` | **[KamiFlow] Smart Release Manager - Analyze git history, context, and automate version bumping.** |
-| `/kamiflow:dev:upgrade` | **[KamiFlow] Update KamiFlow to the latest version.** |
-| `/kamiflow:dev:archive` | **[KamiFlow] Archive completed task artifacts to archive/ folder.** |
-| `/kamiflow:dev:revise` | **[KamiFlow] Emergency Brake - Clarify context, resolve hallucinations, and question logic before implementation.** |
-
-
-### 🧠 Management (Operations)
-
-| Command | Goal |
-| :--- | :--- |
-| `/kamiflow:ops:wake` | **[KamiFlow] Wake up and reload project context to eliminate session amnesia.** |
-| `/kamiflow:ops:help` | **[KamiFlow] Interactive help system for commands and Sniper Model phases.** |
-| `/kamiflow:ops:tour` | **[KamiFlow] Guided tour for new projects to explain the Sniper Model.** |
-| `/kamiflow:ops:sync` | **[KamiFlow] Read logs from docs/handoff_logs and sync Project Context.** |
-| `/kamiflow:ops:roadmap` | **[KamiFlow] Update and visualize the project roadmap in docs/ROADMAP.md.** |
-| `/kamiflow:ops:save-context` | **[KamiFlow] Sync current state to PROJECT_CONTEXT.md (Manual Memory Save).** |
-| `/kamiflow:ops:bootstrap` | **[KamiFlow] Bootstrap KamiFlow as a Git Submodule - create portal symlinks and initialize proxy files.** |
-
 <!-- KAMI_COMMAND_LIST_END -->
 
 ---

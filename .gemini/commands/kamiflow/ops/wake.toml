@@ -79,7 +79,7 @@ if (!(Test-Path "GEMINI.md")) { Write-Output "⚠️ Warning: GEMINI.md missing.
 If the project is configured and tour is completed.
 
 ```markdown
-## 🌅 Project Context Reloaded
+## 🌅 Welcome to KamiFlow
 
 **Time:** [Current timestamp]
 **Session Status:** ✅ Awake & Ready
@@ -122,10 +122,10 @@ Reply with '1' or 'Vietnamese' to switch, otherwise I will proceed in English."
 If "{{PROJECT_NAME}}" is found OR "Tour Completed: false".
 
 ```markdown
-## 🌊 Welcome to Your New Project!
+## 🌊 Welcome to KamiFlow!
 
 [Speak in English]
-"I've detected that this project is fresh or you're new to KamiFlow. I'm ready to help you get started."
+"I've detected that this project is fresh or you're new to the Flow. I'm ready to help you get started."
 
 ### 📋 Current Status
 - Context State: [Configured / Template]
