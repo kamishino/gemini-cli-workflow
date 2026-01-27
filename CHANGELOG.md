@@ -1,4 +1,10 @@
 
+## [v2.16.3] - 2026-01-27
+
+### 🚀 Features
+- feat(branding): implement aesthetic centered header with custom badges and banner placeholder (6a81c8d)
+
+
 ## [v2.16.2] - 2026-01-27
 
 ### 🚀 Features
