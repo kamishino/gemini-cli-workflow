@@ -1,5 +1,9 @@
 # 🧠 Management & Operations (Ops)
 
+[ 🏠 Home ](../../README.md) | [ 🚀 Start ](../../docs/GETTING_STARTED.md) | [ 📖 Wiki ](README.md) | [ 🆘 SOS ](../../docs/TROUBLESHOOTING.md)
+
+---
+
 These commands manage the project's health, memory, and onboarding. They keep the AI "awake" and the documentation in sync.
 
 <!-- KAMI_COMMAND_LIST_START -->

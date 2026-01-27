@@ -1,6 +1,6 @@
 # 🔧 Troubleshooting Guide
 
-This guide addresses common issues encountered during KamiFlow setup and operation.
+[ 🏠 Home ](../README.md) | [ 🚀 Start ](GETTING_STARTED.md) | [ 📖 Wiki ](commands/README.md) | [ 🆘 SOS ](#)
 
 ---
 

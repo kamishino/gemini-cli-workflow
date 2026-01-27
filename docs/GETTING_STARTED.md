@@ -1,8 +1,6 @@
 # 🚀 Getting Started with KamiFlow
 
-**Welcome to KamiFlow v2.15** - The rigorous, opinionated "Operating System" for Indie Hackers using Gemini CLI. 
-
-KamiFlow transforms the AI from a generic chatbot into a disciplined **Technical Co-Founder** by enforcing the **Sniper Model** workflow.
+[ 🏠 Home ](../README.md) | [ 🚀 Start ](#) | [ 📖 Wiki ](commands/README.md) | [ 🆘 SOS ](TROUBLESHOOTING.md)
 
 ---
 

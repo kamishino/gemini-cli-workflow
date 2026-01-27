@@ -1,5 +1,9 @@
 # 📖 KamiFlow Command Wiki
 
+[ 🏠 Home ](../../README.md) | [ 🚀 Start ](../GETTING_STARTED.md) | [ 📖 Wiki ](#) | [ 🆘 SOS ](../TROUBLESHOOTING.md)
+
+---
+
 Welcome to the official command reference for **KamiFlow**. This Wiki provides deep technical insights and "Logic & Thinking" (CoT) guides for every command in the system.
 
 ## 🗂️ Browse by Category

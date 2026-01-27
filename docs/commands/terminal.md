@@ -1,5 +1,9 @@
 # 🖥️ Terminal CLI Guide (Flow Suite)
 
+[ 🏠 Home ](../../README.md) | [ 🚀 Start ](../../docs/GETTING_STARTED.md) | [ 📖 Wiki ](README.md) | [ 🆘 SOS ](../../docs/TROUBLESHOOTING.md)
+
+---
+
 The **`kamiflow`** (alias **`kami`**) command is used for machine-level operations, project initialization, and configuration management.
 
 <!-- KAMI_COMMAND_LIST_START -->

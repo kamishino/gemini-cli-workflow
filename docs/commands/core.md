@@ -1,5 +1,9 @@
 # 🎯 Sniper Model Commands (Core)
 
+[ 🏠 Home ](../../README.md) | [ 🚀 Start ](../../docs/GETTING_STARTED.md) | [ 📖 Wiki ](README.md) | [ 🆘 SOS ](../../docs/TROUBLESHOOTING.md)
+
+---
+
 These commands form the backbone of the **Sniper Model**, KamiFlow's rigorous 3-step workflow for high-fidelity software engineering.
 
 <!-- KAMI_COMMAND_LIST_START -->

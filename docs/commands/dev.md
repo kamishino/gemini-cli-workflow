@@ -1,5 +1,9 @@
 # 🚀 Auto-Pilot & Developer Tools (Dev)
 
+[ 🏠 Home ](../../README.md) | [ 🚀 Start ](../../docs/GETTING_STARTED.md) | [ 📖 Wiki ](README.md) | [ 🆘 SOS ](../../docs/TROUBLESHOOTING.md)
+
+---
+
 Automation tools for high-speed building, archiving, and release management.
 
 <!-- KAMI_COMMAND_LIST_START -->
