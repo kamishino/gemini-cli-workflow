@@ -1,4 +1,10 @@
 
+## [v2.16.7] - 2026-01-27
+
+### 🧹 Chores & Others
+- refactor(rules): consolidate manifesto and coding styles into high-density SSOT and upgrade tech-stack engine (190d301)
+
+
 ## [v2.16.6] - 2026-01-27
 
 ### 🧹 Chores & Others
