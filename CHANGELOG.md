@@ -1,4 +1,10 @@
 
+## [v2.17.0] - 2026-01-27
+
+### 🚀 Features
+- feat(core): implement Hidden Core architecture v3.0 and self-healing portals (db9f1eb)
+
+
 ## [v2.16.7] - 2026-01-27
 
 ### 🧹 Chores & Others
