@@ -1,4 +1,17 @@
 
+## [v2.18.0] - 2026-01-28
+
+### 🚀 Features
+- feat(rules): enforce Prompt-Only standard and PowerShell protocol (c28b03b)
+- feat(core): implement Universal Plugin Sync and Prompt-Only standard (0f30651)
+- feat(core): standardize Seed Hub plugin and create Plugin Blueprint (11cf79c)
+- feat(docs): integrate Seed Hub (Experiments) branding and documentation (3380e7f)
+- feat(core): implement Idea Sandbox (The Lab) with /draft and /analyze commands (5edafc5)
+
+### 🐛 Fixes
+- fix(core): fix ImportProcessor tokens in GEMINI.md and update templates (2dc16b6)
+
+
 ## [v2.17.1] - 2026-01-27
 
 ### 🚀 Features
