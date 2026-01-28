@@ -1,4 +1,10 @@
 
+## [v2.21.1] - 2026-01-28
+
+### 🚀 Features
+- feat(docs): overhaul documentation fidelity and implement interactive wiki features (f000aa3)
+
+
 ## [v2.21.0] - 2026-01-28
 
 ### 🚀 Features
