@@ -8,25 +8,22 @@
 ## 🏁 Strategic Achievements (Value Delivered)
 *This section highlights the business value extracted from completed tasks.*
 
-- **[Pillar Name]:** {{SUMMARY_OF_VALUE}}
-...
+{{ACHIEVEMENTS}}
 
 ---
 
 ## 🏗️ Current Focus (Active Pillars)
 *What we are building right now and why it matters.*
 
-- **Phase {{CURRENT_PHASE}}:** {{PHASE_NAME}}
-- **Active Task:** {{ACTIVE_TASK_SUMMARY}}
+- **Phase {{CURRENT_PHASE}}:** Discovery & Foundation
+- **Active Focus:** Project Initialization
 
 ---
 
 ## 🚀 AI-Suggested Growth Levers (Profit-Driven)
 *Strategic suggestions from Gemini based on local archive patterns and market trends.*
 
-1.  **{{LEVER_1_TITLE}}:** {{LEVER_1_RATIONALE}}
-2.  **{{LEVER_2_TITLE}}:** {{LEVER_2_RATIONALE}}
-3.  **{{LEVER_3_TITLE}}:** {{LEVER_3_RATIONALE}}
+{{GROWTH_LEVERS}}
 
 ---
 
@@ -34,22 +31,21 @@
 
 ### ✅ Completed
 - [x] **v1.0 Core:** Initial setup, basic command suite, and rules.
-- [ ] {{COMPLETED_TASK_LIST}}
 
 ### 🚧 In Progress
-- [ ] {{IN_PROGRESS_TASK_LIST}}
+- [ ] Initial project setup via `/kamiflow:ops:wake`.
 
 ### 📋 Backlog (Planned)
-- [ ] {{PLANNED_FEATURE_LIST}}
+- [ ] First feature implementation via Sniper Model.
 
 ---
 
 ## 📈 Success Metrics
-- **Efficiency:** {{METRIC_1}}
-- **Stability:** {{METRIC_2}}
+- **Efficiency:** Saving time through automation.
+- **Stability:** Rock-solid execution.
 
 ---
 
 ## 🔗 Dependencies
-- **Stack:** {{TECH_STACK}}
-- **External:** {{EXTERNAL_DEPENDENCIES}}
+- **Stack:** Node.js, Gemini CLI.
+- **External:** Custom AI Skills.

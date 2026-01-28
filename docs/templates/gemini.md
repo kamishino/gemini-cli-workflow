@@ -42,24 +42,20 @@ The core workflow uses 3 steps with 3-Layer Locks:
 - `/kamiflow:ops:roadmap` - Sync `docs/ROADMAP.md`.
 - `/kamiflow:ops:save-context` - Save RAM to `PROJECT_CONTEXT.md`.
 
+#### 📋 Quick Command Reference
+<!-- KAMI_COMMAND_LIST_START -->
+<!-- KAMI_COMMAND_LIST_END -->
+
 ---
 
 # 📥 SYSTEM IMPORTS
 
 # These files inject the detailed "Brain" of the protocols.
 
-
-
 @.gemini/rules/manifesto.md
-
 @.gemini/rules/tech-stack.md
-
 @.gemini/rules/command-standard.md
-
 @.gemini/rules/factory-line.md
-
 @.gemini/rules/automated-execution.md
-
 @.gemini/rules/bridge-ide.md
-
 @PROJECT_CONTEXT.md

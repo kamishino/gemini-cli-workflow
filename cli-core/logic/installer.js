@@ -163,7 +163,9 @@ async function createPortal(mapping, method) {
     }
   } catch (error) {
     if (method === "LINK" && error.code === "EPERM") {
-      console.log(chalk.yellow(`[KAMI] ⚠️  Symlink permission denied for ${path.basename(target)}`));
+      console.log(chalk.red("\n❌ Symlink permission denied."));
+      console.log(chalk.yellow("👉 Please run your terminal as Administrator to enable LINK mode."));
+      console.log(chalk.gray("   Or choose 'Standalone' mode for a physical copy.\n"));
       throw new Error("SYMLINK_PERMISSION_DENIED");
     }
     throw error;
@@ -198,6 +200,16 @@ async function seedProjectFiles(projectPath, corePath, projectName, method) {
       await fs.ensureDir(path.dirname(roadmapPath));
       await fs.copyFile(templatePath, roadmapPath);
       console.log(chalk.green("[KAMI] ✓ Created docs/roadmap.md"));
+    }
+  }
+
+  const universalRulesPath = path.join(projectPath, "docs", "universal-agent-rules.md");
+  if (!(await fs.pathExists(universalRulesPath))) {
+    const templatePath = path.join(corePath, "docs", "templates", "universal-agent-rules.md");
+    if (await fs.pathExists(templatePath)) {
+      await fs.ensureDir(path.dirname(universalRulesPath));
+      await fs.copyFile(templatePath, universalRulesPath);
+      console.log(chalk.green("[KAMI] ✓ Created docs/universal-agent-rules.md"));
     }
   }
 
@@ -266,6 +278,12 @@ async function initProject(projectPath, options) {
 
   const validConfig = ProjectConfigSchema.parse(config);
   let method = validConfig.method;
+
+  // 1. Core Folders
+  await fs.ensureDir(path.join(projectPath, "tasks"));
+  await fs.ensureDir(path.join(projectPath, "ideas/draft"));
+  await fs.ensureDir(path.join(projectPath, "ideas/backlog"));
+  await fs.ensureDir(path.join(projectPath, "docs/handoff_logs"));
 
   const portals = [
     { source: path.join(corePath, ".gemini"), target: path.join(projectPath, ".gemini"), isDirectory: true },

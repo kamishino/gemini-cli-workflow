@@ -42,6 +42,7 @@
 - [x] **v2.20.0:** Minor Release - Multi-Agent Bridge.
 - [x] **Task 045:** Multi-Agent Collaboration Bridge (/p-agents).
 - [x] **Task 046:** Workflow Harmonizer & Suffix Integrity.
+- [x] **Task 048:** Installer & Template Fidelity Alignment.
 - [x] **Task 044:** Unified Idea-to-Task Supply Chain.
 - [x] **Task 043:** Strategic RoadMap Upgrade.
 - [x] **Task 042:** Seed Hub v2 (Prepend History).
