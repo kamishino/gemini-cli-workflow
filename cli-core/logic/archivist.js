@@ -4,16 +4,17 @@ const chalk = require('chalk');
 const inquirer = require('inquirer');
 
 /**
- * Extract Source Idea path from task file content
+ * Extract Linked Idea ID from filename suffix (_from-ID)
  */
-function findSourceIdea(content) {
-  const match = content.match(/Source Idea:\s*(.*)/i);
-  return match ? match[1].trim() : null;
+function extractIdeaIdFromFilename(fileName) {
+  const match = fileName.match(/_from-([A-Z0-9]{4,6})\.md$/i);
+  return match ? match[1].toUpperCase() : null;
 }
 
 async function runArchivist() {
   const tasksDir = path.join(process.cwd(), 'tasks');
   const archiveDir = path.join(process.cwd(), 'archive');
+  const backlogDir = path.join(process.cwd(), 'ideas/backlog');
 
   if (!fs.existsSync(tasksDir)) {
     console.log(chalk.yellow("No tasks directory found."));
@@ -21,7 +22,7 @@ async function runArchivist() {
   }
 
   const files = fs.readdirSync(tasksDir).filter(f => f.endsWith('.md'));
-  
+
   if (files.length === 0) {
     console.log(chalk.green("Workspace is already clean!"));
     return;
@@ -33,7 +34,6 @@ async function runArchivist() {
     const match = file.match(/^(\d{3})-(S\d)-(BRIEF|PRD|TASK|IDEA|SPEC|BUILD|HANDOFF)-(.*)\.md$/);
     if (match) {
       const id = match[1];
-      const type = match[2];
       const slug = match[4];
       if (!tasks[id]) tasks[id] = { id, slug, files: [] };
       tasks[id].files.push(file);
@@ -41,7 +41,7 @@ async function runArchivist() {
   });
 
   const taskIds = Object.keys(tasks);
-  
+
   if (taskIds.length === 0) {
     console.log(chalk.yellow("No standard task files found to archive."));
     return;
@@ -73,41 +73,43 @@ async function runArchivist() {
 
     await fs.ensureDir(targetPath);
 
-    // Track linked ideas
-    const sourceIdeas = new Set();
+    // Track linked ideas via suffix
+    const linkedIdeaIds = new Set();
 
     for (const file of task.files) {
       const filePath = path.join(tasksDir, file);
-      const content = await fs.readFile(filePath, 'utf8');
       
-      const linkedIdea = findSourceIdea(content);
-      if (linkedIdea) sourceIdeas.add(linkedIdea);
+      const ideaId = extractIdeaIdFromFilename(file);
+      if (ideaId) linkedIdeaIds.add(ideaId);
 
       await fs.move(filePath, path.join(targetPath, file), { overwrite: true });
       console.log(chalk.gray(`  Moved ${file}`));
     }
 
-    // Process linked ideas
-    for (const ideaPath of sourceIdeas) {
-      const absoluteIdeaPath = path.resolve(process.cwd(), ideaPath);
-      if (await fs.pathExists(absoluteIdeaPath)) {
-        const ideaFileName = path.basename(absoluteIdeaPath);
-        
-        // Update status to implemented
-        let ideaContent = await fs.readFile(absoluteIdeaPath, 'utf8');
-        ideaContent = ideaContent.replace(/status:\s*backlog/i, 'status: implemented');
-        await fs.writeFile(absoluteIdeaPath, ideaContent);
+    // Process linked ideas from ideas/backlog/
+    if (fs.existsSync(backlogDir)) {
+      const backlogFiles = fs.readdirSync(backlogDir);
+      for (const ideaId of linkedIdeaIds) {
+        const matchingFile = backlogFiles.find(f => f.startsWith(ideaId));
+        if (matchingFile) {
+          const absoluteIdeaPath = path.join(backlogDir, matchingFile);
+          
+          // Update status to implemented
+          let ideaContent = await fs.readFile(absoluteIdeaPath, 'utf8');
+          ideaContent = ideaContent.replace(/status:\s*backlog/i, 'status: implemented');
+          await fs.writeFile(absoluteIdeaPath, ideaContent);
 
-        // Move to the same archive folder
-        await fs.move(absoluteIdeaPath, path.join(targetPath, ideaFileName), { overwrite: true });
-        console.log(chalk.cyan(`  ✓ Linked Idea harvested: ${ideaFileName}`));
+          // Move to the task archive folder
+          await fs.move(absoluteIdeaPath, path.join(targetPath, matchingFile), { overwrite: true });
+          console.log(chalk.cyan(`  ✓ Linked Idea harvested (Suffix Model): ${matchingFile}`));
+        }
       }
     }
 
-    console.log(chalk.green(`\n✅ Archived Task ${id} and all related artifacts.`));
+    console.log(chalk.green(`\n✅ Archived Task ${id} and its lineage.`));
   }
 
-  console.log(chalk.cyan("\n✨ Unified Archive process complete."));
+  console.log(chalk.cyan("\n✨ Harmonized Archive complete."));
 }
 
 module.exports = { runArchivist };

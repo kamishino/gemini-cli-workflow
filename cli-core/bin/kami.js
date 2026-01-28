@@ -210,10 +210,11 @@ program
   .description("Internal: Create a new idea draft (used by Gemini CLI)")
   .option("-c, --content <content>", "Full content of the idea")
   .option("-s, --slug <slug>", "Summarized slug for filename")
+  .option("-f, --from-idea <id>", "Linked Idea ID for suffix tagging")
   .action(async (title, options) => {
     try {
       const { createIdea } = require("../logic/idea-manager");
-      await createIdea(title, options.content, options.slug);
+      await createIdea(title, options.content, options.slug, options.fromIdea);
     } catch (error) {
       process.exit(1);
     }

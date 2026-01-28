@@ -9,16 +9,24 @@ const IDEAS_BACKLOG = path.join(PROJECT_ROOT, 'ideas/backlog');
 /**
  * Create a new idea draft from AI content
  */
-async function createIdea(title, content, aiSlug) {
+async function createIdea(title, content, aiSlug, fromIdeaId) {
   try {
-    const slug = aiSlug || title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
+    let slug = aiSlug || title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
+    
+    // Add suffix if from backlog
+    if (fromIdeaId) {
+      slug = `${slug}_from-${fromIdeaId}`;
+    }
+
     let fileName = `${slug}.md`;
     let targetPath = path.join(IDEAS_DRAFT, fileName);
 
     // Handle duplicates
     let counter = 1;
     while (await fs.pathExists(targetPath)) {
-      fileName = `${slug}-${counter}.md`;
+      const suffix = fromIdeaId ? `_from-${fromIdeaId}` : '';
+      const baseSlug = aiSlug || title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
+      fileName = `${baseSlug}-${counter}${suffix}.md`;
       targetPath = path.join(IDEAS_DRAFT, fileName);
       counter++;
     }
@@ -26,10 +34,12 @@ async function createIdea(title, content, aiSlug) {
     await fs.ensureDir(IDEAS_DRAFT);
     await fs.writeFile(targetPath, content);
 
-    console.log(chalk.green(`\n✨ Idea created: ${targetPath}`));
+    console.log(chalk.green(`
+✨ Idea created: ${targetPath}`));
     return targetPath;
   } catch (error) {
-    console.error(chalk.red(`\n❌ Failed to create idea: ${error.message}`));
+    console.error(chalk.red(`
+❌ Failed to create idea: ${error.message}`));
     throw error;
   }
 }
@@ -58,9 +68,11 @@ async function prependRefinement(filePath, newContent) {
     const finalContent = `${pre}\n\n${newContent}\n\n---\n${post}`;
     
     await fs.writeFile(absolutePath, finalContent);
-    console.log(chalk.green(`\n🌿 Refinement prepended to: ${filePath}`));
+    console.log(chalk.green(`
+🌿 Refinement prepended to: ${filePath}`));
   } catch (error) {
-    console.error(chalk.red(`\n❌ Failed to prepend refinement: ${error.message}`));
+    console.error(chalk.red(`
+❌ Failed to prepend refinement: ${error.message}`));
     throw error;
   }
 }
@@ -86,10 +98,12 @@ async function promoteIdea(filePath) {
     await fs.ensureDir(IDEAS_BACKLOG);
     await fs.move(absolutePath, newPath, { overwrite: true });
 
-    console.log(chalk.green(`\n🚀 Idea promoted to backlog: ${newPath}`));
+    console.log(chalk.green(`
+🚀 Idea promoted to backlog: ${newPath}`));
     return newPath;
   } catch (error) {
-    console.error(chalk.red(`\n❌ Failed to promote idea: ${error.message}`));
+    console.error(chalk.red(`
+❌ Failed to promote idea: ${error.message}`));
     throw error;
   }
 }

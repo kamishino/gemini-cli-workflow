@@ -93,7 +93,7 @@ The core workflow uses 3 steps with 3-Layer Locks:
 | `/kamiflow:ops:wake` | **[KamiFlow] Wake up and reload project context to eliminate session amnesia.** |
 | `/kamiflow:ops:help` | **[KamiFlow] Interactive help system for commands and Sniper Model phases.** |
 | `/kamiflow:ops:tour` | **[KamiFlow] Guided tour for new projects to explain the Sniper Model.** |
-| `/kamiflow:ops:sync` | **[KamiFlow] Read logs from docs/handoff_logs and sync Project Context.** |
+| `/kamiflow:ops:sync` | **[KamiFlow] Read IDE logs and perform Strategic Roadmap Sync.** |
 | `/kamiflow:ops:save-context` | **[KamiFlow] Sync current state to PROJECT_CONTEXT.md (Manual Memory Save).** |
 | `/kamiflow:ops:bootstrap` | **[KamiFlow] Bootstrap KamiFlow as a Git Submodule - create portal symlinks and initialize proxy files.** |
 
@@ -110,7 +110,7 @@ The core workflow uses 3 steps with 3-Layer Locks:
 
 | Command | Goal |
 | :--- | :--- |
-| `/kamiflow:p-seed:draft` | **[Seed Hub] Seed an idea with integrated initial analysis and custom questions.** |
+| `/kamiflow:p-seed:draft` | **[Seed Hub] Seed an idea with an Interactive Terminal Interview.** |
 | `/kamiflow:p-seed:analyze` | **[Seed Hub] Deeply analyze an idea with Strategic Breakdown and Prepend History.** |
 | `/kamiflow:p-seed:promote` | **[Seed Hub] Harvest an idea by moving it to the backlog (The Harvesting phase).** |
 
