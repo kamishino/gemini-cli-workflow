@@ -93,6 +93,14 @@ Machine-level operations via the `kamiflow` command.
 | `/kamiflow:p-seed:promote` | **[Seed Hub] Harvest an idea by moving it to the backlog (The Harvesting phase).** |
 
 
+### 🧩 Swarm (Plugin)
+
+| Command | Goal |
+| :--- | :--- |
+| `/kamiflow:p-swarm:run` | **[Swarm Engine] Dispatch multiple intents to parallel sub-agents.** |
+| `/kamiflow:p-swarm:status` | **[Swarm Engine] Check active locks and swarm health.** |
+
+
 ### 🖥️ Terminal CLI Guide (Flow Suite)
 
 | Command | Goal |

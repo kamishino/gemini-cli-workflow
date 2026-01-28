@@ -269,4 +269,53 @@ program
     }
   });
 
-program.parse();
+const { isLocked, acquireLock, releaseLock, getSwarmStatus } = require("../logic/swarm-dispatcher");
+
+// ... existing code ...
+
+/**
+ * --- SWARM COMMANDS ---
+ */
+
+program
+  .command("swarm-status")
+  .description("Show active locks and swarm health")
+  .action(async () => {
+    try {
+      const status = await getSwarmStatus();
+      if (status.activeLocks && status.activeLocks.length > 0) {
+        console.log(chalk.cyan("\n🚦 Active Swarm Locks:"));
+        status.activeLocks.forEach(l => {
+          console.log(chalk.yellow(`- ${l.folder}: Locked by ${l.agent} (${l.timestamp})`));
+        });
+      } else {
+        console.log(chalk.green("\n🟢 Swarm is ready. No active locks."));
+      }
+    } catch (err) {
+      console.error(chalk.red("Error fetching status:"), err.message);
+    }
+  });
+
+program
+  .command("swarm-lock <folder> <agentId>")
+  .description("Manually set a swarm lock")
+  .action(async (folder, agentId) => {
+    try {
+      await acquireLock(path.resolve(process.cwd(), folder), agentId);
+    } catch (err) {
+      console.error(chalk.red("Fail:"), err.message);
+    }
+  });
+
+program
+  .command("swarm-unlock <folder>")
+  .description("Manually release a swarm lock")
+  .action(async (folder) => {
+    try {
+      await releaseLock(path.resolve(process.cwd(), folder));
+    } catch (err) {
+      console.error(chalk.red("Fail:"), err.message);
+    }
+  });
+
+program.parse(process.argv);

@@ -35,6 +35,7 @@
 - [x] **v2.21.0:** Fidelity Release - Docs, Installer, and Strategic Sync.
 - [x] **Task 049:** Documentation Fidelity & Interactive Wiki.
 - [x] **Task 050:** Market Planner & Product Improvement Engine (/p-market).
+- [x] **Task 051:** Sub-Agent Swarm for Parallel Performance (/p-swarm).
 - [x] **Task 048:** Installer & Template Alignment.
 - [x] **Task 047:** Intelligent SuperLazy & Roadmap SSOT.
 - [x] **Task 046:** Workflow Harmonizer & Suffix Integrity.

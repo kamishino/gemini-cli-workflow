@@ -209,9 +209,20 @@ async function seedProjectFiles(projectPath, corePath, projectName, method) {
     if (await fs.pathExists(templatePath)) {
       await fs.ensureDir(path.dirname(universalRulesPath));
       await fs.copyFile(templatePath, universalRulesPath);
-      console.log(chalk.green("[KAMI] ✓ Created docs/universal-agent-rules.md"));
+      console.log(chalk.green("[KAMI] âœ“ Created docs/universal-agent-rules.md"));
     }
   }
+
+  const registryPath = path.join(projectPath, "docs", "agents", "registry.md");
+  if (!(await fs.pathExists(registryPath))) {
+    const templatePath = path.join(corePath, "docs", "templates", "registry.md");
+    if (await fs.pathExists(templatePath)) {
+      await fs.ensureDir(path.dirname(registryPath));
+      await fs.copyFile(templatePath, registryPath);
+      console.log(chalk.green("[KAMI] âœ“ Created docs/agents/registry.md"));
+    }
+  }
+
 
   const ignorePath = path.join(projectPath, ".geminiignore");
   const ignoreEntry = "\n# Ignore KamiFlow core (accessed via portals)\n.gemini/\n.windsurf/\n";
@@ -284,6 +295,7 @@ async function initProject(projectPath, options) {
   await fs.ensureDir(path.join(projectPath, "ideas/draft"));
   await fs.ensureDir(path.join(projectPath, "ideas/backlog"));
   await fs.ensureDir(path.join(projectPath, "ideas/discovery"));
+  await fs.ensureDir(path.join(projectPath, "docs/agents"));
   await fs.ensureDir(path.join(projectPath, "docs/handoff_logs"));
 
   const portals = [

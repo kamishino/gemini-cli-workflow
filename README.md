@@ -46,6 +46,7 @@
 
 ## ✨ Key Features
 - **🎯 Sniper Model Workflow:** A 3-step fused kernel (Idea → Spec → Build) with 3-Layer Logic Locks.
+- **🐝 Sub-Agent Swarm:** Multi-threaded parallel execution with concurrency locks and specialized agent registry.
 - **💡 Idea Sandbox (The Lab):** A safe space to "draft" and "analyze" raw ideas using multiple AI personas.
 - **🛠️ Self-Healing Core:** Proactive system doctor and automated repair mechanisms.
 - **🚀 One-Liner Installer:** Frictionless installation for Windows, MacOS, and Linux.
