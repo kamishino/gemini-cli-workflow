@@ -1,4 +1,15 @@
 
+## [v2.19.0] - 2026-01-28
+
+### 🚀 Features
+- feat(core): implement Unified Idea-to-Task Supply Chain (41fd35d)
+- feat(docs): upgrade roadmap to a Strategic PO Dashboard (6f31ecc)
+- feat(seed): upgrade to Seed Hub v2 with Prepend History and AI-driven UX (0270ab3)
+
+### 🐛 Fixes
+- fix(core): remove sync markers and switch to direct imports to eliminate ImportProcessor errors (e638a58)
+
+
 ## [v2.18.0] - 2026-01-28
 
 ### 🚀 Features
