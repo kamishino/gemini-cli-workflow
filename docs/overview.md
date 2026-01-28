@@ -179,6 +179,14 @@ The **Management Commands** (`/kamiflow:ops:roadmap` and `/kamiflow:ops:save-con
 | `/kamiflow:p-agents:scan` | **[Agent Hub] Discover which AI agents are currently present in your project.** |
 
 
+### 🧩 Market (Plugin)
+
+| Command | Goal |
+| :--- | :--- |
+| `/kamiflow:p-market:research` | **[Market Engine] Analyze project context and suggest 3-5 high-value feature requests.** |
+| `/kamiflow:p-market:inspire` | **[Market Engine] Out-of-the-box innovation brainstorming for your current stack.** |
+
+
 ### 🌱 The Seed Hub (Plugin)
 
 | Command | Goal |

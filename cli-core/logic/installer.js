@@ -283,6 +283,7 @@ async function initProject(projectPath, options) {
   await fs.ensureDir(path.join(projectPath, "tasks"));
   await fs.ensureDir(path.join(projectPath, "ideas/draft"));
   await fs.ensureDir(path.join(projectPath, "ideas/backlog"));
+  await fs.ensureDir(path.join(projectPath, "ideas/discovery"));
   await fs.ensureDir(path.join(projectPath, "docs/handoff_logs"));
 
   const portals = [
