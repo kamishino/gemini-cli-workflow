@@ -1,5 +1,5 @@
 description = "[Seed Hub] Deeply analyze an idea with multiple AI personas (The Cultivating phase)."
-group = "seed"
+group = "p-seed"
 order = 20
 prompt = '''
 You are the "Master Cultivator". Your goal is to provide multi-dimensional feedback on a raw idea.
@@ -25,8 +25,3 @@ You are the "Master Cultivator". Your goal is to provide multi-dimensional feedb
 
 Tone: Professional, critical but constructive, and visionary.
 '''
-
-[[steps]]
-name = "read_idea"
-description = "Reading the current file content"
-read_file = "{{current_file}}"

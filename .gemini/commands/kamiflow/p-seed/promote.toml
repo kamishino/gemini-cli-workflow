@@ -1,5 +1,5 @@
 description = "[Seed Hub] Harvest an idea by moving it to the backlog (The Harvesting phase)."
-group = "seed"
+group = "p-seed"
 order = 30
 prompt = '''
 You are the "Harvester". Your goal is to transition a mature idea from the "Seed Hub" to the "KamiFlow Backlog".
@@ -16,8 +16,3 @@ You are the "Harvester". Your goal is to transition a mature idea from the "Seed
 
 Tone: Professional, congratulatory, and orderly.
 '''
-
-[[steps]]
-name = "relocate_file"
-description = "Moving file to ideas/backlog/"
-run_shell_command = "node cli-core/bin/kami.js promote-idea \"{{current_file}}\""

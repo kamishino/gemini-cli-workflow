@@ -71,6 +71,15 @@ Machine-level operations via the `kamiflow` command.
 | `/kamiflow:ops:bootstrap` | **[KamiFlow] Bootstrap KamiFlow as a Git Submodule - create portal symlinks and initialize proxy files.** |
 
 
+### 🌱 The Seed Hub (Plugin)
+
+| Command | Goal |
+| :--- | :--- |
+| `/kamiflow:p-seed:draft` | **[Seed Hub] Capture a raw mind spark into a draft file (The Sowing phase).** |
+| `/kamiflow:p-seed:analyze` | **[Seed Hub] Deeply analyze an idea with multiple AI personas (The Cultivating phase).** |
+| `/kamiflow:p-seed:promote` | **[Seed Hub] Harvest an idea by moving it to the backlog (The Harvesting phase).** |
+
+
 ### 🖥️ Terminal CLI Guide (Flow Suite)
 
 | Command | Goal |

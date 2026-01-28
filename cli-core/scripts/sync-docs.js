@@ -15,12 +15,6 @@ const WIKI_FILES = {
   global: path.join(__dirname, '../../docs/commands/README.md')
 };
 
-const GLOBAL_TARGETS = [
-  path.join(__dirname, '../../GEMINI.md'),
-  path.join(__dirname, '../../docs/overview.md'),
-  WIKI_FILES.global
-];
-
 const GROUP_TITLES = {
   sniper: '🎯 Sniper Model (Core Flow)',
   bridge: '🌉 The Bridge (IDE Integration)',
@@ -31,17 +25,45 @@ const GROUP_TITLES = {
 
 const GROUP_ORDER = ['sniper', 'bridge', 'autopilot', 'management', 'terminal'];
 
+/**
+ * Format plugin name for display (e.g., p-seed -> 🌱 Seed Hub)
+ */
+function formatPluginTitle(folderName) {
+  if (folderName === 'p-seed') return '🌱 The Seed Hub (Plugin)';
+  
+  // Generic formatter for other plugins
+  const name = folderName.replace('p-', '')
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+  return `🧩 ${name} (Plugin)`;
+}
+
 async function main() {
   try {
     console.log(chalk.blue('ℹ️ Syncing command documentation (Encyclopedia Mode)...'));
 
-    // 1. Build Command Map from TOML files
+    // 1. Discover Categories (Core + Plugins)
     const commandMap = [];
-    const categories = ['core', 'ops', 'dev'];
+    if (!fs.existsSync(COMMANDS_ROOT)) {
+        throw new Error(`Commands root not found: ${COMMANDS_ROOT}`);
+    }
+
+    const categories = fs.readdirSync(COMMANDS_ROOT).filter(f => {
+        return fs.statSync(path.join(COMMANDS_ROOT, f)).isDirectory();
+    });
+
+    const pluginGroups = [];
 
     for (const cat of categories) {
       const catDir = path.join(COMMANDS_ROOT, cat);
-      if (!fs.existsSync(catDir)) continue;
+      const isPlugin = cat.startsWith('p-');
+      
+      if (isPlugin) {
+          const title = formatPluginTitle(cat);
+          GROUP_TITLES[cat] = title;
+          pluginGroups.push(cat);
+      }
 
       const files = fs.readdirSync(catDir).filter(f => f.endsWith('.toml'));
       for (const file of files) {
@@ -56,7 +78,7 @@ async function main() {
           folder: cat,
           name: cmdName,
           description: parsed.description || 'No description provided.',
-          group: parsed.group || 'management',
+          group: parsed.group || cat, // Default to folder name as group
           order: parsed.order || 999
         });
       }
@@ -74,20 +96,18 @@ async function main() {
     ];
     commandMap.push(...cliCommands);
 
-    // 3. Process each target file
-    for (const target of Object.keys(WIKI_FILES).map(k => ({ file: WIKI_FILES[k], groups: [k] })) ) {
-        // Special case for README and global targets handled below
-    }
+    // 3. Define Final Order (Core first, then Plugins, then Terminal)
+    const FINAL_ORDER = [...GROUP_ORDER.filter(g => g !== 'terminal'), ...pluginGroups, 'terminal'];
 
-    // Manual targets processing for Task 030 logic
+    // 4. Manual targets processing
     const TARGET_MAP = [
         { file: WIKI_FILES.sniper, groups: ['sniper', 'bridge'] },
         { file: WIKI_FILES.management, groups: ['management'] },
         { file: WIKI_FILES.autopilot, groups: ['autopilot'] },
         { file: WIKI_FILES.terminal, groups: ['terminal'] },
-        { file: WIKI_FILES.global, groups: GROUP_ORDER },
-        { file: path.join(__dirname, '../../GEMINI.md'), groups: GROUP_ORDER },
-        { file: path.join(__dirname, '../../docs/overview.md'), groups: GROUP_ORDER }
+        { file: WIKI_FILES.global, groups: FINAL_ORDER },
+        { file: path.join(__dirname, '../../GEMINI.md'), groups: FINAL_ORDER },
+        { file: path.join(__dirname, '../../docs/overview.md'), groups: FINAL_ORDER }
     ];
 
     for (const target of TARGET_MAP) {
@@ -116,7 +136,7 @@ function generateGroupTable(commandMap, groupKey) {
 
   if (groupCommands.length === 0) return '';
 
-  let md = `\n### ${GROUP_TITLES[groupKey]}\n\n`;
+  let md = `\n### ${GROUP_TITLES[groupKey] || groupKey}\n\n`;
   md += `| Command | Goal |\n| :--- | :--- |\n`;
   
   groupCommands.forEach(cmd => {

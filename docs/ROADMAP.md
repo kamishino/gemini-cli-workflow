@@ -63,6 +63,7 @@
 - [x] **v2.46 Feature:** Idea Sandbox (The Lab) - Multi-persona AI Brainstorming (Task 037).
 - [x] **v2.47 Feature:** Seed Hub Integration & Documentation Portal (Task 038).
 - [x] **v2.48 Feature:** Seed Hub Standardization & Plugin Blueprint (Task 039).
+- [x] **v2.49 Feature:** Universal Plugin Sync & Prompt-Only Standard (Task 040).
 
 ## 🏗️ In Progress
 - [ ] Final polishing for public rollout.
