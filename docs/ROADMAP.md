@@ -61,6 +61,7 @@
 - [x] **v2.44 Feature:** Hidden Core Architecture v3.0 & Self-Healing Portals (Task 034).
 - [x] **v2.45 Feature:** Total System Health Audit & Fire Test (Task 035).
 - [x] **v2.46 Feature:** Idea Sandbox (The Lab) - Multi-persona AI Brainstorming (Task 037).
+- [x] **v2.47 Feature:** Seed Hub Integration & Documentation Portal (Task 038).
 
 ## 🏗️ In Progress
 - [ ] Final polishing for public rollout.

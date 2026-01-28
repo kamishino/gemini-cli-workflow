@@ -39,6 +39,13 @@ graph TD
         AutoLog(Signal File: logs/*_superlazy.md)
     end
 
+    subgraph Seed_Hub [🌱 The Seed Hub (Experiments)]
+        Draft[/"/kamiflow:core:draft"/]
+        Analyze[/"/kamiflow:core:analyze"/]
+        Promote[/"/kamiflow:core:promote"/]
+        MindSparks((Mind Sparks))
+    end
+
     subgraph Knowledge_Base [🧠 Brain]
         Rules[(Rules & Protocols)]
         Skills[(Skills Library)]
@@ -64,6 +71,14 @@ graph TD
     Lazy --> SuperLazy
     SuperLazy --> AutoCode
     AutoCode --> AutoLog
+
+    %% Seed Hub Loop (Plugin)
+    Start -.-> MindSparks
+    MindSparks --> Draft
+    Draft --> Analyze
+    Analyze --> Promote
+    Promote --> Idea
+    Promote -.-> Start
 
     Handoff --> IdeMode
     IdeMode --> Code
@@ -100,6 +115,10 @@ graph TD
     style Lock1 fill:#faa,stroke:#333,stroke-width:2px
     style Lock2 fill:#afa,stroke:#333,stroke-width:2px
     style Lock3 fill:#aaf,stroke:#333,stroke-width:2px
+    style Draft fill:#cfc,stroke:#333,stroke-width:3px
+    style Analyze fill:#cfc,stroke:#333,stroke-width:3px
+    style Promote fill:#cfc,stroke:#333,stroke-width:3px
+    style MindSparks fill:#fff,stroke:#333,stroke-dasharray: 5 5
 ```
 
 ## 🧭 Navigation Note
