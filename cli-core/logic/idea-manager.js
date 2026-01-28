@@ -5,30 +5,13 @@ const chalk = require('chalk');
 const PROJECT_ROOT = path.resolve(__dirname, '../../');
 const IDEAS_DRAFT = path.join(PROJECT_ROOT, 'ideas/draft');
 const IDEAS_BACKLOG = path.join(PROJECT_ROOT, 'ideas/backlog');
-const TEMPLATE_PATH = path.join(PROJECT_ROOT, 'docs/templates/idea.md');
 
 /**
- * Slugify a string
+ * Create a new idea draft from AI content
  */
-function slugify(text) {
-  return text
-    .toString()
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/[^wd-z_-]/g, '')
-    .replace(/--+/g, '-')
-    .replace(/^-+/, '')
-    .replace(/-+$/, '');
-}
-
-/**
- * Create a new idea draft
- */
-async function createIdea(title) {
+async function createIdea(title, content, aiSlug) {
   try {
-    const slug = slugify(title);
+    const slug = aiSlug || title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
     let fileName = `${slug}.md`;
     let targetPath = path.join(IDEAS_DRAFT, fileName);
 
@@ -40,25 +23,44 @@ async function createIdea(title) {
       counter++;
     }
 
-    // Load template
-    let content = await fs.readFile(TEMPLATE_PATH, 'utf8');
-    const date = new Date().toISOString().split('T')[0];
-    const randomId = Math.random().toString(36).substring(2, 8).toUpperCase();
-
-    content = content
-      .replace(/{{TITLE}}/g, title)
-      .replace(/{{ID}}/g, randomId)
-      .replace(/{{DATE}}/g, date);
-
     await fs.ensureDir(IDEAS_DRAFT);
     await fs.writeFile(targetPath, content);
 
-    console.log(chalk.green(`
-✨ Idea created: ${targetPath}`));
+    console.log(chalk.green(`\n✨ Idea created: ${targetPath}`));
     return targetPath;
   } catch (error) {
-    console.error(chalk.red(`
-❌ Failed to create idea: ${error.message}`));
+    console.error(chalk.red(`\n❌ Failed to create idea: ${error.message}`));
+    throw error;
+  }
+}
+
+/**
+ * Prepend a refinement version to the idea file
+ */
+async function prependRefinement(filePath, newContent) {
+  try {
+    const absolutePath = path.resolve(process.cwd(), filePath);
+    if (!(await fs.pathExists(absolutePath))) {
+      throw new Error(`File not found: ${filePath}`);
+    }
+
+    let fileContent = await fs.readFile(absolutePath, 'utf8');
+    
+    // Logic: Insert after the # 💡 IDEA: [Title] line
+    const lines = fileContent.split('\n');
+    let titleIndex = lines.findIndex(l => l.startsWith('# 💡 IDEA:'));
+    
+    if (titleIndex === -1) titleIndex = 0; // Fallback to top
+
+    const pre = lines.slice(0, titleIndex + 1).join('\n');
+    const post = lines.slice(titleIndex + 1).join('\n');
+
+    const finalContent = `${pre}\n\n${newContent}\n\n---\n${post}`;
+    
+    await fs.writeFile(absolutePath, finalContent);
+    console.log(chalk.green(`\n🌿 Refinement prepended to: ${filePath}`));
+  } catch (error) {
+    console.error(chalk.red(`\n❌ Failed to prepend refinement: ${error.message}`));
     throw error;
   }
 }
@@ -84,17 +86,16 @@ async function promoteIdea(filePath) {
     await fs.ensureDir(IDEAS_BACKLOG);
     await fs.move(absolutePath, newPath, { overwrite: true });
 
-    console.log(chalk.green(`
-🚀 Idea promoted to backlog: ${newPath}`));
+    console.log(chalk.green(`\n🚀 Idea promoted to backlog: ${newPath}`));
     return newPath;
   } catch (error) {
-    console.error(chalk.red(`
-❌ Failed to promote idea: ${error.message}`));
+    console.error(chalk.red(`\n❌ Failed to promote idea: ${error.message}`));
     throw error;
   }
 }
 
 module.exports = {
   createIdea,
+  prependRefinement,
   promoteIdea
 };

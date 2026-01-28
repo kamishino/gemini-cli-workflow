@@ -208,10 +208,24 @@ program
 program
   .command("create-idea <title>")
   .description("Internal: Create a new idea draft (used by Gemini CLI)")
-  .action(async (title) => {
+  .option("-c, --content <content>", "Full content of the idea")
+  .option("-s, --slug <slug>", "Summarized slug for filename")
+  .action(async (title, options) => {
     try {
       const { createIdea } = require("../logic/idea-manager");
-      await createIdea(title);
+      await createIdea(title, options.content, options.slug);
+    } catch (error) {
+      process.exit(1);
+    }
+  });
+
+program
+  .command("refine-idea <path> <content>")
+  .description("Internal: Prepend a refinement to an idea (used by Gemini CLI)")
+  .action(async (filePath, content) => {
+    try {
+      const { prependRefinement } = require("../logic/idea-manager");
+      await prependRefinement(filePath, content);
     } catch (error) {
       process.exit(1);
     }

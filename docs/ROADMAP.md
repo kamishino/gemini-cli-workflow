@@ -65,6 +65,7 @@
 - [x] **v2.48 Feature:** Seed Hub Standardization & Plugin Blueprint (Task 039).
 - [x] **v2.49 Feature:** Universal Plugin Sync & Prompt-Only Standard (Task 040).
 - [x] **v2.50 Feature:** Command Standard & PowerShell Enforcement Rules (Task 041).
+- [x] **v2.51 Feature:** Seed Hub v2 - Prepend History & AI-Driven UX (Task 042).
 
 ## 🏗️ In Progress
 - [ ] Final polishing for public rollout.
