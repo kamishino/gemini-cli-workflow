@@ -15,8 +15,8 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Upgraded to Universal Plugin Sync and Prompt-Only Command Standard (Task 040).
-- **Current Focus:** Final polishing and ecosystem expansion.
+- **Last Completed Action:** Established Command Standard (Prompt-Only) and PowerShell Protocol for Windows (Task 041).
+- **Current Focus:** Ecosystem expansion and final polishing.
 - **Next Step:** Official Release v2.17.1 and preparation for public rollout.
 
 ## 3. Knowledge Map (Directory Guide)

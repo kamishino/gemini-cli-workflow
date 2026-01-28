@@ -139,6 +139,10 @@ The core workflow uses 3 steps with 3-Layer Locks:
 @.gemini/rules/tech-stack.md
 <!-- End of import from: .gemini/rules/tech-stack.md -->
 
+<!-- Imported from: .gemini/rules/command-standard.md -->
+@.gemini/rules/command-standard.md
+<!-- End of import from: .gemini/rules/command-standard.md -->
+
 <!-- Imported from: .gemini/rules/factory-line.md -->
 @.gemini/rules/factory-line.md
 <!-- End of import from: .gemini/rules/factory-line.md -->
