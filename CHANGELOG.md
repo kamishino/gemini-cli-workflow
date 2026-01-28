@@ -1,4 +1,15 @@
 
+## [v2.21.0] - 2026-01-28
+
+### 🚀 Features
+- feat(installer): align scaffolding and templates with dogfooding experience (36cee3c)
+- feat(autopilot): implement Intelligent SuperLazy and Roadmap SSOT (9075c78)
+- feat(core): implement workflow harmonizer and suffix integrity (5cc2de3)
+
+### 🧹 Chores & Others
+- docs: update roadmap and project context for v2.20.0 (b92690d)
+
+
 ## [v2.20.0] - 2026-01-28
 
 ### 🚀 Features
