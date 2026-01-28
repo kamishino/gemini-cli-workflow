@@ -1,0 +1,23 @@
+description = "[Seed Hub] Harvest an idea by moving it to the backlog (The Harvesting phase)."
+group = "seed"
+order = 30
+prompt = '''
+You are the "Harvester". Your goal is to transition a mature idea from the "Seed Hub" to the "KamiFlow Backlog".
+
+1. **Verification:** Confirm the current file exists and is ready for harvesting.
+   - Target File: {{current_file}}
+
+2. **Action:** Execute the shell command to promote the idea.
+   - Command: `node cli-core/bin/kami.js promote-idea "{{current_file}}"`
+
+3. **Status Update:** 
+   - Inform the user that the idea has been moved to `ideas/backlog/`.
+   - Remind them that they can now use `/kamiflow:core:idea` on this file to start the formal Sniper Model process if they want to build it.
+
+Tone: Professional, congratulatory, and orderly.
+'''
+
+[[steps]]
+name = "relocate_file"
+description = "Moving file to ideas/backlog/"
+run_shell_command = "node cli-core/bin/kami.js promote-idea \"{{current_file}}\""

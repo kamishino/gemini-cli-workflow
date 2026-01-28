@@ -40,9 +40,9 @@ graph TD
     end
 
     subgraph Seed_Hub [🌱 The Seed Hub (Experiments)]
-        Draft[/"/kamiflow:core:draft"/]
-        Analyze[/"/kamiflow:core:analyze"/]
-        Promote[/"/kamiflow:core:promote"/]
+        Draft[/"/kamiflow:seed:draft"/]
+        Analyze[/"/kamiflow:seed:analyze"/]
+        Promote[/"/kamiflow:seed:promote"/]
         MindSparks((Mind Sparks))
     end
 

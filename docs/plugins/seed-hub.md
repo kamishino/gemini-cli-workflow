@@ -17,9 +17,9 @@ It is a **Feedback Loop** that can operate independently or as a feeder for the 
 
 The lifecycle of an idea in the Seed Hub follows a natural growth process:
 
-1.  **🌱 Sowing (Draft):** Use `/kamiflow:core:draft` to quickly capture a "What if...?" or "Why not...?" moment.
-2.  **🌿 Cultivating (Analyze):** Use `/kamiflow:core:analyze` to invite AI Personas (Steve Jobs, Pragmatic Engineer, Simple User) to critique and expand your idea.
-3.  **🍎 Harvesting (Promote):** When an idea matures, use `/kamiflow:core:promote` to move it to the `backlog/` or trigger a formal `/kamiflow:core:idea`.
+1.  **🌱 Sowing (Draft):** Use `/kamiflow:seed:draft` to quickly capture a "What if...?" or "Why not...?" moment.
+2.  **🌿 Cultivating (Analyze):** Use `/kamiflow:seed:analyze` to invite AI Personas (Steve Jobs, Pragmatic Engineer, Simple User) to critique and expand your idea.
+3.  **🍎 Harvesting (Promote):** When an idea matures, use `/kamiflow:seed:promote` to move it to the `backlog/` or trigger a formal `/kamiflow:core:idea`.
 
 ---
 
@@ -42,9 +42,9 @@ A technique where ideas are passed around to build upon each other without criti
 
 | Command | Action | Goal |
 | :--- | :--- | :--- |
-| `/kamiflow:core:draft` | **Sow a Seed** | Quick capture of a raw concept. |
-| `/kamiflow:core:analyze`| **Cultivate** | Multi-persona feedback loop. |
-| `/kamiflow:core:promote`| **Harvest** | Move to backlog or formal production. |
+| `/kamiflow:seed:draft` | **Sow a Seed** | Quick capture of a raw concept. |
+| `/kamiflow:seed:analyze`| **Cultivate** | Multi-persona feedback loop. |
+| `/kamiflow:seed:promote`| **Harvest** | Move to backlog or formal production. |
 
 ---
 
