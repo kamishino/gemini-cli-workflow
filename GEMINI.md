@@ -122,10 +122,26 @@ The core workflow uses 3 steps with 3-Layer Locks:
 
 # These files inject the detailed "Brain" of the protocols.
 
+<!-- Imported from: .gemini/rules/manifesto.md -->
 @.gemini/rules/manifesto.md
+<!-- End of import from: .gemini/rules/manifesto.md -->
+
+<!-- Imported from: .gemini/rules/tech-stack.md -->
 @.gemini/rules/tech-stack.md
+<!-- End of import from: .gemini/rules/tech-stack.md -->
+
+<!-- Imported from: .gemini/rules/factory-line.md -->
 @.gemini/rules/factory-line.md
-@.gemini/rules/lean-validation.md
+<!-- End of import from: .gemini/rules/factory-line.md -->
+
+<!-- Imported from: .gemini/rules/automated-execution.md -->
 @.gemini/rules/automated-execution.md
+<!-- End of import from: .gemini/rules/automated-execution.md -->
+
+<!-- Imported from: .gemini/rules/bridge-ide.md -->
 @.gemini/rules/bridge-ide.md
+<!-- End of import from: .gemini/rules/bridge-ide.md -->
+
+<!-- Imported from: PROJECT_CONTEXT.md -->
 @PROJECT_CONTEXT.md
+<!-- End of import from: PROJECT_CONTEXT.md -->

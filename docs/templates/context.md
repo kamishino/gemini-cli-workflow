@@ -1,23 +1,29 @@
 # 🧠 MEMORY BANK: {{PROJECT_NAME}}
+
 > **SYSTEM NOTE:** This file is the "Short-term Memory" (RAM) of the project.
 > **RULE:** Update this file at the end of every session using `/kamiflow:ops:save-context`.
+> **INTEGRATOR RULE (ID Caching):** After running `/kamiflow:ops:wake`, maintain `cached_max_id` in session memory for fast ID generation. Only re-scan when user requests correction.
 
 ## 1. Project Identity
+
 - **Goal:** {{PROJECT_GOAL}}
 - **Current Phase:** {{CURRENT_PHASE}}
 - **Key Tech:** {{KEY_TECH_STACK}}
 - **Tour Completed:** false
 
 ## 2. Active Context (The "Now")
+
+> **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
+
 - **Last Completed Action:** {{LAST_COMPLETED_ACTION}}
 - **Current Focus:** {{CURRENT_FOCUS}}
 - **Next Step:** {{NEXT_STEP}}
 
 ## 3. Knowledge Map (Directory Guide)
+
 - **Overview:** `docs/overview.md` (Start here)
-- **Tasks:** `tasks/` (Single source of truth for Briefs, PRDs, Tasks)
-- **Commands:** `.gemini/commands/kamiflow/*.toml` (Command Definitions)
-- **Rules:** `.gemini/rules/*.md` (Manifesto, Tech Stack, Style)
-- **Skills:** `.gemini/skills/` (Golden Snippets)
-- **IDE Bridge:** `.windsurf/` (Workflows & Rules)
-- **Logs:** `docs/handoff_logs/` (Sync Buffer)
+- **Tasks:** `tasks/` (Centralized Artifacts: Briefs, PRDs, Tasks, Handoffs)
+- **Blueprints:** `.gemini/` (Portal to cli-core/.gemini)
+- **Engine:** `cli-core/` (Hidden Core Architecture)
+- **IDE Bridge:** `.windsurf/` (Portal to cli-core/.windsurf)
+- **Logs:** `docs/handoff_logs/` (Lazy logs tagged with `_lazy`/`_superlazy`)
