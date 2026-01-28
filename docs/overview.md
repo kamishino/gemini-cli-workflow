@@ -177,7 +177,7 @@ The **Management Commands** (`/kamiflow:ops:roadmap` and `/kamiflow:ops:save-con
 
 | Command | Goal |
 | :--- | :--- |
-| `/kamiflow:p-seed:draft` | **[Seed Hub] Seed an idea with integrated initial analysis (AI-Driven initialization).** |
+| `/kamiflow:p-seed:draft` | **[Seed Hub] Seed an idea with integrated initial analysis and custom questions.** |
 | `/kamiflow:p-seed:analyze` | **[Seed Hub] Deeply analyze an idea with Strategic Breakdown and Prepend History.** |
 | `/kamiflow:p-seed:promote` | **[Seed Hub] Harvest an idea by moving it to the backlog (The Harvesting phase).** |
 

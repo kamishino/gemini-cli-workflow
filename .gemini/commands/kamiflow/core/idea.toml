@@ -25,6 +25,12 @@ The user provides a raw idea or concept:
 **RAW IDEA:**
 {{args}}
 
+### 💡 Backlog Integration (Lineage)
+If the input is a file path (e.g., `ideas/backlog/A7B2-slug.md`):
+1.  **Extract Path:** You MUST identify this as the **Source Idea**.
+2.  **Inherit Vision:** Read the file content and use it as the primary context for the Sniper process.
+3.  **Traceability:** In the final S1-IDEA file, you MUST include: `Source Idea: [file_path]` in the metadata section.
+
 ## 2A. ID GENERATION (Session-Based Caching)
 **CRITICAL:** Follow `@.gemini/rules/id-protocol.md` Section 11 (Session-Based Caching).
 

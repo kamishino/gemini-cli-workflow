@@ -102,7 +102,7 @@ The core workflow uses 3 steps with 3-Layer Locks:
 
 | Command | Goal |
 | :--- | :--- |
-| `/kamiflow:p-seed:draft` | **[Seed Hub] Seed an idea with integrated initial analysis (AI-Driven initialization).** |
+| `/kamiflow:p-seed:draft` | **[Seed Hub] Seed an idea with integrated initial analysis and custom questions.** |
 | `/kamiflow:p-seed:analyze` | **[Seed Hub] Deeply analyze an idea with Strategic Breakdown and Prepend History.** |
 | `/kamiflow:p-seed:promote` | **[Seed Hub] Harvest an idea by moving it to the backlog (The Harvesting phase).** |
 
