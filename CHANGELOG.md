@@ -1,4 +1,10 @@
 
+## [v2.20.0] - 2026-01-28
+
+### 🚀 Features
+- feat(p-agents): implement multi-agent collaboration bridge with safe audit gate (1cbcbca)
+
+
 ## [v2.19.0] - 2026-01-28
 
 ### 🚀 Features
