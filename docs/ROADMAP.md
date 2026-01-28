@@ -8,26 +8,27 @@
 ## 🏁 Strategic Achievements (Value Delivered)
 *Past work summarized into major value pillars.*
 
-- **Seed Hub Ecosystem:** Thiết lập hệ thống "Đồng sáng tạo ý tưởng" (Idea Sandbox v2) với khả năng tóm tắt bằng AI và lưu trữ lịch sử theo mô hình Prepend (Task 037, 042).
-- **Technical Constitution:** Ban hành bộ quy tắc "Prompt-Only Command Standard" và "PowerShell Protocol", đảm bảo hệ thống vận hành ổn định 100% trên Windows (Task 041).
-- **Universal Scalability:** Nâng cấp bộ máy đồng bộ tự động (Universal Sync) cho phép tích hợp Plugin không giới hạn thông qua Namespace `p-` (Task 039, 040).
+- **Multi-Agent Orchestration:** Thiết lập Plugin `/p-agents` cho phép điều phối và audit kỹ năng của nhiều AI Agent cùng lúc, hướng tới một liên minh AI có kỷ luật (Task 045).
+- **Unified Supply Chain:** Nối liền mạch máu dữ liệu từ ý tưởng sơ khai (Seed Hub) đến thực thi (Sniper Model) và lưu trữ tự động (Task 044).
+- **Strategic Intelligence:** Nâng cấp RoadMap thành Dashboard chiến lược với khả năng dự báo và gợi ý hướng phát triển sinh lời (Task 043).
+- **Technical Constitution:** Ban hành bộ quy tắc "Prompt-Only Command Standard" và "PowerShell Protocol", đảm bảo hệ thống vận hành ổn định 100% trên Windows (Task 041, 042).
 
 ---
 
 ## 🏗️ Current Focus (Active Pillars)
 *What we are building right now and why it matters.*
 
-- **Phase v2.52:** Strategic Intelligence.
-- **Active Task:** **Strategic RoadMap Upgrade (Task 043)** - Biến dữ liệu thô thành Dashboard định hướng giá trị cho Product Owner.
+- **Phase v2.20.0:** Ecosystem Expansion.
+- **Active Focus:** **Final Polishing & Rollout Prep** - Hoàn thiện trải nghiệm người dùng và chuẩn bị tài liệu cho việc ra mắt chính thức.
 
 ---
 
 ## 🚀 AI-Suggested Growth Levers (Profit-Driven)
 *Strategic suggestions based on current patterns and market trends.*
 
-1.  **📊 Insight Visualizer (Plugin):** Xây dựng module tự động chuyển đổi Task History thành biểu đồ Gantt hoặc biểu đồ phân bổ thời gian (burn-down) dạng ASCII/Markdown.
+1.  **📊 Insight Visualizer (Plugin):** Xây dựng module tự động chuyển đổi Task History thành biểu đồ Gantt hoặc biểu đồ phân bổ thời gian dạng ASCII/Markdown.
 2.  **🛡️ Dependency Guard:** Phát triển logic tự động cảnh báo khi một Task mới có nguy cơ gây xung đột với các logic cũ trong `archive/`.
-3.  **🤝 Multi-Agent Bridge:** Mở rộng khả năng Handoff (Task 005) để hỗ trợ cộng tác giữa nhiều AI Agent khác nhau trong cùng một dự án.
+3.  **📦 Automated Release Manager:** Nâng cấp lệnh release để tự động tạo Release Notes chuyên nghiệp từ Changelog và Task History.
 
 ---
 
@@ -36,27 +37,29 @@
 ### ✅ Completed
 - [x] **v1.0 Core:** Initial setup, basic command suite, and rules.
 - [x] **v2.18.0:** Minor Release - Seed Hub & Standard Enforcement.
+- [x] **v2.19.0:** Minor Release - Unified Supply Chain.
+- [x] **v2.20.0:** Minor Release - Multi-Agent Bridge.
+- [x] **Task 045:** Multi-Agent Collaboration Bridge (/p-agents).
+- [x] **Task 044:** Unified Idea-to-Task Supply Chain.
+- [x] **Task 043:** Strategic RoadMap Upgrade.
 - [x] **Task 042:** Seed Hub v2 (Prepend History).
 - [x] **Task 041:** Command & PowerShell Standard.
-- [x] **Task 040:** Universal Plugin Sync.
 
 ### 🚧 In Progress
-- [x] **Task 043:** Strategic RoadMap Upgrade.
-- [x] **Task 044:** Unified Idea-to-Task Supply Chain.
-- [x] **Task 045:** Multi-Agent Collaboration Bridge (/p-agents).
+- [ ] Final polishing for public rollout.
 
 ### 📋 Backlog (Planned)
 - [ ] Integration with Cursor/Windsurf deep APIs.
-- [ ] Automated Release Notes generator.
+- [ ] ASCII/Markdown Gantt Chart Visualizer.
 
 ---
 
 ## 📈 Success Metrics
-- **Efficiency:** Tiết kiệm 15-20% thời gian lập kế hoạch nhờ AI Insights.
-- **Stability:** 0 lỗi phát sinh do sai lệch cú pháp shell trên Windows.
+- **Efficiency:** Tiết kiệm 20% thời gian quản lý nhờ chuỗi cung ứng dữ liệu tự động.
+- **Scalability:** Có khả năng tích hợp Plugin mới trong < 5 phút.
 
 ---
 
 ## 🔗 Dependencies
 - **Stack:** Node.js, Gemini CLI, PowerShell.
-- **External:** Mermaid.js (for visualization).
+- **External:** skills.sh (for agent extensions).

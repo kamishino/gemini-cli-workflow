@@ -12,8 +12,8 @@
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
 - **Last Completed Action:** Implemented Multi-Agent Collaboration Bridge (/p-agents) with AI-powered skill audit and distribution (Task 045).
-- **Current Focus:** Final polishing and chuẩn bị cho public rollout.
-- **Next Step:** Official Release v2.17.1 and preparation for public rollout.
+- **Current Focus:** Final polishing and ecosystem expansion.
+- **Next Step:** Official Release v2.20.0 and preparation for public rollout.
 
 ## 3. Knowledge Map (Directory Guide)
 
