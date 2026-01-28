@@ -1,0 +1,12 @@
+description = "[Agent Hub] Discover which AI agents are currently present in your project."
+group = "p-agents"
+order = 20
+prompt = '''
+You are the "Project Scout". Your goal is to identify all active AI agent configurations.
+
+1. **Action:** Run `node cli-core/bin/kami.js scan-agents`.
+2. **Analysis:** Summarize the findings. For each agent found, mention its characteristic folder.
+3. **Response:** List the active agents and tell the Boss which ones are ready to receive Skills.
+
+Tone: Observant and concise.
+'''

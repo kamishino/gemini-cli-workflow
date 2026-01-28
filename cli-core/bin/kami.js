@@ -243,4 +243,29 @@ program
     }
   });
 
+// Agent Management Logic
+program
+  .command("scan-agents")
+  .description("Internal: Scan for active AI agents in the project")
+  .action(async () => {
+    try {
+      const { scanActiveAgents } = require("../logic/agent-manager");
+      await scanActiveAgents();
+    } catch (error) {
+      process.exit(1);
+    }
+  });
+
+program
+  .command("update-central-rules <skillName> <link>")
+  .description("Internal: Update the central rules template with a new skill")
+  .action(async (skillName, link) => {
+    try {
+      const { updateCentralTemplate } = require("../logic/agent-manager");
+      await updateCentralTemplate(skillName, link);
+    } catch (error) {
+      process.exit(1);
+    }
+  });
+
 program.parse();

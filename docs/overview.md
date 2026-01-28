@@ -173,6 +173,14 @@ The **Management Commands** (`/kamiflow:ops:roadmap` and `/kamiflow:ops:save-con
 | `/kamiflow:ops:bootstrap` | **[KamiFlow] Bootstrap KamiFlow as a Git Submodule - create portal symlinks and initialize proxy files.** |
 
 
+### 🧩 Agents (Plugin)
+
+| Command | Goal |
+| :--- | :--- |
+| `/kamiflow:p-agents:add` | **[Agent Hub] Safely audit and add a skill to your project agents.** |
+| `/kamiflow:p-agents:scan` | **[Agent Hub] Discover which AI agents are currently present in your project.** |
+
+
 ### 🌱 The Seed Hub (Plugin)
 
 | Command | Goal |
