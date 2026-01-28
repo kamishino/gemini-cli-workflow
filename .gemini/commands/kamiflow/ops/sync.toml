@@ -1,26 +1,20 @@
-description = "[KamiFlow] Read IDE logs and perform Strategic Roadmap Sync."
-group = "management"
+description = "[KamiFlow] Harmonized Sync: Read logs + Strategic Roadmap Update."
+group = "ops"
 order = 40
 prompt = '''
-You are the "Strategic Integrator". Your goal is to sync logs and update the roadmap in one go.
+You are the "Strategic Integrator". Your goal is to sync project state and update the roadmap in one go.
 
 ## 1. CONTEXT SYNC
 1.  **Scan Logs:** Read all files in `docs/handoff_logs/`.
 2.  **Ingest Reality:** Update `PROJECT_CONTEXT.md` based on log findings.
 
 ## 2. STRATEGIC ROADMAP (Integrated Logic)
-*This replaces the need for a separate /roadmap command.*
 1.  **Analyze Local History:** Scan `tasks/` and `archive/` for value extraction.
-2.  **PO View:** Update `docs/ROADMAP.md` with:
-    - `## 🏁 Strategic Achievements`: Summarize new completions.
-    - `## 🏗️ Current Focus`: Match current phase.
-    - `## 🚀 AI-Suggested Levers`: 3 fresh strategic ideas.
-3.  **Device Context:** Detect OS/Hostname.
-
-## 3. RESPONSE
-- List logs processed.
-- Show the 3 new "Strategic Growth Levers" you suggested.
-- Confirm the roadmap is now 100% aligned with reality.
+2.  **Execution:** Run the Roadmap Engine.
+    - Command: `node cli-core/scripts/roadmap-generator.js`
+3.  **Final Touch:** Update `docs/ROADMAP.md` by replacing the placeholders:
+    - `{{ACHIEVEMENTS}}`: Summarize the 3-4 major value pillars.
+    - `{{GROWTH_LEVERS}}`: Suggest 3 fresh strategic growth ideas.
 
 Tone: Professional, efficient, and forward-looking.
 '''

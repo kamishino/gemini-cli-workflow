@@ -24,11 +24,12 @@ If **CRITICAL** errors are found, the AI:
 2. Applies a targeted fix (max 3 attempts).
 3. **Tip:** Use triple-single-quotes (`'''`) for TOML prompts to avoid escape issues.
 
-### 5. Atomic Exit (Native Mode Only)
-Upon successful validation, the system performs a silent cleanup:
-1. **Silent Sync:** Auto-updates `PROJECT_CONTEXT.md`, `ROADMAP.md`, and `README.md`.
-2. **Unified Commit:** Stages all code and docs into one logical commit.
-3. **Auto-Archive:** Moves task artifacts from `tasks/` to `archive/` immediately.
+### 5. Strategic Atomic Exit (Native Mode Only)
+Upon successful validation, the system performs a high-value cleanup:
+1. **Strategic Sync:** AI analyzes the work and calls `node cli-core/scripts/roadmap-generator.js` to update the roadmap with real achievements.
+2. **Lineage Cleanup:** AI automatically identifies and archives the source idea from `ideas/backlog/` using the Suffix Model (`_from-ID`).
+3. **Unified Commit:** Stages all code and docs into one logical commit.
+4. **Auto-Archive:** Moves all artifacts to `archive/` immediately.
 
 ## 🧠 Memory Integration
 Successful healing patterns are logged to the "Active Context" in `PROJECT_CONTEXT.md` to improve AI accuracy in future sessions.

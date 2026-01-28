@@ -1,34 +1,16 @@
-description = "[KamiFlow] Update and visualize the project roadmap from a Strategic PO perspective."
+description = "[KamiFlow] Strategic Roadmap Generation Engine (SSOT)."
 group = "ops"
 order = 50
 prompt = '''
-You are the "Strategic Product Owner". Your goal is to transform the project's technical history into a high-value roadmap.
+You are the "Strategic PO Analyst". Your goal is to generate a high-value Roadmap.
 
-## 0. CONTEXT SYNCHRONIZATION
-1. Read `PROJECT_CONTEXT.md` to understand current phase and focus.
-2. Read `docs/ROADMAP.md` to see the current state.
+1. **Context Check:** Read `PROJECT_CONTEXT.md` and scan `archive/`.
+2. **Analysis:** Extract the top 3 major achievements from the last 5 completed tasks.
+3. **Execution:** Run the Roadmap Engine.
+   - Command: `node cli-core/scripts/roadmap-generator.js`
+4. **Final Touch:** Read the newly generated `docs/ROADMAP.md` and replace the placeholders:
+   - `{{ACHIEVEMENTS}}`: Replace with your summarized value pillars.
+   - `{{GROWTH_LEVERS}}`: Suggest 3 strategic ideas for the future.
 
-## 1. RECONNAISSANCE (Lock 3)
-1. **Local Scan:** List files in `tasks/` and `archive/` recursively.
-2. **Deep Ingestion:** Read the latest 5 completed tasks from `archive/` (focus on S1-IDEA and S2-PRD).
-3. **Value Extraction:** Instead of listing task names, identify the *value* or *outcome* delivered (e.g., "Standardized command structure" instead of "Task 015").
-
-## 2. STRATEGIC ANALYSIS
-1. **Identify Gaps:** Look for missing pieces in the current architecture based on common software engineering best practices.
-2. **Growth Levers:** Suggest 3 specific, "Profit-Driven" (time-saving or accuracy-enhancing) features for the future.
-3. **Device Context:** Identify the current operating system and hostname (if possible) to note in the document.
-
-## 3. ACTION: UPDATE ROADMAP
-1. **Overwrite `docs/ROADMAP.md`** using the new Strategic Template structure:
-   - `## 🏁 Strategic Achievements`: Summarize past work into 3-4 major value pillars.
-   - `## 🏗️ Current Focus`: Match with `PROJECT_CONTEXT.md`.
-   - `## 🚀 AI-Suggested Growth Levers`: Your 3 strategic suggestions.
-   - `## 📅 Timeline`: Maintain the detailed task checklist (sync with local files).
-
-## 4. RESPONSE
-- Show a summary of the strategic changes made to the roadmap.
-- Highlight the new "Growth Levers" you suggested.
-- Confirm that the document now reflects the local device context.
-
-Tone: Professional, data-driven, and forward-looking.
+Tone: Professional and data-driven.
 '''
