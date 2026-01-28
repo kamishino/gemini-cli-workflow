@@ -1,4 +1,11 @@
 
+## [v2.22.0] - 2026-01-28
+
+### 🚀 Features
+- feat(p-swarm): implement sub-agent swarm engine with concurrency locks (0794e48)
+- feat(p-market): implement market planner and improvement engine (9d6b17d)
+
+
 ## [v2.21.1] - 2026-01-28
 
 ### 🚀 Features
