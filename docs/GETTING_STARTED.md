@@ -1,140 +1,64 @@
 # 🚀 Getting Started with KamiFlow
 
-[ 🏠 Home ](../README.md) | [ 🚀 Start ](#) | [ 📖 Wiki ](commands/README.md) | [ 🆘 SOS ](TROUBLESHOOTING.md)
+Welcome to **KamiFlow**, the professional "Operating System" for Indie Builders using Gemini CLI and AI IDEs. This guide will walk you through the full lifecycle of a feature, from a raw spark to a stable release.
 
 ---
 
-## ⚡ Quick Start (Portable Track)
+## 🏗️ 1. Installation
 
-Choose the command for your Operating System:
-
-### 🪟 Windows (PowerShell)
+**Windows (PowerShell):**
 ```powershell
 powershell -c "irmo https://raw.githubusercontent.com/kamishino/gemini-cli-workflow/main/install.ps1 | iex"
 ```
 
-### 🍎 MacOS / 🐧 Linux (Bash)
+**MacOS / Linux (Bash):**
 ```bash
 curl -sSL https://raw.githubusercontent.com/kamishino/gemini-cli-workflow/main/install.sh | bash
 ```
 
----
-
-## 🌊 What is KamiFlow?
-
-> **Philosophy:** "Aesthetics + Utility". Ship fast, break nothing important.
-
-### The Sniper Model Workflow
-KamiFlow uses a 3-Step Fused Kernel to ensure strategic alignment before any code is written.
-
-```mermaid
-graph TD
-    Start((User Idea)) --> Idea[/"/kamiflow:core:idea"/]
-    Idea --> Spec[/"/kamiflow:core:spec"/]
-    Spec --> Build[/"/kamiflow:core:build"/]
-    Build --> Bridge[/"/kamiflow:core:bridge"/]
-    Bridge --> IDE[[Code in IDE]]
-    IDE --> Sync[/"/kamiflow:ops:sync"/]
-    Sync --> Start
-```
-
-### Quick Command Reference
-
-<!-- KAMI_COMMAND_LIST_START -->
-
-### 🎯 Sniper Model (Core Flow)
-
-| Command | Goal |
-| :--- | :--- |
-| `/kamiflow:core:idea` | **[KamiFlow Sniper] Generate refined idea through diagnostic interview and synthesis (Step 1: Two-Phase Interactive).** |
-| `/kamiflow:core:spec` | **[KamiFlow Sniper] Create detailed specification with Schema-First approach (Step 2: Lock 1 & 2).** |
-| `/kamiflow:core:build` | **[KamiFlow Sniper] Generate implementation task list with Legacy Awareness (Step 3: Lock 3).** |
-
-
-### 🌉 The Bridge (IDE Integration)
-
-| Command | Goal |
-| :--- | :--- |
-| `/kamiflow:core:bridge` | **[KamiFlow] Generate a 'Context Package' prompt for external AI Editors (Windsurf/Cursor).** |
-
-
-### 🚀 Auto-Pilot (Automation)
-
-| Command | Goal |
-| :--- | :--- |
-| `/kamiflow:dev:lazy` | **[KamiFlow] Auto-generate S1-S4 artifacts using Sniper Model with mandatory Diagnostic Gate.** |
-| `/kamiflow:dev:superlazy` | **[KamiFlow] Auto-generate S1-S4 artifacts AND execute immediately with mandatory Diagnostic Gate.** |
-| `/kamiflow:dev:release` | **[KamiFlow] Smart Release Manager - Analyze git history, context, and automate version bumping.** |
-| `/kamiflow:dev:upgrade` | **[KamiFlow] Update KamiFlow to the latest version.** |
-| `/kamiflow:dev:archive` | **[KamiFlow] Archive completed task artifacts to archive/ folder.** |
-| `/kamiflow:dev:revise` | **[KamiFlow] Emergency Brake - Clarify context, resolve hallucinations, and question logic before implementation.** |
-
-
-### 🧠 Management (Operations)
-
-| Command | Goal |
-| :--- | :--- |
-| `/kamiflow:ops:wake` | **[KamiFlow] Wake up and reload project context to eliminate session amnesia.** |
-| `/kamiflow:ops:help` | **[KamiFlow] Interactive help system for commands and Sniper Model phases.** |
-| `/kamiflow:ops:tour` | **[KamiFlow] Guided tour for new projects to explain the Sniper Model.** |
-| `/kamiflow:ops:sync` | **[KamiFlow] Read logs from docs/handoff_logs and sync Project Context.** |
-| `/kamiflow:ops:roadmap` | **[KamiFlow] Update and visualize the project roadmap in docs/ROADMAP.md.** |
-| `/kamiflow:ops:save-context` | **[KamiFlow] Sync current state to PROJECT_CONTEXT.md (Manual Memory Save).** |
-| `/kamiflow:ops:bootstrap` | **[KamiFlow] Bootstrap KamiFlow as a Git Submodule - create portal symlinks and initialize proxy files.** |
-
-<!-- KAMI_COMMAND_LIST_END -->
-
----
-
-## 🎯 Sniper Model Tutorial (Step-by-Step)
-
-Follow this loop for every new feature or bug fix:
-
-### Step 1: The Idea (`/kamiflow:core:idea`)
-Tell the AI your raw idea. It will act as a **Consultant**, asking 3-5 probing questions to find the "Root Pain". After you answer, it suggests 3 options (A/B/C).
-**Result:** Creates a `tasks/XXX-S1-IDEA-[slug].md` file.
-
-### Step 2: The Spec (`/kamiflow:core:spec`)
-Point to your IDEA file. The AI defines User Stories and **Data Models** before logic.
+Once installed, initialize your project:
 ```bash
-/kamiflow:core:spec tasks/001-S1-IDEA-my-feature.md
+kami init
 ```
-**Result:** Creates a `tasks/XXX-S2-SPEC-[slug].md` file.
-
-### Step 3: The Build (`/kamiflow:core:build`)
-Break the SPEC into tiny, testable tasks (< 300 lines each).
-```bash
-/kamiflow:core:build tasks/001-S2-SPEC-my-feature.md
-```
-**Result:** Creates a `tasks/XXX-S3-BUILD-[slug].md` file.
-
-### Step 4: The Execution (`/kamiflow:core:bridge` or Auto-Pilot)
-- **Manual:** Run `/kamiflow:core:bridge` to generate an `S4-HANDOFF` file for your IDE.
-- **Auto-Pilot (High Speed):** 
-    - `/kamiflow:dev:lazy`: Automates steps 1-4 paperwork.
-    - `/kamiflow:dev:superlazy`: Plans **AND** executes code changes natively.
 
 ---
 
-## 📦 Detailed Integration (Full Track)
+## 🌱 2. Exploration: The Seed Hub
+Don't jump into code immediately. Use the **Seed Hub** to nurture your ideas.
 
-For developers managing complex or multiple projects.
-
-### Option A: Git Submodule
-Best for sharing one KamiFlow core across multiple projects.
-1. `git submodule add https://github.com/kamishino/gemini-cli-workflow.git .kami-flow`
-2. `/kamiflow:ops:wake` (The system will auto-detect and prompt for `/kamiflow:ops:bootstrap`).
-
-### Option B: Standalone Template
-Best for high customization.
-1. `git clone https://github.com/kamishino/gemini-cli-workflow.git`
-2. Remove `.git` folder and run `git init`.
-
-### The Portal Network (Symlinks)
-KamiFlow uses **Symbolic Links** to connect the core logic (`.kami-flow/`) to your project root (`.gemini/`, `.windsurf/`). This ensures:
-- **Zero Duplication:** Core rules stay in one place.
-- **AI Visibility:** Gemini CLI sees the rules at the root level.
+1.  **Sow a Seed:** Run `/kamiflow:p-seed:draft "Your Idea"` to start an interactive terminal interview.
+2.  **Cultivate:** Run `/kamiflow:p-seed:analyze` to get multi-dimensional feedback from 3 AI Personas (Critic, Engineer, User).
+3.  **Harvest:** Run `/kamiflow:p-seed:promote` to move your ripened idea to the project **Backlog**.
 
 ---
 
-**Built with ❤️ for the 10x Indie Hacker.**
+## 🎯 3. Construction: The Sniper Model
+When you're ready to build, use the 3-Step Fused Kernel to ensure accuracy.
+
+1.  **Step 1 (Idea):** Run `/kamiflow:core:idea <path-to-backlog-file>`. This identifies the root cause and sets the strategic direction.
+2.  **Step 2 (Spec):** Run `/kamiflow:core:spec <path-to-idea-file>`. This defines the Data Models and API signatures before any logic is written.
+3.  **Step 3 (Build):** Run `/kamiflow:core:build <path-to-spec-file>`. This creates a detailed, low-risk task list with Anchor Points.
+
+---
+
+## 🌉 4. Execution: The IDE Bridge
+KamiFlow is designed to work seamlessly with **Windsurf** or **Cursor**.
+
+1.  **Bridge:** Run `/kamiflow:core:bridge`. Copy the context package provided.
+2.  **Execute:** Paste the package into your AI IDE. Follow the `kamiflow-execute` workflow.
+3.  **Sync:** Return to Gemini CLI and run `/kamiflow:ops:sync` to read the IDE logs and update your **Strategic Roadmap**.
+
+---
+
+## 📦 5. Release: The Finish Line
+Once your feature is validated, it's time to ship.
+
+1.  **Release:** Run `/kamiflow:dev:release`. The AI will analyze your task history, bump the version, and update the Changelog automatically.
+2.  **Archive:** Run `/kamiflow:dev:archive` to clean up your workspace and preserve the audit trail.
+
+---
+
+## 🧭 Next Steps
+- Read the [Overview](overview.md) for a deep dive into the architecture.
+- Check the [Command Wiki](commands/README.md) for full reference.
+- Run `kami doctor` if you encounter any system issues.

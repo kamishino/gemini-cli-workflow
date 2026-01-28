@@ -1,91 +1,53 @@
-# 🔧 Troubleshooting Guide
+# 🆘 Troubleshooting Guide
 
-[ 🏠 Home ](../README.md) | [ 🚀 Start ](GETTING_STARTED.md) | [ 📖 Wiki ](commands/README.md) | [ 🆘 SOS ](#)
+Common issues and solutions for KamiFlow.
 
 ---
 
-## 🚨 Command & Syntax Errors
+## 🏗️ Installation & Setup
 
-### Issue: "Command Not Found" or "Invalid Syntax"
-Since v2.15, KamiFlow uses a **Modular Structure**. If you try to run `/kamiflow:idea`, it will fail.
+### ❌ Symlink Permission Denied (Windows)
+**Issue:** `EPERM: operation not permitted` when running `kami init`.
+**Solution:** 
+1.  Run your Terminal (PowerShell or CMD) as **Administrator**.
+2.  Alternatively, enable **Developer Mode** in Windows Settings (Settings > Update & Security > For developers).
+3.  Or use **Standalone** mode when prompted during `init`.
 
+### ✖️ Command Not Found
+**Issue:** `gemini` or `kami` is not recognized.
+**Solution:** Ensure your global npm bin folder is in your system's PATH. 
+- Run `npm list -g` to see if the package is installed.
+- Check path with `echo $env:PATH` (Windows) or `echo $PATH` (Unix).
+
+---
+
+## 🔄 Sync & Import Issues
+
+### ✖️ [ERROR] [ImportProcessor] Could not find child token
+**Issue:** Metadata or "System Note" lines are confusing the automated sync markers.
 **Solution:**
-Ensure you use the full path with the `:` separator:
-- ✅ `/kamiflow:core:idea`
-- ✅ `/kamiflow:ops:sync`
-- ❌ `/kamiflow:core/idea` (Do not use slashes)
-- ❌ `/kamiflow:idea` (Missing folder prefix)
+1.  Ensure you are using **Direct Imports** (`@path/to/file`) in `GEMINI.md` instead of the old `<!-- Imported from -->` markers.
+2.  If you must use markers, do not place `@` commands inside them.
 
-### Issue: AI is "Hallucinating" or Forgetting Rules
-This usually happens when starting a new session without loading context.
-
-**Solution:**
-Always run the recovery command first:
-```bash
-/kamiflow:ops:wake
-```
+### ✖️ [STARTUP] Phase is already active
+**Issue:** Multiple sync/wake operations running simultaneously.
+**Solution:** Run `/exit` and restart your Gemini session.
 
 ---
 
-## 🔗 Windows Symbolic Link Issues
+## 🔨 Workflow Logic
 
-### Issue: "A required privilege is not held by the client"
-Windows requires special permissions to create the "Portal Network" (Symlinks).
+### ❓ Suffix Lineage Issues
+**Issue:** Archivist fails to move backlog ideas.
+**Solution:** Ensure your Task file ends with `_from-[IdeaID].md`. 
+- Example: `047-S1-IDEA-feature_from-B9D4.md`.
+- This allows the `archive-flow` to automatically harvest the source idea.
 
-**Solution 1: Enable Developer Mode (Recommended)**
-1. Open **Settings** > **Privacy & Security** > **For developers**.
-2. Toggle **Developer Mode** to **ON**.
-3. Restart your terminal and run `kami init` or `/kamiflow:ops:bootstrap`.
-
-**Solution 2: Run as Administrator**
-Right-click your terminal (PowerShell/CMD) and select **"Run as Administrator"** before running setup commands.
-
-**Solution 3: Use Standalone/Copy Mode**
-If you cannot use symlinks, choose "Standalone" during `kami init` to copy files physically.
+### ❓ Roadmap is "Shallow"
+**Issue:** `ROADMAP.md` only shows completed tasks without achievements.
+**Solution:** Use `/kamiflow:ops:sync` (v2.21+) or `/kamiflow:ops:roadmap`. These commands use the **Universal Roadmap Engine** to extract value from your task history.
 
 ---
 
-## 🧠 AI Context & Memory
-
-### Issue: Duplicate Task IDs
-If the AI suggests an ID that already exists in your archive.
-
-**Solution:**
-Trigger a **Reactive Scan** by telling the AI:
-> "The ID is wrong, rescan the archive."
-
-The AI will re-scan the entire history and update its cache.
-
-### Issue: `PROJECT_CONTEXT.md` is out of sync
-If the AI doesn't remember what you just did in the IDE.
-
-**Solution:**
-Always run the sync command after an IDE session:
-```bash
-/kamiflow:ops:sync
-```
-
----
-
-## 💻 PowerShell Execution Policy
-
-### Issue: "Scripts are disabled on this system"
-**Solution:**
-Run this in PowerShell as Administrator:
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-```
-
----
-
-## 🆘 Still Having Issues?
-
-### Debug Checklist
-- [ ] Confirmed `.gemini/commands/kamiflow` is accessible (Run `ls .gemini`).
-- [ ] Ran `/kamiflow:ops:wake` successfully.
-- [ ] Using the `:` separator for all commands.
-- [ ] Version is up to date (Run `kami update`).
-
----
-
-**Built with ❤️ for the 10x Indie Hacker.**
+## ✅ Still having issues?
+Run `kami doctor` to perform a full system health check. If the problem persists, please report a bug.

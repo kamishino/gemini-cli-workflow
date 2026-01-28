@@ -11,9 +11,9 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Aligned Installer and Templates with Dogfooding experience, added full scaffolding and Admin guards (Task 048).
-- **Current Focus:** Final polishing and ecosystem stability.
-- **Next Step:** Official Release v2.20.0 and preparation for public rollout.
+- **Last Completed Action:** Overhauled documentation fidelity and implemented Interactive Wiki features (Task 049).
+- **Current Focus:** Final stabilization and public release preparation.
+- **Next Step:** Official public rollout and community onboarding.
 
 ## 3. Knowledge Map (Directory Guide)
 
