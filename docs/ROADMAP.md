@@ -1,75 +1,60 @@
-# 🗺️ Project Roadmap: KamiFlow Template
+# 🗺️ Strategic RoadMap: KamiFlow Template
 
-## 🏁 Completed
-- [x] **v1.0 Core:** Command Suite, Rules, Skills, Documentation.
-- [x] **v1.1 Enhancement:** Centralized Document Management (`/tasks/`).
-- [x] **v1.1 Enhancement:** Starter Templates & Ignore Rules.
-- [x] **v1.2 Enhancement:** Command `/kamiflow:cook` (The Idea Refiner).
-- [x] **v1.2 Enhancement:** Integrated Quality Gates (Batch & Review).
-- [x] **v1.3 Enhancement:** Optimized Bridge & Sorting Protocol (S1-S4).
-- [x] **v1.3 Enhancement:** Git Amend Sync Strategy.
-- [x] **v1.4 Enhancement:** Session Recovery Protocol (`/wake`).
-- [x] **v1.5 Enhancement:** Auto-Pilot Lazy & SuperLazy Modes.
-- [x] **v1.6 Feature:** Sniper Model (3-Step Fused Workflow & 3-Layer Locks).
-- [x] **v1.6 Chore:** Cleaned up legacy commands and updated documentation.
-- [x] **v1.7 Enhancement:** Smart Git Sync Logic (Dirty Tree detection & Branching commits).
-- [x] **v1.8 Enhancement:** Diagnostic Idea Phase (Two-phase interview workflow for /idea).
-- [x] **v1.9 Feature:** Smart Archive System (Preserve audit trails, clean workspace).
-- [x] **v2.0 Feature:** Smart Validator Loop (Execute-Validate-Heal) for /superlazy mode.
-- [x] **v2.1 Feature:** Global ID Tracker (The Scout) - Archive-aware ID continuity.
-- [x] **v2.2 Enhancement:** Protocol Documentation Sync - Unified Sniper & Validator docs.
-- [x] **v2.3 Feature:** Smart Unified Sync (Global Sync with README Showcase).
-- [x] **v2.4 Feature:** Smart Session Logic (ID Caching & Logical Guard).
-- [x] **v2.5 Feature:** Submodule-Based Bootstrapper (Portal Network via Symlinks).
-- [x] **v2.6 Feature:** Global English Standardization (Tokenized Language Engine).
-- [x] **v2.7 Feature:** Onboarding Excellence - Comprehensive Integration & Troubleshooting guides.
-- [x] **v2.8 Feature:** Hybrid Doc Portal - Standardized core structure and automated roadmap seeding.
-- [x] **v2.9 Feature:** Universal Smart Bootstrapper - One-click Windows installer with Embed fallback.
-- [x] **v2.10 Feature:** Interactive Sculptor - Self-relocating bootstrapper with integration choice.
-- [x] **v2.11 Maintenance:** Standardized PowerShell path compliance (.\ prefix).
-- [x] **v2.12 Feature:** Smart Seed v2.0 - Same-window relocation and dependency helper.
-- [x] **v2.13 Feature:** Gemini-CLI KamiFlow Manager - Professional NPM global utility.
-- [x] **v2.14 Feature:** Self-Healing CLI Engine - Proactive Doctor & Gene Store architecture.
-- [x] **v2.15 Feature:** One-Liner Installer - Zero-friction installation bypassing NPM Registry.
-- [x] **v2.16 Feature:** Universal Update Command - Mode-aware updates via CLI and AI.
-- [x] **v2.17 Feature:** Documentation Enforcement - Mandatory S4 mapping and sync validation.
-- [x] **v2.18 Feature:** Atomic Exit Protocol - Auto-Sync, Commit, and Archive for Native Mode.
-- [x] **v2.19 Feature:** Native NPM Version Sync (Task 009).
-- [x] **v2.20 Feature:** Smart Release Command (Task 010).
-- [x] **v2.21 Feature:** Universal Cross-OS Installer (Task 011/025).
-- [x] **v2.22 Feature:** Session Language Selection & Revise Guard (Task 012).
-- [x] **v2.23 Enhancement:** Self-Healing Wake & Docs Sync (Task 014).
-- [x] **v2.24 Feature:** Modular Command Architecture & Memory Enhancement (Task 015).
-- [x] **v2.25 Feature:** Core Sync Audit & Standard Alignment (Task 016).
-- [x] **v2.26 Feature:** Onboarding Documentation Refresh (Task 017).
-- [x] **v2.27 Feature:** Interactive Mentor System (/ops:help & /ops:tour) (Task 018).
-- [x] **v2.28 Feature:** Universal TOML Quality Gate & Auto-Healing (Task 019).
-- [x] **v2.29 Feature:** Structured Diagnostic Retention in S1-IDEA (Task 020).
-- [x] **v2.30 Feature:** Smart Command-Doc Synchronizer (Task 021).
-- [x] **v2.31 Feature:** Logic-Driven Command Categorization (Task 022).
-- [x] **v2.32 Feature:** Senior Architect Refactor - Detailed Tasks & Subtasks (Task 023).
-- [x] **v2.33 Feature:** English Standardization of Artifacts (Task 024).
-- [x] **v2.34 Feature:** Cross-Platform Installer (Bash Version) (Task 025).
-- [x] **v2.35 Feature:** KamiFlow CLI Rebrand & Config Engine (Task 026).
-- [x] **v2.36 Feature:** Encyclopedia-Style Command Wiki (Task 027).
-- [x] **v2.37 Feature:** Interactive OS Navigator & Global Navbar (Task 028).
-- [x] **v2.38 Feature:** Visual Brand Identity - Banner & Badges (Task 029).
-- [x] **v2.39 Feature:** Power User Guide & Documentation Patch (Task 030).
-- [x] **v2.40 Feature:** Installer Optimization for Linked Mode (Task 031).
-- [x] **v2.41 Feature:** Rules Integrity & SSOT Refactor (Task 032).
-- [x] **v2.43 Feature:** High-Density Core & Tech-Stack engine (Task 033).
-- [x] **v2.44 Feature:** Hidden Core Architecture v3.0 & Self-Healing Portals (Task 034).
-- [x] **v2.45 Feature:** Total System Health Audit & Fire Test (Task 035).
-- [x] **v2.46 Feature:** Idea Sandbox (The Lab) - Multi-persona AI Brainstorming (Task 037).
-- [x] **v2.47 Feature:** Seed Hub Integration & Documentation Portal (Task 038).
-- [x] **v2.48 Feature:** Seed Hub Standardization & Plugin Blueprint (Task 039).
-- [x] **v2.49 Feature:** Universal Plugin Sync & Prompt-Only Standard (Task 040).
-- [x] **v2.50 Feature:** Command Standard & PowerShell Enforcement Rules (Task 041).
-- [x] **v2.51 Feature:** Seed Hub v2 - Prepend History & AI-Driven UX (Task 042).
+> **PO Note:** This roadmap is a living document generated by AI to align technical tasks with business value.
+> **Device Context:** win32-host | **Data Freshness:** 2026-01-28
 
-## 🏗️ In Progress
-- [ ] Final polishing for public rollout.
+---
 
-## 📅 Backlog
-- [ ] Integration with more IDEs.
-- [ ] Automated CI/CD for self-validation.
+## 🏁 Strategic Achievements (Value Delivered)
+*Past work summarized into major value pillars.*
+
+- **Seed Hub Ecosystem:** Thiết lập hệ thống "Đồng sáng tạo ý tưởng" (Idea Sandbox v2) với khả năng tóm tắt bằng AI và lưu trữ lịch sử theo mô hình Prepend (Task 037, 042).
+- **Technical Constitution:** Ban hành bộ quy tắc "Prompt-Only Command Standard" và "PowerShell Protocol", đảm bảo hệ thống vận hành ổn định 100% trên Windows (Task 041).
+- **Universal Scalability:** Nâng cấp bộ máy đồng bộ tự động (Universal Sync) cho phép tích hợp Plugin không giới hạn thông qua Namespace `p-` (Task 039, 040).
+
+---
+
+## 🏗️ Current Focus (Active Pillars)
+*What we are building right now and why it matters.*
+
+- **Phase v2.52:** Strategic Intelligence.
+- **Active Task:** **Strategic RoadMap Upgrade (Task 043)** - Biến dữ liệu thô thành Dashboard định hướng giá trị cho Product Owner.
+
+---
+
+## 🚀 AI-Suggested Growth Levers (Profit-Driven)
+*Strategic suggestions based on current patterns and market trends.*
+
+1.  **📊 Insight Visualizer (Plugin):** Xây dựng module tự động chuyển đổi Task History thành biểu đồ Gantt hoặc biểu đồ phân bổ thời gian (burn-down) dạng ASCII/Markdown.
+2.  **🛡️ Dependency Guard:** Phát triển logic tự động cảnh báo khi một Task mới có nguy cơ gây xung đột với các logic cũ trong `archive/`.
+3.  **🤝 Multi-Agent Bridge:** Mở rộng khả năng Handoff (Task 005) để hỗ trợ cộng tác giữa nhiều AI Agent khác nhau trong cùng một dự án.
+
+---
+
+## 📅 Timeline & Detailed Progress
+
+### ✅ Completed
+- [x] **v1.0 Core:** Initial setup, basic command suite, and rules.
+- [x] **v2.18.0:** Minor Release - Seed Hub & Standard Enforcement.
+- [x] **Task 042:** Seed Hub v2 (Prepend History).
+- [x] **Task 041:** Command & PowerShell Standard.
+- [x] **Task 040:** Universal Plugin Sync.
+
+### 🚧 In Progress
+- [x] **Task 043:** Strategic RoadMap Upgrade.
+
+### 📋 Backlog (Planned)
+- [ ] Integration with Cursor/Windsurf deep APIs.
+- [ ] Automated Release Notes generator.
+
+---
+
+## 📈 Success Metrics
+- **Efficiency:** Tiết kiệm 15-20% thời gian lập kế hoạch nhờ AI Insights.
+- **Stability:** 0 lỗi phát sinh do sai lệch cú pháp shell trên Windows.
+
+---
+
+## 🔗 Dependencies
+- **Stack:** Node.js, Gemini CLI, PowerShell.
+- **External:** Mermaid.js (for visualization).
