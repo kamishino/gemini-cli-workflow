@@ -44,6 +44,15 @@
 
 ---
 
+## ✨ Key Features
+- **🎯 Sniper Model Workflow:** A 3-step fused kernel (Idea → Spec → Build) with 3-Layer Logic Locks.
+- **💡 Idea Sandbox (The Lab):** A safe space to "draft" and "analyze" raw ideas using multiple AI personas.
+- **🛠️ Self-Healing Core:** Proactive system doctor and automated repair mechanisms.
+- **🚀 One-Liner Installer:** Frictionless installation for Windows, MacOS, and Linux.
+- **🧩 Modular Command Engine:** Highly organized command structure with automatic sync.
+
+---
+
 ## 🚀 Quick Install (Cross-Platform)
 
 **Windows (PowerShell):**

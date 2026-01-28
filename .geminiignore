@@ -19,3 +19,6 @@ coverage/
 
 # Allow AI access to archived task history for context
 !archive/
+
+# Ensure AI can access Idea Sandbox
+!ideas/

@@ -204,4 +204,29 @@ program
     }
   });
 
+// Idea Sandbox Logic
+program
+  .command("create-idea <title>")
+  .description("Internal: Create a new idea draft (used by Gemini CLI)")
+  .action(async (title) => {
+    try {
+      const { createIdea } = require("../logic/idea-manager");
+      await createIdea(title);
+    } catch (error) {
+      process.exit(1);
+    }
+  });
+
+program
+  .command("promote-idea <path>")
+  .description("Internal: Promote an idea draft (used by Gemini CLI)")
+  .action(async (filePath) => {
+    try {
+      const { promoteIdea } = require("../logic/idea-manager");
+      await promoteIdea(filePath);
+    } catch (error) {
+      process.exit(1);
+    }
+  });
+
 program.parse();
