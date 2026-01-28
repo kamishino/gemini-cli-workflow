@@ -1,9 +1,5 @@
 # 🧠 MEMORY BANK: KamiFlow Template
 
-> **SYSTEM NOTE:** This file is the "Short-term Memory" (RAM) of the project.
-> **RULE:** Update this file at the end of every session using `/kamiflow:ops:save-context`.
-> **INTEGRATOR RULE (ID Caching):** After running `/kamiflow:ops:wake`, maintain `cached_max_id` in session memory for fast ID generation. Only re-scan when user requests correction.
-
 ## 1. Project Identity
 
 - **Goal:** A rigorous, opinionated "Operating System" template for Indie Hackers using Gemini CLI + AI IDEs.
