@@ -56,12 +56,14 @@
 
 ## 🚀 Quick Install (Cross-Platform)
 
+**Smart Assistant:** Our installers now include **Pre-flight Checks** to help you setup Node.js, NPM, and NVM automatically if they are missing.
+
 **Windows (PowerShell):**
 ```powershell
 powershell -c "irmo https://raw.githubusercontent.com/kamishino/gemini-cli-workflow/main/install.ps1 | iex"
 ```
 
-**MacOS / Linux (Bash):**
+**MacOS / Linux / WSL (Bash):**
 ```bash
 curl -sSL https://raw.githubusercontent.com/kamishino/gemini-cli-workflow/main/install.sh | bash
 ```

@@ -2,7 +2,7 @@
 
 const { Command } = require("commander");
 const chalk = require("chalk");
-const { initProject } = require("../logic/installer");
+const { initializeProject } = require("../logic/installer");
 const { runDoctor } = require("../logic/doctor");
 const { runUpdate } = require("../logic/updater");
 const path = require("path");
@@ -33,7 +33,7 @@ program
       console.log(chalk.cyan("  🌊 KamiFlow CLI v" + packageJson.version));
       console.log(chalk.cyan("========================================================\n"));
 
-      await initProject(projectPath, options);
+      await initializeProject(projectPath);
 
       console.log(chalk.green("\n✅ KamiFlow initialization complete!"));
       console.log(chalk.gray("\nNext steps:"));

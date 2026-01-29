@@ -5,23 +5,11 @@
  * Supported: Windows, MacOS, Linux
  */
 
-const inquirer = require("inquirer").default || require("inquirer");
-const chalk = require("chalk");
 const fs = require("fs-extra");
 const path = require("path");
 const os = require("os");
+const chalk = require("chalk");
 const { execSync } = require("child_process");
-const { z } = require("zod");
-const { isGitRepo, initGitRepo, addSubmodule } = require("./git-manager");
-
-// Schema for project configuration
-const ProjectConfigSchema = z.object({
-  name: z.string().min(1),
-  method: z.enum(["LINK", "SUBMODULE", "STANDALONE"]),
-  corePath: z.string(),
-  rootPath: z.string(),
-  features: z.array(z.string()).default(["core", "windsurf", "docs"]),
-});
 
 const KAMIFLOW_REPO = "https://github.com/kamishino/gemini-cli-workflow.git";
 const INSTALL_DIR = path.join(os.homedir(), ".kami-flow");
@@ -120,218 +108,92 @@ function showSuccess() {
 }
 
 /**
- * --- PART 2: PROJECT INITIALIZER (Module Exports) ---
+ * --- PART 2: PROJECT INITIALIZER (New Logic) ---
  */
 
-function getGeneStorePath() {
-  return path.join(os.homedir(), ".kami-flow");
-}
-
-function getGlobalCorePath() {
-  return path.resolve(__dirname, "..", "..");
-}
-
-async function ensureGeneStore() {
-  const geneStorePath = getGeneStorePath();
-  if (await fs.pathExists(geneStorePath)) {
-    return geneStorePath;
+async function initializeProject(cwd) {
+  const projectGeminiPath = path.join(cwd, '.gemini');
+  
+  // 1. Check if already initialized
+  if (fs.existsSync(projectGeminiPath)) {
+    console.log(chalk.yellow('ℹ️  .gemini folder already exists. Skipping initialization.'));
+    return { success: true, message: 'Already initialized.' };
   }
-  // If gene store doesn't exist, we might be in a dev environment or first run
-  // For simplicity, we assume the user should run the installer first
-  throw new Error("KamiFlow Core not found. Please run the installer first.");
-}
 
-async function createPortal(mapping, method) {
-  const { source, target, isDirectory } = mapping;
+  console.log(chalk.cyan('🚀 Initializing KamiFlow (Template Copy Mode)...'));
+
   try {
-    if (await fs.pathExists(target)) {
-      console.log(chalk.yellow(`[KAMI] ⚠️  ${path.basename(target)} already exists, skipping`));
-      return;
+    // 2. Resolve Source Template
+    // Strategy: Use the CLI's own .gemini folder as the master template
+    const cliRoot = path.resolve(__dirname, '../../'); // cli-core/../
+    const sourceGemini = path.join(cliRoot, '.gemini');
+
+    if (!fs.existsSync(sourceGemini)) {
+      throw new Error(`Critical: Source template not found at ${sourceGemini}`);
     }
-    await fs.ensureDir(path.dirname(target));
-    if (method === "LINK") {
-      const type = isDirectory ? "junction" : "file";
-      await fs.symlink(source, target, type);
-      console.log(chalk.green(`[KAMI] ✓ Linked ${path.basename(target)}`));
-    } else {
-      if (isDirectory) {
-        await fs.copy(source, target);
-      } else {
-        await fs.copyFile(source, target);
+
+    // 3. Perform Copy (Smart Filter)
+    console.log(chalk.gray(`📦 Copying template from ${sourceGemini}...`));
+    
+    fs.cpSync(sourceGemini, projectGeminiPath, {
+      recursive: true,
+      filter: (src, dest) => {
+        const basename = path.basename(src);
+        // Exclude internal dev artifacts and git metadata
+        if (basename === 'tmp' || basename === 'cache' || basename === 'handoff_logs') return false;
+        if (basename === '.git') return false; 
+        return true;
       }
-      console.log(chalk.green(`[KAMI] ✓ Copied ${path.basename(target)}`));
+    });
+
+    // 4. Create necessary empty dirs that were skipped
+    const dirsToCreate = ['tmp', 'cache', 'docs/handoff_logs'];
+    for (const dir of dirsToCreate) {
+      const d = path.join(projectGeminiPath, dir);
+      if (!fs.existsSync(d)) fs.mkdirSync(d, { recursive: true });
     }
+
+    // 5. Update .gitignore
+    updateGitIgnore(cwd);
+
+    // 6. Project Context Bootstrap
+    const contextPath = path.join(cwd, 'PROJECT_CONTEXT.md');
+    if (!fs.existsSync(contextPath)) {
+      console.log(chalk.green('📄 Creating PROJECT_CONTEXT.md...'));
+      const templateContext = path.join(cliRoot, 'docs/templates/context.md');
+      if (fs.existsSync(templateContext)) {
+         fs.copyFileSync(templateContext, contextPath);
+      } else {
+         fs.writeFileSync(contextPath, '# Project Context\n\nRun /kamiflow:ops:wake to initialize.');
+      }
+    }
+
+    return { success: true, message: 'KamiFlow initialized successfully!' };
+
   } catch (error) {
-    if (method === "LINK" && error.code === "EPERM") {
-      console.log(chalk.red("\n❌ Symlink permission denied."));
-      console.log(chalk.yellow("👉 Please run your terminal as Administrator to enable LINK mode."));
-      console.log(chalk.gray("   Or choose 'Standalone' mode for a physical copy.\n"));
-      throw new Error("SYMLINK_PERMISSION_DENIED");
-    }
-    throw error;
+    console.error(chalk.red('❌ Init failed:'), error);
+    return { success: false, error: error.message };
   }
 }
 
-async function seedProjectFiles(projectPath, corePath, projectName, method) {
-  const geminiPath = path.join(projectPath, "GEMINI.md");
-  if (!(await fs.pathExists(geminiPath))) {
-    const templatePath = path.join(corePath, "docs", "templates", "gemini.md");
-    if (await fs.pathExists(templatePath)) {
-      await fs.copyFile(templatePath, geminiPath);
-      console.log(chalk.green("[KAMI] ✓ Created GEMINI.md from template"));
-    }
+function updateGitIgnore(cwd) {
+  const gitIgnorePath = path.join(cwd, '.gitignore');
+  const rule = '.gemini/tmp';
+  
+  let content = '';
+  if (fs.existsSync(gitIgnorePath)) {
+    content = fs.readFileSync(gitIgnorePath, 'utf8');
   }
 
-  const contextPath = path.join(projectPath, "PROJECT_CONTEXT.md");
-  if (!(await fs.pathExists(contextPath))) {
-    const templatePath = path.join(corePath, "docs", "templates", "context.md");
-    if (await fs.pathExists(templatePath)) {
-      let content = await fs.readFile(templatePath, "utf8");
-      content = content.replace(/\[Project Name\]/g, projectName);
-      await fs.writeFile(contextPath, content, "utf8");
-      console.log(chalk.green("[KAMI] ✓ Created PROJECT_CONTEXT.md"));
-    }
+  if (!content.includes(rule)) {
+    console.log(chalk.gray('🛡️  Updating .gitignore...'));
+    const newContent = content.endsWith('\n') ? `${content}${rule}\n` : `${content}\n${rule}\n`;
+    fs.writeFileSync(gitIgnorePath, newContent);
   }
-
-  const roadmapPath = path.join(projectPath, "docs", "roadmap.md");
-  if (!(await fs.pathExists(roadmapPath))) {
-    const templatePath = path.join(corePath, "docs", "templates", "roadmap.md");
-    if (await fs.pathExists(templatePath)) {
-      await fs.ensureDir(path.dirname(roadmapPath));
-      await fs.copyFile(templatePath, roadmapPath);
-      console.log(chalk.green("[KAMI] ✓ Created docs/roadmap.md"));
-    }
-  }
-
-  const universalRulesPath = path.join(projectPath, "docs", "universal-agent-rules.md");
-  if (!(await fs.pathExists(universalRulesPath))) {
-    const templatePath = path.join(corePath, "docs", "templates", "universal-agent-rules.md");
-    if (await fs.pathExists(templatePath)) {
-      await fs.ensureDir(path.dirname(universalRulesPath));
-      await fs.copyFile(templatePath, universalRulesPath);
-      console.log(chalk.green("[KAMI] âœ“ Created docs/universal-agent-rules.md"));
-    }
-  }
-
-  const registryPath = path.join(projectPath, "docs", "agents", "registry.md");
-  if (!(await fs.pathExists(registryPath))) {
-    const templatePath = path.join(corePath, "docs", "templates", "registry.md");
-    if (await fs.pathExists(templatePath)) {
-      await fs.ensureDir(path.dirname(registryPath));
-      await fs.copyFile(templatePath, registryPath);
-      console.log(chalk.green("[KAMI] âœ“ Created docs/agents/registry.md"));
-    }
-  }
-
-
-  const ignorePath = path.join(projectPath, ".geminiignore");
-  const ignoreEntry = "\n# Ignore KamiFlow core (accessed via portals)\n.gemini/\n.windsurf/\n";
-  if (await fs.pathExists(ignorePath)) {
-    const content = await fs.readFile(ignorePath, "utf8");
-    if (!content.includes(".gemini/")) {
-      await fs.appendFile(ignorePath, ignoreEntry, "utf8");
-      console.log(chalk.green("[KAMI] ✓ Updated .geminiignore"));
-    }
-  } else {
-    await fs.writeFile(ignorePath, ignoreEntry.trim() + "\n", "utf8");
-    console.log(chalk.green("[KAMI] ✓ Created .geminiignore"));
-  }
-}
-
-async function initProject(projectPath, options) {
-  await fs.ensureDir(projectPath);
-  console.log(chalk.cyan("[KAMI] Target path:"), chalk.gray(projectPath));
-
-  let corePath;
-  if (options.mode && options.mode.toUpperCase() === "SUBMODULE") {
-    corePath = await ensureGeneStore();
-  } else {
-    corePath = getGlobalCorePath();
-    console.log(chalk.cyan("[KAMI] Core location:"), chalk.gray(corePath));
-  }
-
-  let config;
-  if (options.skipInterview) {
-    config = {
-      name: path.basename(projectPath),
-      method: (options.mode || "LINK").toUpperCase(),
-      corePath,
-      rootPath: projectPath,
-      features: ["core", "windsurf", "docs"],
-    };
-  } else {
-    const answers = await inquirer.prompt([
-      {
-        type: "input",
-        name: "name",
-        message: "Project name:",
-        default: path.basename(projectPath),
-      },
-      {
-        type: "list",
-        name: "method",
-        message: "Select integration mode:",
-        choices: [
-          { name: "🔗 Linked (Recommended - Auto-updates from global core)", value: "LINK" },
-          { name: "📦 Standalone (Clean copy - Manual updates)", value: "STANDALONE" },
-        ],
-        default: "LINK",
-      },
-    ]);
-    config = {
-      name: answers.name,
-      method: answers.method,
-      corePath,
-      rootPath: projectPath,
-      features: ["core", "windsurf", "docs"],
-    };
-  }
-
-  const validConfig = ProjectConfigSchema.parse(config);
-  let method = validConfig.method;
-
-  // 1. Core Folders
-  await fs.ensureDir(path.join(projectPath, "tasks"));
-  await fs.ensureDir(path.join(projectPath, "ideas/draft"));
-  await fs.ensureDir(path.join(projectPath, "ideas/backlog"));
-  await fs.ensureDir(path.join(projectPath, "ideas/discovery"));
-  await fs.ensureDir(path.join(projectPath, "docs/agents"));
-  await fs.ensureDir(path.join(projectPath, "docs/handoff_logs"));
-
-  const portals = [
-    { source: path.join(corePath, ".gemini"), target: path.join(projectPath, ".gemini"), isDirectory: true },
-    { source: path.join(corePath, ".windsurf"), target: path.join(projectPath, ".windsurf"), isDirectory: true },
-  ];
-
-  for (const portal of portals) {
-    try {
-      await createPortal(portal, method);
-    } catch (error) {
-      if (error.message === "SYMLINK_PERMISSION_DENIED" && method === "LINK") {
-        const fallback = await inquirer.prompt([{ 
-          type: "confirm",
-          name: "useCopy",
-          message: "Fallback to physical copy mode?",
-          default: true,
-        }]);
-        if (fallback.useCopy) {
-          method = "STANDALONE";
-          await createPortal(portal, method);
-        } else {
-          throw new Error("Setup cancelled.");
-        }
-      } else {
-        throw error;
-      }
-    }
-  }
-
-  await seedProjectFiles(projectPath, corePath, validConfig.name, method);
-  return validConfig;
 }
 
 if (require.main === module) {
   runInstaller();
 }
 
-module.exports = { initProject, getGlobalCorePath, getGeneStorePath, ensureGeneStore };
+module.exports = { initializeProject };

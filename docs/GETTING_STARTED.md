@@ -11,14 +11,16 @@ Welcome to **KamiFlow**, the professional "Operating System" for Indie Builders 
 powershell -c "irmo https://raw.githubusercontent.com/kamishino/gemini-cli-workflow/main/install.ps1 | iex"
 ```
 
-**MacOS / Linux (Bash):**
+**MacOS / Linux / WSL (Bash):**
 ```bash
 curl -sSL https://raw.githubusercontent.com/kamishino/gemini-cli-workflow/main/install.sh | bash
 ```
 
+**Smart Assistant:** If you don't have Node.js or NPM, the script will detect if you have **NVM** (Node Version Manager) and offer to install or select the LTS version for you.
+
 Once installed, initialize your project:
 ```bash
-kami init
+kamiflow init
 ```
 
 ---
