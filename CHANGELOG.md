@@ -1,4 +1,16 @@
 
+## [v2.27.0] - 2026-01-29
+
+### 🚀 Features
+- feat(seed): implement seed hub v2 with smart incubator and quality gating (Task 063) (0a4133c)
+
+### 🐛 Fixes
+- fix(seed): sync p-market discovery workflow and folder structure (Task 063) (1c0b2ed)
+
+### 🧹 Chores & Others
+- docs(core): grand documentation audit and prompt standardization (83c6160)
+
+
 ## [v2.26.0] - 2026-01-29
 
 ### 🚀 Features
