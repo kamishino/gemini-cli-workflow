@@ -13,8 +13,8 @@
 ---
 
 ## 🏗️ Current Focus (Active Pillars)
-- **Phase ** Template v2.25.0 (Modular Engine)**
-- **Status:** ** Implemented Intelligent Documentation Auditor (Dead Link & Drift Detection) (Task 061).
+- **Phase ** Template v2.26.0 (Modular Engine)**
+- **Status:** ** Established project LICENSE (MIT) and Trademark Policy for branding protection (Task 062).
 
 ---
 
@@ -28,6 +28,7 @@
 ### ✅ Completed
 - [x] **v1.0 Core:** Initial setup.
 - [x] **Archived:** 2026-01-29_999_test-archive
+- [x] **Archived:** 2026-01-29_062_license-setup
 - [x] **Archived:** 2026-01-29_061_intelligent-doc-auditor
 - [x] **Archived:** 2026-01-29_060_wiki-command-refresh
 - [x] **Archived:** 2026-01-29_059_documentation-audit-refresh
@@ -36,12 +37,8 @@
 - [x] **Archived:** 2026-01-29_056_archive-automation
 - [x] **Archived:** 2026-01-29_055_npm-config-cleanup
 - [x] **Archived:** 2026-01-29_054_release-sync-polish
-- [x] **Archived:** 2026-01-29_053_smart-nvm-autopilot
 
 ### 🚧 In Progress
-- [ ] **Active:** 062-S1-IDEA-license-setup.md
-- [ ] **Active:** 062-S2-SPEC-license-setup.md
-- [ ] **Active:** 062-S3-BUILD-license-setup.md
 
 ### 📋 Backlog (Planned)
 - [ ] Ecosystem expansion.

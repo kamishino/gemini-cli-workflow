@@ -1,4 +1,13 @@
 
+## [v2.26.0] - 2026-01-29
+
+### 🚀 Features
+- feat(docs): implement intelligent doc auditor and healer (Task 061) (64c4552)
+
+### 🧹 Chores & Others
+- legal: setup MIT license and trademark policy (Task 062) (37c574f)
+
+
 ## [v2.25.0] - 2026-01-29
 
 ### 🚀 Features
