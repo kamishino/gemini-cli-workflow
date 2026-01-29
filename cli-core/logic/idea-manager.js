@@ -21,24 +21,25 @@ function generateSeedID() {
 }
 
 /**
- * Create a new idea draft from AI content
+ * Create a new idea draft or discovery file from AI content
  */
-async function createIdea(title, content, aiSlug, fromIdeaId) {
+async function createIdea(title, content, aiSlug, type = 'draft') {
   try {
     const id = generateSeedID();
+    const isDiscovery = type === 'discovery';
+    const targetDir = isDiscovery ? IDEAS_DISCOVERY : IDEAS_DRAFT;
+    
     let slug = aiSlug || title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
     
-    // Legacy support for lineage, though new system uses Hash ID
-    // If fromIdeaId exists, we can still append it, but the main ID is the new Hash
-    
-    let fileName = `${id}-${slug}.md`;
-    let targetPath = path.join(IDEAS_DRAFT, fileName);
+    // Filename format: [ID]-[slug].md for draft, [ID]_[slug]_ai-discovery.md for discovery
+    let fileName = isDiscovery ? `${id}_${slug}_ai-discovery.md` : `${id}-${slug}.md`;
+    let targetPath = path.join(targetDir, fileName);
 
-    // Collision check (rare but possible)
+    // Collision check
     while (await fs.pathExists(targetPath)) {
       const newId = generateSeedID();
-      fileName = `${newId}-${slug}.md`;
-      targetPath = path.join(IDEAS_DRAFT, fileName);
+      fileName = isDiscovery ? `${newId}_${slug}_ai-discovery.md` : `${newId}-${slug}.md`;
+      targetPath = path.join(targetDir, fileName);
     }
 
     // Inject ID and basic Frontmatter if not present
@@ -46,8 +47,8 @@ async function createIdea(title, content, aiSlug, fromIdeaId) {
     if (!content.startsWith('---')) {
       const frontmatter = `---
 id: ${id}
-type: IDEA
-status: draft
+type: ${type.toUpperCase()}
+status: ${isDiscovery ? 'discovery' : 'draft'}
 created: ${new Date().toISOString().split('T')[0]}
 scores:
   feasibility: 0.0
@@ -58,7 +59,7 @@ scores:
       finalContent = frontmatter + content;
     }
 
-    await fs.ensureDir(IDEAS_DRAFT);
+    await fs.ensureDir(targetDir);
     await fs.writeFile(targetPath, finalContent);
 
     console.log(chalk.green(`

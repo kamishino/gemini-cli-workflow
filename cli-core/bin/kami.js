@@ -232,11 +232,11 @@ program
   .description("Internal: Create a new idea draft (used by Gemini CLI)")
   .option("-c, --content <content>", "Full content of the idea")
   .option("-s, --slug <slug>", "Summarized slug for filename")
-  .option("-f, --from-idea <id>", "Linked Idea ID for suffix tagging")
+  .option("-t, --type <type>", "Idea type: draft or discovery", "draft")
   .action(async (title, options) => {
     try {
       const { createIdea } = require("../logic/idea-manager");
-      await createIdea(title, options.content, options.slug, options.fromIdea);
+      await createIdea(title, options.content, options.slug, options.type);
     } catch (error) {
       process.exit(1);
     }

@@ -21,11 +21,11 @@ Suggest 3-5 high-value feature requests.
 For the best idea, create a Discovery file in `ideas/discovery/` with a Hash ID.
 
 **Command:**
-`node cli-core/bin/kami.js create-idea "[Title]" --content "[Discovery Content]" --slug "[slug]"`
+`node cli-core/bin/kami.js create-idea "[Title]" --content "[Discovery Content]" --slug "[slug]" --type discovery`
 
-*Note: Use 'create-idea' even for discovery, the manager will put it in draft, you may need to move it or we just use draft for all initial seeds.* 
-(Refinement: Let's use 'ideas/draft' for all initial seeds to keep it simple, or I will update the manager to support discovery folder).
+**Naming Convention:**
+The system will automatically generate the file as `ideas/discovery/[ID]_[slug]_ai-discovery.md`.
 
 ## 3. OUTPUT FORMAT
-"🔮 Opportunity found! ID: [ID] | File: ideas/discovery/[ID]-[slug].md"
+"🔮 Opportunity found! ID: [ID] | File: ideas/discovery/[ID]_[slug]_ai-discovery.md"
 '''
