@@ -11,7 +11,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Refreshed documentation ecosystem (Newbie & Power User guides) for v2.24 (Task 059).
+- **Last Completed Action:** Synced and polished Command Wiki (dev, ops, terminal) for v2.24 (Task 060).
 - **Current Focus:** Final stabilization and public release preparation.
 - **Next Step:** Official public rollout and community onboarding.
 

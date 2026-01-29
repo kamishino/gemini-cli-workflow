@@ -14,7 +14,7 @@
 
 ## 🏗️ Current Focus (Active Pillars)
 - **Phase ** Template v2.24.0 (Modular Engine)**
-- **Status:** ** Implemented Saiyan Automation Suite (Auto-Execution & Batch Cycles) (Task 058).
+- **Status:** ** Refreshed documentation ecosystem (Newbie & Power User guides) for v2.24 (Task 059).
 
 ---
 
@@ -28,6 +28,7 @@
 ### ✅ Completed
 - [x] **v1.0 Core:** Initial setup.
 - [x] **Archived:** 2026-01-29_999_test-archive
+- [x] **Archived:** 2026-01-29_059_documentation-audit-refresh
 - [x] **Archived:** 2026-01-29_058_saiyan-automation-suite
 - [x] **Archived:** 2026-01-29_057_command-audit-standardization
 - [x] **Archived:** 2026-01-29_056_archive-automation
@@ -38,9 +39,9 @@
 - [x] **Archived:** 2026-01
 
 ### 🚧 In Progress
-- [ ] **Active:** 059-S1-IDEA-documentation-audit-refresh.md
-- [ ] **Active:** 059-S2-SPEC-documentation-audit-refresh.md
-- [ ] **Active:** 059-S3-BUILD-documentation-audit-refresh.md
+- [ ] **Active:** 060-S1-IDEA-wiki-command-refresh.md
+- [ ] **Active:** 060-S2-SPEC-wiki-command-refresh.md
+- [ ] **Active:** 060-S3-BUILD-wiki-command-refresh.md
 
 ### 📋 Backlog (Planned)
 - [ ] Ecosystem expansion.

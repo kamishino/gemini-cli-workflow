@@ -28,8 +28,8 @@ The **`kamiflow`** (alias **`kami`**) command is used for machine-level operatio
 > **Goal:** Initialize a project with the KamiFlow ecosystem.
 
 ### ⚡ Options for Speed
-- `-m, --mode <mode>`: Integration mode: `link` (default), `submodule`, or `standalone`.
 - `--skip-interview`: Skip all onboarding questions and use default templates.
+- **Note:** This command now performs a **Template Copy**, creating a standalone `.gemini/` configuration folder in your project.
 
 ### 🚀 Fast Track
 ```bash
@@ -69,13 +69,19 @@ kami sync
 ## kamiflow archive-flow `Alias: archive`
 > **Goal:** Clean up your `tasks/` directory by moving completed files to the archive.
 
+### ⚡ Options for Speed
+- `[id]`: The Task ID to archive (e.g., `001`).
+- `-a, --all`: Archive ALL completed tasks found.
+- `-f, --force`: Skip confirmation prompt (Use with caution).
+
 ### 🧠 Thinking Process
-1. **Scan:** Finds all files starting with an ID (e.g., `001-`).
-2. **Interactive:** Presents a checkbox menu for you to select which tasks to move.
+1. **Scan:** Finds files matching the ID or all files.
+2. **Interactive:** If no flags are passed, presents a checkbox menu.
+3. **Autonomous:** If flags are passed, executes immediately.
 
 ### 🚀 Fast Track
 ```bash
-kami archive
+kami archive 056 --force
 ```
 
 ---

@@ -15,7 +15,7 @@ These commands manage the project's health, memory, and onboarding. They keep th
 | `/kamiflow:ops:wake` | **[KamiFlow] Wake up and reload project context to eliminate session amnesia.** |
 | `/kamiflow:ops:help` | **[KamiFlow] Interactive help system for commands and Sniper Model phases.** |
 | `/kamiflow:ops:save-context` | **[KamiFlow] Sync current state to PROJECT_CONTEXT.md (Manual Memory Save).** |
-| `/kamiflow:ops:bootstrap` | **[KamiFlow] Bootstrap KamiFlow as a Git Submodule - create portal symlinks and initialize proxy files.** |
+| `/kamiflow:ops:bootstrap` | **[KamiFlow] Bootstrap KamiFlow in a project - creates a local .gemini/ configuration from the master template.** |
 
 <!-- KAMI_COMMAND_LIST_END -->
 
@@ -63,4 +63,21 @@ Run this at the start of every session:
 ### 🛠️ Practical Usage
 ```bash
 /kamiflow:ops:help build
+```
+
+---
+
+## /kamiflow:ops:bootstrap
+> **Goal:** Initialize KamiFlow in a new project using the Template Copy method.
+
+### 🧠 Logic & Thinking (CoT)
+1. **Pre-Flight:** Checks if `.gemini/` already exists.
+2. **Template Copy:** Executes `kami init` to copy the master configuration template into your project's root.
+3. **Independence:** The copied configuration is **standalone**. You can edit rules and commands without affecting the global core.
+
+### 🛠️ Practical Usage
+```bash
+/kamiflow:ops:bootstrap
+# Or simply run:
+kami init
 ```

@@ -18,6 +18,8 @@ Automation tools for high-speed building, archiving, and release management.
 | `/kamiflow:dev:upgrade` | **[KamiFlow] Update KamiFlow to the latest version.** |
 | `/kamiflow:dev:archive` | **[KamiFlow] Archive completed task artifacts to archive/ folder.** |
 | `/kamiflow:dev:revise` | **[KamiFlow] Emergency Brake - Clarify context, resolve hallucinations, and question logic before implementation.** |
+| `/kamiflow:dev:saiyan` | **[KamiFlow] Ultimate Automation - Auto-Select Option B + Auto-Execution.** |
+| `/kamiflow:dev:supersaiyan` | **[KamiFlow] Meta-Automation - Manage cycles of Saiyan execution.** |
 
 <!-- KAMI_COMMAND_LIST_END -->
 
@@ -50,3 +52,27 @@ Automation tools for high-speed building, archiving, and release management.
 1. **Stop:** It is FORBIDDEN from creating files.
 2. **Challenge:** It acts as a **Critical Reviewer**, questioning the current logic or user's request.
 3. **Alignment:** It forces a "Reality Check" to ensure the project doesn't drift into scope creep or tech debt.
+
+---
+
+## /kamiflow:dev:saiyan
+> **Goal:** "God Mode" execution for a single task. Auto-decide, auto-build, auto-archive.
+
+### 🧠 Logic & Thinking (CoT)
+1. **Auto-Decision:** Automatically selects **Option B (Balanced)** during the Idea phase.
+2. **Hyper-Speed:** Bypasses manual confirmations for Spec and Build plans.
+3. **Atomic Cleanup:** Automatically archives the task upon completion.
+
+📖 **[Read the Saiyan Mode Guide](../POWER_USER_GUIDE.md#1-devsaiyan-the-executor)**
+
+---
+
+## /kamiflow:dev:supersaiyan
+> **Goal:** Meta-Automation to manage cycles of development.
+
+### 🧠 Logic & Thinking (CoT)
+1. **Cycle Manager:** It manages a batch of 3 tasks (1 Cycle).
+2. **Source:** It can pull from the Backlog or generate new ideas via Market Research.
+3. **Orchestrator:** It invokes the `saiyan` agent for each task in the queue.
+
+📖 **[Read the SuperSaiyan Guide](../POWER_USER_GUIDE.md#2-devsupersaiyan-the-orchestrator)**
