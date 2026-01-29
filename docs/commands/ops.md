@@ -81,3 +81,18 @@ Run this at the start of every session:
 # Or simply run:
 kami init
 ```
+
+---
+
+## /kamiflow:ops:doc-audit
+> **Goal:** Intelligent Documentation Auditor - Scan and heal documentation rot.
+
+### 🧠 Logic & Thinking (CoT)
+1. **Deep Scan:** Parses all Markdown files to find dead links and broken references.
+2. **Drift Detection:** Compares `README.md` badges and Command Tables against the actual Codebase state.
+3. **Healing:** Offers to run `kami sync` and other fixers to restore consistency.
+
+### 🛠️ Practical Usage
+```bash
+kami doc-audit
+```

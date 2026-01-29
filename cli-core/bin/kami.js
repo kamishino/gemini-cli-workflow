@@ -135,6 +135,22 @@ program
     }
   });
 
+// Doc Audit command
+program
+  .command("doc-audit")
+  .alias("audit")
+  .description("Scan documentation for broken links and drift")
+  .option("--fix", "Automatically attempt to fix issues")
+  .option("--dry-run", "Report only, no prompts")
+  .action(async (options) => {
+    try {
+      const { runDocAudit } = require("../logic/doc-auditor");
+      await runDocAudit(options);
+    } catch (error) {
+      console.error(chalk.red("\n❌ Audit failed:"), error.message);
+    }
+  });
+
 // Config command
 const configFlow = program.command("config-flow").description("Manage project configuration");
 

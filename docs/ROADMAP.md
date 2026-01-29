@@ -39,6 +39,9 @@
 - [x] **Archived:** 2026-01-29_052_installer-optimization
 
 ### 🚧 In Progress
+- [ ] **Active:** 061-S1-IDEA-intelligent-doc-auditor.md
+- [ ] **Active:** 061-S2-SPEC-intelligent-doc-auditor.md
+- [ ] **Active:** 061-S3-BUILD-intelligent-doc-auditor.md
 
 ### 📋 Backlog (Planned)
 - [ ] Ecosystem expansion.
