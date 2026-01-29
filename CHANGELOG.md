@@ -1,4 +1,15 @@
 
+## [v2.25.0] - 2026-01-29
+
+### 🚀 Features
+- feat(automation): implement saiyan and supersaiyan modes for autonomous execution (Task 058) (f61b1ce)
+
+### 🧹 Chores & Others
+- docs(wiki): sync command reference with v2.24 features (Task 060) (eb6a21d)
+- docs: refresh documentation ecosystem for v2.24 (Task 059) (ec0cac3)
+- refactor(commands): standardize toml prompts for architecture consistency (Task 057) (643f114)
+
+
 ## [v2.24.0] - 2026-01-29
 
 ### 🚀 Features
