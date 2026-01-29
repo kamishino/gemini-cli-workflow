@@ -1,4 +1,12 @@
 
+## [v2.28.0] - 2026-01-29
+
+### 🚀 Features
+- feat(core): grand architecture refactor for universal transpiler (Task 066) (2eda19c)
+- feat(core): implement universal atomic transpiler for multi-agent support (Task 065) (83070bb)
+- feat(config): implement hierarchical configuration system (Task 064) (19db667)
+
+
 ## [v2.27.0] - 2026-01-29
 
 ### 🚀 Features

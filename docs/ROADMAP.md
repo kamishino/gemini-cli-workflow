@@ -13,8 +13,8 @@
 ---
 
 ## 🏗️ Current Focus (Active Pillars)
-- **Phase ** Template v2.27.0 (Modular Engine)**
-- **Status:** ** Implemented Universal Atomic Transpiler (Markdown SSOT) for multi-agent support (Task 065).
+- **Phase ** Template v2.28.0 (Modular Engine)**
+- **Status:** ** Completed Architecture Grand Refactor (Task 066) - centralized blueprints in docs/ and enforced metadata validation.
 
 ---
 
@@ -39,6 +39,9 @@
 - [x] **Archived:** 2026-01-29_057_command-audit-standardization
 
 ### 🚧 In Progress
+- [ ] **Active:** 066-S1-IDEA-architecture-grand-refactor.md
+- [ ] **Active:** 066-S2-SPEC-architecture-grand-refactor.md
+- [ ] **Active:** 066-S3-BUILD-architecture-grand-refactor.md
 
 ### 📋 Backlog (Planned)
 - [ ] Ecosystem expansion.
