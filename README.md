@@ -110,6 +110,11 @@ We welcome contributions from the community! Whether it's a bug fix, new feature
 
 ---
 
+## 🛡️ Trademark Policy
+The **KamiFlow** name, logo, and related brand assets are protected. While the source code is licensed under MIT, you may not use the "KamiFlow" name or logo for derivative works, forks, or commercial products in a way that suggests endorsement by or affiliation with the original author (**Toan Huynh**).
+
+---
+
 ## 📄 License
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 

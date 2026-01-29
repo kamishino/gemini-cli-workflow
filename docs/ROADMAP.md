@@ -14,7 +14,7 @@
 
 ## 🏗️ Current Focus (Active Pillars)
 - **Phase ** Template v2.25.0 (Modular Engine)**
-- **Status:** ** Synced and polished Command Wiki (dev, ops, terminal) for v2.24 (Task 060).
+- **Status:** ** Implemented Intelligent Documentation Auditor (Dead Link & Drift Detection) (Task 061).
 
 ---
 
@@ -28,6 +28,7 @@
 ### ✅ Completed
 - [x] **v1.0 Core:** Initial setup.
 - [x] **Archived:** 2026-01-29_999_test-archive
+- [x] **Archived:** 2026-01-29_061_intelligent-doc-auditor
 - [x] **Archived:** 2026-01-29_060_wiki-command-refresh
 - [x] **Archived:** 2026-01-29_059_documentation-audit-refresh
 - [x] **Archived:** 2026-01-29_058_saiyan-automation-suite
@@ -36,12 +37,11 @@
 - [x] **Archived:** 2026-01-29_055_npm-config-cleanup
 - [x] **Archived:** 2026-01-29_054_release-sync-polish
 - [x] **Archived:** 2026-01-29_053_smart-nvm-autopilot
-- [x] **Archived:** 2026-01-29_052_installer-optimization
 
 ### 🚧 In Progress
-- [ ] **Active:** 061-S1-IDEA-intelligent-doc-auditor.md
-- [ ] **Active:** 061-S2-SPEC-intelligent-doc-auditor.md
-- [ ] **Active:** 061-S3-BUILD-intelligent-doc-auditor.md
+- [ ] **Active:** 062-S1-IDEA-license-setup.md
+- [ ] **Active:** 062-S2-SPEC-license-setup.md
+- [ ] **Active:** 062-S3-BUILD-license-setup.md
 
 ### 📋 Backlog (Planned)
 - [ ] Ecosystem expansion.
