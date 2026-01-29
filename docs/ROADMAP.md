@@ -36,6 +36,9 @@
 - [x] **Archived:** 2026-01
 
 ### 🚧 In Progress
+- [ ] **Active:** 057-S1-IDEA-command-audit-standardization.md
+- [ ] **Active:** 057-S2-SPEC-command-audit-standardization.md
+- [ ] **Active:** 057-S3-BUILD-command-audit-standardization.md
 
 ### 📋 Backlog (Planned)
 - [ ] Ecosystem expansion.

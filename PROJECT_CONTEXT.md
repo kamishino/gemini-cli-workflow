@@ -11,7 +11,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Implemented Non-Interactive Archive & AI Optimization for automated cleanup (Task 056).
+- **Last Completed Action:** Audited and standardized command prompts (.toml) for architecture consistency (Task 057).
 - **Current Focus:** Final stabilization and public release preparation.
 - **Next Step:** Official public rollout and community onboarding.
 
