@@ -158,4 +158,5 @@ The core workflow uses 3 steps with 3-Layer Locks:
 @.gemini/rules/factory-line.md
 @.gemini/rules/automated-execution.md
 @.gemini/rules/bridge-ide.md
+@.gemini/rules/blueprint-standards.md
 @PROJECT_CONTEXT.md

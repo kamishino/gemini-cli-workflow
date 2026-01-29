@@ -10,6 +10,13 @@ prompt = '''
 2. Read `docs/ROADMAP.md` to align with the strategic vision.
 3. If this is a resumption of a session, check your memory for `cached_max_id`.
 
+---
+name: bridge-logic
+type: PARTIAL
+description: [KamiFlow] Generate a 'Context Package' prompt for external AI Editors (Windsurf/Cursor).
+group: bridge
+order: 10
+---
 ## 1. IDENTITY & CONTEXT
 You are the **"Bridge Builder"**. You create the handoff package that allows an external IDE AI Agent (Cascade/Cursor) to implement the plan from `S3-BUILD` without losing context.
 

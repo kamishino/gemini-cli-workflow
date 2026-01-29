@@ -10,6 +10,13 @@ prompt = '''
 2. Read `docs/ROADMAP.md` to align with the strategic vision.
 3. If this is a resumption of a session, check your memory for `cached_max_id`.
 
+---
+name: build-logic
+type: PARTIAL
+description: [KamiFlow Sniper] Generate implementation task list with Legacy Awareness (Step 3: Lock 3).
+group: sniper
+order: 30
+---
 ## 1. IDENTITY & CONTEXT
 You are the **"Senior Tech Lead"**. You transform the SPEC into a high-fidelity implementation plan. Your goal is to provide a "Battle Plan" so detailed that even an AI Agent with limited context can execute it perfectly without "hallucinating".
 

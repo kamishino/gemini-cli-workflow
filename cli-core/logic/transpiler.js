@@ -7,16 +7,16 @@ const { validateTomlFile } = require('../validators/toml-validator');
 class Transpiler {
   constructor(projectRoot = process.cwd()) {
     this.projectRoot = projectRoot;
-    this.blueprintDir = path.join(projectRoot, 'blueprint');
-    this.partialsDir = path.join(this.blueprintDir, 'partials');
+    this.blueprintDir = path.join(projectRoot, 'docs/blueprint');
     this.templatesDir = path.join(this.blueprintDir, 'templates');
   }
 
   /**
-   * Load a partial file by name (searches subfolders)
+   * Load a partial file by name (searches subfolders recursively)
    */
   async loadPartial(name) {
     const findFile = (dir, fileName) => {
+      if (!fs.existsSync(dir)) return null;
       const items = fs.readdirSync(dir);
       for (const item of items) {
         const fullPath = path.join(dir, item);
@@ -30,15 +30,16 @@ class Transpiler {
       return null;
     };
 
-    const filePath = findFile(this.partialsDir, `${name}.md`);
+    const filePath = findFile(this.blueprintDir, `${name}.md`);
     if (!filePath) {
-      throw new Error(`Partial not found: ${name}`);
+      throw new Error(`Partial not found: ${name} in ${this.blueprintDir}`);
     }
     const content = await fs.readFile(filePath, 'utf8');
     
     // Extract metadata from YAML frontmatter
     const metadata = {};
-    const fmMatch = content.match(/^---\n([\s\S]*?)\n---/);
+    const fmMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+    
     if (fmMatch) {
       const fm = fmMatch[1];
       const lines = fm.split('\n');
@@ -46,6 +47,15 @@ class Transpiler {
         const [k, ...v] = l.split(':');
         if (k && v.length > 0) metadata[k.trim()] = v.join(':').trim();
       });
+    }
+
+    // MANDATORY METADATA VALIDATION
+    if (name !== 'context-sync') {
+      const required = ['name', 'type', 'description', 'group', 'order'];
+      const missing = required.filter(f => !metadata[f]);
+      if (missing.length > 0) {
+        throw new Error(`CRITICAL: Metadata missing in ${path.relative(this.projectRoot, filePath)}: ${missing.join(', ')}`);
+      }
     }
 
     const body = content.replace(/^---\n[\s\S]*?\n---\n?/, '').trim();

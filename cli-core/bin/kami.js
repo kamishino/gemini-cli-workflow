@@ -220,7 +220,7 @@ program
     try {
       const { Transpiler } = require("../logic/transpiler");
       const transpiler = new Transpiler(process.cwd());
-      await transpiler.runFromRegistry(path.join(process.cwd(), 'blueprint/registry.md'));
+      await transpiler.runFromRegistry(path.join(process.cwd(), 'docs/blueprint/registry.md'));
     } catch (error) {
       console.error(chalk.red("\n❌ Transpilation failed:"), error.message);
     }

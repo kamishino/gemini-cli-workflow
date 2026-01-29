@@ -11,7 +11,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Implemented Universal Atomic Transpiler (Markdown SSOT) for multi-agent support (Task 065).
+- **Last Completed Action:** Completed Architecture Grand Refactor (Task 066) - centralized blueprints in docs/ and enforced metadata validation.
 - **Current Focus:** Final stabilization and public release preparation.
 - **Next Step:** Official public rollout and community onboarding.
 
