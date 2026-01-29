@@ -192,13 +192,19 @@ program
 
 // Archive command
 program
-  .command("archive-flow")
+  .command("archive-flow [id]")
   .alias("archive")
   .description("Archive completed tasks")
-  .action(async () => {
+  .option("-f, --force", "Skip confirmation prompt")
+  .option("-a, --all", "Archive all completed tasks")
+  .action(async (id, options) => {
     try {
       const { runArchivist } = require("../logic/archivist");
-      await runArchivist();
+      await runArchivist({
+        targetId: id,
+        force: options.force,
+        all: options.all
+      });
     } catch (error) {
       console.error(chalk.red("\n❌ Archive failed:"), error.message);
     }

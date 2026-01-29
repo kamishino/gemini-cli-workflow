@@ -11,7 +11,7 @@ function extractIdeaIdFromFilename(fileName) {
   return match ? match[1].toUpperCase() : null;
 }
 
-async function runArchivist() {
+async function runArchivist(options = {}) {
   const tasksDir = path.join(process.cwd(), 'tasks');
   const archiveDir = path.join(process.cwd(), 'archive');
   const backlogDir = path.join(process.cwd(), 'ideas/backlog');
@@ -47,21 +47,50 @@ async function runArchivist() {
     return;
   }
 
-  const { selectedIds } = await inquirer.prompt([
-    {
-      type: 'checkbox',
-      name: 'selectedIds',
-      message: 'Select tasks to archive:',
-      choices: taskIds.map(id => ({
-        name: `ID: ${id} (${tasks[id].slug})`,
-        value: id
-      }))
+  let selectedIds = [];
+
+  // 1. Selection Logic
+  if (options.targetId) {
+    if (tasks[options.targetId]) {
+      selectedIds = [options.targetId];
+    } else {
+      console.log(chalk.red(`❌ Task ID ${options.targetId} not found in tasks folder.`));
+      return;
     }
-  ]);
+  } else if (options.all) {
+    selectedIds = taskIds;
+  } else {
+    // Interactive Mode
+    const answers = await inquirer.prompt([
+      {
+        type: 'checkbox',
+        name: 'selectedIds',
+        message: 'Select tasks to archive:',
+        choices: taskIds.map(id => ({
+          name: `ID: ${id} (${tasks[id].slug})`,
+          value: id
+        }))
+      }
+    ]);
+    selectedIds = answers.selectedIds;
+  }
 
   if (selectedIds.length === 0) {
     console.log(chalk.gray("No tasks selected."));
     return;
+  }
+
+  // 2. Confirmation Logic
+  if (!options.force) {
+    const { confirm } = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'confirm',
+        message: `Archive ${selectedIds.length} task(s)?`,
+        default: true
+      }
+    ]);
+    if (!confirm) return;
   }
 
   const dateStr = new Date().toISOString().split('T')[0];
@@ -95,13 +124,17 @@ async function runArchivist() {
           const absoluteIdeaPath = path.join(backlogDir, matchingFile);
           
           // Update status to implemented
-          let ideaContent = await fs.readFile(absoluteIdeaPath, 'utf8');
-          ideaContent = ideaContent.replace(/status:\s*backlog/i, 'status: implemented');
-          await fs.writeFile(absoluteIdeaPath, ideaContent);
+          try {
+            let ideaContent = await fs.readFile(absoluteIdeaPath, 'utf8');
+            ideaContent = ideaContent.replace(/status:\s*backlog/i, 'status: implemented');
+            await fs.writeFile(absoluteIdeaPath, ideaContent);
 
-          // Move to the task archive folder
-          await fs.move(absoluteIdeaPath, path.join(targetPath, matchingFile), { overwrite: true });
-          console.log(chalk.cyan(`  ✓ Linked Idea harvested (Suffix Model): ${matchingFile}`));
+            // Move to the task archive folder
+            await fs.move(absoluteIdeaPath, path.join(targetPath, matchingFile), { overwrite: true });
+            console.log(chalk.cyan(`  ✓ Linked Idea harvested (Suffix Model): ${matchingFile}`));
+          } catch (e) {
+            console.log(chalk.yellow(`  ⚠️  Failed to process linked idea ${ideaId}: ${e.message}`));
+          }
         }
       }
     }
