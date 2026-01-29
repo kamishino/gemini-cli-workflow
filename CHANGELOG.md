@@ -1,4 +1,14 @@
 
+## [v2.24.0] - 2026-01-29
+
+### 🚀 Features
+- feat(archive): implement non-interactive mode and ai optimization (Task 056) (5955261)
+- feat(release): implement atomic polish (roadmap & docs sync) (Task 054) (8b1e45e)
+
+### 🧹 Chores & Others
+- chore(root): cleanup redundant npm config files (Task 055) (8d2da30)
+
+
 ## [v2.22.0] - 2026-01-28
 
 ### 🚀 Features
