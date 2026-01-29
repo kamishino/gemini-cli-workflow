@@ -19,7 +19,6 @@
 
 - **Overview:** `docs/overview.md` (Start here)
 - **Tasks:** `tasks/` (Centralized Artifacts: Briefs, PRDs, Tasks, Handoffs)
-- **Blueprints:** `.gemini/` (Portal to cli-core/.gemini)
-- **Engine:** `cli-core/` (Hidden Core Architecture)
-- **IDE Bridge:** `.windsurf/` (Portal to cli-core/.windsurf)
+- **Config:** `.gemini/` (Local Rules & Commands)
+- **IDE Bridge:** `.windsurf/` (Workflows & Rules for AI Editor)
 - **Logs:** `docs/handoff_logs/` (Lazy logs tagged with `_lazy`/`_superlazy`)

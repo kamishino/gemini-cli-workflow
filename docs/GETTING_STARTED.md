@@ -16,12 +16,13 @@ powershell -c "irmo https://raw.githubusercontent.com/kamishino/gemini-cli-workf
 curl -sSL https://raw.githubusercontent.com/kamishino/gemini-cli-workflow/main/install.sh | bash
 ```
 
-**Smart Assistant:** If you don't have Node.js or NPM, the script will detect if you have **NVM** (Node Version Manager) and offer to install or select the LTS version for you.
+**Smart Assistant:** The installer will automatically check for Node.js. If missing, it can install **NVM** and setup the environment for you in a single run.
 
 Once installed, initialize your project:
 ```bash
 kamiflow init
 ```
+This creates a local `.gemini/` configuration folder in your project, giving you full control over your rules and commands.
 
 ---
 
@@ -55,8 +56,8 @@ KamiFlow is designed to work seamlessly with **Windsurf** or **Cursor**.
 ## 📦 5. Release: The Finish Line
 Once your feature is validated, it's time to ship.
 
-1.  **Release:** Run `/kamiflow:dev:release`. The AI will analyze your task history, bump the version, and update the Changelog automatically.
-2.  **Archive:** Run `/kamiflow:dev:archive` to clean up your workspace and preserve the audit trail.
+1.  **Release:** Run `/kamiflow:dev:release` (or `kami release patch`). The AI will analyze your task history, bump the version, sync docs, update the Roadmap, and generate a unified commit.
+2.  **Archive:** Run `/kamiflow:dev:archive` (or `kami archive 001 --force`) to clean up your workspace and preserve the audit trail.
 
 ---
 

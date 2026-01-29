@@ -13,17 +13,17 @@
 <p align="center"><b>The Orchestrator for Indie Builders using Gemini CLI</b></p>
 
 <p align="center">
-  [ <a href="README.md">🏠 Home</a> ] | [ <a href="docs/GETTING_STARTED.md">🚀 Getting Started</a> ] | [ <a href="docs/commands/README.md">📖 Command Wiki</a> ] | [ <a href="docs/TROUBLESHOOTING.md">🆘 Troubleshooting</a> ]
+  [ <a href="README.md">🏠 Home</a> ] | [ <a href="docs/GETTING_STARTED.md">🚀 Getting Started</a> ] | [ <a href="docs/POWER_USER_GUIDE.md">⚡ Power User Guide</a> ] | [ <a href="docs/commands/README.md">📖 Command Wiki</a> ]
 </p>
 
 ---
 
 ## 📍 Quick Navigator
 
-| 🚀 Start Here | 📖 Knowledge | 🔧 Support | 🤝 Community |
+| 🚀 Start Here | 📖 Knowledge | ⚡ Advanced | 🤝 Community |
 | :--- | :--- | :--- | :--- |
-| [Quick Install](#-quick-install) | [Command Wiki](docs/commands/README.md) | [Troubleshooting](docs/TROUBLESHOOTING.md) | [Contribution](#-contribution) |
-| [Getting Started](docs/GETTING_STARTED.md) | [Sniper Model](.gemini/rules/factory-line.md) | [CLI Guide](docs/commands/terminal.md) | [License](#-license) |
+| [Quick Install](#-quick-install) | [Command Wiki](docs/commands/README.md) | [**Saiyan Mode**](docs/POWER_USER_GUIDE.md#1-devsaiyan-the-executor) | [Contribution](#-contribution) |
+| [Getting Started](docs/GETTING_STARTED.md) | [Sniper Model](.gemini/rules/factory-line.md) | [SuperSaiyan Cycle](docs/POWER_USER_GUIDE.md#2-devsupersaiyan-the-orchestrator) | [License](#-license) |
 
 ---
 
@@ -46,11 +46,11 @@
 
 ## ✨ Key Features
 - **🎯 Sniper Model Workflow:** A 3-step fused kernel (Idea → Spec → Build) with 3-Layer Logic Locks.
+- **⚡ Saiyan Automation Suite:** "God Mode" automation (`/dev:saiyan`) for autonomous execution and batch processing.
 - **🐝 Sub-Agent Swarm:** Multi-threaded parallel execution with concurrency locks and specialized agent registry.
 - **💡 Idea Sandbox (The Lab):** A safe space to "draft" and "analyze" raw ideas using multiple AI personas.
 - **🛠️ Self-Healing Core:** Proactive system doctor and automated repair mechanisms.
-- **🚀 One-Liner Installer:** Frictionless installation for Windows, MacOS, and Linux.
-- **🧩 Modular Command Engine:** Highly organized command structure with automatic sync.
+- **🚀 Smart Installer:** Frictionless installation with auto-NVM detection for Windows, MacOS, and Linux.
 
 ---
 
@@ -79,6 +79,7 @@ curl -sSL https://raw.githubusercontent.com/kamishino/gemini-cli-workflow/main/i
 | **Strategy** | `/kamiflow:core:idea` | Refine a raw idea into a battle plan. |
 | **Recovery** | `/kamiflow:ops:wake` | Reload project memory at session start. |
 | **Fast-Track**| `/kamiflow:dev:superlazy` | Auto-generate artifacts and execute code. |
+| **God Mode** | `/kamiflow:dev:saiyan` | **[NEW]** Fully autonomous execution (No-Confirm). |
 
 📖 **[View Full Command Wiki (17+ Commands)](docs/commands/README.md)**
 
