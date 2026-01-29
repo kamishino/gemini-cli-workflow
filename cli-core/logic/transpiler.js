@@ -5,10 +5,50 @@ const { backupFile, safeWrite } = require('../utils/fs-vault');
 const { validateTomlFile } = require('../validators/toml-validator');
 
 class Transpiler {
-  constructor(projectRoot = process.cwd()) {
-    this.projectRoot = projectRoot;
-    this.blueprintDir = path.join(projectRoot, 'docs/blueprint');
-    this.templatesDir = path.join(this.blueprintDir, 'templates');
+  constructor(cwd = process.cwd()) {
+    // If called from inside cli-core, the project root is one level up (Master Repo)
+    if (cwd.endsWith('cli-core') || cwd.endsWith('cli-core' + path.sep)) {
+      this.projectRoot = path.dirname(cwd);
+    } else {
+      this.projectRoot = cwd;
+    }
+
+    this.blueprintDir = path.join(this.projectRoot, 'resources/blueprints');
+    this.templatesDir = path.join(this.projectRoot, 'resources/templates');
+    this.rulesDir = path.join(this.projectRoot, 'resources/rules');
+    
+    // Resolve target roots and workspace prefix based on environment
+    const { targets, workspacePrefix } = this.resolveEnvConfig(this.projectRoot);
+    this.targets = targets;
+    this.workspacePrefix = workspacePrefix;
+  }
+
+  /**
+   * Resolve output directories and workspace prefix based on KAMI_ENV
+   */
+  resolveEnvConfig(root) {
+    const env = process.env.KAMI_ENV || 'standard';
+    const targets = [];
+    let workspacePrefix = './';
+
+    if (env === 'dev' || env === 'all') {
+      // Factory Mode: Output TOMLs to Root, but logic points to .kamiflow/workspace/
+      targets.push(root); 
+      workspacePrefix = '.kamiflow/workspace/';
+    }
+    
+    if (env === 'prod' || env === 'all') {
+      // Distribution Mode: Output to dist folder, logic points to project root
+      targets.push(path.join(root, 'dist'));
+      if (env === 'prod') workspacePrefix = './';
+    }
+
+    if (targets.length === 0) {
+      targets.push(root);
+      workspacePrefix = './';
+    }
+
+    return { targets: [...new Set(targets)], workspacePrefix };
   }
 
   /**
@@ -34,8 +74,11 @@ class Transpiler {
     if (!filePath) {
       throw new Error(`Partial not found: ${name} in ${this.blueprintDir}`);
     }
-    const content = await fs.readFile(filePath, 'utf8');
+    let content = await fs.readFile(filePath, 'utf8');
     
+    // INJECT WORKSPACE PATH
+    content = content.replace(/{{WORKSPACE}}/g, this.workspacePrefix);
+
     // Extract metadata from YAML frontmatter
     const metadata = {};
     const fmMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
@@ -58,7 +101,7 @@ class Transpiler {
       }
     }
 
-    const body = content.replace(/^---\n[\s\S]*?\n---\n?/, '').trim();
+    const body = content.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, '').trim();
     return { body, metadata };
   }
 
@@ -77,31 +120,20 @@ class Transpiler {
     for (const partialName of partialNames) {
       const { body, metadata } = await this.loadPartial(partialName);
       
-      // Collect metadata from the first non-sync partial
       if (partialName !== 'context-sync' && Object.keys(firstMetadata).length === 0) {
         firstMetadata = metadata;
       }
 
-      // Replace {{PARTIAL_NAME}} or {{PARTIAL-NAME}} with content
       const upperName = partialName.toUpperCase();
-      const placeholders = [
-        upperName,
-        upperName.replace(/-/g, '_'),
-        upperName.replace(/_/g, '-')
-      ];
+      const ph = upperName.replace(/-/g, '_');
+      const regex = new RegExp(`{{${ph}}}`, 'g');
+      result = result.replace(regex, body);
       
-      for (const ph of [...new Set(placeholders)]) {
-        const regex = new RegExp(`{{${ph}}}`, 'g');
-        result = result.replace(regex, body);
-      }
-      
-      // Fallback for general {{LOGIC}} placeholder
       if (partialName.includes('-logic')) {
         result = result.replace(/{{LOGIC}}/g, body);
       }
     }
 
-    // Inject metadata into template
     result = result.replace(/{{DESCRIPTION}}/g, firstMetadata.description || '');
     result = result.replace(/{{GROUP}}/g, firstMetadata.group || '');
     result = result.replace(/{{ORDER}}/g, firstMetadata.order || '10');
@@ -114,14 +146,14 @@ class Transpiler {
    */
   async runFromRegistry(registryPath) {
     console.log(chalk.cyan("\n🔨 Starting Universal Transpilation..."));
+    console.log(chalk.gray(`📡 Mode: ${process.env.KAMI_ENV || 'standard'} | Workspace: ${this.workspacePrefix}`));
     
     if (!(await fs.pathExists(registryPath))) {
-      console.log(chalk.yellow("⚠️  No registry found. Skipping."));
+      console.log(chalk.yellow(`⚠️  No registry found at ${registryPath}. Skipping.`));
       return;
     }
 
     const registryContent = await fs.readFile(registryPath, 'utf8');
-    // Simple parsing logic for the Registry MD format
     const targets = this.parseRegistry(registryContent);
 
     for (const target of targets) {
@@ -129,27 +161,21 @@ class Transpiler {
       
       try {
         const assembledContent = await this.assemble(target.shell, target.partials);
-        const absoluteTargetPath = path.resolve(this.projectRoot, target.targetPath);
-
-        // 1. Backup
-        await backupFile(absoluteTargetPath);
-
-        // 2. Write
-        const success = await safeWrite(absoluteTargetPath, assembledContent);
         
-        if (success) {
-          // 3. Validate
-          if (absoluteTargetPath.endsWith('.toml')) {
+        for (const outputRoot of this.targets) {
+          const absoluteTargetPath = path.resolve(outputRoot, target.targetPath);
+          const displayPath = path.relative(this.projectRoot, absoluteTargetPath);
+
+          await backupFile(absoluteTargetPath);
+          const success = await safeWrite(absoluteTargetPath, assembledContent);
+          
+          if (success && absoluteTargetPath.endsWith('.toml')) {
             const validation = validateTomlFile(absoluteTargetPath);
             if (!validation.valid) {
-              console.log(chalk.red(`❌ TOML Validation FAILED for ${target.targetPath}`));
-              console.log(chalk.yellow(validation.error));
-              // (Future: Trigger AI Auto-Heal here)
+              console.log(chalk.red(`❌ TOML Validation FAILED for ${displayPath}`));
             } else {
-              console.log(chalk.green(`✅ ${target.targetPath} built and validated.`));
+              console.log(chalk.green(`✅ ${displayPath} built and validated.`));
             }
-          } else {
-            console.log(chalk.green(`✅ ${target.targetPath} built.`));
           }
         }
       } catch (error) {
@@ -157,32 +183,43 @@ class Transpiler {
       }
     }
 
+    // TRANSPILE RULES
+    await this.transpileRules();
+
     console.log(chalk.cyan("\n✨ Transpilation complete."));
+  }
+
+  async transpileRules() {
+    if (!fs.existsSync(this.rulesDir)) return;
+    const rules = fs.readdirSync(this.rulesDir).filter(f => f.endsWith('.md'));
+    
+    for (const rule of rules) {
+      const content = await fs.readFile(path.join(this.rulesDir, rule), 'utf8');
+      for (const outputRoot of this.targets) {
+        const targetPath = path.join(outputRoot, '.gemini/rules', rule);
+        await safeWrite(targetPath, content);
+      }
+    }
+    console.log(chalk.green('\n⚖️ Rules synced to all targets.'));
   }
 
   /**
    * Parse Registry MD into JSON structure
-   * (Robust parser: finds all blocks starting with **Target:**)
    */
   parseRegistry(content) {
     const targets = [];
     const lines = content.split('\n');
-    
     let currentTarget = null;
 
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i].trim();
-
       if (line.includes('**Target:**')) {
-        // Start of a new target block
         if (currentTarget) targets.push(currentTarget);
         currentTarget = {
-          name: 'Anonymous Target', // Will try to find a name above
+          name: 'Anonymous Target',
           targetPath: line.split('**Target:**')[1]?.trim(),
           partials: []
         };
-        
-        // Try to find name in the preceding lines
         for (let j = i - 1; j >= 0 && j > i - 5; j--) {
           if (lines[j].startsWith('## ') || lines[j].startsWith('### ')) {
             currentTarget.name = lines[j].replace(/^#+\s+/, '').trim();
@@ -192,14 +229,12 @@ class Transpiler {
       } else if (currentTarget && line.includes('**Shell:**')) {
         currentTarget.shell = line.split('**Shell:**')[1]?.trim();
       } else if (currentTarget && line.startsWith('- ')) {
-        // Assumes partials list follows **Partials:** header
         const pPath = line.substring(2).trim();
         if (pPath.endsWith('.md')) {
           currentTarget.partials.push(path.basename(pPath, '.md'));
         }
       }
     }
-
     if (currentTarget) targets.push(currentTarget);
     return targets;
   }

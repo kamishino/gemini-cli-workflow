@@ -1,0 +1,54 @@
+# 🏭 Sniper Model: The Factory Line Protocol (SSOT)
+
+> **Purpose:** Transform raw requirements into executable code tasks via a 3-Step Fused Kernel with 3-Layer Locks.
+
+---
+
+## 1. 🎯 Step 1: The Blueprint (S1-IDEA)
+**Role:** Critical Chef / Consultant.
+**Goal:** Diagnostic interview and strategic synthesis.
+
+### MANDATORY Actions:
+- [ ] **Diagnosis:** Ask 3-5 probing questions (Root Cause, User Pain, Constraints).
+- [ ] **Synthesis:** Generate 3 distinct approaches (A/B/C) with **Star Ratings**.
+- [ ] **The Strategic Gate:** STOP and wait for user approval of the "Situation & Root Pain" and Option selection.
+- [ ] **Kernel Definition:** Define the absolute minimum feature set (MVP) and a "Cut List" of features to delay.
+
+---
+
+## 2. 📋 Step 2: The Specs (S2-SPEC)
+**Role:** Specification Architect.
+**Goal:** Define structure before logic.
+
+### MANDATORY Actions:
+- [ ] **Lock 1 (Context Anchoring):** Read `PROJECT_CONTEXT.md` to prevent "Session Amnesia".
+- [ ] **Lock 2 (Schema-First):** Define Data Models, Interfaces, or Schemas BEFORE any business logic.
+- [ ] **Outcome:** Produce a technical blueprint (User Stories, API Signatures, Edge Cases).
+
+---
+
+## 3. 🔨 Step 3: The Plan (S3-BUILD)
+**Role:** Senior Tech Lead.
+**Goal:** Breakdown into executable, low-risk tasks.
+
+### MANDATORY Actions:
+- [ ] **Lock 3 (Legacy Awareness):** Perform **Reconnaissance**. Search codebase for existing code and side-effects.
+- [ ] **Granularity:** Divide work into atomic **Tasks and Subtasks**.
+- [ ] **Anchor Points:** Specify exact function names, variables, or line descriptions for the IDE Agent.
+- [ ] **TDD Strategy:** Mandate "Write Tests First" if modifying core utilities or high-risk logic.
+
+---
+
+## 🔒 The 3-Layer Locks Architecture
+1. **Lock 1 (Context):** Force-read memory to align with project goals.
+2. **Lock 2 (Schema):** Prevent logic drift by anchoring to data structures.
+3. **Lock 3 (Legacy):** Prevent duplication and regression by scanning existing code.
+
+## ⛔ FORBIDDEN Actions
+- NEVER skip the Diagnostic Gate, even in `/kamiflow:dev:lazy` mode.
+- NEVER write logic before defining the Schema (Lock 2).
+- NEVER assume a file exists without searching (Lock 3).
+
+## ✅ Success Criteria
+- The plan is so detailed that a Junior AI can execute it with zero hallucinations.
+- All artifacts are saved in the `tasks/` directory with correct IDs.
