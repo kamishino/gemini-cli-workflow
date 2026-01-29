@@ -132,7 +132,7 @@ async function initializeProject(cwd) {
       throw new Error(`Critical: Source template not found at ${sourceGemini}`);
     }
 
-    // 3. Perform Copy (Smart Filter)
+    // 3. Perform Copy (.gemini folder)
     console.log(chalk.gray(`📦 Copying template from ${sourceGemini}...`));
     
     fs.cpSync(sourceGemini, projectGeminiPath, {
@@ -146,10 +146,28 @@ async function initializeProject(cwd) {
       }
     });
 
-    // 4. Create necessary empty dirs that were skipped
-    const dirsToCreate = ['tmp', 'cache', 'docs/handoff_logs'];
+    // 3.1 Perform Copy (docs folder - NEW SSOT)
+    const sourceDocs = path.join(cliRoot, 'docs');
+    const targetDocs = path.join(cwd, 'docs');
+    if (fs.existsSync(sourceDocs)) {
+      console.log(chalk.gray('📦 Syncing documentation and blueprints...'));
+      fs.cpSync(sourceDocs, targetDocs, { recursive: true });
+    }
+
+    // 4. Create necessary empty dirs
+    const dirsToCreate = [
+      '.gemini/tmp', 
+      '.gemini/cache', 
+      'docs/handoff_logs',
+      'tasks',
+      'archive',
+      'ideas/draft',
+      'ideas/discovery',
+      'ideas/backlog',
+      '.backup'
+    ];
     for (const dir of dirsToCreate) {
-      const d = path.join(projectGeminiPath, dir);
+      const d = path.join(cwd, dir);
       if (!fs.existsSync(d)) fs.mkdirSync(d, { recursive: true });
     }
 
