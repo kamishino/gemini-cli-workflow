@@ -1,41 +1,68 @@
 const fs = require('fs-extra');
 const path = require('path');
 const chalk = require('chalk');
+const inquirer = require('inquirer').default || require('inquirer');
 
 const PROJECT_ROOT = path.resolve(__dirname, '../../');
 const IDEAS_DRAFT = path.join(PROJECT_ROOT, 'ideas/draft');
 const IDEAS_BACKLOG = path.join(PROJECT_ROOT, 'ideas/backlog');
+const IDEAS_DISCOVERY = path.join(PROJECT_ROOT, 'ideas/discovery');
+
+/**
+ * Generate a 4-character random Hash ID (Uppercase Alphanumeric)
+ */
+function generateSeedID() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // No I, O, 0, 1 to avoid confusion
+  let result = '';
+  for (let i = 0; i < 4; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
 
 /**
  * Create a new idea draft from AI content
  */
 async function createIdea(title, content, aiSlug, fromIdeaId) {
   try {
+    const id = generateSeedID();
     let slug = aiSlug || title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
     
-    // Add suffix if from backlog
-    if (fromIdeaId) {
-      slug = `${slug}_from-${fromIdeaId}`;
-    }
-
-    let fileName = `${slug}.md`;
+    // Legacy support for lineage, though new system uses Hash ID
+    // If fromIdeaId exists, we can still append it, but the main ID is the new Hash
+    
+    let fileName = `${id}-${slug}.md`;
     let targetPath = path.join(IDEAS_DRAFT, fileName);
 
-    // Handle duplicates
-    let counter = 1;
+    // Collision check (rare but possible)
     while (await fs.pathExists(targetPath)) {
-      const suffix = fromIdeaId ? `_from-${fromIdeaId}` : '';
-      const baseSlug = aiSlug || title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
-      fileName = `${baseSlug}-${counter}${suffix}.md`;
+      const newId = generateSeedID();
+      fileName = `${newId}-${slug}.md`;
       targetPath = path.join(IDEAS_DRAFT, fileName);
-      counter++;
+    }
+
+    // Inject ID and basic Frontmatter if not present
+    let finalContent = content;
+    if (!content.startsWith('---')) {
+      const frontmatter = `---
+id: ${id}
+type: IDEA
+status: draft
+created: ${new Date().toISOString().split('T')[0]}
+scores:
+  feasibility: 0.0
+  risk: 0.0
+  value: 0.0
+---
+`;
+      finalContent = frontmatter + content;
     }
 
     await fs.ensureDir(IDEAS_DRAFT);
-    await fs.writeFile(targetPath, content);
+    await fs.writeFile(targetPath, finalContent);
 
     console.log(chalk.green(`
-✨ Idea created: ${targetPath}`));
+✨ Idea created: ${targetPath} (ID: ${id})`));
     return targetPath;
   } catch (error) {
     console.error(chalk.red(`
@@ -45,42 +72,56 @@ async function createIdea(title, content, aiSlug, fromIdeaId) {
 }
 
 /**
- * Prepend a refinement version to the idea file
+ * Update analysis scores in Frontmatter
  */
-async function prependRefinement(filePath, newContent) {
+async function analyzeIdea(filePath, scores) {
   try {
     const absolutePath = path.resolve(process.cwd(), filePath);
     if (!(await fs.pathExists(absolutePath))) {
       throw new Error(`File not found: ${filePath}`);
     }
 
-    let fileContent = await fs.readFile(absolutePath, 'utf8');
+    let content = await fs.readFile(absolutePath, 'utf8');
     
-    // Logic: Insert after the # 💡 IDEA: [Title] line
-    const lines = fileContent.split('\n');
-    let titleIndex = lines.findIndex(l => l.startsWith('# 💡 IDEA:'));
+    // Simple Regex Frontmatter replacement for scores
+    // Looks for "scores:" block and replaces lines indented under it
+    // Or appends if missing.
     
-    if (titleIndex === -1) titleIndex = 0; // Fallback to top
+    // Strategy: Reconstruct frontmatter
+    const frontmatterRegex = /^---\n([\s\S]*?)\n---/;
+    const match = content.match(frontmatterRegex);
+    
+    if (match) {
+      let fm = match[1];
+      // Update or Add Scores
+      const scoreBlock = `scores:
+  feasibility: ${scores.feasibility || 0}
+  risk: ${scores.risk || 0}
+  value: ${scores.value || 0}`;
+      
+      if (fm.includes('scores:')) {
+        // Replace existing block (naive regex, assumes standard indentation)
+        fm = fm.replace(/scores:[\s\S]*?(?=(\n[a-z]|$))/, scoreBlock);
+      } else {
+        fm += `\n${scoreBlock}`;
+      }
+      
+      const newContent = content.replace(frontmatterRegex, `---\n${fm}\n---`);
+      await fs.writeFile(absolutePath, newContent);
+      console.log(chalk.green(`✓ Scores updated: Feasibility=${scores.feasibility}`));
+    } else {
+      console.warn(chalk.yellow("⚠️  No frontmatter found. Scores not saved."));
+    }
 
-    const pre = lines.slice(0, titleIndex + 1).join('\n');
-    const post = lines.slice(titleIndex + 1).join('\n');
-
-    const finalContent = `${pre}\n\n${newContent}\n\n---\n${post}`;
-    
-    await fs.writeFile(absolutePath, finalContent);
-    console.log(chalk.green(`
-🌿 Refinement prepended to: ${filePath}`));
   } catch (error) {
-    console.error(chalk.red(`
-❌ Failed to prepend refinement: ${error.message}`));
-    throw error;
+    console.error(chalk.red(`❌ Analysis update failed: ${error.message}`));
   }
 }
 
 /**
  * Promote an idea from draft to backlog
  */
-async function promoteIdea(filePath) {
+async function promoteIdea(filePath, options = {}) {
   try {
     const absolutePath = path.resolve(process.cwd(), filePath);
     const fileName = path.basename(absolutePath);
@@ -90,11 +131,36 @@ async function promoteIdea(filePath) {
       throw new Error(`File not found: ${filePath}`);
     }
 
-    // Update status in frontmatter
-    let content = await fs.readFile(absolutePath, 'utf8');
-    content = content.replace(/status: draft/g, 'status: backlog');
+    // 1. Read Scores
+    const content = await fs.readFile(absolutePath, 'utf8');
+    const feasMatch = content.match(/feasibility:\s*([\d\.]+)/);
+    const feasibility = feasMatch ? parseFloat(feasMatch[1]) : 0;
     
-    await fs.writeFile(absolutePath, content);
+    const MIN_FEASIBILITY = 0.7; // Could load from config
+
+    // 2. Quality Gate
+    if (feasibility < MIN_FEASIBILITY && !options.force) {
+      console.log(chalk.yellow(`\n⚠️  Quality Gate Blocked`));
+      console.log(chalk.gray(`   Current Feasibility: ${feasibility}`));
+      console.log(chalk.gray(`   Required: ${MIN_FEASIBILITY}`));
+      
+      const { action } = await inquirer.prompt([{
+        type: 'list',
+        name: 'action',
+        message: 'What do you want to do?',
+        choices: [
+          { name: '🛑 Cancel (Refine more)', value: 'CANCEL' },
+          { name: '🚀 Force Promote (I know what I am doing)', value: 'FORCE' }
+        ]
+      }]);
+
+      if (action === 'CANCEL') return;
+    }
+
+    // 3. Update status
+    let newContent = content.replace(/status: draft/g, 'status: backlog');
+    
+    await fs.writeFile(absolutePath, newContent);
     await fs.ensureDir(IDEAS_BACKLOG);
     await fs.move(absolutePath, newPath, { overwrite: true });
 
@@ -108,8 +174,43 @@ async function promoteIdea(filePath) {
   }
 }
 
+/**
+ * Prepend a refinement version to the idea file (Legacy/Helper)
+ */
+async function prependRefinement(filePath, newContent) {
+  try {
+    const absolutePath = path.resolve(process.cwd(), filePath);
+    if (!(await fs.pathExists(absolutePath))) {
+      throw new Error(`File not found: ${filePath}`);
+    }
+
+    let fileContent = await fs.readFile(absolutePath, 'utf8');
+    
+    // Logic: Insert after the Frontmatter
+    const parts = fileContent.split('---');
+    if (parts.length >= 3) {
+      // [empty, frontmatter, body]
+      const frontmatter = parts[1];
+      const body = parts.slice(2).join('---');
+      const finalContent = `---\n${frontmatter}\n---\n\n${newContent}\n\n${body}`;
+      await fs.writeFile(absolutePath, finalContent);
+    } else {
+      // No frontmatter, prepend to top
+      await fs.writeFile(absolutePath, `${newContent}\n\n${fileContent}`);
+    }
+    
+    console.log(chalk.green(`
+🌿 Refinement prepended to: ${filePath}`));
+  } catch (error) {
+    console.error(chalk.red(`
+❌ Failed to prepend refinement: ${error.message}`));
+    throw error;
+  }
+}
+
 module.exports = {
   createIdea,
   prependRefinement,
-  promoteIdea
+  promoteIdea,
+  analyzeIdea
 };

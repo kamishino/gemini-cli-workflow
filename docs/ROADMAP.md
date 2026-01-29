@@ -39,6 +39,9 @@
 - [x] **Archived:** 2026-01-29_054_release-sync-polish
 
 ### 🚧 In Progress
+- [ ] **Active:** 063-S1-IDEA-seed-hub-v2.md
+- [ ] **Active:** 063-S2-SPEC-seed-hub-v2.md
+- [ ] **Active:** 063-S3-BUILD-seed-hub-v2.md
 
 ### 📋 Backlog (Planned)
 - [ ] Ecosystem expansion.

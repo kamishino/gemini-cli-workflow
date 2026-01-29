@@ -257,11 +257,26 @@ program
 program
   .command("promote-idea <path>")
   .description("Internal: Promote an idea draft (used by Gemini CLI)")
-  .action(async (filePath) => {
+  .option("-f, --force", "Bypass quality gate")
+  .action(async (filePath, options) => {
     try {
       const { promoteIdea } = require("../logic/idea-manager");
-      await promoteIdea(filePath);
+      await promoteIdea(filePath, options);
     } catch (error) {
+      process.exit(1);
+    }
+  });
+
+program
+  .command("analyze-idea <path> <scoresJson>")
+  .description("Internal: Update idea scores (used by Gemini CLI)")
+  .action(async (filePath, scoresJson) => {
+    try {
+      const { analyzeIdea } = require("../logic/idea-manager");
+      const scores = JSON.parse(scoresJson);
+      await analyzeIdea(filePath, scores);
+    } catch (error) {
+      console.error(chalk.red("Failed to parse scores JSON"));
       process.exit(1);
     }
   });
