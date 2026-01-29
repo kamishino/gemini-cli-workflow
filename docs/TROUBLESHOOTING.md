@@ -6,12 +6,12 @@ Common issues and solutions for KamiFlow.
 
 ## 🏗️ Installation & Setup
 
-### ❌ Symlink Permission Denied (Windows)
-**Issue:** `EPERM: operation not permitted` when running `kami init`.
+### ❌ Permission Denied
+**Issue:** `EACCES` or `EPERM` when running `kami init` or `npm install -g`.
 **Solution:** 
-1.  Run your Terminal (PowerShell or CMD) as **Administrator**.
-2.  Alternatively, enable **Developer Mode** in Windows Settings (Settings > Update & Security > For developers).
-3.  Or use **Standalone** mode when prompted during `init`.
+1.  **For `kami init`:** Ensure you have write access to the project directory. The command now uses **Template Copy** (Standalone) by default, which avoids most symlink issues.
+2.  **For Global Install:** On Linux/WSL, you may need `sudo npm install -g ...` if you are not using a version manager like **NVM**.
+3.  **For NVM:** We highly recommend using NVM to manage Node.js versions without needing root permissions. Our `install.sh` now detects and helps you install NVM automatically.
 
 ### ✖️ Command Not Found
 **Issue:** `gemini` or `kami` is not recognized.

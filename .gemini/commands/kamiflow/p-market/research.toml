@@ -1,5 +1,5 @@
 description = "[Market Engine] Analyze project context and suggest 3-5 high-value feature requests."
-group = "market"
+group = "p-market"
 order = 10
 prompt = '''
 # 🧠 SYSTEM INSTRUCTION: THE MARKET RESEARCHER

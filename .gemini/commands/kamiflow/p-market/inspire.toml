@@ -1,5 +1,5 @@
 description = "[Market Engine] Out-of-the-box innovation brainstorming for your current stack."
-group = "market"
+group = "p-market"
 order = 20
 prompt = '''
 # 🧠 SYSTEM INSTRUCTION: THE INNOVATION SPARK

@@ -1,5 +1,5 @@
 description = "[Seed Hub] Harvest an idea by moving it to the backlog (The Harvesting phase)."
-group = "seed"
+group = "p-seed"
 order = 30
 prompt = '''
 # 🧠 SYSTEM INSTRUCTION: THE HARVESTER

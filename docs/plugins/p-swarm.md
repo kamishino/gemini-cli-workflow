@@ -35,7 +35,7 @@ Managed at `docs/agents/registry.md`, this file defines the "Constitution" of yo
 | :--- | :--- | :--- |
 | `/kamiflow:p-swarm:run` | **Dispatch** | Split a multi-intent request into parallel threads. |
 | `/kamiflow:p-swarm:status` | **Monitor** | Check which agents are currently active and where. |
-| `kami swarm-unlock <folder>`| **Manual Fix** | Remove a stuck lock file (use with caution). |
+| `kami swarm-unlock <folder>`| **Reset** | Manually remove a stuck lock file (use with caution). |
 
 ---
 

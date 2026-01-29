@@ -33,7 +33,7 @@ Before any skill is installed, KamiFlow performs a **Safety Audit**:
 | Command | Action | Goal |
 | :--- | :--- | :--- |
 | `/kamiflow:p-agents:scan` | **Scout** | Find active agent directories in the project. |
-| `/kamiflow:p-agents:add`  | **Import** | Fetch, audit, and install a skill to agents. |
+| `/kamiflow:p-agents:add`  | **Install** | Fetch, audit, and install a skill to agents. |
 | `/kamiflow:p-agents:list` | **Inventory**| List all installed extension skills. |
 
 ---

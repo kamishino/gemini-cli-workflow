@@ -53,8 +53,9 @@ Every Plugin MUST provide a user-facing guide at `docs/plugins/[plugin-name].md`
 
 ---
 
-## ✅ 5. Validation
+## ✅ 5. Validation & Cleanup
 
-After creating a Plugin, always run:
-1. `kamiflow validate-flow`: Check TOML syntax.
-2. `kamiflow sync-flow`: Update global documentation.
+After creating or updating a Plugin, always run:
+1. `kamiflow validate-flow`: Check TOML syntax for errors.
+2. `kamiflow sync-flow`: Update global documentation tables.
+3. `/kamiflow:ops:sync`: **(CRITICAL)** Run this after any "Super Lazy" or "Saiyan" session to synchronize project memory and roadmap.

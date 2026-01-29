@@ -24,10 +24,14 @@ The **Market Planner Engine** is a specialized module designed to keep your proj
 
 | Command | Action | Goal |
 | :--- | :--- | :--- |
-| `/kamiflow:p-market:research` | **Market Scan** | Generate 3-5 context-aware feature requests. |
-| `/kamiflow:p-market:inspire`  | **Innovation** | Get one highly creative suggestion. |
+| `/kamiflow:p-market:research` | **Scout** | Generate 3-5 context-aware feature requests. |
+| `/kamiflow:p-market:inspire`  | **Spark** | Get one highly creative innovation suggestion. |
 
 ---
 
 ## 📂 Storage Structure
-- `ideas/discovery/`: AI-generated suggestions awaiting your review.
+- `ideas/discovery/`: AI-generated suggestions awaiting your review (e.g., `X9R2_slug_ai-discovery.md`).
+
+---
+
+📖 **[Read the SuperSaiyan Guide](../POWER_USER_GUIDE.md#2-devsupersaiyan-the-orchestrator)** for info on how to automate Market Research cycles.

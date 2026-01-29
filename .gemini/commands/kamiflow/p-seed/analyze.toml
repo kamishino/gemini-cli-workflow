@@ -1,5 +1,5 @@
 description = "[Seed Hub] Deeply analyze an idea with Strategic Breakdown and Prepend History."
-group = "seed"
+group = "p-seed"
 order = 20
 prompt = '''
 # 🧠 SYSTEM INSTRUCTION: THE SEED ANALYST

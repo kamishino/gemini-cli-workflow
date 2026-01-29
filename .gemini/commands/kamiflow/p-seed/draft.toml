@@ -1,5 +1,5 @@
 description = "[Seed Hub] Seed an idea with an Interactive Terminal Interview."
-group = "seed"
+group = "p-seed"
 order = 10
 prompt = '''
 # 🧠 SYSTEM INSTRUCTION: THE SEED SOWER
