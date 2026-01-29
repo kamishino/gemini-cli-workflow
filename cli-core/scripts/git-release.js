@@ -24,16 +24,43 @@ async function main() {
 
     log(`Starting Git Release for v${version}...`);
 
-    // 2. Stage all changes at project root
+    // 2. Post-Bump Polishing (Double Check)
+    log('Performing Atomic Polish (Roadmap & Docs)...');
+    try {
+      execSync('node scripts/roadmap-generator.js', { cwd: path.dirname(__dirname), stdio: 'inherit' });
+      execSync('node scripts/sync-docs.js', { cwd: path.dirname(__dirname), stdio: 'inherit' });
+    } catch (e) {
+      log('Polishing failed, but continuing with release...', 'warning');
+    }
+
+    // 3. Stage all changes at project root
     log('Staging files at root...');
     execSync('git add .', { cwd: PROJECT_ROOT, stdio: 'inherit' });
 
-    // 3. Commit with proper message
+    // 4. Smart Commit Logic
     const commitMsg = `chore(release): ${version}`;
-    log(`Creating commit: "${commitMsg}"...`);
-    execSync(`git commit -m "${commitMsg}"`, { cwd: PROJECT_ROOT, stdio: 'inherit' });
+    
+    // Check if the current commit is already a release commit (made by npm version)
+    let shouldAmend = false;
+    try {
+      const lastCommitMsg = execSync('git log -1 --pretty=%s', { cwd: PROJECT_ROOT }).toString().trim();
+      // If npm version created a commit, it might look like the version number
+      if (lastCommitMsg === version || lastCommitMsg === `v${version}`) {
+        shouldAmend = true;
+      }
+    } catch (e) {
+      // Failed to check, fallback to normal commit
+    }
 
-    // 4. Create tag
+    if (shouldAmend) {
+      log(`Amending release commit: "${commitMsg}"...`);
+      execSync(`git commit --amend -m "${commitMsg}"`, { cwd: PROJECT_ROOT, stdio: 'inherit' });
+    } else {
+      log(`Creating release commit: "${commitMsg}"...`);
+      execSync(`git commit -m "${commitMsg}"`, { cwd: PROJECT_ROOT, stdio: 'inherit' });
+    }
+
+    // 5. Create tag
     const tagName = `v${version}`;
     log(`Creating tag: ${tagName}...`);
     // Delete tag if already exists locally (in case of retry)

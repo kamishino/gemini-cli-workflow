@@ -11,7 +11,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Implemented Smart NVM Autopilot for WSL/Linux installer (Task 053).
+- **Last Completed Action:** Refined Atomic Release Workflow with post-bump polishing (Roadmap & Docs sync) (Task 054).
 - **Current Focus:** Final stabilization and public release preparation.
 - **Next Step:** Official public rollout and community onboarding.
 

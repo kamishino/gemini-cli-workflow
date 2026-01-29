@@ -39,6 +39,13 @@ Based on the gathered data, determine the **SemVer Bump Level**:
 
 ### Step 5: Execution
 - **If YES:** Run `npm version [level]`.
+  - **Note:** This triggers the **Atomic Polish** process:
+    1. Bump version.
+    2. Sync Version across files.
+    3. Sync Command Documentation.
+    4. Update Strategic Roadmap.
+    5. Create a unified `chore(release)` commit.
+    6. Create a Git Tag.
 - **If NO:** Stop.
 - **If Override:** Accept user input (e.g., "minor" instead of "patch") and execute.
 
