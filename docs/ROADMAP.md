@@ -27,12 +27,13 @@
 
 ### ✅ Completed
 - [x] **v1.0 Core:** Initial setup.
+- [x] **Archived:** 2026-01-29_052_installer-optimization
 - [x] **Archived:** 2026-01
 
 ### 🚧 In Progress
-- [ ] **Active:** 052-S1-IDEA-installer-optimization.md
-- [ ] **Active:** 052-S2-SPEC-installer-optimization.md
-- [ ] **Active:** 052-S3-BUILD-installer-optimization.md
+- [ ] **Active:** 053-S1-IDEA-smart-nvm-autopilot.md
+- [ ] **Active:** 053-S2-SPEC-smart-nvm-autopilot.md
+- [ ] **Active:** 053-S3-BUILD-smart-nvm-autopilot.md
 
 ### 📋 Backlog (Planned)
 - [ ] Ecosystem expansion.
