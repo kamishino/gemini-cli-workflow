@@ -39,6 +39,9 @@
 - [x] **Archived:** 2026-01-29_055_npm-config-cleanup
 
 ### 🚧 In Progress
+- [ ] **Active:** 064-S1-IDEA-hierarchical-config-system.md
+- [ ] **Active:** 064-S2-SPEC-hierarchical-config-system.md
+- [ ] **Active:** 064-S3-BUILD-hierarchical-config-system.md
 
 ### 📋 Backlog (Planned)
 - [ ] Ecosystem expansion.

@@ -157,12 +157,13 @@ const configFlow = program.command("config-flow").description("Manage project co
 configFlow
   .command("set <key> <value>")
   .description("Set a configuration value")
-  .action(async (key, value) => {
+  .option("-g, --global", "Set globally for the current user", false)
+  .action(async (key, value, options) => {
     const { ConfigManager } = require("../logic/config-manager");
     const config = new ConfigManager();
-    const success = await config.set(key, value);
+    const success = await config.set(key, value, options.global);
     if (success) {
-      console.log(chalk.green(`✓ Set ${key} = ${value}`));
+      console.log(chalk.green(`✓ Set ${key} = ${value} (${options.global ? 'Global' : 'Local'})`));
     }
   });
 
@@ -179,13 +180,17 @@ configFlow
 configFlow
   .command("list")
   .alias("ls")
-  .description("List all configuration values")
+  .description("List all configuration values with their sources")
   .action(async () => {
     const { ConfigManager } = require("../logic/config-manager");
     const config = new ConfigManager();
-    const data = await config.load();
-    console.log(chalk.cyan("\n📊 KamiFlow Project Configuration:\n"));
-    console.table(data);
+    const data = await config.list();
+    console.log(chalk.cyan("\n📊 KamiFlow Combined Configuration:\n"));
+    if (data.length > 0) {
+      console.table(data);
+    } else {
+      console.log(chalk.gray("No configuration found."));
+    }
     console.log();
   });
 

@@ -1,24 +1,28 @@
 const fs = require('fs-extra');
 const path = require('path');
 const chalk = require('chalk');
+const os = require('os');
 
-const CONFIG_FILE = '.kamirc.json';
+const CONFIG_FILENAME = '.kamirc.json';
 
 class ConfigManager {
   constructor(projectPath = process.cwd()) {
-    this.projectPath = projectPath;
-    this.configPath = path.join(projectPath, CONFIG_FILE);
+    this.paths = {
+      default: path.join(__dirname, '../default-config.json'),
+      global: path.join(os.homedir(), '.kami-flow', CONFIG_FILENAME),
+      local: path.join(projectPath, CONFIG_FILENAME)
+    };
   }
 
   /**
-   * Load configuration from .kamirc.json
+   * Load a specific JSON file layer
    */
-  async load() {
-    if (await fs.pathExists(this.configPath)) {
+  async loadLayer(filePath) {
+    if (await fs.pathExists(filePath)) {
       try {
-        return await fs.readJson(this.configPath);
+        return await fs.readJson(filePath);
       } catch (error) {
-        console.error(chalk.red(`Error reading config: ${error.message}`));
+        console.warn(chalk.yellow(`⚠️ Warning: Failed to read config at ${filePath}: ${error.message}`));
         return {};
       }
     }
@@ -26,42 +30,81 @@ class ConfigManager {
   }
 
   /**
-   * Save configuration to .kamirc.json
+   * Load all layers and merge them, tracking the source of each value
    */
-  async save(config) {
+  async loadAll() {
+    const layers = [
+      { name: 'Default', data: await this.loadLayer(this.paths.default) },
+      { name: 'Global', data: await this.loadLayer(this.paths.global) },
+      { name: 'Local', data: await this.loadLayer(this.paths.local) }
+    ];
+
+    const merged = {};
+    const metadata = {};
+
+    for (const layer of layers) {
+      for (const [key, value] of Object.entries(layer.data)) {
+        merged[key] = value;
+        metadata[key] = { source: layer.name };
+      }
+    }
+
+    return { config: merged, metadata };
+  }
+
+  /**
+   * Get a specific configuration value (winning layer)
+   */
+  async get(key) {
+    const { config } = await this.loadAll();
+    return config[key];
+  }
+
+  /**
+   * Set a configuration value in a specific scope (Global or Local)
+   */
+  async set(key, value, isGlobal = false) {
+    const targetPath = isGlobal ? this.paths.global : this.paths.local;
+    
+    // Ensure parent directory exists (especially for Global)
+    await fs.ensureDir(path.dirname(targetPath));
+
+    const config = await this.loadLayer(targetPath);
+    config[key] = value;
+
     try {
-      await fs.writeJson(this.configPath, config, { spaces: 2 });
+      await fs.writeJson(targetPath, config, { spaces: 2 });
       return true;
     } catch (error) {
-      console.error(chalk.red(`Error saving config: ${error.message}`));
+      console.error(chalk.red(`❌ Error saving config: ${error.message}`));
       return false;
     }
   }
 
   /**
-   * Set a specific configuration key
+   * Delete a configuration key from a specific scope
    */
-  async set(key, value) {
-    const config = await this.load();
-    config[key] = value;
-    return await this.save(config);
-  }
+  async delete(key, isGlobal = false) {
+    const targetPath = isGlobal ? this.paths.global : this.paths.local;
+    if (!(await fs.pathExists(targetPath))) return true;
 
-  /**
-   * Get a specific configuration key
-   */
-  async get(key) {
-    const config = await this.load();
-    return config[key];
-  }
-
-  /**
-   * Delete a specific configuration key
-   */
-  async delete(key) {
-    const config = await this.load();
+    const config = await this.loadLayer(targetPath);
     delete config[key];
-    return await this.save(config);
+    
+    await fs.writeJson(targetPath, config, { spaces: 2 });
+    return true;
+  }
+
+  /**
+   * List all configurations with their active sources
+   */
+  async list() {
+    const { config, metadata } = await this.loadAll();
+    return Object.keys(config).map(key => ({
+      Key: key,
+      Value: config[key],
+      Source: metadata[key].source
+    }));
   }
 }
 

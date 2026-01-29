@@ -87,16 +87,25 @@ kami archive 056 --force
 ---
 
 ## kamiflow config-flow `Alias: config`
-> **Goal:** Manage persistent project settings in `.kamirc.json`.
+> **Goal:** Manage configuration settings across three layers: Defaults, Global, and Local.
+
+### ⚙️ Hierarchy
+1. **Local:** Project-specific settings (`.kamirc.json` in root).
+2. **Global:** User-wide settings (`~/.kami-flow/.kamirc.json`).
+3. **Defaults:** System-wide fallback settings (Hardcoded in core).
 
 ### ⚡ Options for Speed
-- `set <key> <value>`: Save a setting.
-- `get <key>`: Retrieve a setting.
-- `list` (or `ls`): Show all settings.
+- `set <key> <value> [--global]`: Save a setting. Use `--global` (or `-g`) to apply across all projects.
+- `get <key>`: Retrieve the active setting value.
+- `list` (or `ls`): Show a table of all settings, their values, and which layer they are loaded from (**Default**, **Global**, or **Local**).
 
 ### 🚀 Fast Track
 ```bash
-kami config set language vietnamese
+# Set preferred language for all future projects
+kami config set language vietnamese --global
+
+# Override feasibility threshold for the current project only
+kami config set seed.minFeasibility 0.8
 ```
 
 ---
