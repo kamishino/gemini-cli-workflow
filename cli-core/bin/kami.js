@@ -211,6 +211,21 @@ program
     }
   });
 
+// Sync Agents command
+program
+  .command("sync-agents")
+  .alias("transpile")
+  .description("Assemble AI Agent configurations from Markdown blueprints")
+  .action(async () => {
+    try {
+      const { Transpiler } = require("../logic/transpiler");
+      const transpiler = new Transpiler(process.cwd());
+      await transpiler.runFromRegistry(path.join(process.cwd(), 'blueprint/registry.md'));
+    } catch (error) {
+      console.error(chalk.red("\n❌ Transpilation failed:"), error.message);
+    }
+  });
+
 // Archive command
 program
   .command("archive-flow [id]")

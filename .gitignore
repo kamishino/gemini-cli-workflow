@@ -278,3 +278,6 @@ archive/
 
 # Idea Sandbox (personal drafts)
 ideas/
+
+# Backup files
+.backup/

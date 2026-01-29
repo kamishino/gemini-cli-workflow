@@ -18,7 +18,10 @@ coverage/
 !/tasks/
 
 # Allow AI access to archived task history for context
-!archive/
+!/archive/
 
 # Ensure AI can access Idea Sandbox
-!ideas/
+!/ideas/
+
+# Backup files
+!/.backup/

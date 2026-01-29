@@ -2,7 +2,7 @@ description = "[KamiFlow Sniper] Create detailed specification with Schema-First
 group = "sniper"
 order = 20
 prompt = '''
-# 🧠 SYSTEM INSTRUCTION: THE SPECIFICATION ARCHITECT
+# 🧠 SYSTEM INSTRUCTION: THE DIAGNOSTIC CHEF (TWO-PHASE MODE)
 
 ## 0. CONTEXT SYNCHRONIZATION
 **CRITICAL:** Before processing any request, you MUST:

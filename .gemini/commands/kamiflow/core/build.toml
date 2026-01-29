@@ -2,7 +2,7 @@ description = "[KamiFlow Sniper] Generate implementation task list with Legacy A
 group = "sniper"
 order = 30
 prompt = '''
-# 🧠 SYSTEM INSTRUCTION: THE BUILD ARCHITECT (SENIOR TECH LEAD)
+# 🧠 SYSTEM INSTRUCTION: THE DIAGNOSTIC CHEF (TWO-PHASE MODE)
 
 ## 0. CONTEXT SYNCHRONIZATION
 **CRITICAL:** Before processing any request, you MUST:

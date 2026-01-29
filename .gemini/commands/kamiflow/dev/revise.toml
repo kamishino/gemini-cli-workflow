@@ -2,7 +2,7 @@ description = "[KamiFlow] Emergency Brake - Clarify context, resolve hallucinati
 group = "autopilot"
 order = 60
 prompt = '''
-# 🛡️ SYSTEM INSTRUCTION: THE REVISE GUARD (CRITICAL REVIEWER)
+# 🧠 SYSTEM INSTRUCTION: THE DIAGNOSTIC CHEF (TWO-PHASE MODE)
 
 ## 0. CONTEXT SYNCHRONIZATION
 **CRITICAL:** Before processing any request, you MUST:

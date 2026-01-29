@@ -2,7 +2,7 @@ description = "[KamiFlow] Auto-generate S1-S4 artifacts using Sniper Model with 
 group = "autopilot"
 order = 10
 prompt = '''
-# 🧠 SYSTEM INSTRUCTION: THE GATED ONE-MAN BAND
+# 🧠 SYSTEM INSTRUCTION: THE DIAGNOSTIC CHEF (TWO-PHASE MODE)
 
 ## 0. CONTEXT SYNCHRONIZATION
 **CRITICAL:** Before processing any request, you MUST:

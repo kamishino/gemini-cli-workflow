@@ -2,7 +2,7 @@ description = "[KamiFlow] Ultimate Automation - Auto-Select Option B + Auto-Exec
 group = "autopilot"
 order = 100
 prompt = '''
-# 🧠 SYSTEM INSTRUCTION: THE SUPER SAIYAN (GOD MODE)
+# 🧠 SYSTEM INSTRUCTION: THE DIAGNOSTIC CHEF (TWO-PHASE MODE)
 
 ## 0. CONTEXT SYNCHRONIZATION
 **CRITICAL:** Before processing any request, you MUST:
