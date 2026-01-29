@@ -324,4 +324,32 @@ program
     }
   });
 
+// Saiyan Command
+program
+  .command("saiyan [input]")
+  .description("Execute a task with autonomous decision making")
+  .option("-s, --strategy <strategy>", "Execution strategy: BALANCED, FAST, AMBITIOUS", "BALANCED")
+  .action(async (input, options) => {
+    try {
+      const { runSaiyanMode } = require("../logic/saiyan");
+      await runSaiyanMode(input, options);
+    } catch (error) {
+      console.error(chalk.red("\n❌ Saiyan Mode failed:"), error.message);
+    }
+  });
+
+// SuperSaiyan Command
+program
+  .command("supersaiyan")
+  .description("Execute a batch of tasks autonomously")
+  .option("-s, --source <source>", "Source of ideas: BACKLOG or RESEARCH")
+  .action(async (options) => {
+    try {
+      const { runSuperSaiyan } = require("../logic/supersaiyan");
+      await runSuperSaiyan(options.source);
+    } catch (error) {
+      console.error(chalk.red("\n❌ SuperSaiyan Mode failed:"), error.message);
+    }
+  });
+
 program.parse(process.argv);
