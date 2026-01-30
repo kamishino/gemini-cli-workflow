@@ -175,7 +175,65 @@ class Transpiler {
     // TRANSPILE RULES
     await this.transpileRules();
 
+    // ASSEMBLE PROJECT TEMPLATE (PROD ONLY)
+    await this.assembleProjectTemplate();
+
     console.log(chalk.cyan("\n✨ Transpilation complete."));
+  }
+
+  /**
+   * Assemble the project template for distribution
+   */
+  async assembleProjectTemplate() {
+    const env = await this.envManager.getEnv();
+    if (env !== 'production') return;
+
+    console.log(chalk.cyan("\n🏗️  Assembling Project Template for Distribution..."));
+
+    for (const outputRoot of this.targets) {
+      // 1. Create .kamiflow structure
+      const kamiflowDir = path.join(outputRoot, '.kamiflow');
+      const subDirs = ['archive', 'ideas', 'tasks'];
+      
+      for (const sub of subDirs) {
+        const fullPath = path.join(kamiflowDir, sub);
+        await fs.ensureDir(fullPath);
+        await fs.writeFile(path.join(fullPath, '.gitkeep'), '');
+      }
+
+      // 2. Copy and rename templates
+      const templateMappings = [
+        { src: 'context.md', dest: '.kamiflow/PROJECT_CONTENT.md' },
+        { src: 'roadmap.md', dest: '.kamiflow/ROADMAP.md' },
+        { src: 'gemini.md', dest: 'GEMINI.md' }
+      ];
+
+      for (const map of templateMappings) {
+        const srcPath = path.join(this.templatesDir, map.src);
+        const destPath = path.join(outputRoot, map.dest);
+        if (await fs.pathExists(srcPath)) {
+          await fs.copy(srcPath, destPath);
+          console.log(chalk.gray(`   📄 Seeded: ${map.dest}`));
+        }
+      }
+
+      // 3. Generate Smart Ignores
+      const gitIgnoreContent = `.kamiflow/archive/
+.kamiflow/ideas/
+.kamiflow/tasks/
+.gemini/tmp/
+.gemini/cache/
+.backup/
+`;
+      const geminiIgnoreContent = `!.kamiflow/archive/
+!.kamiflow/ideas/
+!.kamiflow/tasks/
+`;
+
+      await fs.writeFile(path.join(outputRoot, '.gitignore'), gitIgnoreContent);
+      await fs.writeFile(path.join(outputRoot, '.geminiignore'), geminiIgnoreContent);
+      console.log(chalk.gray(`   🛡️  Generated .gitignore & .geminiignore`));
+    }
   }
 
   async transpileRules() {
