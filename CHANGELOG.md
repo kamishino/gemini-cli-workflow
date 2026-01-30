@@ -1,4 +1,15 @@
 
+## [v2.31.0] - 2026-01-30
+
+### 🚀 Features
+- feat(resources): re-organized agents/rules and refreshed gemini.md template (Task 087) (89d6d90)
+- feat(core): optimized cli-core with Logger, Config caching and unified paths (Task 085) (47993b8)
+
+### 🧹 Chores & Others
+- chore(docs): synchronized gemini.md template and improved build pipeline (Task 088) (91cfacc)
+- docs: implemented interactive configuration guide and starter seed (Task 086) (d37219b)
+
+
 ## [v2.30.0] - 2026-01-30
 
 ### 🚀 Features
