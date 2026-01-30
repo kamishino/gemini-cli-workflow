@@ -151,8 +151,8 @@ async function initializeProject(cwd) {
     });
 
     // 3.1 Perform Copy (docs folder - NEW SSOT)
-    const sourceDocs = path.join(cliRoot, 'docs');
-    const targetDocs = path.join(cwd, 'docs');
+    const sourceDocs = path.join(cliRoot, 'resources/docs');
+    const targetDocs = path.join(cwd, 'resources/docs');
     if (fs.existsSync(sourceDocs)) {
       console.log(chalk.gray('📦 Syncing documentation and blueprints...'));
       fs.cpSync(sourceDocs, targetDocs, { recursive: true });
@@ -179,11 +179,26 @@ async function initializeProject(cwd) {
     const contextPath = path.join(workspaceRoot, 'PROJECT_CONTEXT.md');
     if (!fs.existsSync(contextPath)) {
       console.log(chalk.green('📄 Creating PROJECT_CONTEXT.md...'));
-      const templateContext = path.join(cliRoot, 'docs/templates/context.md');
+      const templateContext = path.join(cliRoot, 'resources/templates/context.md');
       if (fs.existsSync(templateContext)) {
          fs.copyFileSync(templateContext, contextPath);
       } else {
          fs.writeFileSync(contextPath, '# Project Context\n\nRun /kamiflow:ops:wake to initialize.');
+      }
+    }
+
+    // 6.1 Additional Seeds (Registry & Agent Rules)
+    const seeds = [
+      { src: 'resources/templates/registry.md', dest: 'registry.md' },
+      { src: 'resources/templates/universal-agent-rules.md', dest: 'universal-agent-rules.md' },
+      { src: 'resources/templates/roadmap.md', dest: 'ROADMAP.md' }
+    ];
+
+    for (const seed of seeds) {
+      const sPath = path.join(cliRoot, seed.src);
+      const dPath = path.join(workspaceRoot, seed.dest);
+      if (fs.existsSync(sPath) && !fs.existsSync(dPath)) {
+        fs.copyFileSync(sPath, dPath);
       }
     }
 

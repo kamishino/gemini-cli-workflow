@@ -19,7 +19,7 @@ class Transpiler {
 
     this.blueprintDir = path.join(this.projectRoot, 'resources/blueprints');
     this.templatesDir = path.join(this.projectRoot, 'resources/templates');
-    this.rulesDir = path.join(this.projectRoot, 'resources/rules');
+    this.rulesDir = path.join(this.blueprintDir, 'rules');
     
     this.envManager = new EnvironmentManager(this.projectRoot);
     this.targets = [];
@@ -203,9 +203,9 @@ class Transpiler {
 
       // 2. Copy and rename templates
       const templateMappings = [
-        { src: 'context.md', dest: '.kamiflow/PROJECT_CONTENT.md' },
-        { src: 'roadmap.md', dest: '.kamiflow/ROADMAP.md' },
-        { src: 'gemini.md', dest: 'GEMINI.md' }
+        { src: "context.md", dest: ".kamiflow/PROJECT_CONTEXT.md" },
+        { src: "roadmap.md", dest: ".kamiflow/ROADMAP.md" },
+        { src: "gemini.md", dest: "GEMINI.md" },
       ];
 
       for (const map of templateMappings) {

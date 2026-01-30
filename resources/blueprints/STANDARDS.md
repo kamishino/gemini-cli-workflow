@@ -6,12 +6,11 @@ This document defines the binding contract for all AI Agent instructions (Bluepr
 
 ## 1. Directory Hierarchy 📂
 
-All master logic MUST be stored in `docs/blueprint/`.
+All master logic MUST be stored in `resources/blueprints/`.
 
 - `commands/`: Individual executable logic blocks.
-- `rules/`: Behavioral guidelines for agents.
-- `skills/`: Tool-based functional logic.
-- `templates/`: Agent-specific shell wrappers (e.g., `gemini-shell.md`).
+- `rules/`: Behavioral guidelines for agents (Protocols).
+- `templates/`: Agent-specific shell wrappers (located in `resources/templates/`).
 
 ---
 

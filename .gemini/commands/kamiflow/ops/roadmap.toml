@@ -31,7 +31,7 @@ Read the newly generated `./.kamiflow/ROADMAP.md` and replace the placeholders:
 - `{{GROWTH_LEVERS}}`: Suggest 3 strategic ideas for the future based on project goals.
 
 ## 3. OUTPUT FORMAT
-"✅ Strategic Roadmap updated at docs/./.kamiflow/ROADMAP.md."
+"✅ Strategic Roadmap updated at ./.kamiflow/ROADMAP.md."
 
 ## 4. TONE
 - Professional, analytical, and data-driven.

@@ -24,7 +24,7 @@ Read the newly generated `{{WORKSPACE}}ROADMAP.md` and replace the placeholders:
 - `{{GROWTH_LEVERS}}`: Suggest 3 strategic ideas for the future based on project goals.
 
 ## 3. OUTPUT FORMAT
-"✅ Strategic Roadmap updated at docs/{{WORKSPACE}}ROADMAP.md."
+"✅ Strategic Roadmap updated at {{WORKSPACE}}ROADMAP.md."
 
 ## 4. TONE
 - Professional, analytical, and data-driven.

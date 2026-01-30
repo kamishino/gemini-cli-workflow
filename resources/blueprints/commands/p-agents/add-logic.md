@@ -24,7 +24,7 @@ Run `node cli-core/bin/kami.js scan-agents` to find which agent folders (`.curso
 
 ### Step 4: Central Update
 1.  Run: `node cli-core/bin/kami.js update-central-rules "{{args}}" "https://github.com/{{args}}"`
-2.  Handshake: Inform the Boss that `docs/templates/universal-agent-rules.md` is updated.
+2.  Handshake: Inform the Boss that `{{WORKSPACE}}universal-agent-rules.md` is updated.
 3.  Reminder: "Boss, please manually copy the content of universal-agent-rules.md to your desired agent's rules file to finalize the handshake."
 
 ## 3. OUTPUT FORMAT
