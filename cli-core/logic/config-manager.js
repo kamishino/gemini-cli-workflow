@@ -1,7 +1,7 @@
 const fs = require('fs-extra');
 const path = require('path');
-const chalk = require('chalk');
 const os = require('os');
+const logger = require('../utils/logger');
 
 const CONFIG_FILENAME = '.kamirc.json';
 
@@ -12,6 +12,7 @@ class ConfigManager {
       global: path.join(os.homedir(), '.kami-flow', CONFIG_FILENAME),
       local: path.join(projectPath, CONFIG_FILENAME)
     };
+    this.cache = null;
   }
 
   /**
@@ -22,7 +23,7 @@ class ConfigManager {
       try {
         return await fs.readJson(filePath);
       } catch (error) {
-        console.warn(chalk.yellow(`⚠️ Warning: Failed to read config at ${filePath}: ${error.message}`));
+        logger.warn(`Failed to read config at ${filePath}: ${error.message}`);
         return {};
       }
     }
@@ -33,6 +34,9 @@ class ConfigManager {
    * Load all layers and merge them, tracking the source of each value
    */
   async loadAll() {
+    // Return from cache if available
+    if (this.cache) return this.cache;
+
     const layers = [
       { name: 'Default', data: await this.loadLayer(this.paths.default) },
       { name: 'Global', data: await this.loadLayer(this.paths.global) },
@@ -49,7 +53,8 @@ class ConfigManager {
       }
     }
 
-    return { config: merged, metadata };
+    this.cache = { config: merged, metadata };
+    return this.cache;
   }
 
   /**
@@ -66,6 +71,9 @@ class ConfigManager {
   async set(key, value, isGlobal = false) {
     const targetPath = isGlobal ? this.paths.global : this.paths.local;
     
+    // Invalidate cache
+    this.cache = null;
+
     // Ensure parent directory exists (especially for Global)
     await fs.ensureDir(path.dirname(targetPath));
 
@@ -76,7 +84,7 @@ class ConfigManager {
       await fs.writeJson(targetPath, config, { spaces: 2 });
       return true;
     } catch (error) {
-      console.error(chalk.red(`❌ Error saving config: ${error.message}`));
+      logger.error(`Error saving config: ${error.message}`);
       return false;
     }
   }
@@ -87,6 +95,9 @@ class ConfigManager {
   async delete(key, isGlobal = false) {
     const targetPath = isGlobal ? this.paths.global : this.paths.local;
     if (!(await fs.pathExists(targetPath))) return true;
+
+    // Invalidate cache
+    this.cache = null;
 
     const config = await this.loadLayer(targetPath);
     delete config[key];

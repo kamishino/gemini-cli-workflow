@@ -1,27 +1,19 @@
 const fs = require('fs-extra');
 const path = require('path');
-const chalk = require('chalk');
+const logger = require('../utils/logger');
 const { backupFile, safeWrite } = require('../utils/fs-vault');
 const { validateTomlFile } = require('../validators/toml-validator');
 const { EnvironmentManager } = require('./env-manager');
 
 class Transpiler {
   constructor(cwd = process.cwd()) {
-    // Force absolute path to avoid CWD-dependent behavior
-    const absoluteCwd = path.resolve(cwd);
-
-    // If called from inside cli-core, the project root is one level up (Master Repo)
-    if (absoluteCwd.endsWith('cli-core') || absoluteCwd.endsWith('cli-core' + path.sep)) {
-      this.projectRoot = path.dirname(absoluteCwd);
-    } else {
-      this.projectRoot = absoluteCwd;
-    }
+    this.envManager = new EnvironmentManager(cwd);
+    this.projectRoot = this.envManager.projectRoot;
 
     this.blueprintDir = path.join(this.projectRoot, 'resources/blueprints');
     this.templatesDir = path.join(this.projectRoot, 'resources/templates');
     this.rulesDir = path.join(this.blueprintDir, 'rules');
     
-    this.envManager = new EnvironmentManager(this.projectRoot);
     this.targets = [];
     this.workspacePrefix = './';
     this.isInitialized = false;
@@ -44,17 +36,16 @@ class Transpiler {
     if (!content) return content;
     
     // Fix "/./.kamiflow/" -> "./.kamiflow/"
-    // This specifically targets the common mistake of adding a leading slash before {{WORKSPACE}}
     let sanitized = content.replace(/\/(\.\/\.kamiflow\/)/g, '$1');
     
-    // Fix double slashes (excluding protocol double slashes like https://)
+    // Fix double slashes (excluding protocol double slashes)
     sanitized = sanitized.replace(/([^:])\/{2,}/g, '$1/');
     
     return sanitized;
   }
 
   /**
-   * Load a partial file by name (searches subfolders recursively)
+   * Load a partial file by name
    */
   async loadPartial(name) {
     await this.init();
@@ -75,17 +66,13 @@ class Transpiler {
 
     const filePath = findFile(this.blueprintDir, `${name}.md`);
     if (!filePath) {
-      throw new Error(`Partial not found: ${name} in ${this.blueprintDir}`);
+      throw new Error(`Partial not found: ${name}`);
     }
     let content = await fs.readFile(filePath, 'utf8');
     
-    // INJECT WORKSPACE PATH
     content = content.replace(/{{WORKSPACE}}/g, this.workspacePrefix);
-
-    // SELF-HEALING: Sanitize paths (e.g., /./.kamiflow -> ./.kamiflow)
     content = this.sanitizeContent(content);
 
-    // Extract metadata from YAML frontmatter
     const metadata = {};
     const fmMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
     
@@ -98,7 +85,6 @@ class Transpiler {
       });
     }
 
-    // MANDATORY METADATA VALIDATION
     if (name !== 'context-sync') {
       const required = ['name', 'type', 'description', 'group', 'order'];
       const missing = required.filter(f => !metadata[f]);
@@ -153,11 +139,12 @@ class Transpiler {
   async runFromRegistry(registryPath) {
     await this.init();
     const env = await this.envManager.getEnv();
-    console.log(chalk.cyan("\n🔨 Starting Universal Transpilation..."));
-    console.log(chalk.gray(`📡 Mode: ${env} | Workspace: ${this.workspacePrefix}`));
+    
+    logger.header(`Starting Universal Transpilation`);
+    logger.info(`Mode: ${env} | Workspace: ${this.workspacePrefix}`);
     
     if (!(await fs.pathExists(registryPath))) {
-      console.log(chalk.yellow(`⚠️  No registry found at ${registryPath}. Skipping.`));
+      logger.warn(`No registry found at ${registryPath}. Skipping.`);
       return;
     }
 
@@ -165,7 +152,7 @@ class Transpiler {
     const targets = this.parseRegistry(registryContent);
 
     for (const target of targets) {
-      console.log(chalk.white(`\n📦 Building: ${chalk.bold(target.name)}`));
+      logger.debug(`Building: ${target.name}`);
       
       try {
         const assembledContent = await this.assemble(target.shell, target.partials);
@@ -180,31 +167,26 @@ class Transpiler {
           if (success && absoluteTargetPath.endsWith('.toml')) {
             const validation = validateTomlFile(absoluteTargetPath);
             if (!validation.valid) {
-              console.log(chalk.red(`❌ TOML Validation FAILED for ${displayPath}`));
+              logger.error(`TOML Validation FAILED for ${displayPath}`);
             } else {
-              console.log(chalk.green(`✅ ${displayPath} built and validated.`));
+              logger.success(`${displayPath} built and validated.`);
             }
           }
         }
       } catch (error) {
-        console.error(chalk.red(`💥 Failed to build ${target.name}: ${error.message}`));
+        logger.error(`Failed to build ${target.name}: ${error.message}`);
       }
     }
 
-    // TRANSPILE RULES
     await this.transpileRules();
-
-    // SYNC DOCUMENTATION
     await this.syncDocumentation();
-
-    // ASSEMBLE PROJECT TEMPLATE (PROD ONLY)
     await this.assembleProjectTemplate();
 
-    console.log(chalk.cyan("\n✨ Transpilation complete."));
+    logger.success("Transpilation complete.");
   }
 
   /**
-   * Synchronize documentation from resources/docs to target workspaces
+   * Synchronize documentation
    */
   async syncDocumentation() {
     await this.init();
@@ -214,7 +196,7 @@ class Transpiler {
 
     if (!(await fs.pathExists(sourceDocs))) return;
 
-    console.log(chalk.cyan(`\n📚 Syncing Dynamic Documentation (${env})...`));
+    logger.info(`Syncing Dynamic Documentation (${env})...`);
 
     const walkAndSync = async (dir, relativePath = '') => {
       const items = await fs.readdir(dir);
@@ -227,24 +209,19 @@ class Transpiler {
         } else if (item.endsWith('.md')) {
           let content = await fs.readFile(fullPath, 'utf8');
 
-          // 1. Placeholder Injection
           content = content.replace(/{{WORKSPACE}}/g, this.workspacePrefix);
           
-          // BLUEPRINT placeholders
           const blueprintPath = isProd ? 'None (Pre-transpiled)' : './resources/blueprints/';
           const blueprintDesc = isProd ? 'N/A' : 'SSOT Logic & Templates';
           content = content.replace(/{{BLUEPRINT_PATH}}/g, blueprintPath);
           content = content.replace(/{{BLUEPRINT_DESC}}/g, blueprintDesc);
 
-          // 2. Production Stripping (Dev-only markers)
           if (isProd) {
             content = content.replace(/\s*<!-- DEV_ONLY_START -->[\s\S]*?<!-- DEV_ONLY_END -->\s*/g, '\n');
           }
 
-          // 3. Self-Healing paths
           content = this.sanitizeContent(content);
 
-          // 4. Write to all targets
           for (const outputRoot of this.targets) {
             const targetPath = path.join(outputRoot, '.kamiflow/docs', relItemPath);
             await safeWrite(targetPath, content);
@@ -254,20 +231,19 @@ class Transpiler {
     };
 
     await walkAndSync(sourceDocs);
-    console.log(chalk.green('   ✅ Documentation synchronized and anchored.'));
+    logger.success('Documentation synchronized and anchored.');
   }
 
   /**
-   * Assemble the project template for distribution
+   * Assemble project template
    */
   async assembleProjectTemplate() {
     const env = await this.envManager.getEnv();
     if (env !== 'production') return;
 
-    console.log(chalk.cyan("\n🏗️  Assembling Project Template for Distribution..."));
+    logger.info("Assembling Project Template for Distribution...");
 
     for (const outputRoot of this.targets) {
-      // 1. Create .kamiflow structure
       const kamiflowDir = path.join(outputRoot, '.kamiflow');
       const subDirs = ['archive', 'ideas', 'tasks', 'handoff_logs'];
       
@@ -277,7 +253,6 @@ class Transpiler {
         await fs.writeFile(path.join(fullPath, '.gitkeep'), '');
       }
 
-      // 2. Copy and rename templates
       const templateMappings = [
         { src: 'context.md', dest: '.kamiflow/PROJECT_CONTEXT.md' },
         { src: 'roadmap.md', dest: '.kamiflow/ROADMAP.md' },
@@ -289,11 +264,10 @@ class Transpiler {
         const destPath = path.join(outputRoot, map.dest);
         if (await fs.pathExists(srcPath)) {
           await fs.copy(srcPath, destPath);
-          console.log(chalk.gray(`   📄 Seeded: ${map.dest}`));
+          logger.hint(`Seeded: ${map.dest}`);
         }
       }
 
-      // 3. Generate Smart Ignores
       const gitIgnoreContent = `.kamiflow/archive/
 .kamiflow/ideas/
 .kamiflow/tasks/
@@ -312,7 +286,7 @@ class Transpiler {
 
       await fs.writeFile(path.join(outputRoot, '.gitignore'), gitIgnoreContent);
       await fs.writeFile(path.join(outputRoot, '.geminiignore'), geminiIgnoreContent);
-      console.log(chalk.gray(`   🛡️  Generated .gitignore & .geminiignore`));
+      logger.hint(`Generated .gitignore & .geminiignore`);
     }
   }
 
@@ -327,7 +301,7 @@ class Transpiler {
         await safeWrite(targetPath, content);
       }
     }
-    console.log(chalk.green('\n⚖️ Rules synced to all targets.'));
+    logger.success('Rules synced to all targets.');
   }
 
   /**

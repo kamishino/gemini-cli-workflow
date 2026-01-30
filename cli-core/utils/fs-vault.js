@@ -1,6 +1,7 @@
 const fs = require('fs-extra');
 const path = require('path');
-const chalk = require('chalk');
+const logger = require('./logger');
+const { EnvironmentManager } = require('../logic/env-manager');
 
 /**
  * File Vault Utility
@@ -13,11 +14,9 @@ async function backupFile(filePath) {
       // Resolve absolute paths to avoid CWD issues
       const absoluteFilePath = path.resolve(filePath);
       
-      // Find project root (where .git or cli-core exists)
-      let projectRoot = process.cwd();
-      if (projectRoot.endsWith('cli-core') || projectRoot.endsWith('cli-core' + path.sep)) {
-        projectRoot = path.dirname(projectRoot);
-      }
+      // Use EnvironmentManager for SSOT root detection
+      const env = new EnvironmentManager(process.cwd());
+      const projectRoot = env.projectRoot;
 
       const relativePath = path.relative(projectRoot, absoluteFilePath);
       const backupPath = path.join(projectRoot, '.backup', relativePath);
@@ -26,11 +25,11 @@ async function backupFile(filePath) {
       await fs.copy(absoluteFilePath, backupPath, { overwrite: true });
       
       const displayPath = relativePath.replace(/\\/g, '/');
-      console.log(chalk.gray(`📦 Backup saved to: .backup/${displayPath}`));
+      logger.hint(`Backup saved to: .backup/${displayPath}`);
       return backupPath;
     }
   } catch (error) {
-    console.warn(chalk.yellow(`⚠️ Backup failed for ${filePath}: ${error.message}`));
+    logger.warn(`Backup failed for ${filePath}: ${error.message}`);
   }
   return null;
 }
@@ -41,7 +40,7 @@ async function safeWrite(filePath, content) {
     await fs.writeFile(filePath, content, 'utf8');
     return true;
   } catch (error) {
-    console.error(chalk.red(`❌ SafeWrite failed for ${filePath}: ${error.message}`));
+    logger.error(`SafeWrite failed for ${filePath}`, error);
     return false;
   }
 }
