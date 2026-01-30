@@ -2,15 +2,19 @@ const fs = require('fs-extra');
 const path = require('path');
 const chalk = require('chalk');
 const os = require('os');
-
-const PROJECT_ROOT = path.resolve(__dirname, '../../');
-const ROADMAP_PATH = path.join(PROJECT_ROOT, 'docs/ROADMAP.md');
-const TASKS_DIR = path.join(PROJECT_ROOT, 'tasks');
-const ARCHIVE_DIR = path.join(PROJECT_ROOT, 'archive');
-const CONTEXT_PATH = path.join(PROJECT_ROOT, 'PROJECT_CONTEXT.md');
+const { EnvironmentManager } = require('../logic/env-manager');
 
 async function main() {
   try {
+    const projectRoot = path.resolve(__dirname, '../../');
+    const envManager = new EnvironmentManager(projectRoot);
+    const workspaceRoot = await envManager.getAbsoluteWorkspacePath();
+
+    const ROADMAP_PATH = path.join(workspaceRoot, 'ROADMAP.md');
+    const TASKS_DIR = path.join(workspaceRoot, 'tasks');
+    const ARCHIVE_DIR = path.join(workspaceRoot, 'archive');
+    const CONTEXT_PATH = path.join(workspaceRoot, 'PROJECT_CONTEXT.md');
+
     console.log(chalk.blue('ℹ️ Generating Strategic RoadMap...'));
 
     // 1. Get Context
