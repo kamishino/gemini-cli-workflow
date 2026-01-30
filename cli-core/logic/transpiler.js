@@ -245,12 +245,20 @@ class Transpiler {
 
     for (const outputRoot of this.targets) {
       const kamiflowDir = path.join(outputRoot, '.kamiflow');
-      const subDirs = ['archive', 'ideas', 'tasks', 'handoff_logs'];
+      const subDirs = ['archive', 'ideas', 'tasks', 'handoff_logs', 'schemas'];
       
       for (const sub of subDirs) {
         const fullPath = path.join(kamiflowDir, sub);
         await fs.ensureDir(fullPath);
         await fs.writeFile(path.join(fullPath, '.gitkeep'), '');
+      }
+
+      // Copy Schema
+      const schemaSrc = path.join(this.projectRoot, 'resources/schemas/kamirc.schema.json');
+      const schemaDest = path.join(kamiflowDir, 'schemas/kamirc.schema.json');
+      if (await fs.pathExists(schemaSrc)) {
+        await fs.copy(schemaSrc, schemaDest);
+        logger.hint('Deployed: Config Schema');
       }
 
       const templateMappings = [

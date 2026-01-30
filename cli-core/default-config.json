@@ -1,8 +1,8 @@
 {
-  "seed.minFeasibility": 0.7,
   "language": "english",
   "strategy": "BALANCED",
   "maxRetries": 3,
+  "currentEnv": "development",
   "environments": {
     "development": {
       "workspaceRoot": "./.kamiflow",
@@ -13,5 +13,9 @@
       "outputTargets": ["dist"]
     }
   },
-  "currentEnv": "development"
+  "plugins": {
+    "seed": {
+      "minFeasibility": 0.7
+    }
+  }
 }

@@ -6,7 +6,12 @@ KamiFlow uses a hierarchical configuration system that allows you to customize t
 
 ## 🏗️ How it Works (The Hierarchy)
 
-Configurations are loaded from three layers. If a key is defined in multiple layers, the **lowest** level (most specific) wins:
+KamiFlow uses a Schema-First approach. All configurations are validated against a formal schema located at `./.kamiflow/schemas/kamirc.schema.json`. This provides:
+- **Intellisense:** Auto-completion and hover descriptions in VS Code/Cursor.
+- **Validation:** Graceful fallback to default values if you provide an invalid type or value.
+
+### Hierarchy
+If a key is defined in multiple layers, the **lowest** level (most specific) wins:
 
 1.  **Local:** `./.kamirc.json` — Specific to the current project.
 2.  **Global:** `~/.kami-flow/.kamirc.json` — Specific to your user account across all projects.

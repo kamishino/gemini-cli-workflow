@@ -11,7 +11,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Implemented Existence-Aware Seeding (Task 094) - Refactored Installer and Updater to protect user project context (GEMINI.md, ROADMAP.md, etc.) during updates. Automatically cleans up redundant .kamirc.example.json when the real configuration exists.
+- **Last Completed Action:** Implemented Schema-First Configuration (Task 095) - Tái cấu trúc kamirc.json theo nhóm chức năng (Core, Setup, Plugins), triển khai JSON Schema cho Intellisense, và tích hợp Zod validation với cơ chế fallback tự động.
 - **Current Focus:** Final stabilization and public release preparation.
 - **Next Step:** Official public rollout and community onboarding.
 

@@ -1,7 +1,12 @@
 {
+  "$schema": "./.kamiflow/schemas/kamirc.schema.json",
   "language": "english",
   "strategy": "BALANCED",
   "maxRetries": 3,
-  "seed.minFeasibility": 0.7,
-  "currentEnv": "development"
+  "currentEnv": "development",
+  "plugins": {
+    "seed": {
+      "minFeasibility": 0.7
+    }
+  }
 }

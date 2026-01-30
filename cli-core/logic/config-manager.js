@@ -1,9 +1,30 @@
 const fs = require('fs-extra');
 const path = require('upath');
 const os = require('os');
+const { z } = require('zod');
 const logger = require('../utils/logger');
 
 const CONFIG_FILENAME = '.kamirc.json';
+
+// Define the authoritative schema
+const ConfigSchema = z.object({
+  language: z.string().default("english"),
+  strategy: z.enum(["FAST", "BALANCED", "AMBITIOUS"]).default("BALANCED"),
+  maxRetries: z.number().min(0).max(10).default(3),
+  currentEnv: z.string().default("development"),
+  environments: z.record(z.object({
+    workspaceRoot: z.string(),
+    outputTargets: z.array(z.string())
+  })).default({
+    development: { workspaceRoot: "./.kamiflow", outputTargets: ["."] },
+    production: { workspaceRoot: "./.kamiflow", outputTargets: ["dist"] }
+  }),
+  plugins: z.object({
+    seed: z.object({
+      minFeasibility: z.number().min(0).max(1).default(0.7)
+    }).default({ minFeasibility: 0.7 })
+  }).default({ seed: { minFeasibility: 0.7 } })
+}).passthrough();
 
 class ConfigManager {
   constructor(projectPath = process.cwd()) {
@@ -31,10 +52,34 @@ class ConfigManager {
   }
 
   /**
-   * Load all layers and merge them, tracking the source of each value
+   * Adaptive key resolution (supports 'plugins.seed.minFeasibility' or 'language')
+   */
+  resolveValue(obj, key) {
+    if (!key.includes('.')) return obj[key];
+    return key.split('.').reduce((o, i) => (o ? o[i] : undefined), obj);
+  }
+
+  /**
+   * Migrate old flat/dotted keys to new structured object
+   */
+  applyLegacyAdapter(config) {
+    const migrated = { ...config };
+    
+    // Check for 'seed.minFeasibility' (old format)
+    if (config['seed.minFeasibility'] !== undefined) {
+      if (!migrated.plugins) migrated.plugins = { seed: {} };
+      if (!migrated.plugins.seed) migrated.plugins.seed = {};
+      migrated.plugins.seed.minFeasibility = config['seed.minFeasibility'];
+      delete migrated['seed.minFeasibility'];
+    }
+
+    return migrated;
+  }
+
+  /**
+   * Load all layers and merge them with validation
    */
   async loadAll() {
-    // Return from cache if available
     if (this.cache) return this.cache;
 
     const layers = [
@@ -43,26 +88,43 @@ class ConfigManager {
       { name: 'Local', data: await this.loadLayer(this.paths.local) }
     ];
 
-    const merged = {};
+    let merged = {};
     const metadata = {};
 
     for (const layer of layers) {
-      for (const [key, value] of Object.entries(layer.data)) {
+      const adaptedData = this.applyLegacyAdapter(layer.data);
+      for (const [key, value] of Object.entries(adaptedData)) {
         merged[key] = value;
         metadata[key] = { source: layer.name };
       }
     }
 
-    this.cache = { config: merged, metadata };
+    // Validation Loop
+    const result = ConfigSchema.safeParse(merged);
+    let finalConfig = merged;
+
+    if (!result.success) {
+      logger.warn("Configuration validation issues found:");
+      result.error.issues.forEach(issue => {
+        logger.hint(`${issue.path.join('.')}: ${issue.message} (Using default)`);
+      });
+      // Fallback: merge raw input with Zod's default output
+      finalConfig = ConfigSchema.parse({}); // Get defaults
+      finalConfig = { ...finalConfig, ...result.data }; // Fill with what's valid
+    } else {
+      finalConfig = result.data;
+    }
+
+    this.cache = { config: finalConfig, metadata };
     return this.cache;
   }
 
   /**
-   * Get a specific configuration value (winning layer)
+   * Get a specific configuration value
    */
   async get(key) {
     const { config } = await this.loadAll();
-    return config[key];
+    return this.resolveValue(config, key);
   }
 
   /**
