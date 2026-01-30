@@ -11,7 +11,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Implemented Permanent Orchestrator (Task 081) - Automated permanent 'kami' alias and multi-mode project initialization (Standard/Dev).
+- **Last Completed Action:** Implemented Stealth Suite (Task 082) - Automated build during installation, relocated documentation to .kamiflow/docs/, and eliminated junk folder creation.
 - **Current Focus:** Final stabilization and public release preparation.
 - **Next Step:** Official public rollout and community onboarding.
 

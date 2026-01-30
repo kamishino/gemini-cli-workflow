@@ -9,10 +9,12 @@ Write-Host "  KamiFlow Universal Installer" -ForegroundColor Cyan
 Write-Host "========================================================" -ForegroundColor Cyan
 Write-Host ""
 
+$INSTALL_DIR = Join-Path $HOME ".kami-flow"
+$REPO_URL = "https://github.com/kamishino/gemini-cli-workflow.git"
+
 # PHASE 1: Prerequisite Verification
 Write-Host "[KAMI] Phase 1: Checking prerequisites..." -ForegroundColor Yellow
 
-# Function: Check-Command
 function Check-Command ($cmd) {
     try {
         $check = Get-Command $cmd -ErrorAction Stop
@@ -22,62 +24,50 @@ function Check-Command ($cmd) {
     }
 }
 
-# 1.1 Check Git
-if (Check-Command "git") {
-    $gitVer = git --version
-    Write-Host "[KAMI] Found Git: $gitVer" -ForegroundColor Green
-} else {
-    Write-Host "[KAMI] Error: Git NOT FOUND" -ForegroundColor Red
-    Write-Host "       Please install Git for Windows: https://git-scm.com/download/win"
+if (!(Check-Command "git")) {
+    Write-Host "[KAMI] Error: Git NOT FOUND. Please install Git: https://git-scm.com/" -ForegroundColor Red
     exit 1
 }
 
-# 1.2 Check Node.js & NVM
-if (Check-Command "node") {
-    $nodeVer = node -v
-    Write-Host "[KAMI] Found Node.js: $nodeVer" -ForegroundColor Green
-} else {
-    Write-Host "[KAMI] Warning: Node.js not found in PATH." -ForegroundColor Yellow
-    
-    # Check for NVM
-    if (Check-Command "nvm") {
-        Write-Host "[KAMI] Info: NVM detected but no Node version selected." -ForegroundColor Cyan
-        Write-Host "       Attempting to auto-fix..."
-        try {
-            nvm install lts
-            nvm use lts
-            Write-Host "[KAMI] Success: Node LTS selected." -ForegroundColor Green
-        } catch {
-            Write-Host "[KAMI] Error: Auto-fix failed. Please run: 'nvm use lts'" -ForegroundColor Red
-            exit 1
-        }
-    } else {
-        Write-Host "[KAMI] Error: Node.js & NVM NOT FOUND" -ForegroundColor Red
-        Write-Host "       We recommend installing NVM for Windows:"
-        Write-Host "       https://github.com/coreybutler/nvm-windows/releases"
-        exit 1
-    }
+if (!(Check-Command "node")) {
+    Write-Host "[KAMI] Error: Node.js NOT FOUND. Please install Node.js: https://nodejs.org/" -ForegroundColor Red
+    exit 1
 }
 
-# PHASE 2: Installation
+# PHASE 2: Installation (Clone & Build)
 Write-Host ""
-Write-Host "[KAMI] Phase 2: Installing KamiFlow CLI..." -ForegroundColor Yellow
+Write-Host "[KAMI] Phase 2: Installing KamiFlow to $INSTALL_DIR..." -ForegroundColor Yellow
 
 try {
-    Write-Host "       Installing global package from source..." -ForegroundColor Gray
-    npm install -g https://github.com/kamishino/gemini-cli-workflow.git
+    if (Test-Path $INSTALL_DIR) {
+        Write-Host "       Updating existing installation..." -ForegroundColor Gray
+        Set-Location $INSTALL_DIR
+        git pull
+    } else {
+        Write-Host "       Cloning repository..." -ForegroundColor Gray
+        git clone $REPO_URL $INSTALL_DIR
+        Set-Location $INSTALL_DIR
+    }
+
+    Write-Host "       Installing dependencies..." -ForegroundColor Gray
+    npm install
+
+    Write-Host "       Building distribution artifacts..." -ForegroundColor Yellow
+    npm run build
+
+    Write-Host "       Linking globally..." -ForegroundColor Gray
+    npm install -g .
+    
     Write-Host "[KAMI] Success: Installation successful!" -ForegroundColor Green
 } catch {
-    Write-Host "[KAMI] Error: Installation failed." -ForegroundColor Red
-    Write-Host "       Details: $($_.Exception.Message)"
+    Write-Host "[KAMI] Error: Installation failed: $($_.Exception.Message)" -ForegroundColor Red
     exit 1
 }
 
-# PHASE 3: Handshake
+# PHASE 3: Handshake & Alias
 Write-Host ""
-Write-Host "[KAMI] Phase 3: Verifying installation & Setting alias..." -ForegroundColor Yellow
+Write-Host "[KAMI] Phase 3: Setting permanent alias..." -ForegroundColor Yellow
 
-# 3.1 Setup Permanent Alias
 try {
     $aliasName = "kami"
     $aliasCmd = "kamiflow"
@@ -86,25 +76,14 @@ try {
     if (!(Test-Path $PROFILE)) { New-Item -ItemType File -Path $PROFILE -Force | Out-Null }
 
     $profileContent = Get-Content $PROFILE -Raw
-    $aliasBlock = "`n# KamiFlow Alias`nfunction $aliasName { $aliasCmd `$args }"
+    $aliasBlock = "`n# KamiFlow Alias`nfunction $aliasName { kamiflow `$args }"
     
     if ($profileContent -notmatch "function $aliasName") {
         Add-Content -Path $PROFILE -Value $aliasBlock
         Write-Host "[KAMI] Success: Permanent alias '$aliasName' added to your profile." -ForegroundColor Green
-    } else {
-        Write-Host "[KAMI] Info: Alias '$aliasName' already exists in profile." -ForegroundColor Cyan
     }
 } catch {
     Write-Host "[KAMI] Warning: Failed to set permanent alias automatically." -ForegroundColor Yellow
-}
-
-try {
-    # Using specific executable name to verify path registration
-    $ver = kamiflow --version
-    Write-Host "[KAMI] Ready: KamiFlow CLI v$ver" -ForegroundColor Green
-} catch {
-    Write-Host "[KAMI] Warning: CLI installed but 'kamiflow' command not found yet." -ForegroundColor Yellow
-    Write-Host "       You may need to restart your terminal."
 }
 
 Write-Host ""

@@ -222,9 +222,9 @@ class Transpiler {
 
       // 2. Copy and rename templates
       const templateMappings = [
-        { src: "context.md", dest: ".kamiflow/PROJECT_CONTEXT.md" },
-        { src: "roadmap.md", dest: ".kamiflow/ROADMAP.md" },
-        { src: "gemini.md", dest: "GEMINI.md" },
+        { src: 'context.md', dest: '.kamiflow/PROJECT_CONTEXT.md' },
+        { src: 'roadmap.md', dest: '.kamiflow/ROADMAP.md' },
+        { src: 'gemini.md', dest: 'GEMINI.md' }
       ];
 
       for (const map of templateMappings) {
@@ -236,11 +236,37 @@ class Transpiler {
         }
       }
 
-      // 3. Generate Smart Ignores
+      // 3. Relocate and Patch Documentation
+      const sourceDocs = path.join(this.projectRoot, 'resources/docs');
+      const targetDocs = path.join(outputRoot, '.kamiflow/docs');
+      if (await fs.pathExists(sourceDocs)) {
+        await fs.copy(sourceDocs, targetDocs);
+        
+        // Patch links in the distributed docs to point to their new home
+        const walkDocs = async (dir) => {
+          const files = await fs.readdir(dir);
+          for (const file of files) {
+            const fullPath = path.join(dir, file);
+            if ((await fs.stat(fullPath)).isDirectory()) {
+              await walkDocs(fullPath);
+            } else if (file.endsWith('.md')) {
+              let content = await fs.readFile(fullPath, 'utf8');
+              // Replace "resources/docs/" with "./.kamiflow/docs/"
+              content = content.replace(/resources\/docs\//g, './.kamiflow/docs/');
+              await fs.writeFile(fullPath, content);
+            }
+          }
+        };
+        await walkDocs(targetDocs);
+        console.log(chalk.gray(`   📚 Docs assembled: .kamiflow/docs/`));
+      }
+
+      // 4. Generate Smart Ignores
       const gitIgnoreContent = `.kamiflow/archive/
 .kamiflow/ideas/
 .kamiflow/tasks/
 .kamiflow/handoff_logs/
+.kamiflow/docs/assets/
 .gemini/tmp/
 .gemini/cache/
 .backup/
@@ -249,6 +275,7 @@ class Transpiler {
 !.kamiflow/ideas/
 !.kamiflow/tasks/
 !.kamiflow/handoff_logs/
+!.kamiflow/docs/
 `;
 
       await fs.writeFile(path.join(outputRoot, '.gitignore'), gitIgnoreContent);

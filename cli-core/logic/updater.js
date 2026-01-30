@@ -65,25 +65,21 @@ async function updateLinkedMode(projectPath) {
   console.log(chalk.cyan("[UPDATER] Updating globally installed KamiFlow...\n"));
 
   try {
-    console.log(chalk.gray("[UPDATER] Running: npm install -g gemini-cli-kamiflow"));
-    await execa("npm", ["install", "-g", "gemini-cli-kamiflow"], {
-      stdio: "inherit",
-    });
+    const cliRoot = path.resolve(__dirname, "../../");
+    
+    console.log(chalk.gray("[UPDATER] Pulling latest changes..."));
+    await execa("git", ["pull"], { cwd: cliRoot, stdio: "inherit" });
 
-    console.log(chalk.green("\n[UPDATER] ✓ Global package updated successfully"));
+    console.log(chalk.gray("[UPDATER] Installing dependencies..."));
+    await execa("npm", ["install"], { cwd: cliRoot, stdio: "inherit" });
 
-    const geminiPath = path.join(projectPath, ".gemini");
-    const stats = await fs.lstat(geminiPath);
-    if (stats.isSymbolicLink()) {
-      const target = await fs.readlink(geminiPath);
-      console.log(chalk.gray(`[UPDATER] Symlink target: ${target}`));
-      console.log(chalk.green("[UPDATER] ✓ Portals will reflect the new version"));
-    }
+    console.log(chalk.yellow("[UPDATER] Building distribution artifacts..."));
+    await execa("npm", ["run", "build"], { cwd: cliRoot, stdio: "inherit" });
 
+    console.log(chalk.green("\n[UPDATER] ✓ Global package updated and built successfully"));
     return true;
   } catch (error) {
-    console.log(chalk.red(`\n[UPDATER] ✗ Global update failed: ${error.message}`));
-    console.log(chalk.yellow("[UPDATER] You may need to run with elevated permissions"));
+    console.log(chalk.red(`\n[UPDATER] ✗ Update failed: ${error.message}`));
     return false;
   }
 }

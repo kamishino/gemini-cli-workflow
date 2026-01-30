@@ -95,7 +95,12 @@ function cloneRepo() {
 
 function installAndLink() {
   console.log("📦 Installing dependencies and linking CLI...");
-  execSync("npm install --production", { cwd: INSTALL_DIR, stdio: "inherit" });
+  // We need devDependencies (like cross-env) to run the build script
+  execSync("npm install", { cwd: INSTALL_DIR, stdio: "inherit" });
+  
+  console.log(chalk.yellow("🏗️  Building distribution artifacts..."));
+  execSync("npm run build", { cwd: INSTALL_DIR, stdio: "inherit" });
+
   console.log(chalk.gray("🔗 Linking globally..."));
   execSync("npm install -g .", { cwd: INSTALL_DIR, stdio: "inherit" });
 }
@@ -145,7 +150,6 @@ async function initializeProject(cwd, options = {}) {
       // DEV MODE: Create Portals (Symlinks/Junctions)
       console.log(chalk.gray('🔗 Creating portals to source blueprints...'));
       
-      // Source folders to link
       const links = [
         { src: '.gemini', dest: '.gemini' },
         { src: '.windsurf', dest: '.windsurf' }
@@ -154,63 +158,38 @@ async function initializeProject(cwd, options = {}) {
       for (const link of links) {
         const target = path.join(cliRoot, link.src);
         const p = path.join(cwd, link.dest);
-        
-        // Use Junction on Windows for directories to avoid admin requirement
         const type = os.platform() === 'win32' ? 'junction' : 'dir';
         await fs.ensureSymlink(target, p, type);
         console.log(chalk.gray(`   ✅ Linked: ${link.dest} -> ${target}`));
       }
-    } else {
-      // STANDARD MODE: Copy from dist/
-      const sourceDist = path.join(cliRoot, 'dist');
-      const sourceGemini = path.join(sourceDist, '.gemini');
 
-      if (!fs.existsSync(sourceGemini)) {
-        throw new Error(`Critical: Build artifacts not found at ${sourceGemini}. Please run 'npm run build' in KamiFlow core.`);
+      const targetDocs = path.join(cwd, 'resources/docs');
+      await fs.ensureSymlink(path.join(cliRoot, 'resources/docs'), targetDocs, os.platform() === 'win32' ? 'junction' : 'dir');
+    } else {
+      // STANDARD MODE: Copy everything from dist/
+      const sourceDist = path.join(cliRoot, 'dist');
+
+      if (!fs.existsSync(sourceDist)) {
+        throw new Error(`Critical: Build artifacts not found at ${sourceDist}. Please run 'npm run build' in KamiFlow core.`);
       }
 
       console.log(chalk.gray(`📦 Copying distribution files from ${sourceDist}...`));
       
-      // Copy .gemini
-      fs.cpSync(sourceGemini, projectGeminiPath, { recursive: true });
-      
-      // Copy .windsurf (from core source as it might not be in dist if not transpiled)
-      const sourceWindsurf = path.join(cliRoot, '.windsurf');
-      if (fs.existsSync(sourceWindsurf)) {
-        fs.cpSync(sourceWindsurf, path.join(cwd, '.windsurf'), { recursive: true });
-      }
-
-      // Copy GEMINI.md if exists in dist
-      const sourceGeminiMd = path.join(sourceDist, 'GEMINI.md');
-      if (fs.existsSync(sourceGeminiMd)) {
-        fs.copyFileSync(sourceGeminiMd, path.join(cwd, 'GEMINI.md'));
-      }
-    }
-
-    // 3.1 Perform Copy (docs folder - NEW SSOT)
-    // In Dev mode, maybe link docs? User said Contributor Solution should distinguish.
-    // For now, let's keep docs as physical copies or linked?
-    // User priority is End-User. Let's keep docs copied for both for now, or link for dev.
-    if (isDevMode) {
-        const targetDocs = path.join(cwd, 'resources/docs');
-        await fs.ensureSymlink(path.join(cliRoot, 'resources/docs'), targetDocs, os.platform() === 'win32' ? 'junction' : 'dir');
-    } else {
-        const sourceDocs = path.join(cliRoot, 'resources/docs');
-        const targetDocs = path.join(cwd, 'resources/docs');
-        if (fs.existsSync(sourceDocs)) {
-          console.log(chalk.gray('📦 Syncing documentation and blueprints...'));
-          fs.cpSync(sourceDocs, targetDocs, { recursive: true });
+      // Copy the entire dist folder content to the user project
+      fs.cpSync(sourceDist, cwd, { 
+        recursive: true,
+        filter: (src) => {
+          const basename = path.basename(src);
+          // Exclude internal build artifacts if any (though dist should be clean)
+          return basename !== '.git' && basename !== 'node_modules';
         }
+      });
     }
 
-    // 4. Create necessary empty dirs
-    const systemDirs = ['.gemini/tmp', '.gemini/cache', '.backup'];
+
+
+    // 4. Create necessary empty dirs (Only private data placeholders)
     const workspaceDirs = ['tasks', 'archive', 'ideas/draft', 'ideas/discovery', 'ideas/backlog', 'handoff_logs'];
-
-    for (const dir of systemDirs) {
-      const d = path.join(cwd, dir);
-      if (!fs.existsSync(d)) fs.mkdirSync(d, { recursive: true });
-    }
 
     for (const dir of workspaceDirs) {
       const d = path.join(workspaceRoot, dir);
@@ -219,33 +198,6 @@ async function initializeProject(cwd, options = {}) {
 
     // 5. Update .gitignore
     updateGitIgnore(cwd);
-
-    // 6. Project Context Bootstrap
-    const contextPath = path.join(workspaceRoot, 'PROJECT_CONTEXT.md');
-    if (!fs.existsSync(contextPath)) {
-      console.log(chalk.green('📄 Creating PROJECT_CONTEXT.md...'));
-      const templateContext = path.join(cliRoot, 'resources/templates/context.md');
-      if (fs.existsSync(templateContext)) {
-         fs.copyFileSync(templateContext, contextPath);
-      } else {
-         fs.writeFileSync(contextPath, '# Project Context\n\nRun /kamiflow:ops:wake to initialize.');
-      }
-    }
-
-    // 6.1 Additional Seeds (Registry & Agent Rules)
-    const seeds = [
-      { src: 'resources/templates/registry.md', dest: 'registry.md' },
-      { src: 'resources/templates/universal-agent-rules.md', dest: 'universal-agent-rules.md' },
-      { src: 'resources/templates/roadmap.md', dest: 'ROADMAP.md' }
-    ];
-
-    for (const seed of seeds) {
-      const sPath = path.join(cliRoot, seed.src);
-      const dPath = path.join(workspaceRoot, seed.dest);
-      if (fs.existsSync(sPath) && !fs.existsSync(dPath)) {
-        fs.copyFileSync(sPath, dPath);
-      }
-    }
 
     return { success: true, message: 'KamiFlow initialized successfully!' };
 
