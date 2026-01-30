@@ -6,7 +6,7 @@ const logger = require("../utils/logger");
 const { initializeProject } = require("../logic/installer");
 const { runDoctor } = require("../logic/doctor");
 const { runUpdate } = require("../logic/updater");
-const path = require("path");
+const path = require('upath');
 const fs = require("fs-extra");
 
 const program = new Command();

@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-const path = require('path');
+const path = require('upath');
 const os = require('os');
 const logger = require('../utils/logger');
 

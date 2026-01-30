@@ -1,5 +1,5 @@
 const { execSync } = require('child_process');
-const path = require('path');
+const path = require('upath');
 const chalk = require('chalk');
 const fs = require('fs');
 

@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-const path = require('path');
+const path = require('upath');
 const logger = require('../utils/logger');
 const { backupFile, safeWrite } = require('../utils/fs-vault');
 const { validateTomlFile } = require('../validators/toml-validator');

@@ -11,7 +11,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Implemented Targeted Governance (Task 090) - Classified rules into 'Global' and 'Local' tiers, upgraded Transpiler to support environment-aware distribution (excluded internal maintenance rules from production build).
+- **Last Completed Action:** Implemented Universal Core Paths (Task 091) - Replaced Node.js native 'path' with 'upath' across all cli-core logic, scripts, and utilities to ensure consistent POSIX path handling across all platforms (Windows, WSL, MacOS).
 - **Current Focus:** Final stabilization and public release preparation.
 - **Next Step:** Official public rollout and community onboarding.
 

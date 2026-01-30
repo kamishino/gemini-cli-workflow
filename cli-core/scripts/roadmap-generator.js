@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-const path = require('path');
+const path = require('upath');
 const chalk = require('chalk');
 const os = require('os');
 const { EnvironmentManager } = require('../logic/env-manager');

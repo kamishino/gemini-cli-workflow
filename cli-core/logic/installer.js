@@ -6,7 +6,7 @@
  */
 
 const fs = require("fs-extra");
-const path = require("path");
+const path = require('upath');
 const os = require("os");
 const chalk = require("chalk");
 const { execSync } = require("child_process");

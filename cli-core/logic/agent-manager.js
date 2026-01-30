@@ -1,5 +1,5 @@
 const fs = require("fs-extra");
-const path = require("path");
+const path = require('upath');
 const chalk = require("chalk");
 
 const PROJECT_ROOT = path.resolve(__dirname, "../../");

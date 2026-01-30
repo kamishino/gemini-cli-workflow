@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-const path = require('path');
+const path = require('upath');
 const logger = require('./logger');
 const { EnvironmentManager } = require('../logic/env-manager');
 
@@ -24,7 +24,7 @@ async function backupFile(filePath) {
       await fs.ensureDir(path.dirname(backupPath));
       await fs.copy(absoluteFilePath, backupPath, { overwrite: true });
       
-      const displayPath = relativePath.replace(/\\/g, '/');
+      const displayPath = relativePath;
       logger.hint(`Backup saved to: .backup/${displayPath}`);
       return backupPath;
     }

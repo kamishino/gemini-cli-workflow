@@ -1,7 +1,7 @@
 const { execa } = require("execa");
 const chalk = require("chalk");
 const fs = require("fs-extra");
-const path = require("path");
+const path = require('upath');
 
 async function isGitRepo(targetPath) {
   try {
