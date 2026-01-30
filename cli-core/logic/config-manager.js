@@ -12,6 +12,8 @@ const ConfigSchema = z.object({
   strategy: z.enum(["FAST", "BALANCED", "AMBITIOUS"]).default("BALANCED"),
   maxRetries: z.number().min(0).max(10).default(3),
   maxBackups: z.number().min(1).max(20).default(5),
+  gatedAutomation: z.boolean().default(true),
+  executionMode: z.enum(["Planner", "Implementer"]).default("Implementer"),
   currentEnv: z.string().default("development"),
   environments: z.record(z.object({
     workspaceRoot: z.string(),

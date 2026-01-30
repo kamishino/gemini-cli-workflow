@@ -9,6 +9,7 @@
 
 ### MANDATORY Actions:
 - [ ] **Context Anchoring:** Read `./.kamiflow/PROJECT_CONTEXT.md` to refresh memory.
+- [ ] **Configuration Awareness:** Read `./.kamirc.json` to identify `gatedAutomation` and `executionMode`.
 - [ ] **Conflict Detection:** Check for contradictions (e.g., "Fast" vs "High Complexity").
 - [ ] **STOP:** If conflicts exist, alert the user and resolve before proceeding.
 
@@ -19,7 +20,9 @@
 ### MANDATORY Actions:
 - [ ] **Diagnosis:** Ask 3-5 probing questions informed by Phase 0.
 - [ ] **Synthesis:** Generate 3 distinct approaches (A/B/C) with **Star Ratings**.
-- [ ] **The Strategic Gate:** STOP and wait for user approval.
+- [ ] **The Strategic Gate:** 
+    - IF `gatedAutomation == true`, you MUST STOP and wait for user approval.
+    - IF `gatedAutomation == false`, perform a "Strategic Reflection" and auto-select Option B.
 
 ---
 
@@ -30,6 +33,7 @@
 ### MANDATORY Actions:
 - [ ] **Lock 1 (Context Anchoring):** Read `PROJECT_CONTEXT.md` to prevent "Session Amnesia".
 - [ ] **Lock 2 (Schema-First):** Define Data Models, Interfaces, or Schemas BEFORE any business logic.
+- [ ] **Planner Exit:** IF `executionMode == "Planner"`, finalize after creating S2-SPEC and S3-BUILD. Do NOT execute code.
 - [ ] **Outcome:** Produce a technical blueprint (User Stories, API Signatures, Edge Cases).
 
 ---

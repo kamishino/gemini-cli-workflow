@@ -3,6 +3,8 @@
   "strategy": "BALANCED",
   "maxRetries": 3,
   "maxBackups": 5,
+  "gatedAutomation": true,
+  "executionMode": "Implementer",
   "currentEnv": "development",
   "environments": {
     "development": {

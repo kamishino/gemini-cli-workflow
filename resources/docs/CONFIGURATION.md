@@ -32,6 +32,9 @@ To override a setting, create a file named `.kamirc.json` in either your project
 | `language` | `"english"` | The language the AI will use to talk to you. (e.g., `vietnamese`). |
 | `strategy` | `"BALANCED"` | Execution strategy for the Sniper Model: `FAST` (speed), `BALANCED` (default), `AMBITIOUS` (full-featured). |
 | `maxRetries` | `3` | Number of times the AI will attempt to self-heal code errors during implementation. |
+| `maxBackups` | `5` | Maximum number of historical versions to keep in `.kamiflow/.backup/`. |
+| `gatedAutomation` | `true` | If `true`, the AI MUST stop for user approval at strategic gates (Phase 1/2). |
+| `executionMode` | `"Implementer"` | `Planner` stops after specification; `Implementer` completes the full cycle. |
 | `seed.minFeasibility` | `0.7` | The minimum feasibility score required to promote an idea to the backlog. |
 | `currentEnv` | `"development"`| Fallback environment if `KAMI_ENV` or `NODE_ENV` is not set. |
 
