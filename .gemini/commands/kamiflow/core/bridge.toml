@@ -8,8 +8,8 @@ prompt = '''
 
 **CRITICAL:** Before processing any request, you MUST:
 
-1. Read `.kamiflow/workspace/PROJECT_CONTEXT.md` to understand the current Project Phase, Tech Stack, and Active Task.
-2. Read `.kamiflow/workspace/ROADMAP.md` to align with the strategic vision.
+1. Read `./.kamiflow/PROJECT_CONTEXT.md` to understand the current Project Phase, Tech Stack, and Active Task.
+2. Read `./.kamiflow/ROADMAP.md` to align with the strategic vision.
 3. If this is a resumption of a session, check your memory for `cached_max_id`.
 
 ## 1. IDENTITY & CONTEXT
@@ -31,7 +31,7 @@ Gather and format the following:
 4. **Documentation Contract:** A list of files that MUST be updated (README, ROADMAP, etc.).
 
 ### Step 3: File Generation
-Use `write_file` to create `.kamiflow/workspace/tasks/[ID]-S4-HANDOFF-[slug].md`.
+Use `write_file` to create `./.kamiflow/tasks/[ID]-S4-HANDOFF-[slug].md`.
 
 ## 3. OUTPUT FORMAT
 The generated file MUST be a self-contained "Prompt" for the IDE AI.
@@ -43,8 +43,8 @@ The generated file MUST be a self-contained "Prompt" for the IDE AI.
 [Summarize goal]
 
 ## 2. Source of Truth 📖
-- **BUILD Plan:** .kamiflow/workspace/tasks/[ID]-S3-BUILD-[slug].md
-- **Specification:** .kamiflow/workspace/tasks/[ID]-S2-SPEC-[slug].md
+- **BUILD Plan:** ./.kamiflow/tasks/[ID]-S3-BUILD-[slug].md
+- **Specification:** ./.kamiflow/tasks/[ID]-S2-SPEC-[slug].md
 
 ## 3. Mandatory Constraints 🛡️
 - No files > 300 lines.
@@ -52,12 +52,12 @@ The generated file MUST be a self-contained "Prompt" for the IDE AI.
 - Valid input/schema checks.
 
 ## 4. Immediate Action ⚡
-Please execute the implementation tasks in: `.kamiflow/workspace/tasks/[ID]-S3-BUILD-[slug].md`.
+Please execute the implementation tasks in: `./.kamiflow/tasks/[ID]-S3-BUILD-[slug].md`.
 
 ## 5. 📚 Documentation Contract
 You MUST update these files upon completion:
-- `.kamiflow/workspace/PROJECT_CONTEXT.md` (Active Status)
-- `docs/.kamiflow/workspace/ROADMAP.md` (Check off tasks)
+- `./.kamiflow/PROJECT_CONTEXT.md` (Active Status)
+- `./.kamiflow/ROADMAP.md` (Check off tasks)
 - `README.md` (If feature is public)
 
 ## 6. EXIT PROTOCOL 🔄
@@ -65,7 +65,7 @@ Create a log at `docs/handoff_logs/YYYY-MM-DD_HHMM_[slug].md`.
 ```
 
 ## 4. INTERACTION RULES
-- After generating, ask: "Do you want me to save this to `.kamiflow/workspace/tasks/[ID]-S4-HANDOFF-[slug].md`? (Y/N)"
+- After generating, ask: "Do you want me to save this to `./.kamiflow/tasks/[ID]-S4-HANDOFF-[slug].md`? (Y/N)"
 - If user confirms, prompt: "Handoff file created. Copy its content into your IDE AI chat to begin."
 
 ## 5. TONE

@@ -8,8 +8,8 @@ prompt = '''
 
 **CRITICAL:** Before processing any request, you MUST:
 
-1. Read `.kamiflow/workspace/PROJECT_CONTEXT.md` to understand the current Project Phase, Tech Stack, and Active Task.
-2. Read `.kamiflow/workspace/ROADMAP.md` to align with the strategic vision.
+1. Read `./.kamiflow/PROJECT_CONTEXT.md` to understand the current Project Phase, Tech Stack, and Active Task.
+2. Read `./.kamiflow/ROADMAP.md` to align with the strategic vision.
 3. If this is a resumption of a session, check your memory for `cached_max_id`.
 
 ## 1. IDENTITY & CONTEXT
@@ -62,17 +62,17 @@ if ($isDevMode) {
 
 ## 3. CONTEXT RELOAD PROTOCOL
 1.  Read `GEMINI.md`: Ingest system instructions and persona
-2.  Read `.kamiflow/workspace/PROJECT_CONTEXT.md`: Load current project state, last actions, and focus
-3.  Read `docs/.kamiflow/workspace/ROADMAP.md`: Load project vision and progress status
+2.  Read `./.kamiflow/PROJECT_CONTEXT.md`: Load current project state, last actions, and focus
+3.  Read `./.kamiflow/ROADMAP.md`: Load project vision and progress status
 4.  Initialize ID Cache (The Scout): Follow "@.gemini/rules/id-protocol.md"
-    - Scan ".kamiflow/workspace/tasks/" and ".kamiflow/workspace/archive/" recursively for all markdown files
+    - Scan "./.kamiflow/tasks/" and "./.kamiflow/archive/" recursively for all markdown files
     - Extract IDs using regex "^([0-9]{3})"
     - Calculate: MAX_ID = MAX(all discovered IDs)
     - Store MAX_ID in session memory for fast access during /idea, /lazy, /superlazy
 5.  Status Report: Provide a concise summary of the current project state.
 6.  Detect Onboarding: 
-    - Check if `.kamiflow/workspace/PROJECT_CONTEXT.md` contains "{{PROJECT_NAME}}" (Template state).
-    - Check if `.kamiflow/workspace/PROJECT_CONTEXT.md` has "Tour Completed: false".
+    - Check if `./.kamiflow/PROJECT_CONTEXT.md` contains "{{PROJECT_NAME}}" (Template state).
+    - Check if `./.kamiflow/PROJECT_CONTEXT.md` has "Tour Completed: false".
     - If either is true, activate **ONBOARDING MODE**.
 
 ## 4. OUTPUT FORMAT
@@ -100,8 +100,8 @@ If the project is configured and tour is completed.
 
 ### 📚 Context Files Status
 - `GEMINI.md`: ✅ Loaded
-- `.kamiflow/workspace/PROJECT_CONTEXT.md`: ✅ Loaded  
-- `docs/.kamiflow/workspace/ROADMAP.md`: ✅ Loaded
+- `./.kamiflow/PROJECT_CONTEXT.md`: ✅ Loaded  
+- `./.kamiflow/ROADMAP.md`: ✅ Loaded
 
 ### 🔍 ID Cache Initialized
 **MAX ID Found:** [Display the cached MAX_ID]
@@ -151,11 +151,11 @@ If "{{PROJECT_NAME}}" is found OR "Tour Completed: false".
 ## 5. INTERACTION LOGIC (ONBOARDING)
 If Case B is active:
 1. After user replies with project details, you MUST immediately:
-   - Use "replace" or "write_file" to update ".kamiflow/workspace/PROJECT_CONTEXT.md".
+   - Use "replace" or "write_file" to update "./.kamiflow/PROJECT_CONTEXT.md".
    - Update "{{PROJECT_NAME}}", "{{PROJECT_GOAL}}", "{{KEY_TECH_STACK}}".
    - Set "{{CURRENT_PHASE}}" to "Discovery".
    - Set "{{LAST_COMPLETED_ACTION}}" to "Project Initialized via /wake".
-   - Update "docs/.kamiflow/workspace/ROADMAP.md" with the Project Name.
+   - Update "./.kamiflow/ROADMAP.md" with the Project Name.
    - Update "GEMINI.md" line 14 ("- **Conversational Language:** [Chosen Language]").
 2. After initialization, ask: "✅ Project initialized! Would you like to start the **Guided Tour** (/kamiflow:ops:tour) to see how KamiFlow works?"
 
@@ -165,6 +165,6 @@ If Case B is active:
 - **Onboarding:** Encouraging and proactive for new projects.
 
 ## 7. ERROR HANDLING
-- If `.kamiflow/workspace/PROJECT_CONTEXT.md` is missing or empty: Suggest running `/kamiflow:ops:save-context`.
-- If `.kamiflow/workspace/ROADMAP.md` is missing: Suggest running `/kamiflow:ops:roadmap`.
+- If `./.kamiflow/PROJECT_CONTEXT.md` is missing or empty: Suggest running `/kamiflow:ops:save-context`.
+- If `./.kamiflow/ROADMAP.md` is missing: Suggest running `/kamiflow:ops:roadmap`.
 '''

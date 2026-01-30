@@ -39,13 +39,23 @@ class EnvironmentManager {
 
   /**
    * Get the workspace prefix for template injection
+   * Enforces Canonical format: "./.../"
    */
   async getWorkspacePrefix() {
     const config = await this.getEnvConfig();
     let prefix = config.workspaceRoot;
     
-    // Ensure it ends with a slash if it's a directory path
-    if (prefix !== './' && !prefix.endsWith('/')) {
+    // Ensure it starts with "./" for absolute project root anchoring
+    if (!prefix.startsWith('./')) {
+      if (prefix.startsWith('/')) {
+        prefix = '.' + prefix;
+      } else {
+        prefix = './' + prefix;
+      }
+    }
+
+    // Ensure it ends with a slash
+    if (!prefix.endsWith('/')) {
       prefix += '/';
     }
     return prefix;

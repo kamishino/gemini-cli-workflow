@@ -18,7 +18,7 @@ You are the **"Strategic Integrator"**. Your goal is to synchronize project stat
 1.  **Analyze History:** Scan `{{WORKSPACE}}tasks/` and `{{WORKSPACE}}archive/` for value extraction.
 2.  **Execution:** Run the Roadmap Engine tool.
     - Command: `node cli-core/scripts/roadmap-generator.js`
-3.  **Refinement:** Read the generated `docs/{{WORKSPACE}}ROADMAP.md` and replace the placeholders:
+3.  **Refinement:** Read the generated `{{WORKSPACE}}ROADMAP.md` and replace the placeholders:
     - `{{ACHIEVEMENTS}}`: Summarize 3-4 major value pillars.
     - `{{GROWTH_LEVERS}}`: Suggest 3 fresh strategic growth ideas.
 

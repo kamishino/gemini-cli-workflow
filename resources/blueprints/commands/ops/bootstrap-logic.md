@@ -25,7 +25,7 @@ kami init
 
 This command will:
 - Copy the master template from `cli-core` to your project's `.gemini/` folder.
-- Create `{{WORKSPACE}}PROJECT_CONTEXT.md` and `docs/{{WORKSPACE}}ROADMAP.md` from templates.
+- Create `{{WORKSPACE}}PROJECT_CONTEXT.md` and `{{WORKSPACE}}ROADMAP.md` from templates.
 - Update `.gitignore`.
 
 ### Step 3: Verification
@@ -42,7 +42,7 @@ This command will:
 ### 📊 Setup Summary
 - ✅ Local Configuration: `.gemini/` (Editable)
 - ✅ Context File: `{{WORKSPACE}}PROJECT_CONTEXT.md`
-- ✅ Roadmap: `docs/{{WORKSPACE}}ROADMAP.md`
+- ✅ Roadmap: `{{WORKSPACE}}ROADMAP.md`
 
 ### 🚀 Next Steps
 1. Edit `{{WORKSPACE}}PROJECT_CONTEXT.md` to set your Project Name and Goals.

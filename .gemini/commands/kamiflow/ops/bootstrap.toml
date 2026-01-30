@@ -8,8 +8,8 @@ prompt = '''
 
 **CRITICAL:** Before processing any request, you MUST:
 
-1. Read `.kamiflow/workspace/PROJECT_CONTEXT.md` to understand the current Project Phase, Tech Stack, and Active Task.
-2. Read `.kamiflow/workspace/ROADMAP.md` to align with the strategic vision.
+1. Read `./.kamiflow/PROJECT_CONTEXT.md` to understand the current Project Phase, Tech Stack, and Active Task.
+2. Read `./.kamiflow/ROADMAP.md` to align with the strategic vision.
 3. If this is a resumption of a session, check your memory for `cached_max_id`.
 
 ## 1. IDENTITY & CONTEXT
@@ -32,11 +32,11 @@ kami init
 
 This command will:
 - Copy the master template from `cli-core` to your project's `.gemini/` folder.
-- Create `.kamiflow/workspace/PROJECT_CONTEXT.md` and `docs/.kamiflow/workspace/ROADMAP.md` from templates.
+- Create `./.kamiflow/PROJECT_CONTEXT.md` and `./.kamiflow/ROADMAP.md` from templates.
 - Update `.gitignore`.
 
 ### Step 3: Verification
-1.  Check for `.kamiflow/workspace/PROJECT_CONTEXT.md`.
+1.  Check for `./.kamiflow/PROJECT_CONTEXT.md`.
 2.  Check for `.gemini/GEMINI.md`.
 
 ## 3. OUTPUT FORMAT
@@ -48,11 +48,11 @@ This command will:
 
 ### 📊 Setup Summary
 - ✅ Local Configuration: `.gemini/` (Editable)
-- ✅ Context File: `.kamiflow/workspace/PROJECT_CONTEXT.md`
-- ✅ Roadmap: `docs/.kamiflow/workspace/ROADMAP.md`
+- ✅ Context File: `./.kamiflow/PROJECT_CONTEXT.md`
+- ✅ Roadmap: `./.kamiflow/ROADMAP.md`
 
 ### 🚀 Next Steps
-1. Edit `.kamiflow/workspace/PROJECT_CONTEXT.md` to set your Project Name and Goals.
+1. Edit `./.kamiflow/PROJECT_CONTEXT.md` to set your Project Name and Goals.
 2. Run `/kamiflow:ops:wake` to load the new context.
 ```
 

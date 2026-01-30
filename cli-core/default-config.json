@@ -5,11 +5,11 @@
   "maxRetries": 3,
   "environments": {
     "development": {
-      "workspaceRoot": ".kamiflow/workspace",
+      "workspaceRoot": "./.kamiflow",
       "outputTargets": ["."]
     },
     "production": {
-      "workspaceRoot": "./",
+      "workspaceRoot": "./.kamiflow",
       "outputTargets": ["dist"]
     }
   },

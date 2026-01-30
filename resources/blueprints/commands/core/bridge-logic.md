@@ -50,7 +50,7 @@ Please execute the implementation tasks in: `{{WORKSPACE}}tasks/[ID]-S3-BUILD-[s
 ## 5. 📚 Documentation Contract
 You MUST update these files upon completion:
 - `{{WORKSPACE}}PROJECT_CONTEXT.md` (Active Status)
-- `docs/{{WORKSPACE}}ROADMAP.md` (Check off tasks)
+- `{{WORKSPACE}}ROADMAP.md` (Check off tasks)
 - `README.md` (If feature is public)
 
 ## 6. EXIT PROTOCOL 🔄

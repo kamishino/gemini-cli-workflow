@@ -19,7 +19,7 @@ Run the Roadmap Engine tool:
 - Command: `node cli-core/scripts/roadmap-generator.js`
 
 ### Step 3: Semantic Refinement
-Read the newly generated `docs/{{WORKSPACE}}ROADMAP.md` and replace the placeholders:
+Read the newly generated `{{WORKSPACE}}ROADMAP.md` and replace the placeholders:
 - `{{ACHIEVEMENTS}}`: Replace with your summarized value pillars.
 - `{{GROWTH_LEVERS}}`: Suggest 3 strategic ideas for the future based on project goals.
 

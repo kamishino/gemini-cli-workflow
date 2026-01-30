@@ -56,7 +56,7 @@ if ($isDevMode) {
 ## 3. CONTEXT RELOAD PROTOCOL
 1.  Read `GEMINI.md`: Ingest system instructions and persona
 2.  Read `{{WORKSPACE}}PROJECT_CONTEXT.md`: Load current project state, last actions, and focus
-3.  Read `docs/{{WORKSPACE}}ROADMAP.md`: Load project vision and progress status
+3.  Read `{{WORKSPACE}}ROADMAP.md`: Load project vision and progress status
 4.  Initialize ID Cache (The Scout): Follow "@.gemini/rules/id-protocol.md"
     - Scan "{{WORKSPACE}}tasks/" and "{{WORKSPACE}}archive/" recursively for all markdown files
     - Extract IDs using regex "^([0-9]{3})"
@@ -94,7 +94,7 @@ If the project is configured and tour is completed.
 ### 📚 Context Files Status
 - `GEMINI.md`: ✅ Loaded
 - `{{WORKSPACE}}PROJECT_CONTEXT.md`: ✅ Loaded  
-- `docs/{{WORKSPACE}}ROADMAP.md`: ✅ Loaded
+- `{{WORKSPACE}}ROADMAP.md`: ✅ Loaded
 
 ### 🔍 ID Cache Initialized
 **MAX ID Found:** [Display the cached MAX_ID]
@@ -148,7 +148,7 @@ If Case B is active:
    - Update "{{PROJECT_NAME}}", "{{PROJECT_GOAL}}", "{{KEY_TECH_STACK}}".
    - Set "{{CURRENT_PHASE}}" to "Discovery".
    - Set "{{LAST_COMPLETED_ACTION}}" to "Project Initialized via /wake".
-   - Update "docs/{{WORKSPACE}}ROADMAP.md" with the Project Name.
+   - Update "{{WORKSPACE}}ROADMAP.md" with the Project Name.
    - Update "GEMINI.md" line 14 ("- **Conversational Language:** [Chosen Language]").
 2. After initialization, ask: "✅ Project initialized! Would you like to start the **Guided Tour** (/kamiflow:ops:tour) to see how KamiFlow works?"
 

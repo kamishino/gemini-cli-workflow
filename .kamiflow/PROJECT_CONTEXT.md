@@ -11,7 +11,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Implemented Dist Distribution Config (Task 074) - Automated project template assembly for End-Users.
+- **Last Completed Action:** Implemented Canonical Workspace Path Sync (Task 075) - Flattened structure to ./.kamiflow/ and unified AI paths across all environments.
 - **Current Focus:** Final stabilization and public release preparation.
 - **Next Step:** Official public rollout and community onboarding.
 

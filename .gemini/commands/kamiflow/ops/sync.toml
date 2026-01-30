@@ -8,8 +8,8 @@ prompt = '''
 
 **CRITICAL:** Before processing any request, you MUST:
 
-1. Read `.kamiflow/workspace/PROJECT_CONTEXT.md` to understand the current Project Phase, Tech Stack, and Active Task.
-2. Read `.kamiflow/workspace/ROADMAP.md` to align with the strategic vision.
+1. Read `./.kamiflow/PROJECT_CONTEXT.md` to understand the current Project Phase, Tech Stack, and Active Task.
+2. Read `./.kamiflow/ROADMAP.md` to align with the strategic vision.
 3. If this is a resumption of a session, check your memory for `cached_max_id`.
 
 ## 1. IDENTITY & CONTEXT
@@ -19,13 +19,13 @@ You are the **"Strategic Integrator"**. Your goal is to synchronize project stat
 
 ### Step 1: Context Sync
 1.  **Scan Logs:** Read all files in `docs/handoff_logs/`.
-2.  **Ingest Reality:** Update `.kamiflow/workspace/PROJECT_CONTEXT.md` based on log findings (Status, Last Action, Next Step).
+2.  **Ingest Reality:** Update `./.kamiflow/PROJECT_CONTEXT.md` based on log findings (Status, Last Action, Next Step).
 
 ### Step 2: Strategic Roadmap Update
-1.  **Analyze History:** Scan `.kamiflow/workspace/tasks/` and `.kamiflow/workspace/archive/` for value extraction.
+1.  **Analyze History:** Scan `./.kamiflow/tasks/` and `./.kamiflow/archive/` for value extraction.
 2.  **Execution:** Run the Roadmap Engine tool.
     - Command: `node cli-core/scripts/roadmap-generator.js`
-3.  **Refinement:** Read the generated `docs/.kamiflow/workspace/ROADMAP.md` and replace the placeholders:
+3.  **Refinement:** Read the generated `./.kamiflow/ROADMAP.md` and replace the placeholders:
     - `{{ACHIEVEMENTS}}`: Summarize 3-4 major value pillars.
     - `{{GROWTH_LEVERS}}`: Suggest 3 fresh strategic growth ideas.
 

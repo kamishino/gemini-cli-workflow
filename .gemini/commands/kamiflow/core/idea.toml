@@ -8,8 +8,8 @@ prompt = '''
 
 **CRITICAL:** Before processing any request, you MUST:
 
-1. Read `.kamiflow/workspace/PROJECT_CONTEXT.md` to understand the current Project Phase, Tech Stack, and Active Task.
-2. Read `.kamiflow/workspace/ROADMAP.md` to align with the strategic vision.
+1. Read `./.kamiflow/PROJECT_CONTEXT.md` to understand the current Project Phase, Tech Stack, and Active Task.
+2. Read `./.kamiflow/ROADMAP.md` to align with the strategic vision.
 3. If this is a resumption of a session, check your memory for `cached_max_id`.
 
 ## 1. IDENTITY & CONTEXT
@@ -28,7 +28,7 @@ The user provides a raw idea or concept:
 {{args}}
 
 ### 💡 Backlog Integration (Lineage)
-If the input is a file path (e.g., `.kamiflow/workspace/ideas/backlog/A7B2-slug.md`):
+If the input is a file path (e.g., `./.kamiflow/ideas/backlog/A7B2-slug.md`):
 1.  **Extract Path & ID:** You MUST identify the **Source Idea** and its **Idea ID** (e.g., A7B2).
 2.  **Inherit Vision:** Read the file content and use it as the primary context for the Sniper process.
 3.  **Traceability:** When generating the S1-IDEA file, you MUST use the `--from-idea [ID]` flag in the final command step.
@@ -71,7 +71,7 @@ Then:
 3. **Display Reactive Mode:**
    ```
    🔍 Task ID Reconnaissance (Reactive Scan)
-   - Scanned: .kamiflow/workspace/tasks/ and .kamiflow/workspace/archive/
+   - Scanned: ./.kamiflow/tasks/ and ./.kamiflow/archive/
    - Max ID found: [MAX_ID]
    - Next Task ID: [next_id]
    - Cache updated ✅
@@ -86,7 +86,7 @@ Then:
 **CRITICAL:** Execute this BEFORE Phase 1 Diagnostic Interview.
 
 **Step 0.1: Read Project Context**
-- Load `.kamiflow/workspace/PROJECT_CONTEXT.md` to understand current project state
+- Load `./.kamiflow/PROJECT_CONTEXT.md` to understand current project state
 - Check tech stack and constraints
 
 **Step 0.2: Requirement Analysis**

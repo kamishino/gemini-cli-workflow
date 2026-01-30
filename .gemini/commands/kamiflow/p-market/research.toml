@@ -8,8 +8,8 @@ prompt = '''
 
 **CRITICAL:** Before processing any request, you MUST:
 
-1. Read `.kamiflow/workspace/PROJECT_CONTEXT.md` to understand the current Project Phase, Tech Stack, and Active Task.
-2. Read `.kamiflow/workspace/ROADMAP.md` to align with the strategic vision.
+1. Read `./.kamiflow/PROJECT_CONTEXT.md` to understand the current Project Phase, Tech Stack, and Active Task.
+2. Read `./.kamiflow/ROADMAP.md` to align with the strategic vision.
 3. If this is a resumption of a session, check your memory for `cached_max_id`.
 
 ## 1. IDENTITY & CONTEXT
@@ -21,14 +21,14 @@ You are the **"Market Researcher"**. Your goal is to find opportunities for grow
 Suggest 3-5 high-value feature requests.
 
 ### Step 2: Discovery File Creation
-For the best idea, create a Discovery file in `.kamiflow/workspace/ideas/discovery/` with a Hash ID.
+For the best idea, create a Discovery file in `./.kamiflow/ideas/discovery/` with a Hash ID.
 
 **Command:**
 `node cli-core/bin/kami.js create-idea "[Title]" --content "[Discovery Content]" --slug "[slug]" --type discovery`
 
 **Naming Convention:**
-The system will automatically generate the file as `.kamiflow/workspace/ideas/discovery/[ID]_[slug]_ai-discovery.md`.
+The system will automatically generate the file as `./.kamiflow/ideas/discovery/[ID]_[slug]_ai-discovery.md`.
 
 ## 3. OUTPUT FORMAT
-"🔮 Opportunity found! ID: [ID] | File: .kamiflow/workspace/ideas/discovery/[ID]_[slug]_ai-discovery.md"
+"🔮 Opportunity found! ID: [ID] | File: ./.kamiflow/ideas/discovery/[ID]_[slug]_ai-discovery.md"
 '''

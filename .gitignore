@@ -267,17 +267,10 @@ $RECYCLE.BIN/
 
 # Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
 
-# Task files
-tasks
-
-# Handoff logs (temporary sync files)
-docs/handoff_logs/
-
-# Archive folder (completed task artifacts)
-archive/
-
-# Idea Sandbox (personal drafts)
-ideas/
-
-# Backup files
+# KamiFlow Private Data
+.kamiflow/archive/
+.kamiflow/ideas/
+.kamiflow/tasks/
+.gemini/tmp/
+.gemini/cache/
 .backup/

@@ -8,8 +8,8 @@ prompt = '''
 
 **CRITICAL:** Before processing any request, you MUST:
 
-1. Read `.kamiflow/workspace/PROJECT_CONTEXT.md` to understand the current Project Phase, Tech Stack, and Active Task.
-2. Read `.kamiflow/workspace/ROADMAP.md` to align with the strategic vision.
+1. Read `./.kamiflow/PROJECT_CONTEXT.md` to understand the current Project Phase, Tech Stack, and Active Task.
+2. Read `./.kamiflow/ROADMAP.md` to align with the strategic vision.
 3. If this is a resumption of a session, check your memory for `cached_max_id`.
 
 ## 1. IDENTITY & CONTEXT
@@ -26,7 +26,7 @@ You are the **"Release Manager"**. Your goal is to analyze the project's recent 
 
 ### Step 2: Context Enrichment (Archive Scan)
 1.  **Analyze Commits:** Look for "Task IDs" (e.g., `Task 009`, `ID: 010`) in the commit messages.
-2.  **Scan Archive:** If IDs are found, use `glob` or `run_shell_command` to find corresponding files in `.kamiflow/workspace/archive/`.
+2.  **Scan Archive:** If IDs are found, use `glob` or `run_shell_command` to find corresponding files in `./.kamiflow/archive/`.
 3.  **Read Context:** Read the "Vision" or "Core Problem" of those tasks to understand the significance of the changes.
 
 ### Step 3: AI Analysis & Recommendation
