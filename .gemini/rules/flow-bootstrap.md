@@ -12,11 +12,11 @@ KamiFlow core lives in `.kami-flow/` (or global storage) but operates at the roo
 ## 2. 📋 Minimalist Distribution Architecture (v2.16.5+)
 
 ### MANDATORY Portals:
-1. **.gemini/** → Link to `core/.gemini/` (Commands, Rules, Skills).
-2. **.windsurf/** → Link to `core/.windsurf/` (IDE Workflows).
+1. `./.gemini/` → Link to `core/.gemini/` (Commands, Rules, Skills).
+2. `./.windsurf/` → Link to `core/.windsurf/` (IDE Workflows).
 
 ### FORBIDDEN Duplication:
-- Do NOT link `docs/protocols` or `docs/overview.md` to project root. These are now accessed through the `.gemini/` portal by the AI.
+- Do NOT link documentation or overview files to project root. These are now accessed through the `./.gemini/` portal by the AI.
 
 ---
 
@@ -24,17 +24,17 @@ KamiFlow core lives in `.kami-flow/` (or global storage) but operates at the roo
 
 ### Step 1: Create Symbolic Links
 Execute PowerShell commands to connect the core to project root:
-- `.gemini/` (Directory Link)
-- `.windsurf/` (Directory Link)
+- `./.gemini/` (Directory Link)
+- `./.windsurf/` (Directory Link)
 
 ### Step 2: Initialize Project-Specific Files
-If missing, seed from `docs/templates/` via Gemini AI:
+If missing, seed from `./resources/templates/` via Gemini AI:
 1. **GEMINI.md:** The project manifest and persona.
-2. **PROJECT_CONTEXT.md:** The project memory (RAM).
-3. **docs/roadmap.md:** The strategic progress tracker.
+2. **./.kamiflow/PROJECT_CONTEXT.md:** The project memory (RAM).
+3. **./.kamiflow/ROADMAP.md:** The strategic progress tracker.
 
 ### Step 3: Configure Smart Ignore
-MANDATORY: Add `.kami-flow/` to `.geminiignore` to prevent "Double Vision" (AI reading rules from both link and submodule).
+MANDATORY: Add `./.kamiflow/` to `.geminiignore` to prevent "Double Vision" (AI reading rules from both link and submodule).
 
 ---
 

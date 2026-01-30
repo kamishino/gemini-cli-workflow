@@ -53,13 +53,13 @@ Examples:
 
 Scan **all** task-related directories:
 
-- `tasks/` (active tasks)
-- `archive/` (completed tasks, recursively)
+- `./.kamiflow/tasks/` (active tasks)
+- `./.kamiflow/archive/` (completed tasks, recursively)
 
 **PowerShell Command:**
 
 ```powershell
-Get-ChildItem -Path tasks, archive -Filter *.md -Recurse | Select-Object Name, FullName
+Get-ChildItem -Path ./.kamiflow/tasks, ./.kamiflow/archive -Filter *.md -Recurse | Select-Object Name, FullName
 ```
 
 ### Step 2: Extract IDs from Filenames
@@ -395,7 +395,7 @@ interface SessionIDState {
 ```markdown
 🔍 Task ID Reconnaissance (Reactive Scan)
 
-- Scanned: tasks/ and archive/
+- Scanned: ./.kamiflow/tasks/ and ./.kamiflow/archive/
 - Max ID found: 012
 - Next Task ID: 013
 - Cache updated ✅

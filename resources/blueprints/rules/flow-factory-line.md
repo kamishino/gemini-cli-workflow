@@ -4,15 +4,22 @@
 
 ---
 
+## 🎯 Step 0: Logical Guard (Pre-Flight)
+**Goal:** Prevent contradictions and align with current state.
+
+### MANDATORY Actions:
+- [ ] **Context Anchoring:** Read `./.kamiflow/PROJECT_CONTEXT.md` to refresh memory.
+- [ ] **Conflict Detection:** Check for contradictions (e.g., "Fast" vs "High Complexity").
+- [ ] **STOP:** If conflicts exist, alert the user and resolve before proceeding.
+
 ## 1. 🎯 Step 1: The Blueprint (S1-IDEA)
 **Role:** Critical Chef / Consultant.
 **Goal:** Diagnostic interview and strategic synthesis.
 
 ### MANDATORY Actions:
-- [ ] **Diagnosis:** Ask 3-5 probing questions (Root Cause, User Pain, Constraints).
+- [ ] **Diagnosis:** Ask 3-5 probing questions informed by Phase 0.
 - [ ] **Synthesis:** Generate 3 distinct approaches (A/B/C) with **Star Ratings**.
-- [ ] **The Strategic Gate:** STOP and wait for user approval of the "Situation & Root Pain" and Option selection.
-- [ ] **Kernel Definition:** Define the absolute minimum feature set (MVP) and a "Cut List" of features to delay.
+- [ ] **The Strategic Gate:** STOP and wait for user approval.
 
 ---
 

@@ -21,15 +21,18 @@ AI runs the detected command and captures output.
 ### 4. Heal (Self-Correction)
 If **CRITICAL** errors are found, the AI:
 1. Analyzes the error log (line numbers, error type).
-2. Applies a targeted fix (max 3 attempts).
-3. **Tip:** Use triple-single-quotes (`'''`) for TOML prompts to avoid escape issues.
+2. Applies a targeted fix using the **Self-Healing Library**:
+    - **Regex Fix:** Check for double-escaped slashes (e.g., `///`).
+    - **Prototype Fix:** Ensure class methods weren't accidentally deleted during a `replace` call.
+    - **Import Fix:** Verify all `require()` statements are present for new logic.
+3. **Tip:** Use triple-single-quotes (`'''`) for TOML prompts.
 
 ### 5. Strategic Atomic Exit (Native Mode Only)
 Upon successful validation, the system performs a high-value cleanup:
-1. **Strategic Sync:** AI analyzes the work and calls `node cli-core/scripts/roadmap-generator.js` to update the roadmap with real achievements.
-2. **Lineage Cleanup:** AI automatically identifies and archives the source idea from `ideas/backlog/` using the Suffix Model (`_from-ID`).
-3. **Unified Commit:** Stages all code and docs into one logical commit.
-4. **Auto-Archive:** Moves all artifacts to `archive/` immediately.
+1. **Strategic Sync:** Update roadmap using `./.kamiflow/ROADMAP.md`.
+2. **Lineage Cleanup:** Identify and archive source idea from `./.kamiflow/ideas/backlog/`.
+3. **Unified Commit:** Stage all code and docs.
+4. **Auto-Archive:** Move tasks to `./.kamiflow/archive/`.
 
 ## 🧠 Memory Integration
 Successful healing patterns are logged to the "Active Context" in `PROJECT_CONTEXT.md` to improve AI accuracy in future sessions.
