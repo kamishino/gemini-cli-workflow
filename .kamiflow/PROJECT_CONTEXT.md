@@ -11,7 +11,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Implemented Dynamic Documentation Sync (Task 083) - Integrated placeholders into resources/docs/ and automated synchronization for Dev/Prod with dev-only content stripping.
+- **Last Completed Action:** Implemented Documentation Anchoring & Git Hygiene (Task 084) - Re-anchored README links to ./.kamiflow/docs/, enforced global LF line endings, and silenced auto-generated doc diffs using .gitattributes.
 - **Current Focus:** Final stabilization and public release preparation.
 - **Next Step:** Official public rollout and community onboarding.
 

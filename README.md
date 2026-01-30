@@ -13,7 +13,7 @@
 <p align="center"><b>The Orchestrator for Indie Builders using Gemini CLI</b></p>
 
 <p align="center">
-  [ <a href="README.md">🏠 Home</a> ] | [ <a href="resources/docs/GETTING_STARTED.md">🚀 Getting Started</a> ] | [ <a href="resources/docs/POWER_USER_GUIDE.md">⚡ Power User Guide</a> ] | [ <a href="resources/docs/commands/README.md">📖 Command Wiki</a> ]
+  [ <a href="README.md">🏠 Home</a> ] | [ <a href=".kamiflow/docs/GETTING_STARTED.md">🚀 Getting Started</a> ] | [ <a href=".kamiflow/docs/POWER_USER_GUIDE.md">⚡ Power User Guide</a> ] | [ <a href=".kamiflow/docs/commands/README.md">📖 Command Wiki</a> ]
 </p>
 
 ---
@@ -22,8 +22,8 @@
 
 | 🚀 Start Here | 📖 Knowledge | ⚡ Advanced | 🤝 Community |
 | :--- | :--- | :--- | :--- |
-| [Quick Install](#-quick-install) | [Command Wiki](./resources/docs/commands/README.md) | [**Saiyan Mode**](./resources/docs/POWER_USER_GUIDE.md#1-devsaiyan-the-executor) | [Contribution](#-contribution) |
-| [Getting Started](./resources/docs/GETTING_STARTED.md) | [Sniper Model](.gemini/rules/factory-line.md) | [SuperSaiyan Cycle](./resources/docs/POWER_USER_GUIDE.md#2-devsupersaiyan-the-orchestrator) | [License](#-license) |
+| [Quick Install](#-quick-install) | [Command Wiki](./.kamiflow/docs/commands/README.md) | [**Saiyan Mode**](./.kamiflow/docs/POWER_USER_GUIDE.md#1-devsaiyan-the-executor) | [Contribution](#-contribution) |
+| [Getting Started](./.kamiflow/docs/GETTING_STARTED.md) | [Sniper Model](.gemini/rules/factory-line.md) | [SuperSaiyan Cycle](./.kamiflow/docs/POWER_USER_GUIDE.md#2-devsupersaiyan-the-orchestrator) | [License](#-license) |
 
 ---
 
@@ -41,6 +41,8 @@
 **KamiFlow** is a rigorous, opinionated "Operating System" for Indie Hackers using Gemini CLI. It transforms the AI from a generic chatbot into a disciplined **Technical Co-Founder**.
 
 > **Philosophy:** "Aesthetics + Utility". Ship fast, break nothing important.
+
+> **⚠️ Developer Note:** All files under `./.kamiflow/docs/` are automatically generated from `./resources/docs/`. Please make any manual edits to the source files in `resources/` to ensure they are preserved during the next build.
 
 ---
 
@@ -81,7 +83,7 @@ curl -sSL https://raw.githubusercontent.com/kamishino/gemini-cli-workflow/main/i
 | **Fast-Track**| `/kamiflow:dev:superlazy` | Auto-generate artifacts and execute code. |
 | **God Mode** | `/kamiflow:dev:saiyan` | **[NEW]** Fully autonomous execution (No-Confirm). |
 
-📖 **[View Full Command Wiki (17+ Commands)](./resources/docs/commands/README.md)**
+📖 **[View Full Command Wiki (17+ Commands)](./.kamiflow/docs/commands/README.md)**
 
 ---
 
@@ -93,12 +95,12 @@ KamiFlow uses a 3-step fused kernel to ensure implementation accuracy:
 2.  **Spec Phase:** Schema-First technical specification.
 3.  **Build Phase:** Detailed task breakdown with Legacy Code awareness.
 
-🤝 **[Read the Getting Started Guide](./resources/docs/GETTING_STARTED.md)**
+🤝 **[Read the Getting Started Guide](./.kamiflow/docs/GETTING_STARTED.md)**
 
 ---
 
 ## 🆘 Troubleshooting & Support
-Running into issues? Don't panic. Check our **[Troubleshooting Guide](./resources/docs/TROUBLESHOOTING.md)** for common errors and fixes.
+Running into issues? Don't panic. Check our **[Troubleshooting Guide](./.kamiflow/docs/TROUBLESHOOTING.md)** for common errors and fixes.
 
 ---
 

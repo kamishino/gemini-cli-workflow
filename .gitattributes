@@ -1,0 +1,5 @@
+# Global Line Ending Policy (Force LF)
+* text=auto eol=lf
+
+# Binary / Auto-generated Docs (Hide from diff but keep in repo)
+.kamiflow/docs/**/*.md -diff
