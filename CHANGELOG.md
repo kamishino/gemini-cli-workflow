@@ -1,4 +1,12 @@
 
+## [v2.32.0] - 2026-01-30
+
+### 🚀 Features
+- feat(core): implemented universal POSIX path handling with upath (Task 091) (1acaa64)
+- feat(rules): classified rules into Global/Local and upgraded Transpiler for selective distribution (Task 090) (6356f76)
+- feat(rules): implemented the industrial constitution - comprehensive rules overhaul (Task 089) (4fa9cce)
+
+
 ## [v2.31.0] - 2026-01-30
 
 ### 🚀 Features

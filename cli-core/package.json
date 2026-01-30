@@ -1,6 +1,6 @@
 {
   "name": "gemini-cli-kamiflow",
-  "version": "2.31.0",
+  "version": "2.32.0",
   "description": "Professional CLI manager for KamiFlow - The Indie Builder's OS for Gemini CLI",
   "main": "bin/kami.js",
   "bin": {
