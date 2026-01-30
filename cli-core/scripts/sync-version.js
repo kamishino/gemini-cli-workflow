@@ -2,11 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const execa = require('execa');
 const chalk = require('chalk');
+const { EnvironmentManager } = require('../logic/env-manager');
 
 // Path adjusted for deep structure (cli-core/scripts/)
 const PACKAGE_PATH = path.join(__dirname, '../package.json');
 const README_PATH = path.join(__dirname, '../../README.md');
-const CONTEXT_PATH = path.join(__dirname, '../../PROJECT_CONTEXT.md');
 const BIN_PATH = path.join(__dirname, '../bin/kami.js');
 const CHANGELOG_PATH = path.join(__dirname, '../../CHANGELOG.md');
 
@@ -20,6 +20,11 @@ function log(msg, type = 'info') {
 // --- Main Logic ---
 async function main() {
   try {
+    const projectRoot = path.resolve(__dirname, '../../');
+    const envManager = new EnvironmentManager(projectRoot);
+    const workspaceRoot = await envManager.getAbsoluteWorkspacePath();
+    const CONTEXT_PATH = path.join(workspaceRoot, 'PROJECT_CONTEXT.md');
+
     // 1. Get New Version
     const packageJson = require(PACKAGE_PATH);
     const newVersion = packageJson.version;

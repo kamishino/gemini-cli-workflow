@@ -1,4 +1,26 @@
 
+## [v2.29.0] - 2026-01-30
+
+### 🚀 Features
+- feat(blueprints): unified blueprints structure and performed logic audit (Task 079) (06476a7)
+- feat(resources): recovered deleted documentation and migrated to resources/docs/ (Task 077) (f0cdc2a)
+- feat(docs): aligned master templates and root instructions with canonical paths (Task 076) (a33ccaa)
+- feat(core): unified flat workspace structure and canonical paths (Task 075) (3850c9e)
+- feat(core): automated project template assembly for distribution (Task 074) (92d8e1f)
+- feat(core): centralized workspace path management with EnvironmentManager (Task 073) (8f7da4a)
+- feat(core): implemented Pure Factory Architecture with multi-target transpilation (Task 072) (c23d689)
+- feat(templates): synced project templates with new blueprint and semantic rule architecture (bfc9155)
+- feat(core): standardized rule naming convention with semantic prefixes (Task 067) (cf40be5)
+
+### 🐛 Fixes
+- fix(blueprints): implemented self-healing paths and standardized nested code blocks (Task 080) (5c776c8)
+- fix(installer): ensured docs/blueprint and required directories are copied during init (c9f68d4)
+
+### 🧹 Chores & Others
+- chore(release): prepare for v2.29.0 - update roadmap and scripts (03435c4)
+- docs: harmonized documentation, fixed emojis, and updated paths (Task 078) (906eff3)
+
+
 ## [v2.28.0] - 2026-01-29
 
 ### 🚀 Features
