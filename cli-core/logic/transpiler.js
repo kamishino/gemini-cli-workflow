@@ -245,7 +245,7 @@ class Transpiler {
 
     for (const outputRoot of this.targets) {
       const kamiflowDir = path.join(outputRoot, '.kamiflow');
-      const subDirs = ['archive', 'ideas', 'tasks', 'handoff_logs', 'schemas'];
+      const subDirs = ['archive', 'ideas', 'tasks', 'handoff_logs', 'schemas', '.backup'];
       
       for (const sub of subDirs) {
         const fullPath = path.join(kamiflowDir, sub);
@@ -281,6 +281,7 @@ class Transpiler {
 .kamiflow/ideas/
 .kamiflow/tasks/
 .kamiflow/handoff_logs/
+.kamiflow/.backup/
 .kamiflow/docs/assets/
 .gemini/tmp/
 .gemini/cache/

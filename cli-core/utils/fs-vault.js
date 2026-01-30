@@ -11,21 +11,41 @@ const { EnvironmentManager } = require('../logic/env-manager');
 async function backupFile(filePath) {
   try {
     if (await fs.pathExists(filePath)) {
-      // Resolve absolute paths to avoid CWD issues
       const absoluteFilePath = path.resolve(filePath);
       
-      // Use EnvironmentManager for SSOT root detection
       const env = new EnvironmentManager(process.cwd());
       const projectRoot = env.projectRoot;
+      const { ConfigManager } = require('../logic/config-manager');
+      const config = new ConfigManager(projectRoot);
+      const maxBackups = await config.get('maxBackups') || 5;
 
       const relativePath = path.relative(projectRoot, absoluteFilePath);
-      const backupPath = path.join(projectRoot, '.backup', relativePath);
+      const backupBaseDir = path.join(projectRoot, '.kamiflow/.backup', path.dirname(relativePath));
+      const filename = path.basename(absoluteFilePath);
       
-      await fs.ensureDir(path.dirname(backupPath));
+      await fs.ensureDir(backupBaseDir);
+
+      // Rotation Logic
+      const existingBackups = (await fs.readdir(backupBaseDir))
+        .filter(f => f.startsWith(filename + '_'))
+        .sort()
+        .reverse(); // Newest first
+
+      if (existingBackups.length >= maxBackups) {
+        const toDelete = existingBackups.slice(maxBackups - 1);
+        for (const oldFile of toDelete) {
+          await fs.remove(path.join(backupBaseDir, oldFile));
+        }
+      }
+
+      // Create new backup with timestamp
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-').replace('T', '_').split('Z')[0];
+      const backupPath = path.join(backupBaseDir, `${filename}_${timestamp}`);
+      
       await fs.copy(absoluteFilePath, backupPath, { overwrite: true });
       
-      const displayPath = relativePath;
-      logger.hint(`Backup saved to: .backup/${displayPath}`);
+      const displayPath = path.relative(projectRoot, backupPath);
+      logger.hint(`Backup saved to: ${displayPath}`);
       return backupPath;
     }
   } catch (error) {

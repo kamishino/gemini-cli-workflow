@@ -2,6 +2,7 @@
   "language": "english",
   "strategy": "BALANCED",
   "maxRetries": 3,
+  "maxBackups": 5,
   "currentEnv": "development",
   "environments": {
     "development": {

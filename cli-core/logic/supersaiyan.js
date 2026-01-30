@@ -1,6 +1,5 @@
 const fs = require('fs-extra');
 const path = require('upath');
-const inquirer = require('inquirer').default || require('inquirer');
 const chalk = require('chalk');
 const logger = require('../utils/logger');
 const { EnvironmentManager } = require('./env-manager');
@@ -10,6 +9,7 @@ const { EnvironmentManager } = require('./env-manager');
  * Manages cycles of autonomous development.
  */
 async function runSuperSaiyan(source) {
+  const inquirer = (await import('inquirer')).default;
   const env = new EnvironmentManager();
   logger.header("SUPER SAIYAN MODE ACTIVATED");
   

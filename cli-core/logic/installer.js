@@ -252,8 +252,20 @@ function updateGitIgnore(cwd) {
   }
 }
 
-if (require.main === module) {
-  runInstaller();
+function getGeneStorePath() {
+
+  return INSTALL_DIR;
+
 }
 
-module.exports = { initializeProject };
+
+
+if (require.main === module) {
+
+  runInstaller();
+
+}
+
+
+
+module.exports = { initializeProject, getGeneStorePath };

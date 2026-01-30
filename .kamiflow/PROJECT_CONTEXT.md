@@ -11,7 +11,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Implemented Schema-First Configuration (Task 095) - Tái cấu trúc kamirc.json theo nhóm chức năng (Core, Setup, Plugins), triển khai JSON Schema cho Intellisense, và tích hợp Zod validation với cơ chế fallback tự động.
+- **Last Completed Action:** Implemented Centralized Backup Hub (Task 096) - Relocated system backups to .kamiflow/.backup/, implemented rotational history (max 5 versions), and added self-healing migration for legacy .bak files. Aligned doctor and healer with v2.33.0 architecture.
 - **Current Focus:** Final stabilization and public release preparation.
 - **Next Step:** Official public rollout and community onboarding.
 

@@ -65,6 +65,7 @@ program
   .alias("doctor")
   .description("Check system health and KamiFlow configuration")
   .option("--fix", "Attempt to automatically fix detected issues")
+  .option("--auto-fix", "Bypass confirmation prompts during healing")
   .action(async (options) => {
     await execute("KamiFlow System Doctor", async () => {
       const results = await runDoctor(options);

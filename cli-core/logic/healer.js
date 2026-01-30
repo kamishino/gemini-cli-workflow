@@ -1,16 +1,13 @@
 const chalk = require("chalk");
 const fs = require("fs-extra");
 const path = require('upath');
-const inquirer = require("inquirer");
 const { getGeneStorePath } = require("./installer");
 
 async function detectBrokenPortals(projectPath) {
   const issues = [];
   const portals = [
     { name: ".gemini", path: path.join(projectPath, ".gemini") },
-    { name: ".windsurf", path: path.join(projectPath, ".windsurf") },
-    { name: "docs/protocols", path: path.join(projectPath, "docs", "protocols") },
-    { name: "docs/overview.md", path: path.join(projectPath, "docs", "overview.md") },
+    { name: ".windsurf", path: path.join(projectPath, ".windsurf") }
   ];
 
   for (const portal of portals) {
@@ -48,7 +45,8 @@ async function detectMissingFiles(projectPath) {
   const issues = [];
   const requiredFiles = [
     { name: "GEMINI.md", path: path.join(projectPath, "GEMINI.md") },
-    { name: "PROJECT_CONTEXT.md", path: path.join(projectPath, "PROJECT_CONTEXT.md") },
+    { name: "PROJECT_CONTEXT.md", path: path.join(projectPath, ".kamiflow", "PROJECT_CONTEXT.md") },
+    { name: "ROADMAP.md", path: path.join(projectPath, ".kamiflow", "ROADMAP.md") },
   ];
 
   for (const file of requiredFiles) {
@@ -165,8 +163,46 @@ async function restoreMissingFile(issue, geneStorePath, projectPath, projectName
   }
 }
 
+async function detectLegacyBackups(projectPath) {
+  const issues = [];
+  const glob = require('glob');
+  const pattern = path.join(projectPath, '.gemini/commands/**/*.bak');
+  
+  try {
+    const files = glob.sync(pattern);
+    if (files.length > 0) {
+      issues.push({ type: "LEGACY_BACKUPS", count: files.length, files });
+    }
+  } catch (e) {}
+  
+  return issues;
+}
+
+async function cleanupLegacyBackups(issue, projectPath) {
+  console.log(chalk.cyan(`[HEALER] Cleaning up ${issue.count} legacy backup(s)...`));
+  const { backupFile } = require('../utils/fs-vault');
+  
+  let fixed = 0;
+  for (const file of issue.files) {
+    try {
+      // The backupFile utility handles moving to .kamiflow/.backup/ and rotation
+      // But we need to remove the original .bak file after 'backing it up' (migrating it)
+      const success = await backupFile(file);
+      if (success) {
+        await fs.remove(file);
+        fixed++;
+      }
+    } catch (e) {
+      console.log(chalk.yellow(`   ⚠️  Failed to migrate: ${path.basename(file)}`));
+    }
+  }
+  return fixed === issue.count;
+}
+
 async function healProject(projectPath, options = {}) {
   console.log(chalk.cyan("\n🔧 KamiFlow Self-Healing Engine\n"));
+
+  const inquirer = (await import('inquirer')).default;
 
   const geneStorePath = getGeneStorePath();
 
@@ -180,8 +216,9 @@ async function healProject(projectPath, options = {}) {
 
   const portalIssues = await detectBrokenPortals(projectPath);
   const fileIssues = await detectMissingFiles(projectPath);
+  const backupIssues = await detectLegacyBackups(projectPath);
 
-  const allIssues = [...portalIssues, ...fileIssues];
+  const allIssues = [...portalIssues, ...fileIssues, ...backupIssues];
 
   if (allIssues.length === 0) {
     console.log(chalk.green("✓ No issues detected. Project is healthy!\n"));
@@ -190,7 +227,7 @@ async function healProject(projectPath, options = {}) {
 
   console.log(chalk.yellow(`Found ${allIssues.length} issue(s):\n`));
   allIssues.forEach((issue, idx) => {
-    console.log(chalk.yellow(`  ${idx + 1}. ${issue.type}: ${issue.portal || issue.file}`));
+    console.log(chalk.yellow(`  ${idx + 1}. ${issue.type}: ${issue.portal || issue.file || (issue.count + ' files')}`));
   });
   console.log();
 
@@ -228,6 +265,9 @@ async function healProject(projectPath, options = {}) {
         break;
       case "MISSING_FILE":
         success = await restoreMissingFile(issue, geneStorePath, projectPath, projectName);
+        break;
+      case "LEGACY_BACKUPS":
+        success = await cleanupLegacyBackups(issue, projectPath);
         break;
       default:
         console.log(chalk.yellow(`[HEALER] Skipping unknown issue type: ${issue.type}`));

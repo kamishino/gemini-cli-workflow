@@ -176,10 +176,10 @@ async function updateStandaloneMode(projectPath, options = {}) {
         if (exists) {
           if (force) {
             // Backup and overwrite
-            const bakPath = `${destPath}.bak`;
-            await fs.move(destPath, bakPath, { overwrite: true });
+            const { backupFile } = require('../utils/fs-vault');
+            await backupFile(destPath);
             await fs.copy(srcPath, destPath);
-            logger.warn(`Overwritten (Backup created): ${relative}`);
+            logger.warn(`Overwritten: ${relative} (Backup moved to .kamiflow/.backup)`);
           } else {
             logger.hint(`Skipped (Exists): ${relative}`);
           }

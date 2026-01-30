@@ -3,7 +3,6 @@ const { execSync } = require("child_process");
 const fs = require("fs-extra");
 const path = require('upath');
 const os = require("os");
-const inquirer = require("inquirer").default || require("inquirer");
 
 /**
  * Check if a command exists in PATH
@@ -161,10 +160,10 @@ async function checkSymlinkCapability() {
 async function checkDocsHealth() {
   const cwd = process.cwd();
   const docsToVerify = [
-    "docs/GETTING_STARTED.md",
-    "docs/overview.md",
-    "docs/ROADMAP.md",
-    "docs/TROUBLESHOOTING.md"
+    ".kamiflow/docs/GETTING_STARTED.md",
+    ".kamiflow/docs/overview.md",
+    ".kamiflow/ROADMAP.md",
+    ".kamiflow/docs/TROUBLESHOOTING.md"
   ];
 
   console.log(chalk.gray("Knowledge Base:"));
@@ -182,7 +181,7 @@ async function checkDocsHealth() {
   if (fs.existsSync(commandsPath)) {
     const folders = fs.readdirSync(commandsPath).filter(f => f.startsWith('p-'));
     for (const folder of folders) {
-      const docPath = `docs/plugins/${folder}.md`;
+      const docPath = `.kamiflow/docs/plugins/${folder}.md`;
       if (!(await fs.pathExists(path.join(cwd, docPath)))) {
         console.log(chalk.yellow(`  ⚠️  Missing guide for plugin [${folder}]: ${docPath}`));
         missing++;
@@ -204,7 +203,7 @@ async function checkCurrentProject() {
   const cwd = process.cwd();
   const geminiPath = path.join(cwd, ".gemini");
   const windsurfPath = path.join(cwd, ".windsurf");
-  const contextPath = path.join(cwd, "PROJECT_CONTEXT.md");
+  const contextPath = path.join(cwd, ".kamiflow/PROJECT_CONTEXT.md");
 
   console.log(chalk.gray("Current Directory:"), cwd);
 
@@ -260,8 +259,35 @@ async function checkTomlConfig() {
   }
 }
 
+/**
+ * Check for legacy .bak files scattered in the project
+ */
+async function checkLegacyBackups() {
+  const cwd = process.cwd();
+  const pattern = path.join(cwd, '.gemini/commands/**/*.bak');
+  const glob = require('glob');
+  
+  try {
+    const files = glob.sync(pattern);
+    console.log(chalk.gray("Legacy Backups:"), files.length === 0 ? "none" : `${files.length} found`);
+    
+    if (files.length > 0) {
+      console.log(chalk.yellow(`  ⚠️  Found ${files.length} legacy .bak files in .gemini/commands/`));
+      console.log(chalk.yellow("  → These should be moved to .kamiflow/.backup/ or deleted."));
+      console.log(chalk.gray("  → Run 'kami doctor --fix' to clean them up."));
+      return false;
+    }
+    console.log(chalk.green("  ✓ No legacy backups detected"));
+    return true;
+  } catch (error) {
+    return true;
+  }
+}
+
 async function runDoctor(options = {}) {
   console.log(chalk.cyan("Running system health checks...\n"));
+
+  const inquirer = (await import('inquirer')).default;
 
   checkNode(); console.log();
   checkGeminiCLI(); console.log();
@@ -270,6 +296,7 @@ async function runDoctor(options = {}) {
   await checkSymlinkCapability(); console.log();
   await checkDocsHealth(); console.log();
   await checkTomlConfig(); console.log();
+  await checkLegacyBackups(); console.log();
   const projectHealthy = await checkCurrentProject();
 
   console.log();
@@ -277,7 +304,7 @@ async function runDoctor(options = {}) {
 
   if (options.fix && projectHealthy) {
     const { healProject } = require("./healer");
-    await healProject(process.cwd(), { autoFix: false });
+    await healProject(process.cwd(), { autoFix: options.autoFix || false });
   }
 
   return { allHealthy: true }; // Simplified for now

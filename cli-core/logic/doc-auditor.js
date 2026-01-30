@@ -1,14 +1,15 @@
 const fs = require('fs-extra');
 const path = require('upath');
 const chalk = require('chalk');
-const inquirer = require('inquirer').default || require('inquirer');
 const { execSync } = require('child_process');
 
 async function runDocAudit(options = {}) {
   console.log(chalk.cyan("\n🔍 Starting Documentation Audit..."));
 
+  const inquirer = (await import('inquirer')).default;
+
   const rootDir = process.cwd();
-  const docsDir = path.join(rootDir, 'docs');
+  const docsDir = path.join(rootDir, '.kamiflow/docs');
   const readmePath = path.join(rootDir, 'README.md');
   const geminiPath = path.join(rootDir, 'GEMINI.md');
 

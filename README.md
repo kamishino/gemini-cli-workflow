@@ -23,7 +23,7 @@
 | 🚀 Start Here | 📖 Knowledge | ⚡ Advanced | 🤝 Community |
 | :--- | :--- | :--- | :--- |
 | [Quick Install](#-quick-install) | [Command Wiki](./.kamiflow/docs/commands/README.md) | [**Saiyan Mode**](./.kamiflow/docs/POWER_USER_GUIDE.md#1-devsaiyan-the-executor) | [Contribution](#-contribution) |
-| [Getting Started](./.kamiflow/docs/GETTING_STARTED.md) | [Sniper Model](.gemini/rules/factory-line.md) | [SuperSaiyan Cycle](./.kamiflow/docs/POWER_USER_GUIDE.md#2-devsupersaiyan-the-orchestrator) | [License](#-license) |
+| [Getting Started](./.kamiflow/docs/GETTING_STARTED.md) | [Sniper Model](./.gemini/rules/flow-factory-line.md) | [SuperSaiyan Cycle](./.kamiflow/docs/POWER_USER_GUIDE.md#2-devsupersaiyan-the-orchestrator) | [License](#-license) |
 
 ---
 
