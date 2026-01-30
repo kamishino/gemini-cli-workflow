@@ -161,6 +161,7 @@ program
 // Config command
 const configFlow = program
   .command("config-flow")
+  .alias("config")
   .description("Manage project configuration. Common keys: language, strategy, maxRetries.");
 
 configFlow
@@ -187,6 +188,20 @@ configFlow
       const config = new ConfigManager();
       const value = await config.get(key);
       console.log(value !== undefined ? value : chalk.yellow("Not set"));
+    });
+  });
+
+configFlow
+  .command("sync")
+  .description("Synchronize local configuration with latest system defaults (adds missing keys)")
+  .action(async () => {
+    await execute(null, async () => {
+      const { ConfigManager } = require("../logic/config-manager");
+      const config = new ConfigManager();
+      const success = await config.syncLocalConfig();
+      if (success) {
+        logger.success("Project configuration synchronized with latest core schema.");
+      }
     });
   });
 
@@ -416,5 +431,12 @@ program
       await runSuperSaiyan(options.source);
     });
   });
+
+// Unknown command handler
+program.on('command:*', (operands) => {
+  logger.error(`Không tìm thấy lệnh: ${operands[0]}`);
+  logger.hint("Hãy thử 'kami help' để xem các lệnh khả dụng.");
+  process.exit(1);
+});
 
 program.parse(process.argv);

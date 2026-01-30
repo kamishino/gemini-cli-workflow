@@ -11,7 +11,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Implemented Intelligent Onboarding Concierge (Task 100) - Refactored /wake into a sequential interview with strategic suggestions (Goal/Stack), integrated global experience tracking via update-cache.json, and established robust anchored patching for project seeds.
+- **Last Completed Action:** Implemented Intelligent Config Sync & UX Hardening (Task 101) - Added 'config' alias, implemented 'kami config sync' for surgical merging of new keys, overhauled 'config ls' to show 100% of schema keys with source tracking, and established a friendly CLI error handler for mistyped commands.
 - **Current Focus:** Final stabilization and public release preparation.
 - **Next Step:** Official public rollout and community onboarding.
 

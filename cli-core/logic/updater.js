@@ -368,6 +368,9 @@ async function runUpdate(projectPath, options = {}) {
 
   if (success) {
     logger.success("Update process finished.");
+    if (mode === "STANDALONE" || mode === "LINKED") {
+      logger.hint("Tip: Your local configuration might be outdated. Run 'kami config sync' to add new settings.");
+    }
   } else {
     logger.error("Update process failed.");
   }

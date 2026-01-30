@@ -175,12 +175,86 @@ class ConfigManager {
    * List all configurations with their active sources
    */
   async list() {
-    const { config, metadata } = await this.loadAll();
-    return Object.keys(config).map(key => ({
-      Key: key,
-      Value: config[key],
-      Source: metadata[key].source
-    }));
+    const { config } = await this.loadAll();
+    const defaultData = await this.loadLayer(this.paths.default);
+    const globalData = await this.loadLayer(this.paths.global);
+    const localData = await this.loadLayer(this.paths.local);
+
+    const getFlattenedKeys = (schema, prefix = '') => {
+      let keys = [];
+      const shape = schema instanceof z.ZodObject ? schema.shape : schema;
+      
+      for (const key in shape) {
+        const fullKey = prefix ? `${prefix}.${key}` : key;
+        const subSchema = shape[key];
+        
+        if (subSchema instanceof z.ZodObject) {
+          keys = keys.concat(getFlattenedKeys(subSchema, fullKey));
+        } else if (subSchema instanceof z.ZodDefault && subSchema._def.innerType instanceof z.ZodObject) {
+          keys = keys.concat(getFlattenedKeys(subSchema._def.innerType, fullKey));
+        } else if (subSchema instanceof z.ZodOptional && subSchema._def.innerType instanceof z.ZodObject) {
+          keys = keys.concat(getFlattenedKeys(subSchema._def.innerType, fullKey));
+        } else {
+          keys.push(fullKey);
+        }
+      }
+      return keys;
+    };
+
+    const allKeys = getFlattenedKeys(ConfigSchema);
+    
+    return allKeys.map(key => {
+      const val = this.resolveValue(config, key);
+      
+      let source = 'Schema';
+      if (this.resolveValue(localData, key) !== undefined) source = 'Local';
+      else if (this.resolveValue(globalData, key) !== undefined) source = 'Global';
+      else if (this.resolveValue(defaultData, key) !== undefined) source = 'System';
+
+      return {
+        Key: key,
+        Value: typeof val === 'object' ? JSON.stringify(val) : val,
+        Source: source
+      };
+    });
+  }
+
+  /**
+   * Deep merge missing keys from source into target
+   */
+  deepMergeMissing(target, source) {
+    const output = { ...target };
+    for (const key in source) {
+      if (source[key] instanceof Object && !Array.isArray(source[key])) {
+        if (!(key in target)) {
+          output[key] = source[key];
+        } else {
+          output[key] = this.deepMergeMissing(target[key], source[key]);
+        }
+      } else {
+        if (!(key in target)) {
+          output[key] = source[key];
+        }
+      }
+    }
+    return output;
+  }
+
+  /**
+   * Synchronize local config with system defaults (non-destructive)
+   */
+  async syncLocalConfig() {
+    const defaultData = await this.loadLayer(this.paths.default);
+    const localData = await this.loadLayer(this.paths.local);
+    
+    const merged = this.deepMergeMissing(localData, defaultData);
+    
+    // Always ensure $schema is present
+    merged['$schema'] = './.kamiflow/schemas/kamirc.schema.json';
+
+    await fs.writeJson(this.paths.local, merged, { spaces: 2 });
+    this.cache = null; // Clear cache
+    return true;
   }
 
   /**
