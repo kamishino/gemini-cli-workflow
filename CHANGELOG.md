@@ -1,4 +1,11 @@
 
+## [v2.35.0] - 2026-01-30
+
+### 🚀 Features
+- feat(core): implement high-fidelity config sync and standardized transparent SSOT infrastructure (Tasks 102-104) (bf852e2)
+- feat(config): implemented intelligent config sync and hardened CLI UX (Task 101) (a1fc313)
+
+
 ## [v2.34.0] - 2026-01-30
 
 ### 🚀 Features
