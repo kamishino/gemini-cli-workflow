@@ -107,6 +107,7 @@ async function main() {
         { file: WIKI_FILES.terminal, groups: ['terminal'] },
         { file: WIKI_FILES.global, groups: FINAL_ORDER },
         { file: path.join(__dirname, '../../GEMINI.md'), groups: FINAL_ORDER },
+        { file: path.join(__dirname, '../../resources/templates/gemini.md'), groups: FINAL_ORDER },
         { file: path.join(__dirname, '../../resources/docs/overview.md'), groups: FINAL_ORDER }
     ];
 

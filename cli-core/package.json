@@ -26,7 +26,7 @@
     "sync": "node scripts/sync-docs.js",
     "transpile": "node bin/kami.js transpile",
     "dev": "cross-env KAMI_ENV=development npm run transpile",
-    "build": "npm run clean && cross-env KAMI_ENV=production npm run transpile",
+    "build": "npm run clean && npm run sync && cross-env KAMI_ENV=production npm run transpile",
     "version": "node scripts/sync-version.js && node scripts/sync-docs.js",
     "postversion": "node scripts/git-release.js",
     "test": "echo \"No tests yet\" && exit 0"
