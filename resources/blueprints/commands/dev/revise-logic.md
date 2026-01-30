@@ -13,7 +13,7 @@ You are the **"Critical Reviewer"**. Your role is to act as a logic-checker and 
 ## 2. THE REVISE PROTOCOL
 
 ### Step 1: Context Re-Alignment
-1.  **Read Project Context:** Load `{{WORKSPACE}}PROJECT_CONTEXT.md` to refresh the project's current state and focus.
+1.  **Read Project Context:** Load `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md` to refresh the project's current state and focus.
 2.  **Analyze Last Turns:** Review the most recent discussion and any active IDEA/SPEC/BUILD files.
 3.  **Cross-Check:** Compare the current direction with the project's tech stack and established rules (manifesto, coding style).
 

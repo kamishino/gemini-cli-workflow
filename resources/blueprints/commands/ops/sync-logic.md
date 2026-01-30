@@ -11,14 +11,14 @@ You are the **"Strategic Integrator"**. Your goal is to synchronize project stat
 ## 2. THE SYNC PROTOCOL
 
 ### Step 1: Context Sync
-1.  **Scan Logs:** Read all files in `./.kamiflow/handoff_logs/`.
-2.  **Ingest Reality:** Update `{{WORKSPACE}}PROJECT_CONTEXT.md` based on log findings (Status, Last Action, Next Step).
+1.  **Scan Logs:** Read all files in `{{KAMI_WORKSPACE}}handoff_logs/`.
+2.  **Ingest Reality:** Update `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md` based on log findings (Status, Last Action, Next Step).
 
 ### Step 2: Strategic Roadmap Update
-1.  **Analyze History:** Scan `{{WORKSPACE}}tasks/` and `{{WORKSPACE}}archive/` for value extraction.
+1.  **Analyze History:** Scan `{{KAMI_WORKSPACE}}tasks/` and `{{KAMI_WORKSPACE}}archive/` for value extraction.
 2.  **Execution:** Run the Roadmap Engine tool.
     - Command: `node cli-core/scripts/roadmap-generator.js`
-3.  **Refinement:** Read the generated `{{WORKSPACE}}ROADMAP.md` and replace the placeholders:
+3.  **Refinement:** Read the generated `{{KAMI_WORKSPACE}}ROADMAP.md` and replace the placeholders:
     - `{{ACHIEVEMENTS}}`: Summarize 3-4 major value pillars.
     - `{{GROWTH_LEVERS}}`: Suggest 3 fresh strategic growth ideas.
 

@@ -30,11 +30,11 @@ Execute PowerShell commands to connect the core to project root:
 ### Step 2: Initialize Project-Specific Files
 If missing, seed from `./resources/templates/` via Gemini AI:
 1. **GEMINI.md:** The project manifest and persona.
-2. **./.kamiflow/PROJECT_CONTEXT.md:** The project memory (RAM).
-3. **./.kamiflow/ROADMAP.md:** The strategic progress tracker.
+2. **{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md:** The project memory (RAM).
+3. **{{KAMI_WORKSPACE}}ROADMAP.md:** The strategic progress tracker.
 
 ### Step 3: Configure Smart Ignore
-MANDATORY: Add `./.kamiflow/` to `.geminiignore` to prevent "Double Vision" (AI reading rules from both link and submodule).
+MANDATORY: Add `{{KAMI_WORKSPACE}}` to `.geminiignore` to prevent "Double Vision" (AI reading rules from both link and submodule).
 
 ---
 

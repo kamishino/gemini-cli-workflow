@@ -18,7 +18,7 @@
 ## 3. Knowledge Map (Directory Guide)
 
 - **Overview:** `./docs/overview.md` (Start here)
-- **Tasks:** `./.kamiflow/tasks/` (Centralized Artifacts: Briefs, PRDs, Tasks, Handoffs)
+- **Tasks:** `{{KAMI_WORKSPACE}}tasks/` (Centralized Artifacts: Briefs, PRDs, Tasks, Handoffs)
 - **Blueprints:** {{BLUEPRINT_DESC}} ({{BLUEPRINT_PATH}})
 - **IDE Bridge:** `./.windsurf/` (Workflows & Rules for AI Editor)
-- **Logs:** `./.kamiflow/handoff_logs/` (Lazy logs tagged with `_lazy`/`_superlazy`)
+- **Logs:** `{{KAMI_WORKSPACE}}handoff_logs/` (Lazy logs tagged with `_lazy`/`_superlazy`)

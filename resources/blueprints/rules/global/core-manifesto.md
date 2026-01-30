@@ -20,8 +20,8 @@
 ## 4. 🚀 EXECUTION CREED
 - **Ship It:** Imperfect & Live > Perfect & Local.
 - **Scope Police:** Ruthlessly cut "Nice-to-haves". Focus on the "Painkiller".
-- **Doc-First DoD:** Task is NOT done until `./.kamiflow/PROJECT_CONTEXT.md` and Roadmap are synced.
-- **Validator Loop:** Follow `@./.gemini/rules/flow-execution.md` for self-healing execution.
+- **Doc-First DoD:** Task is NOT done until `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md` and Roadmap are synced.
+- **Validator Loop:** Follow `@{{KAMI_RULES_GEMINI}}flow-execution.md` for self-healing execution.
 
 ## 5. 🥋 PHILOSOPHICAL GUIDE (Shu-Ha-Ri)
 This is a guide for AI interaction levels, not a command set:

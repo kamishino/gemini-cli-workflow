@@ -170,6 +170,12 @@ async function updateStandaloneMode(projectPath, options = {}) {
             }
             continue;
           }
+          
+          // If actual missing, seed the actual and the example
+          await fs.copy(srcPath, destActual);
+          await fs.copy(srcPath, destPath);
+          logger.success(`Seeded missing .kamirc.json and updated ${relative}`);
+          continue;
         }
 
         // 4. Standard Sync
@@ -194,8 +200,21 @@ async function updateStandaloneMode(projectPath, options = {}) {
   try {
     await walkAndSync(sourceDist, projectPath);
     
-    console.log(require('chalk').gray('\n   ℹ️  Note: Core configuration options may have changed.'));
-    console.log(require('chalk').gray('      Please check ./.kamiflow/docs/CONFIGURATION.md for the latest reference.\n'));
+    // Proactive check for outdated config
+    const { ConfigManager } = require('./config-manager');
+    const configManager = new ConfigManager(projectPath);
+    const { missing, orphaned } = await configManager.checkConfigFidelity();
+
+    if (missing.length > 0) {
+      console.log(require('chalk').cyan(`\nℹ️  Notice: Your .kamirc.json is missing ${missing.length} new setting(s).`));
+      console.log(require('chalk').gray(`   Missing: ${missing.slice(0, 3).join(', ')}${missing.length > 3 ? '...' : ''}`));
+      console.log(require('chalk').gray('   Run \'kami config sync\' to automatically add them.\n'));
+    } else if (orphaned.length > 0) {
+      console.log(require('chalk').yellow(`\n⚠️  Notice: Your .kamirc.json contains ${orphaned.length} orphaned key(s).`));
+      console.log(require('chalk').gray('   Run \'kami config sync\' to view details.\n'));
+    } else {
+      console.log(require('chalk').gray('\n   ✅ Configuration is up to date.\n'));
+    }
     
     return true;
   } catch (error) {

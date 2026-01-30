@@ -5,7 +5,7 @@
 ---
 
 ## 1. 🛑 NON-NEGOTIABLES
-- **NEVER edit generated files:** All files in `./.gemini/commands/` and `./.kamiflow/docs/` are auto-generated. Direct edits will be OVERWRITTEN.
+- **NEVER edit generated files:** All files in `./.gemini/commands/` and `{{KAMI_WORKSPACE}}docs/` are auto-generated. Direct edits will be OVERWRITTEN.
 - **Source Primary:** Any modification to a command must happen in `./resources/blueprints/`.
 - **Docs Primary:** Any modification to Wiki/Docs must happen in `./resources/docs/`.
 
@@ -13,7 +13,7 @@
 The "Truth" flows in one direction:
 1. **Source:** `./resources/` (Markdown/TOML partials)
 2. **Action:** `kami sync` -> `kami transpile`
-3. **Target:** `./.gemini/commands/` and `./.kamiflow/docs/`
+3. **Target:** `./.gemini/commands/` and `{{KAMI_WORKSPACE}}docs/`
 
 ## 3. 🔄 THE SYNC MANDATE
 Before considering a feature "Done", you MUST:

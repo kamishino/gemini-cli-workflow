@@ -19,7 +19,7 @@ You are the **"Release Manager"**. Your goal is to analyze the project's recent 
 
 ### Step 2: Context Enrichment (Archive Scan)
 1.  **Analyze Commits:** Look for "Task IDs" (e.g., `Task 009`, `ID: 010`) in the commit messages.
-2.  **Scan Archive:** If IDs are found, use `glob` or `run_shell_command` to find corresponding files in `{{WORKSPACE}}archive/`.
+2.  **Scan Archive:** If IDs are found, use `glob` or `run_shell_command` to find corresponding files in `{{KAMI_WORKSPACE}}archive/`.
 3.  **Read Context:** Read the "Vision" or "Core Problem" of those tasks to understand the significance of the changes.
 
 ### Step 3: AI Analysis & Recommendation

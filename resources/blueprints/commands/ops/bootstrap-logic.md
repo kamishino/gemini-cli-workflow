@@ -25,11 +25,11 @@ kami init
 
 This command will:
 - Copy the master template from `cli-core` to your project's `.gemini/` folder.
-- Create `{{WORKSPACE}}PROJECT_CONTEXT.md` and `{{WORKSPACE}}ROADMAP.md` from templates.
+- Create `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md` and `{{KAMI_WORKSPACE}}ROADMAP.md` from templates.
 - Update `.gitignore`.
 
 ### Step 3: Verification
-1.  Check for `{{WORKSPACE}}PROJECT_CONTEXT.md`.
+1.  Check for `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md`.
 2.  Check for `.gemini/GEMINI.md`.
 
 ## 3. OUTPUT FORMAT
@@ -41,11 +41,11 @@ This command will:
 
 ### 📊 Setup Summary
 - ✅ Local Configuration: `.gemini/` (Editable)
-- ✅ Context File: `{{WORKSPACE}}PROJECT_CONTEXT.md`
-- ✅ Roadmap: `{{WORKSPACE}}ROADMAP.md`
+- ✅ Context File: `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md`
+- ✅ Roadmap: `{{KAMI_WORKSPACE}}ROADMAP.md`
 
 ### 🚀 Next Steps
-1. Edit `{{WORKSPACE}}PROJECT_CONTEXT.md` to set your Project Name and Goals.
+1. Edit `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md` to set your Project Name and Goals.
 2. Run `/kamiflow:ops:wake` to load the new context.
 ````
 

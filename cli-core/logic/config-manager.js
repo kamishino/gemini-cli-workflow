@@ -180,28 +180,7 @@ class ConfigManager {
     const globalData = await this.loadLayer(this.paths.global);
     const localData = await this.loadLayer(this.paths.local);
 
-    const getFlattenedKeys = (schema, prefix = '') => {
-      let keys = [];
-      const shape = schema instanceof z.ZodObject ? schema.shape : schema;
-      
-      for (const key in shape) {
-        const fullKey = prefix ? `${prefix}.${key}` : key;
-        const subSchema = shape[key];
-        
-        if (subSchema instanceof z.ZodObject) {
-          keys = keys.concat(getFlattenedKeys(subSchema, fullKey));
-        } else if (subSchema instanceof z.ZodDefault && subSchema._def.innerType instanceof z.ZodObject) {
-          keys = keys.concat(getFlattenedKeys(subSchema._def.innerType, fullKey));
-        } else if (subSchema instanceof z.ZodOptional && subSchema._def.innerType instanceof z.ZodObject) {
-          keys = keys.concat(getFlattenedKeys(subSchema._def.innerType, fullKey));
-        } else {
-          keys.push(fullKey);
-        }
-      }
-      return keys;
-    };
-
-    const allKeys = getFlattenedKeys(ConfigSchema);
+    const allKeys = this.getFlattenedKeys(ConfigSchema);
     
     return allKeys.map(key => {
       const val = this.resolveValue(config, key);
@@ -217,6 +196,45 @@ class ConfigManager {
         Source: source
       };
     });
+  }
+
+  /**
+   * Helper to flatten Zod schema keys
+   */
+  getFlattenedKeys(schema, prefix = '') {
+    let keys = [];
+    const shape = schema instanceof z.ZodObject ? schema.shape : schema;
+    
+    for (const key in shape) {
+      const fullKey = prefix ? `${prefix}.${key}` : key;
+      const subSchema = shape[key];
+      
+      if (subSchema instanceof z.ZodObject) {
+        keys = keys.concat(this.getFlattenedKeys(subSchema, fullKey));
+      } else if (subSchema instanceof z.ZodDefault && subSchema._def.innerType instanceof z.ZodObject) {
+        keys = keys.concat(this.getFlattenedKeys(subSchema._def.innerType, fullKey));
+      } else if (subSchema instanceof z.ZodOptional && subSchema._def.innerType instanceof z.ZodObject) {
+        keys = keys.concat(this.getFlattenedKeys(subSchema._def.innerType, fullKey));
+      } else {
+        keys.push(fullKey);
+      }
+    }
+    return keys;
+  }
+
+  /**
+   * Flatten a plain object into dot-notation keys
+   */
+  flattenObject(obj, prefix = '') {
+    return Object.keys(obj).reduce((acc, key) => {
+      const fullKey = prefix ? `${prefix}.${key}` : key;
+      if (obj[key] !== null && typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
+        Object.assign(acc, this.flattenObject(obj[key], fullKey));
+      } else {
+        acc[fullKey] = obj[key];
+      }
+      return acc;
+    }, {});
   }
 
   /**
@@ -241,20 +259,86 @@ class ConfigManager {
   }
 
   /**
-   * Synchronize local config with system defaults (non-destructive)
+   * Perform an audit without modifying any files (Dry Run)
+   */
+  async checkConfigFidelity() {
+    const localData = await this.loadLayer(this.paths.local);
+    const schemaKeys = this.getFlattenedKeys(ConfigSchema);
+    const localFlat = this.flattenObject(localData);
+    
+    const missing = [];
+    const orphaned = [];
+    
+    schemaKeys.forEach(key => {
+      if (this.resolveValue(localData, key) === undefined) {
+        missing.push(key);
+      }
+    });
+
+    Object.keys(localFlat).forEach(key => {
+      if (key === '$schema') return;
+      const parts = key.split('.');
+      let currentShape = ConfigSchema.shape;
+      let found = true;
+      
+      for (let i = 0; i < parts.length; i++) {
+        const part = parts[i];
+        const schema = currentShape[part];
+
+        if (!schema) {
+          found = false;
+          break;
+        }
+
+        // Unpack Default/Optional
+        let inner = schema;
+        while (inner instanceof z.ZodDefault || inner instanceof z.ZodOptional) {
+          inner = inner._def.innerType;
+        }
+
+        if (i < parts.length - 1) {
+          if (inner instanceof z.ZodObject) {
+            currentShape = inner.shape;
+          } else if (inner instanceof z.ZodRecord) {
+            // Record found - all subsequent parts are technically valid dynamic keys
+            // unless we want to validate the value schema, but for 'orphaned' check, 
+            // once we hit a Record, we consider the path 'accounted for'.
+            break; 
+          } else {
+            found = false;
+            break;
+          }
+        }
+      }
+      if (!found) orphaned.push(key);
+    });
+
+    return { missing, orphaned };
+  }
+
+  /**
+   * Synchronize local config with system defaults with intelligent audit
    */
   async syncLocalConfig() {
     const defaultData = await this.loadLayer(this.paths.default);
     const localData = await this.loadLayer(this.paths.local);
     
+    // 1. Identification
+    const { missing, orphaned } = await this.checkConfigFidelity();
+
+    // 2. Execution
     const merged = this.deepMergeMissing(localData, defaultData);
-    
-    // Always ensure $schema is present
     merged['$schema'] = './.kamiflow/schemas/kamirc.schema.json';
 
     await fs.writeJson(this.paths.local, merged, { spaces: 2 });
-    this.cache = null; // Clear cache
-    return true;
+    this.cache = null;
+
+    return {
+      success: true,
+      added: missing,
+      orphaned: orphaned,
+      total: missing.length
+    };
   }
 
   /**

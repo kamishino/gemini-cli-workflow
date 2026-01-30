@@ -8,6 +8,6 @@ type: PARTIAL
 
 **CRITICAL:** Before processing any request, you MUST:
 
-1. Read `{{WORKSPACE}}PROJECT_CONTEXT.md` to understand the current Project Phase, Tech Stack, and Active Task.
-2. Read `{{WORKSPACE}}ROADMAP.md` to align with the strategic vision.
+1. Read `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md` to understand the current Project Phase, Tech Stack, and Active Task.
+2. Read `{{KAMI_WORKSPACE}}ROADMAP.md` to align with the strategic vision.
 3. If this is a resumption of a session, check your memory for `cached_max_id`.

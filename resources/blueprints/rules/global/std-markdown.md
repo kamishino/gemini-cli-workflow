@@ -6,7 +6,7 @@
 
 ## 1. 🛑 NON-NEGOTIABLES
 - **Quad-Backticks:** Use ` ` ` ` (four backticks) for code blocks inside Markdown files that contain nested code blocks (e.g., blueprints).
-- **No Leading Slashes:** NEVER use a leading slash before `{{WORKSPACE}}`. Correct: `{{WORKSPACE}}tasks/`.
+- **No Leading Slashes:** NEVER use a leading slash before `{{KAMI_WORKSPACE}}`. Correct: `{{KAMI_WORKSPACE}}tasks/`.
 - **Anchored Paths:** ALL file references must start with `./` to assist AI root detection.
 
 ## 2. 🧩 PLACEHOLDER REGISTRY
@@ -14,7 +14,8 @@ Only use approved placeholders:
 
 | Placeholder | Purpose | Transpiled Result |
 | :--- | :--- | :--- |
-| `{{WORKSPACE}}` | Core folder path | `./.kamiflow/` |
+| `{{KAMI_WORKSPACE}}` | Core folder path | `./.kamiflow/` |
+| `{{KAMI_RULES_GEMINI}}` | Behavioral rules path | `./.gemini/rules/` |
 | `{{PROJECT_NAME}}`| Project identity | (From config) |
 | `{{DATE}}` | Timestamping | (Current Date) |
 

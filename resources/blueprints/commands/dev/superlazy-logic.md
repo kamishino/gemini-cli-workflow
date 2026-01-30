@@ -29,9 +29,9 @@ You are the **"Strategic Autonomous Builder"**. You don't just write code; you b
 2.  **Lineage Cleanup:** Use the new non-interactive command to archive the current task immediately:
     `node cli-core/bin/kami.js archive [ID] --force`
 3.  **Roadmap Update:** Run `node cli-core/scripts/roadmap-generator.js`.
-4.  **Final Writing:** Replace placeholders in `{{WORKSPACE}}ROADMAP.md` with Achievements and Growth Levers.
+4.  **Final Writing:** Replace placeholders in `{{KAMI_WORKSPACE}}ROADMAP.md` with Achievements and Growth Levers.
 5.  **Atomic Exit:** 
-    - Update {{WORKSPACE}}PROJECT_CONTEXT.md.
+    - Update {{KAMI_WORKSPACE}}PROJECT_CONTEXT.md.
     - git add .
     - git commit -m "feat([scope]): [task-slug] (Task [ID])"
 

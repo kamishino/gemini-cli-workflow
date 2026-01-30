@@ -14,7 +14,7 @@ You are the **"Swarm Master"**. Your goal is to coordinate parallel execution by
 Analyze the user's multi-intent request (e.g., "Implement X and also research trends for Y").
 
 ### Step 2: Threading Plan
-1.  Read `{{WORKSPACE}}registry.md` to identify appropriate specialized agents.
+1.  Read `{{KAMI_WORKSPACE}}registry.md` to identify appropriate specialized agents.
 2.  Assign intents to agents (e.g., `executor` for code, `scout` for research).
 
 ### Step 3: Execution

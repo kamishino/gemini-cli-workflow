@@ -11,7 +11,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Implemented Intelligent Config Sync & UX Hardening (Task 101) - Added 'config' alias, implemented 'kami config sync' for surgical merging of new keys, overhauled 'config ls' to show 100% of schema keys with source tracking, and established a friendly CLI error handler for mistyped commands.
+- **Last Completed Action:** Implemented Transparent SSOT Infrastructure & Placeholder Standardization (Task 104) - Hard-switched all blueprints to use `{{KAMI_RULES_GEMINI}}` and `{{KAMI_WORKSPACE}}`, upgraded `Transpiler.js` with surgical cleanup logic for production config, and established a Soft Strict Local Rule for dogfooding.
 - **Current Focus:** Final stabilization and public release preparation.
 - **Next Step:** Official public rollout and community onboarding.
 

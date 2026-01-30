@@ -8,7 +8,7 @@
 **Goal:** Prevent contradictions and align with current state.
 
 ### MANDATORY Actions:
-- [ ] **Context Anchoring:** Read `./.kamiflow/PROJECT_CONTEXT.md` to refresh memory.
+- [ ] **Context Anchoring:** Read `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md` to refresh memory.
 - [ ] **Configuration Awareness:** Read `./.kamirc.json` to identify `gatedAutomation` and `executionMode`.
 - [ ] **Conflict Detection:** Check for contradictions (e.g., "Fast" vs "High Complexity").
 - [ ] **STOP:** If conflicts exist, alert the user and resolve before proceeding.

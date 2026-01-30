@@ -30,8 +30,8 @@ if (Test-Path "cli-core") {
 
 ## 3. CASE A: NORMAL WAKE (Existing Project)
 If `PROJECT_CONTEXT.md` is already configured (not in template state):
-1.  **Ingest Memory:** Load Persona from `GEMINI.md` and State from `{{WORKSPACE}}PROJECT_CONTEXT.md`.
-2.  **Initialize ID Cache:** Follow `@./.gemini/rules/std-id.md` to scan for MAX_ID.
+1.  **Ingest Memory:** Load Persona from `GEMINI.md` and State from `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md`.
+2.  **Initialize ID Cache:** Follow `@{{KAMI_RULES_GEMINI}}std-id.md` to scan for MAX_ID.
 3.  **Status Report:** Provide a concise summary:
     - Project Name, Phase, Last Action, Current Focus.
     - Active Tasks & Roadmap progress.

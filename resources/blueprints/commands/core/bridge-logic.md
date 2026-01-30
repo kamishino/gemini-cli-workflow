@@ -24,7 +24,7 @@ Gather and format the following:
 4. **Documentation Contract:** A list of files that MUST be updated (README, ROADMAP, etc.).
 
 ### Step 3: File Generation
-Use `write_file` to create `{{WORKSPACE}}tasks/[ID]-S4-HANDOFF-[slug].md`.
+Use `write_file` to create `{{KAMI_WORKSPACE}}tasks/[ID]-S4-HANDOFF-[slug].md`.
 
 ## 3. OUTPUT FORMAT
 The generated file MUST be a self-contained "Prompt" for the IDE AI.
@@ -36,8 +36,8 @@ The generated file MUST be a self-contained "Prompt" for the IDE AI.
 [Summarize goal]
 
 ## 2. Source of Truth 📖
-- **BUILD Plan:** {{WORKSPACE}}tasks/[ID]-S3-BUILD-[slug].md
-- **Specification:** {{WORKSPACE}}tasks/[ID]-S2-SPEC-[slug].md
+- **BUILD Plan:** {{KAMI_WORKSPACE}}tasks/[ID]-S3-BUILD-[slug].md
+- **Specification:** {{KAMI_WORKSPACE}}tasks/[ID]-S2-SPEC-[slug].md
 
 ## 3. Mandatory Constraints 🛡️
 - No files > 300 lines.
@@ -45,20 +45,20 @@ The generated file MUST be a self-contained "Prompt" for the IDE AI.
 - Valid input/schema checks.
 
 ## 4. Immediate Action ⚡
-Please execute the implementation tasks in: `{{WORKSPACE}}tasks/[ID]-S3-BUILD-[slug].md`.
+Please execute the implementation tasks in: `{{KAMI_WORKSPACE}}tasks/[ID]-S3-BUILD-[slug].md`.
 
 ## 5. 📚 Documentation Contract
 You MUST update these files upon completion:
-- `{{WORKSPACE}}PROJECT_CONTEXT.md` (Active Status)
-- `{{WORKSPACE}}ROADMAP.md` (Check off tasks)
+- `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md` (Active Status)
+- `{{KAMI_WORKSPACE}}ROADMAP.md` (Check off tasks)
 - `README.md` (If feature is public)
 
 ## 6. EXIT PROTOCOL 🔄
-Create a log at `./.kamiflow/handoff_logs/YYYY-MM-DD_HHMM_[slug].md`.
+Create a log at `{{KAMI_WORKSPACE}}handoff_logs/YYYY-MM-DD_HHMM_[slug].md`.
 ````
 
 ## 4. INTERACTION RULES
-- After generating, ask: "Do you want me to save this to `{{WORKSPACE}}tasks/[ID]-S4-HANDOFF-[slug].md`? (Y/N)"
+- After generating, ask: "Do you want me to save this to `{{KAMI_WORKSPACE}}tasks/[ID]-S4-HANDOFF-[slug].md`? (Y/N)"
 - If user confirms, prompt: "Handoff file created. Copy its content into your IDE AI chat to begin."
 
 ## 5. TONE

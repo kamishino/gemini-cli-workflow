@@ -53,13 +53,13 @@ Examples:
 
 Scan **all** task-related directories:
 
-- `./.kamiflow/tasks/` (active tasks)
-- `./.kamiflow/archive/` (completed tasks, recursively)
+- `{{KAMI_WORKSPACE}}tasks/` (active tasks)
+- `{{KAMI_WORKSPACE}}archive/` (completed tasks, recursively)
 
 **PowerShell Command:**
 
 ```powershell
-Get-ChildItem -Path ./.kamiflow/tasks, ./.kamiflow/archive -Filter *.md -Recurse | Select-Object Name, FullName
+Get-ChildItem -Path {{KAMI_WORKSPACE}}tasks, {{KAMI_WORKSPACE}}archive -Filter *.md -Recurse | Select-Object Name, FullName
 ```
 
 ### Step 2: Extract IDs from Filenames
@@ -192,8 +192,8 @@ Display reconnaissance results to user:
 
 ```toml
 ## 2. PRE-FLIGHT VALIDATION
-3. **ID Logic:** Follow `@./.gemini/rules/std-id.md`
-   - Scan `./.kamiflow/tasks/` and `./.kamiflow/archive/` recursively
+3. **ID Logic:** Follow `@{{KAMI_RULES_GEMINI}}std-id.md`
+   - Scan `{{KAMI_WORKSPACE}}tasks/` and `{{KAMI_WORKSPACE}}archive/` recursively
    - Extract all numeric IDs using regex `^(\d{3})`
    - Calculate: Next ID = MAX(IDs) + 1
    - Format as zero-padded 3-digit string
@@ -310,7 +310,7 @@ if ($conflictingFiles.Count -gt 0) {
 
 ```
 1. User triggers: /kamiflow:idea "Build X"
-2. AI reads: @./.gemini/rules/std-id.md
+2. AI reads: @{{KAMI_RULES_GEMINI}}std-id.md
 3. AI executes: PowerShell scan command
 4. AI parses: Extract all IDs from filenames
 5. AI calculates: maxId + 1
@@ -395,7 +395,7 @@ interface SessionIDState {
 ```markdown
 🔍 Task ID Reconnaissance (Reactive Scan)
 
-- Scanned: ./.kamiflow/tasks/ and ./.kamiflow/archive/
+- Scanned: {{KAMI_WORKSPACE}}tasks/ and {{KAMI_WORKSPACE}}archive/
 - Max ID found: 012
 - Next Task ID: 013
 - Cache updated ✅

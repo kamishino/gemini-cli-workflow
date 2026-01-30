@@ -21,7 +21,7 @@ The user provides a raw idea or concept:
 {{args}}
 
 ### 💡 Backlog Integration (Lineage)
-If the input is a file path (e.g., `{{WORKSPACE}}ideas/backlog/A7B2-slug.md`):
+If the input is a file path (e.g., `{{KAMI_WORKSPACE}}ideas/backlog/A7B2-slug.md`):
 1.  **Extract Path & ID:** You MUST identify the **Source Idea** and its **Idea ID** (e.g., A7B2).
 2.  **Inherit Vision:** Read the file content and use it as the primary context for the Sniper process.
 3.  **Traceability:** When generating the S1-IDEA file, you MUST use the `--from-idea [ID]` flag in the final command step.
@@ -64,7 +64,7 @@ Then:
 3. **Display Reactive Mode:**
    ```
    🔍 Task ID Reconnaissance (Reactive Scan)
-   - Scanned: {{WORKSPACE}}tasks/ and {{WORKSPACE}}archive/
+   - Scanned: {{KAMI_WORKSPACE}}tasks/ and {{KAMI_WORKSPACE}}archive/
    - Max ID found: [MAX_ID]
    - Next Task ID: [next_id]
    - Cache updated ✅
@@ -79,7 +79,7 @@ Then:
 **CRITICAL:** Execute this BEFORE Phase 1 Diagnostic Interview.
 
 **Step 0.1: Read Project Context**
-- Load `{{WORKSPACE}}PROJECT_CONTEXT.md` to understand current project state
+- Load `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md` to understand current project state
 - Check tech stack and constraints
 
 **Step 0.2: Requirement Analysis**

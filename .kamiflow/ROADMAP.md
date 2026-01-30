@@ -14,7 +14,7 @@
 
 ## 🏗️ Current Focus (Active Pillars)
 - **Phase ** Template v2.34.0 (Modular Engine)**
-- **Status:** ** Implemented Intelligent Onboarding Concierge (Task 100) - Refactored /wake into a sequential interview with strategic suggestions (Goal/Stack), integrated global experience tracking via update-cache.json, and established robust anchored patching for project seeds.
+- **Status:** ** Implemented Transparent Infrastructure (Task 104) - Fully standardized blueprints with `{{KAMI_RULES_GEMINI}}` and `{{KAMI_WORKSPACE}}` tokens, implemented surgical config cleanup for production, and established dogfooding standards.
 
 ---
 
@@ -27,7 +27,9 @@
 
 ### ✅ Completed
 - [x] **v1.0 Core:** Initial setup.
-- [x] **Archived:** 2026-01-30_100_onboarding-refinement
+- [x] **Archived:** 2026-01-30_104_placeholder-standardization
+- [x] **Archived:** 2026-01-30_103_startup-path-corruption-fix
+- [x] **Archived:** 2026-01-30_102_config-fidelity-sync
 - [x] **Archived:** 2026-01-30_099_execution-discipline
 - [x] **Archived:** 2026-01-30_098_summary-sorting
 - [x] **Archived:** 2026-01-30_097_concurrent-engine

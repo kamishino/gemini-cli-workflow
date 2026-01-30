@@ -38,6 +38,10 @@ class Transpiler {
     // Fix "/./.kamiflow/" -> "./.kamiflow/"
     let sanitized = content.replace(/\/(\.\/\.kamiflow\/)/g, '$1');
     
+    // Fix doubled-up rules path (e.g. .gemini/rules/.gemini/rules/ -> .gemini/rules/)
+    // This happens when documentation strings containing anchored paths are interpreted as imports
+    sanitized = sanitized.replace(/(\.gemini\/rules\/){2,}/g, '.gemini/rules/');
+
     // Fix double slashes (excluding protocol double slashes)
     sanitized = sanitized.replace(/([^:])\/{2,}/g, '$1/');
     
@@ -70,7 +74,8 @@ class Transpiler {
     }
     let content = await fs.readFile(filePath, 'utf8');
     
-    content = content.replace(/{{WORKSPACE}}/g, this.workspacePrefix);
+    content = content.replace(/{{KAMI_WORKSPACE}}/g, this.workspacePrefix);
+    content = content.replace(/{{KAMI_RULES_GEMINI}}/g, './.gemini/rules/');
     content = this.sanitizeContent(content);
 
     const metadata = {};
@@ -281,8 +286,16 @@ class Transpiler {
         const srcPath = path.join(this.templatesDir, map.src);
         const destPath = path.join(outputRoot, map.dest);
         if (await fs.pathExists(srcPath)) {
-          await fs.copy(srcPath, destPath);
-          reporter.push(map.dest, 'SUCCESS', 'Seeded');
+          if (map.src === 'kamirc.example.json') {
+            // Surgical Clean: Remove sensitive environments from example
+            const config = await fs.readJson(srcPath);
+            delete config.environments;
+            await fs.writeJson(destPath, config, { spaces: 2 });
+            reporter.push(map.dest, 'SUCCESS', 'Seeded (Surgical Clean)');
+          } else {
+            await fs.copy(srcPath, destPath);
+            reporter.push(map.dest, 'SUCCESS', 'Seeded');
+          }
         }
       });
       await Promise.all(templateTasks);
@@ -326,7 +339,13 @@ class Transpiler {
       const rules = (await fs.readdir(sourcePath)).filter(f => f.endsWith('.md'));
       
       const ruleTasks = rules.map(async (rule) => {
-        const content = await fs.readFile(path.join(sourcePath, rule), 'utf8');
+        let content = await fs.readFile(path.join(sourcePath, rule), 'utf8');
+        
+        // Inject placeholders
+        content = content.replace(/{{KAMI_WORKSPACE}}/g, this.workspacePrefix);
+        content = content.replace(/{{KAMI_RULES_GEMINI}}/g, './.gemini/rules/');
+        content = this.sanitizeContent(content);
+
         for (const outputRoot of this.targets) {
           const targetPath = path.join(outputRoot, '.gemini/rules', rule);
           const success = await safeWrite(targetPath, content);

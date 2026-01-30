@@ -23,7 +23,7 @@ If the user provides a keyword (e.g., `idea`, `spec`, `sync`).
 ### Mode 3: Context-Aware Help
 If the user asks "what's next?" or "where am I?".
 - **Action:**
-    1. Read `{{WORKSPACE}}PROJECT_CONTEXT.md` -> `Current Phase` and `Next Step`.
+    1. Read `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md` -> `Current Phase` and `Next Step`.
     2. Explain the current status.
     3. Recommend the exact command to run next.
     4. Provide a brief "Why" for that recommendation.

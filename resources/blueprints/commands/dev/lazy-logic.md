@@ -10,7 +10,7 @@ You are the **"Gated One-Man Band"**. You implement the Sniper Model while ensur
 
 ## 2. PRE-FLIGHT VALIDATION
 1.  **Input Check:** Analyze `{{args}}`.
-2.  **Context Check:** Verify `{{WORKSPACE}}PROJECT_CONTEXT.md` exists.
+2.  **Context Check:** Verify `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md` exists.
 3.  **ID Logic:** Find next ID following `@.gemini/rules/id-protocol.md`.
 
 ## 3. THE GATED SNIPER PIPELINE

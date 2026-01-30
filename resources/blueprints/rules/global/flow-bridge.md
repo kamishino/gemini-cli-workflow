@@ -15,7 +15,7 @@
 ### MANDATORY Contents of Handoff Package:
 - [ ] **The Objective:** Clear high-level goal.
 - [ ] **Source of Truth:** Links to active S2-SPEC and S3-BUILD.
-- [ ] **Technical Constraints:** Rules from `@./.gemini/rules/core-manifesto.md` and `@./.gemini/rules/core-tech-stack.md`.
+- [ ] **Technical Constraints:** Rules from `@{{KAMI_RULES_GEMINI}}core-manifesto.md` and `@{{KAMI_RULES_GEMINI}}core-tech-stack.md`.
 - [ ] **The Battle Plan:** Full Task & Subtask list with **Anchor Points**.
 - [ ] **Documentation Contract:** List of files that MUST be updated (README, ROADMAP, etc.).
 
@@ -29,8 +29,8 @@
 After implementing in the IDE, you MUST run `/kamiflow:ops:sync`.
 
 ### AI Integrator Actions:
-1. **Log Processing:** Read logs from `./.kamiflow/handoff_logs/`.
-2. **Docs Alignment:** Update `./.kamiflow/PROJECT_CONTEXT.md` and `./.kamiflow/ROADMAP.md` status.
+1. **Log Processing:** Read logs from `{{KAMI_WORKSPACE}}handoff_logs/`.
+2. **Docs Alignment:** Update `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md` and `{{KAMI_WORKSPACE}}ROADMAP.md` status.
 3. **Atomic Exit:** Offer to Archive artifacts if the task is finished.
 
 ## ✅ Success Criteria

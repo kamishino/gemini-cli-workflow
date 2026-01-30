@@ -35,10 +35,10 @@ If **CRITICAL** errors are found, the AI:
 
 ### 5. Strategic Atomic Exit (Native Mode Only)
 Upon successful validation, the system performs a high-value cleanup:
-1. **Strategic Sync:** Update roadmap using `./.kamiflow/ROADMAP.md`.
-2. **Lineage Cleanup:** Identify and archive source idea from `./.kamiflow/ideas/backlog/`.
+1. **Strategic Sync:** Update roadmap using `{{KAMI_WORKSPACE}}ROADMAP.md`.
+2. **Lineage Cleanup:** Identify and archive source idea from `{{KAMI_WORKSPACE}}ideas/backlog/`.
 3. **Unified Commit:** Stage all code and docs.
-4. **Auto-Archive:** Move tasks to `./.kamiflow/archive/`.
+4. **Auto-Archive:** Move tasks to `{{KAMI_WORKSPACE}}archive/`.
 
 ## 🧠 Memory Integration
 Successful healing patterns are logged to the "Active Context" in `PROJECT_CONTEXT.md` to improve AI accuracy in future sessions.

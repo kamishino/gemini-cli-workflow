@@ -198,9 +198,21 @@ configFlow
     await execute(null, async () => {
       const { ConfigManager } = require("../logic/config-manager");
       const config = new ConfigManager();
-      const success = await config.syncLocalConfig();
-      if (success) {
-        logger.success("Project configuration synchronized with latest core schema.");
+      const report = await config.syncLocalConfig();
+      
+      if (report.success) {
+        if (report.added.length > 0) {
+          logger.success(`Synchronized configuration. Added ${report.added.length} missing key(s).`);
+          report.added.forEach(key => logger.hint(`   [+] ${key}`));
+        } else {
+          logger.success("Project configuration is already up to date.");
+        }
+
+        if (report.orphaned.length > 0) {
+          console.log(chalk.yellow(`\n⚠️  Found ${report.orphaned.length} orphaned key(s) not in current schema:`));
+          report.orphaned.forEach(key => console.log(chalk.gray(`   [-] ${key}`)));
+          console.log(chalk.gray("   (These keys are preserved but ignored by the system)\n"));
+        }
       }
     });
   });

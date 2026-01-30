@@ -208,6 +208,11 @@ async function initializeProject(cwd, options = {}) {
               }
               return false;
             }
+            
+            // If actual MISSING, seed both the actual and the latest example
+            fs.copySync(src, destActual);
+            console.log(chalk.cyan('   🌱 Seeded new .kamirc.json from template'));
+            return true;
           }
 
           return true;
