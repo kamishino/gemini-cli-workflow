@@ -3,7 +3,7 @@
 ## 1. Project Identity
 
 - **Goal:** A rigorous, opinionated "Operating System" template for Indie Hackers using Gemini CLI + AI IDEs.
-- **Current Phase:** Template v2.33.0 (Modular Engine)
+- **Current Phase:** Template v2.34.0 (Modular Engine)
 - **Key Tech:** Gemini CLI (TOML Commands), Node.js CLI, Windsurf/Cursor, Markdown Protocols.
 - **Tour Completed:** true
 

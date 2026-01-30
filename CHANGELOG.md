@@ -1,4 +1,19 @@
 
+## [v2.34.0] - 2026-01-30
+
+### 🚀 Features
+- feat(ops): implemented intelligent onboarding concierge (Task 100) (34c77b3)
+- feat(rules): implemented execution discipline, gated automation, and high-risk TDD (Task 099) (017221e)
+- feat(ui): implemented intelligent sorting for batch summary tables (Task 098) (ec5953f)
+- feat(core): implemented high-performance concurrent engine with atomic writes and summary reporting (Task 097) (51cb36c)
+- feat(core): implemented centralized rotational backup hub and aligned doctor/healer (Task 096) (bc9c7bc)
+- feat(config): implemented schema-first configuration with Zod validation and functional categorization (Task 095) (e437bd8)
+- feat(core): implemented existence-aware seeding and context protection (Task 094) (11792ab)
+
+### 🐛 Fixes
+- fix(resources): fixed import bugs and aligned constitution across templates (Task 093) (369624c)
+
+
 ## [v2.33.0] - 2026-01-30
 
 ### 🚀 Features

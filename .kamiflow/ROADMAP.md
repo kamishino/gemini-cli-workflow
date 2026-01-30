@@ -13,8 +13,8 @@
 ---
 
 ## 🏗️ Current Focus (Active Pillars)
-- **Phase ** Template v2.33.0 (Modular Engine)**
-- **Status:** ** Implemented Intelligent Sync Engine (Task 092) - Enhanced updater with silent version checking, atomic build rollbacks, force-update with backup for standalone projects, and a dedicated 'sync-rules' command.
+- **Phase ** Template v2.34.0 (Modular Engine)**
+- **Status:** ** Implemented Intelligent Onboarding Concierge (Task 100) - Refactored /wake into a sequential interview with strategic suggestions (Goal/Stack), integrated global experience tracking via update-cache.json, and established robust anchored patching for project seeds.
 
 ---
 
@@ -27,16 +27,16 @@
 
 ### ✅ Completed
 - [x] **v1.0 Core:** Initial setup.
+- [x] **Archived:** 2026-01-30_100_onboarding-refinement
+- [x] **Archived:** 2026-01-30_099_execution-discipline
+- [x] **Archived:** 2026-01-30_098_summary-sorting
+- [x] **Archived:** 2026-01-30_097_concurrent-engine
+- [x] **Archived:** 2026-01-30_096_centralized-backups
+- [x] **Archived:** 2026-01-30_095_config-schema-categorization
+- [x] **Archived:** 2026-01-30_094_config-management-optimization
+- [x] **Archived:** 2026-01-30_093_constitutional-alignment
 - [x] **Archived:** 2026-01-30_092_intelligent-updater
 - [x] **Archived:** 2026-01-30_091_cross-platform-paths
-- [x] **Archived:** 2026-01-30_090_rule-classification
-- [x] **Archived:** 2026-01-30_089_rules-overhaul
-- [x] **Archived:** 2026-01-30_088_template-sync
-- [x] **Archived:** 2026-01-30_087_resource-alignment
-- [x] **Archived:** 2026-01-30_086_config-blueprint
-- [x] **Archived:** 2026-01-30_085_clicore-optimization
-- [x] **Archived:** 2026-01-30_084_documentation-anchoring-git-hygiene
-- [x] **Archived:** 2026-01-30_083_dynamic-documentation-sync
 
 ### 🚧 In Progress
 
