@@ -101,7 +101,17 @@ function installAndLink() {
 }
 
 function showSuccess() {
+  const cliRoot = path.resolve(__dirname, "../../");
+  const isGlobal = cliRoot.toLowerCase().includes(".kami-flow");
+
   console.log(chalk.green("\n✨ KamiFlow installed successfully!\n"));
+  
+  if (!isGlobal) {
+    console.log(chalk.yellow("🚀 Local Clone Detected"));
+    console.log(chalk.gray("   To use this local version as your global 'kami' command, run:"));
+    console.log(chalk.cyan("   npm link\n"));
+  }
+
   console.log(chalk.white("You can now run:"));
   console.log(chalk.cyan("  kami doctor  ") + chalk.gray("- To check your environment"));
   console.log(chalk.cyan("  kami init    ") + chalk.gray("- To set up a new project\n"));
@@ -113,10 +123,11 @@ const { EnvironmentManager } = require("./env-manager");
  * --- PART 2: PROJECT INITIALIZER (New Logic) ---
  */
 
-async function initializeProject(cwd) {
+async function initializeProject(cwd, options = {}) {
   const projectGeminiPath = path.join(cwd, '.gemini');
   const envManager = new EnvironmentManager(cwd);
   const workspaceRoot = await envManager.getAbsoluteWorkspacePath();
+  const isDevMode = options.dev || false;
   
   // 1. Check if already initialized
   if (fs.existsSync(projectGeminiPath)) {
@@ -124,38 +135,72 @@ async function initializeProject(cwd) {
     return { success: true, message: 'Already initialized.' };
   }
 
-  console.log(chalk.cyan('🚀 Initializing KamiFlow (Template Copy Mode)...'));
+  const modeText = isDevMode ? chalk.magenta('Contributor Mode') : chalk.green('Standard Mode');
+  console.log(chalk.cyan(`🚀 Initializing KamiFlow (${modeText})...`));
 
   try {
-    // 2. Resolve Source Template
-    // Strategy: Use the CLI's own .gemini folder as the master template
-    const cliRoot = path.resolve(__dirname, '../../'); // cli-core/../
-    const sourceGemini = path.join(cliRoot, '.gemini');
+    const cliRoot = path.resolve(__dirname, '../../'); 
+    
+    if (isDevMode) {
+      // DEV MODE: Create Portals (Symlinks/Junctions)
+      console.log(chalk.gray('🔗 Creating portals to source blueprints...'));
+      
+      // Source folders to link
+      const links = [
+        { src: '.gemini', dest: '.gemini' },
+        { src: '.windsurf', dest: '.windsurf' }
+      ];
 
-    if (!fs.existsSync(sourceGemini)) {
-      throw new Error(`Critical: Source template not found at ${sourceGemini}`);
+      for (const link of links) {
+        const target = path.join(cliRoot, link.src);
+        const p = path.join(cwd, link.dest);
+        
+        // Use Junction on Windows for directories to avoid admin requirement
+        const type = os.platform() === 'win32' ? 'junction' : 'dir';
+        await fs.ensureSymlink(target, p, type);
+        console.log(chalk.gray(`   ✅ Linked: ${link.dest} -> ${target}`));
+      }
+    } else {
+      // STANDARD MODE: Copy from dist/
+      const sourceDist = path.join(cliRoot, 'dist');
+      const sourceGemini = path.join(sourceDist, '.gemini');
+
+      if (!fs.existsSync(sourceGemini)) {
+        throw new Error(`Critical: Build artifacts not found at ${sourceGemini}. Please run 'npm run build' in KamiFlow core.`);
+      }
+
+      console.log(chalk.gray(`📦 Copying distribution files from ${sourceDist}...`));
+      
+      // Copy .gemini
+      fs.cpSync(sourceGemini, projectGeminiPath, { recursive: true });
+      
+      // Copy .windsurf (from core source as it might not be in dist if not transpiled)
+      const sourceWindsurf = path.join(cliRoot, '.windsurf');
+      if (fs.existsSync(sourceWindsurf)) {
+        fs.cpSync(sourceWindsurf, path.join(cwd, '.windsurf'), { recursive: true });
+      }
+
+      // Copy GEMINI.md if exists in dist
+      const sourceGeminiMd = path.join(sourceDist, 'GEMINI.md');
+      if (fs.existsSync(sourceGeminiMd)) {
+        fs.copyFileSync(sourceGeminiMd, path.join(cwd, 'GEMINI.md'));
+      }
     }
 
-    // 3. Perform Copy (.gemini folder)
-    console.log(chalk.gray(`📦 Copying template from ${sourceGemini}...`));
-    
-    fs.cpSync(sourceGemini, projectGeminiPath, {
-      recursive: true,
-      filter: (src, dest) => {
-        const basename = path.basename(src);
-        // Exclude internal dev artifacts and git metadata
-        if (basename === 'tmp' || basename === 'cache' || basename === 'handoff_logs') return false;
-        if (basename === '.git') return false; 
-        return true;
-      }
-    });
-
     // 3.1 Perform Copy (docs folder - NEW SSOT)
-    const sourceDocs = path.join(cliRoot, 'resources/docs');
-    const targetDocs = path.join(cwd, 'resources/docs');
-    if (fs.existsSync(sourceDocs)) {
-      console.log(chalk.gray('📦 Syncing documentation and blueprints...'));
-      fs.cpSync(sourceDocs, targetDocs, { recursive: true });
+    // In Dev mode, maybe link docs? User said Contributor Solution should distinguish.
+    // For now, let's keep docs as physical copies or linked?
+    // User priority is End-User. Let's keep docs copied for both for now, or link for dev.
+    if (isDevMode) {
+        const targetDocs = path.join(cwd, 'resources/docs');
+        await fs.ensureSymlink(path.join(cliRoot, 'resources/docs'), targetDocs, os.platform() === 'win32' ? 'junction' : 'dir');
+    } else {
+        const sourceDocs = path.join(cliRoot, 'resources/docs');
+        const targetDocs = path.join(cwd, 'resources/docs');
+        if (fs.existsSync(sourceDocs)) {
+          console.log(chalk.gray('📦 Syncing documentation and blueprints...'));
+          fs.cpSync(sourceDocs, targetDocs, { recursive: true });
+        }
     }
 
     // 4. Create necessary empty dirs

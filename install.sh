@@ -127,7 +127,32 @@ fi
 
 # PHASE 3: Handshake
 echo ""
-echo -e "${YELLOW}[KAMI] Phase 3: Verifying installation...${NC}"
+echo -e "${YELLOW}[KAMI] Phase 3: Verifying installation & Setting alias...${NC}"
+
+# 3.1 Setup Permanent Alias
+setup_alias() {
+    local alias_line="alias kami='kamiflow'"
+    local target_file=""
+
+    if [[ "$SHELL" == *"zsh"* ]]; then
+        target_file="$HOME/.zshrc"
+    elif [[ "$SHELL" == *"bash"* ]]; then
+        target_file="$HOME/.bashrc"
+    fi
+
+    if [ -n "$target_file" ]; then
+        if ! grep -q "alias kami=" "$target_file"; then
+            echo -e "\n# KamiFlow Alias\n$alias_line" >> "$target_file"
+            echo -e "${GREEN}[KAMI] ✓ Permanent alias 'kami' added to $target_file.${NC}"
+        else
+            echo -e "${CYAN}[KAMI] ℹ️  Alias 'kami' already exists in $target_file.${NC}"
+        fi
+    else
+        echo -e "${YELLOW}[KAMI] ⚠️  Could not detect shell profile. Please add \"$alias_line\" manually.${NC}"
+    fi
+}
+
+setup_alias
 
 if command -v kamiflow >/dev/null 2>&1; then
     VER=$(kamiflow --version)
@@ -142,6 +167,7 @@ echo -e "${CYAN}========================================================${NC}"
 echo -e "${CYAN}  ✅ SETUP COMPLETE${NC}"
 echo -e "${CYAN}========================================================${NC}"
 echo ""
-echo "Next Step: Navigate to your project folder and run:"
-echo -e "${GREEN}  kamiflow init${NC}"
+echo -e "Next Step: RESTART your terminal or run ${YELLOW}'source ~/.bashrc'${NC} (or .zshrc) to enable 'kami'."
+echo "Then, navigate to your project folder and run:"
+echo -e "${GREEN}  kami init${NC}"
 echo ""

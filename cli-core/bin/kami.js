@@ -24,6 +24,7 @@ program
   .alias("init")
   .description("Initialize KamiFlow in a project directory")
   .option("-m, --mode <mode>", "Integration mode: link, submodule, or standalone", "link")
+  .option("-d, --dev", "Enable contributor mode with symbolic links", false)
   .option("--skip-interview", "Skip interactive questions and use defaults")
   .action(async (targetPath, options) => {
     try {
@@ -33,7 +34,7 @@ program
       console.log(chalk.cyan("  🌊 KamiFlow CLI v" + packageJson.version));
       console.log(chalk.cyan("========================================================\n"));
 
-      await initializeProject(projectPath);
+      await initializeProject(projectPath, options);
 
       console.log(chalk.green("\n✅ KamiFlow initialization complete!"));
       console.log(chalk.gray("\nNext steps:"));

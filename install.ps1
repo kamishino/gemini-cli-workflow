@@ -75,7 +75,28 @@ try {
 
 # PHASE 3: Handshake
 Write-Host ""
-Write-Host "[KAMI] Phase 3: Verifying installation..." -ForegroundColor Yellow
+Write-Host "[KAMI] Phase 3: Verifying installation & Setting alias..." -ForegroundColor Yellow
+
+# 3.1 Setup Permanent Alias
+try {
+    $aliasName = "kami"
+    $aliasCmd = "kamiflow"
+    $profileDir = Split-Path $PROFILE
+    if (!(Test-Path $profileDir)) { New-Item -ItemType Directory -Path $profileDir -Force | Out-Null }
+    if (!(Test-Path $PROFILE)) { New-Item -ItemType File -Path $PROFILE -Force | Out-Null }
+
+    $profileContent = Get-Content $PROFILE -Raw
+    $aliasBlock = "`n# KamiFlow Alias`nfunction $aliasName { $aliasCmd `$args }"
+    
+    if ($profileContent -notmatch "function $aliasName") {
+        Add-Content -Path $PROFILE -Value $aliasBlock
+        Write-Host "[KAMI] Success: Permanent alias '$aliasName' added to your profile." -ForegroundColor Green
+    } else {
+        Write-Host "[KAMI] Info: Alias '$aliasName' already exists in profile." -ForegroundColor Cyan
+    }
+} catch {
+    Write-Host "[KAMI] Warning: Failed to set permanent alias automatically." -ForegroundColor Yellow
+}
 
 try {
     # Using specific executable name to verify path registration
@@ -91,6 +112,7 @@ Write-Host "========================================================" -Foregroun
 Write-Host "  SETUP COMPLETE" -ForegroundColor Cyan
 Write-Host "========================================================" -ForegroundColor Cyan
 Write-Host ""
-Write-Host "Next Step: Navigate to your project folder and run:"
-Write-Host "  kamiflow init" -ForegroundColor Green
+Write-Host "Next Step: RESTART your terminal or run '. `$PROFILE' to enable 'kami'." -ForegroundColor Yellow
+Write-Host "Then, navigate to your project folder and run:"
+Write-Host "  kami init" -ForegroundColor Green
 Write-Host ""
