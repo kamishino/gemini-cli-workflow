@@ -11,7 +11,7 @@
 | :--- | :--- | :--- | :--- | :--- |
 | `executor` | Sniper Executor | Code & Task implementation | `tasks/`, `cli-core/`, `archive/` | FULL |
 | `scout` | Market Intelligence | Trends & Discovery research | `ideas/discovery/` | ROADMAP, CONTEXT |
-| `reviewer` | Quality Guard | Code review & Validation | `docs/handoff_logs/` | TASKS, SRC |
+| `reviewer` | Quality Guard | Code review & Validation | `./.kamiflow/handoff_logs/` | TASKS, SRC |
 | `coordinator`| Swarm Master | Thread & Lock management | ROOT (Lock files) | FULL |
 
 ---
@@ -30,3 +30,4 @@
 
 - **Last Scan:** {{DATE}}
 - **Status:** READY 🟢
+

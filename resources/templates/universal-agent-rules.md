@@ -21,7 +21,7 @@ You are an expert Engineer. Before writing any code, you MUST reference:
 
 After completing a significant task, you **MUST** create a log file:
 
-- **Path:** `docs/handoff_logs/YYYY-MM-DD_HHMM_task-description.md`
+- **Path:** `./.kamiflow/handoff_logs/YYYY-MM-DD_HHMM_task-description.md`
 - **Content:** Status, Changes, Next Steps.
 
 ## 4. 🛡️ TOML INTEGRITY GUARD
@@ -48,4 +48,5 @@ After completing a significant task, you **MUST** create a log file:
 
 ## ?? EXTENSION SKILLS (Auto-managed)
 *These skills are added via /kamiflow:p-agents:add.*
+
 

@@ -193,7 +193,7 @@ class Transpiler {
     for (const outputRoot of this.targets) {
       // 1. Create .kamiflow structure
       const kamiflowDir = path.join(outputRoot, '.kamiflow');
-      const subDirs = ['archive', 'ideas', 'tasks'];
+      const subDirs = ['archive', 'ideas', 'tasks', 'handoff_logs'];
       
       for (const sub of subDirs) {
         const fullPath = path.join(kamiflowDir, sub);
@@ -221,6 +221,7 @@ class Transpiler {
       const gitIgnoreContent = `.kamiflow/archive/
 .kamiflow/ideas/
 .kamiflow/tasks/
+.kamiflow/handoff_logs/
 .gemini/tmp/
 .gemini/cache/
 .backup/
@@ -228,6 +229,7 @@ class Transpiler {
       const geminiIgnoreContent = `!.kamiflow/archive/
 !.kamiflow/ideas/
 !.kamiflow/tasks/
+!.kamiflow/handoff_logs/
 `;
 
       await fs.writeFile(path.join(outputRoot, '.gitignore'), gitIgnoreContent);

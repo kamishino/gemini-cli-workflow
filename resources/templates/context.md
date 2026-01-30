@@ -17,8 +17,8 @@
 
 ## 3. Knowledge Map (Directory Guide)
 
-- **Overview:** `docs/overview.md` (Start here)
-- **Tasks:** `tasks/` (Centralized Artifacts: Briefs, PRDs, Tasks, Handoffs)
-- **Blueprints:** `docs/blueprint/` (SSOT Logic & Templates)
-- **IDE Bridge:** `.windsurf/` (Workflows & Rules for AI Editor)
-- **Logs:** `docs/handoff_logs/` (Lazy logs tagged with `_lazy`/`_superlazy`)
+- **Overview:** `./docs/overview.md` (Start here)
+- **Tasks:** `./.kamiflow/tasks/` (Centralized Artifacts: Briefs, PRDs, Tasks, Handoffs)
+- **Blueprints:** {{BLUEPRINT_DESC}} ({{BLUEPRINT_PATH}})
+- **IDE Bridge:** `./.windsurf/` (Workflows & Rules for AI Editor)
+- **Logs:** `./.kamiflow/handoff_logs/` (Lazy logs tagged with `_lazy`/`_superlazy`)

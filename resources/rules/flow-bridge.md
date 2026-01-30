@@ -29,7 +29,7 @@
 After implementing in the IDE, you MUST run `/kamiflow:ops:sync`.
 
 ### AI Integrator Actions:
-1. **Log Processing:** Read logs from `docs/handoff_logs/`.
+1. **Log Processing:** Read logs from `./.kamiflow/handoff_logs/`.
 2. **Docs Alignment:** Update `PROJECT_CONTEXT.md` and `ROADMAP.md` status.
 3. **Atomic Exit:** Offer to Archive artifacts if the task is finished.
 

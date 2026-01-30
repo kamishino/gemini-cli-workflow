@@ -159,8 +159,8 @@ async function initializeProject(cwd) {
     }
 
     // 4. Create necessary empty dirs
-    const systemDirs = ['.gemini/tmp', '.gemini/cache', 'docs/handoff_logs', '.backup'];
-    const workspaceDirs = ['tasks', 'archive', 'ideas/draft', 'ideas/discovery', 'ideas/backlog'];
+    const systemDirs = ['.gemini/tmp', '.gemini/cache', '.backup'];
+    const workspaceDirs = ['tasks', 'archive', 'ideas/draft', 'ideas/discovery', 'ideas/backlog', 'handoff_logs'];
 
     for (const dir of systemDirs) {
       const d = path.join(cwd, dir);

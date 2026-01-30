@@ -35,7 +35,7 @@ The core workflow uses 3 steps with 3-Layer Locks:
 
 **The 3-Layer Locks Architecture:**
 
-- 🔒 **Lock 1 (Context Anchoring):** Forces reading `PROJECT_CONTEXT.md` and tech stack rules.
+- 🔒 **Lock 1 (Context Anchoring):** Forces reading `./.kamiflow/PROJECT_CONTEXT.md` and tech stack rules.
 - 🔒 **Lock 2 (Schema-First):** Mandates Data Models before Logic in SPEC.
 - 🔒 **Lock 3 (Legacy Awareness):** Requires codebase analysis before task creation.
 
@@ -52,8 +52,15 @@ The core workflow uses 3 steps with 3-Layer Locks:
 ### 🧠 Management
 
 - `/kamiflow:ops:wake` - Reload project context (Session Recovery).
-- `/kamiflow:ops:roadmap` - Sync `docs/ROADMAP.md`.
-- `/kamiflow:ops:save-context` - Save RAM to `PROJECT_CONTEXT.md`.
+- `/kamiflow:ops:roadmap` - Sync `./.kamiflow/ROADMAP.md`.
+- `/kamiflow:ops:save-context` - Save RAM to `./.kamiflow/PROJECT_CONTEXT.md`.
+
+## 5. Environment Awareness
+
+This project uses `cli-core/logic/env-manager.js` to handle dynamic workspace paths.
+- **Development (DEV):** `KAMI_ENV=development` -> Workspace is `./.kamiflow/`.
+- **Production (PROD):** `KAMI_ENV=production` -> Workspace is `./.kamiflow/` (in dist).
+- **Execution:** Always use `npm run dev` or `npm run build` to ensure `cross-env` correctly sets the environment.
 
 #### 📋 Quick Command Reference
 <!-- KAMI_COMMAND_LIST_START -->
@@ -152,13 +159,13 @@ The core workflow uses 3 steps with 3-Layer Locks:
 
 # These files inject the detailed "Brain" of the protocols.
 
-@.gemini/rules/core-manifesto.md
-@.gemini/rules/core-tech-stack.md
-@.gemini/rules/std-command.md
-@.gemini/rules/flow-factory-line.md
-@.gemini/rules/flow-execution.md
-@.gemini/rules/flow-bridge.md
-@.gemini/rules/flow-bootstrap.md
-@.gemini/rules/std-blueprint.md
-@.gemini/rules/std-id.md
-@PROJECT_CONTEXT.md
+@./.gemini/rules/core-manifesto.md
+@./.gemini/rules/core-tech-stack.md
+@./.gemini/rules/std-command.md
+@./.gemini/rules/flow-factory-line.md
+@./.gemini/rules/flow-execution.md
+@./.gemini/rules/flow-bridge.md
+@./.gemini/rules/flow-bootstrap.md
+@./.gemini/rules/std-blueprint.md
+@./.gemini/rules/std-id.md
+@./.kamiflow/PROJECT_CONTEXT.md

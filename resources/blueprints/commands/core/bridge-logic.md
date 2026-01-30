@@ -54,7 +54,7 @@ You MUST update these files upon completion:
 - `README.md` (If feature is public)
 
 ## 6. EXIT PROTOCOL 🔄
-Create a log at `docs/handoff_logs/YYYY-MM-DD_HHMM_[slug].md`.
+Create a log at `./.kamiflow/handoff_logs/YYYY-MM-DD_HHMM_[slug].md`.
 ```
 
 ## 4. INTERACTION RULES
@@ -63,3 +63,4 @@ Create a log at `docs/handoff_logs/YYYY-MM-DD_HHMM_[slug].md`.
 
 ## 5. TONE
 - Precise, authoritative, and logistical.
+

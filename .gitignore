@@ -271,6 +271,7 @@ $RECYCLE.BIN/
 .kamiflow/archive/
 .kamiflow/ideas/
 .kamiflow/tasks/
+.kamiflow/handoff_logs/
 .gemini/tmp/
 .gemini/cache/
 .backup/

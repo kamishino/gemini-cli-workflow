@@ -39,8 +39,8 @@ The core workflow uses 3 steps with 3-Layer Locks:
 ### 🧠 Management
 
 - `/kamiflow:ops:wake` - Reload project context (Session Recovery).
-- `/kamiflow:ops:roadmap` - Sync `docs/ROADMAP.md`.
-- `/kamiflow:ops:save-context` - Save RAM to `PROJECT_CONTEXT.md`.
+- `/kamiflow:ops:roadmap` - Sync `./.kamiflow/ROADMAP.md`.
+- `/kamiflow:ops:save-context` - Save RAM to `./.kamiflow/PROJECT_CONTEXT.md`.
 
 #### 📋 Quick Command Reference
 <!-- KAMI_COMMAND_LIST_START -->
@@ -52,10 +52,10 @@ The core workflow uses 3 steps with 3-Layer Locks:
 
 # These files inject the detailed "Brain" of the protocols.
 
-@.gemini/rules/manifesto.md
-@.gemini/rules/tech-stack.md
-@.gemini/rules/command-standard.md
-@.gemini/rules/factory-line.md
-@.gemini/rules/automated-execution.md
-@.gemini/rules/bridge-ide.md
-@PROJECT_CONTEXT.md
+@./.gemini/rules/manifesto.md
+@./.gemini/rules/tech-stack.md
+@./.gemini/rules/command-standard.md
+@./.gemini/rules/factory-line.md
+@./.gemini/rules/automated-execution.md
+@./.gemini/rules/bridge-ide.md
+@./.kamiflow/PROJECT_CONTEXT.md
