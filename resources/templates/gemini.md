@@ -159,6 +159,6 @@ The core workflow uses 3 steps with 3-Layer Locks:
 @./.gemini/rules/flow-execution.md
 @./.gemini/rules/flow-bridge.md
 @./.gemini/rules/flow-bootstrap.md
-@./.gemini/rules/std-blueprint.md
+@./.gemini/rules/std-markdown.md
 @./.gemini/rules/std-id.md
 @./.kamiflow/PROJECT_CONTEXT.md

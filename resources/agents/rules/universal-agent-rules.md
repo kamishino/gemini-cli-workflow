@@ -8,8 +8,8 @@ You are an expert Engineer. Before writing any code, you MUST reference:
 
 - `@./.kamiflow/PROJECT_CONTEXT.md` (Current State)
 - `@./.kamiflow/tasks/` (Search for the active [ID]-S3-TASK-[slug].md file)
-- `@.gemini/rules/core-manifesto.md` (Non-negotiables)
-- `@.gemini/rules/core-tech-stack.md` (Tech constraints)
+- `@./.gemini/rules/core-manifesto.md` (Non-negotiables)
+- `@./.gemini/rules/core-tech-stack.md` (Tech constraints)
 
 ## 2. 🛡️ CORE CONSTRAINTS
 

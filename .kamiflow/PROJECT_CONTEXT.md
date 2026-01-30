@@ -11,7 +11,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Implemented Intelligent Sync Engine (Task 092) - Enhanced updater with silent version checking, atomic build rollbacks, force-update with backup for standalone projects, and a dedicated 'sync-rules' command.
+- **Last Completed Action:** Implemented Constitutional Alignment (Task 093) - Fixed import bugs in new projects by standardizing rule names (id-protocol -> std-id), anchoring all imports with '@./', and cleaning up initialization templates to exclude internal rules. Updated 'upgrade' command to sync GEMINI.md and .kamirc.example.json.
 - **Current Focus:** Final stabilization and public release preparation.
 - **Next Step:** Official public rollout and community onboarding.
 

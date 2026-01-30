@@ -159,14 +159,37 @@ async function updateStandaloneMode(projectPath, options = {}) {
   };
 
   try {
-    // We only sync the core folders: .gemini and .windsurf
+    // We sync the core folders and top-level seeds
     const coreFolders = ['.gemini', '.windsurf'];
+    const seeds = ['GEMINI.md', '.kamirc.example.json'];
+
     for (const folder of coreFolders) {
       const src = path.join(sourceDist, folder);
       const dest = path.join(projectPath, folder);
       if (await fs.pathExists(src)) {
         await fs.ensureDir(dest);
         await walkAndSync(src, dest);
+      }
+    }
+
+    for (const seed of seeds) {
+      const src = path.join(sourceDist, seed);
+      const dest = path.join(projectPath, seed);
+      if (await fs.pathExists(src)) {
+        const exists = await fs.pathExists(dest);
+        if (exists) {
+          if (force) {
+            const bakPath = `${dest}.bak`;
+            await fs.move(dest, bakPath, { overwrite: true });
+            await fs.copy(src, dest);
+            logger.warn(`Overwritten (Backup created): ${seed}`);
+          } else {
+            logger.hint(`Skipped (Exists): ${seed}`);
+          }
+        } else {
+          await fs.copy(src, dest);
+          logger.success(`Created: ${seed}`);
+        }
       }
     }
     return true;

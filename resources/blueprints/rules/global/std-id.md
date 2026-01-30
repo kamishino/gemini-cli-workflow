@@ -192,8 +192,8 @@ Display reconnaissance results to user:
 
 ```toml
 ## 2. PRE-FLIGHT VALIDATION
-3. **ID Logic:** Follow `@.gemini/rules/id-protocol.md`
-   - Scan `tasks/` and `archive/` recursively
+3. **ID Logic:** Follow `@./.gemini/rules/std-id.md`
+   - Scan `./.kamiflow/tasks/` and `./.kamiflow/archive/` recursively
    - Extract all numeric IDs using regex `^(\d{3})`
    - Calculate: Next ID = MAX(IDs) + 1
    - Format as zero-padded 3-digit string
@@ -310,7 +310,7 @@ if ($conflictingFiles.Count -gt 0) {
 
 ```
 1. User triggers: /kamiflow:idea "Build X"
-2. AI reads: @.gemini/rules/id-protocol.md
+2. AI reads: @./.gemini/rules/std-id.md
 3. AI executes: PowerShell scan command
 4. AI parses: Extract all IDs from filenames
 5. AI calculates: maxId + 1
