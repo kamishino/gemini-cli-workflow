@@ -1,36 +1,36 @@
-# ≡ƒôû KamiFlow Command Wiki
+# 📖 KamiFlow Command Wiki
 
-[ ≡ƒÅá Home ](../../README.md) | [ ≡ƒÜÇ Start ](../GETTING_STARTED.md) | [ ≡ƒôû Wiki ](#) | [ ≡ƒåÿ SOS ](../TROUBLESHOOTING.md)
+[ 🏠 Home ](../../README.md) | [ 🚀 Start ](../GETTING_STARTED.md) | [ 📖 Wiki ](#) | [ 🆘 SOS ](../TROUBLESHOOTING.md)
 
 ---
 
 Welcome to the official command reference for **KamiFlow**. This Wiki provides deep technical insights and "Logic & Thinking" (CoT) guides for every command in the system.
 
-## ≡ƒùé∩╕Å Browse by Category
+## 🗺️ Browse by Category
 
-### [≡ƒÄ» Sniper Model (Core)](core.md)
+### [🎯 Sniper Model (Core)](core.md)
 Strategic planning and high-fidelity specifications.
 - `idea`, `spec`, `build`, `bridge`
 
-### [≡ƒºá Management (Ops)](ops.md)
+### [🧠 Management (Ops)](ops.md)
 Project health, memory restoration, and onboarding.
 - `wake`, `sync`, `roadmap`, `save-context`, `help`, `tour`, `bootstrap`
 
-### [≡ƒÜÇ Auto-Pilot (Dev)](dev.md)
+### [🚀 Auto-Pilot (Dev)](dev.md)
 Automation tools for high-speed execution.
 - `lazy`, `superlazy`, `release`, `upgrade`, `archive`, `revise`
 
-### [≡ƒûÑ∩╕Å Terminal CLI](terminal.md)
+### [🖥️ Terminal CLI](terminal.md)
 Machine-level operations via the `kamiflow` command.
 - `init-flow`, `config-flow`, `doctor-flow`, `sync-flow`, `archive-flow`
 
 ---
 
-## ≡ƒºÉ Scannable Overview
+## 🔍 Scannable Overview
 
 <!-- KAMI_COMMAND_LIST_START -->
 
-### ≡ƒÄ» Sniper Model (Core Flow)
+### 🎯 Sniper Model (Core Flow)
 
 | Command | Goal |
 | :--- | :--- |
@@ -39,14 +39,14 @@ Machine-level operations via the `kamiflow` command.
 | `/kamiflow:core:build` | **[KamiFlow Sniper] Generate implementation task list with Legacy Awareness (Step 3: Lock 3).** |
 
 
-### ≡ƒîë The Bridge (IDE Integration)
+### 🌉 The Bridge (IDE Integration)
 
 | Command | Goal |
 | :--- | :--- |
 | `/kamiflow:core:bridge` | **[KamiFlow] Generate a 'Context Package' prompt for external AI Editors (Windsurf/Cursor).** |
 
 
-### ≡ƒÜÇ Auto-Pilot (Automation)
+### 🚀 Auto-Pilot (Automation)
 
 | Command | Goal |
 | :--- | :--- |
@@ -60,18 +60,18 @@ Machine-level operations via the `kamiflow` command.
 | `/kamiflow:dev:supersaiyan` | **[KamiFlow] Meta-Automation - Manage cycles of Saiyan execution.** |
 
 
-### ≡ƒºá Management (Operations)
+### 🧠 Management (Operations)
 
 | Command | Goal |
 | :--- | :--- |
 | `/kamiflow:ops:wake` | **[KamiFlow] Wake up and reload project context to eliminate session amnesia.** |
 | `/kamiflow:ops:help` | **[KamiFlow] Interactive help system for commands and Sniper Model phases.** |
-| `/kamiflow:ops:save-context` | **[KamiFlow] Sync current state to PROJECT_CONTEXT.md (Manual Memory Save).** |
+| `/kamiflow:ops:save-context` | **[KamiFlow] Sync current state to ./.kamiflow/PROJECT_CONTEXT.md (Manual Memory Save).** |
 | `/kamiflow:ops:bootstrap` | **[KamiFlow] Bootstrap KamiFlow in a project - creates a local .gemini/ configuration from the master template.** |
 | `/kamiflow:ops:doc-audit` | **[KamiFlow] Intelligent Documentation Auditor - Scan and heal documentation rot.** |
 
 
-### ≡ƒº⌐ Agents (Plugin)
+### 🧩 Agents (Plugin)
 
 | Command | Goal |
 | :--- | :--- |
@@ -79,7 +79,7 @@ Machine-level operations via the `kamiflow` command.
 | `/kamiflow:p-agents:scan` | **[Agent Hub] Discover which AI agents are currently present in your project.** |
 
 
-### ≡ƒº⌐ Market (Plugin)
+### 🧩 Market (Plugin)
 
 | Command | Goal |
 | :--- | :--- |
@@ -87,7 +87,7 @@ Machine-level operations via the `kamiflow` command.
 | `/kamiflow:p-market:inspire` | **[Market Engine] Out-of-the-box innovation brainstorming for your current stack.** |
 
 
-### ≡ƒî▒ The Seed Hub (Plugin)
+### 🌱 The Seed Hub (Plugin)
 
 | Command | Goal |
 | :--- | :--- |
@@ -96,7 +96,7 @@ Machine-level operations via the `kamiflow` command.
 | `/kamiflow:p-seed:promote` | **[Seed Hub] Harvest an idea by moving it to the backlog (The Harvesting phase).** |
 
 
-### ≡ƒº⌐ Swarm (Plugin)
+### 🧩 Swarm (Plugin)
 
 | Command | Goal |
 | :--- | :--- |
@@ -104,7 +104,7 @@ Machine-level operations via the `kamiflow` command.
 | `/kamiflow:p-swarm:status` | **[Swarm Engine] Check active locks and swarm health.** |
 
 
-### ≡ƒûÑ∩╕Å Terminal CLI Guide (Flow Suite)
+### 🖥️ Terminal CLI Guide (Flow Suite)
 
 | Command | Goal |
 | :--- | :--- |

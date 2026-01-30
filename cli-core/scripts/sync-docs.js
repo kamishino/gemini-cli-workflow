@@ -7,12 +7,12 @@ const chalk = require('chalk');
 const COMMANDS_ROOT = path.join(__dirname, '../../.gemini/commands/kamiflow');
 
 const WIKI_FILES = {
-  sniper: path.join(__dirname, '../../docs/commands/core.md'),
-  bridge: path.join(__dirname, '../../docs/commands/core.md'),
-  autopilot: path.join(__dirname, '../../docs/commands/dev.md'),
-  management: path.join(__dirname, '../../docs/commands/ops.md'),
-  terminal: path.join(__dirname, '../../docs/commands/terminal.md'),
-  global: path.join(__dirname, '../../docs/commands/README.md')
+  sniper: path.join(__dirname, '../../resources/docs/commands/core.md'),
+  bridge: path.join(__dirname, '../../resources/docs/commands/core.md'),
+  autopilot: path.join(__dirname, '../../resources/docs/commands/dev.md'),
+  management: path.join(__dirname, '../../resources/docs/commands/ops.md'),
+  terminal: path.join(__dirname, '../../resources/docs/commands/terminal.md'),
+  global: path.join(__dirname, '../../resources/docs/commands/README.md')
 };
 
 const GROUP_TITLES = {
@@ -107,7 +107,7 @@ async function main() {
         { file: WIKI_FILES.terminal, groups: ['terminal'] },
         { file: WIKI_FILES.global, groups: FINAL_ORDER },
         { file: path.join(__dirname, '../../GEMINI.md'), groups: FINAL_ORDER },
-        { file: path.join(__dirname, '../../docs/overview.md'), groups: FINAL_ORDER }
+        { file: path.join(__dirname, '../../resources/docs/overview.md'), groups: FINAL_ORDER }
     ];
 
     for (const target of TARGET_MAP) {

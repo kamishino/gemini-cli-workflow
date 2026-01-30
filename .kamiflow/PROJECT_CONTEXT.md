@@ -11,7 +11,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Implemented Heritage Recovery (Task 077) - Recovered deleted documentation from git history and relocated to ./resources/docs/.
+- **Last Completed Action:** Implemented Harmonized Documentation Refresh (Task 078) - Fixed encoding artifacts, updated paths to ./.kamiflow/, and synchronized README links.
 - **Current Focus:** Final stabilization and public release preparation.
 - **Next Step:** Official public rollout and community onboarding.
 

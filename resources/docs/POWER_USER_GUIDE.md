@@ -1,8 +1,8 @@
-# ΓÜí KamiFlow Power User Guide
+# 📋 KamiFlow Power User Guide
 
 > **Warning:** This guide covers advanced features. With great power comes great responsibility.
 
-## ≡ƒîƒ The Saiyan Automation Suite (v2.24+)
+## ⚡ The Saiyan Automation Suite (v2.24+)
 
 KamiFlow v2.24 introduces "God Mode" automation levels, allowing the AI to take over the decision-making loop for trusted tasks.
 
@@ -33,12 +33,12 @@ KamiFlow v2.24 introduces "God Mode" automation levels, allowing the AI to take 
 
 ---
 
-## ΓÜ¢∩╕Å Atomic Workflows
+## ⚛️ Atomic Workflows
 
 ### Atomic Release Polish
 When you run `/release` (or `npm version`), KamiFlow performs a "Polish Pass" before the final commit:
 1.  **Sync Docs:** Updates `docs/commands/*.md`.
-2.  **Sync Roadmap:** Updates `docs/ROADMAP.md` with recent achievements.
+2.  **Sync Roadmap:** Updates `./.kamiflow/ROADMAP.md` with recent achievements.
 3.  **Unified Commit:** Amends all changes into a single `chore(release)` commit.
 
 ### Archive Automation
@@ -50,10 +50,10 @@ This is used internally by the Saiyan modes to keep the workspace clean without 
 
 ---
 
-## ≡ƒºá Memory Management (Advanced)
+## 🧠 Memory Management (Advanced)
 
 ### Session Recovery
-Run `/kamiflow:ops:wake` at the start of every session to reload the `PROJECT_CONTEXT.md` and `cached_max_id`. This prevents ID collisions and hallucinations.
+Run `/kamiflow:ops:wake` at the start of every session to reload the `./.kamiflow/PROJECT_CONTEXT.md` and `cached_max_id`. This prevents ID collisions and hallucinations.
 
 ### Manual Sync
 If the AI seems confused, force a sync:

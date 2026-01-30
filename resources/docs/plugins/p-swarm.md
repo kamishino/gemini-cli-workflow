@@ -1,17 +1,17 @@
-# ≡ƒÉ¥ Sub-Agent Swarm (/p-swarm)
+# 🐝 Sub-Agent Swarm (/p-swarm)
 
 **Position:** Performance Multiplier / Concurrency Engine
 **Status:** Operational (v2.22.0)
 
 ---
 
-## ≡ƒºÉ What is the Swarm?
+## 🔍 What is the Swarm?
 
 The **Sub-Agent Swarm** allows KamiFlow to break free from sequential "Waterfall" execution. It enables the AI to spawn specialized sub-agents that handle different domains simultaneously (e.g., Implementing code while researching market gaps).
 
 ---
 
-## ≡ƒöÆ The Concurrency Protocol
+## 🔒 The Concurrency Protocol
 
 To prevent data corruption, KamiFlow uses the **.swarm-lock** protocol:
 1.  An agent **acquires** a lock before writing to a directory (e.g., `tasks/`).
@@ -20,7 +20,7 @@ To prevent data corruption, KamiFlow uses the **.swarm-lock** protocol:
 
 ---
 
-## ≡ƒñû Agent Registry
+## 📋 Agent Registry
 
 Managed at `docs/agents/registry.md`, this file defines the "Constitution" of your AI workforce:
 - **Executor:** Handles implementation and logic.
@@ -29,7 +29,7 @@ Managed at `docs/agents/registry.md`, this file defines the "Constitution" of yo
 
 ---
 
-## ≡ƒ¢á Commands
+## 🛠️ Commands
 
 | Command | Action | Goal |
 | :--- | :--- | :--- |
@@ -39,5 +39,5 @@ Managed at `docs/agents/registry.md`, this file defines the "Constitution" of yo
 
 ---
 
-## ≡ƒÜÇ Speed Gains
+## 🚀 Speed Gains
 By using Swarm mode, the time from "Idea to Verified Discovery" can be reduced by up to 40% because strategic scouting happens in the background of your active development.

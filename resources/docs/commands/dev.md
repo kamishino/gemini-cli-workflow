@@ -1,6 +1,6 @@
-# ≡ƒÜÇ Auto-Pilot & Developer Tools (Dev)
+# 🚀 Auto-Pilot & Developer Tools (Dev)
 
-[ ≡ƒÅá Home ](../../README.md) | [ ≡ƒÜÇ Start ](../../docs/GETTING_STARTED.md) | [ ≡ƒôû Wiki ](README.md) | [ ≡ƒåÿ SOS ](../../docs/TROUBLESHOOTING.md)
+[ 🏠 Home ](../../README.md) | [ 🚀 Start ](../../docs/GETTING_STARTED.md) | [ 📖 Wiki ](README.md) | [ 🆘 SOS ](../../docs/TROUBLESHOOTING.md)
 
 ---
 
@@ -8,7 +8,7 @@ Automation tools for high-speed building, archiving, and release management.
 
 <!-- KAMI_COMMAND_LIST_START -->
 
-### ≡ƒÜÇ Auto-Pilot (Automation)
+### 🚀 Auto-Pilot (Automation)
 
 | Command | Goal |
 | :--- | :--- |
@@ -28,7 +28,7 @@ Automation tools for high-speed building, archiving, and release management.
 ## /kamiflow:dev:lazy
 > **Goal:** Auto-generate S1-S4 artifacts using the Sniper Model with a mandatory Diagnostic Gate.
 
-### ≡ƒºá Logic & Thinking (CoT)
+### 🧠 Logic & Thinking (CoT)
 1. **Gate 1:** It forces the Diagnostic Interview.
 2. **Gate 2:** It waits for your approval of the IDEA before generating SPEC, BUILD, and HANDOFF.
 3. **Benefit:** High speed without sacrificing strategic alignment.
@@ -38,7 +38,7 @@ Automation tools for high-speed building, archiving, and release management.
 ## /kamiflow:dev:superlazy
 > **Goal:** Auto-generate artifacts AND execute implementation immediately.
 
-### ≡ƒºá Logic & Thinking (CoT)
+### 🧠 Logic & Thinking (CoT)
 1. **Full Chain:** It follows the `/lazy` flow but adds an **Autonomous Implementation** phase.
 2. **Validator Loop:** It executes code -> validates results -> heals errors automatically.
 3. **Atomic Exit:** Upon completion, it syncs docs, commits changes, and archives artifacts silently.
@@ -48,7 +48,7 @@ Automation tools for high-speed building, archiving, and release management.
 ## /kamiflow:dev:revise
 > **Goal:** Emergency Brake - Clarify context and resolve "hallucinations".
 
-### ≡ƒºá Logic & Thinking (CoT)
+### 🧠 Logic & Thinking (CoT)
 1. **Stop:** It is FORBIDDEN from creating files.
 2. **Challenge:** It acts as a **Critical Reviewer**, questioning the current logic or user's request.
 3. **Alignment:** It forces a "Reality Check" to ensure the project doesn't drift into scope creep or tech debt.
@@ -58,21 +58,21 @@ Automation tools for high-speed building, archiving, and release management.
 ## /kamiflow:dev:saiyan
 > **Goal:** "God Mode" execution for a single task. Auto-decide, auto-build, auto-archive.
 
-### ≡ƒºá Logic & Thinking (CoT)
+### 🧠 Logic & Thinking (CoT)
 1. **Auto-Decision:** Automatically selects **Option B (Balanced)** during the Idea phase.
 2. **Hyper-Speed:** Bypasses manual confirmations for Spec and Build plans.
 3. **Atomic Cleanup:** Automatically archives the task upon completion.
 
-≡ƒôû **[Read the Saiyan Mode Guide](../POWER_USER_GUIDE.md#1-devsaiyan-the-executor)**
+📖 **[Read the Saiyan Mode Guide](../POWER_USER_GUIDE.md#1-devsaiyan-the-executor)**
 
 ---
 
 ## /kamiflow:dev:supersaiyan
 > **Goal:** Meta-Automation to manage cycles of development.
 
-### ≡ƒºá Logic & Thinking (CoT)
+### 🧠 Logic & Thinking (CoT)
 1. **Cycle Manager:** It manages a batch of 3 tasks (1 Cycle).
 2. **Source:** It can pull from the Backlog or generate new ideas via Market Research.
 3. **Orchestrator:** It invokes the `saiyan` agent for each task in the queue.
 
-≡ƒôû **[Read the SuperSaiyan Guide](../POWER_USER_GUIDE.md#2-devsupersaiyan-the-orchestrator)**
+📖 **[Read the SuperSaiyan Guide](../POWER_USER_GUIDE.md#2-devsupersaiyan-the-orchestrator)**

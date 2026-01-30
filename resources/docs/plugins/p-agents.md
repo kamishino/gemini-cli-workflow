@@ -1,17 +1,17 @@
-# ≡ƒº⌐ Multi-Agent Bridge (/p-agents)
+# 🧩 Multi-Agent Bridge (/p-agents)
 
 **Position:** Collaboration Plugin / Skill Dispatcher
 **Status:** Operational
 
 ---
 
-## ≡ƒºÉ What is the Multi-Agent Bridge?
+## 🔍 What is the Multi-Agent Bridge?
 
 The **Multi-Agent Bridge** is a specialized module designed to synchronize "Intelligence" across multiple AI tools (Cursor, Windsurf, Claude Code, etc.). It allows you to import community-vetted skills (from [skills.sh](https://skills.sh/)) and distribute them safely to your active development environments.
 
 ---
 
-## ≡ƒ¢í∩╕Å Safe Audit Protocol
+## 🛡️ Safe Audit Protocol
 
 Before any skill is installed, KamiFlow performs a **Safety Audit**:
 1.  **Fetch:** Reads the skill's source code directly from GitHub.
@@ -20,15 +20,15 @@ Before any skill is installed, KamiFlow performs a **Safety Audit**:
 
 ---
 
-## ≡ƒöä The Collaboration Workflow
+## 🔄 The Collaboration Workflow
 
-1.  **≡ƒî▒ Discovery:** Use `/kamiflow:p-agents:scan` to see which agents (IDE folders) are currently active in your project.
-2.  **≡ƒôª Acquisition:** Use `/kamiflow:p-agents:add <repo>` to fetch a new skill (e.g., `vercel-labs/skills/web-design-guidelines`).
-3.  **≡ƒñ¥ Handshake:** The system updates `docs/universal-agent-rules.md`. Copy this file's content to your IDE's specific rules file (e.g., `.cursorrules`) to finalize the integration.
+1.  **🌱 Discovery:** Use `/kamiflow:p-agents:scan` to see which agents (IDE folders) are currently active in your project.
+2.  **🚀 Acquisition:** Use `/kamiflow:p-agents:add <repo>` to fetch a new skill (e.g., `vercel-labs/skills/web-design-guidelines`).
+3.  **🤝 Handshake:** The system updates `docs/universal-agent-rules.md`. Copy this file's content to your IDE's specific rules file (e.g., `.cursorrules`) to finalize the integration.
 
 ---
 
-## ≡ƒ¢á Commands
+## 🛠️ Commands
 
 | Command | Action | Goal |
 | :--- | :--- | :--- |
@@ -38,5 +38,5 @@ Before any skill is installed, KamiFlow performs a **Safety Audit**:
 
 ---
 
-## ≡ƒôé Universal Rules (SSOT)
+## 📁 Universal Rules (SSOT)
 The bridge maintains a central source of truth for agent behavior at `docs/universal-agent-rules.md`. This ensures that whether you are using Windsurf or Cursor, the AI follows the same **KamiFlow Manifesto**.

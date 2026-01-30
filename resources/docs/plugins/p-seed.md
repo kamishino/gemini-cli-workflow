@@ -1,26 +1,26 @@
-# ≡ƒî▒ Seed Hub Plugin (p-seed)
+# 🌱 Seed Hub Plugin (p-seed)
 
 **Position:** Strategy Plugin / Idea Incubator
 **Status:** Operational (v2.26.0)
 
 ---
 
-## ≡ƒºÉ What is the Seed Hub?
+## 🔍 What is the Seed Hub?
 
 The **Seed Hub** is a specialized incubator for raw ideas. It ensures quality control through a structured evaluation process (The Smart Incubator), preventing "Garbage In, Garbage Out" in your development backlog.
 
 ---
 
-## ≡ƒöä The Sowing Workflow
+## 🔄 The Sowing Workflow
 
-1.  **≡ƒî▒ Draft:** Run `/kamiflow:p-seed:draft`. Start a diagnostic interview to capture the "Why". A unique **Hash ID** (e.g., `X9R2`) is assigned.
-2.  **≡ƒôè Analyze:** Run `/kamiflow:p-seed:analyze <file>`. AI evaluates the idea's **Feasibility**, **Risk**, and **Value**. Scores are saved to the file's frontmatter.
-3.  **≡ƒî┐ Refine:** Based on AI feedback, refine the content. Repeat the analysis until the **Feasibility Score >= 0.7**.
-4.  **≡ƒÜÇ Promote:** Run `/kamiflow:p-seed:promote <file>`. Moves the "Ripe" idea to `ideas/backlog/`, ready for the Core Sniper Flow.
+1.  **🌱 Draft:** Run `/kamiflow:p-seed:draft`. Start a diagnostic interview to capture the "Why". A unique **Hash ID** (e.g., `X9R2`) is assigned.
+2.  **📈 Analyze:** Run `/kamiflow:p-seed:analyze <file>`. AI evaluates the idea's **Feasibility**, **Risk**, and **Value**. Scores are saved to the file's frontmatter.
+3.  **📝Â Refine:** Based on AI feedback, refine the content. Repeat the analysis until the **Feasibility Score >= 0.7**.
+4.  **🚀 Promote:** Run `/kamiflow:p-seed:promote <file>`. Moves the "Ripe" idea to `ideas/backlog/`, ready for the Core Sniper Flow.
 
 ---
 
-## ≡ƒ¢á Commands
+## 🛠️ Commands
 
 | Command | Action | Goal |
 | :--- | :--- | :--- |
@@ -30,11 +30,11 @@ The **Seed Hub** is a specialized incubator for raw ideas. It ensures quality co
 
 ---
 
-## ≡ƒ¢í∩╕Å The Quality Gate
+## 🛡️ The Quality Gate
 By default, ideas must score above **0.7** in Feasibility to be promoted. This threshold can be adjusted in your configuration. To bypass the gate, use the `--force` flag.
 
 ---
 
-## ≡ƒôé Storage Structure
+## 📁 Storage Structure
 - `ideas/draft/`: Initial sparks and unpolished concepts.
 - `ideas/backlog/`: High-quality, verified ideas ready for implementation.

@@ -1,8 +1,8 @@
-# ≡ƒîè KamiFlow: The Indie Builder's Operating System
+# 🌊 KamiFlow: The Indie Builder's Operating System
 
 > **Philosophy:** "Aesthetics + Utility". Ship fast, break nothing important.
 
-## ≡ƒù║∩╕Å The Flowchart
+## 🗺️ The Flowchart
 
 This diagram illustrates the lifecycle of a feature in KamiFlow, from raw idea to deployed code.
 
@@ -11,7 +11,7 @@ graph TD
     %% Nodes
     Start((User Idea))
 
-    subgraph Sniper_Phase [≡ƒÄ» Sniper Model: 3-Step Fused Kernel]
+    subgraph Sniper_Phase [🎯 Sniper Model: 3-Step Fused Kernel]
         Idea[/"/kamiflow:core:idea"/]
         Spec[/"/kamiflow:core:spec"/]
         Build[/"/kamiflow:core:build"/]
@@ -20,38 +20,38 @@ graph TD
         Lock3{{Lock 3: Legacy}}
     end
 
-    subgraph Bridge [≡ƒîë The Bridge]
+    subgraph Bridge [🌉 The Bridge]
         Handoff[/"/kamiflow:core:bridge"/]
         Sync[/"/kamiflow:ops:sync"/]
     end
 
-    subgraph Construction_Phase [≡ƒ¢á Construction & Execution]
+    subgraph Construction_Phase [🛠️ Construction & Execution]
         IdeMode(IDE Mode: Windsurf/Cursor)
         Code[[Coding...]]
         QualityGate{{"Phase 4: Quality Gate"}}
-        LogFile(Signal File: logs/*.md)
+        LogFile(Signal File: ./.kamiflow/handoff_logs/*.md)
     end
 
-    subgraph Autopilot_Phase [≡ƒÜÇ Auto-Pilot Mode]
+    subgraph Autopilot_Phase [🚀 Auto-Pilot Mode]
         Lazy{{"/kamiflow:dev:lazy"}}
         SuperLazy{{"/kamiflow:dev:superlazy"}}
         AutoCode[[Auto-Coding...]]
-        AutoLog(Signal File: logs/*_superlazy.md)
+        AutoLog(Signal File: ./.kamiflow/handoff_logs/*_superlazy.md)
     end
 
-    subgraph Seed_Hub [≡ƒî▒ The Seed Hub (Experiments)]
+    subgraph Seed_Hub [🌱 The Seed Hub (Experiments)]
         Draft[/"/kamiflow:seed:draft"/]
         Analyze[/"/kamiflow:seed:analyze"/]
         Promote[/"/kamiflow:seed:promote"/]
         MindSparks((Mind Sparks))
     end
 
-    subgraph Knowledge_Base [≡ƒºá Brain]
+    subgraph Knowledge_Base [🧠 Brain]
         Rules[(Rules & Protocols)]
         Skills[(Skills Library)]
     end
 
-    subgraph Management [≡ƒºá Management]
+    subgraph Management [🧠 Management]
         Roadmap[/"/kamiflow:ops:roadmap"/]
         Save[/"/kamiflow:ops:save-context"/]
     end
@@ -121,7 +121,7 @@ graph TD
     style MindSparks fill:#fff,stroke:#333,stroke-dasharray: 5 5
 ```
 
-## ≡ƒº¡ Navigation Note
+## 📍 Navigation Note
 
 The **Management Commands** (`/kamiflow:ops:roadmap` and `/kamiflow:ops:save-context`) act as your Compass and Save Button. They can (and should) be invoked at **ANY stage** to:
 
@@ -129,11 +129,11 @@ The **Management Commands** (`/kamiflow:ops:roadmap` and `/kamiflow:ops:save-con
 - Update progress.
 - Sync context before taking a break.
 
-## ΓÜí Quick Command Reference
+## 📋 Quick Command Reference
 
 <!-- KAMI_COMMAND_LIST_START -->
 
-### ≡ƒÄ» Sniper Model (Core Flow)
+### 🎯 Sniper Model (Core Flow)
 
 | Command | Goal |
 | :--- | :--- |
@@ -142,14 +142,14 @@ The **Management Commands** (`/kamiflow:ops:roadmap` and `/kamiflow:ops:save-con
 | `/kamiflow:core:build` | **[KamiFlow Sniper] Generate implementation task list with Legacy Awareness (Step 3: Lock 3).** |
 
 
-### ≡ƒîë The Bridge (IDE Integration)
+### 🌉 The Bridge (IDE Integration)
 
 | Command | Goal |
 | :--- | :--- |
 | `/kamiflow:core:bridge` | **[KamiFlow] Generate a 'Context Package' prompt for external AI Editors (Windsurf/Cursor).** |
 
 
-### ≡ƒÜÇ Auto-Pilot (Automation)
+### 🚀 Auto-Pilot (Automation)
 
 | Command | Goal |
 | :--- | :--- |
@@ -163,18 +163,18 @@ The **Management Commands** (`/kamiflow:ops:roadmap` and `/kamiflow:ops:save-con
 | `/kamiflow:dev:supersaiyan` | **[KamiFlow] Meta-Automation - Manage cycles of Saiyan execution.** |
 
 
-### ≡ƒºá Management (Operations)
+### 🧠 Management (Operations)
 
 | Command | Goal |
 | :--- | :--- |
 | `/kamiflow:ops:wake` | **[KamiFlow] Wake up and reload project context to eliminate session amnesia.** |
 | `/kamiflow:ops:help` | **[KamiFlow] Interactive help system for commands and Sniper Model phases.** |
-| `/kamiflow:ops:save-context` | **[KamiFlow] Sync current state to PROJECT_CONTEXT.md (Manual Memory Save).** |
+| `/kamiflow:ops:save-context` | **[KamiFlow] Sync current state to ./.kamiflow/PROJECT_CONTEXT.md (Manual Memory Save).** |
 | `/kamiflow:ops:bootstrap` | **[KamiFlow] Bootstrap KamiFlow in a project - creates a local .gemini/ configuration from the master template.** |
 | `/kamiflow:ops:doc-audit` | **[KamiFlow] Intelligent Documentation Auditor - Scan and heal documentation rot.** |
 
 
-### ≡ƒº⌐ Agents (Plugin)
+### 🧩 Agents (Plugin)
 
 | Command | Goal |
 | :--- | :--- |
@@ -182,7 +182,7 @@ The **Management Commands** (`/kamiflow:ops:roadmap` and `/kamiflow:ops:save-con
 | `/kamiflow:p-agents:scan` | **[Agent Hub] Discover which AI agents are currently present in your project.** |
 
 
-### ≡ƒº⌐ Market (Plugin)
+### 🧩 Market (Plugin)
 
 | Command | Goal |
 | :--- | :--- |
@@ -190,7 +190,7 @@ The **Management Commands** (`/kamiflow:ops:roadmap` and `/kamiflow:ops:save-con
 | `/kamiflow:p-market:inspire` | **[Market Engine] Out-of-the-box innovation brainstorming for your current stack.** |
 
 
-### ≡ƒî▒ The Seed Hub (Plugin)
+### 🌱 The Seed Hub (Plugin)
 
 | Command | Goal |
 | :--- | :--- |
@@ -199,7 +199,7 @@ The **Management Commands** (`/kamiflow:ops:roadmap` and `/kamiflow:ops:save-con
 | `/kamiflow:p-seed:promote` | **[Seed Hub] Harvest an idea by moving it to the backlog (The Harvesting phase).** |
 
 
-### ≡ƒº⌐ Swarm (Plugin)
+### 🧩 Swarm (Plugin)
 
 | Command | Goal |
 | :--- | :--- |
@@ -207,7 +207,7 @@ The **Management Commands** (`/kamiflow:ops:roadmap` and `/kamiflow:ops:save-con
 | `/kamiflow:p-swarm:status` | **[Swarm Engine] Check active locks and swarm health.** |
 
 
-### ≡ƒûÑ∩╕Å Terminal CLI Guide (Flow Suite)
+### 🖥️ Terminal CLI Guide (Flow Suite)
 
 | Command | Goal |
 | :--- | :--- |

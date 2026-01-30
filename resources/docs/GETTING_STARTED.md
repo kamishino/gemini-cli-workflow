@@ -1,10 +1,10 @@
-# ≡ƒÜÇ Getting Started with KamiFlow
+# 🚀 Getting Started with KamiFlow
 
 Welcome to **KamiFlow**, the professional "Operating System" for Indie Builders using Gemini CLI and AI IDEs. This guide will walk you through the full lifecycle of a feature, from a raw spark to a stable release.
 
 ---
 
-## ≡ƒÅù∩╕Å 1. Installation
+## 🏗️ 1. Installation
 
 **Windows (PowerShell):**
 ```powershell
@@ -26,7 +26,7 @@ This creates a local `.gemini/` configuration folder in your project, giving you
 
 ---
 
-## ≡ƒî▒ 2. Exploration: The Seed Hub
+## 🌱 2. Exploration: The Seed Hub
 Don't jump into code immediately. Use the **Seed Hub** to nurture your ideas.
 
 1.  **Sow a Seed:** Run `/kamiflow:p-seed:draft "Your Idea"` to start an interactive terminal interview.
@@ -35,7 +35,7 @@ Don't jump into code immediately. Use the **Seed Hub** to nurture your ideas.
 
 ---
 
-## ≡ƒÄ» 3. Construction: The Sniper Model
+## 🎯 3. Construction: The Sniper Model
 When you're ready to build, use the 3-Step Fused Kernel to ensure accuracy.
 
 1.  **Step 1 (Idea):** Run `/kamiflow:core:idea <path-to-backlog-file>`. This identifies the root cause and sets the strategic direction.
@@ -44,7 +44,7 @@ When you're ready to build, use the 3-Step Fused Kernel to ensure accuracy.
 
 ---
 
-## ≡ƒîë 4. Execution: The IDE Bridge
+## 🌉 4. Execution: The IDE Bridge
 KamiFlow is designed to work seamlessly with **Windsurf** or **Cursor**.
 
 1.  **Bridge:** Run `/kamiflow:core:bridge`. Copy the context package provided.
@@ -53,7 +53,7 @@ KamiFlow is designed to work seamlessly with **Windsurf** or **Cursor**.
 
 ---
 
-## ≡ƒôª 5. Release: The Finish Line
+## 🚀 5. Release: The Finish Line
 Once your feature is validated, it's time to ship.
 
 1.  **Release:** Run `/kamiflow:dev:release` (or `kami release patch`). The AI will analyze your task history, bump the version, sync docs, update the Roadmap, and generate a unified commit.
@@ -61,7 +61,7 @@ Once your feature is validated, it's time to ship.
 
 ---
 
-## ≡ƒº¡ Next Steps
+## 📍 Next Steps
 - Read the [Overview](overview.md) for a deep dive into the architecture.
 - Check the [Command Wiki](commands/README.md) for full reference.
 - Run `kami doctor` if you encounter any system issues.
