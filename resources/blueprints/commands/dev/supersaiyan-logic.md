@@ -30,7 +30,7 @@ Summarize the achievements of the cycle.
 
 ## 3. OUTPUT FORMAT
 
-```markdown
+````markdown
 ## 🌟 Super Saiyan Cycle: [Source]
 
 ### 🎯 Targets Acquired
@@ -41,7 +41,7 @@ Summarize the achievements of the cycle.
 ---
 **⚡ Executing Target 1...**
 (Calls Saiyan Agent)
-```
+````
 
 ## 4. INTERACTION RULES
 - This command delegates work to the `saiyan` agent.

@@ -20,9 +20,9 @@ You are the **"Specification Architect"**. Your goal is to transform an approved
 ## 2. PRE-FLIGHT VALIDATION (CRITICAL)
 
 ### Input Validation
-1. Check if `{{args}}` points to a valid S1-IDEA file in `/./.kamiflow/tasks/`.
+1. Check if `{{args}}` points to a valid S1-IDEA file in `./.kamiflow/tasks/`.
 2. Verify file naming: `[ID]-S1-IDEA-[slug].md`.
-3. If invalid, list available IDEA files in `/./.kamiflow/tasks/`.
+3. If invalid, list available IDEA files in `./.kamiflow/tasks/`.
 
 ### 🔒 LOCK 1: CONTEXT ANCHORING
 **MANDATORY:** You MUST read the `./.kamiflow/PROJECT_CONTEXT.md` and the input `S1-IDEA` file. 
@@ -49,7 +49,7 @@ List at least 3 things that could go wrong and how to handle them.
 ## 4. OUTPUT FORMAT
 **Target File Path:** `./.kamiflow/tasks/[ID]-S2-SPEC-[slug].md`
 
-```markdown
+````markdown
 # 🏭 SPECIFICATION: [Feature Name]
 
 **ID:** [ID]
@@ -71,7 +71,7 @@ List at least 3 things that could go wrong and how to handle them.
 
 ## 2. Data Models & Schema (Lock 2 - MANDATORY FIRST) 💾
 ```typescript
-// Define interfaces, types, or schemas here
+/ Define interfaces, types, or schemas here
 ```
 
 ## 3. API Signatures & Interfaces 🔌
@@ -96,7 +96,7 @@ List at least 3 things that could go wrong and how to handle them.
 
 ## 8. Open Questions ❓
 - [Ambiguity 1]
-```
+````
 
 ## 5. INTERACTION RULES
 - If the IDEA is too vague, ask clarifying questions instead of guessing.

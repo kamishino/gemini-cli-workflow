@@ -73,7 +73,7 @@ if ($isDevMode) {
 ### Case A: Normal Wake (Standard Output)
 If the project is configured and tour is completed.
 
-```markdown
+````markdown
 ## 🌅 Welcome to KamiFlow
 
 **Time:** [Current timestamp]
@@ -111,12 +111,12 @@ If the project is configured and tour is completed.
 2. English (Default)
 
 Reply with '1' or 'Vietnamese' to switch, otherwise I will proceed in English."
-```
+````
 
 ### Case B: Onboarding Wake (New Project or New User)
 If "{{PROJECT_NAME}}" is found OR "Tour Completed: false".
 
-```markdown
+````markdown
 ## 🌊 Welcome to KamiFlow!
 
 [Speak in English]
@@ -139,7 +139,7 @@ If "{{PROJECT_NAME}}" is found OR "Tour Completed: false".
 - To initialize project details: Reply with '1. My Project, Build X, Tech Y'
 - To start a Guided Tour: Run `/kamiflow:ops:tour`
 - To see all commands: Run `/kamiflow:ops:help`"
-```
+````
 
 ## 5. INTERACTION LOGIC (ONBOARDING)
 If Case B is active:

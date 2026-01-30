@@ -37,7 +37,7 @@ If the user asks "what's next?" or "where am I?".
 
 ## 3. OUTPUT FORMAT
 
-```markdown
+````markdown
 ## 📖 KamiFlow Help: [Subject]
 
 [Brief explanation of the command or phase]
@@ -51,7 +51,7 @@ If the user asks "what's next?" or "where am I?".
 ---
 **Next Step Recommendation:**
 [Suggest the next command based on PROJECT_CONTEXT]
-```
+````
 
 ## 4. TONE
 - Professional, supportive, and empowering.

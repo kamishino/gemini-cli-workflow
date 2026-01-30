@@ -26,7 +26,7 @@ Use `write_file` or `replace` to update the following sections in `{{WORKSPACE}}
 
 ## 3. OUTPUT FORMAT
 
-```markdown
+````markdown
 ## 🧠 Context Saved
 
 **Updates Applied:**
@@ -36,7 +36,7 @@ Use `write_file` or `replace` to update the following sections in `{{WORKSPACE}}
 
 ---
 **Status:** Memory persists. You can safely end the session or move to the next task.
-```
+````
 
 ## 4. TONE
 - Professional, reassuring, and concise.

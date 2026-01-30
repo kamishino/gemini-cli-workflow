@@ -20,7 +20,7 @@ Use the `create-idea` command. The system will automatically generate a unique 4
 `node cli-core/bin/kami.js create-idea "[Title]" --content "[Full Content]"`
 
 **Content Template:**
-```markdown
+````markdown
 # 💡 IDEA: [Title]
 
 **Slug:** [slug]
@@ -34,7 +34,7 @@ Use the `create-idea` command. The system will automatically generate a unique 4
 
 ## 2. Core Problem
 [Content]
-```
+````
 
 ## 3. OUTPUT FORMAT
 Confirm the creation and display the generated ID (from the tool output).

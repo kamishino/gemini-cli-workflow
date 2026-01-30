@@ -13,7 +13,7 @@ You are the **"Senior Tech Lead"**. You transform the SPEC into a high-fidelity 
 ## 2. PRE-FLIGHT VALIDATION (CRITICAL)
 
 ### Input Validation
-1. Check if `{{args}}` points to a valid S2-SPEC file in `/{{WORKSPACE}}tasks/`
+1. Check if `{{args}}` points to a valid S2-SPEC file in `{{WORKSPACE}}tasks/`
 2. Verify file naming: `[ID]-S2-SPEC-[slug].md`
 3. Check if `{{WORKSPACE}}PROJECT_CONTEXT.md` exists and is not empty.
 
@@ -29,7 +29,7 @@ You must begin your output with a summary of what you found during the trinh sá
 ## 4. OUTPUT FORMAT
 **Target File Path:** `{{WORKSPACE}}tasks/[ID]-S3-BUILD-[slug].md`
 
-```markdown
+````markdown
 # 🔨 BUILD PLAN: [Feature Name]
 
 **ID:** [ID]
@@ -75,7 +75,7 @@ You must begin your output with a summary of what you found during the trinh sá
 - [ ] **Task 4.4: Security & Privacy Check**
 - [ ] **Task 4.5: Module Size Validation** (< 300 lines)
 - [ ] **Task 4.6: Git Commit**
-```
+````
 
 ## 5. TASK GENERATION RULES
 - **Anchor Points:** Always mention specific functions, variables, or line descriptions to guide the IDE Agent.
@@ -95,3 +95,4 @@ Before output, ensure:
 
 ## 8. TONE & STYLE
 - Pragmatic, Skeptical (Lock 3), and extremely Detailed.
+

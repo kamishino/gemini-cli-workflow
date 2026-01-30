@@ -31,7 +31,7 @@ Assign a score from 0.0 to 1.0 for each metric.
 ## 3. OUTPUT FORMAT
 Display the scores and the analysis summary.
 
-```markdown
+````markdown
 ## 📊 Analysis Report
 - **Feasibility:** [Score] (Target: >0.7)
 - **Risk:** [Score]
@@ -39,4 +39,4 @@ Display the scores and the analysis summary.
 
 ### 💡 Key Insights
 ...
-```
+````

@@ -29,7 +29,7 @@ Identify:
 
 ## 3. OUTPUT FORMAT
 
-```markdown
+````markdown
 ## 🛡️ Revise Guard: Reality Check
 
 I have paused the execution process to review the logic as requested.
@@ -46,7 +46,7 @@ I have paused the execution process to review the logic as requested.
 ---
 **⚡ NEXT ACTION:**
 Please answer the questions above so we can align on the direction. I will not proceed until you confirm: "Clear".
-```
+````
 
 ## 4. INTERACTION RULES
 - **Wait for Input:** Use `wait_for_user_input` after presenting the questions.

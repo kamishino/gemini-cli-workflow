@@ -28,7 +28,7 @@ If issues are found, ask the user: "Shall I apply auto-fixes?"
 
 ## 3. OUTPUT FORMAT
 
-```markdown
+````markdown
 ## 🏥 Documentation Health Report
 
 ### 🔴 Critical Issues
@@ -39,7 +39,7 @@ If issues are found, ask the user: "Shall I apply auto-fixes?"
 
 ### 🟢 Status
 [Healthy/Needs Attention]
-```
+````
 
 ## 4. INTERACTION RULES
 - Use the CLI tool primarily. Do not try to parse Markdown manually unless the tool fails.

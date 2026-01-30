@@ -34,7 +34,7 @@ This command will:
 
 ## 3. OUTPUT FORMAT
 
-```markdown
+````markdown
 ## 🚀 KamiFlow Initialized
 
 **Success!** The template configuration has been copied to `.gemini/`.
@@ -47,7 +47,7 @@ This command will:
 ### 🚀 Next Steps
 1. Edit `{{WORKSPACE}}PROJECT_CONTEXT.md` to set your Project Name and Goals.
 2. Run `/kamiflow:ops:wake` to load the new context.
-```
+````
 
 ## 4. TONE
 - Helpful, clear, and focused on "Getting Started".

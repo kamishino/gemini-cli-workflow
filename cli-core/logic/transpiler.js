@@ -38,6 +38,22 @@ class Transpiler {
   }
 
   /**
+   * Sanitize content by fixing invalid path patterns
+   */
+  sanitizeContent(content) {
+    if (!content) return content;
+    
+    // Fix "/./.kamiflow/" -> "./.kamiflow/"
+    // This specifically targets the common mistake of adding a leading slash before {{WORKSPACE}}
+    let sanitized = content.replace(/\/(\.\/\.kamiflow\/)/g, '$1');
+    
+    // Fix double slashes (excluding protocol double slashes like https://)
+    sanitized = sanitized.replace(/([^:])\/{2,}/g, '$1/');
+    
+    return sanitized;
+  }
+
+  /**
    * Load a partial file by name (searches subfolders recursively)
    */
   async loadPartial(name) {
@@ -65,6 +81,9 @@ class Transpiler {
     
     // INJECT WORKSPACE PATH
     content = content.replace(/{{WORKSPACE}}/g, this.workspacePrefix);
+
+    // SELF-HEALING: Sanitize paths (e.g., /./.kamiflow -> ./.kamiflow)
+    content = this.sanitizeContent(content);
 
     // Extract metadata from YAML frontmatter
     const metadata = {};

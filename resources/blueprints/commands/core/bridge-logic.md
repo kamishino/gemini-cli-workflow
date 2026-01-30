@@ -29,7 +29,7 @@ Use `write_file` to create `{{WORKSPACE}}tasks/[ID]-S4-HANDOFF-[slug].md`.
 ## 3. OUTPUT FORMAT
 The generated file MUST be a self-contained "Prompt" for the IDE AI.
 
-```markdown
+````markdown
 # 🚀 IDE Context Package: [Feature Name]
 
 ## 1. The Objective 🎯
@@ -55,7 +55,7 @@ You MUST update these files upon completion:
 
 ## 6. EXIT PROTOCOL 🔄
 Create a log at `./.kamiflow/handoff_logs/YYYY-MM-DD_HHMM_[slug].md`.
-```
+````
 
 ## 4. INTERACTION RULES
 - After generating, ask: "Do you want me to save this to `{{WORKSPACE}}tasks/[ID]-S4-HANDOFF-[slug].md`? (Y/N)"

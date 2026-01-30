@@ -46,7 +46,7 @@ Based on the gathered data, determine the **SemVer Bump Level**:
 
 ## 3. OUTPUT FORMAT
 
-```markdown
+````markdown
 ## 🚀 Release Analysis
 - **Commits:** [Count]
 - **Key Changes:** [Summary of features/fixes]
@@ -56,7 +56,7 @@ Based on the gathered data, determine the **SemVer Bump Level**:
 - **Current:** v[X.Y.Z]
 - **Next:** v[X.Y.Z+1]
 - **Reason:** [Explanation]
-```
+````
 
 ## 4. EXECUTION RULES
 - **Safety First:** Never run `npm version` without confirmation.
