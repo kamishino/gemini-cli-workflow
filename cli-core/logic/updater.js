@@ -126,72 +126,77 @@ async function updateStandaloneMode(projectPath, options = {}) {
 
   logger.info(`Syncing standalone project files${force ? ' (FORCE MODE)' : ''}...`);
 
+  const protectedFiles = [
+    'GEMINI.md', 
+    '.kamiflow/PROJECT_CONTEXT.md', 
+    '.kamiflow/ROADMAP.md',
+    '.kamirc.json'
+  ];
+
   const walkAndSync = async (src, dest) => {
     const items = await fs.readdir(src);
     for (const item of items) {
       const srcPath = path.join(src, item);
       const destPath = path.join(dest, item);
       const stat = await fs.stat(srcPath);
+      const relative = path.relative(sourceDist, srcPath);
 
       if (stat.isDirectory()) {
         await fs.ensureDir(destPath);
         await walkAndSync(srcPath, destPath);
       } else {
         const exists = await fs.pathExists(destPath);
+        
+        // 1. Documentation & Whitelist: Always update
+        const isDoc = relative.includes('.kamiflow/docs/');
+        if (isDoc) {
+          await fs.copy(srcPath, destPath);
+          continue;
+        }
+
+        // 2. Protected Files: Never overwrite if they exist
+        if (protectedFiles.includes(relative) && exists) {
+          logger.hint(`Skipped (Protected): ${relative}`);
+          continue;
+        }
+
+        // 3. Special Case: .kamirc.example.json
+        if (relative === '.kamirc.example.json') {
+          const destActual = path.join(projectPath, '.kamirc.json');
+          if (await fs.pathExists(destActual)) {
+            if (await fs.pathExists(destPath)) {
+              await fs.remove(destPath);
+              logger.warn(`Cleaned up redundant .kamirc.example.json`);
+            }
+            continue;
+          }
+        }
+
+        // 4. Standard Sync
         if (exists) {
           if (force) {
             // Backup and overwrite
             const bakPath = `${destPath}.bak`;
             await fs.move(destPath, bakPath, { overwrite: true });
             await fs.copy(srcPath, destPath);
-            logger.warn(`Overwritten (Backup created): ${path.relative(projectPath, destPath)}`);
+            logger.warn(`Overwritten (Backup created): ${relative}`);
           } else {
-            // Skip
-            logger.hint(`Skipped (Exists): ${path.relative(projectPath, destPath)}`);
+            logger.hint(`Skipped (Exists): ${relative}`);
           }
         } else {
-          // New file
           await fs.copy(srcPath, destPath);
-          logger.success(`Created: ${path.relative(projectPath, destPath)}`);
+          logger.success(`Created: ${relative}`);
         }
       }
     }
   };
 
   try {
-    // We sync the core folders and top-level seeds
-    const coreFolders = ['.gemini', '.windsurf'];
-    const seeds = ['GEMINI.md', '.kamirc.example.json'];
-
-    for (const folder of coreFolders) {
-      const src = path.join(sourceDist, folder);
-      const dest = path.join(projectPath, folder);
-      if (await fs.pathExists(src)) {
-        await fs.ensureDir(dest);
-        await walkAndSync(src, dest);
-      }
-    }
-
-    for (const seed of seeds) {
-      const src = path.join(sourceDist, seed);
-      const dest = path.join(projectPath, seed);
-      if (await fs.pathExists(src)) {
-        const exists = await fs.pathExists(dest);
-        if (exists) {
-          if (force) {
-            const bakPath = `${dest}.bak`;
-            await fs.move(dest, bakPath, { overwrite: true });
-            await fs.copy(src, dest);
-            logger.warn(`Overwritten (Backup created): ${seed}`);
-          } else {
-            logger.hint(`Skipped (Exists): ${seed}`);
-          }
-        } else {
-          await fs.copy(src, dest);
-          logger.success(`Created: ${seed}`);
-        }
-      }
-    }
+    await walkAndSync(sourceDist, projectPath);
+    
+    console.log(require('chalk').gray('\n   ℹ️  Note: Core configuration options may have changed.'));
+    console.log(require('chalk').gray('      Please check ./.kamiflow/docs/CONFIGURATION.md for the latest reference.\n'));
+    
     return true;
   } catch (error) {
     logger.error(`Standalone sync failed: ${error.message}`);

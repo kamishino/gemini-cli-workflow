@@ -166,22 +166,51 @@ async function initializeProject(cwd, options = {}) {
       const targetDocs = path.join(cwd, 'resources/docs');
       await fs.ensureSymlink(path.join(cliRoot, 'resources/docs'), targetDocs, os.platform() === 'win32' ? 'junction' : 'dir');
     } else {
-      // STANDARD MODE: Copy everything from dist/
+      // STANDARD MODE: Copy everything from dist/ with existence checks
       const sourceDist = path.join(cliRoot, 'dist');
 
       if (!fs.existsSync(sourceDist)) {
         throw new Error(`Critical: Build artifacts not found at ${sourceDist}. Please run 'npm run build' in KamiFlow core.`);
       }
 
-      console.log(chalk.gray(`📦 Copying distribution files from ${sourceDist}...`));
+      console.log(chalk.gray(`📦 Seeding project from distribution...`));
       
-      // Copy the entire dist folder content to the user project
+      const protectedFiles = ['GEMINI.md', '.kamiflow/PROJECT_CONTEXT.md', '.kamiflow/ROADMAP.md'];
+      
+      // Copy dist content with filtering
       fs.cpSync(sourceDist, cwd, { 
         recursive: true,
         filter: (src) => {
+          const relative = path.relative(sourceDist, src);
           const basename = path.basename(src);
-          // Exclude internal build artifacts if any (though dist should be clean)
-          return basename !== '.git' && basename !== 'node_modules';
+          
+          // Basic excludes
+          if (basename === '.git' || basename === 'node_modules') return false;
+
+          // Protected core files: Skip if already exists in destination
+          if (protectedFiles.includes(relative)) {
+            const destPath = path.join(cwd, relative);
+            if (fs.existsSync(destPath)) {
+              console.log(chalk.gray(`   ℹ️  Skipped existing: ${relative}`));
+              return false;
+            }
+          }
+
+          // Special case: kamirc.json vs example
+          if (relative === '.kamirc.example.json') {
+            const destActual = path.join(cwd, '.kamirc.json');
+            if (fs.existsSync(destActual)) {
+              // Actual exists, cleanup example if it was there and skip copy
+              const destExample = path.join(cwd, '.kamirc.example.json');
+              if (fs.existsSync(destExample)) {
+                fs.removeSync(destExample);
+                console.log(chalk.gray('   🧹 Cleaned up redundant .kamirc.example.json'));
+              }
+              return false;
+            }
+          }
+
+          return true;
         }
       });
     }
