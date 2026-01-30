@@ -87,17 +87,40 @@ class SummaryReporter {
     this.results.push({
       Item: name,
       Status: status === 'SUCCESS' ? chalk.green('✅ SUCCESS') : chalk.red('❌ ERROR'),
-      Details: message
+      Details: message,
+      _rawStatus: status // Internal key for sorting
     });
   }
 
   print() {
     const duration = ((Date.now() - this.startTime) / 1000).toFixed(2);
+    
+    // Sort results: 1. Errors first, 2. Details (Path) A-Z, 3. Item A-Z
+    const sortedResults = [...this.results].sort((a, b) => {
+      // Priority 1: Errors first
+      if (a._rawStatus !== b._rawStatus) {
+        return a._rawStatus === 'ERROR' ? -1 : 1;
+      }
+
+      // Priority 2: Alphabetical by Details (Path)
+      const detailA = a.Details || "";
+      const detailB = b.Details || "";
+      if (detailA && detailB && detailA !== detailB) {
+        return detailA.localeCompare(detailB);
+      }
+
+      // Priority 3: Alphabetical by Item Name
+      return a.Item.localeCompare(b.Item);
+    });
+
+    // Strip internal sorting keys before displaying
+    const displayResults = sortedResults.map(({ _rawStatus, ...rest }) => rest);
+
     console.log(chalk.cyan(`\n📊 SUMMARY: ${this.title}`));
     console.log(chalk.gray(`   Completed in ${duration}s\n`));
     
-    if (this.results.length > 0) {
-      console.table(this.results);
+    if (displayResults.length > 0) {
+      console.table(displayResults);
     } else {
       console.log(chalk.gray("   No tasks processed."));
     }

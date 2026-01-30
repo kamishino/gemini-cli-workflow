@@ -11,7 +11,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Implemented Centralized Backup Hub (Task 096) - Relocated system backups to .kamiflow/.backup/, implemented rotational history (max 5 versions), and added self-healing migration for legacy .bak files. Aligned doctor and healer with v2.33.0 architecture.
+- **Last Completed Action:** Implemented Intelligent Summary Sorting (Task 098) - Upgraded SummaryReporter to automatically sort batch results (Errors first, then alphabetical by path/name), providing a professional and organized audit trail for concurrent operations.
 - **Current Focus:** Final stabilization and public release preparation.
 - **Next Step:** Official public rollout and community onboarding.
 
