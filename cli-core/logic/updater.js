@@ -1,10 +1,16 @@
-const chalk = require("chalk");
+const logger = require("../utils/logger");
 const fs = require("fs-extra");
 const path = require('upath');
 const { execa } = require("execa");
+const { getCache, setCache, shouldCheck } = require("../utils/update-cache");
+const packageJson = require("../../package.json");
 
 const KAMIFLOW_REPO = "https://github.com/kamishino/gemini-cli-workflow.git";
+const RAW_PACKAGE_URL = "https://raw.githubusercontent.com/kamishino/gemini-cli-workflow/main/package.json";
 
+/**
+ * Detect the mode of the current project
+ */
 async function detectProjectMode(projectPath) {
   const kamiFlowPath = path.join(projectPath, ".kami-flow");
   const geminiPath = path.join(projectPath, ".gemini");
@@ -22,7 +28,7 @@ async function detectProjectMode(projectPath) {
         }
       }
     } catch (error) {
-      console.log(chalk.yellow("[UPDATER] Warning: Could not verify submodule status"));
+      logger.warn("Could not verify submodule status");
     }
   }
 
@@ -41,46 +47,210 @@ async function detectProjectMode(projectPath) {
   return "NONE";
 }
 
+/**
+ * Update project in Submodule mode
+ */
 async function updateSubmodule(projectPath) {
-  console.log(chalk.cyan("[UPDATER] Updating KamiFlow submodule...\n"));
+  logger.info("Updating KamiFlow submodule...");
 
   try {
     const submodulePath = ".kami-flow";
-
-    console.log(chalk.gray("[UPDATER] Running: git submodule update --remote --merge"));
     await execa("git", ["submodule", "update", "--remote", "--merge", submodulePath], {
       cwd: projectPath,
       stdio: "inherit",
     });
-
-    console.log(chalk.green("\n[UPDATER] ✓ Submodule updated successfully"));
+    logger.success("Submodule updated successfully");
     return true;
   } catch (error) {
-    console.log(chalk.red(`\n[UPDATER] ✗ Submodule update failed: ${error.message}`));
+    logger.error(`Submodule update failed: ${error.message}`);
     return false;
   }
 }
 
+/**
+ * Update project in Linked mode (Master Repo)
+ */
 async function updateLinkedMode(projectPath) {
-  console.log(chalk.cyan("[UPDATER] Updating globally installed KamiFlow...\n"));
+  logger.info("Updating globally installed KamiFlow...");
+
+  const cliRoot = path.resolve(__dirname, "../../");
+  let originalHead = null;
 
   try {
-    const cliRoot = path.resolve(__dirname, "../../");
-    
-    console.log(chalk.gray("[UPDATER] Pulling latest changes..."));
+    // 1. Get current HEAD for rollback
+    const { stdout } = await execa("git", ["rev-parse", "HEAD"], { cwd: cliRoot });
+    originalHead = stdout.trim();
+
+    // 2. Pull changes
+    logger.info("Pulling latest changes...");
     await execa("git", ["pull"], { cwd: cliRoot, stdio: "inherit" });
 
-    console.log(chalk.gray("[UPDATER] Installing dependencies..."));
+    // 3. Install dependencies
+    logger.info("Installing dependencies...");
     await execa("npm", ["install"], { cwd: cliRoot, stdio: "inherit" });
 
-    console.log(chalk.yellow("[UPDATER] Building distribution artifacts..."));
+    // 4. Build artifacts
+    logger.info("Building distribution artifacts...");
     await execa("npm", ["run", "build"], { cwd: cliRoot, stdio: "inherit" });
 
-    console.log(chalk.green("\n[UPDATER] ✓ Global package updated and built successfully"));
+    logger.success("Global package updated and built successfully");
     return true;
   } catch (error) {
-    console.log(chalk.red(`\n[UPDATER] ✗ Update failed: ${error.message}`));
+    logger.error(`Update failed: ${error.message}`);
+    
+    if (originalHead) {
+      logger.warn(`Attempting atomic rollback to ${originalHead.substring(0, 7)}...`);
+      try {
+        await execa("git", ["reset", "--hard", originalHead], { cwd: cliRoot });
+        logger.success("Rollback complete. System restored to previous version.");
+      } catch (rollbackError) {
+        logger.error("Critical: Rollback failed. System may be unstable.");
+      }
+    }
     return false;
+  }
+}
+
+/**
+ * Update project in Standalone mode (Copy-based)
+ */
+async function updateStandaloneMode(projectPath, options = {}) {
+  const cliRoot = path.resolve(__dirname, "../../");
+  const sourceDist = path.join(cliRoot, "dist");
+  const force = options.force || false;
+
+  if (!(await fs.pathExists(sourceDist))) {
+    logger.error("Distribution artifacts missing. Please run 'npm run build' in KamiFlow core.");
+    return false;
+  }
+
+  logger.info(`Syncing standalone project files${force ? ' (FORCE MODE)' : ''}...`);
+
+  const walkAndSync = async (src, dest) => {
+    const items = await fs.readdir(src);
+    for (const item of items) {
+      const srcPath = path.join(src, item);
+      const destPath = path.join(dest, item);
+      const stat = await fs.stat(srcPath);
+
+      if (stat.isDirectory()) {
+        await fs.ensureDir(destPath);
+        await walkAndSync(srcPath, destPath);
+      } else {
+        const exists = await fs.pathExists(destPath);
+        if (exists) {
+          if (force) {
+            // Backup and overwrite
+            const bakPath = `${destPath}.bak`;
+            await fs.move(destPath, bakPath, { overwrite: true });
+            await fs.copy(srcPath, destPath);
+            logger.warn(`Overwritten (Backup created): ${path.relative(projectPath, destPath)}`);
+          } else {
+            // Skip
+            logger.hint(`Skipped (Exists): ${path.relative(projectPath, destPath)}`);
+          }
+        } else {
+          // New file
+          await fs.copy(srcPath, destPath);
+          logger.success(`Created: ${path.relative(projectPath, destPath)}`);
+        }
+      }
+    }
+  };
+
+  try {
+    // We only sync the core folders: .gemini and .windsurf
+    const coreFolders = ['.gemini', '.windsurf'];
+    for (const folder of coreFolders) {
+      const src = path.join(sourceDist, folder);
+      const dest = path.join(projectPath, folder);
+      if (await fs.pathExists(src)) {
+        await fs.ensureDir(dest);
+        await walkAndSync(src, dest);
+      }
+    }
+    return true;
+  } catch (error) {
+    logger.error(`Standalone sync failed: ${error.message}`);
+    return false;
+  }
+}
+
+/**
+ * Only synchronize global rules
+ */
+async function syncGlobalRules(projectPath) {
+  const cliRoot = path.resolve(__dirname, "../../");
+  const src = path.join(cliRoot, ".gemini/rules"); // Source is the transpiled flat rules
+  const dest = path.join(projectPath, ".gemini/rules");
+
+  if (!(await fs.pathExists(src))) {
+    logger.error("Source rules directory missing.");
+    return false;
+  }
+
+  logger.info("Synchronizing global behavioral rules...");
+
+  try {
+    const files = await fs.readdir(src);
+    for (const file of files) {
+      // Only copy global rules (prefixed with core-, flow-, std- but specifically global tier)
+      // Actually, in the flat .gemini/rules, everything is ready for use.
+      // But Task 090 defined 'local' rules as internal. 
+      // We should only copy what's in 'global' subfolder of source blueprints.
+      // Wait, Transpiler already handles this for dist/. 
+      // So if we use sourceDist/.gemini/rules, we are safe.
+      
+      const sourceFile = path.join(cliRoot, "dist/.gemini/rules", file);
+      if (await fs.pathExists(sourceFile)) {
+        await fs.copy(sourceFile, path.join(dest, file));
+        logger.hint(`Synced: ${file}`);
+      }
+    }
+    logger.success("Global rules synchronized.");
+    return true;
+  } catch (error) {
+    logger.error(`Rules sync failed: ${error.message}`);
+    return false;
+  }
+}
+
+/**
+ * Silently check for updates
+ */
+async function silentCheck() {
+  try {
+    if (!(await shouldCheck())) return;
+
+    const https = require('https');
+    
+    const getVersion = () => new Promise((resolve, reject) => {
+      const options = {
+        headers: { 'User-Agent': 'KamiFlow-CLI' },
+        timeout: 2000
+      };
+      https.get(RAW_PACKAGE_URL, options, (res) => {
+        let data = '';
+        res.on('data', (chunk) => data += chunk);
+        res.on('end', () => {
+          try {
+            resolve(JSON.parse(data).version);
+          } catch (e) {
+            reject(e);
+          }
+        });
+      }).on('error', reject);
+    });
+
+    const latestVersion = await getVersion();
+    await setCache(latestVersion);
+
+    if (latestVersion !== packageJson.version) {
+      console.log(require('chalk').cyan(`\n✨ A new version of KamiFlow is available: ${latestVersion} (Current: ${packageJson.version})`));
+      console.log(require('chalk').gray(`   Run 'kami upgrade' to update.\n`));
+    }
+  } catch (e) {
+    // Fail silently
   }
 }
 
@@ -127,26 +297,19 @@ async function checkModeConflicts(projectPath) {
 }
 
 async function runUpdate(projectPath, options = {}) {
-  console.log(chalk.cyan("\n========================================================"));
-  console.log(chalk.cyan("  🔄 KamiFlow Update Manager"));
-  console.log(chalk.cyan("========================================================\n"));
-
-  console.log(chalk.gray("[UPDATER] Project path:"), projectPath);
-  console.log();
+  logger.header("KamiFlow Update Manager");
+  logger.info(`Project: ${projectPath}`);
 
   const conflictCheck = await checkModeConflicts(projectPath);
   if (conflictCheck.hasConflict) {
-    console.log(chalk.red("❌ Mode Conflict Detected\n"));
-    console.log(chalk.yellow(conflictCheck.message));
-    console.log(chalk.gray("\nPlease resolve this manually by choosing one mode:"));
-    console.log(chalk.gray("  - SUBMODULE: Keep .kami-flow, link .gemini to it"));
-    console.log(chalk.gray("  - STANDALONE: Remove .kami-flow, keep standalone .gemini"));
+    logger.error("Mode Conflict Detected");
+    logger.warn(conflictCheck.message);
+    logger.hint("Please resolve this manually by choosing one mode (SUBMODULE or STANDALONE).");
     return { success: false, mode: "CONFLICT" };
   }
 
   const mode = await detectProjectMode(projectPath);
-  console.log(chalk.cyan("[UPDATER] Detected mode:"), chalk.white(mode));
-  console.log();
+  logger.info(`Detected mode: ${mode}`);
 
   let success = false;
 
@@ -160,29 +323,22 @@ async function runUpdate(projectPath, options = {}) {
       break;
 
     case "STANDALONE":
-      console.log(chalk.yellow("[UPDATER] Standalone mode detected"));
-      console.log(chalk.gray("[UPDATER] Standalone projects must be updated manually:"));
-      console.log(chalk.gray("  1. Delete .gemini and .windsurf folders"));
-      console.log(chalk.gray("  2. Run: kami init --mode standalone"));
-      console.log(chalk.gray("\nOr convert to SUBMODULE mode for automatic updates."));
-      return { success: false, mode };
+      success = await updateStandaloneMode(projectPath, options);
+      break;
 
     case "NONE":
-      console.log(chalk.yellow("[UPDATER] No KamiFlow installation detected"));
-      console.log(chalk.gray("[UPDATER] Run 'kami init' to set up KamiFlow"));
+      logger.warn("No KamiFlow installation detected. Run 'kami init' first.");
       return { success: false, mode };
 
     default:
-      console.log(chalk.red("[UPDATER] Unknown mode"));
+      logger.error(`Unknown mode: ${mode}`);
       return { success: false, mode };
   }
 
   if (success) {
-    console.log();
-    console.log(chalk.green("✅ Update complete!\n"));
+    logger.success("Update process finished.");
   } else {
-    console.log();
-    console.log(chalk.red("❌ Update failed. See errors above.\n"));
+    logger.error("Update process failed.");
   }
 
   return { success, mode };
@@ -193,5 +349,8 @@ module.exports = {
   detectProjectMode,
   updateSubmodule,
   updateLinkedMode,
+  updateStandaloneMode,
+  syncGlobalRules,
+  silentCheck,
   checkModeConflicts,
 };

@@ -5,7 +5,7 @@ const chalk = require("chalk");
 const logger = require("../utils/logger");
 const { initializeProject } = require("../logic/installer");
 const { runDoctor } = require("../logic/doctor");
-const { runUpdate } = require("../logic/updater");
+const { runUpdate, silentCheck, syncGlobalRules } = require("../logic/updater");
 const path = require('upath');
 const fs = require("fs-extra");
 
@@ -16,6 +16,9 @@ const program = new Command();
  */
 async function execute(title, action) {
   try {
+    // Inject silent version check
+    await silentCheck();
+
     if (title) logger.header(title);
     await action();
   } catch (error) {
@@ -79,11 +82,26 @@ program
   .command("update-flow")
   .alias("upgrade")
   .description("Update KamiFlow to the latest version")
+  .option("-f, --force", "Force overwrite existing files (Standalone mode)", false)
+  .action(async (options) => {
+    await execute(null, async () => {
+      const projectPath = process.cwd();
+      const result = await runUpdate(projectPath, options);
+      if (!result.success) {
+        process.exit(1);
+      }
+    });
+  });
+
+// Sync Rules command
+program
+  .command("sync-rules")
+  .description("Synchronize only global behavioral rules from KamiFlow core")
   .action(async () => {
     await execute(null, async () => {
       const projectPath = process.cwd();
-      const result = await runUpdate(projectPath);
-      if (!result.success) {
+      const success = await syncGlobalRules(projectPath);
+      if (!success) {
         process.exit(1);
       }
     });
