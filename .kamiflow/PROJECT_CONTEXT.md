@@ -11,7 +11,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Implemented The Industrial Constitution (Task 089) - Performed a comprehensive overhaul of all behavioral rules, implemented a prefix system (core-, flow-, std-), enforced SSOT and UI standards, and added real-world self-healing patterns.
+- **Last Completed Action:** Implemented Targeted Governance (Task 090) - Classified rules into 'Global' and 'Local' tiers, upgraded Transpiler to support environment-aware distribution (excluded internal maintenance rules from production build).
 - **Current Focus:** Final stabilization and public release preparation.
 - **Next Step:** Official public rollout and community onboarding.
 

@@ -292,17 +292,28 @@ class Transpiler {
   }
 
   async transpileRules() {
-    if (!fs.existsSync(this.rulesDir)) return;
-    const rules = fs.readdirSync(this.rulesDir).filter(f => f.endsWith('.md'));
+    const env = await this.envManager.getEnv();
+    const isProd = env === 'production';
     
-    for (const rule of rules) {
-      const content = await fs.readFile(path.join(this.rulesDir, rule), 'utf8');
-      for (const outputRoot of this.targets) {
-        const targetPath = path.join(outputRoot, '.gemini/rules', rule);
-        await safeWrite(targetPath, content);
+    // Define source folders to scan
+    const sources = ['global'];
+    if (!isProd) sources.push('local');
+
+    for (const sourceFolder of sources) {
+      const sourcePath = path.join(this.rulesDir, sourceFolder);
+      if (!(await fs.pathExists(sourcePath))) continue;
+
+      const rules = (await fs.readdir(sourcePath)).filter(f => f.endsWith('.md'));
+      
+      for (const rule of rules) {
+        const content = await fs.readFile(path.join(sourcePath, rule), 'utf8');
+        for (const outputRoot of this.targets) {
+          const targetPath = path.join(outputRoot, '.gemini/rules', rule);
+          await safeWrite(targetPath, content);
+        }
       }
     }
-    logger.success('Rules synced to all targets.');
+    logger.success('Rules synchronized based on environment.');
   }
 
   /**
