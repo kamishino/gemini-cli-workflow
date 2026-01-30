@@ -3,58 +3,45 @@ const path = require('path');
 const chalk = require('chalk');
 const { backupFile, safeWrite } = require('../utils/fs-vault');
 const { validateTomlFile } = require('../validators/toml-validator');
+const { EnvironmentManager } = require('./env-manager');
 
 class Transpiler {
   constructor(cwd = process.cwd()) {
+    // Force absolute path to avoid CWD-dependent behavior
+    const absoluteCwd = path.resolve(cwd);
+
     // If called from inside cli-core, the project root is one level up (Master Repo)
-    if (cwd.endsWith('cli-core') || cwd.endsWith('cli-core' + path.sep)) {
-      this.projectRoot = path.dirname(cwd);
+    if (absoluteCwd.endsWith('cli-core') || absoluteCwd.endsWith('cli-core' + path.sep)) {
+      this.projectRoot = path.dirname(absoluteCwd);
     } else {
-      this.projectRoot = cwd;
+      this.projectRoot = absoluteCwd;
     }
 
     this.blueprintDir = path.join(this.projectRoot, 'resources/blueprints');
     this.templatesDir = path.join(this.projectRoot, 'resources/templates');
     this.rulesDir = path.join(this.projectRoot, 'resources/rules');
     
-    // Resolve target roots and workspace prefix based on environment
-    const { targets, workspacePrefix } = this.resolveEnvConfig(this.projectRoot);
-    this.targets = targets;
-    this.workspacePrefix = workspacePrefix;
+    this.envManager = new EnvironmentManager(this.projectRoot);
+    this.targets = [];
+    this.workspacePrefix = './';
+    this.isInitialized = false;
   }
 
   /**
-   * Resolve output directories and workspace prefix based on KAMI_ENV
+   * Initialize environment configuration
    */
-  resolveEnvConfig(root) {
-    const env = process.env.KAMI_ENV || 'standard';
-    const targets = [];
-    let workspacePrefix = './';
-
-    if (env === 'dev' || env === 'all') {
-      // Factory Mode: Output TOMLs to Root, but logic points to .kamiflow/workspace/
-      targets.push(root); 
-      workspacePrefix = '.kamiflow/workspace/';
-    }
-    
-    if (env === 'prod' || env === 'all') {
-      // Distribution Mode: Output to dist folder, logic points to project root
-      targets.push(path.join(root, 'dist'));
-      if (env === 'prod') workspacePrefix = './';
-    }
-
-    if (targets.length === 0) {
-      targets.push(root);
-      workspacePrefix = './';
-    }
-
-    return { targets: [...new Set(targets)], workspacePrefix };
+  async init() {
+    if (this.isInitialized) return;
+    this.targets = await this.envManager.getOutputTargets();
+    this.workspacePrefix = await this.envManager.getWorkspacePrefix();
+    this.isInitialized = true;
   }
 
   /**
    * Load a partial file by name (searches subfolders recursively)
    */
   async loadPartial(name) {
+    await this.init();
     const findFile = (dir, fileName) => {
       if (!fs.existsSync(dir)) return null;
       const items = fs.readdirSync(dir);
@@ -145,8 +132,10 @@ class Transpiler {
    * Run the transpilation based on a registry
    */
   async runFromRegistry(registryPath) {
+    await this.init();
+    const env = await this.envManager.getEnv();
     console.log(chalk.cyan("\n🔨 Starting Universal Transpilation..."));
-    console.log(chalk.gray(`📡 Mode: ${process.env.KAMI_ENV || 'standard'} | Workspace: ${this.workspacePrefix}`));
+    console.log(chalk.gray(`📡 Mode: ${env} | Workspace: ${this.workspacePrefix}`));
     
     if (!(await fs.pathExists(registryPath))) {
       console.log(chalk.yellow(`⚠️  No registry found at ${registryPath}. Skipping.`));

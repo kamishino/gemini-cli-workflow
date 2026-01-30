@@ -10,14 +10,23 @@ const chalk = require('chalk');
 async function backupFile(filePath) {
   try {
     if (await fs.pathExists(filePath)) {
-      const rootDir = process.cwd();
-      const relativePath = path.relative(rootDir, filePath);
-      const backupPath = path.join(rootDir, '.backup', relativePath);
+      // Resolve absolute paths to avoid CWD issues
+      const absoluteFilePath = path.resolve(filePath);
+      
+      // Find project root (where .git or cli-core exists)
+      let projectRoot = process.cwd();
+      if (projectRoot.endsWith('cli-core') || projectRoot.endsWith('cli-core' + path.sep)) {
+        projectRoot = path.dirname(projectRoot);
+      }
+
+      const relativePath = path.relative(projectRoot, absoluteFilePath);
+      const backupPath = path.join(projectRoot, '.backup', relativePath);
       
       await fs.ensureDir(path.dirname(backupPath));
-      await fs.copy(filePath, backupPath, { overwrite: true });
+      await fs.copy(absoluteFilePath, backupPath, { overwrite: true });
       
-      console.log(chalk.gray(`📦 Backup saved to: .backup/${relativePath}`));
+      const displayPath = relativePath.replace(/\\/g, '/');
+      console.log(chalk.gray(`📦 Backup saved to: .backup/${displayPath}`));
       return backupPath;
     }
   } catch (error) {

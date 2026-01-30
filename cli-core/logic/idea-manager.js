@@ -2,11 +2,22 @@ const fs = require('fs-extra');
 const path = require('path');
 const chalk = require('chalk');
 const inquirer = require('inquirer').default || require('inquirer');
+const { EnvironmentManager } = require('./env-manager');
 
-const PROJECT_ROOT = path.resolve(__dirname, '../../');
-const IDEAS_DRAFT = path.join(PROJECT_ROOT, 'ideas/draft');
-const IDEAS_BACKLOG = path.join(PROJECT_ROOT, 'ideas/backlog');
-const IDEAS_DISCOVERY = path.join(PROJECT_ROOT, 'ideas/discovery');
+/**
+ * Get dynamic workspace paths
+ */
+async function getWorkspacePaths(projectRoot = process.cwd()) {
+  const envManager = new EnvironmentManager(projectRoot);
+  const workspaceRoot = await envManager.getAbsoluteWorkspacePath();
+  
+  return {
+    draft: path.join(workspaceRoot, 'ideas/draft'),
+    backlog: path.join(workspaceRoot, 'ideas/backlog'),
+    discovery: path.join(workspaceRoot, 'ideas/discovery'),
+    root: workspaceRoot
+  };
+}
 
 /**
  * Generate a 4-character random Hash ID (Uppercase Alphanumeric)
@@ -25,9 +36,10 @@ function generateSeedID() {
  */
 async function createIdea(title, content, aiSlug, type = 'draft') {
   try {
+    const paths = await getWorkspacePaths();
     const id = generateSeedID();
     const isDiscovery = type === 'discovery';
-    const targetDir = isDiscovery ? IDEAS_DISCOVERY : IDEAS_DRAFT;
+    const targetDir = isDiscovery ? paths.discovery : paths.draft;
     
     let slug = aiSlug || title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
     
@@ -124,9 +136,10 @@ async function analyzeIdea(filePath, scores) {
  */
 async function promoteIdea(filePath, options = {}) {
   try {
+    const paths = await getWorkspacePaths();
     const absolutePath = path.resolve(process.cwd(), filePath);
     const fileName = path.basename(absolutePath);
-    const newPath = path.join(IDEAS_BACKLOG, fileName);
+    const newPath = path.join(paths.backlog, fileName);
 
     if (!(await fs.pathExists(absolutePath))) {
       throw new Error(`File not found: ${filePath}`);
@@ -162,7 +175,7 @@ async function promoteIdea(filePath, options = {}) {
     let newContent = content.replace(/status: draft/g, 'status: backlog');
     
     await fs.writeFile(absolutePath, newContent);
-    await fs.ensureDir(IDEAS_BACKLOG);
+    await fs.ensureDir(paths.backlog);
     await fs.move(absolutePath, newPath, { overwrite: true });
 
     console.log(chalk.green(`

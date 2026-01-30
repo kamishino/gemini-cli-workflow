@@ -2,5 +2,16 @@
   "seed.minFeasibility": 0.7,
   "language": "english",
   "strategy": "BALANCED",
-  "maxRetries": 3
+  "maxRetries": 3,
+  "environments": {
+    "development": {
+      "workspaceRoot": ".kamiflow/workspace",
+      "outputTargets": ["."]
+    },
+    "production": {
+      "workspaceRoot": "./",
+      "outputTargets": ["dist"]
+    }
+  },
+  "currentEnv": "development"
 }

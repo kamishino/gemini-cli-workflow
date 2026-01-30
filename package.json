@@ -7,6 +7,9 @@
   },
   "scripts": {
     "sync": "npm --prefix cli-core run sync",
+    "transpile": "npm --prefix cli-core run transpile",
+    "dev": "npm --prefix cli-core run dev",
+    "build": "npm --prefix cli-core run build",
     "doctor": "npm --prefix cli-core run doctor",
     "update": "npm --prefix cli-core run update"
   }

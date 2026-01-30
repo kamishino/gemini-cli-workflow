@@ -107,12 +107,16 @@ function showSuccess() {
   console.log(chalk.cyan("  kami init    ") + chalk.gray("- To set up a new project\n"));
 }
 
+const { EnvironmentManager } = require("./env-manager");
+
 /**
  * --- PART 2: PROJECT INITIALIZER (New Logic) ---
  */
 
 async function initializeProject(cwd) {
   const projectGeminiPath = path.join(cwd, '.gemini');
+  const envManager = new EnvironmentManager(cwd);
+  const workspaceRoot = await envManager.getAbsoluteWorkspacePath();
   
   // 1. Check if already initialized
   if (fs.existsSync(projectGeminiPath)) {
@@ -155,19 +159,16 @@ async function initializeProject(cwd) {
     }
 
     // 4. Create necessary empty dirs
-    const dirsToCreate = [
-      '.gemini/tmp', 
-      '.gemini/cache', 
-      'docs/handoff_logs',
-      'tasks',
-      'archive',
-      'ideas/draft',
-      'ideas/discovery',
-      'ideas/backlog',
-      '.backup'
-    ];
-    for (const dir of dirsToCreate) {
+    const systemDirs = ['.gemini/tmp', '.gemini/cache', 'docs/handoff_logs', '.backup'];
+    const workspaceDirs = ['tasks', 'archive', 'ideas/draft', 'ideas/discovery', 'ideas/backlog'];
+
+    for (const dir of systemDirs) {
       const d = path.join(cwd, dir);
+      if (!fs.existsSync(d)) fs.mkdirSync(d, { recursive: true });
+    }
+
+    for (const dir of workspaceDirs) {
+      const d = path.join(workspaceRoot, dir);
       if (!fs.existsSync(d)) fs.mkdirSync(d, { recursive: true });
     }
 
@@ -175,7 +176,7 @@ async function initializeProject(cwd) {
     updateGitIgnore(cwd);
 
     // 6. Project Context Bootstrap
-    const contextPath = path.join(cwd, 'PROJECT_CONTEXT.md');
+    const contextPath = path.join(workspaceRoot, 'PROJECT_CONTEXT.md');
     if (!fs.existsSync(contextPath)) {
       console.log(chalk.green('📄 Creating PROJECT_CONTEXT.md...'));
       const templateContext = path.join(cliRoot, 'docs/templates/context.md');

@@ -2,6 +2,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const chalk = require('chalk');
 const inquirer = require('inquirer').default || require('inquirer');
+const { EnvironmentManager } = require('./env-manager');
 
 /**
  * Extract Linked Idea ID from filename suffix (_from-ID)
@@ -12,9 +13,12 @@ function extractIdeaIdFromFilename(fileName) {
 }
 
 async function runArchivist(options = {}) {
-  const tasksDir = path.join(process.cwd(), 'tasks');
-  const archiveDir = path.join(process.cwd(), 'archive');
-  const backlogDir = path.join(process.cwd(), 'ideas/backlog');
+  const envManager = new EnvironmentManager();
+  const workspaceRoot = await envManager.getAbsoluteWorkspacePath();
+  
+  const tasksDir = path.join(workspaceRoot, 'tasks');
+  const archiveDir = path.join(workspaceRoot, 'archive');
+  const backlogDir = path.join(workspaceRoot, 'ideas/backlog');
 
   if (!fs.existsSync(tasksDir)) {
     console.log(chalk.yellow("No tasks directory found."));
