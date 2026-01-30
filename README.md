@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="#"><img src="https://img.shields.io/badge/version-v2.29.0?style=for-the-badge" alt="Version"></a>
+  <a href="#"><img src="https://img.shields.io/badge/version-v2.30.0?style=for-the-badge" alt="Version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-2196f3?style=for-the-badge" alt="License"></a>
   <a href="#"><img src="https://img.shields.io/badge/Designed_by-Kami_with_❤️-ff69b4?style=for-the-badge" alt="Designed by"></a>
   <a href="#"><img src="https://img.shields.io/badge/Powered_by-Gemini_AI-ff9800?style=for-the-badge" alt="Powered by"></a>

@@ -1,4 +1,16 @@
 
+## [v2.30.0] - 2026-01-30
+
+### 🚀 Features
+- feat(docs): implemented dynamic documentation with multi-environment sync (Task 083) (7199106)
+- feat(core): implemented Stealth Suite cleanup and auto-build automation (Task 082) (8231962)
+- feat(installer): implemented permanent alias and multi-mode initialization (Task 081) (edfc61a)
+
+### 🧹 Chores & Others
+- chore(release): prepare for v2.30.0 - update roadmap (fccc7ed)
+- chore(git): enforced LF line endings and re-anchored README documentation (07b71f1)
+
+
 ## [v2.29.0] - 2026-01-30
 
 ### 🚀 Features

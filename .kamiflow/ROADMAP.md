@@ -8,17 +8,12 @@
 ## 🏁 Strategic Achievements (Value Delivered)
 *This section is updated automatically after every Sync/SuperLazy session.*
 
-## 🏁 Strategic Achievements (Value Delivered)
-- **Stealth Suit Deployment:** Optimized user projects by removing junk folders and relocating guides to `./.kamiflow/docs/`.
-- **Dynamic Documentation Sync:** Implemented SSOT guides that automatically adapt to Dev/Prod environments.
-- **Advanced Git Hygiene:** Enforced global LF policy and silenced auto-generated document diffs for a cleaner commit history.
-- **Auto-Build Infrastructure:** Integrated automated building into installation and update workflows.
-
+{{ACHIEVEMENTS}}
 
 ---
 
 ## 🏗️ Current Focus (Active Pillars)
-- **Phase ** Template v2.29.0 (Modular Engine)**
+- **Phase ** Template v2.30.0 (Modular Engine)**
 - **Status:** ** Implemented Documentation Anchoring & Git Hygiene (Task 084) - Re-anchored README links to ./.kamiflow/docs/, enforced global LF line endings, and silenced auto-generated doc diffs using .gitattributes.
 
 ---
