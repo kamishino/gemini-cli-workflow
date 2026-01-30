@@ -5,6 +5,7 @@
 ---
 
 ## 1. 🛑 NON-NEGOTIABLES (Strict Rules)
+- **AI Autonomy Policy:** Autonomy is a privilege, not a right. Always obey the `gatedAutomation` setting in `.kamirc.json`.
 - **NO Silent Failures:** Every async action MUST use the `Logger` to show progress.
 - **NO Raw Paths:** Every path MUST be anchored with `./`.
 - **NO Giant Files:** Files > 300 lines are FORBIDDEN. Split them immediately.

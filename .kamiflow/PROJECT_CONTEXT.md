@@ -11,7 +11,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Implemented Execution Discipline & Gated Automation (Task 099) - Established strict AI behavior policies (gatedAutomation, executionMode), mandated Phase 0 Logical Guard, and implemented high-risk TDD protocols. Authorized autonomy is now a configurable project privilege.
+- **Last Completed Action:** Implemented Intelligent Onboarding Concierge (Task 100) - Refactored /wake into a sequential interview with strategic suggestions (Goal/Stack), integrated global experience tracking via update-cache.json, and established robust anchored patching for project seeds.
 - **Current Focus:** Final stabilization and public release preparation.
 - **Next Step:** Official public rollout and community onboarding.
 

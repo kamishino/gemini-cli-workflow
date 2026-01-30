@@ -209,6 +209,37 @@ configFlow
     });
   });
 
+configFlow
+  .command("get-state <key>")
+  .description("Get a global state value")
+  .action(async (key) => {
+    await execute(null, async () => {
+      const { ConfigManager } = require("../logic/config-manager");
+      const config = new ConfigManager();
+      const value = await config.getGlobalState(key);
+      console.log(value !== undefined ? value : "undefined");
+    });
+  });
+
+configFlow
+  .command("set-state <key> <value>")
+  .description("Set a global state value")
+  .action(async (key, value) => {
+    await execute(null, async () => {
+      const { ConfigManager } = require("../logic/config-manager");
+      const config = new ConfigManager();
+      // Handle boolean strings
+      let finalValue = value;
+      if (value === "true") finalValue = true;
+      if (value === "false") finalValue = false;
+      
+      const success = await config.setGlobalState(key, finalValue);
+      if (success) {
+        logger.success(`Set global state: ${key} = ${finalValue}`);
+      }
+    });
+  });
+
 // Sync command
 program
   .command("sync-flow")

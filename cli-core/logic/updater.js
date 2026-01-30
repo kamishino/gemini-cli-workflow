@@ -271,7 +271,10 @@ async function silentCheck() {
     });
 
     const latestVersion = await getVersion();
-    await setCache(latestVersion);
+    await updateCache({
+      latestVersion,
+      lastChecked: Date.now()
+    });
 
     if (latestVersion !== packageJson.version) {
       console.log(require('chalk').cyan(`\n✨ A new version of KamiFlow is available: ${latestVersion} (Current: ${packageJson.version})`));

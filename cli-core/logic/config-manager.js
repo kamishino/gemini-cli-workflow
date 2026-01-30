@@ -182,6 +182,26 @@ class ConfigManager {
       Source: metadata[key].source
     }));
   }
+
+  /**
+   * Get global state from update-cache.json
+   */
+  async getGlobalState(key) {
+    const { getCache } = require('../utils/update-cache');
+    const cache = await getCache();
+    return cache[key];
+  }
+
+  /**
+   * Update global state in update-cache.json
+   */
+  async setGlobalState(key, value) {
+    const { updateCache } = require('../utils/update-cache');
+    const data = {};
+    data[key] = value;
+    await updateCache(data);
+    return true;
+  }
 }
 
 module.exports = { ConfigManager };

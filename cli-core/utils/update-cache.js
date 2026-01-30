@@ -10,24 +10,23 @@ async function getCache() {
     try {
       return await fs.readJson(CACHE_FILE);
     } catch (e) {
-      return null;
+      return {};
     }
   }
-  return null;
+  return {};
 }
 
-async function setCache(version) {
+async function updateCache(data) {
+  const current = await getCache();
+  const updated = { ...current, ...data };
   await fs.ensureDir(path.dirname(CACHE_FILE));
-  await fs.writeJson(CACHE_FILE, {
-    latestVersion: version,
-    lastChecked: Date.now()
-  });
+  await fs.writeJson(CACHE_FILE, updated, { spaces: 2 });
 }
 
 async function shouldCheck() {
   const cache = await getCache();
-  if (!cache) return true;
+  if (!cache || !cache.lastChecked) return true;
   return (Date.now() - cache.lastChecked) > CHECK_INTERVAL;
 }
 
-module.exports = { getCache, setCache, shouldCheck };
+module.exports = { getCache, updateCache, shouldCheck };

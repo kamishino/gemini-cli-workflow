@@ -3,6 +3,12 @@
 
 ## 🛠 The Execution Loop: Execute → Validate → Heal → Report
 
+### 0. Risk Assessment (The Guard)
+Before writing any implementation code, assess the risk level:
+- **High-Risk Criteria:** Logic modifications, bulk edits, or core utility refactoring.
+- **TDD Mandate:** If High-Risk, you MUST create a `.test.js` (or equivalent) FIRST.
+- **Fail Verification:** Run the test and ensure it FAILS before implementing the fix.
+
 ### 1. Execute
 AI performs the requested code changes based on the `S3-BUILD` plan.
 
