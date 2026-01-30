@@ -46,7 +46,7 @@ Use kebab-case for filenames: `analyze-idea.toml`, `cloud-deploy.toml`.
 
 ## 📖 4. Documentation
 
-Every Plugin MUST provide a user-facing guide at `docs/plugins/[plugin-name].md` covering:
+Every Plugin MUST provide a user-facing guide at `{{WORKSPACE}}docs/plugins/[plugin-name].md` covering:
 - **Philosophy:** Why this plugin exists.
 - **Workflow:** How to use the commands together.
 - **Command Reference:** A table of available commands and their goals.

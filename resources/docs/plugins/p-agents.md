@@ -24,7 +24,7 @@ Before any skill is installed, KamiFlow performs a **Safety Audit**:
 
 1.  **🌱 Discovery:** Use `/kamiflow:p-agents:scan` to see which agents (IDE folders) are currently active in your project.
 2.  **🚀 Acquisition:** Use `/kamiflow:p-agents:add <repo>` to fetch a new skill (e.g., `vercel-labs/skills/web-design-guidelines`).
-3.  **🤝 Handshake:** The system updates `docs/universal-agent-rules.md`. Copy this file's content to your IDE's specific rules file (e.g., `.cursorrules`) to finalize the integration.
+3.  **🤝 Handshake:** The system updates `{{WORKSPACE}}universal-agent-rules.md`. Copy this file's content to your IDE's specific rules file (e.g., `.cursorrules`) to finalize the integration.
 
 ---
 
@@ -39,4 +39,4 @@ Before any skill is installed, KamiFlow performs a **Safety Audit**:
 ---
 
 ## 📁 Universal Rules (SSOT)
-The bridge maintains a central source of truth for agent behavior at `docs/universal-agent-rules.md`. This ensures that whether you are using Windsurf or Cursor, the AI follows the same **KamiFlow Manifesto**.
+The bridge maintains a central source of truth for agent behavior at `{{WORKSPACE}}universal-agent-rules.md`. This ensures that whether you are using Windsurf or Cursor, the AI follows the same **KamiFlow Manifesto**.

@@ -16,7 +16,7 @@ Automation tools for high-speed building, archiving, and release management.
 | `/kamiflow:dev:superlazy` | **[KamiFlow] Auto-generate S1-S4 artifacts AND execute with Strategic Reflection.** |
 | `/kamiflow:dev:release` | **[KamiFlow] Smart Release Manager - Analyze git history, context, and automate version bumping.** |
 | `/kamiflow:dev:upgrade` | **[KamiFlow] Update KamiFlow to the latest version.** |
-| `/kamiflow:dev:archive` | **[KamiFlow] Archive completed task artifacts to ./.kamiflow/archive/ folder.** |
+| `/kamiflow:dev:archive` | **[KamiFlow] Archive completed task artifacts to {{WORKSPACE}}archive/ folder.** |
 | `/kamiflow:dev:revise` | **[KamiFlow] Emergency Brake - Clarify context, resolve hallucinations, and question logic before implementation.** |
 | `/kamiflow:dev:saiyan` | **[KamiFlow] Ultimate Automation - Auto-Select Option B + Auto-Execution.** |
 | `/kamiflow:dev:supersaiyan` | **[KamiFlow] Meta-Automation - Manage cycles of Saiyan execution.** |

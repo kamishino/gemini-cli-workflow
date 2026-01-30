@@ -48,7 +48,7 @@ These commands form the backbone of the **Sniper Model**, KamiFlow's rigorous 3-
 > **Goal:** Create a detailed, logic-first specification based on an approved IDEA.
 
 ### 🧠 Logic & Thinking (CoT)
-1. **Lock 1 (Context):** AI reads `./.kamiflow/PROJECT_CONTEXT.md` to ensure the spec aligns with the project's tech stack and goals.
+1. **Lock 1 (Context):** AI reads `{{WORKSPACE}}PROJECT_CONTEXT.md` to ensure the spec aligns with the project's tech stack and goals.
 2. **Lock 2 (Schema-First):** AI MUST define Data Models/Interfaces BEFORE any logic is written. 
 3. **Structure:** It produces a technical blueprint including User Stories, API Signatures, and Edge Cases.
 

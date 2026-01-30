@@ -194,10 +194,67 @@ class Transpiler {
     // TRANSPILE RULES
     await this.transpileRules();
 
+    // SYNC DOCUMENTATION
+    await this.syncDocumentation();
+
     // ASSEMBLE PROJECT TEMPLATE (PROD ONLY)
     await this.assembleProjectTemplate();
 
     console.log(chalk.cyan("\n✨ Transpilation complete."));
+  }
+
+  /**
+   * Synchronize documentation from resources/docs to target workspaces
+   */
+  async syncDocumentation() {
+    await this.init();
+    const env = await this.envManager.getEnv();
+    const isProd = env === 'production';
+    const sourceDocs = path.join(this.projectRoot, 'resources/docs');
+
+    if (!(await fs.pathExists(sourceDocs))) return;
+
+    console.log(chalk.cyan(`\n📚 Syncing Dynamic Documentation (${env})...`));
+
+    const walkAndSync = async (dir, relativePath = '') => {
+      const items = await fs.readdir(dir);
+      for (const item of items) {
+        const fullPath = path.join(dir, item);
+        const relItemPath = path.join(relativePath, item);
+        
+        if ((await fs.stat(fullPath)).isDirectory()) {
+          await walkAndSync(fullPath, relItemPath);
+        } else if (item.endsWith('.md')) {
+          let content = await fs.readFile(fullPath, 'utf8');
+
+          // 1. Placeholder Injection
+          content = content.replace(/{{WORKSPACE}}/g, this.workspacePrefix);
+          
+          // BLUEPRINT placeholders
+          const blueprintPath = isProd ? 'None (Pre-transpiled)' : './resources/blueprints/';
+          const blueprintDesc = isProd ? 'N/A' : 'SSOT Logic & Templates';
+          content = content.replace(/{{BLUEPRINT_PATH}}/g, blueprintPath);
+          content = content.replace(/{{BLUEPRINT_DESC}}/g, blueprintDesc);
+
+          // 2. Production Stripping (Dev-only markers)
+          if (isProd) {
+            content = content.replace(/\s*<!-- DEV_ONLY_START -->[\s\S]*?<!-- DEV_ONLY_END -->\s*/g, '\n');
+          }
+
+          // 3. Self-Healing paths
+          content = this.sanitizeContent(content);
+
+          // 4. Write to all targets
+          for (const outputRoot of this.targets) {
+            const targetPath = path.join(outputRoot, '.kamiflow/docs', relItemPath);
+            await safeWrite(targetPath, content);
+          }
+        }
+      }
+    };
+
+    await walkAndSync(sourceDocs);
+    console.log(chalk.green('   ✅ Documentation synchronized and anchored.'));
   }
 
   /**
@@ -236,32 +293,7 @@ class Transpiler {
         }
       }
 
-      // 3. Relocate and Patch Documentation
-      const sourceDocs = path.join(this.projectRoot, 'resources/docs');
-      const targetDocs = path.join(outputRoot, '.kamiflow/docs');
-      if (await fs.pathExists(sourceDocs)) {
-        await fs.copy(sourceDocs, targetDocs);
-        
-        // Patch links in the distributed docs to point to their new home
-        const walkDocs = async (dir) => {
-          const files = await fs.readdir(dir);
-          for (const file of files) {
-            const fullPath = path.join(dir, file);
-            if ((await fs.stat(fullPath)).isDirectory()) {
-              await walkDocs(fullPath);
-            } else if (file.endsWith('.md')) {
-              let content = await fs.readFile(fullPath, 'utf8');
-              // Replace "resources/docs/" with "./.kamiflow/docs/"
-              content = content.replace(/resources\/docs\//g, './.kamiflow/docs/');
-              await fs.writeFile(fullPath, content);
-            }
-          }
-        };
-        await walkDocs(targetDocs);
-        console.log(chalk.gray(`   📚 Docs assembled: .kamiflow/docs/`));
-      }
-
-      // 4. Generate Smart Ignores
+      // 3. Generate Smart Ignores
       const gitIgnoreContent = `.kamiflow/archive/
 .kamiflow/ideas/
 .kamiflow/tasks/

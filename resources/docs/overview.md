@@ -29,14 +29,14 @@ graph TD
         IdeMode(IDE Mode: Windsurf/Cursor)
         Code[[Coding...]]
         QualityGate{{"Phase 4: Quality Gate"}}
-        LogFile(Signal File: ./.kamiflow/handoff_logs/*.md)
+        LogFile(Signal File: {{WORKSPACE}}handoff_logs/*.md)
     end
 
     subgraph Autopilot_Phase [🚀 Auto-Pilot Mode]
         Lazy{{"/kamiflow:dev:lazy"}}
         SuperLazy{{"/kamiflow:dev:superlazy"}}
         AutoCode[[Auto-Coding...]]
-        AutoLog(Signal File: ./.kamiflow/handoff_logs/*_superlazy.md)
+        AutoLog(Signal File: {{WORKSPACE}}handoff_logs/*_superlazy.md)
     end
 
     subgraph Seed_Hub [🌱 The Seed Hub (Experiments)]
@@ -48,7 +48,9 @@ graph TD
 
     subgraph Knowledge_Base [🧠 Brain]
         Rules[(Rules & Protocols)]
+        <!-- DEV_ONLY_START -->
         Skills[(Skills Library)]
+        <!-- DEV_ONLY_END -->
     end
 
     subgraph Management [🧠 Management]
@@ -157,7 +159,7 @@ The **Management Commands** (`/kamiflow:ops:roadmap` and `/kamiflow:ops:save-con
 | `/kamiflow:dev:superlazy` | **[KamiFlow] Auto-generate S1-S4 artifacts AND execute with Strategic Reflection.** |
 | `/kamiflow:dev:release` | **[KamiFlow] Smart Release Manager - Analyze git history, context, and automate version bumping.** |
 | `/kamiflow:dev:upgrade` | **[KamiFlow] Update KamiFlow to the latest version.** |
-| `/kamiflow:dev:archive` | **[KamiFlow] Archive completed task artifacts to ./.kamiflow/archive/ folder.** |
+| `/kamiflow:dev:archive` | **[KamiFlow] Archive completed task artifacts to {{WORKSPACE}}archive/ folder.** |
 | `/kamiflow:dev:revise` | **[KamiFlow] Emergency Brake - Clarify context, resolve hallucinations, and question logic before implementation.** |
 | `/kamiflow:dev:saiyan` | **[KamiFlow] Ultimate Automation - Auto-Select Option B + Auto-Execution.** |
 | `/kamiflow:dev:supersaiyan` | **[KamiFlow] Meta-Automation - Manage cycles of Saiyan execution.** |
@@ -169,7 +171,7 @@ The **Management Commands** (`/kamiflow:ops:roadmap` and `/kamiflow:ops:save-con
 | :--- | :--- |
 | `/kamiflow:ops:wake` | **[KamiFlow] Wake up and reload project context to eliminate session amnesia.** |
 | `/kamiflow:ops:help` | **[KamiFlow] Interactive help system for commands and Sniper Model phases.** |
-| `/kamiflow:ops:save-context` | **[KamiFlow] Sync current state to ./.kamiflow/PROJECT_CONTEXT.md (Manual Memory Save).** |
+| `/kamiflow:ops:save-context` | **[KamiFlow] Sync current state to {{WORKSPACE}}PROJECT_CONTEXT.md (Manual Memory Save).** |
 | `/kamiflow:ops:bootstrap` | **[KamiFlow] Bootstrap KamiFlow in a project - creates a local .gemini/ configuration from the master template.** |
 | `/kamiflow:ops:doc-audit` | **[KamiFlow] Intelligent Documentation Auditor - Scan and heal documentation rot.** |
 

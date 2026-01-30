@@ -22,7 +22,7 @@ To prevent data corruption, KamiFlow uses the **.swarm-lock** protocol:
 
 ## 📋 Agent Registry
 
-Managed at `docs/agents/registry.md`, this file defines the "Constitution" of your AI workforce:
+Managed at `{{WORKSPACE}}registry.md`, this file defines the "Constitution" of your AI workforce:
 - **Executor:** Handles implementation and logic.
 - **Scout:** Handles discovery and trend research.
 - **Reviewer:** Handles quality gates and handoff logs.

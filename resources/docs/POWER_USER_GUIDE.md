@@ -37,8 +37,8 @@ KamiFlow v2.24 introduces "God Mode" automation levels, allowing the AI to take 
 
 ### Atomic Release Polish
 When you run `/release` (or `npm version`), KamiFlow performs a "Polish Pass" before the final commit:
-1.  **Sync Docs:** Updates `docs/commands/*.md`.
-2.  **Sync Roadmap:** Updates `./.kamiflow/ROADMAP.md` with recent achievements.
+1.  **Sync Docs:** Updates `{{WORKSPACE}}docs/commands/*.md`.
+2.  **Sync Roadmap:** Updates `{{WORKSPACE}}ROADMAP.md` with recent achievements.
 3.  **Unified Commit:** Amends all changes into a single `chore(release)` commit.
 
 ### Archive Automation
@@ -53,7 +53,7 @@ This is used internally by the Saiyan modes to keep the workspace clean without 
 ## 🧠 Memory Management (Advanced)
 
 ### Session Recovery
-Run `/kamiflow:ops:wake` at the start of every session to reload the `./.kamiflow/PROJECT_CONTEXT.md` and `cached_max_id`. This prevents ID collisions and hallucinations.
+Run `/kamiflow:ops:wake` at the start of every session to reload the `{{WORKSPACE}}PROJECT_CONTEXT.md` and `cached_max_id`. This prevents ID collisions and hallucinations.
 
 ### Manual Sync
 If the AI seems confused, force a sync:
