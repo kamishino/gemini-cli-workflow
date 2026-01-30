@@ -13,8 +13,8 @@
 ---
 
 ## 🏗️ Current Focus (Active Pillars)
-- **Phase ** Template v2.32.0 (Modular Engine)**
-- **Status:** ** Implemented Universal Core Paths (Task 091) - Replaced Node.js native 'path' with 'upath' across all cli-core logic, scripts, and utilities to ensure consistent POSIX path handling across all platforms (Windows, WSL, MacOS).
+- **Phase ** Template v2.33.0 (Modular Engine)**
+- **Status:** ** Implemented Intelligent Sync Engine (Task 092) - Enhanced updater with silent version checking, atomic build rollbacks, force-update with backup for standalone projects, and a dedicated 'sync-rules' command.
 
 ---
 
@@ -27,6 +27,7 @@
 
 ### ✅ Completed
 - [x] **v1.0 Core:** Initial setup.
+- [x] **Archived:** 2026-01-30_092_intelligent-updater
 - [x] **Archived:** 2026-01-30_091_cross-platform-paths
 - [x] **Archived:** 2026-01-30_090_rule-classification
 - [x] **Archived:** 2026-01-30_089_rules-overhaul
@@ -36,7 +37,6 @@
 - [x] **Archived:** 2026-01-30_085_clicore-optimization
 - [x] **Archived:** 2026-01-30_084_documentation-anchoring-git-hygiene
 - [x] **Archived:** 2026-01-30_083_dynamic-documentation-sync
-- [x] **Archived:** 2026-01-30_082_stealth-suite-cleanup
 
 ### 🚧 In Progress
 

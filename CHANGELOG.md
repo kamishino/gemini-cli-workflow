@@ -1,4 +1,10 @@
 
+## [v2.33.0] - 2026-01-30
+
+### 🚀 Features
+- feat(updater): implemented intelligent sync engine with silent checks and safety guards (Task 092) (9f0106f)
+
+
 ## [v2.32.0] - 2026-01-30
 
 ### 🚀 Features
