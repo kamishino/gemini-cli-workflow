@@ -2,6 +2,7 @@ const fs = require('fs-extra');
 const path = require('upath');
 const toml = require('@iarna/toml');
 const chalk = require('chalk');
+const logger = require('../utils/logger');
 
 // Path adjusted for deep structure (cli-core/scripts/)
 const COMMANDS_ROOT = path.join(__dirname, '../../.gemini/commands/kamiflow');
@@ -41,7 +42,8 @@ function formatPluginTitle(folderName) {
 
 async function main() {
   try {
-    console.log(chalk.blue('ℹ️ Syncing command documentation (Encyclopedia Mode)...'));
+    logger.header('KamiFlow Documentation Synchronizer');
+    const reporter = logger.createReporter("Documentation Sync");
 
     // 1. Discover Categories (Core + Plugins)
     const commandMap = [];
@@ -111,21 +113,26 @@ async function main() {
         { file: path.join(__dirname, '../../resources/docs/overview.md'), groups: FINAL_ORDER }
     ];
 
-    for (const target of TARGET_MAP) {
-      if (!fs.existsSync(target.file)) continue;
-      console.log(chalk.gray(`   Processing ${path.basename(target.file)}...`));
-
+    const syncTasks = TARGET_MAP.map(async (target) => {
+      if (!fs.existsSync(target.file)) return;
+      
       let fullMd = '';
       for (const groupKey of target.groups) {
         fullMd += generateGroupTable(commandMap, groupKey);
       }
 
-      updateFileWithMarkers(target.file, fullMd);
-    }
+      const updated = updateFileWithMarkers(target.file, fullMd);
+      const fileName = path.basename(target.file);
+      if (updated) reporter.push(fileName, 'SUCCESS', 'Markers Updated');
+      else reporter.push(fileName, 'SUCCESS', 'Up to date');
+    });
 
-    console.log(chalk.blue('ℹ️ Documentation sync complete.'));
+    await Promise.all(syncTasks);
+    reporter.print();
+
+    logger.success('Documentation synchronization complete.');
   } catch (error) {
-    console.error(chalk.red(`❌ Error: ${error.message}`));
+    logger.error(`Sync failed: ${error.message}`);
     process.exit(1);
   }
 }
@@ -163,9 +170,10 @@ function updateFileWithMarkers(file, newContent) {
     const finalContent = pre + markerStart + '\n' + newContent + markerEnd + post;
     if (finalContent !== content) {
       fs.writeFileSync(file, finalContent);
-      console.log(chalk.green(`      ✅ Markers updated`));
+      return true;
     }
   }
+  return false;
 }
 
 main();

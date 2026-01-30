@@ -64,6 +64,45 @@ class Logger {
   hint(text) {
     console.log(chalk.gray(`   ${text}`));
   }
+
+  /**
+   * Create a new summary reporter for batch operations
+   */
+  createReporter(title) {
+    return new SummaryReporter(title);
+  }
+}
+
+/**
+ * Helper to collect and display batch results
+ */
+class SummaryReporter {
+  constructor(title) {
+    this.title = title;
+    this.results = [];
+    this.startTime = Date.now();
+  }
+
+  push(name, status, message = '') {
+    this.results.push({
+      Item: name,
+      Status: status === 'SUCCESS' ? chalk.green('✅ SUCCESS') : chalk.red('❌ ERROR'),
+      Details: message
+    });
+  }
+
+  print() {
+    const duration = ((Date.now() - this.startTime) / 1000).toFixed(2);
+    console.log(chalk.cyan(`\n📊 SUMMARY: ${this.title}`));
+    console.log(chalk.gray(`   Completed in ${duration}s\n`));
+    
+    if (this.results.length > 0) {
+      console.table(this.results);
+    } else {
+      console.log(chalk.gray("   No tasks processed."));
+    }
+    console.log();
+  }
 }
 
 module.exports = new Logger(); // Singleton instance

@@ -29,7 +29,7 @@ async function backupFile(filePath) {
       const existingBackups = (await fs.readdir(backupBaseDir))
         .filter(f => f.startsWith(filename + '_'))
         .sort()
-        .reverse(); // Newest first
+        .reverse();
 
       if (existingBackups.length >= maxBackups) {
         const toDelete = existingBackups.slice(maxBackups - 1);
@@ -38,9 +38,11 @@ async function backupFile(filePath) {
         }
       }
 
-      // Create new backup with timestamp
-      const timestamp = new Date().toISOString().replace(/[:.]/g, '-').replace('T', '_').split('Z')[0];
-      const backupPath = path.join(backupBaseDir, `${filename}_${timestamp}`);
+      // Create new backup with millisecond precision for concurrency safety
+      const now = new Date();
+      const timestamp = now.toISOString().replace(/[:.]/g, '-').replace('T', '_').split('Z')[0];
+      const ms = now.getMilliseconds().toString().padStart(3, '0');
+      const backupPath = path.join(backupBaseDir, `${filename}_${timestamp}_${ms}`);
       
       await fs.copy(absoluteFilePath, backupPath, { overwrite: true });
       
@@ -55,11 +57,15 @@ async function backupFile(filePath) {
 }
 
 async function safeWrite(filePath, content) {
+  const tempPath = `${filePath}.${Math.random().toString(36).substring(7)}.tmp`;
   try {
     await fs.ensureDir(path.dirname(filePath));
-    await fs.writeFile(filePath, content, 'utf8');
+    // Atomic Write: Write to temp, then rename
+    await fs.writeFile(tempPath, content, 'utf8');
+    await fs.move(tempPath, filePath, { overwrite: true });
     return true;
   } catch (error) {
+    if (await fs.pathExists(tempPath)) await fs.remove(tempPath);
     logger.error(`SafeWrite failed for ${filePath}`, error);
     return false;
   }

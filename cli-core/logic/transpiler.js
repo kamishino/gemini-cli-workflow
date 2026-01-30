@@ -150,10 +150,9 @@ class Transpiler {
 
     const registryContent = await fs.readFile(registryPath, 'utf8');
     const targets = this.parseRegistry(registryContent);
+    const reporter = logger.createReporter("Command Transpilation");
 
-    for (const target of targets) {
-      logger.debug(`Building: ${target.name}`);
-      
+    const buildTarget = async (target) => {
       try {
         const assembledContent = await this.assemble(target.shell, target.partials);
         
@@ -167,22 +166,26 @@ class Transpiler {
           if (success && absoluteTargetPath.endsWith('.toml')) {
             const validation = validateTomlFile(absoluteTargetPath);
             if (!validation.valid) {
-              logger.error(`TOML Validation FAILED for ${displayPath}`);
+              reporter.push(target.name, 'ERROR', `TOML Invalid: ${displayPath}`);
             } else {
-              logger.success(`${displayPath} built and validated.`);
+              reporter.push(target.name, 'SUCCESS', displayPath);
             }
           }
         }
       } catch (error) {
-        logger.error(`Failed to build ${target.name}: ${error.message}`);
+        reporter.push(target.name, 'ERROR', error.message);
       }
-    }
+    };
+
+    // Parallel build
+    await Promise.all(targets.map(t => buildTarget(t)));
+    reporter.print();
 
     await this.transpileRules();
     await this.syncDocumentation();
     await this.assembleProjectTemplate();
 
-    logger.success("Transpilation complete.");
+    logger.success("Build sequence complete.");
   }
 
   /**
@@ -197,10 +200,11 @@ class Transpiler {
     if (!(await fs.pathExists(sourceDocs))) return;
 
     logger.info(`Syncing Dynamic Documentation (${env})...`);
+    const reporter = logger.createReporter("Documentation Sync");
 
     const walkAndSync = async (dir, relativePath = '') => {
       const items = await fs.readdir(dir);
-      for (const item of items) {
+      const tasks = items.map(async (item) => {
         const fullPath = path.join(dir, item);
         const relItemPath = path.join(relativePath, item);
         
@@ -224,14 +228,17 @@ class Transpiler {
 
           for (const outputRoot of this.targets) {
             const targetPath = path.join(outputRoot, '.kamiflow/docs', relItemPath);
-            await safeWrite(targetPath, content);
+            const success = await safeWrite(targetPath, content);
+            if (success) reporter.push(relItemPath, 'SUCCESS');
+            else reporter.push(relItemPath, 'ERROR');
           }
         }
-      }
+      });
+      await Promise.all(tasks);
     };
 
     await walkAndSync(sourceDocs);
-    logger.success('Documentation synchronized and anchored.');
+    reporter.print();
   }
 
   /**
@@ -242,23 +249,25 @@ class Transpiler {
     if (env !== 'production') return;
 
     logger.info("Assembling Project Template for Distribution...");
+    const reporter = logger.createReporter("Template Assembly");
 
     for (const outputRoot of this.targets) {
       const kamiflowDir = path.join(outputRoot, '.kamiflow');
       const subDirs = ['archive', 'ideas', 'tasks', 'handoff_logs', 'schemas', '.backup'];
       
-      for (const sub of subDirs) {
+      const dirTasks = subDirs.map(async (sub) => {
         const fullPath = path.join(kamiflowDir, sub);
         await fs.ensureDir(fullPath);
         await fs.writeFile(path.join(fullPath, '.gitkeep'), '');
-      }
+      });
+      await Promise.all(dirTasks);
 
       // Copy Schema
       const schemaSrc = path.join(this.projectRoot, 'resources/schemas/kamirc.schema.json');
       const schemaDest = path.join(kamiflowDir, 'schemas/kamirc.schema.json');
       if (await fs.pathExists(schemaSrc)) {
         await fs.copy(schemaSrc, schemaDest);
-        logger.hint('Deployed: Config Schema');
+        reporter.push('Config Schema', 'SUCCESS');
       }
 
       const templateMappings = [
@@ -268,14 +277,15 @@ class Transpiler {
         { src: 'kamirc.example.json', dest: '.kamirc.example.json' }
       ];
 
-      for (const map of templateMappings) {
+      const templateTasks = templateMappings.map(async (map) => {
         const srcPath = path.join(this.templatesDir, map.src);
         const destPath = path.join(outputRoot, map.dest);
         if (await fs.pathExists(srcPath)) {
           await fs.copy(srcPath, destPath);
-          logger.hint(`Seeded: ${map.dest}`);
+          reporter.push(map.dest, 'SUCCESS', 'Seeded');
         }
-      }
+      });
+      await Promise.all(templateTasks);
 
       const gitIgnoreContent = `.kamiflow/archive/
 .kamiflow/ideas/
@@ -296,15 +306,16 @@ class Transpiler {
 
       await fs.writeFile(path.join(outputRoot, '.gitignore'), gitIgnoreContent);
       await fs.writeFile(path.join(outputRoot, '.geminiignore'), geminiIgnoreContent);
-      logger.hint(`Generated .gitignore & .geminiignore`);
+      reporter.push('Ignore Files', 'SUCCESS', 'Generated');
     }
+    reporter.print();
   }
 
   async transpileRules() {
     const env = await this.envManager.getEnv();
     const isProd = env === 'production';
+    const reporter = logger.createReporter("Rule Transpilation");
     
-    // Define source folders to scan
     const sources = ['global'];
     if (!isProd) sources.push('local');
 
@@ -314,15 +325,18 @@ class Transpiler {
 
       const rules = (await fs.readdir(sourcePath)).filter(f => f.endsWith('.md'));
       
-      for (const rule of rules) {
+      const ruleTasks = rules.map(async (rule) => {
         const content = await fs.readFile(path.join(sourcePath, rule), 'utf8');
         for (const outputRoot of this.targets) {
           const targetPath = path.join(outputRoot, '.gemini/rules', rule);
-          await safeWrite(targetPath, content);
+          const success = await safeWrite(targetPath, content);
+          if (success) reporter.push(rule, 'SUCCESS');
+          else reporter.push(rule, 'ERROR');
         }
-      }
+      });
+      await Promise.all(ruleTasks);
     }
-    logger.success('Rules synchronized based on environment.');
+    reporter.print();
   }
 
   /**
