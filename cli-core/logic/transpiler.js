@@ -256,7 +256,8 @@ class Transpiler {
       const templateMappings = [
         { src: 'context.md', dest: '.kamiflow/PROJECT_CONTEXT.md' },
         { src: 'roadmap.md', dest: '.kamiflow/ROADMAP.md' },
-        { src: 'gemini.md', dest: 'GEMINI.md' }
+        { src: 'gemini.md', dest: 'GEMINI.md' },
+        { src: 'kamirc.example.json', dest: '.kamirc.example.json' }
       ];
 
       for (const map of templateMappings) {

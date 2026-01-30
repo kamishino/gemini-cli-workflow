@@ -1,0 +1,7 @@
+{
+  "language": "english",
+  "strategy": "BALANCED",
+  "maxRetries": 3,
+  "seed.minFeasibility": 0.7,
+  "currentEnv": "development"
+}

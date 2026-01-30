@@ -140,7 +140,9 @@ program
   });
 
 // Config command
-const configFlow = program.command("config-flow").description("Manage project configuration");
+const configFlow = program
+  .command("config-flow")
+  .description("Manage project configuration. Common keys: language, strategy, maxRetries.");
 
 configFlow
   .command("set <key> <value>")

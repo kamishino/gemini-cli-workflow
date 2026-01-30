@@ -24,6 +24,10 @@ Automation tools for high-speed execution.
 Machine-level operations via the `kamiflow` command.
 - `init-flow`, `config-flow`, `doctor-flow`, `sync-flow`, `archive-flow`
 
+### [⚙️ Configuration](../CONFIGURATION.md)
+How to customize KamiFlow's behavior.
+- Layers, Keys, and `.kamirc.json`
+
 ---
 
 ## 🔍 Scannable Overview
