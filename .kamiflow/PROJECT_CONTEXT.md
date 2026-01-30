@@ -11,7 +11,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Implemented Canonical Workspace Path Sync (Task 075) - Flattened structure to ./.kamiflow/ and unified AI paths across all environments.
+- **Last Completed Action:** Implemented Heritage Recovery (Task 077) - Recovered deleted documentation from git history and relocated to ./resources/docs/.
 - **Current Focus:** Final stabilization and public release preparation.
 - **Next Step:** Official public rollout and community onboarding.
 
