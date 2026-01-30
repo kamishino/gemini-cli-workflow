@@ -9,9 +9,9 @@
 
 | Agent ID | Name | Primary Role | Allowed Write Scopes | Read Access |
 | :--- | :--- | :--- | :--- | :--- |
-| `executor` | Sniper Executor | Code & Task implementation | `tasks/`, `cli-core/`, `archive/` | FULL |
-| `scout` | Market Intelligence | Trends & Discovery research | `ideas/discovery/` | ROADMAP, CONTEXT |
-| `reviewer` | Quality Guard | Code review & Validation | `./.kamiflow/handoff_logs/` | TASKS, SRC |
+| `executor` | Sniper Executor | Code & Task implementation | `./.kamiflow/tasks/`, `./.kamiflow/archive/` | FULL |
+| `scout` | Market Intelligence | Trends & Discovery research | `./.kamiflow/ideas/discovery/` | `./.kamiflow/ROADMAP.md` |
+| `reviewer` | Quality Guard | Code review & Validation | `./.kamiflow/handoff_logs/` | `./.kamiflow/tasks/`, `./.kamiflow/` |
 | `coordinator`| Swarm Master | Thread & Lock management | ROOT (Lock files) | FULL |
 
 ---

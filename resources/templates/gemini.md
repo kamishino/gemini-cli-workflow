@@ -23,17 +23,30 @@
 
 ## 4. Workflow & Commands (The Kami Flow)
 
+_The detailed logic for these commands is imported below._
+
 ### 🎯 The Sniper Model (3-Step Fused Kernel)
 
 The core workflow uses 3 steps with 3-Layer Locks:
 
-- `/kamiflow:core:idea` - Interactive refinement with 3 options (Step 1).
-- `/kamiflow:core:spec` - Schema-First specification (Step 2).
-- `/kamiflow:core:build` - Legacy-Aware task generation (Step 3).
+- `/kamiflow:core:idea` - Interactive refinement with 3 options (Step 1: The Critical Chef).
+- `/kamiflow:core:spec` - Schema-First specification with Context Anchoring (Step 2: Lock 1 & 2).
+- `/kamiflow:core:build` - Legacy-Aware task generation (Step 3: Lock 3).
 
-### 🚀 Auto-Pilot
+**The 3-Layer Locks Architecture:**
 
-- `/kamiflow:dev:lazy` - Auto-generate all 4 Sniper artifacts (IDEA/SPEC/BUILD/HANDOFF).
+- 🔒 **Lock 1 (Context Anchoring):** Forces reading `./.kamiflow/PROJECT_CONTEXT.md` and tech stack rules.
+- 🔒 **Lock 2 (Schema-First):** Mandates Data Models before Logic in SPEC.
+- 🔒 **Lock 3 (Legacy Awareness):** Requires codebase analysis before task creation.
+
+### Bridge (Execution)
+
+- `/kamiflow:core:bridge` - Pack context for IDE (Windsurf/Cursor).
+- `/kamiflow:ops:sync` - Read IDE logs & update Context.
+
+### 🚀 Auto-Pilot (Lazy Modes)
+
+- `/kamiflow:dev:lazy` - Auto-generate all 4 Sniper artifacts (IDEA/SPEC/BUILD/HANDOFF) in one chain.
 - `/kamiflow:dev:superlazy` - Auto-generate AND execute immediately.
 
 ### 🧠 Management
@@ -52,10 +65,13 @@ The core workflow uses 3 steps with 3-Layer Locks:
 
 # These files inject the detailed "Brain" of the protocols.
 
-@./.gemini/rules/manifesto.md
-@./.gemini/rules/tech-stack.md
-@./.gemini/rules/command-standard.md
-@./.gemini/rules/factory-line.md
-@./.gemini/rules/automated-execution.md
-@./.gemini/rules/bridge-ide.md
+@./.gemini/rules/core-manifesto.md
+@./.gemini/rules/core-tech-stack.md
+@./.gemini/rules/std-command.md
+@./.gemini/rules/flow-factory-line.md
+@./.gemini/rules/flow-execution.md
+@./.gemini/rules/flow-bridge.md
+@./.gemini/rules/flow-bootstrap.md
+@./.gemini/rules/std-blueprint.md
+@./.gemini/rules/std-id.md
 @./.kamiflow/PROJECT_CONTEXT.md

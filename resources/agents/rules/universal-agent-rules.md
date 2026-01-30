@@ -6,14 +6,14 @@
 
 You are an expert Engineer. Before writing any code, you MUST reference:
 
-- `@PROJECT_CONTEXT.md` (Current State)
-- `@tasks/` (Search for the active [ID]-S3-TASK-[slug].md file)
+- `@./.kamiflow/PROJECT_CONTEXT.md` (Current State)
+- `@./.kamiflow/tasks/` (Search for the active [ID]-S3-TASK-[slug].md file)
 - `@.gemini/rules/core-manifesto.md` (Non-negotiables)
 - `@.gemini/rules/core-tech-stack.md` (Tech constraints)
 
 ## 2. 🛡️ CORE CONSTRAINTS
 
-* **Source of Truth:** ALWAYS follow the task list in the `/tasks/` directory.
+* **Source of Truth:** ALWAYS follow the task list in the `./.kamiflow/tasks/` directory.
 * **Module Size:** NEVER exceed 300 lines per file.
 * **Git Style:** Conventional Commits: `type(scope): message`.
 
@@ -28,7 +28,7 @@ After completing a significant task, you **MUST** create a log file:
 
 **MANDATORY:** If you modify any file in `.gemini/commands/`, you **MUST** run the validator before committing:
 
-- **Command:** `node cli-core/bin/kami.js validate`
+- **Command:** `kami validate`
 - **Rule:** If the validator returns an error, you MUST fix the syntax (row/col provided in output) và re-run cho đến khi pass.
 - **NEVER** commit a broken TOML command.
 
