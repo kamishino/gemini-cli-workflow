@@ -3,10 +3,11 @@
 const { Command } = require("commander");
 const chalk = require("chalk");
 const logger = require("../utils/logger");
+const { initI18n, t } = require("../utils/i18n");
 const { initializeProject } = require("../logic/installer");
 const { runDoctor } = require("../logic/doctor");
 const { runUpdate, silentCheck, syncGlobalRules } = require("../logic/updater");
-const path = require('upath');
+const path = require("upath");
 const fs = require("fs-extra");
 
 const program = new Command();
@@ -23,7 +24,7 @@ async function execute(title, action) {
     await action();
   } catch (error) {
     logger.error(error.message);
-    if (process.env.KAMI_DEBUG === 'true') {
+    if (process.env.KAMI_DEBUG === "true") {
       console.error(error);
     }
     process.exit(1);
@@ -33,10 +34,7 @@ async function execute(title, action) {
 // Get version from package.json
 const packageJson = require("../package.json");
 
-program
-  .name("kamiflow")
-  .description("KamiFlow CLI - The Orchestrator for Indie Builders")
-  .version(packageJson.version);
+program.name("kamiflow").description("KamiFlow CLI - The Orchestrator for Indie Builders").version(packageJson.version);
 
 // Init command
 program
@@ -133,7 +131,7 @@ program
       const { validateTomlFiles } = require("../validators/toml-validator");
       const targetPath = path.resolve(process.cwd(), options.path);
       const result = await validateTomlFiles(targetPath);
-      
+
       console.log(chalk.cyan("\n" + "─".repeat(50)));
       if (result.invalid === 0) {
         logger.success(`All ${result.total} TOML files are valid!\n`);
@@ -174,7 +172,7 @@ configFlow
       const config = new ConfigManager();
       const success = await config.set(key, value, options.global);
       if (success) {
-        logger.success(`Set ${key} = ${value} (${options.global ? 'Global' : 'Local'})`);
+        logger.success(`Set ${key} = ${value} (${options.global ? "Global" : "Local"})`);
       }
     });
   });
@@ -199,18 +197,18 @@ configFlow
       const { ConfigManager } = require("../logic/config-manager");
       const config = new ConfigManager();
       const report = await config.syncLocalConfig();
-      
+
       if (report.success) {
         if (report.added.length > 0) {
           logger.success(`Synchronized configuration. Added ${report.added.length} missing key(s).`);
-          report.added.forEach(key => logger.hint(`   [+] ${key}`));
+          report.added.forEach((key) => logger.hint(`   [+] ${key}`));
         } else {
           logger.success("Project configuration is already up to date.");
         }
 
         if (report.orphaned.length > 0) {
           console.log(chalk.yellow(`\n⚠️  Found ${report.orphaned.length} orphaned key(s) not in current schema:`));
-          report.orphaned.forEach(key => console.log(chalk.gray(`   [-] ${key}`)));
+          report.orphaned.forEach((key) => console.log(chalk.gray(`   [-] ${key}`)));
           console.log(chalk.gray("   (These keys are preserved but ignored by the system)\n"));
         }
       }
@@ -259,7 +257,7 @@ configFlow
       let finalValue = value;
       if (value === "true") finalValue = true;
       if (value === "false") finalValue = false;
-      
+
       const success = await config.setGlobalState(key, finalValue);
       if (success) {
         logger.success(`Set global state: ${key} = ${finalValue}`);
@@ -290,7 +288,7 @@ program
     await execute(null, async () => {
       const { Transpiler } = require("../logic/transpiler");
       const transpiler = new Transpiler(process.cwd());
-      await transpiler.runFromRegistry(path.join(transpiler.blueprintDir, 'registry.md'));
+      await transpiler.runFromRegistry(path.join(transpiler.blueprintDir, "registry.md"));
     });
   });
 
@@ -307,7 +305,7 @@ program
       await runArchivist({
         targetId: id,
         force: options.force,
-        all: options.all
+        all: options.all,
       });
     });
   });
@@ -393,7 +391,7 @@ program
       const status = await getSwarmStatus();
       if (status.activeLocks && status.activeLocks.length > 0) {
         logger.warn("Active Swarm Locks:");
-        status.activeLocks.forEach(l => {
+        status.activeLocks.forEach((l) => {
           logger.hint(`${l.folder}: Locked by ${l.agent} (${l.timestamp})`);
         });
       } else {
@@ -445,10 +443,14 @@ program
   });
 
 // Unknown command handler
-program.on('command:*', (operands) => {
-  logger.error(`Không tìm thấy lệnh: ${operands[0]}`);
-  logger.hint("Hãy thử 'kami help' để xem các lệnh khả dụng.");
+program.on("command:*", (operands) => {
+  logger.error(t("cli.error.commandNotFound", { command: operands[0] }));
+  logger.hint(t("cli.hint.tryHelp"));
   process.exit(1);
 });
 
-program.parse(process.argv);
+// Initialize i18n and parse arguments
+(async () => {
+  await initI18n();
+  program.parse(process.argv);
+})();

@@ -29,7 +29,10 @@
     "build": "npm run clean && npm run sync && cross-env KAMI_ENV=production npm run transpile",
     "version": "node scripts/sync-version.js && node scripts/sync-docs.js",
     "postversion": "node scripts/git-release.js",
-    "test": "echo \"No tests yet\" && exit 0"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:verbose": "jest --verbose"
   },
   "keywords": [
     "gemini",
@@ -60,6 +63,9 @@
     "url": "https://github.com/kamishino/gemini-cli-workflow.git"
   },
   "devDependencies": {
-    "cross-env": "^10.1.0"
+    "cross-env": "^10.1.0",
+    "jest": "^29.7.0",
+    "jest-mock-extended": "^3.0.5",
+    "@types/jest": "^29.5.11"
   }
 }

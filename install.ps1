@@ -56,7 +56,28 @@ try {
     npm run build
 
     Write-Host "       Linking globally..." -ForegroundColor Gray
-    npm install -g .
+
+    try {
+        npm install -g . 2>$null
+        if ($LASTEXITCODE -ne 0) {
+            throw "Global install failed"
+        }
+    } catch {
+        Write-Host "[KAMI]  Global link failed. Trying user-level installation..." -ForegroundColor Yellow
+        
+        # Try user-level npm prefix
+        $userNpmPrefix = "$env:APPDATA\npm"
+        npm config set prefix $userNpmPrefix
+        npm install -g .
+        
+        if ($LASTEXITCODE -eq 0) {
+            Write-Host "[KAMI]  Installed to user directory: $userNpmPrefix" -ForegroundColor Green
+            Write-Host "       Add to PATH: $userNpmPrefix" -ForegroundColor Gray
+        } else {
+            Write-Host "[KAMI]  Installation failed. Please run PowerShell as Administrator." -ForegroundColor Red
+            exit 1
+        }
+    }
     
     Write-Host "[KAMI] Success: Installation successful!" -ForegroundColor Green
 } catch {

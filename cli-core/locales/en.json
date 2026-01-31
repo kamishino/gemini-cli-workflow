@@ -1,0 +1,49 @@
+{
+  "cli.error.commandNotFound": "Command not found: {{command}}",
+  "cli.hint.tryHelp": "Try 'kami help' for available commands",
+  "cli.success.complete": "{{action}} complete!",
+  "cli.info.nextSteps": "Next steps:",
+  
+  "installer.success.aliasAdded": "Permanent alias 'kami' added to {{file}}",
+  "installer.error.gitMissing": "Git is not installed. Please install Git from https://git-scm.com/",
+  "installer.error.nodeVersion": "Node.js version must be >= 16. Current: {{version}}",
+  "installer.info.targetDir": "Target directory: {{path}}",
+  "installer.info.updating": "Updating existing installation...",
+  
+  "doctor.error.nodeVersionLow": "Node.js 16+ required",
+  "doctor.success.nodeCompatible": "Node.js version is compatible",
+  "doctor.success.geminiFound": "Gemini CLI found and operational",
+  "doctor.error.geminiNotFound": "Gemini CLI not installed",
+  "doctor.hint.installGemini": "Install: npm install -g @google/gemini-cli",
+  "doctor.success.gitFound": "Git found",
+  "doctor.success.allHealthy": "All systems operational!",
+  "doctor.warn.issuesDetected": "Some issues detected. See above for details.",
+  
+  "config.success.valueSet": "Set {{key}} = {{value}} ({{scope}})",
+  "config.success.syncComplete": "Synchronized configuration. Added {{count}} missing key(s).",
+  "config.success.upToDate": "Project configuration is already up to date.",
+  "config.warn.orphanedKeys": "Found {{count}} orphaned key(s) not in current schema:",
+  "config.info.orphanedNote": "(These keys are preserved but ignored by the system)",
+  "config.info.noConfig": "No configuration found.",
+  
+  "updater.info.checking": "Checking for updates...",
+  "updater.success.upToDate": "You are using the latest version.",
+  "updater.info.updateAvailable": "Update available: {{current}} → {{latest}}",
+  "updater.error.updateFailed": "Update failed: {{error}}",
+  
+  "archivist.info.archiving": "Archiving task: {{id}}",
+  "archivist.success.archived": "Archived: {{path}}",
+  "archivist.error.notFound": "Task not found: {{id}}",
+  
+  "transpiler.info.syncing": "Synchronizing documentation...",
+  "transpiler.success.complete": "Transpilation complete",
+  "transpiler.error.missingMetadata": "CRITICAL: Metadata missing in {{file}}: {{fields}}",
+  
+  "validator.success.allValid": "All {{count}} TOML files are valid!",
+  "validator.error.invalidFiles": "Found {{count}} invalid TOML files.",
+  
+  "common.error": "Error: {{message}}",
+  "common.warning": "Warning: {{message}}",
+  "common.info": "Info: {{message}}",
+  "common.success": "Success: {{message}}"
+}

@@ -53,11 +53,24 @@ echo -e "${YELLOW}       Building distribution artifacts...${NC}"
 npm run build
 
 echo -e "${GRAY}       Linking globally...${NC}"
-# Use sudo if necessary for global link
-if [[ "$(which node)" == "/usr/bin/node" ]]; then
-    sudo npm install -g .
-else
+
+# Check if we need sudo for global npm
+NPM_PREFIX=$(npm config get prefix)
+if [[ -w "$NPM_PREFIX" ]]; then
+    # User has write access, no sudo needed
     npm install -g .
+else
+    # Need elevated permissions
+    echo -e "${YELLOW}[KAMI] Global npm directory requires admin access.${NC}"
+    echo -e "${YELLOW}       Attempting installation with sudo...${NC}"
+    
+    if command -v sudo >/dev/null 2>&1; then
+        sudo npm install -g .
+    else
+        echo -e "${RED}[KAMI] ❌ sudo not available and global npm requires admin.${NC}"
+        echo -e "${YELLOW}Alternative: Run 'npm config set prefix ~/.local' and retry${NC}"
+        exit 1
+    fi
 fi
 
 # PHASE 3: Handshake & Alias
