@@ -39,6 +39,20 @@ The core workflow uses 3 steps with 3-Layer Locks:
 - 🔒 **Lock 2 (Schema-First):** Mandates Data Models before Logic in SPEC.
 - 🔒 **Lock 3 (Legacy Awareness):** Requires codebase analysis before task creation.
 
+### 🛡️ v2.0 Enhanced Protocols (Stability & Anti-Hallucination)
+
+KamiFlow v2.0 introduces 5 critical enhancements for accuracy, stability, and resilience:
+
+- **Phase 0.5: Assumption Verification** - Prevents hallucinations by verifying files/functions/dependencies BEFORE planning
+- **Validation Loop (3-Phase)** - Syntax → Functional → Traceability with automatic self-healing (80% errors auto-fixed)
+- **Strategic Reflection** - Quality gates + structured exit protocol in Phase 4 with tech debt assessment
+- **Error Recovery (3-Level)** - Self-Healing (80%) → User Assist (15%) → Escalation (5%)
+- **Progress Checkpoints** - Resume interrupted workflows without losing context (7 checkpoint locations)
+
+**Key Enhancement Commands:**
+
+- `/kamiflow:ops:resume [ID]` - Resume workflow from last checkpoint
+
 ### Bridge (Execution)
 
 - `/kamiflow:core:bridge` - Pack context for IDE (Windsurf/Cursor).
@@ -56,93 +70,87 @@ The core workflow uses 3 steps with 3-Layer Locks:
 - `/kamiflow:ops:save-context` - Save RAM to `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md`.
 
 #### 📋 Quick Command Reference
+
 <!-- KAMI_COMMAND_LIST_START -->
 
 ### 🎯 Sniper Model (Core Flow)
 
-| Command | Goal |
-| :--- | :--- |
-| `/kamiflow:core:idea` | **[KamiFlow Sniper] Generate refined idea through diagnostic interview and synthesis (Step 1: Two-Phase Interactive).** |
-| `/kamiflow:core:spec` | **[KamiFlow Sniper] Create detailed specification with Schema-First approach (Step 2: Lock 1 & 2).** |
-| `/kamiflow:core:build` | **[KamiFlow Sniper] Generate implementation task list with Legacy Awareness (Step 3: Lock 3).** |
-
+| Command                | Goal                                                                                                                    |
+| :--------------------- | :---------------------------------------------------------------------------------------------------------------------- |
+| `/kamiflow:core:idea`  | **[KamiFlow Sniper] Generate refined idea through diagnostic interview and synthesis (Step 1: Two-Phase Interactive).** |
+| `/kamiflow:core:spec`  | **[KamiFlow Sniper] Create detailed specification with Schema-First approach (Step 2: Lock 1 & 2).**                    |
+| `/kamiflow:core:build` | **[KamiFlow Sniper] Generate implementation task list with Legacy Awareness (Step 3: Lock 3).**                         |
 
 ### 🌉 The Bridge (IDE Integration)
 
-| Command | Goal |
-| :--- | :--- |
+| Command                 | Goal                                                                                          |
+| :---------------------- | :-------------------------------------------------------------------------------------------- |
 | `/kamiflow:core:bridge` | **[KamiFlow] Generate a 'Context Package' prompt for external AI Editors (Windsurf/Cursor).** |
-
 
 ### 🚀 Auto-Pilot (Automation)
 
-| Command | Goal |
-| :--- | :--- |
-| `/kamiflow:dev:lazy` | **[KamiFlow] Auto-generate S1-S4 artifacts using Sniper Model with mandatory Diagnostic Gate.** |
-| `/kamiflow:dev:superlazy` | **[KamiFlow] Auto-generate S1-S4 artifacts AND execute with Strategic Reflection.** |
-| `/kamiflow:dev:release` | **[KamiFlow] Smart Release Manager - Analyze git history, context, and automate version bumping.** |
-| `/kamiflow:dev:upgrade` | **[KamiFlow] Update KamiFlow to the latest version.** |
-| `/kamiflow:dev:archive` | **[KamiFlow] Archive completed task artifacts to ./.kamiflow/archive/ folder.** |
-| `/kamiflow:dev:revise` | **[KamiFlow] Emergency Brake - Clarify context, resolve hallucinations, and question logic before implementation.** |
-| `/kamiflow:dev:saiyan` | **[KamiFlow] Ultimate Automation - Auto-Select Option B + Auto-Execution.** |
-| `/kamiflow:dev:supersaiyan` | **[KamiFlow] Meta-Automation - Manage cycles of Saiyan execution.** |
-
+| Command                     | Goal                                                                                                                |
+| :-------------------------- | :------------------------------------------------------------------------------------------------------------------ |
+| `/kamiflow:dev:lazy`        | **[KamiFlow] Auto-generate S1-S4 artifacts using Sniper Model with mandatory Diagnostic Gate.**                     |
+| `/kamiflow:dev:superlazy`   | **[KamiFlow] Auto-generate S1-S4 artifacts AND execute with Strategic Reflection.**                                 |
+| `/kamiflow:dev:release`     | **[KamiFlow] Smart Release Manager - Analyze git history, context, and automate version bumping.**                  |
+| `/kamiflow:dev:upgrade`     | **[KamiFlow] Update KamiFlow to the latest version.**                                                               |
+| `/kamiflow:dev:archive`     | **[KamiFlow] Archive completed task artifacts to ./.kamiflow/archive/ folder.**                                     |
+| `/kamiflow:dev:revise`      | **[KamiFlow] Emergency Brake - Clarify context, resolve hallucinations, and question logic before implementation.** |
+| `/kamiflow:dev:saiyan`      | **[KamiFlow] Ultimate Automation - Auto-Select Option B + Auto-Execution.**                                         |
+| `/kamiflow:dev:supersaiyan` | **[KamiFlow] Meta-Automation - Manage cycles of Saiyan execution.**                                                 |
 
 ### 🧠 Management (Operations)
 
-| Command | Goal |
-| :--- | :--- |
-| `/kamiflow:ops:wake` | **[KamiFlow] Wake up and reload project context to eliminate session amnesia.** |
-| `/kamiflow:ops:help` | **[KamiFlow] Interactive help system for commands and Sniper Model phases.** |
-| `/kamiflow:ops:save-context` | **[KamiFlow] Sync current state to ./.kamiflow/PROJECT_CONTEXT.md (Manual Memory Save).** |
-| `/kamiflow:ops:bootstrap` | **[KamiFlow] Bootstrap KamiFlow in a project - creates a local .gemini/ configuration from the master template.** |
-| `/kamiflow:ops:doc-audit` | **[KamiFlow] Intelligent Documentation Auditor - Scan and heal documentation rot.** |
-
+| Command                      | Goal                                                                                                              |
+| :--------------------------- | :---------------------------------------------------------------------------------------------------------------- |
+| `/kamiflow:ops:wake`         | **[KamiFlow] Wake up and reload project context to eliminate session amnesia.**                                   |
+| `/kamiflow:ops:resume`       | **[KamiFlow] Resume workflow from last checkpoint without losing context.**                                       |
+| `/kamiflow:ops:help`         | **[KamiFlow] Interactive help system for commands and Sniper Model phases.**                                      |
+| `/kamiflow:ops:save-context` | **[KamiFlow] Sync current state to ./.kamiflow/PROJECT_CONTEXT.md (Manual Memory Save).**                         |
+| `/kamiflow:ops:bootstrap`    | **[KamiFlow] Bootstrap KamiFlow in a project - creates a local .gemini/ configuration from the master template.** |
+| `/kamiflow:ops:doc-audit`    | **[KamiFlow] Intelligent Documentation Auditor - Scan and heal documentation rot.**                               |
 
 ### 🧩 Agents (Plugin)
 
-| Command | Goal |
-| :--- | :--- |
-| `/kamiflow:p-agents:add` | **[Agent Hub] Safely audit and add a skill to your project agents.** |
+| Command                   | Goal                                                                            |
+| :------------------------ | :------------------------------------------------------------------------------ |
+| `/kamiflow:p-agents:add`  | **[Agent Hub] Safely audit and add a skill to your project agents.**            |
 | `/kamiflow:p-agents:scan` | **[Agent Hub] Discover which AI agents are currently present in your project.** |
-
 
 ### 🧩 Market (Plugin)
 
-| Command | Goal |
-| :--- | :--- |
+| Command                       | Goal                                                                                     |
+| :---------------------------- | :--------------------------------------------------------------------------------------- |
 | `/kamiflow:p-market:research` | **[Market Engine] Analyze project context and suggest 3-5 high-value feature requests.** |
-| `/kamiflow:p-market:inspire` | **[Market Engine] Out-of-the-box innovation brainstorming for your current stack.** |
-
+| `/kamiflow:p-market:inspire`  | **[Market Engine] Out-of-the-box innovation brainstorming for your current stack.**      |
 
 ### 🌱 The Seed Hub (Plugin)
 
-| Command | Goal |
-| :--- | :--- |
-| `/kamiflow:p-seed:draft` | **[Seed Hub] Seed an idea with an Interactive Terminal Interview.** |
+| Command                    | Goal                                                                                |
+| :------------------------- | :---------------------------------------------------------------------------------- |
+| `/kamiflow:p-seed:draft`   | **[Seed Hub] Seed an idea with an Interactive Terminal Interview.**                 |
 | `/kamiflow:p-seed:analyze` | **[Seed Hub] Deeply analyze an idea with Strategic Breakdown and Prepend History.** |
-| `/kamiflow:p-seed:promote` | **[Seed Hub] Harvest an idea by moving it to the backlog (The Harvesting phase).** |
-
+| `/kamiflow:p-seed:promote` | **[Seed Hub] Harvest an idea by moving it to the backlog (The Harvesting phase).**  |
 
 ### 🧩 Swarm (Plugin)
 
-| Command | Goal |
-| :--- | :--- |
-| `/kamiflow:p-swarm:run` | **[Swarm Engine] Dispatch multiple intents to parallel sub-agents.** |
-| `/kamiflow:p-swarm:status` | **[Swarm Engine] Check active locks and swarm health.** |
-
+| Command                    | Goal                                                                 |
+| :------------------------- | :------------------------------------------------------------------- |
+| `/kamiflow:p-swarm:run`    | **[Swarm Engine] Dispatch multiple intents to parallel sub-agents.** |
+| `/kamiflow:p-swarm:status` | **[Swarm Engine] Check active locks and swarm health.**              |
 
 ### 🖥️ Terminal CLI Guide (Flow Suite)
 
-| Command | Goal |
-| :--- | :--- |
-| `kamiflow init-flow` | **Initialize a project with KamiFlow.** |
-| `kamiflow doctor-flow` | **Check project health.** |
-| `kamiflow sync-flow` | **Synchronize command documentation.** |
-| `kamiflow archive-flow` | **Archive completed tasks.** |
-| `kamiflow config-flow` | **Manage persistent project settings.** |
-| `kamiflow update-flow` | **Update KamiFlow to the latest version.** |
-| `kamiflow info-flow` | **Display core location and version.** |
+| Command                 | Goal                                       |
+| :---------------------- | :----------------------------------------- |
+| `kamiflow init-flow`    | **Initialize a project with KamiFlow.**    |
+| `kamiflow doctor-flow`  | **Check project health.**                  |
+| `kamiflow sync-flow`    | **Synchronize command documentation.**     |
+| `kamiflow archive-flow` | **Archive completed tasks.**               |
+| `kamiflow config-flow`  | **Manage persistent project settings.**    |
+| `kamiflow update-flow`  | **Update KamiFlow to the latest version.** |
+| `kamiflow info-flow`    | **Display core location and version.**     |
 
 <!-- KAMI_COMMAND_LIST_END -->
 
@@ -151,6 +159,8 @@ The core workflow uses 3 steps with 3-Layer Locks:
 # 📥 SYSTEM IMPORTS
 
 # These files inject the detailed "Brain" of the protocols.
+
+# Core Protocols (v1.0)
 
 @{{KAMI_RULES_GEMINI}}core-manifesto.md
 @{{KAMI_RULES_GEMINI}}core-tech-stack.md
@@ -161,4 +171,15 @@ The core workflow uses 3 steps with 3-Layer Locks:
 @{{KAMI_RULES_GEMINI}}flow-bootstrap.md
 @{{KAMI_RULES_GEMINI}}std-markdown.md
 @{{KAMI_RULES_GEMINI}}std-id.md
+
+# Enhanced Protocols (v2.0)
+
+@{{KAMI_RULES_GEMINI}}flow-validation.md
+@{{KAMI_RULES_GEMINI}}flow-reflection.md
+@{{KAMI_RULES_GEMINI}}anti-hallucination.md
+@{{KAMI_RULES_GEMINI}}error-recovery.md
+@{{KAMI_RULES_GEMINI}}flow-checkpoints.md
+
+# Project State
+
 @{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md
