@@ -1,13 +1,13 @@
-const path = require('upath');
-const { ConfigManager } = require('./config-manager');
+const path = require("upath");
+const { ConfigManager } = require("./config-manager");
 
 class EnvironmentManager {
   constructor(projectRoot = process.cwd()) {
-    // Force absolute path
+    // Force absolute path (upath handles normalization)
     const absoluteRoot = path.resolve(projectRoot);
-    
+
     // If called from inside cli-core, the project root is one level up
-    if (absoluteRoot.endsWith('cli-core') || absoluteRoot.endsWith('cli-core' + path.sep)) {
+    if (absoluteRoot.endsWith("cli-core") || absoluteRoot.endsWith("cli-core" + path.sep)) {
       this.projectRoot = path.dirname(absoluteRoot);
     } else {
       this.projectRoot = absoluteRoot;
@@ -21,11 +21,11 @@ class EnvironmentManager {
    */
   async getEnv() {
     const envVar = process.env.KAMI_ENV || process.env.NODE_ENV;
-    if (envVar === 'prod' || envVar === 'production') return 'production';
-    if (envVar === 'dev' || envVar === 'development') return 'development';
-    
-    const configEnv = await this.configManager.get('currentEnv');
-    return configEnv || 'development';
+    if (envVar === "prod" || envVar === "production") return "production";
+    if (envVar === "dev" || envVar === "development") return "development";
+
+    const configEnv = await this.configManager.get("currentEnv");
+    return configEnv || "development";
   }
 
   /**
@@ -33,8 +33,8 @@ class EnvironmentManager {
    */
   async getEnvConfig() {
     const env = await this.getEnv();
-    const environments = await this.configManager.get('environments');
-    return environments[env] || environments['development'];
+    const environments = await this.configManager.get("environments");
+    return environments[env] || environments["development"];
   }
 
   /**
@@ -44,19 +44,19 @@ class EnvironmentManager {
   async getWorkspacePrefix() {
     const config = await this.getEnvConfig();
     let prefix = config.workspaceRoot;
-    
+
     // Ensure it starts with "./" for absolute project root anchoring
-    if (!prefix.startsWith('./')) {
-      if (prefix.startsWith('/')) {
-        prefix = '.' + prefix;
+    if (!prefix.startsWith("./")) {
+      if (prefix.startsWith("/")) {
+        prefix = "." + prefix;
       } else {
-        prefix = './' + prefix;
+        prefix = "./" + prefix;
       }
     }
 
     // Ensure it ends with a slash
-    if (!prefix.endsWith('/')) {
-      prefix += '/';
+    if (!prefix.endsWith("/")) {
+      prefix += "/";
     }
     return prefix;
   }
@@ -74,7 +74,7 @@ class EnvironmentManager {
    */
   async getOutputTargets() {
     const config = await this.getEnvConfig();
-    return config.outputTargets.map(target => path.resolve(this.projectRoot, target));
+    return config.outputTargets.map((target) => path.resolve(this.projectRoot, target));
   }
 }
 
