@@ -1,0 +1,22 @@
+{
+  "name": "{{PLUGIN_NAME}}",
+  "version": "1.0.0",
+  "description": "{{PLUGIN_DESCRIPTION}}",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "kamiflow",
+    "plugin",
+    "{{CATEGORY}}"
+  ],
+  "author": "{{AUTHOR_NAME}}",
+  "license": "{{LICENSE}}",
+  "peerDependencies": {
+    "kamiflow": ">=2.35.0"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "{{PLUGIN_NAME}}",
+  "version": "1.0.0",
+  "description": "{{PLUGIN_DESCRIPTION}}",
+  "author": "{{AUTHOR_NAME}}",
+  "license": "MIT",
+  "homepage": "{{HOMEPAGE_URL}}",
+  "repository": {
+    "type": "git",
+    "url": "{{REPOSITORY_URL}}"
+  },
+  "keywords": [],
+  "category": "{{CATEGORY}}",
+  "capabilities": {
+    "commands": {{HAS_COMMANDS}},
+    "rules": {{HAS_RULES}},
+    "hooks": {{HAS_HOOKS}},
+    "config": {{HAS_CONFIG}}
+  },
+  "engines": {
+    "kamiflow": ">=2.35.0",
+    "node": ">=16.0.0"
+  },
+  "main": "index.js",
+  "commands": [],
+  "rules": [],
+  "hooks": {
+    "postInstall": "scripts/post-install.js"
+  },
+  "configSchema": {},
+  "tags": [],
+  "private": false
+}
