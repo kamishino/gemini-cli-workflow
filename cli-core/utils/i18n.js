@@ -3,14 +3,14 @@
  * Provides translation support for KamiFlow CLI
  */
 
-const fs = require('fs-extra');
-const path = require('upath');
+const fs = require("fs-extra");
+const path = require("upath");
 
 class I18n {
   constructor() {
     this.translations = {};
-    this.currentLanguage = 'en';
-    this.fallbackLanguage = 'en';
+    this.currentLanguage = "en";
+    this.fallbackLanguage = "en";
     this.loaded = false;
   }
 
@@ -20,24 +20,24 @@ class I18n {
   async load() {
     if (this.loaded) return;
 
-    const localesDir = path.join(__dirname, '../locales');
-    
+    const localesDir = path.join(__dirname, "../locales");
+
     try {
       // Load English (fallback)
-      const enPath = path.join(localesDir, 'en.json');
+      const enPath = path.join(localesDir, "en.json");
       if (await fs.pathExists(enPath)) {
         this.translations.en = await fs.readJson(enPath);
       }
 
       // Load Vietnamese
-      const viPath = path.join(localesDir, 'vi.json');
+      const viPath = path.join(localesDir, "vi.json");
       if (await fs.pathExists(viPath)) {
         this.translations.vi = await fs.readJson(viPath);
       }
 
       this.loaded = true;
     } catch (error) {
-      console.error('Failed to load translations:', error.message);
+      console.error("Failed to load translations:", error.message);
       // Continue with empty translations
     }
   }
@@ -65,21 +65,24 @@ class I18n {
 
     // Try to load from config
     try {
-      const { ConfigManager } = require('../logic/config-manager');
+      const { ConfigManager } = require("../logic/config-manager");
       const config = new ConfigManager();
-      const configLang = await config.get('language');
-      
-      // Map config values to language codes
-      const langMap = {
-        'english': 'en',
-        'vietnamese': 'vi',
-        'en': 'en',
-        'vi': 'vi'
-      };
-      
-      const mappedLang = langMap[configLang?.toLowerCase()];
-      if (mappedLang && this.translations[mappedLang]) {
-        this.currentLanguage = mappedLang;
+      const configLang = await config.get("language");
+
+      // Only process if configLang exists and is a string
+      if (configLang && typeof configLang === "string") {
+        // Map config values to language codes
+        const langMap = {
+          english: "en",
+          vietnamese: "vi",
+          en: "en",
+          vi: "vi",
+        };
+
+        const mappedLang = langMap[configLang.toLowerCase()];
+        if (mappedLang && this.translations[mappedLang]) {
+          this.currentLanguage = mappedLang;
+        }
       }
     } catch (error) {
       // Ignore config errors, use default
@@ -94,14 +97,12 @@ class I18n {
    */
   t(key, params = {}) {
     // Get translation from current language or fallback
-    let text = this.translations[this.currentLanguage]?.[key] 
-            || this.translations[this.fallbackLanguage]?.[key] 
-            || key;
+    let text = this.translations[this.currentLanguage]?.[key] || this.translations[this.fallbackLanguage]?.[key] || key;
 
     // Replace parameters ({{param}} format)
-    if (params && typeof params === 'object') {
+    if (params && typeof params === "object") {
       Object.entries(params).forEach(([param, value]) => {
-        const regex = new RegExp(`{{${param}}}`, 'g');
+        const regex = new RegExp(`{{${param}}}`, "g");
         text = text.replace(regex, String(value));
       });
     }
@@ -115,8 +116,7 @@ class I18n {
    * @returns {boolean}
    */
   has(key) {
-    return !!(this.translations[this.currentLanguage]?.[key] 
-           || this.translations[this.fallbackLanguage]?.[key]);
+    return !!(this.translations[this.currentLanguage]?.[key] || this.translations[this.fallbackLanguage]?.[key]);
   }
 
   /**
@@ -161,5 +161,5 @@ function t(key, params) {
 module.exports = {
   i18n,
   initI18n,
-  t
+  t,
 };

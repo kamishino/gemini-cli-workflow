@@ -451,6 +451,14 @@ program.on("command:*", (operands) => {
 
 // Initialize i18n and parse arguments
 (async () => {
-  await initI18n();
-  program.parse(process.argv);
+  try {
+    await initI18n();
+    program.parse(process.argv);
+  } catch (error) {
+    logger.error(`Failed to initialize CLI: ${error.message}`);
+    if (process.env.KAMI_DEBUG === "true") {
+      console.error(error);
+    }
+    process.exit(1);
+  }
 })();

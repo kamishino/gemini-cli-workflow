@@ -11,18 +11,29 @@ const { EnvironmentManager } = require("../logic/env-manager");
 
 async function backupFile(filePath) {
   try {
-    // Validate and sanitize file path
-    const sanitizedPath = sanitizePath(filePath);
+    const env = new EnvironmentManager(process.cwd());
+    const projectRoot = env.projectRoot;
+
+    // Validate and sanitize file path with project root as base
+    const sanitizedPath = sanitizePath(filePath, projectRoot);
 
     if (await fs.pathExists(sanitizedPath)) {
       const absoluteFilePath = path.resolve(sanitizedPath);
 
-      const env = new EnvironmentManager(process.cwd());
-      const projectRoot = env.projectRoot;
+      // Security: Ensure file is within project bounds (case-insensitive on Windows)
+      const fileCompare = process.platform === "win32" ? absoluteFilePath.toLowerCase() : absoluteFilePath;
+      const rootCompare = process.platform === "win32" ? projectRoot.toLowerCase() : projectRoot;
 
-      // Security: Ensure file is within project bounds
-      if (!absoluteFilePath.startsWith(projectRoot)) {
+      if (!fileCompare.startsWith(rootCompare)) {
         logger.warn(`Backup attempt outside project: ${filePath}`);
+        return null;
+      }
+
+      // Security: Check file size to prevent DoS (max 50MB)
+      const stats = await fs.stat(absoluteFilePath);
+      const maxFileSize = 50 * 1024 * 1024;
+      if (stats.size > maxFileSize) {
+        logger.warn(`File too large for backup: ${filePath} (${stats.size} bytes, max ${maxFileSize})`);
         return null;
       }
       const { ConfigManager } = require("../logic/config-manager");
@@ -68,11 +79,15 @@ async function backupFile(filePath) {
 
 async function safeWrite(filePath, content, options = {}) {
   const { maxSize = 10 * 1024 * 1024, validatePath = true } = options; // 10MB default
+  let tempPath; // Declare outside try-catch for proper cleanup
 
   try {
-    // Validate and sanitize file path
+    const env = new EnvironmentManager(process.cwd());
+    const projectRoot = env.projectRoot;
+
+    // Validate and sanitize file path with project root as base
     if (validatePath) {
-      const sanitizedPath = sanitizePath(filePath);
+      const sanitizedPath = sanitizePath(filePath, projectRoot);
       filePath = sanitizedPath;
     }
 
@@ -83,17 +98,17 @@ async function safeWrite(filePath, content, options = {}) {
       return false;
     }
 
-    // Security: Ensure write location is within project bounds
+    // Security: Ensure write location is within project bounds (case-insensitive on Windows)
     const absolutePath = path.resolve(filePath);
-    const env = new EnvironmentManager(process.cwd());
-    const projectRoot = env.projectRoot;
+    const pathCompare = process.platform === "win32" ? absolutePath.toLowerCase() : absolutePath;
+    const rootCompare = process.platform === "win32" ? projectRoot.toLowerCase() : projectRoot;
 
-    if (!absolutePath.startsWith(projectRoot)) {
+    if (!pathCompare.startsWith(rootCompare)) {
       logger.error(`Write attempt outside project: ${filePath}`);
       return false;
     }
 
-    const tempPath = `${filePath}.${Math.random().toString(36).substring(7)}.tmp`;
+    tempPath = `${filePath}.${Math.random().toString(36).substring(7)}.tmp`;
 
     await fs.ensureDir(path.dirname(filePath));
     // Atomic Write: Write to temp, then rename
@@ -101,8 +116,8 @@ async function safeWrite(filePath, content, options = {}) {
     await fs.move(tempPath, filePath, { overwrite: true });
     return true;
   } catch (error) {
-    const tempPath = `${filePath}.${Math.random().toString(36).substring(7)}.tmp`;
-    if (await fs.pathExists(tempPath)) await fs.remove(tempPath);
+    // Cleanup temp file using the correct tempPath from try block
+    if (tempPath && (await fs.pathExists(tempPath))) await fs.remove(tempPath);
     logger.error(`SafeWrite failed for ${filePath}`, error);
     return false;
   }
