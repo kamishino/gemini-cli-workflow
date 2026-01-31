@@ -1,3 +1,33 @@
+## [v2.37.0] - 2026-01-31
+
+### 🚀 Features
+
+- feat(v2.0): complete KamiFlow 2.0 public-file-first architecture implementation
+- feat(docs): comprehensive documentation reorganization - consolidated all docs into `resources/` as SSOT
+- feat(context): created context-intelligence-v2 rule for 60-80% project awareness from public files
+- feat(blueprints): refactored context-sync.md to brief system instruction (251 → 61 lines)
+
+### 📚 Documentation
+
+- docs(architecture): created `resources/architecture/` for ADRs and design documents
+- docs(reorganization): moved all content from `docs/` to `resources/docs/` and `resources/architecture/`
+- docs(structure): established clear separation between user docs and architecture docs
+- docs(adr): migrated 3 Architecture Decision Records to `resources/architecture/adr/`
+- docs(enhancement): moved KAMIFLOW_ENHANCEMENTS_V2.md to architecture folder
+
+### 🔧 Improvements
+
+- refactor(context-sync): extracted detailed v2.0 protocol to separate rule file
+- refactor(placeholders): replaced custom placeholders with instructional text for AI guidance
+- refactor(p-swarm): updated plugin documentation to reflect v2.1+ deferral decision
+- improvement(blueprints): added ideas/draft folder references to roadmap and save-context logic
+- improvement(validation): strict enforcement of YAML frontmatter requirement in blueprints
+
+### 🧹 Chores
+
+- chore(cleanup): removed empty `docs/` folder after migration
+- chore(standards): enforced strict `resources/blueprints/` naming conventions
+
 ## [v2.36.1] - 2026-01-31
 
 ### ✅ Tests

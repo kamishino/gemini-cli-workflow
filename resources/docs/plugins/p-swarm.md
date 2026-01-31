@@ -57,6 +57,3 @@ By using Swarm mode, the time from "Idea to Verified Discovery" can be reduced b
 - Multi-agent coordination adds significant architectural complexity
 - Sequential workflows are proven and reliable
 - Swarm will be implemented after ecosystem matures and user demand is validated
-
-**For detailed technical analysis and future roadmap, see:**
-`resources/blueprints/commands/p-swarm/README.md` (development notes only, not user-facing)
