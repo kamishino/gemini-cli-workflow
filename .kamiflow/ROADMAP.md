@@ -1,7 +1,7 @@
 # 🗺️ Strategic RoadMap: KamiFlow Project
 
 > **PO Note:** This roadmap is a living document maintained by the Universal Roadmap Engine.
-> **Device Context:** DEV-FTN-7 | **Data Freshness:** 2026-01-30
+> **Device Context:** KAMI-DESKTOP | **Data Freshness:** 2026-01-31
 
 ---
 
@@ -13,8 +13,8 @@
 ---
 
 ## 🏗️ Current Focus (Active Pillars)
-- **Phase ** Template v2.35.0 (Modular Engine)**
-- **Status:** ** Implemented Transparent SSOT Infrastructure & Placeholder Standardization (Task 104) - Hard-switched all blueprints to use `{{KAMI_RULES_GEMINI}}` and `{{KAMI_WORKSPACE}}`, upgraded `Transpiler.js` with surgical cleanup logic for production config, and established a Soft Strict Local Rule for dogfooding.
+- **Phase ** Template v2.36.0 (Enterprise-Grade Infrastructure)**
+- **Status:** ** Infrastructure Modernization (v2.36.0) - Implemented plugin architecture, React dashboard, CI/CD pipeline (semantic-release, Docker), performance optimizations (blueprint caching, parallel transpilation), security hardening (fs-vault, safe-exec, sanitize), i18n support, comprehensive testing suite, and full API documentation.
 
 ---
 
@@ -27,16 +27,16 @@
 
 ### ✅ Completed
 - [x] **v1.0 Core:** Initial setup.
-- [x] **Archived:** 2026-01-30_104_placeholder-standardization
-- [x] **Archived:** 2026-01-30_103_startup-path-corruption-fix
-- [x] **Archived:** 2026-01-30_102_config-fidelity-sync
-- [x] **Archived:** 2026-01-30_101_config-sync-ux
-- [x] **Archived:** 2026-01-30_100_onboarding-refinement
-- [x] **Archived:** 2026-01-30_099_execution-discipline
-- [x] **Archived:** 2026-01-30_098_summary-sorting
-- [x] **Archived:** 2026-01-30_097_concurrent-engine
-- [x] **Archived:** 2026-01-30_096_centralized-backups
-- [x] **Archived:** 2026-01-30_095_config-schema-categorization
+- [x] **Archived:** 2026-01-26_025_gated-lazy-workflow
+- [x] **Archived:** 2026-01-26_024_atomic-exit-protocol
+- [x] **Archived:** 2026-01-25_023_doc-sync-enforcement
+- [x] **Archived:** 2026-01-25_022_universal-update-command
+- [x] **Archived:** 2026-01-25_021_one-liner-installer
+- [x] **Archived:** 2026-01-25_020_self-healing-cli-engine
+- [x] **Archived:** 2026-01-25_019_gemini-cli-kamiflow-manager
+- [x] **Archived:** 2026-01-25_018_smart-seed-v2
+- [x] **Archived:** 2026-01-25_017_doc-powershell-fix
+- [x] **Archived:** 2026-01-25_016_interactive-sculptor
 
 ### 🚧 In Progress
 

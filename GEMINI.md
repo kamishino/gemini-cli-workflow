@@ -3,7 +3,8 @@
 ## 1. Project Overview
 
 - **Project Name:** KamiFlow (Master Repo)
-- **Tech Stack:** Node.js, Gemini CLI, Commander.js, PowerShell/Bash.
+- **Tech Stack:** Node.js, Gemini CLI, Commander.js, PowerShell/Bash, React (Dashboard), Docker, GitHub Actions.
+- **New Capabilities:** Plugin System, Web Dashboard, Automated CI/CD, Performance Caching, i18n Support.
 
 ## 2. The "Indie Builder" Persona
 
@@ -17,9 +18,12 @@
 
 ## 3. Universal Coding Standards
 
-- **Architecture:** Feature-first, Small Modules (<300 lines).
+- **Architecture:** Feature-first, Small Modules (<300 lines), Plugin-based extensibility.
 - **File Structure:** Check `PROJECT_CONTEXT.md` for key directory map.
 - **Style:** Immutability, Zod Validation, Design Tokens.
+- **Performance:** Blueprint caching, parallel transpilation, benchmark-driven optimization.
+- **Security:** Hardened path validation (fs-vault), safe shell execution, input sanitization.
+- **i18n:** Multi-language support (English/Vietnamese) via `cli-core/locales/`.
 
 ## 4. Workflow & Commands (The Kami Flow)
 
@@ -58,11 +62,63 @@ The core workflow uses 3 steps with 3-Layer Locks:
 ## 5. Environment Awareness
 
 This project uses `cli-core/logic/env-manager.js` to handle dynamic workspace paths.
+
 - **Development (DEV):** `KAMI_ENV=development` -> Workspace is `./.kamiflow/`.
 - **Production (PROD):** `KAMI_ENV=production` -> Workspace is `./.kamiflow/` (in dist).
 - **Execution:** Always use `npm run dev` or `npm run build` to ensure `cross-env` correctly sets the environment.
 
+## 6. Infrastructure & DevOps
+
+### 🔌 Plugin System
+
+- **Plugin Manager:** `cli-core/logic/plugin-manager.js` - Dynamic plugin loading and lifecycle management.
+- **Plugin Schema:** `cli-core/schemas/plugin-schema.js` - Zod-based validation for plugin manifests.
+- **Plugin Template:** `cli-core/templates/plugin-template/` - Scaffolding for new plugins.
+- **Plugin Generator:** `cli-core/utils/plugin-generator.js` - CLI tool for creating plugins.
+
+### 📊 Web Dashboard
+
+- **Location:** `dashboard/` - React + Vite monitoring interface.
+- **Features:** Real-time metrics, task management, config editor, plugin browser.
+- **Server:** `dashboard/server/index.js` - Express API for dashboard backend.
+- **Tech Stack:** React, TailwindCSS, Vite, Express.
+
+### 🚀 CI/CD Pipeline
+
+- **GitHub Actions:**
+  - `changelog.yml` - Automated changelog generation.
+  - `docker.yml` - Multi-platform Docker builds (amd64/arm64).
+  - `release.yml` - Semantic versioning and NPM publishing.
+  - `test.yml` - Automated testing on push/PR.
+- **Semantic Release:** `.releaserc.json` - Automated version bumping and release notes.
+- **Docker:** `Dockerfile` - Production-ready containerization with multi-stage builds.
+
+### ⚡ Performance Optimizations
+
+- **Blueprint Cache:** `cli-core/utils/blueprint-cache.js` - LRU caching with TTL for transpiled blueprints.
+- **Parallel Transpilation:** `cli-core/logic/transpiler.js` - Worker-based parallel processing.
+- **Benchmarks:** `cli-core/benchmarks/` - Performance monitoring suite.
+
+### 🔒 Security Hardening
+
+- **fs-vault:** Enhanced path validation with allowlist/denylist and symlink resolution.
+- **safe-exec:** Shell injection prevention with allowlist and sanitization.
+- **sanitize:** Input validation for paths, commands, and user data.
+
+### 🌍 Internationalization
+
+- **i18n Manager:** `cli-core/utils/i18n.js` - Runtime language switching.
+- **Locales:** `cli-core/locales/` - JSON-based translation files (en, vi).
+
+### 📚 Documentation
+
+- **API Reference:** `docs/API.md` - Comprehensive JSDoc-based API documentation.
+- **Contributing Guide:** `docs/CONTRIBUTING.md` - Development setup and contribution workflow.
+- **JSDoc Standards:** `docs/JSDOC_STANDARDS.md` - Documentation style guide.
+- **ADRs:** `docs/adr/` - Architecture Decision Records for major design choices.
+
 #### 📋 Quick Command Reference
+
 <!-- KAMI_COMMAND_LIST_START -->
 
 ### 🎯 Sniper Model (Core Flow)
