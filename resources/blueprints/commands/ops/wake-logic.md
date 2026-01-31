@@ -35,10 +35,37 @@ if (Test-Path "cli-core") {
 
 If `PROJECT_CONTEXT.md` is already configured (not in template state):
 
-1.  **Ingest Memory:** Load Persona from `GEMINI.md` and State from `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md`.
-2.  **Initialize ID Cache:** Follow `@{{KAMI_RULES_GEMINI}}std-id.md` to scan for MAX_ID.
+### Step 1: Public-First Context Loading (PRIORITY 1)
 
-### Step 2.5: Checkpoint Scan (v2.0 Enhancement)
+**Load intelligence from public git-tracked files:**
+
+1.  **Read `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md`:**
+    - Project Identity (Goal, Phase, Tech Stack)
+    - Active Context (Last Action, Current Focus, Next Step)
+    - **Session State (v2.0):** Active Work, Discovery Pipeline, Quality Metrics, Follow-Up Queue
+    - Knowledge Map (Architecture understanding)
+
+2.  **Read `{{KAMI_WORKSPACE}}ROADMAP.md`:**
+    - Strategic Achievements (recent 5-10)
+    - Current Focus (Phase, Status)
+    - Growth Levers (strategic opportunities)
+    - Quality Metrics (validation rates, tech debt)
+    - Market Intelligence (if available)
+
+3.  **Load Persona:** Read `GEMINI.md` for conversational context
+
+4.  **Initialize ID Cache:** Follow `@{{KAMI_RULES_GEMINI}}std-id.md` to scan for MAX_ID
+
+**60-80% Awareness Checkpoint:**
+At this point, you have sufficient context from public files to operate effectively across all machines.
+
+---
+
+### Step 2: Optional Private Folder Enrichment (PRIORITY 2)
+
+**If available locally** (graceful degradation if missing):
+
+#### Step 2.1: Checkpoint Scan (Optional)
 
 **Search for active checkpoints:**
 
@@ -67,15 +94,72 @@ If N → Continue with normal wake
 
 **Use `wait_for_user_input` if checkpoints found.**
 
-3.  **Status Report (Enhanced v2.0):** Provide a concise summary:
-    - Project Name, Phase, Last Action, Current Focus.
-    - Active Tasks & Roadmap progress.
-    - **v2.0 Status:**
-      - Anti-Hallucination Guards: ✅ Active (Phase 0.5)
-      - Validation Loop: ✅ Enabled (3-Phase)
-      - Error Recovery: ✅ 3-Level Classification
-      - Checkpoints: [N] active, [M] completed
-4.  **Ready:** "Ready to continue. How can I help today?"
+**Fallback if checkpoints missing:**
+
+- Check PROJECT_CONTEXT.md "Session State > Checkpoints" section
+- Use Follow-Up Queue for next actions
+
+---
+
+### Step 3: Comprehensive Status Report (v2.0 Enhanced)
+
+Provide a concise summary from **public files** (enriched with private folder data if available):
+
+```markdown
+🌅 **Wake Complete - Session Restored**
+
+**Project:** {{PROJECT_NAME}}
+**Phase:** {{CURRENT_PHASE}}
+**Goal:** {{PROJECT_GOAL}}
+
+**Recent Context:**
+
+- **Last Action:** {{LAST_COMPLETED_ACTION}}
+- **Current Focus:** {{CURRENT_FOCUS}}
+- **Next Step:** {{NEXT_STEP}}
+
+**Strategic Status (from ROADMAP):**
+
+- Recent Achievements: {{ACHIEVEMENT_COUNT}} documented
+- Quality: {{VALIDATION_RATE}}% pass rate (if available)
+- Discovery Pipeline: {{DISCOVERY_COUNT}} discoveries, {{BACKLOG_COUNT}} in backlog
+
+**Session State (from PROJECT_CONTEXT):**
+
+- Active Work: {{ACTIVE_WORK_SUMMARY}}
+- Follow-Up Queue: {{FOLLOW_UP_COUNT}} actions
+- Tech Debt: {{TECH_DEBT_COUNT}} items flagged
+
+**v2.0 Features Status:**
+
+- Anti-Hallucination Guards: ✅ Active (Phase 0.5)
+- Validation Loop: ✅ Enabled (3-Phase)
+- Error Recovery: ✅ 3-Level Classification
+- Checkpoints: {{CHECKPOINT_STATUS}}
+
+---
+
+**Context Source:** {{CONTEXT_SOURCE}}
+**Cross-Machine Status:** ✅ Consistent
+```
+
+**{{CONTEXT_SOURCE}} examples:**
+
+- "Public files + private folder enrichment"
+- "Public files only (private folders unavailable)"
+- "Full context from all sources"
+
+**{{CHECKPOINT_STATUS}} examples:**
+
+- "[N] active checkpoints detected"
+- "No active checkpoints (check Follow-Up Queue)"
+- "Checkpoint folder unavailable (using Follow-Up Queue)"
+
+---
+
+### Step 4: Ready State
+
+"**Ready to continue.** How can I help today?"
 
 ---
 

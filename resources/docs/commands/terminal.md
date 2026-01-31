@@ -19,6 +19,7 @@ The **`kamiflow`** (alias **`kami`**) command is used for machine-level operatio
 | `kamiflow config-flow` | **Manage persistent project settings.** |
 | `kamiflow update-flow` | **Update KamiFlow to the latest version.** |
 | `kamiflow info-flow` | **Display core location and version.** |
+| `kamiflow resume-flow` | **Resume workflow from last checkpoint.** |
 
 <!-- KAMI_COMMAND_LIST_END -->
 

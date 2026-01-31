@@ -56,9 +56,9 @@ How to customize KamiFlow's behavior.
 | :--- | :--- |
 | `/kamiflow:dev:lazy` | **[KamiFlow] Auto-generate S1-S4 artifacts using Sniper Model with mandatory Diagnostic Gate.** |
 | `/kamiflow:dev:superlazy` | **[KamiFlow] Auto-generate S1-S4 artifacts AND execute with Strategic Reflection.** |
-| `/kamiflow:dev:release` | **[KamiFlow] Smart Release Manager - Analyze git history, context, and automate version bumping.** |
+| `/kamiflow:dev:release` | **[KamiFlow] Smart Release Manager - Generate notes from ROADMAP, analyze git history, automate version bumping (v2.0 Enhanced).** |
 | `/kamiflow:dev:upgrade` | **[KamiFlow] Update KamiFlow to the latest version.** |
-| `/kamiflow:dev:archive` | **[KamiFlow] Archive completed task artifacts to ./.kamiflow/archive/ folder.** |
+| `/kamiflow:dev:archive` | **[KamiFlow] Export task value to ROADMAP, then archive artifacts (v2.0 Enhanced - Intelligence Preservation).** |
 | `/kamiflow:dev:revise` | **[KamiFlow] Emergency Brake - Clarify context, resolve hallucinations, and question logic before implementation.** |
 | `/kamiflow:dev:saiyan` | **[KamiFlow] Ultimate Automation - Auto-Select Option B + Auto-Execution.** |
 | `/kamiflow:dev:supersaiyan` | **[KamiFlow] Meta-Automation - Manage cycles of Saiyan execution.** |
@@ -70,7 +70,7 @@ How to customize KamiFlow's behavior.
 | :--- | :--- |
 | `/kamiflow:ops:wake` | **[KamiFlow] Wake up and reload project context to eliminate session amnesia.** |
 | `/kamiflow:ops:help` | **[KamiFlow] Interactive help system for commands and Sniper Model phases.** |
-| `/kamiflow:ops:save-context` | **[KamiFlow] Sync current state to ./.kamiflow/PROJECT_CONTEXT.md (Manual Memory Save).** |
+| `/kamiflow:ops:save-context` | **[KamiFlow] Export session intelligence to ./.kamiflow/PROJECT_CONTEXT.md for cross-machine context recovery (v2.0 Enhanced).** |
 | `/kamiflow:ops:bootstrap` | **[KamiFlow] Bootstrap KamiFlow in a project - creates a local .gemini/ configuration from the master template.** |
 | `/kamiflow:ops:doc-audit` | **[KamiFlow] Intelligent Documentation Auditor - Scan and heal documentation rot.** |
 
@@ -87,8 +87,9 @@ How to customize KamiFlow's behavior.
 
 | Command | Goal |
 | :--- | :--- |
-| `/kamiflow:p-market:research` | **[Market Engine] Analyze project context and suggest 3-5 high-value feature requests.** |
-| `/kamiflow:p-market:inspire` | **[Market Engine] Out-of-the-box innovation brainstorming for your current stack.** |
+| `/kamiflow:p-market:research` | **[Market Engine] Analyze project context and suggest 3-5 high-value feature requests with ROADMAP integration.** |
+| `/kamiflow:p-market:inspire` | **[Market Engine] Suggest one highly innovative but plausible feature that could be a game-changer for the current project stack.** |
+| `/kamiflow:p-market:analyze-all` | **[Market Engine] Batch analyze all discovery ideas and auto-promote ready ones to backlog.** |
 
 
 ### 🌱 The Seed Hub (Plugin)
@@ -119,6 +120,7 @@ How to customize KamiFlow's behavior.
 | `kamiflow config-flow` | **Manage persistent project settings.** |
 | `kamiflow update-flow` | **Update KamiFlow to the latest version.** |
 | `kamiflow info-flow` | **Display core location and version.** |
+| `kamiflow resume-flow` | **Resume workflow from last checkpoint.** |
 
 <!-- KAMI_COMMAND_LIST_END -->
 
