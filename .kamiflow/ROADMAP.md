@@ -13,8 +13,8 @@
 ---
 
 ## 🏗️ Current Focus (Active Pillars)
-- **Phase ** Template v2.36.0 (Enterprise-Grade Infrastructure)**
-- **Status:** ** Infrastructure Modernization (v2.36.0) - Implemented plugin architecture, React dashboard, CI/CD pipeline (semantic-release, Docker), performance optimizations (blueprint caching, parallel transpilation), security hardening (fs-vault, safe-exec, sanitize), i18n support, comprehensive testing suite, and full API documentation.
+- **Phase ** Template v2.36.1 (Quality & Stability Hardening)**
+- **Status:** ** Quality & Stability Hardening (v2.36.1) - Enhanced test suite resilience with defensive console spy handling, standardized code formatting with Prettier across all modules, improved config manager robustness with deep merge and nested key support.
 
 ---
 

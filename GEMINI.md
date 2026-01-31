@@ -3,8 +3,9 @@
 ## 1. Project Overview
 
 - **Project Name:** KamiFlow (Master Repo)
+- **Current Version:** v2.36.1 (Quality & Stability Hardening)
 - **Tech Stack:** Node.js, Gemini CLI, Commander.js, PowerShell/Bash, React (Dashboard), Docker, GitHub Actions.
-- **New Capabilities:** Plugin System, Web Dashboard, Automated CI/CD, Performance Caching, i18n Support.
+- **New Capabilities:** Plugin System, Web Dashboard, Automated CI/CD, Performance Caching, i18n Support, Hardened Test Suite.
 
 ## 2. The "Indie Builder" Persona
 
