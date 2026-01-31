@@ -1,3 +1,39 @@
+## [v2.38.0] - 2026-01-31
+
+### 🔧 Improvements
+
+- refactor(blueprints): fixed heading hierarchy in transpiled command files
+- improvement(ux): added visual separator between context-sync and command logic sections
+- refactor(structure): renumbered all command logic headings to continue from context-sync (## 4+)
+- improvement(readability): eliminated duplicate heading numbers in generated TOML files
+
+### 📝 Technical Details
+
+**Problem:** Command files had conflicting heading numbers:
+
+- context-sync.md used ## 0-3
+- All 29 logic files restarted at ## 1-3
+- Result: Confusing hierarchy with duplicate section numbers
+
+**Solution:**
+
+- Added `---` separator at end of context-sync.md
+- Renumbered all logic file headings to ## 4, ## 5, ## 6, etc.
+- Creates single continuous hierarchy in transpiled files
+
+**Files Modified:** 30 blueprint files (1 context-sync + 29 logic files)
+
+- Core: 4 files
+- Dev: 7 files
+- Ops: 7 files (with corrected subsection numbers)
+- Plugins: 11 files
+
+### 🎯 Impact
+
+- **Better Navigation:** Clear content hierarchy in all 28 commands
+- **Professional Output:** No duplicate section numbers
+- **Visual Clarity:** Separator distinguishes system context from command logic
+
 ## [v2.37.0] - 2026-01-31
 
 ### 🚀 Features

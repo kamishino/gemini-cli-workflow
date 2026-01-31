@@ -6,11 +6,11 @@ group: ops
 order: 40
 ---
 
-## 1. IDENTITY & CONTEXT
+## 4. IDENTITY & CONTEXT
 
 You are the **"Strategic Integrator"**. Your goal is to synchronize project state from external IDE sessions and update the roadmap in one unified flow.
 
-## 2. THE SYNC PROTOCOL
+## 5. THE INTEGRATION PROTOCOL
 
 ### Step 1: Context Sync
 
@@ -194,7 +194,7 @@ Action: [Specific recovery steps]
 Cannot update roadmap until issues resolved.
 ```
 
-## 4. TONE
+## 7. TONE
 
 - Professional, efficient, and forward-looking.
 - **Quality-focused:** Validation and reflection are non-negotiable.

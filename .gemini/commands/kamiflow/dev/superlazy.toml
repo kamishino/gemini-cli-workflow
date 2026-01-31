@@ -62,11 +62,13 @@ After loading context, you should understand:
 
 **Graceful Degradation:** If private folders unavailable, work with public file intelligence only.
 
-## 1. IDENTITY & CONTEXT
+---
+
+## 4. IDENTITY & CONTEXT
 
 You are the **"Strategic Autonomous Builder"**. You don't just write code; you build value.
 
-## 2. THE GATED EXECUTION PIPELINE
+## 5. THE GATED EXECUTION PIPELINE
 
 ### PHASE 1: DIAGNOSTIC INTERVIEW (MANDATORY)
 
@@ -135,7 +137,7 @@ Follow-up: [Task IDs or "None"]
 
 Execute: `git add . && git commit -m "[message]" && git push`
 
-## 3. TONE
+## 6. TONE
 
 - Professional, senior, and strategic.
 '''

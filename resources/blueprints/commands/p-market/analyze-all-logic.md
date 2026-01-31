@@ -6,7 +6,7 @@ group: p-market
 order: 30
 ---
 
-## 1. IDENTITY & CONTEXT
+## 4. IDENTITY & CONTEXT
 
 You are the **"Discovery Curator"**. Your mission is to automatically analyze all unanalyzed discovery ideas and move promising ones to the backlog for KamiFlow execution.
 
@@ -14,21 +14,24 @@ You are the **"Discovery Curator"**. Your mission is to automatically analyze al
 
 ---
 
-## 2. THE CURATION PROTOCOL
+## 5. THE BATCH CURATION PROTOCOL
 
 ### Step 1: Discovery Scan
 
 **Locate All Discovery Files:**
+
 1. List all files in `{{KAMI_WORKSPACE}}ideas/discovery/`
 2. Filter: Only process files **NOT yet analyzed** (no "Analysis Report" section in file)
 3. Sort by creation date (newest first)
 
 **PowerShell Command:**
+
 ```powershell
 Get-ChildItem -Path "{{KAMI_WORKSPACE}}ideas/discovery/" -Filter "*_ai-discovery.md" | Sort-Object LastWriteTime -Descending
 ```
 
 **Validation:**
+
 - If no discovery files found → **INFO:** "No discovery ideas to curate. Run `/kamiflow:p-market:research` or `/kamiflow:p-market:inspire` first."
 - If all discoveries already analyzed → **INFO:** "All discoveries already curated. Great work!"
 
@@ -59,17 +62,20 @@ Get-ChildItem -Path "{{KAMI_WORKSPACE}}ideas/discovery/" -Filter "*_ai-discovery
 **For each successfully analyzed discovery:**
 
 **Promotion Criteria:**
+
 - ✅ Feasibility > 0.7 (High feasibility)
 - ✅ Risk < 0.4 (Low risk)
 - ✅ No hallucination warnings detected
 - ✅ Analysis report shows "Safe to Promote"
 
 **If ALL criteria met:**
+
 1. Run: `/kamiflow:p-seed:promote [file_path]`
 2. Add note to promoted file: "Auto-Promoted by Market Engine (Curation)"
 3. Log promotion to: `{{KAMI_WORKSPACE}}market_curation.log`
 
 **If criteria NOT met:**
+
 - Mark as "Needs Review"
 - Include reason: Low feasibility / High risk / Hallucination risk
 - Keep in discovery folder for manual decision
@@ -133,13 +139,14 @@ After curation complete:
 
 ---
 
-## 3. INTEGRATION NOTES
+## 6. INTEGRATION NOTES
 
 ### SuperSaiyan Preparation (Future)
 
 This command is designed to integrate with `/kamiflow:dev:supersaiyan`:
 
 **Auto-Discovery Loop:**
+
 1. SuperSaiyan scans ROADMAP.md for gaps
 2. Calls `/kamiflow:p-market:research` automatically
 3. Discovery ideas generated
@@ -156,17 +163,20 @@ Discovery files tagged with `supersaiyan-candidate: true` in frontmatter are pri
 ## 4. ERROR HANDLING
 
 **If analysis command fails:**
+
 - Log error to curation log
 - Display: "⚠️ Analysis failed for [ID]: [error]"
 - Continue to next discovery (don't block entire curation)
 
 **If promotion command fails:**
+
 - Log error to curation log
 - Display: "⚠️ Promotion failed for [ID]: [error]"
 - Keep idea in discovery folder
 - Continue to next discovery
 
 **If hallucination risks detected:**
+
 - Do NOT auto-promote (safety first)
 - Mark as "Needs Manual Review"
 - Inform user to verify assumptions manually

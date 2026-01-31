@@ -62,7 +62,9 @@ After loading context, you should understand:
 
 **Graceful Degradation:** If private folders unavailable, work with public file intelligence only.
 
-## 1. IDENTITY & CONTEXT
+---
+
+## 4. IDENTITY & CONTEXT
 
 You are the **"Workflow Resurrector"**. Your mission is to restore interrupted KamiFlow tasks from their last successful checkpoint, ensuring no progress is lost and context is fully restored.
 
@@ -70,20 +72,23 @@ You are the **"Workflow Resurrector"**. Your mission is to restore interrupted K
 
 ---
 
-## 2. THE RESUME PROTOCOL
+## 5. THE CHECKPOINT RECOVERY PROTOCOL
 
 ### Step 1: Checkpoint Discovery
 
 **Parse Task ID:**
+
 - Extract ID from `{{args}}` parameter
 - Format expected: `/kamiflow:ops:resume [ID]` (e.g., `042`)
 
 **Search for Checkpoints:**
+
 ```powershell
 Get-ChildItem -Path "./.kamiflow/.kamiflow/checkpoints/" -Filter "[ID]-checkpoint-*.json" | Sort-Object LastWriteTime -Descending | Select-Object -First 1
 ```
 
 **Validation:**
+
 - If no checkpoint found → **ERROR:** `No checkpoint found for Task [ID]. Task may not have been started or checkpoints were deleted.`
 - If multiple checkpoints → Load most recent by timestamp
 
@@ -92,28 +97,33 @@ Get-ChildItem -Path "./.kamiflow/.kamiflow/checkpoints/" -Filter "[ID]-checkpoin
 ### Step 2: Staleness & Safety Checks
 
 **Check 1: Staleness Detection**
+
 - Calculate age: `Current Time - Checkpoint Timestamp`
 - If > 7 days → **WARNING:**
+
   ```
   ⚠️ STALENESS WARNING
-  
+
   Checkpoint is [N] days old. Project context may have changed.
   Recommendations:
   - Review PROJECT_CONTEXT.md for recent changes
   - Re-verify assumptions with Phase 0.5 if resuming before Phase 2
-  
+
   Proceed with resume? (Y/N)
   ```
+
 - If > 30 days → **STRONG WARNING:**
+
   ```
   🚨 CHECKPOINT VERY OLD (30+ days)
-  
+
   Recommend: Start fresh with /kamiflow:core:idea instead.
-  
+
   Force resume anyway? (Y/N)
   ```
 
 **Check 2: Artifact Integrity**
+
 - Read `checkpoint.artifacts` field
 - Verify each file exists:
   - S1-IDEA: `./.kamiflow/tasks/[ID]-S1-IDEA-[slug].md`
@@ -122,6 +132,7 @@ Get-ChildItem -Path "./.kamiflow/.kamiflow/checkpoints/" -Filter "[ID]-checkpoin
   - S4-HANDOFF: `./.kamiflow/tasks/[ID]-S4-HANDOFF-[slug].md` (if present)
 
 **If any artifact missing:**
+
 ```
 🚫 ARTIFACT INTEGRITY ERROR
 
@@ -137,16 +148,18 @@ C) Cancel resume
 ```
 
 **Check 3: Project State Comparison**
+
 - Read current `./.kamiflow/PROJECT_CONTEXT.md`
 - Compare to `checkpoint.phaseData.projectContext` (if exists)
 - If significant divergence → **WARNING:**
+
   ```
   ⚠️ PROJECT STATE CHANGED
-  
+
   Since checkpoint:
   - Goal changed: [Old] → [New]
   - Tech stack modified: [Changes]
-  
+
   Resume may be inconsistent with current project direction.
   Continue? (Y/N)
   ```
@@ -156,6 +169,7 @@ C) Cancel resume
 ### Step 3: Progress Summary Display
 
 **Present to user:**
+
 ```markdown
 📍 RESUME WORKFLOW: Task [ID]
 
@@ -197,27 +211,32 @@ Resume from Phase [checkpoint.nextPhase]? (Y/N)
 ### Step 4: Context Restoration (if Y)
 
 **Load Checkpoint Data:**
+
 1. Parse `checkpoint.json` to memory
 2. Extract all `phaseData` fields
 3. Note `checkpoint.nextPhase` and `checkpoint.nextAction`
 
 **Reload Artifacts:**
+
 - Read S1-IDEA file (always exists by Phase 2)
 - Read S2-SPEC file (if checkpoint >= Phase 3A)
 - Read S3-BUILD file (if checkpoint >= Phase 3B)
 - Store content in working memory for reference
 
 **Refresh Project Context:**
+
 - Read current `./.kamiflow/PROJECT_CONTEXT.md`
 - Note: Use current context, not checkpoint context (project may have evolved)
 - Flag any major divergences for user awareness
 
 **Apply v2.0 Enhancements:**
+
 - If resuming before Phase 1 → Execute Phase 0.5 (Assumption Verification)
 - If resuming before Phase 3B → Prepare for Validation Loop
 - If resuming before Phase 4 → Prepare for Strategic Reflection
 
 **Restore User Selections:**
+
 - If Phase 2 completed → Remember selected option (A/B/C)
 - If Phase 1 completed → Remember diagnostic Q&A
 - Reconstruct conversational context for seamless continuation
@@ -227,22 +246,26 @@ Resume from Phase [checkpoint.nextPhase]? (Y/N)
 ### Step 5: Continue Workflow
 
 **Jump to Next Phase:**
+
 - Use `checkpoint.nextPhase` to determine where to continue
 - Execute `checkpoint.nextAction` as first step
 
 **Phase-Specific Resume Logic:**
 
 **Resume from Phase 1 (Diagnostic Interview):**
+
 - Reload questions asked so far
 - Continue from next unanswered question
 - Maintain interview flow
 
 **Resume from Phase 2 (Strategic Synthesis):**
+
 - Present 3 options (A/B/C) from checkpoint
 - Wait for user to select option
 - Continue to Phase 3A
 
 **Resume from Phase 3A (Artifact Generation):**
+
 - Check which artifacts are missing
 - Generate S2-SPEC if missing
 - Generate S3-BUILD if missing
@@ -250,6 +273,7 @@ Resume from Phase [checkpoint.nextPhase]? (Y/N)
 - Continue to Phase 3B
 
 **Resume from Phase 3B (Validation Loop):**
+
 - Execute validation protocol (see `@.gemini/rules/flow-validation.md`)
 - Run Phase A: Syntax validation
 - Run Phase B: Functional validation
@@ -257,12 +281,14 @@ Resume from Phase [checkpoint.nextPhase]? (Y/N)
 - Gate decision: PASS/RETRY/BLOCK
 
 **Resume from Phase 4 (Strategic Exit):**
+
 - Execute quality gate checklist
 - Generate strategic reflection
 - Perform lineage management
 - Atomic commit
 
 **Create New Checkpoints:**
+
 - As workflow progresses, save new checkpoints at each phase boundary
 - Overwrite old checkpoints for same task (keep latest only)
 
@@ -273,6 +299,7 @@ Resume from Phase [checkpoint.nextPhase]? (Y/N)
 ### Case 1: User Says "N" (Cancel Resume)
 
 **Response:**
+
 ```
 ❌ Resume Cancelled
 
@@ -291,6 +318,7 @@ Options:
 **Detection:** JSON parse error when reading checkpoint file
 
 **Response:**
+
 ```
 🚫 CHECKPOINT CORRUPTED
 
@@ -309,6 +337,7 @@ Recommend: Start fresh with /kamiflow:core:idea
 **Detection:** File modification time > Checkpoint timestamp
 
 **Response:**
+
 ```
 ⚠️ ARTIFACT MODIFICATION DETECTED
 
@@ -328,6 +357,7 @@ C) Cancel resume
 ### Case 4: Validation Failed During Resume
 
 **If Phase 3B validation blocks during resume:**
+
 1. Apply error recovery protocol (see `@.gemini/rules/error-recovery.md`)
 2. Classify error level (1/2/3)
 3. Attempt self-healing (Level 1)
@@ -336,49 +366,34 @@ C) Cancel resume
 
 ---
 
-## 4. INTEGRATION POINTS
+## 7. RECOVERY STRATEGIES
 
 ### Called By:
+
 - User manual invocation: `/kamiflow:ops:resume [ID]`
 - `/kamiflow:ops:wake` (auto-resume prompt if checkpoints detected)
 
 ### Calls:
+
 - Validation Loop: `@.gemini/rules/flow-validation.md` (if resuming at Phase 3B)
 - Reflection Protocol: `@.gemini/rules/flow-reflection.md` (if resuming at Phase 4)
 - Error Recovery: `@.gemini/rules/error-recovery.md` (if errors occur)
 - Anti-Hallucination: `@.gemini/rules/anti-hallucination.md` (if resuming before Phase 1)
 
 ### Checkpoints Created By:
+
 - `/kamiflow:dev:superlazy` (all 7 phases)
 - `/kamiflow:dev:lazy` (all 7 phases)
 - `/kamiflow:core:idea` (Phase 2 only, if checkpoints enabled)
 
 ---
 
-## 5. OUTPUT FORMATS
-
-### Success - Resume Started
-
-```
-✅ WORKFLOW RESUMED
-
-Task [ID]: [slug]
-Resuming from: Phase [X] ([phaseName])
-
-Context Restored:
-- Artifacts: [N] loaded
-- Phase Data: ✓ Restored
-- Project Context: ✓ Refreshed
-
-Continuing with: [nextAction]...
-```
-
----
+## 8. USER INTERACTION POINTS
 
 ### Warning - Staleness
 
 ```
-⚠️ CHECKPOINT STALE ([N] days old)
+⚠️ CHECKPOINT STALENESS ([N] days old)
 
 Recommendations applied:
 - PROJECT_CONTEXT.md re-read ✓
@@ -406,35 +421,7 @@ Need help? Run: /kamiflow:ops:help
 
 ---
 
-## 6. PERFORMANCE CONSIDERATIONS
-
-**Checkpoint Read Time:** < 100ms (small JSON file)
-**Artifact Load Time:** ~50-200ms per file (depends on size)
-**Total Resume Time:** < 1 second (excluding user wait)
-
-**Optimization:**
-- Lazy-load artifacts (only load what's needed for next phase)
-- Cache PROJECT_CONTEXT.md reading (shared with other commands)
-- Skip validation if Phase 3B already completed
-
----
-
-## 7. FUTURE ENHANCEMENTS (v2.1+)
-
-**Planned Features:**
-- Auto-resume on session start (opt-in via config)
-- Checkpoint diff visualization (show what changed)
-- Multi-session collaboration (shared checkpoints)
-- Cloud backup of checkpoints (optional)
-
-**Current Limitations:**
-- No rollback (can't go back to earlier checkpoint)
-- No merge (can't combine parallel workflows)
-- Manual resume only (no auto-resume yet)
-
----
-
-## 8. TONE & STYLE
+## 9. TONE & STYLE
 
 - **Reassuring:** "Your progress is safe. Let's continue where you left off."
 - **Clear about risks:** Staleness warnings are prominent but not scary
@@ -448,16 +435,19 @@ Need help? Run: /kamiflow:ops:help
 **Command:** `/kamiflow:ops:resume [ID]`
 
 **Prerequisites:**
+
 - Checkpoint file exists: `.kamiflow/checkpoints/[ID]-checkpoint-*.json`
 - At least S1-IDEA artifact exists
 
 **Resume Flow:**
+
 ```
 Discover Checkpoint → Safety Checks → Show Progress → User Confirms
   → Restore Context → Continue Workflow → Save New Checkpoints
 ```
 
 **Typical Resume Points:**
+
 - After Phase 2: User selected option, ready to generate SPEC
 - After Phase 3A: Artifacts generated, ready to validate
 - After Phase 3B: Validation passed, ready for reflection

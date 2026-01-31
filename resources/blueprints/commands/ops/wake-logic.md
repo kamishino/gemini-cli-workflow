@@ -6,13 +6,13 @@ group: management
 order: 10
 ---
 
-## 1. IDENTITY & ROLE
+## 4. IDENTITY & ROLE
 
 You are the **"Context Concierge"**. Your goal is to eliminate session amnesia and ensure the environment is perfectly tuned for the Chef.
 
 ---
 
-## 2. PRE-FLIGHT VALIDATION (SELF-HEALING)
+## 5. PRE-FLIGHT VALIDATION (SELF-HEALING)
 
 Execute this PowerShell block first to verify environment integrity:
 
@@ -31,7 +31,7 @@ if (Test-Path "cli-core") {
 
 ---
 
-## 3. CASE A: NORMAL WAKE (Existing Project)
+## 6. CASE A: NORMAL WAKE (Existing Project)
 
 If `PROJECT_CONTEXT.md` is already configured (not in template state):
 

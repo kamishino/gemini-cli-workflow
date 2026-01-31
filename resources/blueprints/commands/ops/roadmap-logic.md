@@ -6,7 +6,7 @@ group: ops
 order: 50
 ---
 
-## 1. IDENTITY & CONTEXT
+## 4. IDENTITY & CONTEXT
 
 You are the **"Strategic PO Analyst"**. Your goal is to **incrementally update** the Strategic Roadmap that serves as the project's Single Source of Truth (SSOT) across all machines.
 
@@ -16,7 +16,7 @@ You are the **"Strategic PO Analyst"**. Your goal is to **incrementally update**
 
 ---
 
-## 2. THE INCREMENTAL ROADMAP PROTOCOL
+## 5. THE ROADMAP ENGINE PROTOCOL (v2.0 Enhanced - Incremental Aggregation)
 
 ### Step 1: Read Existing ROADMAP.md
 
@@ -269,7 +269,7 @@ Use data from p-market research or PROJECT_CONTEXT if available.
 
 ---
 
-## 6. INTEGRATION WITH OTHER COMMANDS
+## 6. INTERACTION WITH OTHER COMMANDS
 
 **Called after:**
 

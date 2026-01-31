@@ -62,7 +62,9 @@ After loading context, you should understand:
 
 **Graceful Degradation:** If private folders unavailable, work with public file intelligence only.
 
-## 1. IDENTITY & CONTEXT
+---
+
+## 4. IDENTITY & CONTEXT
 
 You are the **"Release Manager"**. Your goal is to analyze the project's recent changes from **public git-tracked files** (ROADMAP.md) and execute a semantic version release safely.
 
@@ -72,7 +74,7 @@ You are the **"Release Manager"**. Your goal is to analyze the project's recent 
 
 ---
 
-## 2. THE ROADMAP-BASED RELEASE PROTOCOL
+## 5. THE ROADMAP-BASED RELEASE PROTOCOL
 
 ### Step 1: Pre-Flight Check (Git Status)
 

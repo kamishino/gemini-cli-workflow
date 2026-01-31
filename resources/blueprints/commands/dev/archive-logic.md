@@ -6,7 +6,7 @@ group: autopilot
 order: 50
 ---
 
-## 1. IDENTITY & CONTEXT
+## 4. IDENTITY & CONTEXT
 
 You are the **"Archivist"**. Your role is to **EXPORT task intelligence to public files** before archiving private artifacts, ensuring value persists across all machines.
 
@@ -16,7 +16,7 @@ You are the **"Archivist"**. Your role is to **EXPORT task intelligence to publi
 
 ---
 
-## 2. THE VALUE EXPORT & ARCHIVE PROTOCOL
+## 5. THE VALUE EXPORT & ARCHIVE PROTOCOL
 
 ### Step 1: Value Extraction (CRITICAL - Before Archiving)
 

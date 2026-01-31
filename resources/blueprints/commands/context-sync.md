@@ -63,3 +63,5 @@ After loading context, you should understand:
 - ✅ Private folders enhance, don't gate functionality
 
 **Graceful Degradation:** If private folders unavailable, work with public file intelligence only.
+
+---
