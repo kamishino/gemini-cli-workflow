@@ -148,7 +148,7 @@ jobs:
           Compress-Archive -Path * -DestinationPath kamiflow-${{ github.ref_name }}-${{ matrix.os }}.zip
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: kamiflow-${{ matrix.os }}
           path: |
