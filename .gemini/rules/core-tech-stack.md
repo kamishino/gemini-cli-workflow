@@ -23,7 +23,7 @@ Before writing code or proposing a SPEC, you MUST:
 - **Detection:** `.jsx` files or project context.
 - **Engine:** ES3 Strict.
 - **FORBIDDEN:** NO `const`, `let`, or `arrow functions`. Use `var` and traditional functions.
-- **Pattern:** Use `//@include` for modularity.
+- **Pattern:** Use `/@include` for modularity.
 
 ### 💻 CLI & Tools
 - **Detection:** `commander` or `yargs` in `package.json`.

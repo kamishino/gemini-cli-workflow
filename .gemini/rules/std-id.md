@@ -91,7 +91,7 @@ const nextId = maxId + 1;
 
 ```typescript
 const formattedId = String(nextId).padStart(3, "0");
-// Example: 8 → "008"
+/ Example: 8 → "008"
 ```
 
 ---
@@ -140,9 +140,9 @@ New task: 007-2-S1-IDEA-newest.md
 ```typescript
 const suffixes = files.map((f) => extractSuffix(f.name)).filter((s) => s !== null);
 
-const maxSuffix = suffixes.length > 0 ? Math.max(...suffixes) : -1; // -1 means "no suffix yet, base ID available"
+const maxSuffix = suffixes.length > 0 ? Math.max(...suffixes) : -1; / -1 means "no suffix yet, base ID available"
 
-const nextSuffix = maxSuffix >= 0 ? maxSuffix + 1 : null; // null means use base ID (no suffix)
+const nextSuffix = maxSuffix >= 0 ? maxSuffix + 1 : null; / null means use base ID (no suffix)
 ```
 
 ---
@@ -373,9 +373,9 @@ Action:
 
 ```typescript
 interface SessionIDState {
-  cached_max_id: number; // Stored in AI's active session memory
-  last_scan_timestamp: string; // For debugging (optional)
-  scan_mode: "CACHED" | "REACTIVE"; // Current mode
+  cached_max_id: number; / Stored in AI's active session memory
+  last_scan_timestamp: string; / For debugging (optional)
+  scan_mode: "CACHED" | "REACTIVE"; / Current mode
 }
 ```
 

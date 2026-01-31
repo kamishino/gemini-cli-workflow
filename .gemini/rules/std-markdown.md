@@ -6,7 +6,7 @@
 
 ## 1. 🛑 NON-NEGOTIABLES
 - **Quad-Backticks:** Use ` ` ` ` (four backticks) for code blocks inside Markdown files that contain nested code blocks (e.g., blueprints).
-- **No Leading Slashes:** NEVER use a leading slash before `{{WORKSPACE}}`. Correct: `{{WORKSPACE}}tasks/`.
+- **No Leading Slashes:** NEVER use a leading slash before `./.kamiflow/`. Correct: `./.kamiflow/tasks/`.
 - **Anchored Paths:** ALL file references must start with `./` to assist AI root detection.
 
 ## 2. 🧩 PLACEHOLDER REGISTRY
@@ -14,7 +14,8 @@ Only use approved placeholders:
 
 | Placeholder | Purpose | Transpiled Result |
 | :--- | :--- | :--- |
-| `{{WORKSPACE}}` | Core folder path | `./.kamiflow/` |
+| `./.kamiflow/` | Core folder path | `./.kamiflow/` |
+| `./.gemini/rules/` | Behavioral rules path | `./.gemini/rules/` |
 | `{{PROJECT_NAME}}`| Project identity | (From config) |
 | `{{DATE}}` | Timestamping | (Current Date) |
 
@@ -25,7 +26,7 @@ All AI interactions MUST use anchored paths:
 - **Bad:** `PROJECT_CONTEXT.md`
 
 ## 4. 🛡️ SELF-HEALING REGEX
-If you see `/./.kamiflow/` in generated files, it is a CORRUPTION.
+If you see `./.kamiflow/` in generated files, it is a CORRUPTION.
 - **Cause:** Double prefixing.
 - **Fix:** The Transpiler `sanitizeContent()` should be updated, or fix the source partial to remove the leading slash.
 

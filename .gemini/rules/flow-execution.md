@@ -28,7 +28,7 @@ AI runs the detected command and captures output.
 If **CRITICAL** errors are found, the AI:
 1. Analyzes the error log (line numbers, error type).
 2. Applies a targeted fix using the **Self-Healing Library**:
-    - **Regex Fix:** Check for double-escaped slashes (e.g., `///`).
+    - **Regex Fix:** Check for double-escaped slashes (e.g., `/`).
     - **Prototype Fix:** Ensure class methods weren't accidentally deleted during a `replace` call.
     - **Import Fix:** Verify all `require()` statements are present for new logic.
 3. **Tip:** Use triple-single-quotes (`'''`) for TOML prompts.
