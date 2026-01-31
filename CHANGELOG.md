@@ -16,6 +16,24 @@
 - feat(perf): implemented high-performance blueprint caching and parallel transpilation engine (9e1924e)
 - feat(security): hardened CLI initialization, fs-vault path validation, and safe-exec shell handling (040264c)
 - feat(core): implemented i18n infrastructure, hardened fs-vault security, and improved installation resilience (83f609d)
+- feat(plugins): enhance p-market plugin with ROADMAP integration and competitor analysis
+- feat(plugins): implement /kamiflow:p-market:analyze-all for batch discovery curation
+- feat(docs): comprehensive v2.0 documentation update (validation, anti-hallucination, checkpoints)
+- feat(templates): enhance all templates with v2.0 awareness and metrics
+- feat(scripts): update sync/version scripts for v2.0 protocol tracking
+
+### 📚 Documentation
+
+- docs(v2): add V2_MIGRATION_GUIDE.md for seamless upgrade
+- docs(overview): document all 5 v2.0 enhancements with examples
+- docs(getting-started): add Phase 0.5, validation loop, and checkpoint sections
+- docs(power-user): add checkpoint management guide
+- docs(troubleshooting): add v2.0 specific issues and solutions
+
+### 🧹 Chores & Others
+
+- chore(release): prepare for v2.36.0 official release
+- chore(templates): standardize v2.0 quality metrics across templates
 
 ## [v2.35.0] - 2026-01-30
 

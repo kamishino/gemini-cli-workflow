@@ -184,6 +184,14 @@
   - resources/blueprints/commands/context-sync.md
   - resources/blueprints/commands/p-market/research-logic.md
 
+### Market Analyze All
+
+- **Target:** .gemini/commands/kamiflow/p-market/analyze-all.toml
+- **Shell:** gemini-shell.md
+- **Partials:**
+  - resources/blueprints/commands/context-sync.md
+  - resources/blueprints/commands/p-market/analyze-all-logic.md
+
 ### Market Inspire
 
 - **Target:** .gemini/commands/kamiflow/p-market/inspire.toml

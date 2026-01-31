@@ -6,14 +6,16 @@
 ---
 
 ## 🏁 Strategic Achievements (Value Delivered)
-*This section highlights the business value extracted from completed tasks.*
+
+_This section highlights the business value extracted from completed tasks._
 
 {{ACHIEVEMENTS}}
 
 ---
 
 ## 🏗️ Current Focus (Active Pillars)
-*What we are building right now and why it matters.*
+
+_What we are building right now and why it matters._
 
 - **Phase {{CURRENT_PHASE}}:** Discovery & Foundation
 - **Active Focus:** Project Initialization
@@ -21,7 +23,8 @@
 ---
 
 ## 🚀 AI-Suggested Growth Levers (Profit-Driven)
-*Strategic suggestions from Gemini based on local archive patterns and market trends.*
+
+_Strategic suggestions from Gemini based on local archive patterns and market trends._
 
 {{GROWTH_LEVERS}}
 
@@ -30,22 +33,42 @@
 ## 📅 Timeline & Detailed Progress
 
 ### ✅ Completed
+
 - [x] **v1.0 Core:** Initial setup, basic command suite, and rules.
 
 ### 🚧 In Progress
+
 - [ ] Initial project setup via `/kamiflow:ops:wake`.
 
 ### 📋 Backlog (Planned)
+
 - [ ] First feature implementation via Sniper Model.
 
 ---
 
-## 📈 Success Metrics
+## � v2.0 Quality Metrics
+
+_Auto-tracked by validation loop and reflection reports:_
+
+- **Validation Pass Rate:** {{VALIDATION_PASS_RATE}} (Target: >90%)
+- **Hallucination Incidents:** {{HALLUCINATION_COUNT}} (Target: <5%)
+- **Error Auto-Resolution:** {{AUTO_HEAL_RATE}} (Target: >80%)
+- **Technical Debt Score:** {{TECH_DEBT_SCORE}} (Low/Medium/High)
+- **Checkpoint Resumes:** {{CHECKPOINT_RESUMES}} (Workflow interruptions recovered)
+- **Average Workflow Time:** {{AVG_WORKFLOW_TIME}} (Phase 0 → Phase 4)
+- **Self-Healing Success:** {{SELF_HEAL_SUCCESS}} (Level 1 errors auto-fixed)
+
+---
+
+## �📈 Success Metrics
+
 - **Efficiency:** Saving time through automation.
-- **Stability:** Rock-solid execution.
+- **Stability:** Rock-solid execution with v2.0 enhancements.
+- **Quality:** >90% validation pass rate, <5% hallucinations.
 
 ---
 
 ## 🔗 Dependencies
+
 - **Stack:** Node.js, Gemini CLI.
 - **External:** Custom AI Skills.

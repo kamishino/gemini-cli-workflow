@@ -22,3 +22,13 @@
 - **Blueprints:** {{BLUEPRINT_DESC}} ({{BLUEPRINT_PATH}})
 - **IDE Bridge:** `./.windsurf/` (Workflows & Rules for AI Editor)
 - **Logs:** `{{KAMI_WORKSPACE}}handoff_logs/` (Lazy logs tagged with `_lazy`/`_superlazy`)
+
+## 4. v2.0 Configuration
+
+- **Validation Mode:** Enabled (3-Phase: Syntax → Functional → Traceability)
+- **Checkpoint Retention:** 30 days
+- **Error Recovery:** 3-Level (Self-Heal → Assist → Escalate)
+- **Anti-Hallucination:** Phase 0.5 active (file/function verification)
+- **Reflection Required:** Yes (Phase 4 quality gates)
+- **Self-Healing Rate:** Target >80% for Level 1 errors
+- **Validation Pass Rate:** Target >90% first-attempt success

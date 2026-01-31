@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="#"><img src="https://img.shields.io/badge/version-v2.35.0?style=for-the-badge" alt="Version"></a>
+  <a href="#"><img src="https://img.shields.io/badge/version-v2.36.0-blue?style=for-the-badge" alt="Version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-2196f3?style=for-the-badge" alt="License"></a>
   <a href="#"><img src="https://img.shields.io/badge/Designed_by-Kami_with_❤️-ff69b4?style=for-the-badge" alt="Designed by"></a>
   <a href="#"><img src="https://img.shields.io/badge/Powered_by-Gemini_AI-ff9800?style=for-the-badge" alt="Powered by"></a>
@@ -20,14 +20,15 @@
 
 ## 📍 Quick Navigator
 
-| 🚀 Start Here | 📖 Knowledge | ⚡ Advanced | 🤝 Community |
-| :--- | :--- | :--- | :--- |
-| [Quick Install](#-quick-install) | [Command Wiki](./.kamiflow/docs/commands/README.md) | [**Saiyan Mode**](./.kamiflow/docs/POWER_USER_GUIDE.md#1-devsaiyan-the-executor) | [Contribution](#-contribution) |
-| [Getting Started](./.kamiflow/docs/GETTING_STARTED.md) | [Sniper Model](./.gemini/rules/flow-factory-line.md) | [SuperSaiyan Cycle](./.kamiflow/docs/POWER_USER_GUIDE.md#2-devsupersaiyan-the-orchestrator) | [License](#-license) |
+| 🚀 Start Here                                          | 📖 Knowledge                                         | ⚡ Advanced                                                                                 | 🤝 Community                   |
+| :----------------------------------------------------- | :--------------------------------------------------- | :------------------------------------------------------------------------------------------ | :----------------------------- |
+| [Quick Install](#-quick-install)                       | [Command Wiki](./.kamiflow/docs/commands/README.md)  | [**Saiyan Mode**](./.kamiflow/docs/POWER_USER_GUIDE.md#1-devsaiyan-the-executor)            | [Contribution](#-contribution) |
+| [Getting Started](./.kamiflow/docs/GETTING_STARTED.md) | [Sniper Model](./.gemini/rules/flow-factory-line.md) | [SuperSaiyan Cycle](./.kamiflow/docs/POWER_USER_GUIDE.md#2-devsupersaiyan-the-orchestrator) | [License](#-license)           |
 
 ---
 
 ## 🧐 Table of Contents
+
 - [Project Overview](#-project-overview)
 - [Quick Install](#-quick-install)
 - [Essential Commands](#-essential-commands)
@@ -38,6 +39,7 @@
 ---
 
 ## 🌊 Project Overview
+
 **KamiFlow** is a rigorous, opinionated "Operating System" for Indie Hackers using Gemini CLI. It transforms the AI from a generic chatbot into a disciplined **Technical Co-Founder**.
 
 > **Philosophy:** "Aesthetics + Utility". Ship fast, break nothing important.
@@ -47,7 +49,9 @@
 ---
 
 ## ✨ Key Features
+
 - **🎯 Sniper Model Workflow:** A 3-step fused kernel (Idea → Spec → Build) with 3-Layer Logic Locks.
+- **🛡️ v2.0 Enhanced Stability:** Anti-hallucination guards (Phase 0.5), 3-phase validation loop, strategic reflection, and auto error recovery (80% self-healing).
 - **⚡ Saiyan Automation Suite:** "God Mode" automation (`/dev:saiyan`) for autonomous execution and batch processing.
 - **🐝 Sub-Agent Swarm:** Multi-threaded parallel execution with concurrency locks and specialized agent registry.
 - **💡 Idea Sandbox (The Lab):** A safe space to "draft" and "analyze" raw ideas using multiple AI personas.
@@ -61,27 +65,30 @@
 **Smart Assistant:** Our installers now include **Pre-flight Checks** to help you setup Node.js, NPM, and NVM automatically if they are missing.
 
 **Windows (PowerShell):**
+
 ```powershell
 powershell -c "irmo https://raw.githubusercontent.com/kamishino/gemini-cli-workflow/main/install.ps1 | iex"
 ```
 
 **MacOS / Linux / WSL (Bash):**
+
 ```bash
 curl -sSL https://raw.githubusercontent.com/kamishino/gemini-cli-workflow/main/install.sh | bash
 ```
 
-*This will automatically setup the `kamiflow` (alias `kami`) global command.*
+_This will automatically setup the `kamiflow` (alias `kami`) global command._
 
 ---
 
 ## 🛠 Essential Commands (Quick Start)
 
-| Role | Command | Goal |
-| :--- | :--- | :--- |
-| **Strategy** | `/kamiflow:core:idea` | Refine a raw idea into a battle plan. |
-| **Recovery** | `/kamiflow:ops:wake` | Reload project memory at session start. |
-| **Fast-Track**| `/kamiflow:dev:superlazy` | Auto-generate artifacts and execute code. |
-| **God Mode** | `/kamiflow:dev:saiyan` | **[NEW]** Fully autonomous execution (No-Confirm). |
+| Role           | Command                   | Goal                                                             |
+| :------------- | :------------------------ | :--------------------------------------------------------------- |
+| **Strategy**   | `/kamiflow:core:idea`     | Refine a raw idea into a battle plan.                            |
+| **Recovery**   | `/kamiflow:ops:wake`      | Reload project memory at session start.                          |
+| **Fast-Track** | `/kamiflow:dev:superlazy` | **[v2.0]** Auto-generate artifacts with validation & reflection. |
+| **God Mode**   | `/kamiflow:dev:saiyan`    | **[v2.0]** Fully autonomous execution with auto error recovery.  |
+| **Resume**     | `/kamiflow:ops:resume`    | **[v2.0]** Resume interrupted workflows from checkpoints.        |
 
 📖 **[View Full Command Wiki (17+ Commands)](./.kamiflow/docs/commands/README.md)**
 
@@ -100,12 +107,15 @@ KamiFlow uses a 3-step fused kernel to ensure implementation accuracy:
 ---
 
 ## 🆘 Troubleshooting & Support
+
 Running into issues? Don't panic. Check our **[Troubleshooting Guide](./.kamiflow/docs/TROUBLESHOOTING.md)** for common errors and fixes.
 
 ---
 
 ## 🤝 Contribution
+
 We welcome contributions from the community! Whether it's a bug fix, new feature, or documentation improvement.
+
 1. Fork the Repo.
 2. Create your feature branch.
 3. Submit a PR.
@@ -113,11 +123,13 @@ We welcome contributions from the community! Whether it's a bug fix, new feature
 ---
 
 ## 🛡️ Trademark Policy
+
 The **KamiFlow** name, logo, and related brand assets are protected. While the source code is licensed under MIT, you may not use the "KamiFlow" name or logo for derivative works, forks, or commercial products in a way that suggests endorsement by or affiliation with the original author (**Toan Huynh**).
 
 ---
 
 ## 📄 License
+
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
 ---
