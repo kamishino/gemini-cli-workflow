@@ -3,9 +3,9 @@
  * Provides secure wrappers for executing shell commands
  */
 
-const execa = require("execa");
-const { sanitizeShellArg } = require("./sanitize");
-const logger = require("./logger");
+const execa = require('execa');
+const { sanitizeShellArg } = require('./sanitize');
+const logger = require('./logger');
 
 /**
  * Safely execute a command with timeout and error handling
@@ -18,31 +18,32 @@ async function safeExec(command, args = [], options = {}) {
   const {
     timeout = 30000, // 30 seconds default
     cwd = process.cwd(),
-    shell = false,
-    stdio = "pipe",
-    env = process.env,
+    sanitizeArgs = true,
+    stdio = 'pipe',
+    env = process.env
   } = options;
 
   // Validate command
-  if (!command || typeof command !== "string") {
-    throw new Error("Invalid command");
+  if (!command || typeof command !== 'string') {
+    throw new Error('Invalid command');
   }
 
-  // Only sanitize if shell is enabled (execa doesn't use shell by default)
-  const processedArgs = shell ? args.map((arg) => sanitizeShellArg(String(arg))) : args;
+  // Sanitize arguments if requested
+  const processedArgs = sanitizeArgs 
+    ? args.map(arg => sanitizeShellArg(String(arg)))
+    : args;
 
   try {
-    logger.debug(`Executing: ${command} ${processedArgs.join(" ")}`);
+    logger.debug(`Executing: ${command} ${processedArgs.join(' ')}`);
 
     const result = await execa(command, processedArgs, {
       cwd,
       timeout,
-      shell,
       stdio,
       env,
       reject: false, // Don't throw on non-zero exit
       cleanup: true,
-      killSignal: "SIGTERM",
+      killSignal: 'SIGTERM'
     });
 
     if (result.failed) {
@@ -54,7 +55,7 @@ async function safeExec(command, args = [], options = {}) {
       exitCode: result.exitCode,
       stdout: result.stdout,
       stderr: result.stderr,
-      command: result.command,
+      command: result.command
     };
   } catch (error) {
     // Handle timeout and other errors
@@ -77,7 +78,7 @@ async function safeExec(command, args = [], options = {}) {
  */
 async function safeExecOrThrow(command, args = [], options = {}) {
   const result = await safeExec(command, args, options);
-
+  
   if (!result.success) {
     const error = new Error(`Command failed: ${command}`);
     error.exitCode = result.exitCode;
@@ -94,13 +95,13 @@ async function safeExecOrThrow(command, args = [], options = {}) {
  * @returns {Promise<boolean>}
  */
 async function commandExists(command) {
-  const isWindows = process.platform === "win32";
-  const checkCommand = isWindows ? "where" : "which";
+  const isWindows = process.platform === 'win32';
+  const checkCommand = isWindows ? 'where' : 'which';
 
   try {
     const result = await safeExec(checkCommand, [command], {
-      stdio: "ignore",
-      timeout: 5000,
+      stdio: 'ignore',
+      timeout: 5000
     });
     return result.success;
   } catch {
@@ -114,15 +115,15 @@ async function commandExists(command) {
  * @param {string[]} versionArgs - Arguments to get version (default: ['--version'])
  * @returns {Promise<string|null>} Version string or null
  */
-async function getCommandVersion(command, versionArgs = ["--version"]) {
+async function getCommandVersion(command, versionArgs = ['--version']) {
   try {
     const result = await safeExec(command, versionArgs, {
       timeout: 5000,
-      stdio: "pipe",
+      stdio: 'pipe'
     });
 
     if (result.success) {
-      return result.stdout.trim().split("\n")[0];
+      return result.stdout.trim().split('\n')[0];
     }
     return null;
   } catch {
@@ -141,23 +142,23 @@ async function safeExecStreaming(command, args = [], options = {}) {
   const {
     timeout = 300000, // 5 minutes for long-running commands
     cwd = process.cwd(),
-    shell = false,
-    env = process.env,
+    sanitizeArgs = true,
+    env = process.env
   } = options;
 
-  // Only sanitize if shell is enabled
-  const processedArgs = shell ? args.map((arg) => sanitizeShellArg(String(arg))) : args;
+  const processedArgs = sanitizeArgs 
+    ? args.map(arg => sanitizeShellArg(String(arg)))
+    : args;
 
   try {
-    logger.debug(`Executing (streaming): ${command} ${processedArgs.join(" ")}`);
+    logger.debug(`Executing (streaming): ${command} ${processedArgs.join(' ')}`);
 
     const subprocess = execa(command, processedArgs, {
       cwd,
       timeout,
-      shell,
       env,
       cleanup: true,
-      killSignal: "SIGTERM",
+      killSignal: 'SIGTERM'
     });
 
     // Stream output to console
@@ -173,7 +174,7 @@ async function safeExecStreaming(command, args = [], options = {}) {
     return {
       success: true,
       exitCode: result.exitCode,
-      command: result.command,
+      command: result.command
     };
   } catch (error) {
     if (error.timedOut) {
@@ -183,7 +184,7 @@ async function safeExecStreaming(command, args = [], options = {}) {
     return {
       success: false,
       exitCode: error.exitCode || 1,
-      error: error.message,
+      error: error.message
     };
   }
 }
@@ -195,8 +196,11 @@ async function safeExecStreaming(command, args = [], options = {}) {
  * @returns {Promise<object>}
  */
 async function safeNpmExec(args, options = {}) {
-  const npmCommand = process.platform === "win32" ? "npm.cmd" : "npm";
-  return safeExec(npmCommand, args, options);
+  const npmCommand = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+  return safeExec(npmCommand, args, {
+    ...options,
+    sanitizeArgs: false // npm handles its own argument parsing
+  });
 }
 
 /**
@@ -206,7 +210,10 @@ async function safeNpmExec(args, options = {}) {
  * @returns {Promise<object>}
  */
 async function safeGitExec(args, options = {}) {
-  return safeExec("git", args, options);
+  return safeExec('git', args, {
+    ...options,
+    sanitizeArgs: false // git handles its own argument parsing
+  });
 }
 
 module.exports = {
@@ -216,5 +223,5 @@ module.exports = {
   getCommandVersion,
   safeExecStreaming,
   safeNpmExec,
-  safeGitExec,
+  safeGitExec
 };

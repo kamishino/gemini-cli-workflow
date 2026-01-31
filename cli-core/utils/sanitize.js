@@ -17,13 +17,22 @@ function sanitizePath(userPath, basePath = null) {
     throw new Error("Path must be a string");
   }
 
-  // Check for path traversal attempts BEFORE normalization
-  if (userPath.includes("..")) {
+  // Normalize the path
+  const normalized = path.normalize(userPath);
+
+  // Check for path traversal attempts
+  if (normalized.includes("..")) {
     throw new Error("Path traversal detected: .. not allowed");
   }
 
-  // Normalize the path
-  const normalized = path.normalize(userPath);
+  // Check for absolute path escape attempts on Windows
+  if (process.platform === "win32" && /^[A-Z]:\\/i.test(normalized) && basePath) {
+    const absoluteBase = path.resolve(basePath);
+    const absolutePath = path.resolve(normalized);
+    if (!absolutePath.startsWith(absoluteBase)) {
+      throw new Error("Path outside allowed directory");
+    }
+  }
 
   // If basePath provided, ensure path is within bounds
   if (basePath) {
@@ -54,11 +63,11 @@ function sanitizeShellArg(arg) {
 
   // Escape shell metacharacters for different platforms
   if (process.platform === "win32") {
-    // Windows CMD special characters (including %, !, ", and newlines)
-    return arg.replace(/[&|<>^()%!"\r\n]/g, "^$&");
+    // Windows CMD special characters
+    return arg.replace(/[&|<>^()]/g, "^$&");
   } else {
-    // Unix shell special characters (including newlines)
-    return arg.replace(/[;&|`$()\\<>'"\r\n]/g, "\\$&");
+    // Unix shell special characters
+    return arg.replace(/[;&|`$()\\<>'"]/g, "\\$&");
   }
 }
 

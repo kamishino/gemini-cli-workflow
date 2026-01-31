@@ -32,7 +32,10 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "test:verbose": "jest --verbose"
+    "test:verbose": "jest --verbose",
+    "bench": "node benchmarks/runner.js",
+    "bench:config": "node benchmarks/config-loading.bench.js",
+    "bench:transpiler": "node benchmarks/transpiler.bench.js"
   },
   "keywords": [
     "gemini",
