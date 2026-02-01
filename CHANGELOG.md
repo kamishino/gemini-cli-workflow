@@ -1,3 +1,34 @@
+## [v2.38.1] - 2026-02-01
+
+### 🔧 Improvements
+
+- fix(blueprints): corrected step numbering sequence in idea-logic.md PHASE 2
+- improvement(consistency): renumbered PHASE 2 steps from 5-9 to 4-8 for continuous flow
+
+### 📝 Technical Details
+
+**Problem:** Step sequence in idea-logic.md had a gap:
+
+- PHASE 1 ended at Step 3
+- PHASE 2 started at Step 5 (missing Step 4)
+- Created confusion in workflow sequence
+
+**Solution:**
+
+- Renumbered PHASE 2 steps: Step 5→4, Step 6→5, Step 7→6, Step 8→7, Step 9→8
+- Creates continuous sequence: PHASE 0 (0.1-0.3) → PHASE 1 (1-3) → PHASE 2 (4-8)
+
+**Files Modified:**
+
+- `resources/blueprints/commands/core/idea-logic.md`
+- Re-transpiled to `dist/.gemini/commands/kamiflow/core/idea.toml`
+
+### 🎯 Impact
+
+- **Workflow Clarity:** Continuous step numbering 0.1 → 0.2 → 0.3 → 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
+- **Better Documentation:** No missing steps in the sequence
+- **Consistency:** Aligns with other command workflows
+
 ## [v2.38.0] - 2026-01-31
 
 ### 🔧 Improvements

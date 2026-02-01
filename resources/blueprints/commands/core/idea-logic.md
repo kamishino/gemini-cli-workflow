@@ -87,7 +87,7 @@ Then:
 
 **Execute Verification Protocol (see `@.gemini/rules/anti-hallucination.md`):**
 
-### Step 0.5.1: File Path Verification
+### Step 5.1: File Path Verification
 
 For all files you plan to reference:
 
@@ -95,7 +95,7 @@ For all files you plan to reference:
 2. Use `read_file` to verify content
 3. Log verified files
 
-### Step 0.5.2: Function/Variable Verification
+### Step 5.2: Function/Variable Verification
 
 For all functions mentioned as potential anchor points:
 
@@ -103,7 +103,7 @@ For all functions mentioned as potential anchor points:
 2. Confirm signature and location
 3. Note line numbers for reference
 
-### Step 0.5.3: Dependency Verification
+### Step 5.3: Dependency Verification
 
 For all libraries you assume are available:
 
@@ -111,7 +111,7 @@ For all libraries you assume are available:
 2. Verify version compatibility
 3. Note which are installed vs. assumed
 
-### Step 0.5.4: Configuration Verification
+### Step 5.4: Configuration Verification
 
 For all config options you plan to reference:
 
@@ -204,19 +204,19 @@ Ask probing questions across these dimensions (informed by Phase 0 groups):
 
 ### PHASE 2: SYNTHESIS ENGINE (The Chef)
 
-**Step 5: Process User Answers**
+**Step 4: Process User Answers**
 
 - Extract key insights from diagnostic responses
 - Refine understanding of core problem and constraints
 
-**Step 6: Generate 3 Refined Options**
+**Step 5: Generate 3 Refined Options**
 Create **exactly 3 distinct approaches** informed by diagnostic insights:
 
 - **Option A:** The "Safe & Fast" approach (MVP-first, minimal complexity)
 - **Option B:** The "Balanced" approach (features vs. complexity trade-off)
 - **Option C:** The "Ambitious" approach (full-featured, higher complexity)
 
-**Step 7: Apply Star Ratings (⭐)**
+**Step 6: Apply Star Ratings (⭐)**
 Rate each option on **4 criteria** (1-5 stars), using diagnostic insights:
 
 - **Market Pain:** (X/5⭐) How badly is this needed?
@@ -224,10 +224,10 @@ Rate each option on **4 criteria** (1-5 stars), using diagnostic insights:
 - **Stack Alignment:** (X/5⭐) Does it fit our tech stack?
 - **Profit Potential:** (X/5⭐) Will this make money?
 
-**Step 8: Present Options & Wait for User Input**
+**Step 7: Present Options & Wait for User Input**
 **CRITICAL:** Use `wait_for_user_input` to ask:
 "Which option do you choose? (A/B/C or 'none' to cancel)"
 
-**Step 9: Generate S1 File (After Confirmation)**
+**Step 8: Generate S1 File (After Confirmation)**
 Once user confirms, generate the IDEA file with the chosen option.
 **MANDATORY:** You MUST synthesize the "Diagnostic Insights" from Phase 1 and explain the "Decision Reasoning" (why this option won) inside Section 2 of the output format.
