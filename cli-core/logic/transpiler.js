@@ -458,6 +458,24 @@ class Transpiler {
             delete config.environments;
             await fs.writeJson(destPath, config, { spaces: 2 });
             reporter.push(map.dest, "SUCCESS", "Seeded (Surgical Clean)");
+          } else if (map.src.endsWith(".md")) {
+            // Process markdown files with placeholder replacement
+            let content = await fs.readFile(srcPath, "utf8");
+            content = content.replace(
+              /{{KAMI_WORKSPACE}}/g,
+              this.workspacePrefix,
+            );
+            content = content.replace(
+              /{{KAMI_RULES_GEMINI}}/g,
+              "./.gemini/rules/",
+            );
+            content = this.sanitizeContent(content);
+            await fs.outputFile(destPath, content);
+            reporter.push(
+              map.dest,
+              "SUCCESS",
+              "Seeded (Placeholders Resolved)",
+            );
           } else {
             await fs.copy(srcPath, destPath);
             reporter.push(map.dest, "SUCCESS", "Seeded");

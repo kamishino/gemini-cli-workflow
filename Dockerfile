@@ -43,8 +43,9 @@ RUN mkdir -p /workspace/.kamiflow
 # Set working directory to workspace
 WORKDIR /workspace
 
-# Expose dashboard port (if needed)
-EXPOSE 3000 3001
+# Expose ports (reserved for future use)
+# Note: Dashboard is deprecated as of v2.39
+EXPOSE 3000
 
 # Set default command
 ENTRYPOINT ["kamiflow"]

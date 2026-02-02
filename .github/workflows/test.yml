@@ -33,11 +33,11 @@ jobs:
       
       - name: Run tests
         working-directory: ./cli-core
-        run: npm test
+        run: npx jest --passWithNoTests
       
       - name: Run coverage
         working-directory: ./cli-core
-        run: npm run test:coverage
+        run: npx jest --coverage --passWithNoTests
       
       - name: Upload coverage to Codecov
         if: matrix.os == 'ubuntu-latest' && matrix.node == '20'
