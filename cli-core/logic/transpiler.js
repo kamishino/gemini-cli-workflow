@@ -490,6 +490,7 @@ class Transpiler {
 .kamiflow/handoff_logs/
 .kamiflow/.backup/
 .kamiflow/docs/assets/
+.kamiflow/agents/
 .gemini/tmp/
 .gemini/cache/
 .backup/
@@ -499,6 +500,7 @@ class Transpiler {
 !.kamiflow/tasks/
 !.kamiflow/handoff_logs/
 !.kamiflow/docs/
+!.kamiflow/agents/
 `;
 
       await fs.writeFile(path.join(outputRoot, ".gitignore"), gitIgnoreContent);

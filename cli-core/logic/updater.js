@@ -4,6 +4,7 @@ const path = require('upath');
 const { execa } = require("execa");
 const { getCache, setCache, shouldCheck } = require("../utils/update-cache");
 const packageJson = require("../../package.json");
+const { LayeredResolver } = require("./layered-resolver");
 
 const KAMIFLOW_REPO = "https://github.com/kamishino/gemini-cli-workflow.git";
 const RAW_PACKAGE_URL = "https://raw.githubusercontent.com/kamishino/gemini-cli-workflow/main/package.json";
@@ -199,23 +200,62 @@ async function updateStandaloneMode(projectPath, options = {}) {
 
   try {
     await walkAndSync(sourceDist, projectPath);
-    
+
+    // Apply local overrides from .kamiflow/agents/.gemini/
+    const resolver = new LayeredResolver(projectPath, cliRoot);
+    const localOverridesPath = path.join(
+      projectPath,
+      ".kamiflow/agents/.gemini",
+    );
+
+    if (await fs.pathExists(localOverridesPath)) {
+      logger.info("Applying local overrides...");
+      for (const category of ["commands", "rules", "skills"]) {
+        const stats = await resolver.syncCategory(category);
+        if (stats.overrides > 0) {
+          logger.success(
+            `Applied ${stats.overrides} local override(s) for ${category}`,
+          );
+        }
+      }
+    }
+
     // Proactive check for outdated config
-    const { ConfigManager } = require('./config-manager');
+    const { ConfigManager } = require("./config-manager");
     const configManager = new ConfigManager(projectPath);
     const { missing, orphaned } = await configManager.checkConfigFidelity();
 
     if (missing.length > 0) {
-      console.log(require('chalk').cyan(`\nℹ️  Notice: Your .kamirc.json is missing ${missing.length} new setting(s).`));
-      console.log(require('chalk').gray(`   Missing: ${missing.slice(0, 3).join(', ')}${missing.length > 3 ? '...' : ''}`));
-      console.log(require('chalk').gray('   Run \'kami config sync\' to automatically add them.\n'));
+      console.log(
+        require("chalk").cyan(
+          `\nℹ️  Notice: Your .kamirc.json is missing ${missing.length} new setting(s).`,
+        ),
+      );
+      console.log(
+        require("chalk").gray(
+          `   Missing: ${missing.slice(0, 3).join(", ")}${missing.length > 3 ? "..." : ""}`,
+        ),
+      );
+      console.log(
+        require("chalk").gray(
+          "   Run 'kami config sync' to automatically add them.\n",
+        ),
+      );
     } else if (orphaned.length > 0) {
-      console.log(require('chalk').yellow(`\n⚠️  Notice: Your .kamirc.json contains ${orphaned.length} orphaned key(s).`));
-      console.log(require('chalk').gray('   Run \'kami config sync\' to view details.\n'));
+      console.log(
+        require("chalk").yellow(
+          `\n⚠️  Notice: Your .kamirc.json contains ${orphaned.length} orphaned key(s).`,
+        ),
+      );
+      console.log(
+        require("chalk").gray("   Run 'kami config sync' to view details.\n"),
+      );
     } else {
-      console.log(require('chalk').gray('\n   ✅ Configuration is up to date.\n'));
+      console.log(
+        require("chalk").gray("\n   ✅ Configuration is up to date.\n"),
+      );
     }
-    
+
     return true;
   } catch (error) {
     logger.error(`Standalone sync failed: ${error.message}`);

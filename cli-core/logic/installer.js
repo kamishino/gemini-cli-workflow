@@ -123,69 +123,86 @@ function showSuccess() {
 }
 
 const { EnvironmentManager } = require("./env-manager");
+const { LayeredResolver } = require("./layered-resolver");
 
 /**
  * --- PART 2: PROJECT INITIALIZER (New Logic) ---
  */
 
 async function initializeProject(cwd, options = {}) {
-  const projectGeminiPath = path.join(cwd, '.gemini');
+  const projectGeminiPath = path.join(cwd, ".gemini");
   const envManager = new EnvironmentManager(cwd);
   const workspaceRoot = await envManager.getAbsoluteWorkspacePath();
   const isDevMode = options.dev || false;
-  
+
   // 1. Check if already initialized
   if (fs.existsSync(projectGeminiPath)) {
-    console.log(chalk.yellow('ℹ️  .gemini folder already exists. Skipping initialization.'));
-    return { success: true, message: 'Already initialized.' };
+    console.log(
+      chalk.yellow(
+        "ℹ️  .gemini folder already exists. Skipping initialization.",
+      ),
+    );
+    return { success: true, message: "Already initialized." };
   }
 
-  const modeText = isDevMode ? chalk.magenta('Contributor Mode') : chalk.green('Standard Mode');
+  const modeText = isDevMode
+    ? chalk.magenta("Contributor Mode")
+    : chalk.green("Standard Mode");
   console.log(chalk.cyan(`🚀 Initializing KamiFlow (${modeText})...`));
 
   try {
-    const cliRoot = path.resolve(__dirname, '../../'); 
-    
+    const cliRoot = path.resolve(__dirname, "../../");
+
     if (isDevMode) {
       // DEV MODE: Create Portals (Symlinks/Junctions)
-      console.log(chalk.gray('🔗 Creating portals to source blueprints...'));
-      
+      console.log(chalk.gray("🔗 Creating portals to source blueprints..."));
+
       const links = [
-        { src: '.gemini', dest: '.gemini' },
-        { src: '.windsurf', dest: '.windsurf' }
+        { src: ".gemini", dest: ".gemini" },
+        { src: ".windsurf", dest: ".windsurf" },
       ];
 
       for (const link of links) {
         const target = path.join(cliRoot, link.src);
         const p = path.join(cwd, link.dest);
-        const type = os.platform() === 'win32' ? 'junction' : 'dir';
+        const type = os.platform() === "win32" ? "junction" : "dir";
         await fs.ensureSymlink(target, p, type);
         console.log(chalk.gray(`   ✅ Linked: ${link.dest} -> ${target}`));
       }
 
-      const targetDocs = path.join(cwd, 'resources/docs');
-      await fs.ensureSymlink(path.join(cliRoot, 'resources/docs'), targetDocs, os.platform() === 'win32' ? 'junction' : 'dir');
+      const targetDocs = path.join(cwd, "resources/docs");
+      await fs.ensureSymlink(
+        path.join(cliRoot, "resources/docs"),
+        targetDocs,
+        os.platform() === "win32" ? "junction" : "dir",
+      );
     } else {
       // STANDARD MODE: Copy everything from dist/ with existence checks
-      const sourceDist = path.join(cliRoot, 'dist');
+      const sourceDist = path.join(cliRoot, "dist");
 
       if (!fs.existsSync(sourceDist)) {
-        throw new Error(`Critical: Build artifacts not found at ${sourceDist}. Please run 'npm run build' in KamiFlow core.`);
+        throw new Error(
+          `Critical: Build artifacts not found at ${sourceDist}. Please run 'npm run build' in KamiFlow core.`,
+        );
       }
 
       console.log(chalk.gray(`📦 Seeding project from distribution...`));
-      
-      const protectedFiles = ['GEMINI.md', '.kamiflow/PROJECT_CONTEXT.md', '.kamiflow/ROADMAP.md'];
-      
+
+      const protectedFiles = [
+        "GEMINI.md",
+        ".kamiflow/PROJECT_CONTEXT.md",
+        ".kamiflow/ROADMAP.md",
+      ];
+
       // Copy dist content with filtering
-      fs.cpSync(sourceDist, cwd, { 
+      fs.cpSync(sourceDist, cwd, {
         recursive: true,
         filter: (src) => {
           const relative = path.relative(sourceDist, src);
           const basename = path.basename(src);
-          
+
           // Basic excludes
-          if (basename === '.git' || basename === 'node_modules') return false;
+          if (basename === ".git" || basename === "node_modules") return false;
 
           // Protected core files: Skip if already exists in destination
           if (protectedFiles.includes(relative)) {
@@ -197,63 +214,85 @@ async function initializeProject(cwd, options = {}) {
           }
 
           // Special case: kamirc.json vs example
-          if (relative === '.kamirc.example.json') {
-            const destActual = path.join(cwd, '.kamirc.json');
+          if (relative === ".kamirc.example.json") {
+            const destActual = path.join(cwd, ".kamirc.json");
             if (fs.existsSync(destActual)) {
               // Actual exists, cleanup example if it was there and skip copy
-              const destExample = path.join(cwd, '.kamirc.example.json');
+              const destExample = path.join(cwd, ".kamirc.example.json");
               if (fs.existsSync(destExample)) {
                 fs.removeSync(destExample);
-                console.log(chalk.gray('   🧹 Cleaned up redundant .kamirc.example.json'));
+                console.log(
+                  chalk.gray("   🧹 Cleaned up redundant .kamirc.example.json"),
+                );
               }
               return false;
             }
-            
+
             // If actual MISSING, seed both the actual and the latest example
             fs.copySync(src, destActual);
-            console.log(chalk.cyan('   🌱 Seeded new .kamirc.json from template'));
+            console.log(
+              chalk.cyan("   🌱 Seeded new .kamirc.json from template"),
+            );
             return true;
           }
 
           return true;
-        }
+        },
       });
     }
 
-
-
     // 4. Create necessary empty dirs (Only private data placeholders)
-    const workspaceDirs = ['tasks', 'archive', 'ideas/draft', 'ideas/discovery', 'ideas/backlog', 'handoff_logs'];
+    const workspaceDirs = [
+      "tasks",
+      "archive",
+      "ideas/draft",
+      "ideas/discovery",
+      "ideas/backlog",
+      "handoff_logs",
+    ];
 
     for (const dir of workspaceDirs) {
       const d = path.join(workspaceRoot, dir);
       if (!fs.existsSync(d)) fs.mkdirSync(d, { recursive: true });
     }
 
-    // 5. Update .gitignore
+    // 5. Initialize local override structure (.kamiflow/agents/.gemini/)
+    console.log(chalk.gray("📁 Setting up local override structure..."));
+    const resolver = new LayeredResolver(cwd, cliRoot);
+    await resolver.initLocalStructure();
+
+    // 6. Update .gitignore
     updateGitIgnore(cwd);
 
-    return { success: true, message: 'KamiFlow initialized successfully!' };
-
+    return { success: true, message: "KamiFlow initialized successfully!" };
   } catch (error) {
-    console.error(chalk.red('❌ Init failed:'), error);
+    console.error(chalk.red("❌ Init failed:"), error);
     return { success: false, error: error.message };
   }
 }
 
 function updateGitIgnore(cwd) {
-  const gitIgnorePath = path.join(cwd, '.gitignore');
-  const rule = '.gemini/tmp';
-  
-  let content = '';
+  const gitIgnorePath = path.join(cwd, ".gitignore");
+  const rules = [".gemini/tmp", ".kamiflow/agents/"];
+
+  let content = "";
   if (fs.existsSync(gitIgnorePath)) {
-    content = fs.readFileSync(gitIgnorePath, 'utf8');
+    content = fs.readFileSync(gitIgnorePath, "utf8");
   }
 
-  if (!content.includes(rule)) {
-    console.log(chalk.gray('🛡️  Updating .gitignore...'));
-    const newContent = content.endsWith('\n') ? `${content}${rule}\n` : `${content}\n${rule}\n`;
-    fs.writeFileSync(gitIgnorePath, newContent);
+  let updated = false;
+  for (const rule of rules) {
+    if (!content.includes(rule)) {
+      content = content.endsWith("\n")
+        ? `${content}${rule}\n`
+        : `${content}\n${rule}\n`;
+      updated = true;
+    }
+  }
+
+  if (updated) {
+    console.log(chalk.gray("🛡️  Updating .gitignore..."));
+    fs.writeFileSync(gitIgnorePath, content);
   }
 }
 
