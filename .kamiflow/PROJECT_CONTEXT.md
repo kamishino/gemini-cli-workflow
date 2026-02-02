@@ -2,31 +2,19 @@
 
 ## 1. Project Identity
 
-<<<<<<< C:/Users/toanh/Desktop/Projects/gemini-cli-workflow/.kamiflow/PROJECT_CONTEXT.md
-- **Goal:** A rigorous, opinionated "Operating System" template for Indie Hackers using Gemini CLI + AI IDEs.
-- **Current Phase:** Template v2.36.1 (Quality & Stability Hardening)
-- **Key Tech:** Gemini CLI (TOML Commands), Node.js CLI, React Dashboard, Docker, GitHub Actions, Windsurf/Cursor, Markdown Protocols.
-- **New Capabilities:** Plugin System, Web Dashboard, Automated CI/CD, Performance Caching, Security Hardening, i18n, Hardened Test Suite.
-=======
-- **Goal:** A rigorous, opinionated "Operating System" template for Indie Hackers using Gemini CLI + AI IDEs with v2.0 enhanced stability.
-- **Current Phase:** Template v2.36.0 (v2.0 Finalization)
-- **Key Tech:** Gemini CLI (TOML Commands), Node.js CLI, Windsurf/Cursor, Markdown Protocols, v2.0 Enhanced Protocols.
->>>>>>> C:/Users/toanh/.windsurf/worktrees/gemini-cli-workflow/gemini-cli-workflow-046d3b9c/.kamiflow/PROJECT_CONTEXT.md
+- **Goal:** A rigorous, opinionated "Operating System" template for Indie Hackers using Gemini CLI + AI IDEs with v2.0 enhanced stability and Cascade-inspired architecture.
+- **Current Phase:** Template v2.38.0 (Cascade Architecture Integration)
+- **Key Tech:** Gemini CLI (TOML Commands), Node.js CLI, React Dashboard, Docker, GitHub Actions, Windsurf/Cursor, Markdown Protocols, v2.0 Enhanced Protocols.
+- **New Capabilities:** Plugin System, Web Dashboard, Automated CI/CD, Performance Caching, Security Hardening, i18n, Hardened Test Suite, Cascade-inspired S1-S4 Integrated Architecture.
 - **Tour Completed:** true
 
 ## 2. Active Context (The "Now")
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-<<<<<<< C:/Users/toanh/Desktop/Projects/gemini-cli-workflow/.kamiflow/PROJECT_CONTEXT.md
-- **Last Completed Action:** Quality & Stability Hardening (v2.36.1) - Enhanced test suite resilience with defensive console spy handling, standardized code formatting with Prettier across all modules, improved config manager robustness with deep merge and nested key support.
-- **Current Focus:** Production stability and code quality excellence.
-- **Next Step:** Continue plugin ecosystem development, enhance dashboard with real-time monitoring, prepare documentation for community contributions.
-=======
-- **Last Completed Action:** Completed v2.0 finalization: Enhanced p-market plugin with ROADMAP integration, updated all documentation to reflect v2.0 features (validation, anti-hallucination, checkpoints, resume), improved templates with v2.0 awareness, modified sync scripts for protocol tracking, and prepared comprehensive release package.
-- **Current Focus:** Official v2.36.0 release and community rollout.
-- **Next Step:** Publish release, update npm registry, announce v2.0 features.
->>>>>>> C:/Users/toanh/.windsurf/worktrees/gemini-cli-workflow/gemini-cli-workflow-046d3b9c/.kamiflow/PROJECT_CONTEXT.md
+- **Last Completed Action:** Integrated Cascade-inspired architecture into Sniper Model (S1-S4). Upgraded IDEA, SPEC, and BUILD blueprints to include Assumption Verification, Test Specifications, Risk Scoring, and Execution Strategy. Completed full system transpilation to v2.38.0.
+- **Current Focus:** System synchronization and strategic roadmap update for official v2.38.0 release.
+- **Next Step:** Run `/kamiflow:ops:sync` and `/kamiflow:ops:roadmap` to align project state before release.
 
 ## 3. Knowledge Map (Directory Guide)
 

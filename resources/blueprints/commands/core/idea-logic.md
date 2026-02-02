@@ -133,7 +133,7 @@ For all config options you plan to reference:
 Status: ✅ CLEAR TO PROCEED | ⚠️ PROCEED WITH CAUTION
 ```
 
-**Rule:** If hallucination risks detected, remove from plan or document clearly.
+**Rule:** If hallucination risks detected, remove from plan or document clearly. This report MUST be saved into the final S1-IDEA file as Section 0.
 
 ## 6. THE TWO-PHASE INTERACTIVE PROTOCOL
 
@@ -230,4 +230,68 @@ Rate each option on **4 criteria** (1-5 stars), using diagnostic insights:
 
 **Step 8: Generate S1 File (After Confirmation)**
 Once user confirms, generate the IDEA file with the chosen option.
-**MANDATORY:** You MUST synthesize the "Diagnostic Insights" from Phase 1 and explain the "Decision Reasoning" (why this option won) inside Section 2 of the output format.
+
+**MANDATORY Content Requirements:**
+1. **Section 0 (Verification):** You MUST include the full "Assumption Verification Report" from Phase 0.5.
+2. **Section 2 (Decision):** You MUST synthesize the "Diagnostic Insights" from Phase 1 and explain the "Decision Reasoning" (why this option won).
+
+## 7. OUTPUT FORMAT
+
+**Target File Path:** `{{KAMI_WORKSPACE}}tasks/[ID]-S1-IDEA-[slug].md`
+
+```markdown
+# 💡 IDEA: [Feature Name]
+
+**ID:** [ID]
+**Type:** IDEA
+**Slug:** [slug]
+**Status:** APPROVED
+**Chosen Option:** [Option A/B/C]
+[**From Idea:** [Original ID]] (Optional, if from backlog)
+
+---
+
+## 0. PRE-FLIGHT VERIFICATION 🔍
+
+[Insert the full Assumption Verification Report here]
+
+## 1. The Vision 👁️
+
+[One-paragraph high-level vision of the outcome]
+
+## 2. Decision Reasoning 🧠
+
+- **Diagnostic Insights:** [Summary of what we learned in Phase 1]
+- **Why this option?** [Why we chose this specific approach over others]
+
+## 3. Core Problem 🚩
+
+[List the pain points this feature solves]
+
+## 4. Key Features (MVP Scope) 🎯
+
+- [Feature 1]
+- [Feature 2]
+
+## 5. Technical Approach 🏗️
+
+[High-level technical strategy]
+
+## 6. Success Criteria ✅
+
+- [ ] [Measurable outcome 1]
+- [ ] [Measurable outcome 2]
+
+## 7. Estimated Timeline ⏳
+
+[X days/weeks]
+
+## 8. Next Step 🚀
+
+Run `/kamiflow:core:spec {{KAMI_WORKSPACE}}tasks/[ID]-S1-IDEA-[slug].md` to create detailed specification.
+```
+
+## 8. INTERACTION RULES
+
+- After generating, ask: "Do you want me to save this to `{{KAMI_WORKSPACE}}tasks/[ID]-S1-IDEA-[slug].md`? (Y/N)"
+- If user confirms, prompt: "File saved! Next: `/kamiflow:core:spec tasks/[ID]-S1-IDEA-[slug].md` to create the specification."
