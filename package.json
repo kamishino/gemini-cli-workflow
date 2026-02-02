@@ -13,5 +13,6 @@
     "sync-all": "npm run dev && npm run build",
     "doctor": "npm --prefix cli-core run doctor",
     "update": "npm --prefix cli-core run update"
-  }
+  },
+  "version": "2.39.0"
 }
