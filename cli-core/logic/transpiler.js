@@ -108,7 +108,9 @@ class Transpiler {
       const required = ["name", "type", "description", "group", "order"];
       const missing = required.filter((f) => !metadata[f]);
       if (missing.length > 0) {
-        throw new Error(`CRITICAL: Metadata missing in ${path.relative(this.projectRoot, filePath)}: ${missing.join(", ")}`);
+        throw new Error(
+          `CRITICAL: Metadata missing in ${path.relative(this.projectRoot, filePath)}: ${missing.join(", ")}`,
+        );
       }
     }
 
@@ -144,8 +146,14 @@ class Transpiler {
             await this.processBlueprint(blueprint);
             return { blueprint: blueprint.name, success: true };
           } catch (error) {
-            logger.error(`Failed to process ${blueprint.name}: ${error.message}`);
-            return { blueprint: blueprint.name, success: false, error: error.message };
+            logger.error(
+              `Failed to process ${blueprint.name}: ${error.message}`,
+            );
+            return {
+              blueprint: blueprint.name,
+              success: false,
+              error: error.message,
+            };
           }
         }),
       );
@@ -170,7 +178,10 @@ class Transpiler {
     for (const partialName of partialNames) {
       const { body, metadata } = await this.loadPartial(partialName);
 
-      if (partialName !== "context-sync" && Object.keys(firstMetadata).length === 0) {
+      if (
+        partialName !== "context-sync" &&
+        Object.keys(firstMetadata).length === 0
+      ) {
         firstMetadata = metadata;
       }
 
@@ -184,7 +195,10 @@ class Transpiler {
       }
     }
 
-    result = result.replace(/{{DESCRIPTION}}/g, firstMetadata.description || "");
+    result = result.replace(
+      /{{DESCRIPTION}}/g,
+      firstMetadata.description || "",
+    );
     result = result.replace(/{{GROUP}}/g, firstMetadata.group || "");
     result = result.replace(/{{ORDER}}/g, firstMetadata.order || "10");
 
@@ -212,11 +226,20 @@ class Transpiler {
 
     const buildTarget = async (target) => {
       try {
-        const assembledContent = await this.assemble(target.shell, target.partials);
+        const assembledContent = await this.assemble(
+          target.shell,
+          target.partials,
+        );
 
         for (const outputRoot of this.targets) {
-          const absoluteTargetPath = path.resolve(outputRoot, target.targetPath);
-          const displayPath = path.relative(this.projectRoot, absoluteTargetPath);
+          const absoluteTargetPath = path.resolve(
+            outputRoot,
+            target.targetPath,
+          );
+          const displayPath = path.relative(
+            this.projectRoot,
+            absoluteTargetPath,
+          );
 
           await backupFile(absoluteTargetPath);
           const success = await safeWrite(absoluteTargetPath, assembledContent);
@@ -224,7 +247,11 @@ class Transpiler {
           if (success && absoluteTargetPath.endsWith(".toml")) {
             const validation = validateTomlFile(absoluteTargetPath);
             if (!validation.valid) {
-              reporter.push(target.name, "ERROR", `TOML Invalid: ${displayPath}`);
+              reporter.push(
+                target.name,
+                "ERROR",
+                `TOML Invalid: ${displayPath}`,
+              );
             } else {
               reporter.push(target.name, "SUCCESS", displayPath);
             }
@@ -241,16 +268,83 @@ class Transpiler {
 
     await this.transpileRules();
     await this.syncDocumentation();
+    await this.syncSkills();
     await this.assembleProjectTemplate();
 
     logger.success("Build sequence complete.");
   }
 
   /**
+   * Sync skills from resources/skills/ to .gemini/skills/
+   */
+  async syncSkills() {
+    await this.init();
+    const sourceSkills = path.join(
+      this.projectRoot,
+      "resources/blueprints/skills",
+    );
+
+    if (!(await fs.pathExists(sourceSkills))) {
+      logger.debug("No skills directory found at resources/skills/. Skipping.");
+      return;
+    }
+
+    logger.info("Syncing Skills...");
+    const reporter = logger.createReporter("Skill Sync");
+
+    const entries = await fs.readdir(sourceSkills, { withFileTypes: true });
+    const skillDirs = entries.filter((e) => e.isDirectory());
+
+    for (const dir of skillDirs) {
+      const skillName = dir.name;
+      const sourcePath = path.join(sourceSkills, skillName);
+      const skillMdPath = path.join(sourcePath, "SKILL.md");
+
+      if (!(await fs.pathExists(skillMdPath))) {
+        reporter.push(skillName, "SKIPPED", "No SKILL.md");
+        continue;
+      }
+
+      for (const outputRoot of this.targets) {
+        const targetPath = path.join(outputRoot, ".gemini/skills", skillName);
+        await fs.copy(sourcePath, targetPath, { overwrite: true });
+        reporter.push(
+          skillName,
+          "SUCCESS",
+          path.relative(this.projectRoot, targetPath),
+        );
+      }
+    }
+
+    reporter.print();
+  }
+
+  /**
    * Synchronize documentation
+   * Controlled by transpile.includeDocs in .kamirc.json (default: false for clients)
    */
   async syncDocumentation() {
     await this.init();
+
+    // Check if docs sync is enabled in config
+    const configPath = path.join(this.projectRoot, ".kamirc.json");
+    let includeDocs = false; // Default: skip docs for client projects
+    if (await fs.pathExists(configPath)) {
+      try {
+        const config = await fs.readJson(configPath);
+        includeDocs = config.transpile?.includeDocs ?? false;
+      } catch (e) {
+        // If config is invalid, default to false
+      }
+    }
+
+    if (!includeDocs) {
+      logger.debug(
+        "Skipping documentation sync (transpile.includeDocs is false)",
+      );
+      return;
+    }
+
     const env = await this.envManager.getEnv();
     const isProd = env === "production";
     const sourceDocs = path.join(this.projectRoot, "resources/docs");
@@ -273,19 +367,28 @@ class Transpiler {
 
           content = content.replace(/{{WORKSPACE}}/g, this.workspacePrefix);
 
-          const blueprintPath = isProd ? "None (Pre-transpiled)" : "./resources/blueprints/";
+          const blueprintPath = isProd
+            ? "None (Pre-transpiled)"
+            : "./resources/blueprints/";
           const blueprintDesc = isProd ? "N/A" : "SSOT Logic & Templates";
           content = content.replace(/{{BLUEPRINT_PATH}}/g, blueprintPath);
           content = content.replace(/{{BLUEPRINT_DESC}}/g, blueprintDesc);
 
           if (isProd) {
-            content = content.replace(/\s*<!-- DEV_ONLY_START -->[\s\S]*?<!-- DEV_ONLY_END -->\s*/g, "\n");
+            content = content.replace(
+              /\s*<!-- DEV_ONLY_START -->[\s\S]*?<!-- DEV_ONLY_END -->\s*/g,
+              "\n",
+            );
           }
 
           content = this.sanitizeContent(content);
 
           for (const outputRoot of this.targets) {
-            const targetPath = path.join(outputRoot, ".kamiflow/docs", relItemPath);
+            const targetPath = path.join(
+              outputRoot,
+              ".kamiflow/docs",
+              relItemPath,
+            );
             const success = await safeWrite(targetPath, content);
             if (success) reporter.push(relItemPath, "SUCCESS");
             else reporter.push(relItemPath, "ERROR");
@@ -311,7 +414,14 @@ class Transpiler {
 
     for (const outputRoot of this.targets) {
       const kamiflowDir = path.join(outputRoot, ".kamiflow");
-      const subDirs = ["archive", "ideas", "tasks", "handoff_logs", "schemas", ".backup"];
+      const subDirs = [
+        "archive",
+        "ideas",
+        "tasks",
+        "handoff_logs",
+        "schemas",
+        ".backup",
+      ];
 
       const dirTasks = subDirs.map(async (sub) => {
         const fullPath = path.join(kamiflowDir, sub);
@@ -321,7 +431,10 @@ class Transpiler {
       await Promise.all(dirTasks);
 
       // Copy Schema
-      const schemaSrc = path.join(this.projectRoot, "resources/schemas/kamirc.schema.json");
+      const schemaSrc = path.join(
+        this.projectRoot,
+        "resources/schemas/kamirc.schema.json",
+      );
       const schemaDest = path.join(kamiflowDir, "schemas/kamirc.schema.json");
       if (await fs.pathExists(schemaSrc)) {
         await fs.copy(schemaSrc, schemaDest);
@@ -371,7 +484,10 @@ class Transpiler {
 `;
 
       await fs.writeFile(path.join(outputRoot, ".gitignore"), gitIgnoreContent);
-      await fs.writeFile(path.join(outputRoot, ".geminiignore"), geminiIgnoreContent);
+      await fs.writeFile(
+        path.join(outputRoot, ".geminiignore"),
+        geminiIgnoreContent,
+      );
       reporter.push("Ignore Files", "SUCCESS", "Generated");
     }
     reporter.print();
@@ -389,7 +505,9 @@ class Transpiler {
       const sourcePath = path.join(this.rulesDir, sourceFolder);
       if (!(await fs.pathExists(sourcePath))) continue;
 
-      const rules = (await fs.readdir(sourcePath)).filter((f) => f.endsWith(".md"));
+      const rules = (await fs.readdir(sourcePath)).filter((f) =>
+        f.endsWith(".md"),
+      );
 
       const ruleTasks = rules.map(async (rule) => {
         let content = await fs.readFile(path.join(sourcePath, rule), "utf8");

@@ -14,11 +14,11 @@
 
 | #   | Criterion                     | Fast Track? |
 | --- | ----------------------------- | ----------- |
-| 1   | Single file affected?         | ✅ Yes      |
-| 2   | < 50 lines of change?         | ✅ Yes      |
-| 3   | No API/schema changes?        | ✅ Yes      |
-| 4   | No security implications?     | ✅ Yes      |
-| 5   | No cross-module dependencies? | ✅ Yes      |
+| 1   | Single file affected?         | ✅ Yes       |
+| 2   | < 50 lines of change?         | ✅ Yes       |
+| 3   | No API/schema changes?        | ✅ Yes       |
+| 4   | No security implications?     | ✅ Yes       |
+| 5   | No cross-module dependencies? | ✅ Yes       |
 
 ### Classification Decision
 
@@ -73,7 +73,7 @@ When in Fast Track mode, generate only:
 Even in fast track, log the decision:
 
 ```json
-// .kamiflow/fast-track-log.json
+/ .kamiflow/fast-track-log.json
 {
   "entries": [
     {

@@ -238,6 +238,35 @@ IF no conflicts:
 
 ---
 
+### PHASE 0.6: SKILL DISCOVERY (Optional Enhancement)
+
+**Goal:** Check if reusable skills exist that can accelerate this task.
+
+**Step 0.6.1: Pattern Recognition**
+Analyze the raw idea for common patterns:
+- **TDD/Testing:** User mentions "test", "TDD", "coverage" → Check for `kamiflow-tdd` skill
+- **Auth/Security:** User mentions "login", "auth", "JWT" → Check for auth-related skills
+- **API/Backend:** User mentions "API", "endpoint", "REST" → Check for API skills
+- **UI/Frontend:** User mentions "component", "UI", "design" → Check for UI skills
+
+**Step 0.6.2: Skill Check**
+```
+IF pattern detected:
+  1. Check `.gemini/skills/` for matching skill
+  2. If skill exists:
+     - Display: "💡 Relevant skill found: [skill-name]"
+     - Ask: "Would you like me to activate this skill? (yes/no)"
+  3. If user says yes:
+     - Activate skill using `/skills enable [name]`
+     - Incorporate skill guidance into S1-IDEA
+```
+
+**Step 0.6.3: Skill Suggestion**
+If no matching skill exists but pattern is common:
+- Note: "💭 Consider creating a reusable skill for [pattern] in `resources/blueprints/skills/`"
+
+---
+
 ### PHASE 1: DIAGNOSTIC INTERVIEW (The Consultant)
 
 **Step 1: Analyze Raw Idea**

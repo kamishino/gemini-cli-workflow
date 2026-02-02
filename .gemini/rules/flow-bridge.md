@@ -11,7 +11,7 @@
 
 ---
 
-## 2. � Bridge Output Modes (NEW in v2.39)
+## 2. 🔀 Bridge Output Modes (NEW in v2.39)
 
 ### Mode Selection
 
@@ -131,7 +131,7 @@ The bridge command now supports three output modes:
 
 ---
 
-## 3. �📋 The Handoff Workflow (S4-HANDOFF)
+## 3. 📋 The Handoff Workflow (S4-HANDOFF)
 
 ### MANDATORY Contents of Handoff Package (Full Mode):
 
@@ -195,6 +195,6 @@ When `autoDetectMode: true`, the bridge automatically selects:
 
 ## 🔗 Related Protocols
 
-- `@.gemini/rules/std-fast-track.md` - Minimal mode integration
-- `@.gemini/rules/flow-factory-line.md` - Task classification
+- `@./.gemini/rules/std-fast-track.md` - Minimal mode integration
+- `@./.gemini/rules/flow-factory-line.md` - Task classification
 - `@.windsurf/workflows/kamiflow-execute.md` - IDE receiver

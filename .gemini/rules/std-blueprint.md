@@ -171,11 +171,11 @@ Legend:
 
 ## Options
 
-| Option | Description | Ratings    | Confidence |
-| ------ | ----------- | ---------- | ---------- |
-| A      | Safe & Fast | ⭐⭐⭐⭐   | 🟢 HIGH    |
-| B      | Balanced    | ⭐⭐⭐⭐   | 🟡 MEDIUM  |
-| C      | Ambitious   | ⭐⭐⭐⭐⭐ | 🔴 LOW     |
+| Option | Description | Ratings | Confidence |
+| ------ | ----------- | ------- | ---------- |
+| A      | Safe & Fast | ⭐⭐⭐⭐    | 🟢 HIGH     |
+| B      | Balanced    | ⭐⭐⭐⭐    | 🟡 MEDIUM   |
+| C      | Ambitious   | ⭐⭐⭐⭐⭐   | 🔴 LOW      |
 
 ## Selected: [Option]
 

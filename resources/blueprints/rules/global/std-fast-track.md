@@ -128,7 +128,7 @@ User can force modes:
 
 ### Log File Location
 
-**Path:** `./.kamiflow/fast-track-log.json`
+**Path:** `{{KAMI_WORKSPACE}}fast-track-log.json`
 
 ### Log Schema
 
@@ -273,7 +273,7 @@ At weekly `/kamiflow:ops:error-report`:
     "maxLines": 50,
     "autoClassify": true,
     "requireLock3": true,
-    "logPath": "./.kamiflow/fast-track-log.json"
+    "logPath": "{{KAMI_WORKSPACE}}fast-track-log.json"
   }
 }
 ```
@@ -298,7 +298,7 @@ Set `fastTrack.enabled: false` to always use full ceremony.
 
 ## 🔗 Related Protocols
 
-- `@./.gemini/rules/flow-factory-line.md` - Step -1 Classification
-- `@./.gemini/rules/flow-execution.md` - Validation Loop
-- `@./.gemini/rules/error-recovery.md` - Level 1 Self-Healing
-- `@./.gemini/rules/flow-validation.md` - Abbreviated Validation
+- `@{{KAMI_RULES_GEMINI}}flow-factory-line.md` - Step -1 Classification
+- `@{{KAMI_RULES_GEMINI}}flow-execution.md` - Validation Loop
+- `@{{KAMI_RULES_GEMINI}}error-recovery.md` - Level 1 Self-Healing
+- `@{{KAMI_RULES_GEMINI}}flow-validation.md` - Abbreviated Validation

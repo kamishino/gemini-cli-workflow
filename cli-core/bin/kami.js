@@ -377,6 +377,16 @@ program
     });
   });
 
+program
+  .command("sync-skills")
+  .description("Sync skills from resources/skills/ to .gemini/skills/")
+  .action(async () => {
+    await execute("Syncing Skills", async () => {
+      const { syncSkills } = require("../logic/skill-sync");
+      await syncSkills();
+    });
+  });
+
 const { isLocked, acquireLock, releaseLock, getSwarmStatus } = require("../logic/swarm-dispatcher");
 
 /**

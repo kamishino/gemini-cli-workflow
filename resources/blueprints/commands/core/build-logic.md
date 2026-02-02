@@ -127,6 +127,38 @@ You must begin your output with a summary of what you found during the trinh sá
 - **Atomic & Testable:** Each Task must produce a verifiable change.
 - **Junior-Friendly:** Write instructions like you are teaching a Junior Dev exactly where to put the code.
 
+## 8A. SKILLS INTEGRATION
+
+**Goal:** Leverage existing skills to accelerate implementation.
+
+### Step 8A.1: Skill Pattern Check
+During Lock 3 Reconnaissance, also check for applicable skills:
+```
+IF task involves a common pattern (TDD, auth, API, etc.):
+  1. Check `.gemini/skills/` for matching skill
+  2. If skill exists → Reference in task description
+  3. If skill doesn't exist → Note opportunity for future skill creation
+```
+
+### Step 8A.2: Skill Reference in Tasks
+When a skill applies to a task, add skill reference:
+```markdown
+- [ ] **Task 2.1: Implement auth middleware**
+  - **Skill Available:** `kamiflow-auth-jwt` (use `/skills enable kamiflow-auth-jwt`)
+  - **Anchor:** `middleware/auth.js`
+  - **Action:** Follow skill guidance for JWT implementation
+```
+
+### Step 8A.3: Skill Opportunity Logging
+If a reusable pattern is identified but no skill exists:
+```markdown
+## 💡 Skill Opportunities
+- **Pattern:** JWT authentication middleware
+- **Reuse Potential:** High (3+ projects could benefit)
+- **Suggested Skill:** `kamiflow-auth-jwt`
+- **Location:** `resources/blueprints/skills/kamiflow-auth-jwt/`
+```
+
 ## 9. VALIDATION CHECKLIST
 
 Before output, ensure:
