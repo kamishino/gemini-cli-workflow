@@ -303,13 +303,41 @@ Create **exactly 3 distinct approaches** informed by diagnostic insights:
 - **Option B:** The "Balanced" approach (features vs. complexity trade-off)
 - **Option C:** The "Ambitious" approach (full-featured, higher complexity)
 
-**Step 6: Apply Star Ratings (⭐)**
+**Step 6: Apply Star Ratings (⭐) + MoSCoW Priority**
 Rate each option on **4 criteria** (1-5 stars), using diagnostic insights:
 
 - **Market Pain:** (X/5⭐) How badly is this needed?
 - **Technical Feasibility:** (X/5⭐) Can we build this in 2 weeks?
 - **Stack Alignment:** (X/5⭐) Does it fit our tech stack?
 - **Profit Potential:** (X/5⭐) Will this make money?
+
+**MoSCoW Classification (NEW in v2.39):**
+
+| Priority        | Meaning                    | Criteria                       |
+| --------------- | -------------------------- | ------------------------------ |
+| **Must Have**   | Critical for release       | Blocking, no workaround exists |
+| **Should Have** | Important but not blocking | Workarounds exist, high value  |
+| **Could Have**  | Nice-to-have               | Time permitting, low risk      |
+| **Won't Have**  | Explicitly out of scope    | Deferred to future iteration   |
+
+**Apply MoSCoW to each option's features:**
+```
+Option A (Safe & Fast):
+- [Feature 1]: Must Have
+- [Feature 2]: Should Have
+
+Option B (Balanced):
+- [Feature 1]: Must Have
+- [Feature 2]: Must Have
+- [Feature 3]: Should Have
+
+Option C (Ambitious):
+- [Feature 1-3]: Must Have
+- [Feature 4-5]: Should Have
+- [Feature 6]: Could Have
+```
+
+**Decision Aid:** Total "Must Have" count helps estimate true MVP scope.
 
 **Step 7: Present Options & Wait for User Input**
 **CRITICAL:** Use `wait_for_user_input` to ask:
@@ -357,8 +385,12 @@ Once user confirms, generate the IDEA file with the chosen option.
 
 ## 4. Key Features (MVP Scope) 🎯
 
-- [Feature 1]
-- [Feature 2]
+| Feature     | MoSCoW      | Notes             |
+| ----------- | ----------- | ----------------- |
+| [Feature 1] | Must Have   | [Why critical]    |
+| [Feature 2] | Should Have | [Why important]   |
+| [Feature 3] | Could Have  | [If time permits] |
+| [Feature 4] | Won't Have  | [Deferred to v2]  |
 
 ## 5. Technical Approach 🏗️
 

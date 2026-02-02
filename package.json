@@ -1,18 +1,23 @@
 {
   "name": "kamiflow",
   "private": true,
-  "description": "Indie Builder's OS - Root Workspace",
+  "description": "Indie Builder's OS - Root Workspace (pnpm Monorepo)",
+  "packageManager": "pnpm@9.15.0",
   "engines": {
     "node": ">=16.0.0"
   },
   "scripts": {
-    "sync": "npm --prefix cli-core run sync",
-    "transpile": "npm --prefix cli-core run transpile",
-    "dev": "npm --prefix cli-core run dev",
-    "build": "npm --prefix cli-core run build",
-    "sync-all": "npm run dev && npm run build",
-    "doctor": "npm --prefix cli-core run doctor",
-    "update": "npm --prefix cli-core run update"
+    "sync": "pnpm --filter cli-core run sync",
+    "transpile": "pnpm --filter cli-core run transpile",
+    "dev": "pnpm --filter cli-core run dev",
+    "build": "pnpm --filter cli-core run build",
+    "sync-all": "pnpm run dev && pnpm run build",
+    "doctor": "pnpm --filter cli-core run doctor",
+    "update": "pnpm --filter cli-core run update",
+    "test": "pnpm --filter cli-core run test",
+    "test:coverage": "pnpm --filter cli-core run test:coverage",
+    "clean": "pnpm --filter cli-core run clean",
+    "preinstall": "npx only-allow pnpm"
   },
   "version": "2.39.0"
 }

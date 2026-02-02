@@ -48,6 +48,32 @@ Define function signatures, API endpoints, or component props.
 
 List at least 3 things that could go wrong and how to handle them.
 
+### Step 4.5: Risk Assessment (🔴 Critical Mode Only)
+
+**Trigger:** Only execute this step if task was classified as 🔴 Critical in S1-IDEA.
+
+**Risk Matrix:**
+
+| Risk     | Probability  | Impact       | Risk Score | Mitigation |
+| -------- | ------------ | ------------ | ---------- | ---------- |
+| [Risk 1] | High/Med/Low | High/Med/Low | P×I        | [Strategy] |
+| [Risk 2] | High/Med/Low | High/Med/Low | P×I        | [Strategy] |
+
+**Probability × Impact Scoring:**
+- **High × High = 9** → Blocker, must mitigate before build
+- **High × Med = 6** → Plan mitigation, monitor closely
+- **Med × Med = 4** → Document, have contingency
+- **Low × Low = 1** → Accept, no action needed
+
+**Common Risk Categories:**
+- **Security:** Auth bypass, data exposure, injection
+- **Data:** Migration failure, schema corruption, data loss
+- **Performance:** Timeout, memory leak, N+1 queries
+- **Integration:** API changes, dependency conflicts
+- **Rollback:** Cannot revert, state corruption
+
+**Output:** Include risk table in S2-SPEC Section 7.5 if any risk scores ≥ 6.
+
 ### Step 5: Test Specification (TDD Mandate)
 
 Define how this feature will be verified:
@@ -121,6 +147,17 @@ Define how this feature will be verified:
 
 - [What we are NOT building]
 - [Constraint X]
+
+## 7.5 Risk Assessment (🔴 Critical Mode Only) ⚠️
+
+_Include only if task is classified as Critical and any risk scores ≥ 6_
+
+| Risk     | Probability | Impact | Score | Mitigation                     |
+| -------- | ----------- | ------ | ----- | ------------------------------ |
+| [Risk 1] | High        | High   | 9     | [Blocker - must resolve first] |
+| [Risk 2] | Med         | High   | 6     | [Plan B ready]                 |
+
+**Rollback Plan:** [How to revert if deployment fails]
 
 ## 8. Open Questions ❓
 

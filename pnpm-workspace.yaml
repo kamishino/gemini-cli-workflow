@@ -1,0 +1,4 @@
+packages:
+  - 'cli-core'
+  # Dashboard is deprecated as of v2.39 - excluded from workspace
+  # - 'dashboard'

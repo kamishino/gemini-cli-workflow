@@ -1,15 +1,19 @@
-# Multi-stage build for KamiFlow CLI
+# Multi-stage build for KamiFlow CLI (pnpm Monorepo)
 FROM node:20-alpine AS builder
+
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@9 --activate
 
 # Set working directory
 WORKDIR /app
 
-# Copy package files
-COPY cli-core/package*.json ./cli-core/
-COPY package*.json ./
+# Copy workspace config and package files
+COPY pnpm-workspace.yaml ./
+COPY package.json ./
+COPY cli-core/package.json ./cli-core/
 
 # Install dependencies
-RUN cd cli-core && npm ci --only=production
+RUN pnpm install --frozen-lockfile --prod
 
 # Copy source code
 COPY cli-core/ ./cli-core/
@@ -17,7 +21,7 @@ COPY resources/ ./resources/
 COPY .gemini/ ./.gemini/
 
 # Build distribution
-RUN cd cli-core && npm run build
+RUN pnpm build
 
 # Production image
 FROM node:20-alpine
