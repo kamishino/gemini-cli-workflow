@@ -7,17 +7,17 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "sync": "pnpm --filter cli-core run sync",
-    "transpile": "pnpm --filter cli-core run transpile",
-    "dev": "pnpm --filter cli-core run dev",
-    "build": "pnpm --filter cli-core run build",
+    "sync": "pnpm --filter gemini-cli-kamiflow run sync",
+    "transpile": "pnpm --filter gemini-cli-kamiflow run transpile",
+    "dev": "pnpm --filter gemini-cli-kamiflow run dev",
+    "build": "pnpm --filter gemini-cli-kamiflow run build",
     "sync-all": "pnpm run dev && pnpm run build",
-    "doctor": "pnpm --filter cli-core run doctor",
-    "update": "pnpm --filter cli-core run update",
-    "test": "pnpm --filter cli-core run test",
-    "test:coverage": "pnpm --filter cli-core run test:coverage",
-    "clean": "pnpm --filter cli-core run clean",
+    "doctor": "pnpm --filter gemini-cli-kamiflow run doctor",
+    "update": "pnpm --filter gemini-cli-kamiflow run update",
+    "test": "pnpm --filter gemini-cli-kamiflow run test",
+    "test:coverage": "pnpm --filter gemini-cli-kamiflow run test:coverage",
+    "clean": "pnpm --filter gemini-cli-kamiflow run clean",
     "preinstall": "npx only-allow pnpm"
   },
-  "version": "2.39.0"
+  "version": "2.41.0"
 }

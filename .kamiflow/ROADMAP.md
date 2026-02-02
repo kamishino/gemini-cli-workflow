@@ -1,7 +1,7 @@
 # 🗺️ Strategic RoadMap: KamiFlow Project
 
 > **PO Note:** This roadmap is a living document maintained by the Universal Roadmap Engine.
-> **Device Context:** KAMI-DESKTOP | **Data Freshness:** 2026-02-02
+> **Device Context:** DEV-FTN-7 | **Data Freshness:** 2026-02-02
 
 ---
 
@@ -13,8 +13,8 @@
 ---
 
 ## 🏗️ Current Focus (Active Pillars)
-- **Phase ** Template v2.38.0 (Cascade Architecture Integration)**
-- **Status:** ** Integrated Cascade-inspired architecture into Sniper Model (S1-S4). Upgraded IDEA, SPEC, and BUILD blueprints to include Assumption Verification, Test Specifications, Risk Scoring, and Execution Strategy. Completed full system transpilation to v2.38.0.
+- **Phase ** Template v2.39.0 (Cascade Architecture Integration)**
+- **Status:** ** Implemented v2.39 Adaptive Workflow features: Step -1 Fast Track Classification, Bridge Output Modes (full/executor/minimal), and S3-BUILD Task Dependency Graph with DEPENDS/BLOCKS/PARALLEL annotations.
 
 ---
 
@@ -39,16 +39,16 @@
 
 ### ✅ Completed
 - [x] **v1.0 Core:** Initial setup.
-- [x] **Archived:** 2026-01-26_025_gated-lazy-workflow
-- [x] **Archived:** 2026-01-26_024_atomic-exit-protocol
-- [x] **Archived:** 2026-01-25_023_doc-sync-enforcement
-- [x] **Archived:** 2026-01-25_022_universal-update-command
-- [x] **Archived:** 2026-01-25_021_one-liner-installer
-- [x] **Archived:** 2026-01-25_020_self-healing-cli-engine
-- [x] **Archived:** 2026-01-25_019_gemini-cli-kamiflow-manager
-- [x] **Archived:** 2026-01-25_018_smart-seed-v2
-- [x] **Archived:** 2026-01-25_017_doc-powershell-fix
-- [x] **Archived:** 2026-01-25_016_interactive-sculptor
+- [x] **Archived:** 2026-01-30_104_placeholder-standardization
+- [x] **Archived:** 2026-01-30_103_startup-path-corruption-fix
+- [x] **Archived:** 2026-01-30_102_config-fidelity-sync
+- [x] **Archived:** 2026-01-30_101_config-sync-ux
+- [x] **Archived:** 2026-01-30_100_onboarding-refinement
+- [x] **Archived:** 2026-01-30_099_execution-discipline
+- [x] **Archived:** 2026-01-30_098_summary-sorting
+- [x] **Archived:** 2026-01-30_097_concurrent-engine
+- [x] **Archived:** 2026-01-30_096_centralized-backups
+- [x] **Archived:** 2026-01-30_095_config-schema-categorization
 
 ### 🚧 In Progress
 

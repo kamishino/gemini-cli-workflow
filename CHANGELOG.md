@@ -497,6 +497,40 @@
 
 # Changelog
 
+
+## [v2.39.0] - 2026-02-02
+
+### 🚀 Features
+- feat(v2.39): add skills, pnpm monorepo, MoSCoW/Risk frameworks, CRISP doc (a1432a8)
+- feat(v2.40): add Jest config, deprecate dashboard, and expand skills documentation (542ca2a)
+- feat(skills): add Sniper Model assistant skill and integrate skills into core workflow (v2.40) (51ea96d)
+- feat(blueprints): add Fast Track classification and Bridge output modes to Sniper workflow (v2.39) (8372e5c)
+- feat(core): integrate cascade architecture into sniper model (e89ddf1)
+- feat(architecture): add comprehensive Cascade request processing analysis and KamiFlow integration guide (21f2007)
+- feat(v2.0): complete KamiFlow 2.0 implementation and documentation reorganization (de37d1a)
+- feat(kamiflow): enhanced v2.0 context synchronization and validation protocols across Sniper workflow (2cbb3b4)
+- feat(blueprints): enhanced the p-market commands and reflected the document v2.0 (1be18ec)
+- feat(blueprints): implemented comprehensive anti-hallucination verification and error recovery protocols across Sniper workflow (2e31960)
+- feat(blueprints): enhanced anti-hallucination safeguards and validation protocols across Sniper workflow (468e9e1)
+- feat(ci/cd): implemented comprehensive release automation and Docker infrastructure (da8e224)
+- feat(perf): implemented high-performance blueprint caching and parallel transpilation engine (9e1924e)
+- feat(security): hardened CLI initialization, fs-vault path validation, and safe-exec shell handling (040264c)
+- feat(core): implemented i18n infrastructure, hardened fs-vault security, and improved installation resilience (83f609d)
+
+### 🐛 Fixes
+- fix(blueprints): corrected step numbering sequence in idea-logic.md PHASE 2 from 5-9 to 4-8 for continuous workflow (5acaa72)
+
+### 🧹 Chores & Others
+- chore(release): 2.39.0 [Task 026] - Cascade Architecture Integration (4e1874d)
+- chore(release): 2.38.0 (dddccbd)
+- chore(release): 2.37.0 (4224fb1)
+- chore(release): 2.36.1 (7ca0862)
+- chore(release): 2.36.0 (22d6c89)
+- docs(core): streamlined GEMINI.md and enhanced bridge/resume protocols with v2.0 validation and anti-hallucination safeguards (5f70e06)
+- refactor(blueprints): fix heading hierarchy in command files (v2.38.0) (d1bc5a3)
+- test: hardened logger test suite with defensive console spy handling and improved error resilience (cfb8d64)
+- style: standardized code formatting with Prettier and improved config manager robustness (3bcda11)
+
 All notable changes to this project will be documented in this file.
 
 ## [v2.11.0] - 2026-01-26
