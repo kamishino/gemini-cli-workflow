@@ -137,7 +137,7 @@ order: 85
 - Note any new ideas not yet documented
 
 ### Check Checkpoints (Optional)
-- Directory: `./.kamiflow/checkpoints/`
+- Directory: `./.kamiflow/.kamiflow/checkpoints/`
 - Purpose: Verify paused workflows from Session State
 - Identify resume opportunities
 

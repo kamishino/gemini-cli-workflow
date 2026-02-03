@@ -70,7 +70,7 @@ order: 90
 
 ### Storage Location
 
-**Directory:** `./.kamiflow/checkpoints/`
+**Directory:** `./.kamiflow/.kamiflow/checkpoints/`
 
 **Filename Pattern:** `[ID]-checkpoint-[phase].json`
 
