@@ -611,6 +611,212 @@ syncFlow
     });
   });
 
+syncFlow
+  .command("daemon-start")
+  .description("Start auto-sync daemon in background")
+  .action(async () => {
+    await execute(null, async () => {
+      const { SyncDaemon } = require("../logic/sync-daemon");
+      const daemon = new SyncDaemon(process.cwd());
+
+      const status = await daemon.getStatus();
+      if (status.running) {
+        console.log(chalk.yellow("⚠️  Daemon is already running\n"));
+        return;
+      }
+
+      await daemon.start();
+      console.log(chalk.gray("\n💡 Daemon will sync changes automatically"));
+      console.log(chalk.gray("   Run 'kami sync daemon-stop' to stop\n"));
+    });
+  });
+
+syncFlow
+  .command("daemon-stop")
+  .description("Stop auto-sync daemon")
+  .action(async () => {
+    await execute(null, async () => {
+      const { SyncDaemon } = require("../logic/sync-daemon");
+      const daemon = new SyncDaemon(process.cwd());
+
+      const status = await daemon.getStatus();
+      if (!status.running) {
+        console.log(chalk.gray("Daemon is not running\n"));
+        return;
+      }
+
+      await daemon.stop();
+    });
+  });
+
+syncFlow
+  .command("daemon-status")
+  .description("Show auto-sync daemon status")
+  .action(async () => {
+    await execute(null, async () => {
+      const { SyncDaemon } = require("../logic/sync-daemon");
+      const daemon = new SyncDaemon(process.cwd());
+      const status = await daemon.getStatus();
+
+      console.log(chalk.cyan("\n🤖 Daemon Status\n"));
+      console.log(
+        chalk.gray("Status:"),
+        status.running ? chalk.green("Running") : chalk.yellow("Stopped"),
+      );
+      console.log(chalk.gray("Mode:"), chalk.white(status.mode));
+      console.log(
+        chalk.gray("Enabled:"),
+        status.enabled ? chalk.green("Yes") : chalk.red("No"),
+      );
+
+      if (status.running) {
+        console.log(
+          chalk.gray("Watching:"),
+          chalk.white(status.watching.join(", ")),
+        );
+        console.log(
+          chalk.gray("Queued:"),
+          chalk.white(status.queuedFiles + " file(s)"),
+        );
+      }
+      console.log();
+    });
+  });
+
+syncFlow
+  .command("daemon-logs")
+  .description("Show auto-sync daemon logs")
+  .option("-n, --lines <number>", "Number of log lines to show", "50")
+  .action(async (options) => {
+    await execute(null, async () => {
+      const { SyncDaemon } = require("../logic/sync-daemon");
+      const daemon = new SyncDaemon(process.cwd());
+      const logs = await daemon.getLogs(parseInt(options.lines));
+
+      if (logs.length === 0) {
+        console.log(chalk.gray("\nNo logs available\n"));
+        return;
+      }
+
+      console.log(chalk.cyan("\n📋 Daemon Logs\n"));
+      logs.forEach((line) => console.log(chalk.gray(line)));
+      console.log();
+    });
+  });
+
+syncFlow
+  .command("conflicts")
+  .description("List unresolved sync conflicts")
+  .action(async () => {
+    await execute(null, async () => {
+      const { ConflictResolver } = require("../logic/conflict-resolver");
+      const resolver = new ConflictResolver(process.cwd());
+      const conflicts = await resolver.getConflicts();
+
+      if (conflicts.length === 0) {
+        console.log(chalk.green("\n✅ No conflicts\n"));
+        return;
+      }
+
+      console.log(chalk.yellow(`\n⚠️  ${conflicts.length} Conflict(s)\n`));
+
+      conflicts.forEach((conflict, index) => {
+        console.log(chalk.white(`${index + 1}. ${conflict.filePath}`));
+        console.log(chalk.gray(`   ID: ${conflict.id}`));
+        console.log(
+          chalk.gray(
+            `   Date: ${new Date(conflict.timestamp).toLocaleString()}\n`,
+          ),
+        );
+      });
+
+      console.log(
+        chalk.gray("Run 'kami sync resolve <id>' to resolve a conflict\n"),
+      );
+    });
+  });
+
+syncFlow
+  .command("resolve <conflictId>")
+  .description("Resolve a sync conflict")
+  .option(
+    "-s, --strategy <strategy>",
+    "Resolution strategy: keep-local, keep-remote, merge, manual",
+  )
+  .action(async (conflictId, options) => {
+    await execute(null, async () => {
+      const inquirer = require("inquirer").default;
+      const { ConflictResolver } = require("../logic/conflict-resolver");
+      const resolver = new ConflictResolver(process.cwd());
+
+      const conflict = await resolver.getConflict(conflictId);
+
+      console.log(chalk.cyan("\n🔀 Conflict Resolution\n"));
+      console.log(chalk.gray("File:"), chalk.white(conflict.filePath));
+      console.log(
+        chalk.gray("Local checksum:"),
+        chalk.white(conflict.local.checksum.substring(0, 16) + "..."),
+      );
+      console.log(
+        chalk.gray("Remote checksum:"),
+        chalk.white(conflict.remote.checksum.substring(0, 16) + "..."),
+      );
+
+      let strategy = options.strategy;
+
+      if (!strategy) {
+        const { chosenStrategy } = await inquirer.prompt([
+          {
+            type: "list",
+            name: "chosenStrategy",
+            message: "Choose resolution strategy:",
+            choices: [
+              { name: "Keep local version", value: "keep-local" },
+              { name: "Keep remote version", value: "keep-remote" },
+              { name: "Attempt auto-merge", value: "merge" },
+              { name: "Edit manually", value: "manual" },
+            ],
+          },
+        ]);
+        strategy = chosenStrategy;
+      }
+
+      let customContent = null;
+      if (strategy === "manual") {
+        console.log(chalk.gray("\n📝 Opening editor for manual resolution..."));
+        console.log(
+          chalk.gray(
+            "(Feature requires external editor - showing content instead)\n",
+          ),
+        );
+        console.log(chalk.yellow("=== LOCAL VERSION ==="));
+        console.log(conflict.local.content.substring(0, 500) + "...\n");
+        console.log(chalk.yellow("=== REMOTE VERSION ==="));
+        console.log(conflict.remote.content.substring(0, 500) + "...\n");
+
+        const { useLocal } = await inquirer.prompt([
+          {
+            type: "confirm",
+            name: "useLocal",
+            message: "Use local version?",
+            default: true,
+          },
+        ]);
+
+        strategy = useLocal ? "keep-local" : "keep-remote";
+      }
+
+      const result = await resolver.resolveConflict(
+        conflictId,
+        strategy,
+        customContent,
+      );
+
+      console.log(chalk.green(`\n✅ Conflict resolved using: ${strategy}`));
+      console.log(chalk.gray(`   File: ${result.filePath}\n`));
+    });
+  });
+
 // Saiyan Command
 program
   .command("saiyan [input]")
