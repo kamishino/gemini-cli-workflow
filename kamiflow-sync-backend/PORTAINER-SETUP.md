@@ -52,21 +52,8 @@ Example output: `a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef12345
    ```
 
 4. **Environment Variables** (click "Add environment variable"):
-   ```
-   API_KEY = <your-generated-api-key-from-step-1>
-   ```
 
-5. **Click "Deploy the stack"**
-
-### Option B: Using Portainer Web Editor
-
-1. **Login to Portainer** → Navigate to **Stacks**
-
-2. **Click "Add stack"**
-
-3. **Name**: `kamiflow-sync-backend`
-
-4. **Web editor** - Paste this configuration:
+5. **Paste this docker-compose.yml**:
 
 ```yaml
 version: '3.8'
@@ -77,7 +64,20 @@ services:
     container_name: kamiflow-sync
     restart: unless-stopped
     working_dir: /app
-    command: sh -c "apk add --no-cache python3 make g++ git && cd /tmp && git clone https://github.com/kamishino/gemini-cli-workflow.git && cd gemini-cli-workflow/kamiflow-sync-backend && npm install && node src/server.js"
+    command: sh -c "
+      apk add --no-cache python3 make g++ git wget &&
+      echo 'Cleaning workspace...' &&
+      rm -rf /app/* /app/.* 2>/dev/null || true &&
+      echo 'Cloning repository...' &&
+      git clone https://github.com/kamishino/gemini-cli-workflow.git /tmp/repo &&
+      echo 'Moving files to /app...' &&
+      cp -r /tmp/repo/* /app/ &&
+      cd /app/kamiflow-sync-backend &&
+      echo 'Installing dependencies...' &&
+      npm install &&
+      echo 'Starting server...' &&
+      node src/server.js
+    "
     ports:
       - "3030:3030"
     environment:
@@ -92,25 +92,66 @@ services:
       - LOG_LEVEL=info
     volumes:
       - kamiflow_data:/data
-      - kamiflow_logs:/app/logs
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3030/health"]
       interval: 30s
       timeout: 10s
-      retries: 3
-      start_period: 40s
+      retries: 5
+      start_period: 180s
 
 volumes:
   kamiflow_data:
-  kamiflow_logs:
+    driver: local
 ```
 
-5. **Environment variables**:
+6. **Environment variables**:
    - Click "Add an environment variable"
    - Name: `API_KEY`
    - Value: `<your-generated-api-key>`
 
-6. **Click "Deploy the stack"**
+7. **Click "Deploy the stack"**
+
+### Option B: Pre-built Image (Recommended for Production)
+
+1. **Build image locally** (or use GitHub Actions):
+   ```bash
+   cd kamiflow-sync-backend
+   docker build -t kamiflow-sync:latest -f Dockerfile.portainer .
+   docker save kamiflow-sync:latest | gzip > kamiflow-sync.tar.gz
+   ```
+
+2. **Upload to Portainer**:
+   - **Images** → **Import**
+   - Upload `kamiflow-sync.tar.gz`
+
+3. **Create Stack** with simplified config:
+   ```yaml
+   version: '3.8'
+   
+   services:
+     kamiflow-sync:
+       image: kamiflow-sync:latest
+       container_name: kamiflow-sync
+       restart: unless-stopped
+       ports:
+         - "3030:3030"
+       environment:
+         - NODE_ENV=production
+         - PORT=3030
+         - API_KEY=${API_KEY}
+         - DB_PATH=/data/kamiflow-sync.db
+         - MAX_FILE_SIZE=10485760
+         - RATE_LIMIT_WINDOW_MS=900000
+         - RATE_LIMIT_MAX_REQUESTS=100
+         - CORS_ORIGINS=*
+         - LOG_LEVEL=info
+       volumes:
+         - kamiflow_data:/data
+   
+   volumes:
+     kamiflow_data:
+       driver: local
+   ```
 
 ---
 

@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  kamiflow-sync:
+    build:
+      context: .
+      dockerfile: Dockerfile.portainer
+    container_name: kamiflow-sync
+    restart: unless-stopped
+    ports:
+      - "3030:3030"
+    environment:
+      - NODE_ENV=production
+      - PORT=3030
+      - API_KEY=${API_KEY}
+      - DB_PATH=/data/kamiflow-sync.db
+      - MAX_FILE_SIZE=10485760
+      - RATE_LIMIT_WINDOW_MS=900000
+      - RATE_LIMIT_MAX_REQUESTS=100
+      - CORS_ORIGINS=*
+      - LOG_LEVEL=info
+    volumes:
+      - kamiflow_data:/data
+
+volumes:
+  kamiflow_data:
+    driver: local
