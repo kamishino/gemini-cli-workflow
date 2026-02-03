@@ -3,18 +3,18 @@
 ## 1. Project Identity
 
 - **Goal:** A rigorous, opinionated "Operating System" template for Indie Hackers using Gemini CLI + AI IDEs with v2.0 enhanced stability and Cascade-inspired architecture.
-- **Current Phase:** Template v2.39.0 (Cascade Architecture Integration)
-- **Key Tech:** Gemini CLI (TOML Commands), Node.js CLI, React Dashboard, Docker, GitHub Actions, Windsurf/Cursor, Markdown Protocols, v2.0 Enhanced Protocols.
-- **New Capabilities:** Plugin System, Web Dashboard, Automated CI/CD, Performance Caching, Security Hardening, i18n, Hardened Test Suite, Cascade-inspired S1-S4 Integrated Architecture.
+- **Current Phase:** Template v2.41.0 (Repository Reorganization & Sync Backend)
+- **Key Tech:** Gemini CLI (TOML Commands), Node.js CLI, Self-Hosted Sync Backend, Docker, GitHub Actions, Windsurf/Cursor, Markdown Protocols, v2.0 Enhanced Protocols.
+- **New Capabilities:** Plugin System, Workspace Sync Backend, Automated CI/CD, Performance Caching, Security Hardening, i18n, Hardened Test Suite, Cascade-inspired S1-S4 Integrated Architecture.
 - **Tour Completed:** true
 
 ## 2. Active Context (The "Now")
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Implemented v2.39 Adaptive Workflow features: Step -1 Fast Track Classification, Bridge Output Modes (full/executor/minimal), and S3-BUILD Task Dependency Graph with DEPENDS/BLOCKS/PARALLEL annotations.
-- **Current Focus:** Testing and validation of new adaptive workflow features before v2.39.0 release.
-- **Next Step:** Test Fast Track classification on a sample lightweight task, then run `/kamiflow:ops:sync` to align project state.
+- **Last Completed Action:** Reorganized repository structure - moved sync backend to /packages, removed deprecated dashboard, established clearer project structure with SSOT documentation in /resources.
+- **Current Focus:** Preparing v2.41.0 release with repository reorganization and sync backend improvements.
+- **Next Step:** Complete documentation updates and execute semantic version release.
 
 ## 3. Knowledge Map (Directory Guide)
 
@@ -32,9 +32,9 @@
 
 - **Blueprints:** `.gemini/` - Portal to cli-core/.gemini (command definitions, rules, skills).
 - **IDE Bridge:** `.windsurf/` - Portal to cli-core/.windsurf (workflows, rules).
-- **Dashboard:** `dashboard/` - React monitoring interface.
-  - `src/` - React components and pages.
-  - `server/` - Express API backend.
+- **Sync Backend:** `packages/sync-backend/` - Self-hosted sync backend for private workspace data.
+  - `src/` - Express API and SQLite database.
+  - Docker configs for deployment (Portainer, Docker Compose).
 
 ### DevOps & CI/CD
 
