@@ -409,11 +409,11 @@ cd <project>
 kami init
 
 # Setup sync
-kami sync setup
+kami sync-db setup
 # Enter same backend URL and API key
 
 # Download existing data
-kami sync pull
+kami sync-db pull
 ```
 
 ### Clearing Local State
@@ -431,7 +431,7 @@ kami sync-db setup
 1. Export from old backend (if available)
 2. Setup new backend
 3. Update `.kamirc.json` with new URL
-4. Run `kami sync update-key`
+4. Run `kami sync-db update-key`
 5. Push all files: `kami sync-db push`
 
 ---

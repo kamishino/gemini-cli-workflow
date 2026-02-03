@@ -132,11 +132,17 @@ async function guidedCloudflareSetup() {
   console.log(chalk.cyan("\n📖 Guided Cloudflare Setup\n"));
   console.log("Follow these steps to deploy your sync backend:\n");
   console.log("1. Clone the backend repository:");
-  console.log(chalk.gray("   git clone https://github.com/kamishino/kamiflow-sync-backend.git\n"));
+  console.log(
+    chalk.gray(
+      "   git clone https://github.com/kamishino/gemini-cli-workflow.git\n",
+    ),
+  );
   console.log("2. Follow the setup guide:");
-  console.log(chalk.gray("   See: https://github.com/kamishino/kamiflow-sync-backend#cloudflare\n"));
+  console.log(
+    chalk.gray("   See: resources/docs/sync/backend/README.md#cloudflare\n"),
+  );
   console.log("3. Return here and run:");
-  console.log(chalk.cyan("   kami sync setup\n"));
+  console.log(chalk.cyan("   kami sync-db setup\n"));
 }
 
 /**
@@ -145,12 +151,14 @@ async function guidedCloudflareSetup() {
 async function guidedSelfHostedSetup() {
   console.log(chalk.cyan("\n🐳 Guided Self-Hosted Setup\n"));
   console.log("Follow these steps to deploy with Docker:\n");
-  console.log("1. Clone the backend repository:");
-  console.log(chalk.gray("   git clone https://github.com/kamishino/kamiflow-sync-backend.git\n"));
+  console.log("1. Use the included backend in this repository:");
+  console.log(chalk.gray("   cd kamiflow-sync-backend/\n"));
   console.log("2. Follow the Docker Compose guide:");
-  console.log(chalk.gray("   See: https://github.com/kamishino/kamiflow-sync-backend#self-hosted\n"));
+  console.log(
+    chalk.gray("   See: resources/docs/sync/backend/README.md#self-hosted\n"),
+  );
   console.log("3. Return here and run:");
-  console.log(chalk.cyan("   kami sync setup\n"));
+  console.log(chalk.cyan("   kami sync-db setup\n"));
 }
 
 /**
@@ -164,7 +172,9 @@ async function updateApiKey(projectRoot) {
 
   const backend = await configManager.get("sync.backend");
   if (!backend) {
-    console.log(chalk.red("Sync not configured. Run 'kami sync setup' first.\n"));
+    console.log(
+      chalk.red("Sync not configured. Run 'kami sync-db setup' first.\n"),
+    );
     return;
   }
 
