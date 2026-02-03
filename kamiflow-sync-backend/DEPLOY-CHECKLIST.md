@@ -1,6 +1,6 @@
 # Deployment Checklist for Portainer + CloudPanel
 
-**Domain**: kamiflow.chinmotdesign.com  
+**Domain**: sync.yourdomain.com  
 **Port**: 3030  
 **GitHub**: https://github.com/kamishino/gemini-cli-workflow
 
@@ -78,7 +78,7 @@ volumes:
 ### Add Domain:
 
 1. **CloudPanel** → **Domains** → **Add Domain**
-   - Domain: `kamiflow.chinmotdesign.com`
+   - Domain: `sync.yourdomain.com`
    - Click **Create**
 
 ### Configure Reverse Proxy:
@@ -118,7 +118,7 @@ location / {
 
 ```bash
 # Health check
-curl https://kamiflow.chinmotdesign.com/health
+curl https://sync.yourdomain.com/health
 
 # Expected: {"status":"ok","version":"1.0.0"}
 ```
@@ -135,7 +135,7 @@ kami sync setup
 
 **Enter:**
 - Deployment: "I already have a backend running"
-- Backend URL: `https://kamiflow.chinmotdesign.com`
+- Backend URL: `https://sync.yourdomain.com`
 - API Key: `<your-api-key>`
 - Mode: `manual`
 
@@ -150,7 +150,7 @@ kami sync push
 ## 🎯 Verification Checklist
 
 - [ ] Container running in Portainer (green status)
-- [ ] Health endpoint responds: `curl https://kamiflow.chinmotdesign.com/health`
+- [ ] Health endpoint responds: `curl https://sync.yourdomain.com/health`
 - [ ] SSL certificate installed (https works)
 - [ ] CLI can connect and sync
 - [ ] No errors in Portainer logs
@@ -170,7 +170,7 @@ kami sync push
 sudo nginx -t
 
 # Check DNS
-nslookup kamiflow.chinmotdesign.com
+nslookup sync.yourdomain.com
 
 # Test direct access
 curl http://SERVER_IP:3030/health

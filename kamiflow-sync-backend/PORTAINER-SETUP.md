@@ -3,7 +3,7 @@
 Deploy KamiFlow Sync Backend using Portainer with CloudPanel reverse proxy.
 
 **Configuration:**
-- Domain: `kamiflow.chinmotdesign.com`
+- Domain: `sync.yourdomain.com`
 - Port: `3030`
 - GitHub: `https://github.com/kamishino/gemini-cli-workflow`
 
@@ -150,8 +150,8 @@ volumes:
 
 3. Configure:
    ```
-   Domain Name: kamiflow.chinmotdesign.com
-   Document Root: /home/cloudpanel/htdocs/kamiflow.chinmotdesign.com
+   Domain Name: sync.yourdomain.com
+   Document Root: /home/cloudpanel/htdocs/sync.yourdomain.com
    ```
 
 4. Click **Create**
@@ -211,7 +211,7 @@ location / {
 ### External Access
 
 ```bash
-curl https://kamiflow.chinmotdesign.com/health
+curl https://sync.yourdomain.com/health
 ```
 
 Expected response:
@@ -223,7 +223,7 @@ Expected response:
 
 ```bash
 curl -H "Authorization: Bearer YOUR_API_KEY" \
-     https://kamiflow.chinmotdesign.com/v1/projects/test/status
+     https://sync.yourdomain.com/v1/projects/test/status
 ```
 
 ---
@@ -242,7 +242,7 @@ kami sync setup
 
 **Enter when prompted:**
 1. **Deployment option**: "I already have a backend running"
-2. **Backend URL**: `https://kamiflow.chinmotdesign.com`
+2. **Backend URL**: `https://sync.yourdomain.com`
 3. **API Key**: `<your-api-key-from-step-1>`
 4. **Sync mode**: `manual`
 
@@ -339,7 +339,7 @@ sudo systemctl status nginx
 
 **Check DNS:**
 ```bash
-nslookup kamiflow.chinmotdesign.com
+nslookup sync.yourdomain.com
 ```
 
 **Check CloudPanel logs:**
@@ -349,7 +349,7 @@ tail -f /var/log/nginx/error.log
 
 ### SSL Certificate Issues
 
-1. In CloudPanel → **Domains** → **kamiflow.chinmotdesign.com**
+1. In CloudPanel → **Domains** → **sync.yourdomain.com**
 2. Navigate to **SSL/TLS**
 3. Click **Renew Certificate**
 
@@ -372,7 +372,7 @@ Update if needed:
 ### Health Check Endpoint
 
 ```bash
-curl https://kamiflow.chinmotdesign.com/health
+curl https://sync.yourdomain.com/health
 ```
 
 ### Container Health via Portainer
@@ -441,7 +441,7 @@ Access container shell via Portainer:
 ## Cost Estimate
 
 - **VPS/Server**: Already have (CloudPanel setup)
-- **Domain**: Already have (chinmotdesign.com)
+- **Domain**: Already have (yourdomain.com)
 - **Additional Cost**: $0/month ✨
 
 ---
@@ -463,4 +463,4 @@ Access container shell via Portainer:
 | Update | Portainer → Stacks → Pull and redeploy |
 | Backup | Portainer → Volumes → kamiflow_data → Download |
 | SSL Renew | CloudPanel → Domains → SSL/TLS → Renew |
-| Health Check | `curl https://kamiflow.chinmotdesign.com/health` |
+| Health Check | `curl https://sync.yourdomain.com/health` |

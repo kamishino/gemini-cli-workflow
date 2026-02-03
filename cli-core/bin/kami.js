@@ -265,9 +265,9 @@ configFlow
     });
   });
 
-// Sync command
+// Documentation sync command
 program
-  .command("sync-flow")
+  .command("sync-docs")
   .alias("sync")
   .description("Synchronize command documentation")
   .action(async () => {
@@ -503,17 +503,19 @@ program
     });
   });
 
-// Sync Command Group
-const syncFlow = program
-  .command("sync-flow")
-  .alias("sync")
-  .description("Synchronize private workspace data");
+// Workspace Database Sync Command Group
+const syncDbFlow = program
+  .command("sync-db")
+  .description("Synchronize private workspace data (.kamiflow/)");
 
-syncFlow
+syncDbFlow
   .command("setup")
   .description("Configure sync backend and credentials")
   .option("--backend <url>", "Backend URL")
-  .option("--api-key <key>", "API key (not recommended, use interactive prompt)")
+  .option(
+    "--api-key <key>",
+    "API key (not recommended, use interactive prompt)",
+  )
   .option("--mode <mode>", "Sync mode: manual, auto, on-command")
   .action(async (options) => {
     await execute("KamiFlow Sync Setup", async () => {
@@ -522,7 +524,7 @@ syncFlow
     });
   });
 
-syncFlow
+syncDbFlow
   .command("push")
   .description("Upload local changes to sync backend")
   .action(async () => {
@@ -533,7 +535,7 @@ syncFlow
     });
   });
 
-syncFlow
+syncDbFlow
   .command("pull")
   .description("Download remote changes from sync backend")
   .action(async () => {
@@ -544,7 +546,7 @@ syncFlow
     });
   });
 
-syncFlow
+syncDbFlow
   .command("status")
   .description("Show sync status and pending changes")
   .action(async () => {
@@ -552,18 +554,30 @@ syncFlow
       const { SyncManager } = require("../logic/sync-manager");
       const manager = new SyncManager(process.cwd());
       const status = await manager.status();
-      
+
       console.log(chalk.cyan("\n📊 Sync Status\n"));
       console.log(chalk.gray("Backend:"), chalk.white(status.backend));
       console.log(chalk.gray("Project ID:"), chalk.white(status.projectId));
       console.log(chalk.gray("Mode:"), chalk.white(status.mode));
-      console.log(chalk.gray("Last sync:"), chalk.white(status.lastSync ? new Date(status.lastSync).toLocaleString() : "Never"));
-      console.log(chalk.gray("Pending files:"), chalk.white(status.pendingFiles));
-      
+      console.log(
+        chalk.gray("Last sync:"),
+        chalk.white(
+          status.lastSync
+            ? new Date(status.lastSync).toLocaleString()
+            : "Never",
+        ),
+      );
+      console.log(
+        chalk.gray("Pending files:"),
+        chalk.white(status.pendingFiles),
+      );
+
       if (status.pendingFiles > 0) {
         console.log(chalk.gray("\nFiles to sync:"));
-        status.files.slice(0, 5).forEach(f => {
-          console.log(chalk.gray(`  • ${f.path} (${(f.size / 1024).toFixed(1)} KB)`));
+        status.files.slice(0, 5).forEach((f) => {
+          console.log(
+            chalk.gray(`  • ${f.path} (${(f.size / 1024).toFixed(1)} KB)`),
+          );
         });
         if (status.files.length > 5) {
           console.log(chalk.gray(`  ... and ${status.files.length - 5} more`));
@@ -573,7 +587,7 @@ syncFlow
     });
   });
 
-syncFlow
+syncDbFlow
   .command("update-key")
   .description("Update API key for sync backend")
   .action(async () => {
@@ -583,35 +597,39 @@ syncFlow
     });
   });
 
-syncFlow
+syncDbFlow
   .command("delete-remote")
   .description("Delete all remote data (requires confirmation)")
   .option("--confirm", "Skip confirmation prompt")
   .action(async (options) => {
     await execute(null, async () => {
       const inquirer = require("inquirer").default;
-      
+
       if (!options.confirm) {
-        const { confirmed } = await inquirer.prompt([{
-          type: "confirm",
-          name: "confirmed",
-          message: chalk.yellow("⚠️  Delete ALL remote data? This cannot be undone."),
-          default: false
-        }]);
-        
+        const { confirmed } = await inquirer.prompt([
+          {
+            type: "confirm",
+            name: "confirmed",
+            message: chalk.yellow(
+              "⚠️  Delete ALL remote data? This cannot be undone.",
+            ),
+            default: false,
+          },
+        ]);
+
         if (!confirmed) {
           console.log(chalk.gray("\nCancelled.\n"));
           return;
         }
       }
-      
+
       const { SyncManager } = require("../logic/sync-manager");
       const manager = new SyncManager(process.cwd());
       await manager.deleteRemote();
     });
   });
 
-syncFlow
+syncDbFlow
   .command("daemon-start")
   .description("Start auto-sync daemon in background")
   .action(async () => {
@@ -631,7 +649,7 @@ syncFlow
     });
   });
 
-syncFlow
+syncDbFlow
   .command("daemon-stop")
   .description("Stop auto-sync daemon")
   .action(async () => {
@@ -649,7 +667,7 @@ syncFlow
     });
   });
 
-syncFlow
+syncDbFlow
   .command("daemon-status")
   .description("Show auto-sync daemon status")
   .action(async () => {
@@ -683,7 +701,7 @@ syncFlow
     });
   });
 
-syncFlow
+syncDbFlow
   .command("daemon-logs")
   .description("Show auto-sync daemon logs")
   .option("-n, --lines <number>", "Number of log lines to show", "50")
@@ -704,7 +722,7 @@ syncFlow
     });
   });
 
-syncFlow
+syncDbFlow
   .command("conflicts")
   .description("List unresolved sync conflicts")
   .action(async () => {
@@ -736,7 +754,7 @@ syncFlow
     });
   });
 
-syncFlow
+syncDbFlow
   .command("resolve <conflictId>")
   .description("Resolve a sync conflict")
   .option(

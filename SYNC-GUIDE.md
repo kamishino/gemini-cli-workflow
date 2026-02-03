@@ -1,12 +1,12 @@
-# KamiFlow Sync Complete Guide
+# KamiFlow Database Sync Guide
 
-Complete documentation for KamiFlow's local-first synchronization system.
+Complete documentation for KamiFlow's local-first workspace synchronization system.
 
 ---
 
 ## Overview
 
-KamiFlow Sync keeps your private workspace data (`.kamiflow/archive`, `.kamiflow/ideas`, `.kamiflow/tasks`) synchronized across devices while keeping them off GitHub.
+KamiFlow Database Sync (`sync-db`) keeps your private workspace data (`.kamiflow/archive`, `.kamiflow/ideas`, `.kamiflow/tasks`) synchronized across devices while keeping them off GitHub.
 
 **Features:**
 - 🔍 **Local Search** - Fast full-text search across all files
@@ -61,7 +61,7 @@ kami sync setup
 
 You'll be prompted to:
 1. **Choose deployment**: Existing backend, Cloudflare, or self-hosted
-2. **Enter backend URL**: e.g., `https://kamiflow.chinmotdesign.com`
+2. **Enter backend URL**: e.g., `https://sync.yourdomain.com`
 3. **Enter API key**: Your secure 64-character key
 4. **Choose sync mode**: `manual` or `auto`
 
@@ -74,7 +74,7 @@ Settings stored in `.kamirc.json`:
   "sync": {
     "enabled": true,
     "projectId": "a1b2c3d4...",
-    "backend": "https://kamiflow.chinmotdesign.com",
+    "backend": "https://sync.yourdomain.com",
     "mode": "manual",
     "categories": ["archive", "ideas", "tasks"]
   }
@@ -85,10 +85,10 @@ Settings stored in `.kamirc.json`:
 
 ```bash
 # Check what needs syncing
-kami sync status
+kami sync-db status
 
 # Upload local changes
-kami sync push
+kami sync-db push
 
 # Download remote changes
 kami sync pull
@@ -97,7 +97,7 @@ kami sync pull
 kami sync update-key
 
 # Delete all remote data (destructive!)
-kami sync delete-remote --confirm
+kami sync-db delete-remote --confirm
 ```
 
 ### How It Works
@@ -157,7 +157,7 @@ When both local and remote versions have changed:
 kami sync conflicts
 
 # Resolve a conflict
-kami sync resolve <conflict-id>
+kami sync-db resolve <conflict-id>
 ```
 
 **Resolution Strategies:**
@@ -231,11 +231,11 @@ kami idea "New feature"
 kami task "Implement feature"
 
 # Check what changed
-kami sync status
+kami sync-db status
 # Output: 2 files pending
 
 # Upload to cloud
-kami sync push
+kami sync-db push
 # Output: Synced 2 files
 
 # On another device
@@ -271,11 +271,11 @@ kami sync conflicts
 #    ID: 1707123456-a1b2c3d4
 
 # Resolve it
-kami sync resolve 1707123456-a1b2c3d4
+kami sync-db resolve 1707123456-a1b2c3d4
 # Choose: Keep local / Keep remote / Merge
 
 # Verify resolution
-kami sync status
+kami sync-db status
 # Output: 0 conflicts
 ```
 
@@ -297,7 +297,7 @@ kami sync status
 cp -r .kamiflow/archive .backup/archive-$(date +%Y%m%d)
 
 # Remote backup (via sync)
-kami sync push
+kami sync-db push
 
 # Database backup
 cp .kamiflow/.sync/state.json .backup/
@@ -357,17 +357,17 @@ rm .kamiflow/.sync/daemon.pid
 kami sync conflicts
 
 # Force resolution
-kami sync resolve <id> --strategy keep-local
+kami sync-db resolve <id> --strategy keep-local
 ```
 
 ### Backend Connection Issues
 
 ```bash
 # Test connection
-curl https://kamiflow.chinmotdesign.com/health
+curl https://sync.yourdomain.com/health
 
 # Check API key
-kami sync status
+kami sync-db status
 
 # Update backend URL
 # Edit .kamirc.json manually or re-run setup
@@ -432,7 +432,7 @@ kami sync setup
 2. Setup new backend
 3. Update `.kamirc.json` with new URL
 4. Run `kami sync update-key`
-5. Push all files: `kami sync push`
+5. Push all files: `kami sync-db push`
 
 ---
 
@@ -499,7 +499,7 @@ A: Transport: Yes (HTTPS). At rest: Depends on backend setup.
 A: Yes, each project gets a unique `projectId`.
 
 **Q: How do I delete all remote data?**
-A: `kami sync delete-remote --confirm`
+A: `kami sync-db delete-remote --confirm`
 
 ---
 
