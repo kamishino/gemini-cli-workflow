@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  kamiflow-sync:
+    image: ghcr.io/kamishino/kamiflow-sync-backend:latest
+    container_name: kamiflow-sync
+    restart: unless-stopped
+    ports:
+      - "3030:3030"
+    environment:
+      - NODE_ENV=production
+      - PORT=3030
+      - API_KEY=${API_KEY}
+      - DB_PATH=/data/kamiflow-sync.db
+      - MAX_FILE_SIZE=10485760
+      - RATE_LIMIT_WINDOW_MS=900000
+      - RATE_LIMIT_MAX_REQUESTS=100
+      - CORS_ORIGINS=*
+      - LOG_LEVEL=info
+    volumes:
+      - kamiflow_data:/data
+      - kamiflow_logs:/app/logs
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3030/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - kamiflow-network
+
+volumes:
+  kamiflow_data:
+    driver: local
+  kamiflow_logs:
+    driver: local
+
+networks:
+  kamiflow-network:
+    driver: bridge
