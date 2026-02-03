@@ -41,8 +41,8 @@ docker compose version
 ```bash
 # Clone repository
 cd ~
-git clone https://github.com/kamishino/kamiflow-sync-backend.git
-cd kamiflow-sync-backend
+git clone https://github.com/kamishino/gemini-cli-workflow.git
+cd gemini-cli-workflow/packages/sync-backend
 
 # Generate API key
 API_KEY=$(openssl rand -hex 32)
@@ -347,5 +347,5 @@ docker compose up -d
 ## Support
 
 - 📖 Full docs: [README.md](README.md)
-- 🐛 Issues: https://github.com/kamishino/kamiflow-sync-backend/issues
-- 💬 Discussions: https://github.com/kamishino/kamiflow-sync-backend/discussions
+- 🐛 Issues: https://github.com/kamishino/gemini-cli-workflow/issues
+- 💬 Discussions: https://github.com/kamishino/gemini-cli-workflow/discussions

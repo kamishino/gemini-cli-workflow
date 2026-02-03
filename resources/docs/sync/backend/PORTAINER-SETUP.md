@@ -72,7 +72,7 @@ services:
       git clone https://github.com/kamishino/gemini-cli-workflow.git /tmp/repo &&
       echo 'Moving files to /app...' &&
       cp -r /tmp/repo/* /app/ &&
-      cd /app/kamiflow-sync-backend &&
+      cd /app/packages/sync-backend &&
       echo 'Installing dependencies...' &&
       npm install &&
       echo 'Starting server...' &&
@@ -115,7 +115,7 @@ volumes:
 
 1. **Build image locally** (or use GitHub Actions):
    ```bash
-   cd kamiflow-sync-backend
+   cd packages/sync-backend
    docker build -t kamiflow-sync:latest -f Dockerfile.portainer .
    docker save kamiflow-sync:latest | gzip > kamiflow-sync.tar.gz
    ```
@@ -311,7 +311,7 @@ kami sync-db push
 
 ### Update to Latest Version
 
-1. **Portainer** → **Stacks** → **kamiflow-sync-backend**
+1. **Portainer** → **Stacks** → **sync-backend**
 2. Click **Editor**
 3. Click **Pull and redeploy**
 4. Confirm update
@@ -450,7 +450,7 @@ Ensure only necessary ports are open:
 ### 3. Regular Updates
 
 Enable auto-updates in Portainer:
-1. **Stacks** → **kamiflow-sync-backend** → **Settings**
+1. **Stacks** → **sync-backend** → **Settings**
 2. Enable **Automatic updates**
 3. Set schedule (e.g., weekly)
 

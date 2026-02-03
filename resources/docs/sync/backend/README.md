@@ -23,8 +23,8 @@ Self-hosted synchronization backend for KamiFlow private workspace data (`.kamif
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/kamishino/kamiflow-sync-backend.git
-cd kamiflow-sync-backend
+git clone https://github.com/kamishino/gemini-cli-workflow.git
+cd gemini-cli-workflow/packages/sync-backend
 ```
 
 ### 2. Configure Environment
@@ -342,8 +342,8 @@ rm -rf data/ logs/
 
 ## Support
 
-- **Issues**: https://github.com/kamishino/kamiflow-sync-backend/issues
-- **Discussions**: https://github.com/kamishino/kamiflow-sync-backend/discussions
+- **Issues**: https://github.com/kamishino/gemini-cli-workflow/issues
+- **Discussions**: https://github.com/kamishino/gemini-cli-workflow/discussions
 - **CLI Docs**: https://github.com/kamishino/gemini-cli-workflow
 
 ---

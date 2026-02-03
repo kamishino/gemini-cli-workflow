@@ -1,5 +1,5 @@
 {
-  "name": "kamiflow-sync-backend",
+  "name": "@kamiflow/sync-backend",
   "version": "1.0.0",
   "description": "Self-hosted sync backend for KamiFlow private workspace data",
   "main": "src/server.js",

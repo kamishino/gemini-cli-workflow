@@ -152,7 +152,7 @@ async function guidedSelfHostedSetup() {
   console.log(chalk.cyan("\n🐳 Guided Self-Hosted Setup\n"));
   console.log("Follow these steps to deploy with Docker:\n");
   console.log("1. Use the included backend in this repository:");
-  console.log(chalk.gray("   cd kamiflow-sync-backend/\n"));
+  console.log(chalk.gray("   cd packages/sync-backend/\n"));
   console.log("2. Follow the Docker Compose guide:");
   console.log(
     chalk.gray("   See: resources/docs/sync/backend/README.md#self-hosted\n"),

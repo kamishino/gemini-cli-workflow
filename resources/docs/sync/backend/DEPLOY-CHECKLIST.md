@@ -33,7 +33,7 @@ openssl rand -hex 32
 
 1. **Portainer** → **Stacks** → **Add stack**
 
-2. **Name**: `kamiflow-sync-backend`
+2. **Name**: `sync-backend`
 
 3. **Paste this in Web editor**:
 
@@ -46,7 +46,7 @@ services:
     container_name: kamiflow-sync
     restart: unless-stopped
     working_dir: /app
-    command: sh -c "apk add --no-cache python3 make g++ git && cd /tmp && git clone https://github.com/kamishino/gemini-cli-workflow.git && cd gemini-cli-workflow/kamiflow-sync-backend && npm install && node src/server.js"
+    command: sh -c "apk add --no-cache python3 make g++ git && cd /tmp && git clone https://github.com/kamishino/gemini-cli-workflow.git && cd gemini-cli-workflow/packages/sync-backend && npm install && node src/server.js"
     ports:
       - "3030:3030"
     environment:
