@@ -503,6 +503,114 @@ program
     });
   });
 
+// Sync Command Group
+const syncFlow = program
+  .command("sync-flow")
+  .alias("sync")
+  .description("Synchronize private workspace data");
+
+syncFlow
+  .command("setup")
+  .description("Configure sync backend and credentials")
+  .option("--backend <url>", "Backend URL")
+  .option("--api-key <key>", "API key (not recommended, use interactive prompt)")
+  .option("--mode <mode>", "Sync mode: manual, auto, on-command")
+  .action(async (options) => {
+    await execute("KamiFlow Sync Setup", async () => {
+      const { setupSync } = require("../logic/sync-setup");
+      await setupSync(process.cwd(), options);
+    });
+  });
+
+syncFlow
+  .command("push")
+  .description("Upload local changes to sync backend")
+  .action(async () => {
+    await execute(null, async () => {
+      const { SyncManager } = require("../logic/sync-manager");
+      const manager = new SyncManager(process.cwd());
+      await manager.push();
+    });
+  });
+
+syncFlow
+  .command("pull")
+  .description("Download remote changes from sync backend")
+  .action(async () => {
+    await execute(null, async () => {
+      const { SyncManager } = require("../logic/sync-manager");
+      const manager = new SyncManager(process.cwd());
+      await manager.pull();
+    });
+  });
+
+syncFlow
+  .command("status")
+  .description("Show sync status and pending changes")
+  .action(async () => {
+    await execute(null, async () => {
+      const { SyncManager } = require("../logic/sync-manager");
+      const manager = new SyncManager(process.cwd());
+      const status = await manager.status();
+      
+      console.log(chalk.cyan("\n📊 Sync Status\n"));
+      console.log(chalk.gray("Backend:"), chalk.white(status.backend));
+      console.log(chalk.gray("Project ID:"), chalk.white(status.projectId));
+      console.log(chalk.gray("Mode:"), chalk.white(status.mode));
+      console.log(chalk.gray("Last sync:"), chalk.white(status.lastSync ? new Date(status.lastSync).toLocaleString() : "Never"));
+      console.log(chalk.gray("Pending files:"), chalk.white(status.pendingFiles));
+      
+      if (status.pendingFiles > 0) {
+        console.log(chalk.gray("\nFiles to sync:"));
+        status.files.slice(0, 5).forEach(f => {
+          console.log(chalk.gray(`  • ${f.path} (${(f.size / 1024).toFixed(1)} KB)`));
+        });
+        if (status.files.length > 5) {
+          console.log(chalk.gray(`  ... and ${status.files.length - 5} more`));
+        }
+      }
+      console.log();
+    });
+  });
+
+syncFlow
+  .command("update-key")
+  .description("Update API key for sync backend")
+  .action(async () => {
+    await execute(null, async () => {
+      const { updateApiKey } = require("../logic/sync-setup");
+      await updateApiKey(process.cwd());
+    });
+  });
+
+syncFlow
+  .command("delete-remote")
+  .description("Delete all remote data (requires confirmation)")
+  .option("--confirm", "Skip confirmation prompt")
+  .action(async (options) => {
+    await execute(null, async () => {
+      const inquirer = require("inquirer").default;
+      
+      if (!options.confirm) {
+        const { confirmed } = await inquirer.prompt([{
+          type: "confirm",
+          name: "confirmed",
+          message: chalk.yellow("⚠️  Delete ALL remote data? This cannot be undone."),
+          default: false
+        }]);
+        
+        if (!confirmed) {
+          console.log(chalk.gray("\nCancelled.\n"));
+          return;
+        }
+      }
+      
+      const { SyncManager } = require("../logic/sync-manager");
+      const manager = new SyncManager(process.cwd());
+      await manager.deleteRemote();
+    });
+  });
+
 // Saiyan Command
 program
   .command("saiyan [input]")
