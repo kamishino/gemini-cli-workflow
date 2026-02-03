@@ -112,7 +112,7 @@ Select "I already have a backend running" and enter:
 Then sync your data:
 
 ```bash
-kami sync push
+kami sync-db push
 ```
 
 ---

@@ -122,7 +122,7 @@ async function setupSync(projectRoot, options = {}) {
       `   • Credentials: ${result.method === "keychain" ? "OS Keychain" : "Encrypted File"}`
     )
   );
-  console.log(chalk.gray("\nRun 'kami sync push' to upload your first backup.\n"));
+  console.log(chalk.gray("\nRun 'kami sync-db push' to upload your first backup.\n"));
 }
 
 /**

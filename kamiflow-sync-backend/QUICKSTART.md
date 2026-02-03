@@ -169,10 +169,10 @@ When prompted:
 
 ```bash
 # Check status
-kami sync status
+kami sync-db status
 
 # Push your first backup
-kami sync push
+kami sync-db push
 ```
 
 Expected output:
@@ -337,8 +337,8 @@ docker compose up -d
 ✅ First sync completed
 
 **Now you can:**
-- Run `kami sync push` after creating new tasks/ideas
-- Run `kami sync pull` to download from other devices
+- Run `kami sync-db push` after creating new tasks/ideas
+- Run `kami sync-db pull` to download from other devices
 - Set up automatic backups (cron job)
 - Configure monitoring (optional)
 

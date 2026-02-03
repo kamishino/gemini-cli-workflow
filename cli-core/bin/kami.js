@@ -645,7 +645,7 @@ syncDbFlow
 
       await daemon.start();
       console.log(chalk.gray("\n💡 Daemon will sync changes automatically"));
-      console.log(chalk.gray("   Run 'kami sync daemon-stop' to stop\n"));
+      console.log(chalk.gray("   Run 'kami sync-db daemon-stop' to stop\n"));
     });
   });
 
@@ -749,7 +749,7 @@ syncDbFlow
       });
 
       console.log(
-        chalk.gray("Run 'kami sync resolve <id>' to resolve a conflict\n"),
+        chalk.gray("Run 'kami sync-db resolve <id>' to resolve a conflict\n"),
       );
     });
   });

@@ -142,7 +142,7 @@ kami sync setup
 **Test:**
 
 ```bash
-kami sync push
+kami sync-db push
 ```
 
 ---

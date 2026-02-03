@@ -113,7 +113,7 @@ kami sync-db delete-remote --confirm
 
 ### Enable Auto-Sync
 
-During `kami sync setup`, choose mode: **auto**
+During `kami sync-db setup`, choose mode: **auto**
 
 Or update `.kamirc.json`:
 
@@ -129,10 +129,10 @@ Or update `.kamirc.json`:
 
 ```bash
 # Start background auto-sync
-kami sync daemon-start
+kami sync-db daemon-start
 
 # Check daemon status
-kami sync daemon-status
+kami sync-db daemon-status
 
 # View daemon logs
 kami sync daemon-logs
@@ -154,7 +154,7 @@ When both local and remote versions have changed:
 
 ```bash
 # List conflicts
-kami sync conflicts
+kami sync-db conflicts
 
 # Resolve a conflict
 kami sync-db resolve <conflict-id>
@@ -239,7 +239,7 @@ kami sync-db push
 # Output: Synced 2 files
 
 # On another device
-kami sync pull
+kami sync-db pull
 # Output: Downloaded 2 files
 ```
 
@@ -247,14 +247,14 @@ kami sync pull
 
 ```bash
 # Start daemon once
-kami sync daemon-start
+kami sync-db daemon-start
 
 # Work normally - changes sync automatically
 kami idea "Quick thought"
 # ... 5 seconds later, auto-synced!
 
 # Check status anytime
-kami sync daemon-status
+kami sync-db daemon-status
 # Output: Running, watching archive, ideas, tasks
 
 # Stop when done
@@ -265,7 +265,7 @@ kami sync daemon-stop
 
 ```bash
 # After pulling, if conflict detected
-kami sync conflicts
+kami sync-db conflicts
 # Output:
 # 1. ideas/my-idea.md
 #    ID: 1707123456-a1b2c3d4
@@ -341,7 +341,7 @@ kami sync setup
 
 ```bash
 # Check if already running
-kami sync daemon-status
+kami sync-db daemon-status
 
 # Check logs
 kami sync daemon-logs
@@ -354,7 +354,7 @@ rm .kamiflow/.sync/daemon.pid
 
 ```bash
 # List conflicts
-kami sync conflicts
+kami sync-db conflicts
 
 # Force resolution
 kami sync-db resolve <id> --strategy keep-local
@@ -371,7 +371,7 @@ kami sync-db status
 
 # Update backend URL
 # Edit .kamirc.json manually or re-run setup
-kami sync setup
+kami sync-db setup
 ```
 
 ---
@@ -423,7 +423,7 @@ kami sync pull
 rm -rf .kamiflow/.sync/
 
 # Re-setup
-kami sync setup
+kami sync-db setup
 ```
 
 ### Backend Migration

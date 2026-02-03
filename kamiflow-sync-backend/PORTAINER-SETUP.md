@@ -290,8 +290,8 @@ kami sync setup
 **Test sync:**
 
 ```bash
-kami sync status
-kami sync push
+kami sync-db status
+kami sync-db push
 ```
 
 ---

@@ -25,7 +25,7 @@ class SyncManager {
     const config = await this.configManager.get("sync");
     
     if (!config?.enabled) {
-      throw new Error("Sync is not enabled. Run 'kami sync setup' first.");
+      throw new Error("Sync is not enabled. Run 'kami sync-db setup' first.");
     }
     
     if (!config.backend) {
@@ -34,7 +34,9 @@ class SyncManager {
     
     const apiKey = await this.credentialManager.getApiKey();
     if (!apiKey) {
-      throw new Error("API key not found. Run 'kami sync setup' to configure credentials.");
+      throw new Error(
+        "API key not found. Run 'kami sync-db setup' to configure credentials.",
+      );
     }
     
     this.client = new SyncClient(config.backend, apiKey);
