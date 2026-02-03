@@ -131,7 +131,7 @@ Recommended Actions:
 2. OR: Fix issue manually, then resume at Phase [X]
 3. OR: Cancel task and create new refined task
 
-Error Report: See ./.kamiflow/.kamiflow/errors/[timestamp]-error.md
+Error Report: See ./.kamiflow/errors/[timestamp]-error.md
 ```
 
 ---
@@ -301,7 +301,7 @@ Pattern Match
 
 ### For Level 2+ Errors
 
-**File Path:** `./.kamiflow/.kamiflow/errors/[YYYY-MM-DD_HHMM]-[error-type].md`
+**File Path:** `./.kamiflow/errors/[YYYY-MM-DD_HHMM]-[error-type].md`
 
 **Template:**
 ```markdown
