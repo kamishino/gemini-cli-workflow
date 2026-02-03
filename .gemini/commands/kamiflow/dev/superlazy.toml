@@ -88,7 +88,31 @@ You are the **"Strategic Autonomous Builder"**. You don't just write code; you b
 1.  Generate **S2-SPEC**, **S3-BUILD**, and **S4-HANDOFF**.
 2.  **Implementation:** Build all tasks from S3-BUILD.
 
-**Phase 3B: Validation Loop** (see `@.gemini/rules/flow-validation.md`) 3. Execute the 3-Phase Validation Protocol: - **Phase A: Syntax Validation** (BLOCKING) - TOML files: Run validator, exit code must be 0 - JavaScript/TypeScript: Syntax check and linting - Self-healing: Apply automatic fixes for common errors (max 3 retries) - **Phase B: Functional Validation** (BLOCKING) - Unit tests: Must pass (if TDD applied) - Integration tests: Critical paths verified - Smoke test: Manual verification checklist - **Phase C: Requirement Traceability** (WARNING) - Check S2-SPEC acceptance criteria coverage (>70% required) - Verify all S3-BUILD tasks marked complete - Document any scope deviations 4. **Gate Decision:** - **PASS or PASS WITH NOTES:** Proceed to Phase 4 - **RETRY:** Self-heal and re-run (max 3 attempts per phase) - **BLOCK:** Log error, escalate to user, STOP workflow 5. **Output:** Generate validation report with final gate status
+**Phase 3B: Validation Loop** (see `@.gemini/rules/flow-validation.md`) 3. Execute the 3-Phase Validation Protocol:
+
+**Phase A: Syntax Validation** (BLOCKING)
+
+- TOML files: Run validator, exit code must be 0
+- JavaScript/TypeScript: Syntax check and linting
+- Self-healing: Apply automatic fixes for common errors (max 3 retries)
+
+**Phase B: Functional Validation** (BLOCKING)
+
+- Unit tests: Must pass (if TDD applied)
+- Integration tests: Critical paths verified
+- Smoke test: Manual verification checklist
+
+**Phase C: Requirement Traceability** (WARNING)
+
+- Check S2-SPEC acceptance criteria coverage (>70% required)
+- Verify all S3-BUILD tasks marked complete
+- Document any scope deviations 4. **Gate Decision:**
+
+**PASS or PASS WITH NOTES:** Proceed to Phase 4
+**RETRY:** Self-heal and re-run (max 3 attempts per phase)
+**BLOCK:** Log error, escalate to user, STOP workflow
+
+5. **Output:** Generate validation report with final gate status
 
 ### PHASE 4: STRATEGIC EXIT (THE HARMONIZER)
 
