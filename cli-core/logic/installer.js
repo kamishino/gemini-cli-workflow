@@ -261,7 +261,26 @@ async function initializeProject(cwd, options = {}) {
     const resolver = new LayeredResolver(cwd, cliRoot);
     await resolver.initLocalStructure();
 
-    // 6. Update .gitignore
+    // 6. Initialize workspace index for search
+    console.log(chalk.gray("🔍 Initializing workspace index..."));
+    const { WorkspaceIndex } = require("./workspace-index");
+    const index = new WorkspaceIndex(cwd);
+    try {
+      await index.initialize();
+      console.log(
+        chalk.gray(
+          "   ✅ Index ready (run 'kami search --rebuild' to index existing files)",
+        ),
+      );
+    } catch (error) {
+      console.log(
+        chalk.yellow(`   ⚠️  Index initialization skipped: ${error.message}`),
+      );
+    } finally {
+      index.close();
+    }
+
+    // 7. Update .gitignore
     updateGitIgnore(cwd);
 
     return { success: true, message: "KamiFlow initialized successfully!" };
@@ -273,7 +292,12 @@ async function initializeProject(cwd, options = {}) {
 
 function updateGitIgnore(cwd) {
   const gitIgnorePath = path.join(cwd, ".gitignore");
-  const rules = [".gemini/tmp", ".kamiflow/agents/"];
+  const rules = [
+    ".gemini/tmp",
+    ".kamiflow/agents/",
+    ".kamiflow/.index/",
+    ".kamiflow/.sync/",
+  ];
 
   let content = "";
   if (fs.existsSync(gitIgnorePath)) {

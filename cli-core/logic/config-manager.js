@@ -36,6 +36,25 @@ const ConfigSchema = z
           .default({ minFeasibility: 0.7 }),
       })
       .default({ seed: { minFeasibility: 0.7 } }),
+    sync: z
+      .object({
+        enabled: z.boolean().default(false),
+        projectId: z.string().optional(),
+        backend: z.string().url().optional(),
+        mode: z.enum(["manual", "auto", "on-command"]).default("manual"),
+        interval: z.number().min(60).max(3600).default(300),
+        categories: z
+          .array(z.enum(["archive", "ideas", "tasks"]))
+          .default(["archive", "ideas", "tasks"]),
+        lastSync: z.number().nullable().default(null),
+      })
+      .optional(),
+    index: z
+      .object({
+        enabled: z.boolean().default(true),
+        autoRebuild: z.boolean().default(false),
+      })
+      .optional(),
   })
   .passthrough();
 

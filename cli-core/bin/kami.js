@@ -428,6 +428,81 @@ program
     });
   });
 
+// Search Command
+program
+  .command("search [query]")
+  .description("Search workspace files (ideas, tasks, archives)")
+  .option("-c, --category <category>", "Filter by category: ideas, tasks, archive")
+  .option("-l, --limit <limit>", "Maximum results to show", "20")
+  .option("--rebuild", "Rebuild index before searching")
+  .option("--stats", "Show index statistics")
+  .action(async (query, options) => {
+    await execute(null, async () => {
+      const { WorkspaceIndex } = require("../logic/workspace-index");
+      const index = new WorkspaceIndex(process.cwd());
+      
+      try {
+        await index.initialize();
+        
+        if (options.stats) {
+          const stats = index.getStats();
+          console.log(chalk.cyan("\n📊 Workspace Index Statistics\n"));
+          console.log(chalk.gray("Total files:"), chalk.white(stats.totalFiles));
+          console.log(chalk.gray("Total size:"), chalk.white(`${(stats.totalSize / 1024 / 1024).toFixed(2)} MB`));
+          console.log(chalk.gray("Last indexed:"), chalk.white(stats.lastIndexed ? stats.lastIndexed.toLocaleString() : "Never"));
+          
+          if (stats.byCategory && Object.keys(stats.byCategory).length > 0) {
+            console.log(chalk.gray("\nBy category:"));
+            Object.entries(stats.byCategory).forEach(([cat, data]) => {
+              console.log(chalk.gray(`  ${cat}:`), chalk.white(`${data.count} files, ${(data.size / 1024).toFixed(1)} KB`));
+            });
+          }
+          console.log();
+          return;
+        }
+        
+        if (options.rebuild) {
+          console.log(chalk.gray("Rebuilding index..."));
+          const stats = await index.rebuild();
+          console.log(chalk.green(`✅ Indexed ${stats.total} files\n`));
+          if (!query) return;
+        }
+        
+        if (!query) {
+          console.log(chalk.yellow("No search query provided. Use --stats or --rebuild, or provide a query.\n"));
+          return;
+        }
+        
+        const results = await index.search(query, {
+          category: options.category,
+          limit: parseInt(options.limit)
+        });
+        
+        console.log(chalk.cyan(`\n🔍 Searching workspace for: "${query}"\n`));
+        
+        if (results.results.length === 0) {
+          console.log(chalk.yellow("No results found.\n"));
+          return;
+        }
+        
+        results.results.forEach((result, idx) => {
+          console.log(chalk.white(`${idx + 1}. `) + chalk.cyan(result.title));
+          console.log(chalk.gray(`   ${result.category}/${result.filePath}`));
+          if (result.snippet) {
+            console.log(chalk.gray(`   ${result.snippet.replace(/<mark>/g, chalk.yellow("<mark>")).replace(/<\/mark>/g, "</mark>")}`));
+          }
+          console.log(chalk.gray(`   Score: ${result.score.toFixed(2)} | Modified: ${result.modified.toLocaleDateString()}`));
+          console.log();
+        });
+        
+        console.log(chalk.gray(`Found ${results.results.length} results in ${results.took}\n`));
+        
+      } finally {
+        index.close();
+      }
+    });
+  });
+
 // Saiyan Command
 program
   .command("saiyan [input]")

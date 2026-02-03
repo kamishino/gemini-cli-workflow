@@ -491,6 +491,8 @@ class Transpiler {
 .kamiflow/.backup/
 .kamiflow/docs/assets/
 .kamiflow/agents/
+.kamiflow/.index/
+.kamiflow/.sync/
 .gemini/tmp/
 .gemini/cache/
 .backup/
