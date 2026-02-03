@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  kamiflow-sync:
+    build: .
+    container_name: kamiflow-sync
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    env_file:
+      - .env
+    volumes:
+      - ./data:/data
+      - ./logs:/app/logs
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - kamiflow-network
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: kamiflow-caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - kamiflow-network
+    depends_on:
+      - kamiflow-sync
+
+volumes:
+  caddy_data:
+  caddy_config:
+
+networks:
+  kamiflow-network:
+    driver: bridge
