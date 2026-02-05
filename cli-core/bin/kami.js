@@ -36,6 +36,68 @@ const packageJson = require("../package.json");
 
 program.name("kamiflow").description("KamiFlow CLI - The Orchestrator for Indie Builders").version(packageJson.version);
 
+// --- CLI UX Alignment (Task 110) ---
+const isDev = process.env.KAMI_ENV === "development";
+
+const CATEGORIES = {
+  project: {
+    title: "📁 PROJECT MANAGEMENT",
+    color: chalk.green,
+    commands: ["init-flow", "doctor-flow", "update-flow", "sync-rules", "info-flow", "validate-flow", "config-flow", "archive-flow", "search", "sync-db"],
+  },
+  automation: {
+    title: "🤖 AUTOMATION & SWARM",
+    color: chalk.magenta,
+    commands: ["saiyan", "supersaiyan", "swarm-status", "swarm-lock", "swarm-unlock"],
+  },
+  maintenance: {
+    title: "🔧 MAINTENANCE (MASTER REPO)",
+    color: chalk.red,
+    commands: ["clean-rules", "doc-audit", "sync-docs", "sync-agents", "sync-skills", "scan-agents", "create-idea", "refine-idea", "promote-idea", "analyze-idea", "update-central-rules"],
+    hidden: !isDev,
+  },
+};
+
+program.configureHelp({
+  formatHelp: (cmd, helper) => {
+    const header = chalk.bold.cyan(`\nKamiFlow CLI v${packageJson.version}`) + " - " + chalk.italic(cmd.description()) + "\n";
+    const usage = `\n${chalk.yellow("Usage:")} ${helper.commandUsage(cmd)}\n`;
+
+    let sections = [header, usage];
+
+    for (const key in CATEGORIES) {
+      const group = CATEGORIES[key];
+      if (group.hidden) continue;
+
+      const groupCommands = cmd.commands.filter((c) => group.commands.includes(c.name()));
+      if (groupCommands.length === 0) continue;
+
+      let groupOutput = `\n${group.color(chalk.bold(group.title))}\n`;
+      groupCommands.sort((a, b) => {
+        return group.commands.indexOf(a.name()) - group.commands.indexOf(b.name());
+      }).forEach((c) => {
+        const alias = c.alias();
+        const name = c.name();
+        const desc = c.description();
+
+        const col1 = alias ? chalk.cyan(alias) : chalk.cyan(name);
+        const col2 = alias ? chalk.gray(`[${name}]`) : "";
+        
+        groupOutput += `  ${col1.padEnd(25)} ${col2.padEnd(25)} ${desc}\n`;
+      });
+      sections.push(groupOutput);
+    }
+
+    const optionsList = helper.visibleOptions(cmd);
+    if (optionsList.length > 0) {
+      const options = `\n${chalk.yellow("Options:")}\n` + optionsList.map(o => `  ${helper.optionTerm(o).padEnd(25)} ${helper.optionDescription(o)}`).join('\n') + '\n';
+      sections.push(options);
+    }
+
+    return sections.join("");
+  }
+});
+
 // Init command
 program
   .command("init-flow [path]")
