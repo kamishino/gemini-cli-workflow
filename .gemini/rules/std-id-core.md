@@ -3,7 +3,7 @@ name: std-id-core
 type: RULE_MODULE
 description: Global Task ID generation protocol and format
 group: global
-order: 100
+order: 130
 parent_rule: std-id
 is_core: true
 ---

@@ -3,7 +3,7 @@ name: flow-validation-lib
 type: RULE_MODULE
 description: Validation patterns, reports and self-healing library
 group: global
-order: 51
+order: 81
 parent_rule: flow-validation
 is_core: false
 dependencies: ["flow-validation-core"]

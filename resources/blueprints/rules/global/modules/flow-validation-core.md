@@ -3,7 +3,7 @@ name: flow-validation-core
 type: RULE_MODULE
 description: Core 3-phase validation loop protocol
 group: global
-order: 50
+order: 80
 parent_rule: flow-validation
 is_core: true
 ---

@@ -3,7 +3,7 @@ name: std-id-lib
 type: RULE_MODULE
 description: ID generation test cases and technical implementation
 group: global
-order: 101
+order: 131
 parent_rule: std-id
 is_core: false
 dependencies: ["std-id-core"]

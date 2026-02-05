@@ -3,7 +3,7 @@ name: flow-reflection-lib
 type: RULE_MODULE
 description: Examples and implementation details for reflection
 group: global
-order: 61
+order: 91
 parent_rule: flow-reflection
 is_core: false
 dependencies: ["flow-reflection-core"]

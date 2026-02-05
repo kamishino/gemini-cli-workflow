@@ -242,19 +242,35 @@
 
 ## Rules (Global Modules)
 
-- resources/blueprints/rules/global/modules/error-recovery-core.md
-- resources/blueprints/rules/global/modules/error-recovery-lib.md
-- resources/blueprints/rules/global/modules/anti-hallucination-core.md
-- resources/blueprints/rules/global/modules/anti-hallucination-lib.md
-- resources/blueprints/rules/global/modules/checkpoint-core.md
-- resources/blueprints/rules/global/modules/checkpoint-lib.md
+- resources/blueprints/rules/global/main-manifesto-core.md
+- resources/blueprints/rules/global/main-tech-stack-core.md
+- resources/blueprints/rules/global/flow-bootstrap-core.md
+- resources/blueprints/rules/global/flow-bridge-core.md
+- resources/blueprints/rules/global/flow-execution-core.md
+- resources/blueprints/rules/global/flow-factory-line-core.md
+- resources/blueprints/rules/global/std-command-core.md
+- resources/blueprints/rules/global/std-markdown-core.md
+- resources/blueprints/rules/global/modules/std-error-recovery-core.md
+- resources/blueprints/rules/global/modules/std-error-recovery-lib.md
+- resources/blueprints/rules/global/modules/std-anti-hallucination-core.md
+- resources/blueprints/rules/global/modules/std-anti-hallucination-lib.md
+- resources/blueprints/rules/global/modules/flow-checkpoint-core.md
+- resources/blueprints/rules/global/modules/flow-checkpoint-lib.md
 - resources/blueprints/rules/global/modules/flow-reflection-core.md
 - resources/blueprints/rules/global/modules/flow-reflection-lib.md
 - resources/blueprints/rules/global/modules/std-id-core.md
 - resources/blueprints/rules/global/modules/std-id-lib.md
 - resources/blueprints/rules/global/modules/flow-validation-core.md
 - resources/blueprints/rules/global/modules/flow-validation-lib.md
-- resources/blueprints/rules/global/modules/std-fast-track-core.md
-- resources/blueprints/rules/global/modules/std-fast-track-lib.md
-- resources/blueprints/rules/global/modules/context-intelligence-core.md
-- resources/blueprints/rules/global/modules/context-intelligence-lib.md
+- resources/blueprints/rules/global/modules/flow-fast-track-core.md
+- resources/blueprints/rules/global/modules/flow-fast-track-lib.md
+- resources/blueprints/rules/global/modules/main-context-intelligence-core.md
+- resources/blueprints/rules/global/modules/main-context-intelligence-lib.md
+
+## Rules (Local)
+
+- resources/blueprints/rules/local/std-blueprint-core.md
+- resources/blueprints/rules/local/std-atomic-rule-core.md
+- resources/blueprints/rules/local/std-placeholder-core.md
+- resources/blueprints/rules/local/std-resource-core.md
+- resources/blueprints/rules/local/std-ui-core.md

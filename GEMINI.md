@@ -191,27 +191,27 @@ This project uses `cli-core/logic/env-manager.js` to handle dynamic workspace pa
 
 # Core Protocols (v1.0)
 
-@./.gemini/rules/core-manifesto.md
-@./.gemini/rules/core-tech-stack.md
-@./.gemini/rules/std-command.md
-@./.gemini/rules/flow-factory-line.md
-@./.gemini/rules/flow-execution.md
-@./.gemini/rules/flow-bridge.md
-@./.gemini/rules/flow-bootstrap.md
-@./.gemini/rules/std-blueprint.md
+@./.gemini/rules/main-manifesto-core.md
+@./.gemini/rules/main-tech-stack-core.md
+@./.gemini/rules/std-command-core.md
+@./.gemini/rules/flow-factory-line-core.md
+@./.gemini/rules/flow-execution-core.md
+@./.gemini/rules/flow-bridge-core.md
+@./.gemini/rules/flow-bootstrap-core.md
+@./.gemini/rules/std-blueprint-core.md
 @./.gemini/rules/std-id-core.md
 
 # Enhanced Protocols (v2.0)
 
 @./.gemini/rules/flow-validation-core.md
 @./.gemini/rules/flow-reflection-core.md
-@./.gemini/rules/anti-hallucination-core.md
-@./.gemini/rules/error-recovery-core.md
-@./.gemini/rules/checkpoint-core.md
+@./.gemini/rules/std-anti-hallucination-core.md
+@./.gemini/rules/std-error-recovery-core.md
+@./.gemini/rules/flow-checkpoint-core.md
 
 # Adaptive Workflow (v2.39)
 
-@./.gemini/rules/std-fast-track-core.md
+@./.gemini/rules/flow-fast-track-core.md
 
 # Project State
 
