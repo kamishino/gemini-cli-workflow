@@ -169,4 +169,5 @@ Even in fast track, log the decision:
 
 - The plan is so detailed that a Junior AI can execute it with zero hallucinations.
 - All artifacts are saved in the `tasks/` directory with correct IDs.
+- **Visualized Execution:** SPEC and BUILD flowcharts are updated in real-time using Mermaid styling (per `std-ui-core.md`).
 

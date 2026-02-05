@@ -39,3 +39,10 @@ When generating CLI logic:
 1. Import `const logger = require('../utils/logger');`.
 2. Use `logger.info()` for steps.
 3. Use `logger.success()` for completion.
+
+### 4.1 Visual Feedback (In-place Map)
+When executing a task from a SPEC or BUILD file that contains a Mermaid graph:
+1. **Turn Start:** Update the current task's Node ID to `active` (Blue).
+2. **Success:** Update the Node ID to `done` (Green) after validation passes.
+3. **Failure:** Update the Node ID to `fail` (Red) if blocked.
+4. **Swarm:** Append your `[Agent-ID]` to the Node label while it is `active`.
