@@ -16,7 +16,12 @@ async function runBenchmark() {
   const pairs = [
     { name: 'Error Recovery', core: 'error-recovery-core.md', lib: 'error-recovery-lib.md' },
     { name: 'Anti-Hallucination', core: 'anti-hallucination-core.md', lib: 'anti-hallucination-lib.md' },
-    { name: 'Flow Checkpoints', core: 'checkpoint-core.md', lib: 'checkpoint-lib.md' }
+    { name: 'Flow Checkpoints', core: 'checkpoint-core.md', lib: 'checkpoint-lib.md' },
+    { name: 'Flow Reflection', core: 'flow-reflection-core.md', lib: 'flow-reflection-lib.md' },
+    { name: 'Global Task ID', core: 'std-id-core.md', lib: 'std-id-lib.md' },
+    { name: 'Flow Validation', core: 'flow-validation-core.md', lib: 'flow-validation-lib.md' },
+    { name: 'Fast Track', core: 'std-fast-track-core.md', lib: 'std-fast-track-lib.md' },
+    { name: 'Context Intelligence', core: 'context-intelligence-core.md', lib: 'context-intelligence-lib.md' }
   ];
 
   let totalBeforeChars = 0;

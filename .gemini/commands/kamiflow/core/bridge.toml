@@ -18,7 +18,7 @@ prompt = '''
 
 **Follow the detailed intelligence loading protocol defined in:**
 
-`./.gemini/rules/context-intelligence-v2.md`
+`./.gemini/rules/context-intelligence-core.md`
 
 **Key v2.0 Enhancement:**
 
@@ -132,7 +132,7 @@ You MUST update these files upon completion:
 
 ## 6. ⚡ Validation Requirements (v2.0 - MANDATORY)
 
-**BEFORE marking work complete, execute validation from `@.gemini/rules/flow-validation.md`:**
+**BEFORE marking work complete, execute validation from `@.gemini/rules/flow-validation-core.md`:**
 
 ### Phase A: Syntax Validation (BLOCKING)
 
@@ -175,7 +175,7 @@ You MUST update these files upon completion:
 - **Follow-up Tasks:** [Dependencies or improvements, or "None"]
 - **Regression Risk:** [Low/Medium/High + explanation]
 
-**Reference:** See `@.gemini/rules/flow-reflection.md` for full template.
+**Reference:** See `@.gemini/rules/flow-reflection-core.md` for full template.
 
 ## 8. EXIT PROTOCOL 🔄
 

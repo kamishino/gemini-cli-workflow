@@ -113,17 +113,27 @@ async function main() {
     commandMap.push(...cliCommands);
 
     // 2.5. Verify v2.0 protocols exist (v2.0 enhancement)
-    const V2_PROTOCOLS = ["flow-validation.md", "flow-reflection.md", "anti-hallucination.md", "error-recovery.md", "flow-checkpoints.md"];
+    const SEARCH_PATHS = [
+      path.join(__dirname, "../../.gemini/rules"),
+      path.join(__dirname, "../../dist/.gemini/rules")
+    ];
 
-    const protocolsPath = path.join(__dirname, "../../resources/blueprints/rules/global");
-    V2_PROTOCOLS.forEach((protocol) => {
-      const protocolFile = path.join(protocolsPath, protocol);
-      if (fs.existsSync(protocolFile)) {
-        reporter.push(protocol, "SUCCESS", "v2.0 Protocol verified");
-      } else {
-        reporter.push(protocol, "WARNING", "v2.0 Protocol missing");
+    let foundProtocols = [];
+    for (const searchPath of SEARCH_PATHS) {
+      if (fs.existsSync(searchPath)) {
+        const files = fs.readdirSync(searchPath).filter(f => f.endsWith("-core.md"));
+        files.forEach(f => {
+          if (!foundProtocols.includes(f)) {
+            foundProtocols.push(f);
+            reporter.push(f, "SUCCESS", `Protocol verified in ${path.relative(process.cwd(), searchPath)}`);
+          }
+        });
       }
-    });
+    }
+
+    if (foundProtocols.length === 0) {
+      reporter.push("Protocols", "WARNING", "No *-core.md protocols found in .gemini/rules");
+    }
 
     // 3. Define Final Order (Core first, then Plugins, then Terminal)
     const FINAL_ORDER = [...GROUP_ORDER.filter((g) => g !== "terminal"), ...pluginGroups, "terminal"];

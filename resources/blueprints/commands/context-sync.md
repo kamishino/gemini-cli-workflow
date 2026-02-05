@@ -20,7 +20,7 @@ description: [KamiFlow] Pre-execution context synchronization mandate.
 
 **Follow the detailed intelligence loading protocol defined in:**
 
-`{{KAMI_RULES_GEMINI}}context-intelligence-v2.md`
+`{{KAMI_RULES_GEMINI}}context-intelligence-core.md`
 
 **Key v2.0 Enhancement:**
 

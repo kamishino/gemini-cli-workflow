@@ -54,7 +54,7 @@ If `PROJECT_CONTEXT.md` is already configured (not in template state):
 
 3.  **Load Persona:** Read `GEMINI.md` for conversational context
 
-4.  **Initialize ID Cache:** Follow `@{{KAMI_RULES_GEMINI}}std-id.md` to scan for MAX_ID
+4.  **Initialize ID Cache:** Follow `@{{KAMI_RULES_GEMINI}}std-id-core.md` to scan for MAX_ID
 
 **60-80% Awareness Checkpoint:**
 At this point, you have sufficient context from public files to operate effectively across all machines.

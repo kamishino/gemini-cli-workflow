@@ -248,3 +248,13 @@
 - resources/blueprints/rules/global/modules/anti-hallucination-lib.md
 - resources/blueprints/rules/global/modules/checkpoint-core.md
 - resources/blueprints/rules/global/modules/checkpoint-lib.md
+- resources/blueprints/rules/global/modules/flow-reflection-core.md
+- resources/blueprints/rules/global/modules/flow-reflection-lib.md
+- resources/blueprints/rules/global/modules/std-id-core.md
+- resources/blueprints/rules/global/modules/std-id-lib.md
+- resources/blueprints/rules/global/modules/flow-validation-core.md
+- resources/blueprints/rules/global/modules/flow-validation-lib.md
+- resources/blueprints/rules/global/modules/std-fast-track-core.md
+- resources/blueprints/rules/global/modules/std-fast-track-lib.md
+- resources/blueprints/rules/global/modules/context-intelligence-core.md
+- resources/blueprints/rules/global/modules/context-intelligence-lib.md
