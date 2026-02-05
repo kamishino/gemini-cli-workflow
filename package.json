@@ -19,5 +19,5 @@
     "clean": "pnpm --filter gemini-cli-kamiflow run clean",
     "preinstall": "npx only-allow pnpm"
   },
-  "version": "2.44.1"
+  "version": "2.44.2"
 }

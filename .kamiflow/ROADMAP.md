@@ -13,8 +13,8 @@
 ---
 
 ## 🏗️ Current Focus (Active Pillars)
-- **Phase ** Template v2.43.0 (Repository Reorganization & Sync Backend)**
-- **Status:** ** Achieved 100% ecosystem consistency via Final Scaffolding & Docs Polish (Task 118).
+- **Phase ** Template v2.44.2 (Repository Reorganization & Sync Backend)**
+- **Status:** ** Restored all broken emojis and fixed CLI command registration (roadmap, resume) (Task 121)
 
 ---
 
