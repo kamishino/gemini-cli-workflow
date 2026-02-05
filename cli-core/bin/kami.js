@@ -106,6 +106,30 @@ program
     });
   });
 
+// Clean rules command
+program
+  .command("clean-rules")
+  .description("Internal: Surgical cleanup of transpiled rules directory to prevent system redundancy")
+  .action(async () => {
+    await execute("Surgical Clean", async () => {
+      const paths = [
+        path.join(process.cwd(), ".gemini/rules"),
+        path.join(process.cwd(), "dist/.gemini/rules")
+      ];
+      
+      for (const p of paths) {
+        if (await fs.pathExists(p)) {
+          const files = await fs.readdir(p);
+          for (const file of files) {
+            await fs.remove(path.join(p, file));
+          }
+          logger.hint(`Cleared: ${path.relative(process.cwd(), p)}`);
+        }
+      }
+      logger.success("System rules directory cleared.");
+    });
+  });
+
 // Info command
 program
   .command("info-flow")

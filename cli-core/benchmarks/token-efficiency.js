@@ -14,14 +14,14 @@ async function runBenchmark() {
   const mdFiles = files.filter(f => f.endsWith('.md'));
 
   const pairs = [
-    { name: 'Error Recovery', core: 'error-recovery-core.md', lib: 'error-recovery-lib.md' },
-    { name: 'Anti-Hallucination', core: 'anti-hallucination-core.md', lib: 'anti-hallucination-lib.md' },
-    { name: 'Flow Checkpoints', core: 'checkpoint-core.md', lib: 'checkpoint-lib.md' },
+    { name: 'Error Recovery', core: 'std-error-recovery-core.md', lib: 'std-error-recovery-lib.md' },
+    { name: 'Anti-Hallucination', core: 'std-anti-hallucination-core.md', lib: 'std-anti-hallucination-lib.md' },
+    { name: 'Flow Checkpoints', core: 'flow-checkpoint-core.md', lib: 'flow-checkpoint-lib.md' },
     { name: 'Flow Reflection', core: 'flow-reflection-core.md', lib: 'flow-reflection-lib.md' },
     { name: 'Global Task ID', core: 'std-id-core.md', lib: 'std-id-lib.md' },
     { name: 'Flow Validation', core: 'flow-validation-core.md', lib: 'flow-validation-lib.md' },
-    { name: 'Fast Track', core: 'std-fast-track-core.md', lib: 'std-fast-track-lib.md' },
-    { name: 'Context Intelligence', core: 'context-intelligence-core.md', lib: 'context-intelligence-lib.md' }
+    { name: 'Fast Track', core: 'flow-fast-track-core.md', lib: 'flow-fast-track-lib.md' },
+    { name: 'Context Intelligence', core: 'main-context-intelligence-core.md', lib: 'main-context-intelligence-lib.md' }
   ];
 
   let totalBeforeChars = 0;

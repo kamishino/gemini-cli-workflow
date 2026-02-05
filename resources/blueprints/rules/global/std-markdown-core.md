@@ -22,10 +22,10 @@ Only use approved placeholders:
 
 | Placeholder | Purpose | Transpiled Result |
 | :--- | :--- | :--- |
-| `{{KAMI_WORKSPACE}}` | Core folder path | `./.kamiflow/` |
-| `{{KAMI_RULES_GEMINI}}` | Behavioral rules path | `./.gemini/rules/` |
-| `{{PROJECT_NAME}}`| Project identity | (From config) |
-| `{{DATE}}` | Timestamping | (Current Date) |
+| `{{ KAMI_WORKSPACE }}` | Core folder path | `./.kamiflow/` |
+| `{{ KAMI_RULES_GEMINI }}` | Behavioral rules path | `./.gemini/rules/` |
+| `{{ PROJECT_NAME }}`| Project identity | (From config) |
+| `{{ DATE }}` | Timestamping | (Current Date) |
 
 ## 3. 🏗️ PATH ANCHORING (SSOT)
 All AI interactions MUST use anchored paths:
