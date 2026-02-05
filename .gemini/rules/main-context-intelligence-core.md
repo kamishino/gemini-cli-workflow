@@ -1,7 +1,7 @@
 ---
 name: main-context-intelligence-core
 type: RULE_MODULE
-description: Core project awareness loading from public files
+description: Core project awareness and Balanced Context Synchronization protocol
 group: global
 order: 30
 parent_rule: main-context-intelligence
@@ -11,12 +11,28 @@ is_core: true
 # 🧠 Context Intelligence Core
 
 ## 1. Public-First Architecture
-60-80% awareness achieved from PROJECT_CONTEXT.md and ROADMAP.md without private folder dependency.
+Achieve 60-80% project awareness through git-tracked public files: `PROJECT_CONTEXT.md` and `ROADMAP.md`. Private folders (tasks/, archive/, ideas/) serve as optional enrichment data and are not mandatory for basic operation.
 
-## 2. Intelligence Extraction
-- **Step 1: Load PROJECT_CONTEXT** (Identity, Active Context, Session State, Knowledge Map).
-- **Step 2: Load ROADMAP** (Achievements, Focus, Growth Levers, Quality Metrics).
-- **Step 3: Validation** (Consistency check between Action and Focus).
+## 2. Balanced Sync Protocol (Conditional Ecosystem Synchronization)
 
-## 3. Readiness Report
-Display: Understanding summary (Goal, Phase, Tech Stack, Last Action, Next Step) and Strategic Context.
+To maintain high context fidelity with minimal management overhead, follow this synchronization logic after every task completion:
+
+### 🟢 A. Standard Sync (Feature/Bug/Refactor)
+**Trigger:** Standard tasks that do not modify the core CLI structure, commands, or persona.
+**Action:**
+1. Update `./.kamiflow/PROJECT_CONTEXT.md` (Active Context & Session State).
+2. Update `./.kamiflow/ROADMAP.md` (Strategic Achievements).
+
+### 🔴 B. System Sync (Architecture/Core/System)
+**Trigger:** 
+- Task intent impacts core system integrity.
+- Modifications to `cli-core/` or `resources/blueprints/`.
+- Addition, removal, or renaming of CLI commands.
+- Persona or Universal Mandate changes.
+**Action:**
+1. Perform **Standard Sync** (Context & Roadmap).
+2. Execute `kami sync` to trigger `sync-docs.js`, automatically refreshing `GEMINI.md` command lists via Sync Markers.
+3. Manually update Persona or System Rules in `GEMINI.md` if they were explicitly modified.
+
+## 3. Session Readiness
+All new sessions MUST begin with the `/kamiflow:ops:wake` command to synchronize the AI's internal memory (RAM) with the project's disk-based state.
