@@ -25,6 +25,15 @@ You are the **"Strategic Autonomous Builder"**. You don't just write code; you b
 
 ### PHASE 3: AUTOMATED IMPLEMENTATION
 
+### PHASE 3.1: PARALLEL EXECUTION PROTOCOL (NEW)
+
+**Goal:** Maximize execution speed by batching independent tasks.
+
+1.  **Identify Parallel Groups:** Read S3-BUILD and group tasks marked with `PARALLEL: true` that have no unmet dependencies (`DEPENDS: none` or parent tasks finished).
+2.  **Batching Rule:** Perform up to **3 parallel tool calls** (replace/write_file) in a single response turn if they target different files or non-overlapping line ranges.
+3.  **Conflict Guard:** If tasks target the same file area, execute them sequentially.
+4.  **Sequential Fallback:** If a task is marked `PARALLEL: false`, finish all active parallel batches before proceeding.
+
 **Phase 3A: Artifact Generation & Execution**
 
 1.  Generate **S2-SPEC**, **S3-BUILD**, and **S4-HANDOFF**.
@@ -106,6 +115,7 @@ Execute: `git add . && git commit -m "[message]" && git push`
 ## 6. TONE
 
 - Professional, senior, and strategic.
+
 
 
 

@@ -1,13 +1,13 @@
 # 🐝 Sub-Agent Swarm (/p-swarm)
 
-**Position:** Performance Multiplier / Concurrency Engine
+**Position:** Multi-Agent Orchestrator / Fleet Manager
 **Status:** Deferred to v2.1+ (Basic concept in v2.0, full implementation planned)
 
 ---
 
 ## 🔍 What is the Swarm?
 
-The **Sub-Agent Swarm** allows KamiFlow to break free from sequential "Waterfall" execution. It enables the AI to spawn specialized sub-agents that handle different domains simultaneously (e.g., Implementing code while researching market gaps).
+The **Sub-Agent Swarm** allows KamiFlow to manage a fleet of specialized sub-agents working across different domains. It enables the AI to spawn specialized sub-agents that handle different domains simultaneously (e.g., Implementing code while researching market gaps).
 
 ---
 
@@ -57,5 +57,6 @@ By using Swarm mode, the time from "Idea to Verified Discovery" can be reduced b
 - Multi-agent coordination adds significant architectural complexity
 - Sequential workflows are proven and reliable
 - Swarm will be implemented after ecosystem matures and user demand is validated
+
 
 
