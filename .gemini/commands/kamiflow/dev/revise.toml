@@ -18,7 +18,7 @@ prompt = '''
 
 **Follow the detailed intelligence loading protocol defined in:**
 
-`./.gemini/rules/context-intelligence-core.md`
+`./.gemini/rules/main-context-intelligence-core.md`
 
 **Key v2.0 Enhancement:**
 
@@ -180,7 +180,7 @@ Please answer the questions above so we can align on the direction. I will not p
 
 If this revision is triggered by an error:
 
-1. **Check for error report:** `./.kamiflow/.kamiflow/errors/[timestamp]-*.md`
+1. **Check for error report:** `./.kamiflow/errors/[timestamp]-*.md`
 2. **Read full error context:** Understand what went wrong
 3. **Extract root cause:** Why the error occurred
 

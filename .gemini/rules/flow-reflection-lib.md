@@ -16,7 +16,7 @@ dependencies: ["flow-reflection-core"]
 - "Blueprint caching reduces transpiler load time from 2.5s to 0.3s."
 
 ## 2. Lineage Management Details
-- **Archive:** `node cli-core/bin/kami.js archive [ID] --force`.
+- **Archive:** `kami archive [ID] --force`.
 - **Roadmap Sync:** Replace `{{ACHIEVEMENTS}}` and `{{GROWTH_LEVERS}}`.
 - **Context Sync:** Update PROJECT_CONTEXT.md Active Context.
 

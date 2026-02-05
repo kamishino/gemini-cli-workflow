@@ -39,7 +39,7 @@ If you see `./.kamiflow/` in generated files, it is a CORRUPTION.
 - **Fix:** The Transpiler `sanitizeContent()` should be updated, or fix the source partial to remove the leading slash.
 
 ## 5. 🏗️ CLI COMMAND STANDARDS
-- **Universal Alias:** NEVER use direct paths like `node cli-core/bin/kami.js` in instructions.
+- **Universal Alias:** NEVER use direct paths like `kami` in instructions.
 - **Strict Requirement:** Always use the `kami` alias (e.g., `kami sync`, `kami archive`).
 - **Benefit:** Ensures blueprints work in both Master Repo and Client Projects.
 
@@ -47,4 +47,5 @@ If you see `./.kamiflow/` in generated files, it is a CORRUPTION.
 When writing documentation or blueprints:
 1. Double-check backtick counts.
 2. Ensure every `@` reference is anchored with `./`.
+
 

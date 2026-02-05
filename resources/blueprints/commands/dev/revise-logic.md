@@ -122,7 +122,7 @@ Please answer the questions above so we can align on the direction. I will not p
 
 If this revision is triggered by an error:
 
-1. **Check for error report:** `{{KAMI_WORKSPACE}}.kamiflow/errors/[timestamp]-*.md`
+1. **Check for error report:** `{{KAMI_WORKSPACE}}errors/[timestamp]-*.md`
 2. **Read full error context:** Understand what went wrong
 3. **Extract root cause:** Why the error occurred
 
@@ -247,4 +247,5 @@ All historical context comes from ROADMAP achievement entries and lessons learne
 - **Public context grounding:** Reference documented capabilities and goals
 - **When error recovery:** Acknowledge error, explain fix, build confidence
 - Supportive of the user's intent but protective of the project's integrity
+
 

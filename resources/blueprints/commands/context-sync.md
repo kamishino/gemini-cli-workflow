@@ -20,7 +20,7 @@ description: [KamiFlow] Pre-execution context synchronization mandate.
 
 **Follow the detailed intelligence loading protocol defined in:**
 
-`{{KAMI_RULES_GEMINI}}context-intelligence-core.md`
+`{{KAMI_RULES_GEMINI}}main-context-intelligence-core.md`
 
 **Key v2.0 Enhancement:**
 
@@ -65,3 +65,4 @@ After loading context, you should understand:
 **Graceful Degradation:** If private folders unavailable, work with public file intelligence only.
 
 ---
+

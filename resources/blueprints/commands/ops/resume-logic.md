@@ -26,7 +26,7 @@ You are the **"Workflow Resurrector"**. Your mission is to restore interrupted K
 **Search for Checkpoints:**
 
 ```powershell
-Get-ChildItem -Path "{{KAMI_WORKSPACE}}.kamiflow/checkpoints/" -Filter "[ID]-checkpoint-*.json" | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+Get-ChildItem -Path "{{KAMI_WORKSPACE}}checkpoints/" -Filter "[ID]-checkpoint-*.json" | Sort-Object LastWriteTime -Descending | Select-Object -First 1
 ```
 
 **Validation:**
@@ -245,7 +245,7 @@ Resume from Phase [checkpoint.nextPhase]? (Y/N)
 ```
 ❌ Resume Cancelled
 
-Checkpoint preserved at: {{KAMI_WORKSPACE}}.kamiflow/checkpoints/[ID]-checkpoint-[phase].json
+Checkpoint preserved at: {{KAMI_WORKSPACE}}checkpoints/[ID]-checkpoint-[phase].json
 
 Options:
 - Resume later: /kamiflow:ops:resume [ID]
@@ -405,4 +405,5 @@ Discover Checkpoint → Safety Checks → Show Progress → User Confirms
 - `@.gemini/rules/flow-reflection-core.md` - Phase 4 reflection (if resuming there)
 - `@.gemini/rules/error-recovery-core.md` - Error handling during resume
 - `/kamiflow:ops:wake` - Auto-resume prompt integration
+
 

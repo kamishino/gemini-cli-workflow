@@ -18,7 +18,7 @@ prompt = '''
 
 **Follow the detailed intelligence loading protocol defined in:**
 
-`./.gemini/rules/context-intelligence-core.md`
+`./.gemini/rules/main-context-intelligence-core.md`
 
 **Key v2.0 Enhancement:**
 
@@ -84,7 +84,7 @@ You are the **"Workflow Resurrector"**. Your mission is to restore interrupted K
 **Search for Checkpoints:**
 
 ```powershell
-Get-ChildItem -Path "./.kamiflow/.kamiflow/checkpoints/" -Filter "[ID]-checkpoint-*.json" | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+Get-ChildItem -Path "./.kamiflow/checkpoints/" -Filter "[ID]-checkpoint-*.json" | Sort-Object LastWriteTime -Descending | Select-Object -First 1
 ```
 
 **Validation:**
@@ -303,7 +303,7 @@ Resume from Phase [checkpoint.nextPhase]? (Y/N)
 ```
 ❌ Resume Cancelled
 
-Checkpoint preserved at: ./.kamiflow/.kamiflow/checkpoints/[ID]-checkpoint-[phase].json
+Checkpoint preserved at: ./.kamiflow/checkpoints/[ID]-checkpoint-[phase].json
 
 Options:
 - Resume later: /kamiflow:ops:resume [ID]

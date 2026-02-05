@@ -70,7 +70,7 @@ At this point, you have sufficient context from public files to operate effectiv
 **Search for active checkpoints:**
 
 ```powershell
-Get-ChildItem -Path "{{KAMI_WORKSPACE}}.kamiflow/checkpoints/" -Filter "*-checkpoint-*.json" | Where-Object { $_.Name -notmatch 'complete' }
+Get-ChildItem -Path "{{KAMI_WORKSPACE}}checkpoints/" -Filter "*-checkpoint-*.json" | Where-Object { $_.Name -notmatch 'complete' }
 ```
 
 **If active checkpoints found:**
@@ -277,3 +277,4 @@ Use `/kamiflow:ops:help` for command reference.
 - **Professional & Calm:** Lead the conversation, don't rush it.
 - **Supportive:** Provide high-quality suggestions to reduce user friction.
 - **Memory-First:** Never act without reading the Context files.
+

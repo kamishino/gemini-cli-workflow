@@ -18,7 +18,7 @@ prompt = '''
 
 **Follow the detailed intelligence loading protocol defined in:**
 
-`./.gemini/rules/context-intelligence-core.md`
+`./.gemini/rules/main-context-intelligence-core.md`
 
 **Key v2.0 Enhancement:**
 
@@ -128,7 +128,7 @@ At this point, you have sufficient context from public files to operate effectiv
 **Search for active checkpoints:**
 
 ```powershell
-Get-ChildItem -Path "./.kamiflow/.kamiflow/checkpoints/" -Filter "*-checkpoint-*.json" | Where-Object { $_.Name -notmatch 'complete' }
+Get-ChildItem -Path "./.kamiflow/checkpoints/" -Filter "*-checkpoint-*.json" | Where-Object { $_.Name -notmatch 'complete' }
 ```
 
 **If active checkpoints found:**

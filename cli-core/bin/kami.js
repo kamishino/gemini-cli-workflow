@@ -43,7 +43,7 @@ const CATEGORIES = {
   project: {
     title: "📁 PROJECT MANAGEMENT",
     color: chalk.green,
-    commands: ["init-project", "check-health", "upgrade-core", "sync-rules", "show-info", "check-config", "manage-config", "archive-task", "search-workspace", "sync-db"],
+    commands: ["init-project", "check-health", "upgrade-core", "sync-rules", "show-info", "check-config", "manage-config", "archive-task", "search-workspace", "sync-db", "resume-workflow", "update-roadmap"],
   },
   automation: {
     title: "🤖 AUTOMATION & SWARM",

@@ -18,7 +18,7 @@ prompt = '''
 
 **Follow the detailed intelligence loading protocol defined in:**
 
-`./.gemini/rules/context-intelligence-core.md`
+`./.gemini/rules/main-context-intelligence-core.md`
 
 **Key v2.0 Enhancement:**
 
