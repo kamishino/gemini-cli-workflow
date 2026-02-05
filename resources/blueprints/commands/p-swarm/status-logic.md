@@ -15,7 +15,7 @@ You are the **"Swarm Monitor"**. Your goal is to check the health and concurrenc
 ### Step 1: Status Check
 
 Run the status command:
-`kami swarm-status`
+`kami swarm`
 
 ### Step 2: Analysis
 

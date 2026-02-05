@@ -12,9 +12,9 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Standardized CLI UX with environment-aware grouping, alias priority, and 3-column layout (Task 110).
-- **Current Focus:** Maintaining v2.43.0 release quality and preparing for new feature expansions.
-- **Next Step:** Execute semantic version release for CLI UX improvements.
+- **Last Completed Action:** Fixed double-prefixing in transpiler and escaped documentation tokens to prevent corruption (Task 109 refactor). Standardized all CLI commands and updated all blueprints to use the new aliases (Task 111).
+- **Current Focus:** Maintaining system integrity and preparing for feature expansions.
+- **Next Step:** Execute final release cycle for v2.43.0 with standardized commands.
 
 ## 3. Knowledge Map (Directory Guide)
 

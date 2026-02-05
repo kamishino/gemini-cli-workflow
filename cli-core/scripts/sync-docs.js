@@ -89,22 +89,22 @@ async function main() {
 
     // 2. Add Mock Terminal CLI commands
     const cliCommands = [
-      { fullCommand: "kamiflow init-flow", name: "init-flow", group: "terminal", order: 10, description: "Initialize a project with KamiFlow." },
-      { fullCommand: "kamiflow doctor-flow", name: "doctor-flow", group: "terminal", order: 20, description: "Check project health." },
-      { fullCommand: "kamiflow sync-flow", name: "sync-flow", group: "terminal", order: 30, description: "Synchronize command documentation." },
-      { fullCommand: "kamiflow archive-flow", name: "archive-flow", group: "terminal", order: 40, description: "Archive completed tasks." },
-      { fullCommand: "kamiflow config-flow", name: "config-flow", group: "terminal", order: 50, description: "Manage persistent project settings." },
+      { fullCommand: "kamiflow init", name: "init", group: "terminal", order: 10, description: "Initialize a project with KamiFlow." },
+      { fullCommand: "kamiflow doctor", name: "doctor", group: "terminal", order: 20, description: "Check project health." },
+      { fullCommand: "kamiflow sync", name: "sync", group: "terminal", order: 30, description: "Synchronize command documentation." },
+      { fullCommand: "kamiflow archive", name: "archive", group: "terminal", order: 40, description: "Archive completed tasks." },
+      { fullCommand: "kamiflow config", name: "config", group: "terminal", order: 50, description: "Manage persistent project settings." },
       {
-        fullCommand: "kamiflow update-flow",
-        name: "update-flow",
+        fullCommand: "kamiflow upgrade",
+        name: "upgrade",
         group: "terminal",
         order: 60,
         description: "Update KamiFlow to the latest version.",
       },
-      { fullCommand: "kamiflow info-flow", name: "info-flow", group: "terminal", order: 70, description: "Display core location and version." },
+      { fullCommand: "kamiflow info", name: "info", group: "terminal", order: 70, description: "Display core location and version." },
       {
-        fullCommand: "kamiflow resume-flow",
-        name: "resume-flow",
+        fullCommand: "kamiflow resume",
+        name: "resume",
         group: "terminal",
         order: 75,
         description: "Resume workflow from last checkpoint.",

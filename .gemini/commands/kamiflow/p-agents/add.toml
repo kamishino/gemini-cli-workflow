@@ -120,7 +120,7 @@ npx skills add {{args}} --agent [name]
 
 If the skill should be part of the project's SSOT:
 1.  Copy skill to `./resources/skills/[skill-name]/`
-2.  Run: `node cli-core/bin/kami.js sync-skills`
+2.  Run: `kami skills`
 3.  This ensures the skill is git-tracked and available across machines.
 
 ## 6. OUTPUT FORMAT

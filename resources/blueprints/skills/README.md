@@ -62,7 +62,7 @@ Skills are synced to `.gemini/skills/` via the transpile pipeline:
 
 ```bash
 # Sync skills only
-kami sync-skills
+kami skills
 
 # Full transpile (includes skills)
 kami transpile
@@ -102,7 +102,7 @@ Then move the generated skill from `.gemini/skills/` to `resources/skills/`.
 1. Create directory: `resources/skills/my-skill/`
 2. Create `SKILL.md` with required frontmatter
 3. Add optional `references/`, `scripts/`, `assets/` directories
-4. Run `kami sync-skills` to deploy
+4. Run `kami skills` to deploy
 
 ---
 
@@ -110,7 +110,7 @@ Then move the generated skill from `.gemini/skills/` to `resources/skills/`.
 
 1. **NEVER edit `.gemini/skills/` directly** - changes will be overwritten
 2. **Always edit source in `resources/skills/`**
-3. **Run `kami sync-skills`** after any changes
+3. **Run `kami skills`** after any changes
 4. **Skill name must match directory name**
 
 ---

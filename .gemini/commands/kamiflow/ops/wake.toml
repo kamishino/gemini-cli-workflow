@@ -250,7 +250,7 @@ Once the user approves or provides final details:
 1.  **Update GEMINI.md:** Use `replace` to update the line starting with `- **Conversational Language:**`.
 2.  **Update PROJECT_CONTEXT.md:** Replace all `{{...}}` placeholders with the final Name, Goal, and Stack. Set phase to "Discovery" and Tour to "true" (or current state).
 3.  **Update ROADMAP.md:** Update the header with the Project Name.
-4.  **Global Memory:** Run `kami config-flow set-state hasUsedKamiFlow true`.
+4.  **Global Memory:** Run `kami config set-state hasUsedKamiFlow true`.
 5.  **Confirm:** "✅ Project initialized! Context is anchored."
 
 ### STAGE 4.5: v2.0 Enhancements Overview (NEW)
@@ -276,7 +276,7 @@ After project initialization, briefly introduce v2.0:
 **Check user experience level:**
 
 ```bash
-kami config-flow get-state hasUsedKamiFlow
+kami config get-state hasUsedKamiFlow
 ```
 
 **If user is NEW (undefined or never used):**

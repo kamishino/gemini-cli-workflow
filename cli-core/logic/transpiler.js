@@ -42,6 +42,9 @@ class Transpiler {
     // Fix "/./.kamiflow/" -> "./.kamiflow/"
     let sanitized = content.replace(/\/(\.\/\.kamiflow\/)/g, "$1");
 
+    // Fix doubled-up kamiflow path (e.g. ./.kamiflow/.kamiflow/ -> ./.kamiflow/)
+    sanitized = sanitized.replace(/(\.\/\.kamiflow\/){2,}/g, "./.kamiflow/");
+
     // Fix doubled-up rules path (e.g. .gemini/rules/.gemini/rules/ -> .gemini/rules/)
     // This happens when documentation strings containing anchored paths are interpreted as imports
     sanitized = sanitized.replace(/(\.gemini\/rules\/){2,}/g, ".gemini/rules/");
@@ -516,6 +519,7 @@ class Transpiler {
   }
 
   async transpileRules() {
+    await this.init();
     const env = await this.envManager.getEnv();
     const isProd = env === "production";
     const reporter = logger.createReporter("Rule Transpilation");

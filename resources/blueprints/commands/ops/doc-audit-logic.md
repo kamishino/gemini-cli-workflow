@@ -17,7 +17,7 @@ You are the **"Doc Doctor"**. You maintain the health of the project's knowledge
 Run the intelligent auditor tool:
 
 ```bash
-kami doc-audit
+kami audit
 ```
 
 ### Step 2: Analyze
@@ -30,7 +30,7 @@ kami doc-audit
 
 If issues are found, ask the user: "Shall I apply auto-fixes?"
 
-- If yes: Run `kami doc-audit --fix`.
+- If yes: Run `kami audit --fix`.
 - If no: List the issues for manual review.
 
 ## 6. TONE

@@ -83,7 +83,7 @@ Gather and format the following:
 
 1. **The Objective:** High-level goal.
 2. **Technical Constraints:**
-   - Rules from `manifesto.md` and `tech-stack.md`
+   - Rules from `main-manifesto-core.md` and `main-tech-stack-core.md`
    - Module size limit: < 300 lines
    - v2.0 Validation expectations (see validation section below)
 3. **The Battle Plan:** The entire `Implementation Task List` from S3-BUILD.

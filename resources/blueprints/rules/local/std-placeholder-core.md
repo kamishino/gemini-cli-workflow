@@ -31,8 +31,8 @@ order: 220
 `Update file at ./.kamiflow/PROJECT_CONTEXT.md`
 
 ### ✅ CORRECT (Standard Tokens)
-`Follow instructions in {{KAMI_RULES_GEMINI}}std-id-core.md`
-`Update file at {{KAMI_WORKSPACE}}PROJECT_CONTEXT.md`
+`Follow instructions in {{ KAMI_RULES_GEMINI }}std-id-core.md`
+`Update file at {{ KAMI_WORKSPACE }}PROJECT_CONTEXT.md`
 
 ---
 

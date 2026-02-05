@@ -28,7 +28,7 @@ KamiFlow core lives in `.kami-flow/` (or global storage) but operates at the roo
 
 ---
 
-## 3. 🛠 Setup Workflow (init-flow)
+## 3. 🛠 Setup Workflow (init)
 
 ### Step 1: Create Symbolic Links
 Execute PowerShell commands to connect the core to project root:
@@ -49,7 +49,7 @@ MANDATORY: Add `{{KAMI_WORKSPACE}}` to `.geminiignore` to prevent "Double Vision
 ## ⚠️ Safety Rules
 - **Permission Check:** Windows requires Developer Mode or Admin rights for symlinks.
 - **SSOT:** Never modify files inside the `.gemini/` portal from a project repo; all core changes must happen in the KamiFlow source repo.
-- **Integrity:** Use `kamiflow doctor-flow` to verify portal health.
+- **Integrity:** Use `kamiflow doctor` to verify portal health.
 
 ## ✅ Success Criteria
 - Repo root is clean (only 2 hidden folders and 3 proxy files).

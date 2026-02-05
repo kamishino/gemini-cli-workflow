@@ -115,7 +115,7 @@ You must begin your output with a summary of what you found during the trinh sá
   - **Exit Criteria:** All blocking validations PASS, report generated
 - [ ] **Task 4.1: Run Lint & Style Check**
 - [ ] **Task 4.2: TOML Syntax Validation** (MANDATORY if targets include .toml)
-- [ ] **Task 4.3: Sync Documentation Commands** (Run `node scripts/sync-docs.js`)
+- [ ] **Task 4.3: Sync Documentation Commands** (Run `kami sync`)
 - [ ] **Task 4.4: Security & Privacy Check**
 - [ ] **Task 4.5: Module Size Validation** (< 300 lines)
 - [ ] **Task 4.6: Git Commit**

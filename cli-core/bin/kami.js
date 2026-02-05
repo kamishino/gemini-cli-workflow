@@ -36,24 +36,24 @@ const packageJson = require("../package.json");
 
 program.name("kamiflow").description("KamiFlow CLI - The Orchestrator for Indie Builders").version(packageJson.version);
 
-// --- CLI UX Alignment (Task 110) ---
+// --- CLI UX Alignment (Task 110 & 111) ---
 const isDev = process.env.KAMI_ENV === "development";
 
 const CATEGORIES = {
   project: {
     title: "📁 PROJECT MANAGEMENT",
     color: chalk.green,
-    commands: ["init-flow", "doctor-flow", "update-flow", "sync-rules", "info-flow", "validate-flow", "config-flow", "archive-flow", "search", "sync-db"],
+    commands: ["init-project", "check-health", "upgrade-core", "sync-rules", "show-info", "check-config", "manage-config", "archive-task", "search-workspace", "sync-db"],
   },
   automation: {
     title: "🤖 AUTOMATION & SWARM",
     color: chalk.magenta,
-    commands: ["saiyan", "supersaiyan", "swarm-status", "swarm-lock", "swarm-unlock"],
+    commands: ["run-saiyan", "run-batch", "check-swarm", "lock-swarm", "unlock-swarm"],
   },
   maintenance: {
     title: "🔧 MAINTENANCE (MASTER REPO)",
     color: chalk.red,
-    commands: ["clean-rules", "doc-audit", "sync-docs", "sync-agents", "sync-skills", "scan-agents", "create-idea", "refine-idea", "promote-idea", "analyze-idea", "update-central-rules"],
+    commands: ["clean-rules", "audit-docs", "sync-docs", "build-agents", "sync-skills", "_agent-scan", "_idea-create", "_idea-refine", "_idea-promote", "_idea-analyze", "_rules-update"],
     hidden: !isDev,
   },
 };
@@ -100,7 +100,7 @@ program.configureHelp({
 
 // Init command
 program
-  .command("init-flow [path]")
+  .command("init-project [path]")
   .alias("init")
   .description("Initialize KamiFlow in a project directory")
   .option("-m, --mode <mode>", "Integration mode: link, submodule, or standalone", "link")
@@ -121,7 +121,7 @@ program
 
 // Doctor command
 program
-  .command("doctor-flow")
+  .command("check-health")
   .alias("doctor")
   .description("Check system health and KamiFlow configuration")
   .option("--fix", "Attempt to automatically fix detected issues")
@@ -140,7 +140,7 @@ program
 
 // Update command
 program
-  .command("update-flow")
+  .command("upgrade-core")
   .alias("upgrade")
   .description("Update KamiFlow to the latest version")
   .option("-f, --force", "Force overwrite existing files (Standalone mode)", false)
@@ -157,6 +157,7 @@ program
 // Sync Rules command
 program
   .command("sync-rules")
+  .alias("rules")
   .description("Synchronize only global behavioral rules from KamiFlow core")
   .action(async () => {
     await execute(null, async () => {
@@ -171,6 +172,7 @@ program
 // Clean rules command
 program
   .command("clean-rules")
+  .alias("wipe")
   .description("Internal: Surgical cleanup of transpiled rules directory to prevent system redundancy")
   .action(async () => {
     await execute("Surgical Clean", async () => {
@@ -194,7 +196,7 @@ program
 
 // Info command
 program
-  .command("info-flow")
+  .command("show-info")
   .alias("info")
   .description("Display KamiFlow core location and version")
   .action(() => {
@@ -208,7 +210,7 @@ program
 
 // Validate command
 program
-  .command("validate-flow")
+  .command("check-config")
   .alias("validate")
   .description("Validate configuration files (TOML)")
   .option("-p, --path <path>", "Path to directory or file to validate", ".gemini/commands/kamiflow")
@@ -230,7 +232,7 @@ program
 
 // Doc Audit command
 program
-  .command("doc-audit")
+  .command("audit-docs")
   .alias("audit")
   .description("Scan documentation for broken links and drift")
   .option("--fix", "Automatically attempt to fix issues")
@@ -244,7 +246,7 @@ program
 
 // Config command
 const configFlow = program
-  .command("config-flow")
+  .command("manage-config")
   .alias("config")
   .description("Manage project configuration. Common keys: language, strategy, maxRetries.");
 
@@ -367,7 +369,7 @@ program
 
 // Sync Agents command
 program
-  .command("sync-agents")
+  .command("build-agents")
   .alias("transpile")
   .description("Assemble AI Agent configurations from Markdown blueprints")
   .action(async () => {
@@ -380,7 +382,7 @@ program
 
 // Archive command
 program
-  .command("archive-flow [id]")
+  .command("archive-task [id]")
   .alias("archive")
   .description("Archive completed tasks")
   .option("-f, --force", "Skip confirmation prompt")
@@ -398,7 +400,7 @@ program
 
 // Idea Sandbox Logic
 program
-  .command("create-idea <title>")
+  .command("_idea-create <title>", { hidden: true })
   .description("Internal: Create a new idea draft (used by Gemini CLI)")
   .option("-c, --content <content>", "Full content of the idea")
   .option("-s, --slug <slug>", "Summarized slug for filename")
@@ -411,7 +413,7 @@ program
   });
 
 program
-  .command("refine-idea <path> <content>")
+  .command("_idea-refine <path> <content>", { hidden: true })
   .description("Internal: Prepend a refinement to an idea (used by Gemini CLI)")
   .action(async (filePath, content) => {
     await execute(null, async () => {
@@ -421,7 +423,7 @@ program
   });
 
 program
-  .command("promote-idea <path>")
+  .command("_idea-promote <path>", { hidden: true })
   .description("Internal: Promote an idea draft (used by Gemini CLI)")
   .option("-f, --force", "Bypass quality gate")
   .action(async (filePath, options) => {
@@ -432,7 +434,7 @@ program
   });
 
 program
-  .command("analyze-idea <path> <scoresJson>")
+  .command("_idea-analyze <path> <scoresJson>", { hidden: true })
   .description("Internal: Update idea scores (used by Gemini CLI)")
   .action(async (filePath, scoresJson) => {
     await execute(null, async () => {
@@ -444,7 +446,7 @@ program
 
 // Agent Management Logic
 program
-  .command("scan-agents")
+  .command("_agent-scan", { hidden: true })
   .description("Internal: Scan for active AI agents in the project")
   .action(async () => {
     await execute(null, async () => {
@@ -454,7 +456,7 @@ program
   });
 
 program
-  .command("update-central-rules <skillName> <link>")
+  .command("_rules-update <skillName> <link>", { hidden: true })
   .description("Internal: Update the central rules template with a new skill")
   .action(async (skillName, link) => {
     await execute(null, async () => {
@@ -465,6 +467,7 @@ program
 
 program
   .command("sync-skills")
+  .alias("skills")
   .description("Sync skills from resources/skills/ to .gemini/skills/")
   .action(async () => {
     await execute("Syncing Skills", async () => {
@@ -480,7 +483,8 @@ const { isLocked, acquireLock, releaseLock, getSwarmStatus } = require("../logic
  */
 
 program
-  .command("swarm-status")
+  .command("check-swarm")
+  .alias("swarm")
   .description("Show active locks and swarm health")
   .action(async () => {
     await execute(null, async () => {
@@ -497,7 +501,7 @@ program
   });
 
 program
-  .command("swarm-lock <folder> <agentId>")
+  .command("lock-swarm <folder> <agentId>")
   .description("Manually set a swarm lock")
   .action(async (folder, agentId) => {
     await execute(null, async () => {
@@ -506,7 +510,7 @@ program
   });
 
 program
-  .command("swarm-unlock <folder>")
+  .command("unlock-swarm <folder>")
   .description("Manually release a swarm lock")
   .action(async (folder) => {
     await execute(null, async () => {
@@ -516,7 +520,8 @@ program
 
 // Search Command
 program
-  .command("search [query]")
+  .command("search-workspace [query]")
+  .alias("search")
   .description("Search workspace files (ideas, tasks, archives)")
   .option("-c, --category <category>", "Filter by category: ideas, tasks, archive")
   .option("-l, --limit <limit>", "Maximum results to show", "20")
@@ -592,6 +597,7 @@ program
 // Workspace Database Sync Command Group
 const syncDbFlow = program
   .command("sync-db")
+  .alias("db")
   .description("Synchronize private workspace data (.kamiflow/)");
 
 syncDbFlow
@@ -923,7 +929,8 @@ syncDbFlow
 
 // Saiyan Command
 program
-  .command("saiyan [input]")
+  .command("run-saiyan [input]")
+  .alias("saiyan")
   .description("Execute a task with autonomous decision making")
   .option("-s, --strategy <strategy>", "Execution strategy: BALANCED, FAST, AMBITIOUS", "BALANCED")
   .action(async (input, options) => {
@@ -935,7 +942,8 @@ program
 
 // SuperSaiyan Command
 program
-  .command("supersaiyan")
+  .command("run-batch")
+  .alias("supersaiyan")
   .description("Execute a batch of tasks autonomously")
   .option("-s, --source <source>", "Source of ideas: BACKLOG or RESEARCH")
   .action(async (options) => {

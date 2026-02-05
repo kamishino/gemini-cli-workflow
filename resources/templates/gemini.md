@@ -152,14 +152,14 @@ KamiFlow v2.0 introduces 5 critical enhancements for accuracy, stability, and re
 
 | Command | Goal |
 | :--- | :--- |
-| `kamiflow init-flow` | **Initialize a project with KamiFlow.** |
-| `kamiflow doctor-flow` | **Check project health.** |
-| `kamiflow sync-flow` | **Synchronize command documentation.** |
-| `kamiflow archive-flow` | **Archive completed tasks.** |
-| `kamiflow config-flow` | **Manage persistent project settings.** |
-| `kamiflow update-flow` | **Update KamiFlow to the latest version.** |
-| `kamiflow info-flow` | **Display core location and version.** |
-| `kamiflow resume-flow` | **Resume workflow from last checkpoint.** |
+| `kamiflow init` | **Initialize a project with KamiFlow.** |
+| `kamiflow doctor` | **Check project health.** |
+| `kamiflow sync` | **Synchronize command documentation.** |
+| `kamiflow archive` | **Archive completed tasks.** |
+| `kamiflow config` | **Manage persistent project settings.** |
+| `kamiflow upgrade` | **Update KamiFlow to the latest version.** |
+| `kamiflow info` | **Display core location and version.** |
+| `kamiflow resume` | **Resume workflow from last checkpoint.** |
 
 <!-- KAMI_COMMAND_LIST_END -->
 
