@@ -205,9 +205,9 @@ This project uses `cli-core/logic/env-manager.js` to handle dynamic workspace pa
 
 @./.gemini/rules/flow-validation.md
 @./.gemini/rules/flow-reflection.md
-@./.gemini/rules/anti-hallucination.md
-@./.gemini/rules/error-recovery.md
-@./.gemini/rules/flow-checkpoints.md
+@./.gemini/rules/anti-hallucination-core.md
+@./.gemini/rules/error-recovery-core.md
+@./.gemini/rules/checkpoint-core.md
 
 # Adaptive Workflow (v2.39)
 

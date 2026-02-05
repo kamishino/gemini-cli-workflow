@@ -12,9 +12,9 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Reorganized repository structure - moved sync backend to /packages, removed deprecated dashboard, established clearer project structure with SSOT documentation in /resources.
-- **Current Focus:** Preparing v2.41.0 release with repository reorganization and sync backend improvements.
-- **Next Step:** Complete documentation updates and execute semantic version release.
+- **Last Completed Action:** Optimized Token usage by splitting large rule files into atomic core and library modules (Task 105).
+- **Current Focus:** Preparing v2.41.0 release with repository reorganization and optimized context.
+- **Next Step:** Execute semantic version release.
 
 ## 3. Knowledge Map (Directory Guide)
 

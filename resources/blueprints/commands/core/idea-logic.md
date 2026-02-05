@@ -85,7 +85,7 @@ Then:
 
 **CRITICAL:** Before Phase 1 Diagnostic Interview, verify your assumptions.
 
-**Execute Verification Protocol (see `@.gemini/rules/anti-hallucination.md`):**
+**Execute Verification Protocol (see `@.gemini/rules/anti-hallucination-core.md`):**
 
 ### Step 5.1: File Path Verification
 

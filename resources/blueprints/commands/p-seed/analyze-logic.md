@@ -20,7 +20,7 @@ Load the seed file from `{{KAMI_WORKSPACE}}ideas/draft/[ID]-[slug].md`.
 
 Before strategic breakdown, verify any technical references mentioned in the seed:
 
-**Execute verification (see `@.gemini/rules/anti-hallucination.md`):**
+**Execute verification (see `@.gemini/rules/anti-hallucination-core.md`):**
 
 - If seed mentions **specific files** → Verify with `find_by_name` or `list_dir`
 - If seed mentions **libraries/frameworks** → Check `package.json` for presence

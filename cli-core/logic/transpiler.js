@@ -527,9 +527,21 @@ class Transpiler {
       const sourcePath = path.join(this.rulesDir, sourceFolder);
       if (!(await fs.pathExists(sourcePath))) continue;
 
-      const rules = (await fs.readdir(sourcePath)).filter((f) =>
-        f.endsWith(".md"),
-      );
+      const getFiles = async (dir) => {
+        const subdirs = await fs.readdir(dir);
+        const files = await Promise.all(
+          subdirs.map(async (subdir) => {
+            const res = path.resolve(dir, subdir);
+            return (await fs.stat(res)).isDirectory() ? getFiles(res) : res;
+          }),
+        );
+        return files.flat();
+      };
+
+      const allFiles = await getFiles(sourcePath);
+      const rules = allFiles
+        .filter((f) => f.endsWith(".md"))
+        .map((f) => path.relative(sourcePath, f));
 
       const ruleTasks = rules.map(async (rule) => {
         let content = await fs.readFile(path.join(sourcePath, rule), "utf8");
@@ -540,10 +552,12 @@ class Transpiler {
         content = this.sanitizeContent(content);
 
         for (const outputRoot of this.targets) {
-          const targetPath = path.join(outputRoot, ".gemini/rules", rule);
+          // Flatten rules in output: .gemini/rules/filename.md
+          const targetName = path.basename(rule);
+          const targetPath = path.join(outputRoot, ".gemini/rules", targetName);
           const success = await safeWrite(targetPath, content);
-          if (success) reporter.push(rule, "SUCCESS");
-          else reporter.push(rule, "ERROR");
+          if (success) reporter.push(targetName, "SUCCESS");
+          else reporter.push(targetName, "ERROR");
         }
       });
       await Promise.all(ruleTasks);

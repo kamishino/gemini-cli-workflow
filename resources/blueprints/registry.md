@@ -239,3 +239,12 @@
 - **Partials:**
   - resources/blueprints/commands/context-sync.md
   - resources/blueprints/commands/p-swarm/status-logic.md
+
+## Rules (Global Modules)
+
+- resources/blueprints/rules/global/modules/error-recovery-core.md
+- resources/blueprints/rules/global/modules/error-recovery-lib.md
+- resources/blueprints/rules/global/modules/anti-hallucination-core.md
+- resources/blueprints/rules/global/modules/anti-hallucination-lib.md
+- resources/blueprints/rules/global/modules/checkpoint-core.md
+- resources/blueprints/rules/global/modules/checkpoint-lib.md
