@@ -40,20 +40,20 @@ Synthesize findings into exactly **3-5 Strategic Directions**. For each directio
 Generate a **Strategic Direction Summary**.
 
 `markdown
-## ?? Strategic Expert Advice
+## 🧭 Strategic Expert Advice
 
 **Primary Focus:** [General summary of current project health/needs]
 **Targeted Focus:** [If target args provided, explain the specific analysis here]
 
 ---
 
-### ??? Strategic Directions
+### 🗺️ Strategic Directions
 
 | Direction | Domain | Rationale | Priority | Next Sniper Step |
 | :--- | :--- | :--- | :--- | :--- |
-| [Title] | [Domain] | [Detailed WHY based on context] | ????? | \/kamiflow:core:idea [topic]\ |
+| [Title] | [Domain] | [Detailed WHY based on context] | ⭐⭐⭐⭐⭐ | \/kamiflow:core:idea [topic]\ |
 
-### ?? Detected Risks & Gaps
+### 🚨 Detected Risks & Gaps
 
 - **[Risk 1]**: [Explanation]
 - **[Risk 2]**: [Explanation]

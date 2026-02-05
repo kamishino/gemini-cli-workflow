@@ -369,6 +369,31 @@ program
     });
   });
 
+// Roadmap update command
+program
+  .command("update-roadmap")
+  .alias("roadmap")
+  .description("Synchronize and update the strategic roadmap")
+  .action(async () => {
+    await execute(null, async () => {
+      logger.info("Generating roadmap structure...\n");
+      const execa = require("execa");
+      const scriptPath = path.join(__dirname, "../scripts/roadmap-generator.js");
+      await execa("node", [scriptPath], { stdio: "inherit" });
+    });
+  });
+
+// Resume workflow command
+program
+  .command("resume-workflow [id]")
+  .alias("resume")
+  .description("Resume an interrupted workflow from the last checkpoint")
+  .action(async () => {
+    console.log(chalk.cyan("\n📍 Workflow Resurrector:\n"));
+    console.log(chalk.white("This is an AI-Logic command that requires Gemini's reasoning engine."));
+    console.log(chalk.gray("👉 Please use:"), chalk.yellow("/kamiflow:ops:resume [id]"), chalk.gray("inside Gemini CLI.\n"));
+  });
+
 // Strategic Expert Advisor command
 program
   .command("advice [target]")

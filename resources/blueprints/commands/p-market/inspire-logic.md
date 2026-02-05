@@ -99,7 +99,7 @@ After creating discovery file:
 ## 3. OUTPUT FORMAT
 
 ```
-� Game-Changer Innovation Generated!
+💡 Game-Changer Innovation Generated!
 
 ID: [ID]
 Title: [Title]
@@ -122,6 +122,3 @@ Next: /kamiflow:p-seed:analyze [ID]
 ---
 
 Present the "Spark" to the Boss and explain the long-term sustainability benefits.
-
-
-
