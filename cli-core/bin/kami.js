@@ -369,6 +369,17 @@ program
     });
   });
 
+// Strategic Expert Advisor command
+program
+  .command("advice [target]")
+  .alias("consult")
+  .description("Get strategic directions and UX/UI advice from the AI Advisor")
+  .action(async () => {
+    console.log(chalk.cyan("\n🧭 Strategic Expert Advisor:\n"));
+    console.log(chalk.white("This is an AI-Logic command that requires Gemini's reasoning engine."));
+    console.log(chalk.gray("👉 Please use:"), chalk.yellow("/kamiflow:ops:advice [target]"), chalk.gray("inside Gemini CLI.\n"));
+  });
+
 // Sync Agents command
 program
   .command("build-agents")

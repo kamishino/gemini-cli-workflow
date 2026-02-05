@@ -270,6 +270,7 @@ Do you want to proceed with this release? (yes/no/override)
 - Push to remote: `git push origin main --tags`
 - Publish to npm: `npm publish` (if applicable)
 - Update ROADMAP.md with release milestone
+- **Consult the Advisor:** Run \/kamiflow:ops:advice\ to get suggestions for the next version.
 ```
 
 ---

@@ -134,6 +134,15 @@
   - resources/blueprints/commands/context-sync.md
   - resources/blueprints/commands/ops/sync-logic.md
 
+
+### Advice Command
+
+- **Target:** .gemini/commands/kamiflow/ops/advice.toml
+- **Shell:** gemini-shell.md
+- **Partials:**
+  - resources/blueprints/commands/context-sync.md
+  - resources/blueprints/commands/ops/advice-logic.md
+
 ### Roadmap Generator
 
 - **Target:** .gemini/commands/kamiflow/ops/roadmap.toml
@@ -274,4 +283,5 @@
 - resources/blueprints/rules/local/std-placeholder-core.md
 - resources/blueprints/rules/local/std-resource-core.md
 - resources/blueprints/rules/local/std-ui-core.md
+
 

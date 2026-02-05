@@ -212,6 +212,7 @@ Do you want to proceed with this release? (yes/no/override)
 - Push to remote: `git push origin main --tags`
 - Publish to npm: `npm publish` (if applicable)
 - Update ROADMAP.md with release milestone
+- **Consult the Advisor:** Run \/kamiflow:ops:advice\ to get suggestions for the next version.
 ```
 
 ---
@@ -278,4 +279,5 @@ Do you want to proceed with this release? (yes/no/override)
 - Emphasize **value delivered** over commit counts
 - Frame releases in terms of strategic progress and market position
 - Transparent about quality metrics and tech debt
+
 
