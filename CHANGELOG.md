@@ -498,6 +498,18 @@
 # Changelog
 
 
+## [v2.43.0] - 2026-02-05
+
+### 🐛 Fixes
+- fix(system): restored system integrity and protected token documentation (Task 109) (7e616ce)
+
+### 🧹 Chores & Others
+- refactor(rules): standardized all rule naming and metadata (Task 108) (a4037f9)
+- refactor(rules): completed universal rule modularity and fixed sync-docs script (Task 107) (2b5f736)
+- test(rules): verified Token efficiency savings via benchmark (Task 106) (6d4d2ae)
+- refactor(rules): optimized Token usage by splitting rules into core and library modules (Task 105) (edbd129)
+
+
 ## [v2.39.0] - 2026-02-02
 
 ### 🚀 Features
