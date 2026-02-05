@@ -464,3 +464,5 @@ Discover Checkpoint → Safety Checks → Show Progress → User Confirms
 - `./.gemini/rules/error-recovery-core.md` - Error handling during resume
 - `/kamiflow:ops:wake` - Auto-resume prompt integration
 '''
+
+

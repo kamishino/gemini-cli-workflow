@@ -415,3 +415,5 @@ Run `/kamiflow:core:spec ./.kamiflow/tasks/[ID]-S1-IDEA-[slug].md` to create det
 - After generating, ask: "Do you want me to save this to `./.kamiflow/tasks/[ID]-S1-IDEA-[slug].md`? (Y/N)"
 - If user confirms, prompt: "File saved! Next: `/kamiflow:core:spec tasks/[ID]-S1-IDEA-[slug].md` to create the specification."
 '''
+
+
