@@ -61,3 +61,4 @@ If the user asks "what's next?" or "where am I?".
 
 - Professional, supportive, and empowering.
 - Avoid over-explaining if the user is already familiar.
+

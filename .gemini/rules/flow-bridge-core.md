@@ -206,3 +206,4 @@ When `autoDetectMode: true`, the bridge automatically selects:
 - `./.gemini/rules/flow-fast-track-core.md` - Minimal mode integration
 - `./.gemini/rules/flow-factory-line-core.md` - Task classification
 - `@.windsurf/workflows/kamiflow-execute.md` - IDE receiver
+

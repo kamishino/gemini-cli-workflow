@@ -120,3 +120,4 @@ Then move the generated skill from `.gemini/skills/` to `resources/skills/`.
 - [Gemini CLI Skills Documentation](https://geminicli.com/docs/cli/skills/)
 - [Creating Agent Skills Guide](https://geminicli.com/docs/cli/creating-skills)
 - [KamiFlow SSOT Rules](../blueprints/rules/local/std-resource.md)
+

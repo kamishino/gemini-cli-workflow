@@ -54,3 +54,4 @@ MANDATORY: Add `{{KAMI_WORKSPACE}}` to `.geminiignore` to prevent "Double Vision
 ## ✅ Success Criteria
 - Repo root is clean (only 2 hidden folders and 3 proxy files).
 - AI has 100% access to core commands and rules via portals.
+

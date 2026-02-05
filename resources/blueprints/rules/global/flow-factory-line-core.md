@@ -169,3 +169,4 @@ Even in fast track, log the decision:
 
 - The plan is so detailed that a Junior AI can execute it with zero hallucinations.
 - All artifacts are saved in the `tasks/` directory with correct IDs.
+

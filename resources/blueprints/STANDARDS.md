@@ -54,3 +54,4 @@ Use double curly braces for variable injection in Templates:
 - [ ] Frontmatter contains all 5 required fields.
 - [ ] File is placed in the correct `[type]/[category]` subfolder.
 - [ ] Content is written in professional English.
+

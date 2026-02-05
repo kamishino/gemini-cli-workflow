@@ -21,8 +21,8 @@ order: 220
 
 | Physical Path | Standard Token | Use Case |
 | :--- | :--- | :--- |
-| `./.gemini/rules/` | `{{ KAMI_RULES_GEMINI }}` | Rules, Cross-references, AI directives. |
-| `{{KAMI_WORKSPACE}}` | `{{ KAMI_WORKSPACE }}` | Tasks, Archives, Roadmap, Context files. |
+| `./.gemini/rules/` | `{{KAMI_RULES_GEMINI}}` | Rules, Cross-references, AI directives. |
+| `{{KAMI_WORKSPACE}}` | `{{KAMI_WORKSPACE}}` | Tasks, Archives, Roadmap, Context files. |
 
 ## 3. 🏗️ EXAMPLES
 
@@ -31,8 +31,8 @@ order: 220
 `Update file at {{KAMI_WORKSPACE}}PROJECT_CONTEXT.md`
 
 ### ✅ CORRECT (Standard Tokens)
-`Follow instructions in {{ KAMI_RULES_GEMINI }}std-id-core.md`
-`Update file at {{ KAMI_WORKSPACE }}PROJECT_CONTEXT.md`
+`Follow instructions in {{KAMI_RULES_GEMINI}}std-id-core.md`
+`Update file at {{KAMI_WORKSPACE}}PROJECT_CONTEXT.md`
 
 ---
 
@@ -41,3 +41,5 @@ While this rule is "Soft Strict" (AI makes mistakes), consistently ignoring it w
 
 ---
 **Status:** Dogfooding Active ✅
+
+

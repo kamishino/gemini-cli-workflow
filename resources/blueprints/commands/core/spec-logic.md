@@ -174,3 +174,4 @@ _Include only if task is classified as Critical and any risk scores ≥ 6_
 
 - Technical, precise, and structural.
 - Forward-looking (thinking about implementation).
+

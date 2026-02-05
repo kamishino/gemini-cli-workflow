@@ -164,3 +164,4 @@ Before completing, verify:
 - Professional, data-driven, and reassuring
 - Emphasize **intelligence preservation** over simple file updates
 - Transparent about private folder availability
+

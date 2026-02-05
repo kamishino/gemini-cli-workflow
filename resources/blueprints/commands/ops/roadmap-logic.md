@@ -289,3 +289,4 @@ Use data from p-market research or PROJECT_CONTEXT if available.
 - Emphasize **incremental enrichment** over regeneration
 - Transparent about data sources and availability
 
+

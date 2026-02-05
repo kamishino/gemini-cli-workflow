@@ -106,3 +106,4 @@ src/styles/globals.css:8 - Contrast ratio below WCAG AA (3.2:1, needs 4.5:1)
 
 - `test-driven-development` - Test UI interactions
 - `verification-before-completion` - Verify accessibility before shipping
+

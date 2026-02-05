@@ -22,8 +22,8 @@ Only use approved placeholders:
 
 | Placeholder | Purpose | Transpiled Result |
 | :--- | :--- | :--- |
-| `{{ KAMI_WORKSPACE }}` | Core folder path | `{{KAMI_WORKSPACE}}` |
-| `{{ KAMI_RULES_GEMINI }}` | Behavioral rules path | `./.gemini/rules/` |
+| `{{KAMI_WORKSPACE}}` | Core folder path | `{{KAMI_WORKSPACE}}` |
+| `{{KAMI_RULES_GEMINI}}` | Behavioral rules path | `./.gemini/rules/` |
 | `{{ PROJECT_NAME }}`| Project identity | (From config) |
 | `{{ DATE }}` | Timestamping | (Current Date) |
 
@@ -47,5 +47,7 @@ If you see `/{{KAMI_WORKSPACE}}` in generated files, it is a CORRUPTION.
 When writing documentation or blueprints:
 1. Double-check backtick counts.
 2. Ensure every `@` reference is anchored with `./`.
+
+
 
 
