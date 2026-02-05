@@ -38,7 +38,12 @@ If you see `/{{KAMI_WORKSPACE}}` in generated files, it is a CORRUPTION.
 - **Cause:** Double prefixing.
 - **Fix:** The Transpiler `sanitizeContent()` should be updated, or fix the source partial to remove the leading slash.
 
-## 5. 🧠 AI BEHAVIOR
+## 5. 🏗️ CLI COMMAND STANDARDS
+- **Universal Alias:** NEVER use direct paths like `node cli-core/bin/kami.js` in instructions.
+- **Strict Requirement:** Always use the `kami` alias (e.g., `kami sync`, `kami archive`).
+- **Benefit:** Ensures blueprints work in both Master Repo and Client Projects.
+
+## 6. 🧠 AI BEHAVIOR
 When writing documentation or blueprints:
 1. Double-check backtick counts.
 2. Ensure every `@` reference is anchored with `./`.

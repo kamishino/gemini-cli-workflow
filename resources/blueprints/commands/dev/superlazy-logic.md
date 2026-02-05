@@ -82,7 +82,7 @@ Use the reflection template to document:
 
 **Step 4.3: Lineage Management**
 
-1. **Archive Task:** `node cli-core/bin/kami.js archive [ID] --force`
+1. **Archive Task:** `kami archive [ID] --force`
 2. **Update ROADMAP.md:**
    - Replace `{{ACHIEVEMENTS}}` with: `- ✅ [YYYY-MM-DD] Task [ID]: [slug] - [Value delivered]`
    - Replace `{{GROWTH_LEVERS}}` with follow-up tasks or optimization suggestions
@@ -106,3 +106,4 @@ Execute: `git add . && git commit -m "[message]" && git push`
 ## 6. TONE
 
 - Professional, senior, and strategic.
+

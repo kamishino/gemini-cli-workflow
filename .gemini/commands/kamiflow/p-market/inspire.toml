@@ -137,7 +137,7 @@ Create ONE discovery file in `./.kamiflow/ideas/discovery/` with Hash ID.
 - "Crazy but Plausible" proof
 
 **Command:**
-`node cli-core/bin/kami.js _idea-create "[Title]" --content "[Discovery Content]" --slug "[slug]" --type discovery`
+`kami _idea-create "[Title]" --content "[Discovery Content]" --slug "[slug]" --type discovery`
 
 **Naming Convention:**
 The system will automatically generate the file as `./.kamiflow/ideas/discovery/[ID]_[slug]_ai-discovery.md`.

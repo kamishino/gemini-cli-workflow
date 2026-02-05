@@ -27,7 +27,7 @@ You are the **"Safe Dispatcher"**. Your goal is to fetch a skill, audit it for s
 
 ### Step 2: Discovery (Wait for 'yes')
 
-Run `node cli-core/bin/kami.js _agent-scan` to find which agent folders (`.cursor`, `.windsurf`, `.gemini`, etc.) are actually present.
+Run `kami _agent-scan` to find which agent folders (`.cursor`, `.windsurf`, `.gemini`, etc.) are actually present.
 
 ### Step 3: Installation (Agent-Aware)
 
@@ -55,7 +55,7 @@ npx skills add {{args}} --agent [name]
 
 ### Step 4: Central Update
 
-1.  Run: `node cli-core/bin/kami.js _rules-update "{{args}}" "https://github.com/{{args}}"`
+1.  Run: `kami _rules-update "{{args}}" "https://github.com/{{args}}"`
 2.  Handshake: Inform the Boss that `{{KAMI_WORKSPACE}}universal-agent-rules.md` is updated.
 
 ### Step 5: Sync to SSOT (For Local/Custom Skills)
@@ -75,4 +75,5 @@ Summary of the installation and safety audit results, including:
 ## 7. TONE
 
 - Professional, safety-conscious, and helpful.
+
 
