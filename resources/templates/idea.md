@@ -54,3 +54,4 @@ Once analyzed and refined, use:
 2. Promote to backlog → `/kamiflow:core:idea`
 3. Full v2.0 Sniper Model execution
 4. Validated, reflected, and shipped!
+

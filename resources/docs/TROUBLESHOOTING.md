@@ -50,7 +50,7 @@ Common issues and solutions for KamiFlow.
 **Solution:** Ensure your Task file ends with `_from-[IdeaID].md`.
 
 - Example: `047-S1-IDEA-feature_from-B9D4.md`.
-- This allows the `archive-flow` to automatically harvest the source idea.
+- This allows the `archive` to automatically harvest the source idea.
 
 ### 🔗 Roadmap is "Shallow"
 
@@ -144,3 +144,4 @@ Common issues and solutions for KamiFlow.
 ## �💬 Still having issues?
 
 Run `kami doctor` to perform a full system health check. If the problem persists, please report a bug.
+

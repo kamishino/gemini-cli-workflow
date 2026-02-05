@@ -25,7 +25,7 @@ The **`kamiflow`** (alias **`kami`**) command is used for machine-level operatio
 
 ---
 
-## kamiflow init-flow `Alias: init`
+## kamiflow init `Alias: init`
 > **Goal:** Initialize a project with the KamiFlow ecosystem.
 
 ### 📋 Options for Speed
@@ -39,7 +39,7 @@ kami init --skip-interview
 
 ---
 
-## kamiflow doctor-flow `Alias: doctor`
+## kamiflow doctor `Alias: doctor`
 > **Goal:** Check project health and configuration.
 
 ### 📋 Options for Speed
@@ -52,7 +52,7 @@ kami doctor --fix
 
 ---
 
-## kamiflow sync-flow `Alias: sync`
+## kamiflow sync `Alias: sync`
 > **Goal:** Synchronize command documentation across all Wiki files.
 
 ### 🧠 Thinking Process
@@ -67,7 +67,7 @@ kami sync
 
 ---
 
-## kamiflow archive-flow `Alias: archive`
+## kamiflow archive `Alias: archive`
 > **Goal:** Clean up your `tasks/` directory by moving completed files to the archive.
 
 ### 📋 Options for Speed
@@ -87,7 +87,7 @@ kami archive 056 --force
 
 ---
 
-## kamiflow config-flow `Alias: config`
+## kamiflow config `Alias: config`
 > **Goal:** Manage configuration settings across three layers: Defaults, Global, and Local.
 
 ### 📂 Hierarchy
@@ -111,10 +111,11 @@ kami config set seed.minFeasibility 0.8
 
 ---
 
-## kamiflow update-flow `Alias: upgrade`
+## kamiflow update `Alias: upgrade`
 > **Goal:** Update KamiFlow core to the latest version.
 
 ### 🚀 Fast Track
 ```bash
 kami upgrade
 ```
+

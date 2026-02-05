@@ -14,7 +14,7 @@ Complete reference for all KamiFlow commands, configuration options, and program
 
 ## CLI Commands
 
-### `kamiflow init-flow [path]`
+### `kamiflow init [path]`
 
 Initialize KamiFlow in a project directory.
 
@@ -42,7 +42,7 @@ kamiflow init --skip-interview
 
 ---
 
-### `kamiflow doctor-flow`
+### `kamiflow doctor`
 
 Check system health and KamiFlow configuration.
 
@@ -70,7 +70,7 @@ kamiflow doctor --fix --auto-fix
 
 ---
 
-### `kamiflow update-flow`
+### `kamiflow update`
 
 Update KamiFlow to the latest version.
 
@@ -90,7 +90,7 @@ kamiflow update --force
 
 ---
 
-### `kamiflow config-flow`
+### `kamiflow config`
 
 Manage project configuration.
 
@@ -150,7 +150,7 @@ kamiflow validate -p .gemini/commands/kamiflow/core
 
 ---
 
-### `kamiflow sync-flow`
+### `kamiflow sync`
 
 Synchronize command documentation.
 
@@ -158,7 +158,7 @@ Synchronize command documentation.
 
 ---
 
-### `kamiflow archive-flow [id]`
+### `kamiflow archive [id]`
 
 Archive completed tasks.
 
@@ -182,7 +182,7 @@ kamiflow archive 042 --force
 
 ---
 
-### `kamiflow info-flow`
+### `kamiflow info`
 
 Display KamiFlow core location and version.
 
@@ -625,3 +625,4 @@ KAMI_LANG=vi kamiflow init
 
 **Version:** 2.35.0  
 **Last Updated:** 2024-01-31
+

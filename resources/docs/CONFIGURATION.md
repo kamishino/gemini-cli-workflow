@@ -71,3 +71,4 @@ The `environments` key allows you to map where KamiFlow looks for the workspace 
 ```
 
 > **Note:** Modification of the `environments` object is recommended for power users only.
+

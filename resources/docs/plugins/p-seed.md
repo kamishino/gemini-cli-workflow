@@ -38,3 +38,4 @@ By default, ideas must score above **0.7** in Feasibility to be promoted. This t
 ## 📁 Storage Structure
 - `ideas/draft/`: Initial sparks and unpolished concepts.
 - `ideas/backlog/`: High-quality, verified ideas ready for implementation.
+

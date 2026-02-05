@@ -35,3 +35,4 @@ The **Market Planner Engine** is a specialized module designed to keep your proj
 ---
 
 📖 **[Read the SuperSaiyan Guide](../POWER_USER_GUIDE.md#2-devsupersaiyan-the-orchestrator)** for info on how to automate Market Research cycles.
+

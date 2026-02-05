@@ -353,3 +353,4 @@ Each CRISP component builds trust:
 - `@.gemini/rules/flow-factory-line.md` - Sniper Model workflow
 - `resources/blueprints/skills/verification-before-completion/SKILL.md` - Verification skill
 - `resources/blueprints/skills/test-driven-development/SKILL.md` - TDD skill
+

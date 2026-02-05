@@ -22,7 +22,7 @@ Automation tools for high-speed execution.
 
 ### [🖥️ Terminal CLI](terminal.md)
 Machine-level operations via the `kamiflow` command.
-- `init-flow`, `config-flow`, `doctor-flow`, `sync-flow`, `archive-flow`
+- `init`, `config`, `doctor`, `sync`, `archive`
 
 ### [⚙️ Configuration](../CONFIGURATION.md)
 How to customize KamiFlow's behavior.
@@ -126,3 +126,4 @@ How to customize KamiFlow's behavior.
 
 ---
 [Return to README](../../README.md)
+

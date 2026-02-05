@@ -327,3 +327,4 @@ Before committing code, ensure:
 - [ ] Examples provided for non-obvious usage
 - [ ] Complex types defined with `@typedef`
 - [ ] Error conditions documented with `@throws`
+

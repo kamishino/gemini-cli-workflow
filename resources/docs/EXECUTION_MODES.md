@@ -34,3 +34,4 @@ Regardless of the mode, your safety is guaranteed by the `gatedAutomation` setti
 - **`gatedAutomation: false` (Fast):** The AI will automatically select the best approach (Option B) and proceed without stopping, provided the task is not flagged as **High-Risk**.
 
 > **⚠️ Note:** High-Risk tasks (core logic, bulk edits) ALWAYS require a mandatory **TDD (Test-First)** protocol, ensuring the stability of your codebase.
+

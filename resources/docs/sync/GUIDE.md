@@ -520,3 +520,4 @@ A: `kami sync-db delete-remote --confirm`
 ---
 
 **Happy syncing! 🔄**
+

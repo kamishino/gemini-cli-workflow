@@ -38,7 +38,7 @@ Seamless upgrade guide for existing KamiFlow users transitioning to v2.0 enhance
 ### Step 1: Update KamiFlow
 
 ```bash
-kamiflow update-flow
+kamiflow update
 ```
 
 This updates the CLI and core protocols to v2.0.
@@ -405,9 +405,10 @@ Level 1 errors self-heal automatically. Level 2 errors give you options. Don't p
 
 ## 💬 Need Help?
 
-- **Check system health:** `kamiflow doctor-flow`
+- **Check system health:** `kamiflow doctor`
 - **View project status:** `/kamiflow:ops:wake`
 - **Interactive help:** `/kamiflow:ops:help`
 - **Emergency brake:** `/kamiflow:dev:revise [ID]`
 
 Welcome to KamiFlow v2.0 - more stable, more reliable, more powerful! 🚀
+

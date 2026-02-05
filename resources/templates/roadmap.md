@@ -72,3 +72,4 @@ _Auto-tracked by validation loop and reflection reports:_
 
 - **Stack:** Node.js, Gemini CLI.
 - **External:** Custom AI Skills.
+

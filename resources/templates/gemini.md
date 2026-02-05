@@ -171,24 +171,25 @@ KamiFlow v2.0 introduces 5 critical enhancements for accuracy, stability, and re
 
 # Core Protocols (v1.0)
 
-@{{KAMI_RULES_GEMINI}}core-manifesto.md
-@{{KAMI_RULES_GEMINI}}core-tech-stack.md
-@{{KAMI_RULES_GEMINI}}std-command.md
-@{{KAMI_RULES_GEMINI}}flow-factory-line.md
-@{{KAMI_RULES_GEMINI}}flow-execution.md
-@{{KAMI_RULES_GEMINI}}flow-bridge.md
-@{{KAMI_RULES_GEMINI}}flow-bootstrap.md
-@{{KAMI_RULES_GEMINI}}std-markdown.md
-@{{KAMI_RULES_GEMINI}}std-id.md
+{{KAMI_RULES_GEMINI}}core-manifesto.md
+{{KAMI_RULES_GEMINI}}core-tech-stack.md
+{{KAMI_RULES_GEMINI}}std-command.md
+{{KAMI_RULES_GEMINI}}flow-factory-line.md
+{{KAMI_RULES_GEMINI}}flow-execution.md
+{{KAMI_RULES_GEMINI}}flow-bridge.md
+{{KAMI_RULES_GEMINI}}flow-bootstrap.md
+{{KAMI_RULES_GEMINI}}std-markdown.md
+{{KAMI_RULES_GEMINI}}std-id.md
 
 # Enhanced Protocols (v2.0)
 
-@{{KAMI_RULES_GEMINI}}flow-validation.md
-@{{KAMI_RULES_GEMINI}}flow-reflection.md
-@{{KAMI_RULES_GEMINI}}anti-hallucination.md
-@{{KAMI_RULES_GEMINI}}error-recovery.md
-@{{KAMI_RULES_GEMINI}}flow-checkpoints.md
+{{KAMI_RULES_GEMINI}}flow-validation.md
+{{KAMI_RULES_GEMINI}}flow-reflection.md
+{{KAMI_RULES_GEMINI}}anti-hallucination.md
+{{KAMI_RULES_GEMINI}}error-recovery.md
+{{KAMI_RULES_GEMINI}}flow-checkpoints.md
 
 # Project State
 
-@{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md
+{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md
+
