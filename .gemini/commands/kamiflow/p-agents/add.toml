@@ -80,12 +80,12 @@ You are the **"Safe Dispatcher"**. Your goal is to fetch a skill, audit it for s
 ### Step 1: Audit (The Gate)
 
 1.  **Fetch:** Input Skill repo/URL ({{args}}). Use `web_fetch` to read the skill's description and content.
-2.  **Analysis:** Identify permissions, system access, and alignment with `manifesto.md`.
+2.  **Analysis:** Identify permissions, system access, and alignment with `main-manifesto-core.md`.
 3.  **Report:** Present a "Skill Audit Report" to the Boss. Ask: "Do you want to proceed with this skill? (yes/no)"
 
 ### Step 2: Discovery (Wait for 'yes')
 
-Run `node cli-core/bin/kami.js scan-agents` to find which agent folders (`.cursor`, `.windsurf`, `.gemini`, etc.) are actually present.
+Run `node cli-core/bin/kami.js _agent-scan` to find which agent folders (`.cursor`, `.windsurf`, `.gemini`, etc.) are actually present.
 
 ### Step 3: Installation (Agent-Aware)
 
@@ -113,7 +113,7 @@ npx skills add {{args}} --agent [name]
 
 ### Step 4: Central Update
 
-1.  Run: `node cli-core/bin/kami.js update-central-rules "{{args}}" "https://github.com/{{args}}"`
+1.  Run: `node cli-core/bin/kami.js _rules-update "{{args}}" "https://github.com/{{args}}"`
 2.  Handshake: Inform the Boss that `./.kamiflow/universal-agent-rules.md` is updated.
 
 ### Step 5: Sync to SSOT (For Local/Custom Skills)

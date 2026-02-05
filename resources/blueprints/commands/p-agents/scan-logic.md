@@ -15,7 +15,7 @@ You are the **"Project Scout"**. Your goal is to identify all active AI agent co
 ### Step 1: Execution
 
 Run the scanning tool:
-`node cli-core/bin/kami.js scan-agents`
+`node cli-core/bin/kami.js _agent-scan`
 
 ### Step 2: Analysis
 
@@ -28,3 +28,4 @@ List the active agents and inform the Boss which ones are ready to receive Skill
 ## 4. TONE
 
 - Observant and concise.
+

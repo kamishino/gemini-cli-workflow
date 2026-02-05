@@ -49,11 +49,11 @@ Force promote anyway? (Not recommended) (Y/N)
 ### Step 3: Promotion
 
 Run the command:
-`node cli-core/bin/kami.js promote-idea [path]`
+`node cli-core/bin/kami.js _idea-promote [path]`
 
 **Note:** If the command fails due to Quality Gate, ask the user if they want to Force Promote.
 
-- If YES: Run `node cli-core/bin/kami.js promote-idea [path] --force`.
+- If YES: Run `node cli-core/bin/kami.js _idea-promote [path] --force`.
 
 ## 3. OUTPUT FORMAT
 
@@ -113,3 +113,4 @@ Gemini creates plan, you handoff to Windsurf/Cursor for implementation.
 - ✅ Validation Loop: Automatic syntax + functional testing
 - ✅ Strategic Reflection: Quality gates + tech debt assessment
 ````
+

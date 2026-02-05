@@ -13,7 +13,7 @@ order: 220
 ---
 
 ## 1. 🛑 NON-NEGOTIABLES
-- **NO Anchored Paths:** Never use hardcoded strings like `./.gemini/rules/` or `./.kamiflow/` inside Blueprints.
+- **NO Anchored Paths:** Never use hardcoded strings like `./.gemini/rules/` or `{{KAMI_WORKSPACE}}` inside Blueprints.
 - **Token Usage:** Always use the approved infrastructure tokens.
 - **Transparency:** Use tokens that clearly identify the target infrastructure (Gemini vs KamiFlow).
 
@@ -22,13 +22,13 @@ order: 220
 | Physical Path | Standard Token | Use Case |
 | :--- | :--- | :--- |
 | `./.gemini/rules/` | `{{ KAMI_RULES_GEMINI }}` | Rules, Cross-references, AI directives. |
-| `./.kamiflow/` | `{{ KAMI_WORKSPACE }}` | Tasks, Archives, Roadmap, Context files. |
+| `{{KAMI_WORKSPACE}}` | `{{ KAMI_WORKSPACE }}` | Tasks, Archives, Roadmap, Context files. |
 
 ## 3. 🏗️ EXAMPLES
 
 ### ❌ WRONG (Anchored Path)
 `Follow instructions in @./.gemini/rules/std-id-core.md`
-`Update file at ./.kamiflow/PROJECT_CONTEXT.md`
+`Update file at {{KAMI_WORKSPACE}}PROJECT_CONTEXT.md`
 
 ### ✅ CORRECT (Standard Tokens)
 `Follow instructions in {{ KAMI_RULES_GEMINI }}std-id-core.md`

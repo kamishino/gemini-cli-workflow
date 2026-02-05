@@ -49,7 +49,7 @@ MANDATORY: Add `./.kamiflow/` to `.geminiignore` to prevent "Double Vision" (AI 
 ## ⚠️ Safety Rules
 - **Permission Check:** Windows requires Developer Mode or Admin rights for symlinks.
 - **SSOT:** Never modify files inside the `.gemini/` portal from a project repo; all core changes must happen in the KamiFlow source repo.
-- **Integrity:** Use `kamiflow doctor` to verify portal health.
+- **Integrity:** Use `kami doctor` to verify portal health.
 
 ## ✅ Success Criteria
 - Repo root is clean (only 2 hidden folders and 3 proxy files).

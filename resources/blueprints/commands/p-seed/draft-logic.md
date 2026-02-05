@@ -18,10 +18,10 @@ Ask 3-5 open-ended questions to clarify the "Why" and "How" of the idea.
 
 ### Step 2: File Creation (Auto-ID)
 
-Use the `create-idea` command. The system will automatically generate a unique 4-character Hash ID (e.g., `X9Z1`).
+Use the `_idea-create` command. The system will automatically generate a unique 4-character Hash ID (e.g., `X9Z1`).
 
 **Command:**
-`node cli-core/bin/kami.js create-idea "[Title]" --content "[Full Content]"`
+`node cli-core/bin/kami.js _idea-create "[Title]" --content "[Full Content]"`
 
 **Content Template:**
 
@@ -48,3 +48,4 @@ Use the `create-idea` command. The system will automatically generate a unique 4
 Confirm the creation and display the generated ID (from the tool output).
 
 "🌱 Seed planted! ID: [ID] | File: {{KAMI_WORKSPACE}}ideas/draft/[ID]-[slug].md"
+

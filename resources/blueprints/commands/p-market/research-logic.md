@@ -56,7 +56,7 @@ For the **TOP 2 ideas** (not just 1):
 4. **Tag for SuperSaiyan** consideration (if applicable)
 
 **Command:**
-`node cli-core/bin/kami.js create-idea "[Title]" --content "[Discovery Content]" --slug "[slug]" --type discovery`
+`node cli-core/bin/kami.js _idea-create "[Title]" --content "[Discovery Content]" --slug "[slug]" --type discovery`
 
 **Naming Convention:**
 The system will automatically generate files as `{{KAMI_WORKSPACE}}ideas/discovery/[ID]_[slug]_ai-discovery.md`.
@@ -91,3 +91,4 @@ ROADMAP Gap: [Strategic area this fills]
 Total Discoveries: [N]/2
 Next: /kamiflow:p-market:analyze-all
 ```
+

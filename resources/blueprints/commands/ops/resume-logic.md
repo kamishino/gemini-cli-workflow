@@ -320,7 +320,7 @@ C) Cancel resume
 - Validation Loop: `@.gemini/rules/flow-validation-core.md` (if resuming at Phase 3B)
 - Reflection Protocol: `@.gemini/rules/flow-reflection-core.md` (if resuming at Phase 4)
 - Error Recovery: `@.gemini/rules/error-recovery-core.md` (if errors occur)
-- Anti-Hallucination: `@.gemini/rules/anti-hallucination-core.md` (if resuming before Phase 1)
+- Anti-Hallucination: `@.gemini/rules/std-anti-hallucination-core.md` (if resuming before Phase 1)
 
 ### Checkpoints Created By:
 
@@ -400,8 +400,9 @@ Discover Checkpoint → Safety Checks → Show Progress → User Confirms
 
 ## 10. RELATED PROTOCOLS
 
-- `@.gemini/rules/checkpoint-core.md` - Checkpoint schema and locations
+- `@.gemini/rules/flow-checkpoint-core.md` - Checkpoint schema and locations
 - `@.gemini/rules/flow-validation-core.md` - Phase 3B validation (if resuming there)
 - `@.gemini/rules/flow-reflection-core.md` - Phase 4 reflection (if resuming there)
 - `@.gemini/rules/error-recovery-core.md` - Error handling during resume
 - `/kamiflow:ops:wake` - Auto-resume prompt integration
+

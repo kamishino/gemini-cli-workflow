@@ -22,19 +22,19 @@ Only use approved placeholders:
 
 | Placeholder | Purpose | Transpiled Result |
 | :--- | :--- | :--- |
-| `{{ KAMI_WORKSPACE }}` | Core folder path | `./.kamiflow/` |
+| `{{ KAMI_WORKSPACE }}` | Core folder path | `{{KAMI_WORKSPACE}}` |
 | `{{ KAMI_RULES_GEMINI }}` | Behavioral rules path | `./.gemini/rules/` |
 | `{{ PROJECT_NAME }}`| Project identity | (From config) |
 | `{{ DATE }}` | Timestamping | (Current Date) |
 
 ## 3. 🏗️ PATH ANCHORING (SSOT)
 All AI interactions MUST use anchored paths:
-- **Good:** `./.kamiflow/PROJECT_CONTEXT.md`
+- **Good:** `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md`
 - **Bad:** `.kamiflow/PROJECT_CONTEXT.md`
 - **Bad:** `PROJECT_CONTEXT.md`
 
 ## 4. 🛡️ SELF-HEALING REGEX
-If you see `/./.kamiflow/` in generated files, it is a CORRUPTION.
+If you see `/{{KAMI_WORKSPACE}}` in generated files, it is a CORRUPTION.
 - **Cause:** Double prefixing.
 - **Fix:** The Transpiler `sanitizeContent()` should be updated, or fix the source partial to remove the leading slash.
 
@@ -42,3 +42,4 @@ If you see `/./.kamiflow/` in generated files, it is a CORRUPTION.
 When writing documentation or blueprints:
 1. Double-check backtick counts.
 2. Ensure every `@` reference is anchored with `./`.
+

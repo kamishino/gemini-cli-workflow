@@ -192,7 +192,7 @@ If this revision is triggered by an error:
 
 ### Step 3.3: Re-verify All Assumptions (Anti-Hallucination Guard)
 
-Execute Phase 0.5 from `@.gemini/rules/anti-hallucination-core.md`:
+Execute Phase 0.5 from `@.gemini/rules/std-anti-hallucination-core.md`:
 
 - [ ] Verify all file references
 - [ ] Confirm all function anchors

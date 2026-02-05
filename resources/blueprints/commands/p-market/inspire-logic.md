@@ -79,7 +79,7 @@ Create ONE discovery file in `{{KAMI_WORKSPACE}}ideas/discovery/` with Hash ID.
 - "Crazy but Plausible" proof
 
 **Command:**
-`node cli-core/bin/kami.js create-idea "[Title]" --content "[Discovery Content]" --slug "[slug]" --type discovery`
+`node cli-core/bin/kami.js _idea-create "[Title]" --content "[Discovery Content]" --slug "[slug]" --type discovery`
 
 **Naming Convention:**
 The system will automatically generate the file as `{{KAMI_WORKSPACE}}ideas/discovery/[ID]_[slug]_ai-discovery.md`.
@@ -122,3 +122,4 @@ Next: /kamiflow:p-seed:analyze [ID]
 ---
 
 Present the "Spark" to the Boss and explain the long-term sustainability benefits.
+

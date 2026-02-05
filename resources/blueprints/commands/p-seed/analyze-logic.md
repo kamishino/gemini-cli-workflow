@@ -20,7 +20,7 @@ Load the seed file from `{{KAMI_WORKSPACE}}ideas/draft/[ID]-[slug].md`.
 
 Before strategic breakdown, verify any technical references mentioned in the seed:
 
-**Execute verification (see `@.gemini/rules/anti-hallucination-core.md`):**
+**Execute verification (see `@.gemini/rules/std-anti-hallucination-core.md`):**
 
 - If seed mentions **specific files** → Verify with `find_by_name` or `list_dir`
 - If seed mentions **libraries/frameworks** → Check `package.json` for presence
@@ -49,8 +49,8 @@ Assign a score from 0.0 to 1.0 for each metric.
 
 1.  Generate a JSON string of the scores: `{"feasibility": 0.8, "risk": 0.2, "value": 0.9}`.
 2.  Run the command:
-    `node cli-core/bin/kami.js analyze-idea [path] [json_string]`
-3.  Prepend the text analysis to the file using `refine-idea`.
+    `node cli-core/bin/kami.js _idea-analyze [path] [json_string]`
+3.  Prepend the text analysis to the file using `_idea-refine`.
 
 ## 3. OUTPUT FORMAT
 
@@ -79,3 +79,5 @@ Display the scores, assumption status, and the analysis summary.
 
 [Ready to Promote | Needs Research | Not Feasible]
 ```
+
+

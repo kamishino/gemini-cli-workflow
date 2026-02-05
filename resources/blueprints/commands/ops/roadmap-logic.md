@@ -252,7 +252,7 @@ Use data from p-market research or PROJECT_CONTEXT if available.
 
 **If ROADMAP.md not found:**
 
-1. Run: `node cli-core/scripts/roadmap-generator.js`
+1. Run: `kami roadmap`
 2. Proceed with enrichment after structure created
 
 **If PROJECT_CONTEXT.md not found:**

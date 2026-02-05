@@ -76,6 +76,8 @@ program.configureHelp({
       groupCommands.sort((a, b) => {
         return group.commands.indexOf(a.name()) - group.commands.indexOf(b.name());
       }).forEach((c) => {
+        if (c.name().startsWith("_")) return;
+        
         const alias = c.alias();
         const name = c.name();
         const desc = c.description();

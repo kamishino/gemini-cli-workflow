@@ -174,6 +174,8 @@ This generates the IDE-ready execution prompt.
 ## References
 
 - `.gemini/rules/flow-factory-line.md` - Factory Line Protocol
-- `.gemini/rules/anti-hallucination.md` - Verification Protocol
-- `.gemini/rules/flow-validation.md` - Validation Loop
+- `.gemini/rules/std-std-anti-hallucination-core.md` - Verification Protocol
+- `.gemini/rules/flow-validation-core.md` - Validation Loop
 - `.kamiflow/PROJECT_CONTEXT.md` - Current Project State
+
+

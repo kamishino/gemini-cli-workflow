@@ -125,7 +125,7 @@ Action: [Specific recovery steps]
 1.  **Analyze History:** Scan `{{KAMI_WORKSPACE}}tasks/` and `{{KAMI_WORKSPACE}}archive/` for value extraction.
 2.  **Extract Reflections:** Read strategic reflections from handoff logs for insights.
 3.  **Execution:** Run the Roadmap Engine tool.
-    - Command: `node cli-core/scripts/roadmap-generator.js`
+    - Command: `kami roadmap`
 4.  **Refinement:** Read the generated `{{KAMI_WORKSPACE}}ROADMAP.md` and replace the placeholders:
     - `{{ACHIEVEMENTS}}`: Summarize 3-4 major value pillars (include value delivered from reflections).
     - `{{GROWTH_LEVERS}}`: Suggest 3 fresh strategic growth ideas (consider follow-up tasks from reflections).
