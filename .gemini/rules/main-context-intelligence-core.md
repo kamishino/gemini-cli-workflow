@@ -24,11 +24,12 @@ To maintain high context fidelity with minimal management overhead, follow this 
 2. Update `./.kamiflow/ROADMAP.md` (Strategic Achievements).
 
 ### 🔴 B. System Sync (Architecture/Core/System)
-**Trigger:** 
-- Task intent impacts core system integrity.
-- Modifications to `cli-core/` or `resources/blueprints/`.
-- Addition, removal, or renaming of CLI commands.
-- Persona or Universal Mandate changes.
+**Intent:** Triggered when a task impacts the project's foundational settings, configurators, or organizational structure.
+
+**Examples by Environment:**
+- **In KamiFlow Engine (Dogfooding):** Modifications to `cli-core/`, `resources/blueprints/`, or command registries.
+- **In Client Applications (Generic):** Modifications to root settings (`package.json`, `.env`), architectural cores (e.g., `src/core/`, `config/`), or major directory reorganization.
+
 **Action:**
 1. Perform **Standard Sync** (Context & Roadmap).
 2. Execute `kami sync` to trigger `sync-docs.js`, automatically refreshing `GEMINI.md` command lists via Sync Markers.
