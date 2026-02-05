@@ -132,3 +132,4 @@ Before any external skill is installed, KamiFlow performs a **Safety Audit**:
 - [Awesome Agent Skills](https://github.com/VoltAgent/awesome-agent-skills) - 200+ curated skills
 - [skills.sh](https://skills.sh/) - Community skill registry
 
+

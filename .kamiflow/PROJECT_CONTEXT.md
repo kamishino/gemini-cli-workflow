@@ -12,9 +12,9 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Achieved Extreme Quality status in Blueprints by universalizing Skills and removing syntax legacies (Task 116).
-- **Current Focus:** Delivering stable v2.43.1 release.
-- **Next Step:** Execute final semantic release.
+- **Last Completed Action:** Harmonized all Scaffolding Templates and Documentation with Golden State (Task 117).
+- **Current Focus:** Final verification of installation experience.
+- **Next Step:** Execute stable release v2.43.2.
 
 ## 3. Knowledge Map (Directory Guide)
 
@@ -53,3 +53,4 @@
 
 - **Plugin Template:** `cli-core/templates/plugin-template/` - Scaffolding for new plugins.
 - **Blueprints Registry:** `resources/blueprints/` - Plugin registry and standards.
+

@@ -23,7 +23,7 @@ To prevent data corruption, KamiFlow uses the **.swarm-lock** protocol:
 
 ## 📋 Agent Registry
 
-Managed at `{{WORKSPACE}}registry.md`, this file defines the "Constitution" of your AI workforce:
+Managed at `{{KAMI_WORKSPACE}}registry.md`, this file defines the "Constitution" of your AI workforce:
 
 - **Executor:** Handles implementation and logic.
 - **Scout:** Handles discovery and trend research.
@@ -57,4 +57,5 @@ By using Swarm mode, the time from "Idea to Verified Discovery" can be reduced b
 - Multi-agent coordination adds significant architectural complexity
 - Sequential workflows are proven and reliable
 - Swarm will be implemented after ecosystem matures and user demand is validated
+
 

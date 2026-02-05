@@ -58,7 +58,7 @@ kami doctor --fix
 ### 🧠 Thinking Process
 1. **Discovery:** Scans all TOML files in `.gemini/commands/kamiflow/`.
 2. **Classification:** Groups commands by their metadata (Sniper, Bridge, Ops, Dev).
-3. **Injection:** Updates Markdown tables in `README.md`, `GEMINI.md`, and the `{{WORKSPACE}}docs/commands/` Wiki.
+3. **Injection:** Updates Markdown tables in `README.md`, `GEMINI.md`, and the `{{KAMI_WORKSPACE}}docs/commands/` Wiki.
 
 ### 🚀 Fast Track
 ```bash
@@ -118,4 +118,5 @@ kami config set seed.minFeasibility 0.8
 ```bash
 kami upgrade
 ```
+
 

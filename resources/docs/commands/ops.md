@@ -27,7 +27,7 @@ These commands manage the project's health, memory, and onboarding. They keep th
 
 ### 🧠 Logic & Thinking (CoT)
 1. **Self-Healing:** AI checks if the "Portal Network" (Symlinks) is intact. If broken, it attempts auto-bootstrap.
-2. **Context Loading:** It reads `GEMINI.md`, `{{WORKSPACE}}PROJECT_CONTEXT.md`, and `ROADMAP.md` to restore the project's "short-term memory".
+2. **Context Loading:** It reads `GEMINI.md`, `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md`, and `ROADMAP.md` to restore the project's "short-term memory".
 3. **ID Scouting:** It scans the archive to find the next available Task ID.
 
 ### 🛠️ Practical Usage
@@ -42,8 +42,8 @@ Run this at the start of every session:
 > **Goal:** Synchronize project context after an external IDE session.
 
 ### 🧠 Logic & Thinking (CoT)
-1. **Log Processing:** AI reads the handoff logs from `{{WORKSPACE}}handoff_logs/`.
-2. **Docs Alignment:** It automatically updates `ROADMAP.md` and `{{WORKSPACE}}PROJECT_CONTEXT.md` based on what was completed in the IDE.
+1. **Log Processing:** AI reads the handoff logs from `{{KAMI_WORKSPACE}}handoff_logs/`.
+2. **Docs Alignment:** It automatically updates `ROADMAP.md` and `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md` based on what was completed in the IDE.
 3. **Memory Update:** It ensures the AI is aware of the new files and logic created outside the CLI.
 
 ### 🛠️ Practical Usage
@@ -97,4 +97,5 @@ kami init
 ```bash
 kami doc-audit
 ```
+
 

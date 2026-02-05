@@ -13,7 +13,7 @@ The **Market Planner Engine** is a specialized module designed to keep your proj
 
 ## 🔄 The Discovery Loop
 
-1.  **🔍 Research:** Run `/kamiflow:p-market:research` to let AI scan for relevant patterns and gaps based on your current `{{WORKSPACE}}PROJECT_CONTEXT.md`.
+1.  **🔍 Research:** Run `/kamiflow:p-market:research` to let AI scan for relevant patterns and gaps based on your current `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md`.
 2.  **⚡ Inspiration:** Run `/kamiflow:p-market:inspire` when you need an out-of-the-box idea to differentiate your product.
 3.  **✅ Verification:** Suggested features are placed in `ideas/discovery/`. You can then use `/kamiflow:p-seed:analyze` to refine them.
 4.  **🌾 Harvesting:** Once satisfied, use `/kamiflow:p-seed:promote` to move them into your official **Backlog**.
@@ -35,4 +35,5 @@ The **Market Planner Engine** is a specialized module designed to keep your proj
 ---
 
 📖 **[Read the SuperSaiyan Guide](../POWER_USER_GUIDE.md#2-devsupersaiyan-the-orchestrator)** for info on how to automate Market Research cycles.
+
 

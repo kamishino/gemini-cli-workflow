@@ -45,8 +45,8 @@ KamiFlow v2.24 introduces "God Mode" automation levels, allowing the AI to take 
 
 When you run `/release` (or `npm version`), KamiFlow performs a "Polish Pass" before the final commit:
 
-1.  **Sync Docs:** Updates `{{WORKSPACE}}docs/commands/*.md`.
-2.  **Sync Roadmap:** Updates `{{WORKSPACE}}ROADMAP.md` with recent achievements.
+1.  **Sync Docs:** Updates `{{KAMI_WORKSPACE}}docs/commands/*.md`.
+2.  **Sync Roadmap:** Updates `{{KAMI_WORKSPACE}}ROADMAP.md` with recent achievements.
 3.  **Unified Commit:** Amends all changes into a single `chore(release)` commit.
 
 ### Archive Automation
@@ -118,7 +118,7 @@ cat .kamiflow/checkpoints/042-checkpoint-phase2.json
 
 ### Session Recovery
 
-Run `/kamiflow:ops:wake` at the start of every session to reload the `{{WORKSPACE}}PROJECT_CONTEXT.md` and `cached_max_id`. This prevents ID collisions and hallucinations.
+Run `/kamiflow:ops:wake` at the start of every session to reload the `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md` and `cached_max_id`. This prevents ID collisions and hallucinations.
 
 ### Manual Sync
 
@@ -129,4 +129,5 @@ kami sync
 ```
 
 This updates all documentation markers based on the current CLI configuration.
+
 

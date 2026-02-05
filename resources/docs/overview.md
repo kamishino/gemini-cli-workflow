@@ -29,14 +29,14 @@ graph TD
         IdeMode(IDE Mode: Windsurf/Cursor)
         Code[[Coding...]]
         QualityGate{{"Phase 4: Quality Gate"}}
-        LogFile(Signal File: {{WORKSPACE}}handoff_logs/*.md)
+        LogFile(Signal File: {{KAMI_WORKSPACE}}handoff_logs/*.md)
     end
 
     subgraph Autopilot_Phase [🚀 Auto-Pilot Mode]
         Lazy{{"/kamiflow:dev:lazy"}}
         SuperLazy{{"/kamiflow:dev:superlazy"}}
         AutoCode[[Auto-Coding...]]
-        AutoLog(Signal File: {{WORKSPACE}}handoff_logs/*_superlazy.md)
+        AutoLog(Signal File: {{KAMI_WORKSPACE}}handoff_logs/*_superlazy.md)
     end
 
     subgraph Seed_Hub [🌱 The Seed Hub - Experiments]
@@ -336,4 +336,5 @@ The **Management Commands** (`/kamiflow:ops:roadmap` and `/kamiflow:ops:save-con
 | `kamiflow resume` | **Resume workflow from last checkpoint.** |
 
 <!-- KAMI_COMMAND_LIST_END -->
+
 

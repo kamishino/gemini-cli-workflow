@@ -35,3 +35,4 @@ Regardless of the mode, your safety is guaranteed by the `gatedAutomation` setti
 
 > **⚠️ Note:** High-Risk tasks (core logic, bulk edits) ALWAYS require a mandatory **TDD (Test-First)** protocol, ensuring the stability of your codebase.
 
+

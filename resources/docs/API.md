@@ -130,7 +130,7 @@ Synchronize local configuration with latest schema.
 
 ---
 
-### `kamiflow validate-flow`
+### `kamiflow validate`
 
 Validate TOML configuration files.
 
@@ -623,6 +623,7 @@ KAMI_LANG=vi kamiflow init
 
 ---
 
-**Version:** 2.35.0  
-**Last Updated:** 2024-01-31
+**Version:** 2.43.2  
+**Last Updated:** 2026-02-05
+
 

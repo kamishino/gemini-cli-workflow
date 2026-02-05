@@ -135,3 +135,4 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 ---
 
 _Built with ❤️ for the 10x Indie Hacker._
+

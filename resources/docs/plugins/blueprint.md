@@ -46,7 +46,7 @@ Use kebab-case for filenames: `analyze-idea.toml`, `cloud-deploy.toml`.
 
 ## 📖 4. Documentation
 
-Every Plugin MUST provide a user-facing guide at `{{WORKSPACE}}docs/plugins/[plugin-name].md` covering:
+Every Plugin MUST provide a user-facing guide at `{{KAMI_WORKSPACE}}docs/plugins/[plugin-name].md` covering:
 - **Philosophy:** Why this plugin exists.
 - **Workflow:** How to use the commands together.
 - **Command Reference:** A table of available commands and their goals.
@@ -56,7 +56,8 @@ Every Plugin MUST provide a user-facing guide at `{{WORKSPACE}}docs/plugins/[plu
 ## 💬 5. Validation & Cleanup
 
 After creating or updating a Plugin, always run:
-1. `kamiflow validate-flow`: Check TOML syntax for errors.
+1. `kamiflow validate`: Check TOML syntax for errors.
 2. `kamiflow sync`: Update global documentation tables.
 3. `/kamiflow:ops:sync`: **(CRITICAL)** Run this after any "Super Lazy" or "Saiyan" session to synchronize project memory and roadmap.
+
 

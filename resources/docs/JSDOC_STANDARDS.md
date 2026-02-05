@@ -293,7 +293,7 @@ Sample `jsdoc.json`:
 ### Since
 ```javascript
 /**
- * @since 2.35.0
+ * @since 2.43.2
  */
 ```
 
@@ -327,4 +327,5 @@ Before committing code, ensure:
 - [ ] Examples provided for non-obvious usage
 - [ ] Complex types defined with `@typedef`
 - [ ] Error conditions documented with `@throws`
+
 
