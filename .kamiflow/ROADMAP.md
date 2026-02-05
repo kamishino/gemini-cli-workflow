@@ -13,7 +13,7 @@
 ---
 
 ## 🏗️ Current Focus (Active Pillars)
-- **Phase ** Template v2.44.2 (Repository Reorganization & Sync Backend)**
+- **Phase ** Template v2.44.3 (Repository Reorganization & Sync Backend)**
 - **Status:** ** Restored all broken emojis and fixed CLI command registration (roadmap, resume) (Task 121)
 
 ---
@@ -39,6 +39,7 @@
 
 ### ✅ Completed
 - [x] **v1.0 Core:** Initial setup.
+- [x] **Archived:** 2026-02-05_122_context-sync-protocol
 - [x] **Archived:** 2026-02-05_121_emoji-asset-polish
 - [x] **Archived:** 2026-02-05_120_strategic-advisor-command
 - [x] **Archived:** 2026-02-05_118_final-scaffolding-docs-polish
@@ -48,7 +49,6 @@
 - [x] **Archived:** 2026-02-05_112_universal-cli-standardization
 - [x] **Archived:** 2026-02-05_111_cli-command-standardization
 - [x] **Archived:** 2026-02-05_110_cli-ux-standardization
-- [x] **Archived:** 2026-02-05_109_system-integrity-fix
 
 ### 🚧 In Progress
 - [ ] **Active:** 114-S1-IDEA-final-integrity-polish.md
