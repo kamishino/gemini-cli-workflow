@@ -27,9 +27,9 @@ Check       Verification Interview  Design     Plan
 
 **MANDATORY:** Before any planning, load context:
 
-1. Read `.kamiflow/PROJECT_CONTEXT.md` for current project state
-2. Read `.kamiflow/ROADMAP.md` for strategic alignment
-3. Check for conflicts with existing tasks in `.kamiflow/tasks/`
+1. Read `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md` for current project state
+2. Read `{{KAMI_WORKSPACE}}ROADMAP.md` for strategic alignment
+3. Check for conflicts with existing tasks in `{{KAMI_WORKSPACE}}tasks/`
 
 **If context files missing:** Warn user and suggest `/kamiflow:ops:save-context`
 
@@ -73,7 +73,7 @@ Generate **3 options** with star ratings:
 ### Step 1.3: Strategic Gate
 Ask user: "Which option do you want to proceed with? (A/B/C)"
 
-**Output:** `.kamiflow/tasks/[ID]-S1-IDEA-[slug].md`
+**Output:** `{{KAMI_WORKSPACE}}tasks/[ID]-S1-IDEA-[slug].md`
 
 ---
 
@@ -111,7 +111,7 @@ Define function signatures, endpoints, or component props.
 ### Step 2.5: Edge Cases
 List at least 3 things that could go wrong.
 
-**Output:** `.kamiflow/tasks/[ID]-S2-SPEC-[slug].md`
+**Output:** `{{KAMI_WORKSPACE}}tasks/[ID]-S2-SPEC-[slug].md`
 
 ---
 
@@ -156,7 +156,7 @@ Always include validation tasks:
 - Functional testing
 - Requirement traceability (S2-SPEC criteria check)
 
-**Output:** `.kamiflow/tasks/[ID]-S3-BUILD-[slug].md`
+**Output:** `{{KAMI_WORKSPACE}}tasks/[ID]-S3-BUILD-[slug].md`
 
 ---
 
@@ -164,7 +164,7 @@ Always include validation tasks:
 
 After BUILD is complete, guide user to:
 ```
-/kamiflow:core:bridge .kamiflow/tasks/[ID]-S3-BUILD-[slug].md
+/kamiflow:core:bridge {{KAMI_WORKSPACE}}tasks/[ID]-S3-BUILD-[slug].md
 ```
 
 This generates the IDE-ready execution prompt.
@@ -173,10 +173,11 @@ This generates the IDE-ready execution prompt.
 
 ## References
 
-- `.gemini/rules/flow-factory-line.md` - Factory Line Protocol
-- `.gemini/rules/std-anti-hallucination-core.md` - Verification Protocol
-- `.gemini/rules/flow-validation-core.md` - Validation Loop
-- `.kamiflow/PROJECT_CONTEXT.md` - Current Project State
+- `{{KAMI_RULES_GEMINI}}flow-factory-line.md` - Factory Line Protocol
+- `{{KAMI_RULES_GEMINI}}std-anti-hallucination-core.md` - Verification Protocol
+- `{{KAMI_RULES_GEMINI}}flow-validation-core.md` - Validation Loop
+- `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md` - Current Project State
+
 
 
 

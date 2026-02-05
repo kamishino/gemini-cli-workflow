@@ -145,7 +145,7 @@ The bridge command now supports three output modes:
 
 - [ ] **The Objective:** Clear high-level goal.
 - [ ] **Source of Truth:** Links to active S2-SPEC and S3-BUILD.
-- [ ] **Technical Constraints:** Rules from `@{{KAMI_RULES_GEMINI}}main-manifesto-core.md` and `@{{KAMI_RULES_GEMINI}}main-tech-stack-core.md`.
+- [ ] **Technical Constraints:** Rules from `{{KAMI_RULES_GEMINI}}main-manifesto-core.md` and `{{KAMI_RULES_GEMINI}}main-tech-stack-core.md`.
 - [ ] **The Battle Plan:** Full Task & Subtask list with **Anchor Points**.
 - [ ] **Documentation Contract:** List of files that MUST be updated (README, ROADMAP, etc.).
 
@@ -203,6 +203,6 @@ When `autoDetectMode: true`, the bridge automatically selects:
 
 ## 🔗 Related Protocols
 
-- `@{{KAMI_RULES_GEMINI}}flow-fast-track-core.md` - Minimal mode integration
-- `@{{KAMI_RULES_GEMINI}}flow-factory-line-core.md` - Task classification
+- `{{KAMI_RULES_GEMINI}}flow-fast-track-core.md` - Minimal mode integration
+- `{{KAMI_RULES_GEMINI}}flow-factory-line-core.md` - Task classification
 - `@.windsurf/workflows/kamiflow-execute.md` - IDE receiver
