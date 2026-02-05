@@ -74,7 +74,7 @@ You MUST update these files upon completion:
 
 ## 6. ⚡ Validation Requirements (v2.0 - MANDATORY)
 
-**BEFORE marking work complete, execute validation from `@.gemini/rules/flow-validation-core.md`:**
+**BEFORE marking work complete, execute validation from `{{KAMI_RULES_GEMINI}}flow-validation-core.md`:**
 
 ### Phase A: Syntax Validation (BLOCKING)
 
@@ -117,7 +117,7 @@ You MUST update these files upon completion:
 - **Follow-up Tasks:** [Dependencies or improvements, or "None"]
 - **Regression Risk:** [Low/Medium/High + explanation]
 
-**Reference:** See `@.gemini/rules/flow-reflection-core.md` for full template.
+**Reference:** See `{{KAMI_RULES_GEMINI}}flow-reflection-core.md` for full template.
 
 ## 8. EXIT PROTOCOL 🔄
 
@@ -165,3 +165,4 @@ Create comprehensive log at `{{KAMI_WORKSPACE}}handoff_logs/YYYY-MM-DD_HHMM_[slu
 ## 8. TONE
 
 - Precise, authoritative, and logistical.
+

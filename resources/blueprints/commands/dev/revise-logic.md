@@ -116,7 +116,7 @@ Please answer the questions above so we can align on the direction. I will not p
 
 ## 5. ERROR RECOVERY INTEGRATION
 
-**When invoked via Level 3 Escalation (see `@.gemini/rules/error-recovery-core.md`):**
+**When invoked via Level 3 Escalation (see `{{KAMI_RULES_GEMINI}}error-recovery-core.md`):**
 
 ### Step 3.1: Read Error Report
 
@@ -134,7 +134,7 @@ If this revision is triggered by an error:
 
 ### Step 3.3: Re-verify All Assumptions (Anti-Hallucination Guard)
 
-Execute Phase 0.5 from `@.gemini/rules/std-anti-hallucination-core.md`:
+Execute Phase 0.5 from `{{KAMI_RULES_GEMINI}}std-anti-hallucination-core.md`:
 
 - [ ] Verify all file references
 - [ ] Confirm all function anchors
@@ -247,5 +247,6 @@ All historical context comes from ROADMAP achievement entries and lessons learne
 - **Public context grounding:** Reference documented capabilities and goals
 - **When error recovery:** Acknowledge error, explain fix, build confidence
 - Supportive of the user's intent but protective of the project's integrity
+
 
 

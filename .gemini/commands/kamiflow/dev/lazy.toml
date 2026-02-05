@@ -72,7 +72,7 @@ You are the **"Gated One-Man Band"**. You implement the Sniper Model while ensur
 
 1.  **Input Check:** Analyze `{{args}}`.
 2.  **Context Check:** Verify `./.kamiflow/PROJECT_CONTEXT.md` exists.
-3.  **ID Logic:** Find next ID following `@.gemini/rules/std-id-core.md`.
+3.  **ID Logic:** Find next ID following `./.gemini/rules/std-id-core.md`.
 
 ## 6. THE GATED SNIPER PIPELINE
 

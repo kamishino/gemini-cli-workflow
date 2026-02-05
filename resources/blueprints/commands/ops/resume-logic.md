@@ -216,7 +216,7 @@ Resume from Phase [checkpoint.nextPhase]? (Y/N)
 
 **Resume from Phase 3B (Validation Loop):**
 
-- Execute validation protocol (see `@.gemini/rules/flow-validation-core.md`)
+- Execute validation protocol (see `{{KAMI_RULES_GEMINI}}flow-validation-core.md`)
 - Run Phase A: Syntax validation
 - Run Phase B: Functional validation
 - Run Phase C: Requirement traceability
@@ -300,7 +300,7 @@ C) Cancel resume
 
 **If Phase 3B validation blocks during resume:**
 
-1. Apply error recovery protocol (see `@.gemini/rules/error-recovery-core.md`)
+1. Apply error recovery protocol (see `{{KAMI_RULES_GEMINI}}error-recovery-core.md`)
 2. Classify error level (1/2/3)
 3. Attempt self-healing (Level 1)
 4. Request user guidance (Level 2)
@@ -317,10 +317,10 @@ C) Cancel resume
 
 ### Calls:
 
-- Validation Loop: `@.gemini/rules/flow-validation-core.md` (if resuming at Phase 3B)
-- Reflection Protocol: `@.gemini/rules/flow-reflection-core.md` (if resuming at Phase 4)
-- Error Recovery: `@.gemini/rules/error-recovery-core.md` (if errors occur)
-- Anti-Hallucination: `@.gemini/rules/std-anti-hallucination-core.md` (if resuming before Phase 1)
+- Validation Loop: `{{KAMI_RULES_GEMINI}}flow-validation-core.md` (if resuming at Phase 3B)
+- Reflection Protocol: `{{KAMI_RULES_GEMINI}}flow-reflection-core.md` (if resuming at Phase 4)
+- Error Recovery: `{{KAMI_RULES_GEMINI}}error-recovery-core.md` (if errors occur)
+- Anti-Hallucination: `{{KAMI_RULES_GEMINI}}std-anti-hallucination-core.md` (if resuming before Phase 1)
 
 ### Checkpoints Created By:
 
@@ -400,10 +400,11 @@ Discover Checkpoint → Safety Checks → Show Progress → User Confirms
 
 ## 10. RELATED PROTOCOLS
 
-- `@.gemini/rules/flow-checkpoint-core.md` - Checkpoint schema and locations
-- `@.gemini/rules/flow-validation-core.md` - Phase 3B validation (if resuming there)
-- `@.gemini/rules/flow-reflection-core.md` - Phase 4 reflection (if resuming there)
-- `@.gemini/rules/error-recovery-core.md` - Error handling during resume
+- `{{KAMI_RULES_GEMINI}}flow-checkpoint-core.md` - Checkpoint schema and locations
+- `{{KAMI_RULES_GEMINI}}flow-validation-core.md` - Phase 3B validation (if resuming there)
+- `{{KAMI_RULES_GEMINI}}flow-reflection-core.md` - Phase 4 reflection (if resuming there)
+- `{{KAMI_RULES_GEMINI}}error-recovery-core.md` - Error handling during resume
 - `/kamiflow:ops:wake` - Auto-resume prompt integration
+
 
 

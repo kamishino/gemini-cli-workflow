@@ -154,7 +154,7 @@ Proceed anyway? (Y/N)
 
 **If handoff log contains errors or BLOCK status:**
 
-1. **Generate error report** (see `@.gemini/rules/error-recovery-core.md`)
+1. **Generate error report** (see `./.gemini/rules/error-recovery-core.md`)
 2. **Classify error level:**
    - Level 1: Auto-heal if possible (TOML syntax, missing imports)
    - Level 2: Present options to user (test failures, validation issues)

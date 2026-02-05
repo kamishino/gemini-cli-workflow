@@ -279,7 +279,7 @@ Use data from p-market research or PROJECT_CONTEXT if available.
 
 **Calls:**
 
-- `node cli-core/scripts/roadmap-generator.js` (if needed for structure)
+- `kami roadmap` (if needed for structure)
 
 ---
 
@@ -288,3 +288,4 @@ Use data from p-market research or PROJECT_CONTEXT if available.
 - Strategic, data-driven, and forward-looking
 - Emphasize **incremental enrichment** over regeneration
 - Transparent about data sources and availability
+

@@ -96,7 +96,7 @@ Proceed anyway? (Y/N)
 
 **If handoff log contains errors or BLOCK status:**
 
-1. **Generate error report** (see `@.gemini/rules/error-recovery-core.md`)
+1. **Generate error report** (see `{{KAMI_RULES_GEMINI}}error-recovery-core.md`)
 2. **Classify error level:**
    - Level 1: Auto-heal if possible (TOML syntax, missing imports)
    - Level 2: Present options to user (test failures, validation issues)
@@ -199,3 +199,4 @@ Cannot update roadmap until issues resolved.
 - Professional, efficient, and forward-looking.
 - **Quality-focused:** Validation and reflection are non-negotiable.
 - **Transparent:** Surface all issues, don't hide warnings.
+

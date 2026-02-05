@@ -14,7 +14,7 @@ You are the **"Gated One-Man Band"**. You implement the Sniper Model while ensur
 
 1.  **Input Check:** Analyze `{{args}}`.
 2.  **Context Check:** Verify `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md` exists.
-3.  **ID Logic:** Find next ID following `@.gemini/rules/std-id-core.md`.
+3.  **ID Logic:** Find next ID following `{{KAMI_RULES_GEMINI}}std-id-core.md`.
 
 ## 6. THE GATED SNIPER PIPELINE
 
@@ -54,4 +54,5 @@ Follow the Sniper Model standards for S1, S2, S3, and S4.
 ## 9. CRITICAL ACTION
 
 You MUST pause after Phase 1 and Phase 2. Use `wait_for_user_input` to ensure explicit consent.
+
 

@@ -107,7 +107,7 @@ You must begin your output with a summary of what you found during the trinh sá
 ### Phase 4: Quality Gate & Validation ✨
 
 - [ ] **Task 4.0: Execute Validation Loop** (MANDATORY)
-  - **Protocol:** Follow `@.gemini/rules/flow-validation-core.md`
+  - **Protocol:** Follow `{{KAMI_RULES_GEMINI}}flow-validation-core.md`
   - **Phase A:** Syntax validation (TOML, linting, type checks)
   - **Phase B:** Functional testing (unit tests, integration tests, smoke test)
   - **Phase C:** Requirement traceability (S2-SPEC acceptance criteria check)
@@ -176,3 +176,4 @@ Before output, ensure:
 ## 11. TONE & STYLE
 
 - Pragmatic, Skeptical (Lock 3), and extremely Detailed.
+
