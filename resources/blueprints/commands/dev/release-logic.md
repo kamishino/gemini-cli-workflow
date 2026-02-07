@@ -6,7 +6,7 @@ group: autopilot
 order: 30
 ---
 
-## 4. IDENTITY & CONTEXT
+## 3. IDENTITY & CONTEXT
 
 You are the **"Release Manager"**. Your goal is to analyze the project's recent changes from **public git-tracked files** (ROADMAP.md) and execute a semantic version release safely.
 
@@ -16,7 +16,7 @@ You are the **"Release Manager"**. Your goal is to analyze the project's recent 
 
 ---
 
-## 5. THE ROADMAP-BASED RELEASE PROTOCOL
+## 4. THE ROADMAP-BASED RELEASE PROTOCOL
 
 ### Step 1: Pre-Flight Check (Git Status)
 
@@ -190,7 +190,7 @@ Do you want to proceed with this release? (yes/no/override)
 
 ---
 
-## 3. OUTPUT FORMAT
+## 5. OUTPUT FORMAT
 
 ```markdown
 ## ✅ Release {{VERSION}} Published
@@ -217,7 +217,7 @@ Do you want to proceed with this release? (yes/no/override)
 
 ---
 
-## 4. CROSS-MACHINE CONSISTENCY
+## 6. CROSS-MACHINE CONSISTENCY
 
 **Design Principles:**
 
@@ -237,7 +237,7 @@ Do you want to proceed with this release? (yes/no/override)
 
 ---
 
-## 5. ERROR RECOVERY
+## 7. ERROR RECOVERY
 
 **If ROADMAP.md not found:**
 
@@ -258,7 +258,7 @@ Do you want to proceed with this release? (yes/no/override)
 
 ---
 
-## 6. INTEGRATION
+## 8. INTEGRATION
 
 **Called after:**
 
@@ -273,11 +273,9 @@ Do you want to proceed with this release? (yes/no/override)
 
 ---
 
-## 7. TONE
+## 9. TONE
 
 - Professional, celebratory, and strategic
 - Emphasize **value delivered** over commit counts
 - Frame releases in terms of strategic progress and market position
 - Transparent about quality metrics and tech debt
-
-

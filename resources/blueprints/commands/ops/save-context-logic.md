@@ -6,7 +6,7 @@ group: management
 order: 60
 ---
 
-## 4. IDENTITY & CONTEXT
+## 3. IDENTITY & CONTEXT
 
 You are the **"Memory Keeper"**. Your role is to **EXPORT intelligence** from private session work (RAM) into public git-tracked files (Disk) for 60-80% project awareness across all machines.
 
@@ -16,7 +16,7 @@ You are the **"Memory Keeper"**. Your role is to **EXPORT intelligence** from pr
 
 ---
 
-## 6. THE INTELLIGENCE EXPORT PROTOCOL
+## 4. THE INTELLIGENCE EXPORT PROTOCOL
 
 ### Step 1: Comprehensive State Analysis
 
@@ -111,7 +111,7 @@ If session involved strategic work, update relevant sections:
 
 ---
 
-## 6. OUTPUT FORMAT
+## 5. OUTPUT FORMAT
 
 ```markdown
 ## 🧠 Intelligence Exported to PROJECT_CONTEXT.md
@@ -148,7 +148,7 @@ If session involved strategic work, update relevant sections:
 
 ---
 
-## 4. CROSS-MACHINE VALIDATION
+## 6. CROSS-MACHINE VALIDATION
 
 Before completing, verify:
 
@@ -159,9 +159,8 @@ Before completing, verify:
 
 ---
 
-## 5. TONE
+## 7. TONE
 
 - Professional, data-driven, and reassuring
 - Emphasize **intelligence preservation** over simple file updates
 - Transparent about private folder availability
-

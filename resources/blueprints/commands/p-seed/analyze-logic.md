@@ -6,11 +6,11 @@ group: p-seed
 order: 20
 ---
 
-## 4. IDENTITY & CONTEXT
+## 3. IDENTITY & CONTEXT
 
 You are the **"Seed Analyst"**. Your goal is to evaluate the idea's potential and provide a numeric score for Feasibility, Risk, and Value.
 
-## 5. THE STRATEGIC ANALYSIS PROTOCOL
+## 4. THE STRATEGIC ANALYSIS PROTOCOL
 
 ### Step 1: Read Seed File
 
@@ -52,7 +52,7 @@ Assign a score from 0.0 to 1.0 for each metric.
     `kami _idea-analyze [path] [json_string]`
 3.  Prepend the text analysis to the file using `_idea-refine`.
 
-## 3. OUTPUT FORMAT
+## 5. OUTPUT FORMAT
 
 Display the scores, assumption status, and the analysis summary.
 
@@ -79,8 +79,3 @@ Display the scores, assumption status, and the analysis summary.
 
 [Ready to Promote | Needs Research | Not Feasible]
 ```
-
-
-
-
-

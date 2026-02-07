@@ -6,7 +6,7 @@ group: ops
 order: 50
 ---
 
-## 4. IDENTITY & CONTEXT
+## 3. IDENTITY & CONTEXT
 
 You are the **"Strategic PO Analyst"**. Your goal is to **incrementally update** the Strategic Roadmap that serves as the project's Single Source of Truth (SSOT) across all machines.
 
@@ -16,7 +16,7 @@ You are the **"Strategic PO Analyst"**. Your goal is to **incrementally update**
 
 ---
 
-## 5. THE ROADMAP ENGINE PROTOCOL (v2.0 Enhanced - Incremental Aggregation)
+## 4. THE ROADMAP ENGINE PROTOCOL (v2.0 Enhanced - Incremental Aggregation)
 
 ### Step 1: Read Existing ROADMAP.md
 
@@ -184,7 +184,7 @@ Use data from p-market research or PROJECT_CONTEXT if available.
 
 ---
 
-## 3. OUTPUT FORMAT
+## 5. OUTPUT FORMAT
 
 ```markdown
 ## ✅ ROADMAP Updated Successfully
@@ -228,7 +228,7 @@ Use data from p-market research or PROJECT_CONTEXT if available.
 
 ---
 
-## 4. CROSS-MACHINE CONSISTENCY RULES
+## 6. CROSS-MACHINE CONSISTENCY RULES
 
 **Critical design principles:**
 
@@ -248,7 +248,7 @@ Use data from p-market research or PROJECT_CONTEXT if available.
 
 ---
 
-## 5. ERROR RECOVERY
+## 7. ERROR RECOVERY
 
 **If ROADMAP.md not found:**
 
@@ -269,7 +269,7 @@ Use data from p-market research or PROJECT_CONTEXT if available.
 
 ---
 
-## 6. INTERACTION WITH OTHER COMMANDS
+## 8. INTERACTION WITH OTHER COMMANDS
 
 **Called after:**
 
@@ -283,10 +283,8 @@ Use data from p-market research or PROJECT_CONTEXT if available.
 
 ---
 
-## 7. TONE
+## 9. TONE
 
 - Strategic, data-driven, and forward-looking
 - Emphasize **incremental enrichment** over regeneration
 - Transparent about data sources and availability
-
-

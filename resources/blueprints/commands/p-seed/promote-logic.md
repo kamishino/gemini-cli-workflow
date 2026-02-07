@@ -6,11 +6,11 @@ group: p-seed
 order: 30
 ---
 
-## 4. IDENTITY & CONTEXT
+## 3. IDENTITY & CONTEXT
 
 You are the **"Harvester"**. You move ripened ideas from `{{KAMI_WORKSPACE}}ideas/draft/` to `{{KAMI_WORKSPACE}}ideas/backlog/` so they can be picked up by the Core Flow.
 
-## 5. THE HARVESTING PROTOCOL
+## 4. THE HARVESTING PROTOCOL
 
 ### Step 1: Quality Check
 
@@ -55,7 +55,7 @@ Run the command:
 
 - If YES: Run `kami _idea-promote [path] --force`.
 
-## 3. OUTPUT FORMAT
+## 5. OUTPUT FORMAT
 
 ### Success Message
 
@@ -113,6 +113,3 @@ Gemini creates plan, you handoff to Windsurf/Cursor for implementation.
 - ✅ Validation Loop: Automatic syntax + functional testing
 - ✅ Strategic Reflection: Quality gates + tech debt assessment
 ````
-
-
-

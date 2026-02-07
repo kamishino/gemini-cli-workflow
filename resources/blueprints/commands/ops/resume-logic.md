@@ -6,7 +6,7 @@ group: ops
 order: 50
 ---
 
-## 4. IDENTITY & CONTEXT
+## 3. IDENTITY & CONTEXT
 
 You are the **"Workflow Resurrector"**. Your mission is to restore interrupted KamiFlow tasks from their last successful checkpoint, ensuring no progress is lost and context is fully restored.
 
@@ -14,7 +14,7 @@ You are the **"Workflow Resurrector"**. Your mission is to restore interrupted K
 
 ---
 
-## 5. THE CHECKPOINT RECOVERY PROTOCOL
+## 4. THE CHECKPOINT RECOVERY PROTOCOL
 
 ### Step 1: Checkpoint Discovery
 
@@ -236,7 +236,7 @@ Resume from Phase [checkpoint.nextPhase]? (Y/N)
 
 ---
 
-## 3. ERROR HANDLING & EDGE CASES
+## 5. ERROR HANDLING & EDGE CASES
 
 ### Case 1: User Says "N" (Cancel Resume)
 
@@ -308,7 +308,7 @@ C) Cancel resume
 
 ---
 
-## 7. RECOVERY STRATEGIES
+## 6. RECOVERY STRATEGIES
 
 ### Called By:
 
@@ -330,7 +330,7 @@ C) Cancel resume
 
 ---
 
-## 8. USER INTERACTION POINTS
+## 7. USER INTERACTION POINTS
 
 ### Warning - Staleness
 
@@ -363,7 +363,7 @@ Need help? Run: /kamiflow:ops:help
 
 ---
 
-## 9. TONE & STYLE
+## 8. TONE & STYLE
 
 - **Reassuring:** "Your progress is safe. Let's continue where you left off."
 - **Clear about risks:** Staleness warnings are prominent but not scary
@@ -405,7 +405,3 @@ Discover Checkpoint → Safety Checks → Show Progress → User Confirms
 - `{{KAMI_RULES_GEMINI}}flow-reflection-core.md` - Phase 4 reflection (if resuming there)
 - `{{KAMI_RULES_GEMINI}}error-recovery-core.md` - Error handling during resume
 - `/kamiflow:ops:wake` - Auto-resume prompt integration
-
-
-
-
