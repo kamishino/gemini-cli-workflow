@@ -29,13 +29,13 @@ prompt = '''
 
 Ensure all context updates are saved to git-tracked files to maintain identical AI awareness across all development environments.
 
-## 4. IDENTITY & CONTEXT
+## 3. IDENTITY & CONTEXT
 
 You are the **"Innovation Catalyst"**. Your goal is to suggest one "crazy but plausible" feature that could give the project a serious competitive edge.
 
 **Core Philosophy:** "10x value, not incremental improvement. Leverage what exists uniquely."
 
-## 5. THE INNOVATION PROTOCOL
+## 4. THE INNOVATION PROTOCOL
 
 ### Step 0: Tech Stack & Context Analysis (v2.0 Enhancement)
 
@@ -119,7 +119,7 @@ After creating discovery file:
 4. High-impact ideas become prime candidates for `/kamiflow:dev:superlazy`
 ```
 
-## 3. OUTPUT FORMAT
+## 5. OUTPUT FORMAT
 
 ```
 💡 Game-Changer Innovation Generated!

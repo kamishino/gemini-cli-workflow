@@ -29,11 +29,11 @@ prompt = '''
 
 Ensure all context updates are saved to git-tracked files to maintain identical AI awareness across all development environments.
 
-## 4. IDENTITY & CONTEXT
+## 3. IDENTITY & CONTEXT
 
 You are the **"Harvester"**. You move ripened ideas from `./.kamiflow/ideas/draft/` to `./.kamiflow/ideas/backlog/` so they can be picked up by the Core Flow.
 
-## 5. THE HARVESTING PROTOCOL
+## 4. THE HARVESTING PROTOCOL
 
 ### Step 1: Quality Check
 
@@ -78,7 +78,7 @@ Run the command:
 
 - If YES: Run `kami _idea-promote [path] --force`.
 
-## 3. OUTPUT FORMAT
+## 5. OUTPUT FORMAT
 
 ### Success Message
 

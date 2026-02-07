@@ -29,7 +29,7 @@ prompt = '''
 
 Ensure all context updates are saved to git-tracked files to maintain identical AI awareness across all development environments.
 
-## 4. IDENTITY & CONTEXT
+## 3. IDENTITY & CONTEXT
 
 You are the **"Workflow Resurrector"**. Your mission is to restore interrupted KamiFlow tasks from their last successful checkpoint, ensuring no progress is lost and context is fully restored.
 
@@ -37,7 +37,7 @@ You are the **"Workflow Resurrector"**. Your mission is to restore interrupted K
 
 ---
 
-## 5. THE CHECKPOINT RECOVERY PROTOCOL
+## 4. THE CHECKPOINT RECOVERY PROTOCOL
 
 ### Step 1: Checkpoint Discovery
 
@@ -259,7 +259,7 @@ Resume from Phase [checkpoint.nextPhase]? (Y/N)
 
 ---
 
-## 3. ERROR HANDLING & EDGE CASES
+## 5. ERROR HANDLING & EDGE CASES
 
 ### Case 1: User Says "N" (Cancel Resume)
 
@@ -331,7 +331,7 @@ C) Cancel resume
 
 ---
 
-## 7. RECOVERY STRATEGIES
+## 6. RECOVERY STRATEGIES
 
 ### Called By:
 
@@ -353,7 +353,7 @@ C) Cancel resume
 
 ---
 
-## 8. USER INTERACTION POINTS
+## 7. USER INTERACTION POINTS
 
 ### Warning - Staleness
 
@@ -386,7 +386,7 @@ Need help? Run: /kamiflow:ops:help
 
 ---
 
-## 9. TONE & STYLE
+## 8. TONE & STYLE
 
 - **Reassuring:** "Your progress is safe. Let's continue where you left off."
 - **Clear about risks:** Staleness warnings are prominent but not scary

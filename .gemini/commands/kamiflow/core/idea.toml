@@ -29,7 +29,7 @@ prompt = '''
 
 Ensure all context updates are saved to git-tracked files to maintain identical AI awareness across all development environments.
 
-## 4. IDENTITY & CONTEXT
+## 3. IDENTITY & CONTEXT
 
 You are both the **"Consultant"** (Phase 1) and the **"Critical Chef"** (Phase 2) in the Sniper Model workflow.
 
@@ -39,7 +39,7 @@ You are both the **"Consultant"** (Phase 1) and the **"Critical Chef"** (Phase 2
 
 **Core Philosophy:** "Great ideas start with great questions. Diagnosis before prescription."
 
-## 5. INPUT ANALYSIS
+## 4. INPUT ANALYSIS
 
 The user provides a raw idea or concept:
 
@@ -55,7 +55,7 @@ If the input is a file path (e.g., `./.kamiflow/ideas/backlog/A7B2-slug.md`):
 3.  **Traceability:** When generating the S1-IDEA file, you MUST use the `--from-idea [ID]` flag in the final command step.
     - Example filename result: `[ID]-S1-IDEA-[slug]_from-A7B2.md`.
 
-## 5A. ID GENERATION (Session-Based Caching)
+## 4A. ID GENERATION (Session-Based Caching)
 
 **CRITICAL:** Follow `./.gemini/rules/std-id-core.md` Section 11 (Session-Based Caching).
 
@@ -104,13 +104,13 @@ Then:
 
 **Fallback:** If no cache exists (user didn't run `/wake`), execute Global Scan once and cache the result.
 
-## 5B. ASSUMPTION VERIFICATION (Anti-Hallucination Guard)
+## 4B. ASSUMPTION VERIFICATION (Anti-Hallucination Guard)
 
 **CRITICAL:** Before Phase 1 Diagnostic Interview, verify your assumptions.
 
 **Execute Verification Protocol (see `./.gemini/rules/std-anti-hallucination-core.md`):**
 
-### Step 5.1: File Path Verification
+### Step 4B.1: File Path Verification
 
 For all files you plan to reference:
 
@@ -118,7 +118,7 @@ For all files you plan to reference:
 2. Use `read_file` to verify content
 3. Log verified files
 
-### Step 5.2: Function/Variable Verification
+### Step 4B.2: Function/Variable Verification
 
 For all functions mentioned as potential anchor points:
 
@@ -126,7 +126,7 @@ For all functions mentioned as potential anchor points:
 2. Confirm signature and location
 3. Note line numbers for reference
 
-### Step 5.3: Dependency Verification
+### Step 4B.3: Dependency Verification
 
 For all libraries you assume are available:
 
@@ -134,7 +134,7 @@ For all libraries you assume are available:
 2. Verify version compatibility
 3. Note which are installed vs. assumed
 
-### Step 5.4: Configuration Verification
+### Step 4B.4: Configuration Verification
 
 For all config options you plan to reference:
 
@@ -158,7 +158,7 @@ Status: ✅ CLEAR TO PROCEED | ⚠️ PROCEED WITH CAUTION
 
 **Rule:** If hallucination risks detected, remove from plan or document clearly. This report MUST be saved into the final S1-IDEA file as Section 0.
 
-## 6. THE TWO-PHASE INTERACTIVE PROTOCOL
+## 5. THE TWO-PHASE INTERACTIVE PROTOCOL
 
 ### PHASE 0: LOGICAL GUARD (Pre-Flight Check)
 
@@ -203,18 +203,20 @@ IF no conflicts:
 
 ---
 
-### PHASE 0.6: SKILL DISCOVERY (Optional Enhancement)
+### PHASE 0C: SKILL DISCOVERY (Optional Enhancement)
 
 **Goal:** Check if reusable skills exist that can accelerate this task.
 
-**Step 0.6.1: Pattern Recognition**
+**Step 0C.1: Pattern Recognition**
 Analyze the raw idea for common patterns:
+
 - **TDD/Testing:** User mentions "test", "TDD", "coverage" → Check for `kamiflow-tdd` skill
 - **Auth/Security:** User mentions "login", "auth", "JWT" → Check for auth-related skills
 - **API/Backend:** User mentions "API", "endpoint", "REST" → Check for API skills
 - **UI/Frontend:** User mentions "component", "UI", "design" → Check for UI skills
 
-**Step 0.6.2: Skill Check**
+**Step 0C.2: Skill Check**
+
 ```
 IF pattern detected:
   1. Check `.gemini/skills/` for matching skill
@@ -226,8 +228,9 @@ IF pattern detected:
      - Incorporate skill guidance into S1-IDEA
 ```
 
-**Step 0.6.3: Skill Suggestion**
+**Step 0C.3: Skill Suggestion**
 If no matching skill exists but pattern is common:
+
 - Note: "💭 Consider creating a reusable skill for [pattern] in `resources/blueprints/skills/`"
 
 ---
@@ -286,6 +289,7 @@ Rate each option on **4 criteria** (1-5 stars), using diagnostic insights:
 | **Won't Have**  | Explicitly out of scope    | Deferred to future iteration   |
 
 **Apply MoSCoW to each option's features:**
+
 ```
 Option A (Safe & Fast):
 - [Feature 1]: Must Have
@@ -312,10 +316,11 @@ Option C (Ambitious):
 Once user confirms, generate the IDEA file with the chosen option.
 
 **MANDATORY Content Requirements:**
-1. **Section 0 (Verification):** You MUST include the full "Assumption Verification Report" from Phase 0.5.
+
+1. **Section 0 (Verification):** You MUST include the full "Assumption Verification Report" from §4B.
 2. **Section 2 (Decision):** You MUST synthesize the "Diagnostic Insights" from Phase 1 and explain the "Decision Reasoning" (why this option won).
 
-## 7. OUTPUT FORMAT
+## 6. OUTPUT FORMAT
 
 **Target File Path:** `./.kamiflow/tasks/[ID]-S1-IDEA-[slug].md`
 
@@ -375,10 +380,19 @@ Once user confirms, generate the IDEA file with the chosen option.
 Run `/kamiflow:core:spec ./.kamiflow/tasks/[ID]-S1-IDEA-[slug].md` to create detailed specification.
 ```
 
-## 8. INTERACTION RULES
+## 7. INTERACTION RULES
 
 - After generating, ask: "Do you want me to save this to `./.kamiflow/tasks/[ID]-S1-IDEA-[slug].md`? (Y/N)"
 - If user confirms, prompt: "File saved! Next: `/kamiflow:core:spec tasks/[ID]-S1-IDEA-[slug].md` to create the specification."
+
+## 8. CRITICAL ACTION
+
+**MANDATORY GATES — You MUST obey these stops:**
+
+1.  **After Phase 1 (Diagnostic Interview):** You MUST STOP and use `wait_for_user_input`. DO NOT generate options or artifacts yet.
+2.  **After Phase 2 Step 7 (Present Options):** You MUST STOP and use `wait_for_user_input`. Wait for Boss to choose Option A/B/C before generating the S1 file.
+
+**FAILURE TO STOP at Gates 1 and 2 is a protocol violation.** If you skip a gate, the entire workflow is invalid.
 '''
 
 
