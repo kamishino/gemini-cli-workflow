@@ -50,7 +50,7 @@ List at least 3 things that could go wrong and how to handle them.
 
 ### Step 4.5: Risk Assessment (🔴 Critical Mode Only)
 
-**Trigger:** Only execute this step if task was classified as 🔴 Critical in S1-IDEA.
+**Trigger:** Only execute this step if task was classified as 🔴 Critical in S1-IDEA, or if any star-rating dimension scored ≤1 in the chosen option.
 
 **Risk Matrix:**
 
@@ -76,7 +76,19 @@ List at least 3 things that could go wrong and how to handle them.
 
 **Output:** Include risk table in S2-SPEC Section 7.5 if any risk scores ≥ 6.
 
-### Step 5: Test Specification (TDD Mandate)
+### Step 6: UI/UX Specifications
+
+Define the visual and interaction design for this feature (skip if backend-only).
+
+### Step 7: Integration Points
+
+Identify which existing modules, services, or APIs this feature connects to.
+
+### Step 8: Non-Goals & Constraints
+
+Explicitly list what is NOT in scope and any hard constraints.
+
+### Step 9: Test Specification (TDD Mandate)
 
 Define how this feature will be verified:
 

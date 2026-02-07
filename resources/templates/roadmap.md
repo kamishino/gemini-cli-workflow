@@ -46,7 +46,7 @@ _Strategic suggestions from Gemini based on local archive patterns and market tr
 
 ---
 
-## � v2.0 Quality Metrics
+## 📊 v2.0 Quality Metrics
 
 _Auto-tracked by validation loop and reflection reports:_
 
@@ -60,7 +60,7 @@ _Auto-tracked by validation loop and reflection reports:_
 
 ---
 
-## �📈 Success Metrics
+## 📈 Success Metrics
 
 - **Efficiency:** Saving time through automation.
 - **Stability:** Rock-solid execution with v2.0 enhancements.
@@ -70,7 +70,5 @@ _Auto-tracked by validation loop and reflection reports:_
 
 ## 🔗 Dependencies
 
-- **Stack:** Node.js, Gemini CLI.
+- **Stack:** {{KEY_TECH_STACK}}
 - **External:** Custom AI Skills.
-
-

@@ -11,22 +11,22 @@ labels: [action: refine]
 
 ## 🌈 The Spark (What if...?)
 
-[Mô tả ý tưởng thô của bạn ở đây. Đừng ngần ngại, cứ viết ra những gì bạn đang nghĩ.]
+[Describe your raw idea here. Don't hesitate — just write down what you're thinking.]
 
 ---
 
 ### 🩺 Diagnostic Questions (Self-Reflect)
 
-- **Problem:** Ý tưởng này giải quyết vấn đề gì, hay chỉ là "thấy hay thì làm"?
-- **Impact:** Nếu ý tưởng này thành hiện thực, ai sẽ là người hạnh phúc nhất?
-- **Crazy Factor:** Điều gì khiến ý tưởng này trở nên khác biệt hoặc "điên rồ"?
-- **Risks:** Tại sao ý tưởng này có thể thất bại thảm hại?
+- **Problem:** What problem does this idea solve, or is it just "sounds cool, let's do it"?
+- **Impact:** If this idea becomes reality, who benefits the most?
+- **Crazy Factor:** What makes this idea different or "crazy"?
+- **Risks:** Why could this idea fail spectacularly?
 
 ---
 
-### 🧪 AI Analysis (Run /kamiflow:core:analyze)
+### 🧪 AI Analysis (Run /kamiflow:p-seed:analyze)
 
-[Kết quả phân tích từ Gemini sẽ được ghi nhận tại đây]
+[Analysis results from Gemini will be recorded here]
 
 ---
 
@@ -54,5 +54,3 @@ Once analyzed and refined, use:
 2. Promote to backlog → `/kamiflow:core:idea`
 3. Full v2.0 Sniper Model execution
 4. Validated, reflected, and shipped!
-
-

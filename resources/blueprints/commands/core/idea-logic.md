@@ -87,7 +87,7 @@ Then:
 
 **Execute Verification Protocol (see `{{KAMI_RULES_GEMINI}}std-anti-hallucination-core.md`):**
 
-### Step 5.1: File Path Verification
+### Step 4B.1: File Path Verification
 
 For all files you plan to reference:
 
@@ -95,7 +95,7 @@ For all files you plan to reference:
 2. Use `read_file` to verify content
 3. Log verified files
 
-### Step 5.2: Function/Variable Verification
+### Step 4B.2: Function/Variable Verification
 
 For all functions mentioned as potential anchor points:
 
@@ -103,7 +103,7 @@ For all functions mentioned as potential anchor points:
 2. Confirm signature and location
 3. Note line numbers for reference
 
-### Step 5.3: Dependency Verification
+### Step 4B.3: Dependency Verification
 
 For all libraries you assume are available:
 
@@ -111,7 +111,7 @@ For all libraries you assume are available:
 2. Verify version compatibility
 3. Note which are installed vs. assumed
 
-### Step 5.4: Configuration Verification
+### Step 4B.4: Configuration Verification
 
 For all config options you plan to reference:
 
@@ -180,11 +180,11 @@ IF no conflicts:
 
 ---
 
-### PHASE 0.6: SKILL DISCOVERY (Optional Enhancement)
+### PHASE 0C: SKILL DISCOVERY (Optional Enhancement)
 
 **Goal:** Check if reusable skills exist that can accelerate this task.
 
-**Step 0.6.1: Pattern Recognition**
+**Step 0C.1: Pattern Recognition**
 Analyze the raw idea for common patterns:
 
 - **TDD/Testing:** User mentions "test", "TDD", "coverage" → Check for `kamiflow-tdd` skill
@@ -192,7 +192,7 @@ Analyze the raw idea for common patterns:
 - **API/Backend:** User mentions "API", "endpoint", "REST" → Check for API skills
 - **UI/Frontend:** User mentions "component", "UI", "design" → Check for UI skills
 
-**Step 0.6.2: Skill Check**
+**Step 0C.2: Skill Check**
 
 ```
 IF pattern detected:
@@ -205,7 +205,7 @@ IF pattern detected:
      - Incorporate skill guidance into S1-IDEA
 ```
 
-**Step 0.6.3: Skill Suggestion**
+**Step 0C.3: Skill Suggestion**
 If no matching skill exists but pattern is common:
 
 - Note: "💭 Consider creating a reusable skill for [pattern] in `resources/blueprints/skills/`"
@@ -294,7 +294,7 @@ Once user confirms, generate the IDEA file with the chosen option.
 
 **MANDATORY Content Requirements:**
 
-1. **Section 0 (Verification):** You MUST include the full "Assumption Verification Report" from Phase 0.5.
+1. **Section 0 (Verification):** You MUST include the full "Assumption Verification Report" from §4B.
 2. **Section 2 (Decision):** You MUST synthesize the "Diagnostic Insights" from Phase 1 and explain the "Decision Reasoning" (why this option won).
 
 ## 6. OUTPUT FORMAT
@@ -361,3 +361,12 @@ Run `/kamiflow:core:spec {{KAMI_WORKSPACE}}tasks/[ID]-S1-IDEA-[slug].md` to crea
 
 - After generating, ask: "Do you want me to save this to `{{KAMI_WORKSPACE}}tasks/[ID]-S1-IDEA-[slug].md`? (Y/N)"
 - If user confirms, prompt: "File saved! Next: `/kamiflow:core:spec tasks/[ID]-S1-IDEA-[slug].md` to create the specification."
+
+## 8. CRITICAL ACTION
+
+**MANDATORY GATES — You MUST obey these stops:**
+
+1.  **After Phase 1 (Diagnostic Interview):** You MUST STOP and use `wait_for_user_input`. DO NOT generate options or artifacts yet.
+2.  **After Phase 2 Step 7 (Present Options):** You MUST STOP and use `wait_for_user_input`. Wait for Boss to choose Option A/B/C before generating the S1 file.
+
+**FAILURE TO STOP at Gates 1 and 2 is a protocol violation.** If you skip a gate, the entire workflow is invalid.

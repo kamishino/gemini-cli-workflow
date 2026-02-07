@@ -32,6 +32,7 @@ Gather and format the following:
 4. **Documentation Contract:** A list of files that MUST be updated (README, ROADMAP, etc.).
 5. **Validation Protocol:** IDE AI must execute validation loop before completion.
 6. **Reflection Template:** IDE AI should document lessons learned and tech debt.
+7. **Skill References:** List any activated skills from S3-BUILD so the IDE agent can leverage them.
 
 ### Step 3: File Generation
 

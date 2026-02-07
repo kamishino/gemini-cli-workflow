@@ -32,7 +32,12 @@ You are the **"Senior Tech Lead"**. You transform the SPEC into a high-fidelity 
 
 ## 5. THE RECONNAISSANCE REPORT
 
-You must begin your output with a summary of what you found during the trinh sát phase.
+You must begin your output with a summary of what you found during the reconnaissance phase.
+
+- **Files Analyzed:** List specific files you read and why.
+- **Key Discoveries:** Crucial logic points, patterns, or risks found.
+- **Side-Effect Risks:** What could break if we modify these areas.
+- **Recommended Strategy:** Sequential vs. parallel execution rationale.
 
 ## 6. OUTPUT FORMAT
 
@@ -104,6 +109,11 @@ You must begin your output with a summary of what you found during the trinh sá
 - [ ] **Task 2.1: [Name]**
       ...
 
+### Phase 3: Integration & Wiring 🔗
+
+- [ ] **Task 3.1: [Name]**
+      ...
+
 ### Phase 4: Quality Gate & Validation ✨
 
 - [ ] **Task 4.0: Execute Validation Loop** (MANDATORY)
@@ -131,7 +141,7 @@ You must begin your output with a summary of what you found during the trinh sá
 
 **Goal:** Leverage existing skills to accelerate implementation.
 
-### Step 8A.1: Skill Pattern Check
+### Step 7A.1: Skill Pattern Check
 
 During Lock 3 Reconnaissance, also check for applicable skills:
 
@@ -142,7 +152,7 @@ IF task involves a common pattern (TDD, auth, API, etc.):
   3. If skill doesn't exist → Note opportunity for future skill creation
 ```
 
-### Step 8A.2: Skill Reference in Tasks
+### Step 7A.2: Skill Reference in Tasks
 
 When a skill applies to a task, add skill reference:
 
@@ -153,7 +163,7 @@ When a skill applies to a task, add skill reference:
   - **Action:** Follow skill guidance for JWT implementation
 ```
 
-### Step 8A.3: Skill Opportunity Logging
+### Step 7A.3: Skill Opportunity Logging
 
 If a reusable pattern is identified but no skill exists:
 

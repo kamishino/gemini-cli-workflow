@@ -23,7 +23,14 @@
 - **IDE Bridge:** `./.windsurf/` (Workflows & Rules for AI Editor)
 - **Logs:** `{{KAMI_WORKSPACE}}handoff_logs/` (Lazy logs tagged with `_lazy`/`_superlazy`)
 
-## 4. v2.0 Configuration
+## 5. Session State
+
+- **Active Work:** {{ACTIVE_WORK}}
+- **Discovery Pipeline:** {{DISCOVERY_PIPELINE}}
+- **Quality Metrics:** {{QUALITY_METRICS}}
+- **Last Updated:** {{LAST_UPDATED}}
+
+## 6. v2.0 Configuration
 
 - **Validation Mode:** Enabled (3-Phase: Syntax → Functional → Traceability)
 - **Checkpoint Retention:** 30 days
@@ -32,5 +39,3 @@
 - **Reflection Required:** Yes (Phase 4 quality gates)
 - **Self-Healing Rate:** Target >80% for Level 1 errors
 - **Validation Pass Rate:** Target >90% first-attempt success
-
-
