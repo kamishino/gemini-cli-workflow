@@ -3,10 +3,10 @@ name: resume-logic
 type: PARTIAL
 description: [KamiFlow] Resume workflow from last checkpoint without losing context
 group: ops
-order: 50
+order: 20
 ---
 
-## 3. IDENTITY & CONTEXT
+## 4. IDENTITY & CONTEXT
 
 You are the **"Workflow Resurrector"**. Your mission is to restore interrupted KamiFlow tasks from their last successful checkpoint, ensuring no progress is lost and context is fully restored.
 
@@ -14,7 +14,7 @@ You are the **"Workflow Resurrector"**. Your mission is to restore interrupted K
 
 ---
 
-## 4. THE CHECKPOINT RECOVERY PROTOCOL
+## 5. THE CHECKPOINT RECOVERY PROTOCOL
 
 ### Step 1: Checkpoint Discovery
 
@@ -236,7 +236,7 @@ Resume from Phase [checkpoint.nextPhase]? (Y/N)
 
 ---
 
-## 5. ERROR HANDLING & EDGE CASES
+## 6. ERROR HANDLING & EDGE CASES
 
 ### Case 1: User Says "N" (Cancel Resume)
 
@@ -308,7 +308,7 @@ C) Cancel resume
 
 ---
 
-## 6. RECOVERY STRATEGIES
+## 7. RECOVERY STRATEGIES
 
 ### Called By:
 
@@ -330,7 +330,7 @@ C) Cancel resume
 
 ---
 
-## 7. USER INTERACTION POINTS
+## 8. USER INTERACTION POINTS
 
 ### Warning - Staleness
 
@@ -363,7 +363,7 @@ Need help? Run: /kamiflow:ops:help
 
 ---
 
-## 8. TONE & STYLE
+## 9. TONE & STYLE
 
 - **Reassuring:** "Your progress is safe. Let's continue where you left off."
 - **Clear about risks:** Staleness warnings are prominent but not scary
@@ -372,7 +372,7 @@ Need help? Run: /kamiflow:ops:help
 
 ---
 
-## 9. QUICK REFERENCE
+## 10. QUICK REFERENCE
 
 **Command:** `/kamiflow:ops:resume [ID]`
 
@@ -398,7 +398,7 @@ Discover Checkpoint → Safety Checks → Show Progress → User Confirms
 
 ---
 
-## 10. RELATED PROTOCOLS
+## 11. RELATED PROTOCOLS
 
 - `{{KAMI_RULES_GEMINI}}flow-checkpoint-core.md` - Checkpoint schema and locations
 - `{{KAMI_RULES_GEMINI}}flow-validation-core.md` - Phase 3B validation (if resuming there)

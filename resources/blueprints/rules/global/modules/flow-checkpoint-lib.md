@@ -3,7 +3,7 @@ name: flow-checkpoint-lib
 type: RULE_MODULE
 description: Checkpoint management and visibility library
 group: global
-order: 101
+order: 91
 parent_rule: flow-checkpoint
 is_core: false
 dependencies: ["flow-checkpoint-core"]

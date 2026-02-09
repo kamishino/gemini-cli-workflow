@@ -5,6 +5,7 @@ metadata:
   author: obra/superpowers (adapted for KamiFlow)
   version: "1.0.0"
   kamiflow-alignment: Phase 4 Validation, Lock 3 (Legacy Awareness)
+order: 40
 ---
 
 # Test-Driven Development (TDD)

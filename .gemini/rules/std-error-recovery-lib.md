@@ -3,7 +3,7 @@ name: std-error-recovery-lib
 type: RULE_MODULE
 description: Pattern library and log formats for error recovery
 group: global
-order: 141
+order: 121
 parent_rule: std-error-recovery
 is_core: false
 dependencies: ["std-error-recovery-core"]

@@ -3,7 +3,7 @@ name: flow-fast-track-core
 type: RULE_MODULE
 description: Lightweight task handling criteria and flow
 group: global
-order: 60
+order: 50
 parent_rule: flow-fast-track
 is_core: true
 ---

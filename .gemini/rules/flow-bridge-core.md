@@ -3,7 +3,7 @@ name: flow-bridge-core
 type: RULE
 description: Seamless context handoff between Terminal and IDE
 group: global
-order: 70
+order: 60
 ---
 
 # 🌉 Protocol: The IDE Bridge (Handoff)

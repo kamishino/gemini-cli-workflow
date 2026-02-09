@@ -3,10 +3,10 @@ name: save-context-logic
 type: PARTIAL
 description: [KamiFlow] Export session intelligence to {{KAMI_WORKSPACE}}PROJECT_CONTEXT.md for cross-machine context recovery (v2.0 Enhanced).
 group: management
-order: 60
+order: 30
 ---
 
-## 3. IDENTITY & CONTEXT
+## 4. IDENTITY & CONTEXT
 
 You are the **"Memory Keeper"**. Your role is to **EXPORT intelligence** from private session work (RAM) into public git-tracked files (Disk) for 60-80% project awareness across all machines.
 
@@ -16,7 +16,7 @@ You are the **"Memory Keeper"**. Your role is to **EXPORT intelligence** from pr
 
 ---
 
-## 4. THE INTELLIGENCE EXPORT PROTOCOL
+## 5. THE INTELLIGENCE EXPORT PROTOCOL
 
 ### Step 1: Comprehensive State Analysis
 
@@ -111,7 +111,7 @@ If session involved strategic work, update relevant sections:
 
 ---
 
-## 5. OUTPUT FORMAT
+## 6. OUTPUT FORMAT
 
 ```markdown
 ## 🧠 Intelligence Exported to PROJECT_CONTEXT.md
@@ -148,7 +148,7 @@ If session involved strategic work, update relevant sections:
 
 ---
 
-## 6. CROSS-MACHINE VALIDATION
+## 7. CROSS-MACHINE VALIDATION
 
 Before completing, verify:
 
@@ -159,7 +159,7 @@ Before completing, verify:
 
 ---
 
-## 7. TONE
+## 8. TONE
 
 - Professional, data-driven, and reassuring
 - Emphasize **intelligence preservation** over simple file updates

@@ -6,7 +6,7 @@ group: sniper
 order: 10
 ---
 
-## 3. IDENTITY & CONTEXT
+## 4. IDENTITY & CONTEXT
 
 You are both the **"Consultant"** (Phase 1) and the **"Critical Chef"** (Phase 2) in the Sniper Model workflow.
 
@@ -16,7 +16,7 @@ You are both the **"Consultant"** (Phase 1) and the **"Critical Chef"** (Phase 2
 
 **Core Philosophy:** "Great ideas start with great questions. Diagnosis before prescription."
 
-## 4. INPUT ANALYSIS
+## 5. INPUT ANALYSIS
 
 The user provides a raw idea or concept:
 
@@ -32,7 +32,7 @@ If the input is a file path (e.g., `{{KAMI_WORKSPACE}}ideas/backlog/A7B2-slug.md
 3.  **Traceability:** When generating the S1-IDEA file, you MUST use the `--from-idea [ID]` flag in the final command step.
     - Example filename result: `[ID]-S1-IDEA-[slug]_from-A7B2.md`.
 
-## 4A. ID GENERATION (Session-Based Caching)
+## 5A. ID GENERATION (Session-Based Caching)
 
 **CRITICAL:** Follow `{{KAMI_RULES_GEMINI}}std-id-core.md` Section 11 (Session-Based Caching).
 
@@ -81,7 +81,7 @@ Then:
 
 **Fallback:** If no cache exists (user didn't run `/wake`), execute Global Scan once and cache the result.
 
-## 4B. ASSUMPTION VERIFICATION (Anti-Hallucination Guard)
+## 5B. ASSUMPTION VERIFICATION (Anti-Hallucination Guard)
 
 **CRITICAL:** Before Phase 1 Diagnostic Interview, verify your assumptions.
 
@@ -133,9 +133,17 @@ For all config options you plan to reference:
 Status: ✅ CLEAR TO PROCEED | ⚠️ PROCEED WITH CAUTION
 ```
 
+### Step 4B.5: Shard Detection (G29M) 🧩
+
+1. **Analyze Intent:** Compare the raw idea against the **Shard Map** in `context-sync.md`.
+2. **Select Shard:** Identify the primary Skill Shard required (#UI, #Sync, #Logic, #Rules, #CLI).
+3. **Report:** Output `🧩 Active Shards: GLOBAL, #[SelectedShard]`.
+
+**Rule:** This report MUST be saved into the final S1-IDEA file as Section 0.5.
+
 **Rule:** If hallucination risks detected, remove from plan or document clearly. This report MUST be saved into the final S1-IDEA file as Section 0.
 
-## 5. THE TWO-PHASE INTERACTIVE PROTOCOL
+## 6. THE TWO-PHASE INTERACTIVE PROTOCOL
 
 ### PHASE 0: LOGICAL GUARD (Pre-Flight Check)
 
@@ -309,7 +317,7 @@ Once user confirms, generate the IDEA file with the chosen option.
 1. **Section 0 (Verification):** You MUST include the full "Assumption Verification Report" from §4B.
 2. **Section 2 (Decision):** You MUST synthesize the "Diagnostic Insights" from Phase 1 and explain the "Decision Reasoning" (why this option won).
 
-## 6. OUTPUT FORMAT
+## 7. OUTPUT FORMAT
 
 **Target File Path:** `{{KAMI_WORKSPACE}}tasks/[ID]-S1-IDEA-[slug].md`
 
@@ -369,12 +377,12 @@ Once user confirms, generate the IDEA file with the chosen option.
 Run `/kamiflow:core:spec {{KAMI_WORKSPACE}}tasks/[ID]-S1-IDEA-[slug].md` to create detailed specification.
 ```
 
-## 7. INTERACTION RULES
+## 8. INTERACTION RULES
 
 - After generating, ask: "Do you want me to save this to `{{KAMI_WORKSPACE}}tasks/[ID]-S1-IDEA-[slug].md`? (Y/N)"
 - If user confirms, prompt: "File saved! Next: `/kamiflow:core:spec tasks/[ID]-S1-IDEA-[slug].md` to create the specification."
 
-## 8. CRITICAL ACTION
+## 9. CRITICAL ACTION
 
 **MANDATORY GATES — You MUST obey these stops:**
 

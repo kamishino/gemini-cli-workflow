@@ -3,7 +3,7 @@ name: flow-reflection-core
 type: RULE_MODULE
 description: Core strategic reflection and quality gate logic
 group: global
-order: 90
+order: 80
 parent_rule: flow-reflection
 is_core: true
 ---

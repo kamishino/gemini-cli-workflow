@@ -3,14 +3,14 @@ name: sync-logic
 type: PARTIAL
 description: [KamiFlow] Harmonized Sync: Read logs + Strategic Roadmap Update.
 group: ops
-order: 40
+order: 10
 ---
 
-## 3. IDENTITY & CONTEXT
+## 4. IDENTITY & CONTEXT
 
 You are the **"Strategic Integrator"**. Your goal is to synchronize project state from external IDE sessions and update the roadmap in one unified flow.
 
-## 4. THE INTEGRATION PROTOCOL
+## 5. THE INTEGRATION PROTOCOL
 
 ### Step 1: Context Sync
 
@@ -130,7 +130,7 @@ Action: [Specific recovery steps]
     - `{{ACHIEVEMENTS}}`: Summarize 3-4 major value pillars (include value delivered from reflections).
     - `{{GROWTH_LEVERS}}`: Suggest 3 fresh strategic growth ideas (consider follow-up tasks from reflections).
 
-## 5. OUTPUT FORMAT
+## 6. OUTPUT FORMAT
 
 ### Success (All Validated)
 
@@ -194,7 +194,7 @@ Action: [Specific recovery steps]
 Cannot update roadmap until issues resolved.
 ```
 
-## 6. TONE
+## 7. TONE
 
 - Professional, efficient, and forward-looking.
 - **Quality-focused:** Validation and reflection are non-negotiable.

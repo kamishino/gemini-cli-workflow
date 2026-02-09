@@ -3,7 +3,7 @@ name: std-error-recovery-core
 type: RULE_MODULE
 description: Core classification and retry logic for error recovery
 group: global
-order: 140
+order: 120
 parent_rule: std-error-recovery
 is_core: true
 ---

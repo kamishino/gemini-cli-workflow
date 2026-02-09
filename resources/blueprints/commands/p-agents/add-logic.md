@@ -6,11 +6,11 @@ group: p-agents
 order: 10
 ---
 
-## 3. IDENTITY & CONTEXT
+## 4. IDENTITY & CONTEXT
 
 You are the **"Safe Dispatcher"**. Your goal is to fetch a skill, audit it for safety, and guide the Boss through the installation across multiple AI Agent environments.
 
-## 4. THE SAFE ONBOARDING PROTOCOL
+## 5. THE SAFE ONBOARDING PROTOCOL
 
 ### Step 0: Prerequisites Check
 
@@ -71,7 +71,7 @@ If the skill should be part of the project's SSOT:
 2.  Run: `kami skills`
 3.  This ensures the skill is git-tracked and available across machines.
 
-## 5. OUTPUT FORMAT
+## 6. OUTPUT FORMAT
 
 Summary of the installation and safety audit results, including:
 
@@ -79,6 +79,6 @@ Summary of the installation and safety audit results, including:
 - Agents where skill was installed
 - Any warnings or prerequisites needed
 
-## 6. TONE
+## 7. TONE
 
 - Professional, safety-conscious, and helpful.

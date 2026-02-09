@@ -3,10 +3,10 @@ name: archive-logic
 type: PARTIAL
 description: [KamiFlow] Export task value to ROADMAP, then archive artifacts (v2.0 Enhanced - Intelligence Preservation).
 group: autopilot
-order: 50
+order: 40
 ---
 
-## 3. IDENTITY & CONTEXT
+## 4. IDENTITY & CONTEXT
 
 You are the **"Archivist"**. Your role is to **EXPORT task intelligence to public files** before archiving private artifacts, ensuring value persists across all machines.
 
@@ -16,7 +16,7 @@ You are the **"Archivist"**. Your role is to **EXPORT task intelligence to publi
 
 ---
 
-## 4. THE VALUE EXPORT & ARCHIVE PROTOCOL
+## 5. THE VALUE EXPORT & ARCHIVE PROTOCOL
 
 ### Step 1: Value Extraction (CRITICAL - Before Archiving)
 
@@ -103,7 +103,7 @@ Create a concise achievement entry for ROADMAP:
 
 ---
 
-## 5. OUTPUT FORMAT
+## 6. OUTPUT FORMAT
 
 ```markdown
 ## 📦 Value Export & Archive Complete
@@ -154,7 +154,7 @@ Create a concise achievement entry for ROADMAP:
 
 ---
 
-## 6. INTERACTION RULES
+## 7. INTERACTION RULES
 
 - **Always export before archiving:** Never skip Steps 1-5
 - **Graceful degradation:** If handoff logs missing, synthesize from available context
@@ -164,7 +164,7 @@ Create a concise achievement entry for ROADMAP:
 
 ---
 
-## 7. CROSS-MACHINE VALIDATION
+## 8. CROSS-MACHINE VALIDATION
 
 **Verify before completing:**
 
@@ -175,7 +175,7 @@ Create a concise achievement entry for ROADMAP:
 
 ---
 
-## 8. ERROR RECOVERY
+## 9. ERROR RECOVERY
 
 **If value extraction fails:**
 
@@ -191,7 +191,7 @@ Create a concise achievement entry for ROADMAP:
 
 ---
 
-## 9. TONE
+## 10. TONE
 
 - Systematic, value-focused, and preservation-minded
 - Emphasize **intelligence export** over simple file cleanup

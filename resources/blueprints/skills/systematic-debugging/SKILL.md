@@ -5,6 +5,7 @@ metadata:
   author: obra/superpowers (adapted for KamiFlow)
   version: "1.0.0"
   kamiflow-alignment: Error Recovery Protocol, Anti-Hallucination Guards
+order: 30
 ---
 
 # Systematic Debugging

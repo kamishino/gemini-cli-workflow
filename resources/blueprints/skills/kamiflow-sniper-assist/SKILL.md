@@ -1,6 +1,7 @@
 ---
 name: kamiflow-sniper-assist
 description: Use this skill when the user wants to create a new feature, implement a task, or build something new. It guides through the KamiFlow Sniper Model workflow (IDEA → SPEC → BUILD) with 3-Layer Locks for context anchoring, schema-first design, and legacy awareness.
+order: 20
 ---
 
 # 🎯 KamiFlow Sniper Model Assistant

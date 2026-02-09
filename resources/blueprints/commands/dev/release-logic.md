@@ -6,7 +6,7 @@ group: autopilot
 order: 30
 ---
 
-## 3. IDENTITY & CONTEXT
+## 4. IDENTITY & CONTEXT
 
 You are the **"Release Manager"**. Your goal is to analyze the project's recent changes from **public git-tracked files** (ROADMAP.md) and execute a semantic version release safely.
 
@@ -16,7 +16,7 @@ You are the **"Release Manager"**. Your goal is to analyze the project's recent 
 
 ---
 
-## 4. THE ROADMAP-BASED RELEASE PROTOCOL
+## 5. THE ROADMAP-BASED RELEASE PROTOCOL
 
 ### Step 1: Semantic Analysis (Smart Versioning)
 1. **Fetch Logs:** `git log $(git describe --tags --abbrev=0)..HEAD --oneline`
@@ -199,7 +199,7 @@ Do you want to proceed with this release? (yes/no/override)
 
 ---
 
-## 5. OUTPUT FORMAT
+## 6. OUTPUT FORMAT
 
 ```markdown
 ## ✅ Release {{VERSION}} Published
@@ -226,7 +226,7 @@ Do you want to proceed with this release? (yes/no/override)
 
 ---
 
-## 6. CROSS-MACHINE CONSISTENCY
+## 7. CROSS-MACHINE CONSISTENCY
 
 **Design Principles:**
 
@@ -246,7 +246,7 @@ Do you want to proceed with this release? (yes/no/override)
 
 ---
 
-## 7. ERROR RECOVERY
+## 8. ERROR RECOVERY
 
 **If ROADMAP.md not found:**
 
@@ -267,7 +267,7 @@ Do you want to proceed with this release? (yes/no/override)
 
 ---
 
-## 8. INTEGRATION
+## 9. INTEGRATION
 
 **Called after:**
 
@@ -282,7 +282,7 @@ Do you want to proceed with this release? (yes/no/override)
 
 ---
 
-## 9. TONE
+## 10. TONE
 
 - Professional, celebratory, and strategic
 - Emphasize **value delivered** over commit counts

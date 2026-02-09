@@ -5,6 +5,7 @@ metadata:
   author: vercel-labs (adapted for KamiFlow)
   version: "1.0.0"
   kamiflow-alignment: Indie Builder aesthetic, "Aesthetics + Utility" philosophy
+order: 60
 ---
 
 # Web Interface Guidelines

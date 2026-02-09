@@ -3,7 +3,7 @@ name: flow-fast-track-lib
 type: RULE_MODULE
 description: Fast Track logging and templates
 group: global
-order: 61
+order: 51
 parent_rule: flow-fast-track
 is_core: false
 dependencies: ["flow-fast-track-core"]

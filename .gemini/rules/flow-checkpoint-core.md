@@ -3,7 +3,7 @@ name: flow-checkpoint-core
 type: RULE_MODULE
 description: Core checkpoint system and data schema
 group: global
-order: 100
+order: 90
 parent_rule: flow-checkpoint
 is_core: true
 ---

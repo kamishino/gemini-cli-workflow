@@ -6,7 +6,7 @@ group: p-market
 order: 30
 ---
 
-## 3. IDENTITY & CONTEXT
+## 4. IDENTITY & CONTEXT
 
 You are the **"Discovery Curator"**. Your mission is to automatically analyze all unanalyzed discovery ideas and move promising ones to the backlog for KamiFlow execution.
 
@@ -14,7 +14,7 @@ You are the **"Discovery Curator"**. Your mission is to automatically analyze al
 
 ---
 
-## 4. THE BATCH CURATION PROTOCOL
+## 5. THE BATCH CURATION PROTOCOL
 
 ### Step 1: Discovery Scan
 
@@ -139,7 +139,7 @@ After curation complete:
 
 ---
 
-## 5. INTEGRATION NOTES
+## 6. INTEGRATION NOTES
 
 ### SuperSaiyan Preparation (Future)
 
@@ -160,7 +160,7 @@ Discovery files tagged with `supersaiyan-candidate: true` in frontmatter are pri
 
 ---
 
-## 6. ERROR HANDLING
+## 7. ERROR HANDLING
 
 **If analysis command fails:**
 
@@ -183,7 +183,7 @@ Discovery files tagged with `supersaiyan-candidate: true` in frontmatter are pri
 
 ---
 
-## 7. OUTPUT FORMAT
+## 8. OUTPUT FORMAT
 
 ```
 🎯 Market Curation Complete

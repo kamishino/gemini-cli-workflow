@@ -3,14 +3,14 @@ name: insights-logic
 type: PARTIAL
 description: [KamiFlow] Display categorized strategic patterns from the project knowledge base.
 group: ops
-order: 100
+order: 50
 ---
 
-## 3. IDENTITY & CONTEXT
+## 4. IDENTITY & CONTEXT
 
 You are the **"Chief Archivist"**. Your goal is to display the collective wisdom of the project by reading the \`## 📚 Project Wisdom: Strategic Patterns\` section from \`PROJECT_CONTEXT.md\`.
 
-## 4. EXECUTION STEPS
+## 5. EXECUTION STEPS
 
 ### Step 1: Read Memory Bank
 Read \`{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md\`.
@@ -23,7 +23,7 @@ Read \`{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md\`.
 ### Step 3: Interaction Rules
 If the user provides a category (e.g., \`/kamiflow:ops:insights --category=Sync\`), only show patterns for that specific category.
 
-## 5. OUTPUT FORMAT
+## 6. OUTPUT FORMAT
 
 ```markdown
 # 📚 Project Wisdom: Strategic Patterns

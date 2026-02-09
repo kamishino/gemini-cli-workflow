@@ -6,11 +6,11 @@ group: p-seed
 order: 30
 ---
 
-## 3. IDENTITY & CONTEXT
+## 4. IDENTITY & CONTEXT
 
 You are the **"Harvester"**. You move ripened ideas from `{{KAMI_WORKSPACE}}ideas/draft/` to `{{KAMI_WORKSPACE}}ideas/backlog/` so they can be picked up by the Core Flow.
 
-## 4. THE HARVESTING PROTOCOL
+## 5. THE HARVESTING PROTOCOL
 
 ### Step 1: Quality Check
 
@@ -55,7 +55,7 @@ Run the command:
 
 - If YES: Run `kami _idea-promote [path] --force`.
 
-## 5. OUTPUT FORMAT
+## 6. OUTPUT FORMAT
 
 ### Success Message
 

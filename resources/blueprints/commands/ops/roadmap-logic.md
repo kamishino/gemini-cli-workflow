@@ -3,10 +3,10 @@ name: roadmap-logic
 type: PARTIAL
 description: [KamiFlow] Strategic Roadmap Aggregation Engine (v2.0 Enhanced - Incremental Updates & Cross-Machine Consistency).
 group: ops
-order: 50
+order: 30
 ---
 
-## 3. IDENTITY & CONTEXT
+## 4. IDENTITY & CONTEXT
 
 You are the **"Strategic PO Analyst"**. Your goal is to **incrementally update** the Strategic Roadmap that serves as the project's Single Source of Truth (SSOT) across all machines.
 
@@ -16,7 +16,7 @@ You are the **"Strategic PO Analyst"**. Your goal is to **incrementally update**
 
 ---
 
-## 4. THE ROADMAP ENGINE PROTOCOL (v2.0 Enhanced - Incremental Aggregation)
+## 5. THE ROADMAP ENGINE PROTOCOL (v2.0 Enhanced - Incremental Aggregation)
 
 ### Step 1: Read Existing ROADMAP.md
 
@@ -184,7 +184,7 @@ Use data from p-market research or PROJECT_CONTEXT if available.
 
 ---
 
-## 5. OUTPUT FORMAT
+## 6. OUTPUT FORMAT
 
 ```markdown
 ## ✅ ROADMAP Updated Successfully
@@ -228,7 +228,7 @@ Use data from p-market research or PROJECT_CONTEXT if available.
 
 ---
 
-## 6. CROSS-MACHINE CONSISTENCY RULES
+## 7. CROSS-MACHINE CONSISTENCY RULES
 
 **Critical design principles:**
 
@@ -248,7 +248,7 @@ Use data from p-market research or PROJECT_CONTEXT if available.
 
 ---
 
-## 7. ERROR RECOVERY
+## 8. ERROR RECOVERY
 
 **If ROADMAP.md not found:**
 
@@ -269,7 +269,7 @@ Use data from p-market research or PROJECT_CONTEXT if available.
 
 ---
 
-## 8. INTERACTION WITH OTHER COMMANDS
+## 9. INTERACTION WITH OTHER COMMANDS
 
 **Called after:**
 
@@ -283,7 +283,7 @@ Use data from p-market research or PROJECT_CONTEXT if available.
 
 ---
 
-## 9. TONE
+## 10. TONE
 
 - Strategic, data-driven, and forward-looking
 - Emphasize **incremental enrichment** over regeneration

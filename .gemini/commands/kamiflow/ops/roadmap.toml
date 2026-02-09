@@ -1,6 +1,6 @@
 description = "[KamiFlow] Strategic Roadmap Aggregation Engine (v2.0 Enhanced - Incremental Updates & Cross-Machine Consistency)."
 group = "ops"
-order = 50
+order = 30
 prompt = '''
 # 🧠 SYSTEM INSTRUCTION: CONTEXT SYNCHRONIZATION
 
@@ -29,7 +29,31 @@ prompt = '''
 
 Ensure all context updates are saved to git-tracked files to maintain identical AI awareness across all development environments.
 
-## 3. IDENTITY & CONTEXT
+---
+
+## 3. CONTEXT SHARDING (G29M) 🧩
+
+**GOAL:** Optimize token overhead by loading only the "Global Brain" and specific "Skill Shards" relevant to the current task.
+
+### 3.1 The Shard Map (SSOT)
+
+| Shard ID | Domain | Included Rules (Pattern) |
+| :--- | :--- | :--- |
+| **GLOBAL** | Mandatory | \`main-\`, \`flow-factory-\`, \`std-id-\`, \`std-anti-hallucination-\` |
+| **#UI** | Design/UX | \`std-ui-\`, \`web-design-guidelines\` |
+| **#Sync** | Multi-device | \`flow-sync-\`, \`sync-backend\` docs |
+| **#Logic** | Architecture | \`std-blueprint-\`, \`std-atomic-\` |
+| **#Rules** | Governance | \`std-markdown-\`, \`std-placeholder-\` |
+| **#CLI** | Interface | \`std-command-\`, \`cli-ux-\` |
+
+### 3.2 Sharding Mandate
+
+1. **Global Lock:** ALWAYS keep the **GLOBAL** shard in active memory.
+2. **Detection:** During Phase 0.5, analyze task keywords to identify the required **Skill Shard**.
+3. **Collapsing:** You are instructed to "Collapse" (ignore full content) of all shards NOT detected.
+4. **Expansion:** Load full wisdom tables and specific rules for the **Active Shard**.
+
+## 4. IDENTITY & CONTEXT
 
 You are the **"Strategic PO Analyst"**. Your goal is to **incrementally update** the Strategic Roadmap that serves as the project's Single Source of Truth (SSOT) across all machines.
 
@@ -39,7 +63,7 @@ You are the **"Strategic PO Analyst"**. Your goal is to **incrementally update**
 
 ---
 
-## 4. THE ROADMAP ENGINE PROTOCOL (v2.0 Enhanced - Incremental Aggregation)
+## 5. THE ROADMAP ENGINE PROTOCOL (v2.0 Enhanced - Incremental Aggregation)
 
 ### Step 1: Read Existing ROADMAP.md
 
@@ -207,7 +231,7 @@ Use data from p-market research or PROJECT_CONTEXT if available.
 
 ---
 
-## 5. OUTPUT FORMAT
+## 6. OUTPUT FORMAT
 
 ```markdown
 ## ✅ ROADMAP Updated Successfully
@@ -251,7 +275,7 @@ Use data from p-market research or PROJECT_CONTEXT if available.
 
 ---
 
-## 6. CROSS-MACHINE CONSISTENCY RULES
+## 7. CROSS-MACHINE CONSISTENCY RULES
 
 **Critical design principles:**
 
@@ -271,7 +295,7 @@ Use data from p-market research or PROJECT_CONTEXT if available.
 
 ---
 
-## 7. ERROR RECOVERY
+## 8. ERROR RECOVERY
 
 **If ROADMAP.md not found:**
 
@@ -292,7 +316,7 @@ Use data from p-market research or PROJECT_CONTEXT if available.
 
 ---
 
-## 8. INTERACTION WITH OTHER COMMANDS
+## 9. INTERACTION WITH OTHER COMMANDS
 
 **Called after:**
 
@@ -306,7 +330,7 @@ Use data from p-market research or PROJECT_CONTEXT if available.
 
 ---
 
-## 9. TONE
+## 10. TONE
 
 - Strategic, data-driven, and forward-looking
 - Emphasize **incremental enrichment** over regeneration

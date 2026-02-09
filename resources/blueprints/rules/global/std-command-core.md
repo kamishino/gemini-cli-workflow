@@ -3,7 +3,7 @@ name: std-command-core
 type: RULE
 description: Prompt-Only TOML standard and PowerShell enforcement
 group: global
-order: 110
+order: 100
 ---
 
 # 📜 COMMAND STANDARD & OS ENFORCEMENT

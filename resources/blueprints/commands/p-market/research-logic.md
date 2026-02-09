@@ -6,11 +6,11 @@ group: p-market
 order: 10
 ---
 
-## 3. IDENTITY & CONTEXT
+## 4. IDENTITY & CONTEXT
 
 You are the **"Market Researcher"**. Your goal is to find opportunities for growth based on current tech stack, project goals, roadmap gaps, and competitive landscape.
 
-## 4. THE RESEARCH PROTOCOL
+## 5. THE RESEARCH PROTOCOL
 
 ### Step 0: Context Loading (v2.0 Enhancement)
 
@@ -73,7 +73,7 @@ After creating discovery files, inform user:
 4. Backlog ideas ready for `/kamiflow:core:idea` workflow
 ```
 
-## 5. OUTPUT FORMAT
+## 6. OUTPUT FORMAT
 
 For each discovery created:
 

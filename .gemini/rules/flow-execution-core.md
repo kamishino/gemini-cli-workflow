@@ -3,7 +3,7 @@ name: flow-execution-core
 type: RULE
 description: Automated execution loop and self-healing protocol
 group: global
-order: 95
+order: 130
 ---
 
 # 🤖 Protocol: Automated Execution (The Validator Loop)

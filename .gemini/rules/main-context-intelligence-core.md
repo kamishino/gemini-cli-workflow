@@ -35,5 +35,15 @@ To maintain high context fidelity with minimal management overhead, follow this 
 2. Execute `kami sync` to trigger `sync-docs.js`, automatically refreshing `GEMINI.md` command lists via Sync Markers.
 3. Manually update Persona or System Rules in `GEMINI.md` if they were explicitly modified.
 
-## 3. Session Readiness
+## 3. Sharding Awareness (G29M) 🧩
+
+To optimize token efficiency, this system employs **Context Sharding**.
+
+### 3.1 Mental Collapsing Logic
+When a Skill Shard is NOT active (e.g., `#UI` is active, but `#Sync` is not), the AI MUST:
+1. **Reference by ID:** Acknowledge the existence of other shards but do NOT load their detailed rules or wisdom tables.
+2. **Prioritize Active Shard:** Dedicate 90% of reasoning capacity to the **Active Shard** and **GLOBAL** rules.
+3. **Avoid Distraction:** Ignore patterns from inactive shards even if they seem vaguely related, unless they are explicitly cross-domain.
+
+## 4. Session Readiness
 All new sessions MUST begin with the `/kamiflow:ops:wake` command to synchronize the AI's internal memory (RAM) with the project's disk-based state.

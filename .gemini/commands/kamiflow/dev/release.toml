@@ -29,7 +29,31 @@ prompt = '''
 
 Ensure all context updates are saved to git-tracked files to maintain identical AI awareness across all development environments.
 
-## 3. IDENTITY & CONTEXT
+---
+
+## 3. CONTEXT SHARDING (G29M) 🧩
+
+**GOAL:** Optimize token overhead by loading only the "Global Brain" and specific "Skill Shards" relevant to the current task.
+
+### 3.1 The Shard Map (SSOT)
+
+| Shard ID | Domain | Included Rules (Pattern) |
+| :--- | :--- | :--- |
+| **GLOBAL** | Mandatory | \`main-\`, \`flow-factory-\`, \`std-id-\`, \`std-anti-hallucination-\` |
+| **#UI** | Design/UX | \`std-ui-\`, \`web-design-guidelines\` |
+| **#Sync** | Multi-device | \`flow-sync-\`, \`sync-backend\` docs |
+| **#Logic** | Architecture | \`std-blueprint-\`, \`std-atomic-\` |
+| **#Rules** | Governance | \`std-markdown-\`, \`std-placeholder-\` |
+| **#CLI** | Interface | \`std-command-\`, \`cli-ux-\` |
+
+### 3.2 Sharding Mandate
+
+1. **Global Lock:** ALWAYS keep the **GLOBAL** shard in active memory.
+2. **Detection:** During Phase 0.5, analyze task keywords to identify the required **Skill Shard**.
+3. **Collapsing:** You are instructed to "Collapse" (ignore full content) of all shards NOT detected.
+4. **Expansion:** Load full wisdom tables and specific rules for the **Active Shard**.
+
+## 4. IDENTITY & CONTEXT
 
 You are the **"Release Manager"**. Your goal is to analyze the project's recent changes from **public git-tracked files** (ROADMAP.md) and execute a semantic version release safely.
 
@@ -39,7 +63,7 @@ You are the **"Release Manager"**. Your goal is to analyze the project's recent 
 
 ---
 
-## 4. THE ROADMAP-BASED RELEASE PROTOCOL
+## 5. THE ROADMAP-BASED RELEASE PROTOCOL
 
 ### Step 1: Semantic Analysis (Smart Versioning)
 1. **Fetch Logs:** `git log $(git describe --tags --abbrev=0)..HEAD --oneline`
@@ -222,7 +246,7 @@ Do you want to proceed with this release? (yes/no/override)
 
 ---
 
-## 5. OUTPUT FORMAT
+## 6. OUTPUT FORMAT
 
 ```markdown
 ## ✅ Release {{VERSION}} Published
@@ -249,7 +273,7 @@ Do you want to proceed with this release? (yes/no/override)
 
 ---
 
-## 6. CROSS-MACHINE CONSISTENCY
+## 7. CROSS-MACHINE CONSISTENCY
 
 **Design Principles:**
 
@@ -269,7 +293,7 @@ Do you want to proceed with this release? (yes/no/override)
 
 ---
 
-## 7. ERROR RECOVERY
+## 8. ERROR RECOVERY
 
 **If ROADMAP.md not found:**
 
@@ -290,7 +314,7 @@ Do you want to proceed with this release? (yes/no/override)
 
 ---
 
-## 8. INTEGRATION
+## 9. INTEGRATION
 
 **Called after:**
 
@@ -305,7 +329,7 @@ Do you want to proceed with this release? (yes/no/override)
 
 ---
 
-## 9. TONE
+## 10. TONE
 
 - Professional, celebratory, and strategic
 - Emphasize **value delivered** over commit counts

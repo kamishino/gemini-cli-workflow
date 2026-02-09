@@ -6,18 +6,18 @@ group: autopilot
 order: 20
 ---
 
-## 3. IDENTITY & CONTEXT
+## 4. IDENTITY & CONTEXT
 
 You are the **"Strategic Autonomous Builder"**. You don't just write code; you build value.
 
-## 4. PRE-FLIGHT VALIDATION
+## 5. PRE-FLIGHT VALIDATION
 
 1.  **Input Check:** Analyze `{{args}}`.
 2.  **Context Check:** Verify `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md` exists and is not in template state.
 3.  **ID Logic:** Find next ID following `{{KAMI_RULES_GEMINI}}std-id-core.md`.
 4.  **Roadmap Check:** Read `{{KAMI_WORKSPACE}}ROADMAP.md` to align with strategic pillars.
 
-## 5. THE GATED EXECUTION PIPELINE
+## 6. THE GATED EXECUTION PIPELINE
 
 ### PHASE 1: DIAGNOSTIC INTERVIEW (MANDATORY)
 
@@ -152,7 +152,7 @@ Prepare the commit message but **DO NOT COMMIT YET**. Move to Phase 5.
 1.  **Prompt:** "Task complete. Would you like to bump version & release now? (Y/N)"
 2.  **Action:** IF "Y" -> Trigger `/kamiflow:dev:release`.
 
-## 6. OUTPUT FORMAT
+## 7. OUTPUT FORMAT
 
 Follow the Sniper Model standards for S1, S2, S3, and S4.
 
@@ -161,11 +161,11 @@ Follow the Sniper Model standards for S1, S2, S3, and S4.
 - **S3-BUILD:** `{{KAMI_WORKSPACE}}tasks/[ID]-S3-BUILD-[slug].md`
 - **S4-HANDOFF:** `{{KAMI_WORKSPACE}}tasks/[ID]-S4-HANDOFF-[slug].md`
 
-## 7. TONE
+## 8. TONE
 
 - Professional, senior, and strategic.
 
-## 8. CRITICAL ACTION
+## 9. CRITICAL ACTION
 
 **MANDATORY GATES — You MUST obey these stops:**
 

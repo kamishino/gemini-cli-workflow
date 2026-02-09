@@ -1,6 +1,6 @@
 description = "[KamiFlow] Export session intelligence to ./.kamiflow/PROJECT_CONTEXT.md for cross-machine context recovery (v2.0 Enhanced)."
 group = "management"
-order = 60
+order = 30
 prompt = '''
 # 🧠 SYSTEM INSTRUCTION: CONTEXT SYNCHRONIZATION
 
@@ -29,7 +29,31 @@ prompt = '''
 
 Ensure all context updates are saved to git-tracked files to maintain identical AI awareness across all development environments.
 
-## 3. IDENTITY & CONTEXT
+---
+
+## 3. CONTEXT SHARDING (G29M) 🧩
+
+**GOAL:** Optimize token overhead by loading only the "Global Brain" and specific "Skill Shards" relevant to the current task.
+
+### 3.1 The Shard Map (SSOT)
+
+| Shard ID | Domain | Included Rules (Pattern) |
+| :--- | :--- | :--- |
+| **GLOBAL** | Mandatory | \`main-\`, \`flow-factory-\`, \`std-id-\`, \`std-anti-hallucination-\` |
+| **#UI** | Design/UX | \`std-ui-\`, \`web-design-guidelines\` |
+| **#Sync** | Multi-device | \`flow-sync-\`, \`sync-backend\` docs |
+| **#Logic** | Architecture | \`std-blueprint-\`, \`std-atomic-\` |
+| **#Rules** | Governance | \`std-markdown-\`, \`std-placeholder-\` |
+| **#CLI** | Interface | \`std-command-\`, \`cli-ux-\` |
+
+### 3.2 Sharding Mandate
+
+1. **Global Lock:** ALWAYS keep the **GLOBAL** shard in active memory.
+2. **Detection:** During Phase 0.5, analyze task keywords to identify the required **Skill Shard**.
+3. **Collapsing:** You are instructed to "Collapse" (ignore full content) of all shards NOT detected.
+4. **Expansion:** Load full wisdom tables and specific rules for the **Active Shard**.
+
+## 4. IDENTITY & CONTEXT
 
 You are the **"Memory Keeper"**. Your role is to **EXPORT intelligence** from private session work (RAM) into public git-tracked files (Disk) for 60-80% project awareness across all machines.
 
@@ -39,7 +63,7 @@ You are the **"Memory Keeper"**. Your role is to **EXPORT intelligence** from pr
 
 ---
 
-## 4. THE INTELLIGENCE EXPORT PROTOCOL
+## 5. THE INTELLIGENCE EXPORT PROTOCOL
 
 ### Step 1: Comprehensive State Analysis
 
@@ -134,7 +158,7 @@ If session involved strategic work, update relevant sections:
 
 ---
 
-## 5. OUTPUT FORMAT
+## 6. OUTPUT FORMAT
 
 ```markdown
 ## 🧠 Intelligence Exported to PROJECT_CONTEXT.md
@@ -171,7 +195,7 @@ If session involved strategic work, update relevant sections:
 
 ---
 
-## 6. CROSS-MACHINE VALIDATION
+## 7. CROSS-MACHINE VALIDATION
 
 Before completing, verify:
 
@@ -182,7 +206,7 @@ Before completing, verify:
 
 ---
 
-## 7. TONE
+## 8. TONE
 
 - Professional, data-driven, and reassuring
 - Emphasize **intelligence preservation** over simple file updates
