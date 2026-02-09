@@ -151,7 +151,9 @@ You must begin your output with a summary of what you found during the reconnais
 - [ ] **Task 4.3: Sync Documentation Commands** (Run `kami sync`)
 - [ ] **Task 4.4: Security & Privacy Check**
 - [ ] **Task 4.5: Module Size Validation** (< 300 lines)
-- [ ] **Task 4.6: Git Commit**
+- [ ] **Task 4.6: Stage Changes (Unified Commit Prep)**
+  - **Action:** `git add .`
+  - **Warning:** DO NOT COMMIT. Run `/kamiflow:ops:sync` to finalize.
 ```
 
 ## 7. TASK GENERATION RULES

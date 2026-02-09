@@ -122,6 +122,9 @@ You MUST update these files upon completion:
 
 ## 8. EXIT PROTOCOL 🔄
 
+**CRITICAL:** Do NOT run `git commit`.
+**Next Step:** Ask user to run `/kamiflow:ops:sync` to finalize and commit.
+
 Create comprehensive log at `{{KAMI_WORKSPACE}}handoff_logs/YYYY-MM-DD_HHMM_[slug].md` with:
 
 ```markdown

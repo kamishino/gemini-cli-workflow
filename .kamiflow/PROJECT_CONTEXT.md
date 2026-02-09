@@ -12,8 +12,8 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Implemented 'Strategic Gate' and 'Unified Commit' for SuperLazy workflow (Task 125).
-- **Current Focus:** Testing the new SuperLazy flow or initiating Swarm Pilot.
+- **Last Completed Action:** Synchronized Core Blueprints (/build, /bridge) with Unified Commit protocol (Task 126).
+- **Current Focus:** Testing the new flows or initiating Swarm Pilot.
 - **Next Step:** Run a test task or start Swarm.
 
 ## 3. Knowledge Map (Directory Guide)
