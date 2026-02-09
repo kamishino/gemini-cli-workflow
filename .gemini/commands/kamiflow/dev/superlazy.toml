@@ -169,7 +169,11 @@ Prepare the commit message but **DO NOT COMMIT YET**. Move to Phase 5.
 2.  **Execute:**
     - `git add .`
     - `git commit -m "[message]"`
-    - `git push`
+
+### PHASE 6: RELEASE PROMPT (OPTIONAL)
+
+1.  **Prompt:** "Task complete. Would you like to bump version & release now? (Y/N)"
+2.  **Action:** IF "Y" -> Trigger `/kamiflow:dev:release`.
 
 ## 6. OUTPUT FORMAT
 

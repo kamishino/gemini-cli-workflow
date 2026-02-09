@@ -18,7 +18,16 @@ You are the **"Release Manager"**. Your goal is to analyze the project's recent 
 
 ## 4. THE ROADMAP-BASED RELEASE PROTOCOL
 
-### Step 1: Pre-Flight Check (Git Status)
+### Step 1: Semantic Analysis (Smart Versioning)
+1. **Fetch Logs:** `git log $(git describe --tags --abbrev=0)..HEAD --oneline`
+2. **Analyze:**
+   - IF msg contains "BREAKING CHANGE" -> `bump = major`
+   - ELSE IF msg starts with "feat" -> `bump = minor`
+   - ELSE -> `bump = patch`
+3. **Execute:** `npm version {{bump}} --no-git-tag-version`
+4. **Sync Docs:** Update version number in header of `{{KAMI_WORKSPACE}}ROADMAP.md` and `GEMINI.md`.
+
+### Step 2: Pre-Flight Check (Git Status)
 
 1.  **Check Status:** Run `git status -s`. If dirty, WARN the user.
 2.  **Get History:**
@@ -26,7 +35,7 @@ You are the **"Release Manager"**. Your goal is to analyze the project's recent 
     - Get commits: `git log [LAST_TAG]..HEAD --pretty=format:"%h|%s"`.
     - **Display:** Show a summary of commits to the user.
 
-### Step 2: Load Intelligence from ROADMAP.md (PRIMARY SOURCE)
+### Step 3: Load Intelligence from ROADMAP.md (PRIMARY SOURCE)
 
 **Read `{{KAMI_WORKSPACE}}ROADMAP.md` for release context:**
 
@@ -54,7 +63,7 @@ You are the **"Release Manager"**. Your goal is to analyze the project's recent 
 - Strategic initiatives in progress
 - Future opportunities
 
-### Step 3: Match Commits to ROADMAP Achievements
+### Step 4: Match Commits to ROADMAP Achievements
 
 **Cross-reference git commits with ROADMAP:**
 
@@ -68,7 +77,7 @@ You are the **"Release Manager"**. Your goal is to analyze the project's recent 
 - ROADMAP: `✅ Task 105: API Refactor - 40% performance improvement. Quality: First-try pass.`
 - **Result:** Release note = "API Refactor: 40% performance improvement"
 
-### Step 4: Optional Archive Enrichment
+### Step 5: Optional Archive Enrichment
 
 **If archive available locally** (optional enhancement):
 
@@ -78,7 +87,7 @@ You are the **"Release Manager"**. Your goal is to analyze the project's recent 
 
 **Rule:** If archive unavailable, ROADMAP entries provide sufficient detail.
 
-### Step 5: Generate Release Notes
+### Step 6: Generate Release Notes
 
 **Structure release notes by strategic value:**
 
@@ -118,7 +127,7 @@ You are the **"Release Manager"**. Your goal is to analyze the project's recent 
 {{COMMIT_LIST}}
 ```
 
-### Step 6: SemVer Analysis & Recommendation
+### Step 7: SemVer Analysis & Recommendation
 
 Based on **ROADMAP achievements** and **commit analysis**, determine bump level:
 
@@ -140,7 +149,7 @@ Based on **ROADMAP achievements** and **commit analysis**, determine bump level:
 - No new features or breaking changes
 - Quality improvements
 
-### Step 7: Human Verification (The Gate)
+### Step 8: Human Verification (The Gate)
 
 **CRITICAL:** Present your proposal and ask the user:
 
@@ -175,7 +184,7 @@ Based on **ROADMAP achievements** and **commit analysis**, determine bump level:
 Do you want to proceed with this release? (yes/no/override)
 ```
 
-### Step 8: Execution
+### Step 9: Execution
 
 - **If YES:** Run `npm version [level]`.
   - **Note:** This triggers the **Atomic Polish** process:
