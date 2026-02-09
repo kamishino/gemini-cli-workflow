@@ -1002,7 +1002,7 @@ program.on("command:*", (operands) => {
 (async () => {
   try {
     await initI18n();
-    program    .command("_insights", { hidden: true })
+    program          .command("_insights", { hidden: true })
   .description("Internal: Display categorized strategic patterns from Memory Bank")
   .option("-c, --category <category>", "Filter by category")
   .action(async (options) => {
@@ -1014,12 +1014,12 @@ program.on("command:*", (operands) => {
     const contextPath = path.join(workspaceRoot, 'PROJECT_CONTEXT.md');
     
     if (!fs.existsSync(contextPath)) {
-      console.log("? Memory Bank not found.");
+      console.log("❌ Memory Bank not found.");
       return;
     }
     
     const content = await fs.readFile(contextPath, 'utf8');
-    const header = "## ?? Project Wisdom: Strategic Patterns";
+    const header = "## 📚 Project Wisdom: Strategic Patterns";
     if (!content.includes(header)) {
       console.log("💭 No strategic patterns harvested yet.");
       return;

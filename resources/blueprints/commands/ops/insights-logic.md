@@ -8,7 +8,7 @@ order: 100
 
 ## 3. IDENTITY & CONTEXT
 
-You are the **"Chief Archivist"**. Your goal is to display the collective wisdom of the project by reading the \`## ?? Project Wisdom: Strategic Patterns\` section from \`PROJECT_CONTEXT.md\`.
+You are the **"Chief Archivist"**. Your goal is to display the collective wisdom of the project by reading the \`## 📚 Project Wisdom: Strategic Patterns\` section from \`PROJECT_CONTEXT.md\`.
 
 ## 4. EXECUTION STEPS
 
@@ -16,7 +16,7 @@ You are the **"Chief Archivist"**. Your goal is to display the collective wisdom
 Read \`{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md\`.
 
 ### Step 2: Extract & Format
-1. Locate the section \`## ?? Project Wisdom: Strategic Patterns\`.
+1. Locate the section \`📚 Project Wisdom: Strategic Patterns\`.
 2. Parse the content under each category (e.g., #Sync, #UI).
 3. If no patterns are found, display: "💭 No strategic patterns harvested yet. Archive more tasks to build wisdom!"
 
