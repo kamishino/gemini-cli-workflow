@@ -8,6 +8,7 @@
 ## 🏁 Strategic Achievements (Value Delivered)
 *This section is updated automatically after every Sync/SuperLazy session.*
 
+- ✅ 2026-02-09 Task 127: self-correcting-constitution - Implemented auto-learning for recurring errors in GEMINI.md and templates.
 - ✅ 2026-02-09 Task 126: core-blueprints-sync - Aligned /build and /bridge with Unified Commit protocol.
 - ✅ 2026-02-09 Task 125: superlazy-gate-loop - Added interactive safety gate and unified commit protocol to SuperLazy workflow.
 {{ACHIEVEMENTS}}

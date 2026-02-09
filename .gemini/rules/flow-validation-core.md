@@ -24,3 +24,13 @@ is_core: true
 - **PASS:** Proceed to reflection.
 - **PASS WITH NOTES:** Document deferred criteria.
 - **BLOCK:** Log error, STOP workflow.
+
+## 4. Self-Correcting Mechanism (The Learning Loop)
+
+### Logic
+1. **Track:** Maintain session-based error counters (e.g., `error_powershell_syntax`, `error_import_missing`).
+2. **Threshold:** IF `count(error_type) > 3`:
+   - **Action:** Update `GEMINI.md` AND `resources/templates/GEMINI.md`.
+   - **Method:** Append to `## 🛑 Anti-Patterns`.
+   - **Content:** "- **[Type]:** [Instruction to avoid error] (Learned [Date])"
+3. **Notify:** "🧠 I have updated my Constitution and Templates to avoid this error in the future."
