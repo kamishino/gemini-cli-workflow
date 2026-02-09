@@ -167,6 +167,14 @@
   - resources/blueprints/commands/context-sync.md
   - resources/blueprints/commands/ops/help-logic.md
 
+### Strategic Insights
+
+- **Target:** .gemini/commands/kamiflow/ops/insights.toml
+- **Shell:** gemini-shell.md
+- **Partials:**
+  - resources/blueprints/commands/context-sync.md
+  - resources/blueprints/commands/ops/insights-logic.md
+
 ## Plugins
 
 ### Agent Add

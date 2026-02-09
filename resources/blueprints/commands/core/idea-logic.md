@@ -242,9 +242,10 @@ Ask probing questions across these dimensions (informed by Phase 0 groups):
 - Refine understanding of core problem and constraints
 
 **Step 4.5: Historical Reference Check (The Historian)**
-1. **Search:** `grep -r "[Keywords]" {{KAMI_WORKSPACE}}archive/`
-2. **Analyze:** If matches found, read `Value Delivered` and `Lessons Learned`.
-3. **Synthesize:** Add findings to "Diagnostic Insights" section of the S1 file.
+1. **Memory Scan:** Read the `## 📚 Strategic Patterns & Legacy Knowledge` section in `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md`.
+2. **Relevance Analysis:** Identify patterns that match the current task's domain (e.g., #Sync, #UI).
+3. **Deep Search:** Run `grep -r "[Keywords]" {{KAMI_WORKSPACE}}archive/` for additional context if needed.
+4. **Synthesize:** Add findings to "Diagnostic Insights" section of the S1 file. Mention specific Task IDs as sources.
 
 **Step 5: Generate 3 Refined Options**
 Create **exactly 3 distinct approaches** informed by diagnostic insights:

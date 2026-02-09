@@ -3,6 +3,7 @@ const path = require('upath');
 const chalk = require('chalk');
 const inquirer = require('inquirer').default || require('inquirer');
 const { EnvironmentManager } = require('./env-manager');
+const InsightManager = require('./insight-manager');
 
 /**
  * Extract Linked Idea ID from filename suffix (_from-ID)
@@ -142,6 +143,18 @@ async function runArchivist(options = {}) {
         }
       }
     }
+
+    // --- Strategic Insight Engine (Task 137) ---
+    try {
+      const insightManager = new InsightManager(workspaceRoot);
+      const insights = await insightManager.extractFromArchive(id);
+      if (insights.length > 0) {
+        await insightManager.syncToContext(insights);
+      }
+    } catch (e) {
+      console.log(chalk.yellow(`  ⚠️  Insight Engine: Failed to harvest wisdom for Task ${id}: ${e.message}`));
+    }
+    // -------------------------------------------
 
     console.log(chalk.green(`\n✅ Archived Task ${id} and its lineage.`));
   }

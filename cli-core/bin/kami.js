@@ -1002,6 +1002,43 @@ program.on("command:*", (operands) => {
 (async () => {
   try {
     await initI18n();
+    program    .command("_insights", { hidden: true })
+  .description("Internal: Display categorized strategic patterns from Memory Bank")
+  .option("-c, --category <category>", "Filter by category")
+  .action(async (options) => {
+    const fs = require('fs-extra');
+    const path = require('upath');
+    const { EnvironmentManager } = require('../logic/env-manager');
+    const env = new EnvironmentManager();
+    const workspaceRoot = await env.getAbsoluteWorkspacePath();
+    const contextPath = path.join(workspaceRoot, 'PROJECT_CONTEXT.md');
+    
+    if (!fs.existsSync(contextPath)) {
+      console.log("? Memory Bank not found.");
+      return;
+    }
+    
+    const content = await fs.readFile(contextPath, 'utf8');
+    const header = "## ?? Project Wisdom: Strategic Patterns";
+    if (!content.includes(header)) {
+      console.log("💭 No strategic patterns harvested yet.");
+      return;
+    }
+    
+    const wisdomSection = content.split(header)[1];
+    if (options.category) {
+      const categoryHeader = `### #${options.category}`;
+      if (!wisdomSection.includes(categoryHeader)) {
+        console.log(`💭 No patterns found for category #${options.category}`);
+        return;
+      }
+      const categoryContent = wisdomSection.split(categoryHeader)[1].split('###')[0];
+      console.log(`# 📚 Project Wisdom: #${options.category}\n${categoryContent.trim()}`);
+    } else {
+      console.log(`# 📚 Project Wisdom: Strategic Patterns\n${wisdomSection.trim()}`);
+    }
+  });
+
     program.parse(process.argv);
   } catch (error) {
     logger.error(`Failed to initialize CLI: ${error.message}`);
@@ -1011,3 +1048,6 @@ program.on("command:*", (operands) => {
     process.exit(1);
   }
 })();
+
+
+

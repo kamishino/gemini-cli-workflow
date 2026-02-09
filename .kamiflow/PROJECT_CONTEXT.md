@@ -12,7 +12,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Verified Sync Hub Dashboard stability and local environment setup (Task 136).
+- **Last Completed Action:** Implemented Strategic Insight Engine (Task 137) with automated wisdom harvesting.
 - **Current Focus:** Finalizing v2.45.0 milestones and preparing for automated documentation sync.
 - **Next Step:** Initiate Phase 1 (Idea) for Live Doc Sync (YW4U).
 
@@ -54,4 +54,42 @@
 - **Plugin Template:** `cli-core/templates/plugin-template/` - Scaffolding for new plugins.
 - **Blueprints Registry:** `resources/blueprints/` - Plugin registry and standards.
 
+## ?? Project Wisdom: Strategic Patterns
 
+### #CLI
+| ID | Pattern | Wisdom | Source |
+| :--- | :--- | :--- | :--- |
+| 110 | Alias-First UX | **Alias-First UX:** In a CLI, users often prefer Aliases over original commands. Prioritizing Aliases not only keeps the interface cleaner but also directly guides users on the most efficient usage. | Task 110 |
+| 111 | Prefix Strategy for Maintenance | **Prefix Strategy for Maintenance:** Using the `_` prefix combined with hidden commands in Commander.js is an effective strategy for maintaining AI support tools without complicating the end-user experience. | Task 111 |
+
+### #General
+| ID | Pattern | Wisdom | Source |
+| :--- | :--- | :--- | :--- |
+| 106 | Data is Steel Evidence | **Data is Steel Evidence:** Optimization without measurement is often just a "feeling". By saving 770 tokens, we have freed up space for approximately 150-200 lines of project code in the AI Context Window. | Task 106 |
+| 109 | Regex-Proof Documentation | **Regex-Proof Documentation:** When building automated string replacement systems (like a Transpiler), there must always be an escape mechanism for the documentation itself. Using spaces like `{{ TOKEN }}` is a simple yet highly effective solution to "trick" Regex while remaining AI-readable. | Task 109 |
+| 137 | Value Delivered | **Value Delivered:** KamiFlow now has a "Permanent Memory" that improves with every task. | Task 137 |
+
+### #Logic
+| ID | Pattern | Wisdom | Source |
+| :--- | :--- | :--- | :--- |
+| 131 | Logic | **Logic:** Stricter MoSCoW rules prevent scope creep in MVP options. | Task 131 |
+| 137 | Logic | **Logic:** Using single-quoted heredocs in PowerShell avoids accidental `${}` interpolation. | Task 137 |
+| 137 | Pattern | **Pattern:** Category headers in Markdown can be easily parsed using simple split/regex logic without a heavy DB. | Task 137 |
+
+### #Rules
+| ID | Pattern | Wisdom | Source |
+| :--- | :--- | :--- | :--- |
+| 105 | Modularization is the Key to Lean | **Modularization is the Key to Lean:** Combining everything into a single file dilutes the context. Separating Mandatory (Core) and Optional (Library) rules is the most optimal strategy for Token Efficiency. | Task 105 |
+| 105 | Transpiler needs more flexibility | **Transpiler needs more flexibility:** Upgrading `transpiler.js` to search for files recursively helps organize blueprints more neatly without breaking the Gemini CLI output structure. | Task 105 |
+| 107 | Dynamic Verification vs Hardcoding | **Dynamic Verification vs Hardcoding:** Using hardcoded file lists in `sync-docs.js` is a maintenance trap. Switching to search logic based on the `-core.md` suffix helps the system self-adapt when file structures change. | Task 107 |
+| 108 | Naming is Architecture | **Naming is Architecture:** Naming conventions are not just for readability but also reflect the layered structure of the system. Separating `main-`, `flow-`, and `std-` helps the AI understand the role of each rule from its name. | Task 108 |
+
+### #Sync
+| ID | Pattern | Wisdom | Source |
+| :--- | :--- | :--- | :--- |
+| 131 | Sync | **Sync:** Historical checks ensure we don't repeat the same diagnostic questions twice. | Task 131 |
+
+### #UI
+| ID | Pattern | Wisdom | Source |
+| :--- | :--- | :--- | :--- |
+| 137 | Aesthetics | **Aesthetics:** Keeping the Knowledge Base in `PROJECT_CONTEXT.md` makes it a living document for both AI and Humans. | Task 137 |
