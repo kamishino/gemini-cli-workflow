@@ -79,8 +79,10 @@ app.get("/v1/projects/:projectId/files", auth, async (req, res) => {
   try {
     const { projectId } = req.params;
     const since = parseInt(req.query.since) || 0;
+    const limit = parseInt(req.query.limit) || 100;
 
-    const files = db.getFilesSince(projectId, since);
+    const files = db.getFilesSince(projectId, since, limit);
+    const hasMore = files.length === limit;
 
     res.json({
       files: files.map(f => ({
@@ -89,8 +91,9 @@ app.get("/v1/projects/:projectId/files", auth, async (req, res) => {
         checksum: f.checksum,
         modified: f.modified,
         size: f.size,
+        synced_at: f.synced_at // Expose for pagination cursor
       })),
-      hasMore: false,
+      hasMore,
     });
   } catch (error) {
     console.error("Pull error:", error);

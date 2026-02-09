@@ -12,9 +12,9 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Optimized .kamiflow structure by removing redundant docs (Task 134).
-- **Current Focus:** Maintaining a clean and efficient workspace.
-- **Next Step:** Ready for next task.
+- **Last Completed Action:** Fixed Sync Backend data loss bug (Task 135).
+- **Current Focus:** Ensuring robust sync and clean workspace.
+- **Next Step:** Restart Sync Backend to apply fixes.
 
 ## 3. Knowledge Map (Directory Guide)
 

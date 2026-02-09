@@ -56,16 +56,16 @@ function upsertFile(projectId, filePath, content, checksum, modified, size) {
 /**
  * Get files modified since timestamp
  */
-function getFilesSince(projectId, sinceTimestamp) {
+function getFilesSince(projectId, sinceTimestamp, limit = 100) {
   const stmt = db.prepare(`
     SELECT path, content, checksum, modified, size
     FROM files
     WHERE project_id = ? AND synced_at > ?
     ORDER BY synced_at ASC
-    LIMIT 100
+    LIMIT ?
   `);
 
-  return stmt.all(projectId, sinceTimestamp);
+  return stmt.all(projectId, sinceTimestamp, limit);
 }
 
 /**

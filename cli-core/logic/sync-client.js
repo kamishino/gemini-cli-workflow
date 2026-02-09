@@ -45,26 +45,47 @@ class SyncClient {
   }
 
   /**
-   * Pull files from backend
+   * Pull files from backend with pagination
    * @param {string} projectId
    * @param {number} sinceTimestamp
-   * @returns {Promise<{files: Array, hasMore: boolean}>}
+   * @returns {Promise<{files: Array}>}
    */
   async pullFiles(projectId, sinceTimestamp = 0) {
-    const response = await this.request(
-      "GET",
-      `/v1/projects/${projectId}/files?since=${sinceTimestamp}`
-    );
+    let allFiles = [];
+    let hasMore = true;
+    let currentSince = sinceTimestamp;
     
-    // Decode base64 content
-    if (response.files) {
-      response.files = response.files.map(f => ({
+    logger.info(`Starting sync pull...`);
+
+    while (hasMore) {
+      const response = await this.request(
+        "GET",
+        `/v1/projects/${projectId}/files?since=${currentSince}&limit=100`
+      );
+      
+      let batch = response.files || [];
+      
+      // Decode base64 content
+      batch = batch.map(f => ({
         ...f,
         content: Buffer.from(f.content || "", "base64").toString("utf8")
       }));
+
+      allFiles = allFiles.concat(batch);
+      hasMore = response.hasMore;
+
+      if (batch.length > 0) {
+        // Use the last file's synced_at as the cursor for the next batch
+        // Fallback to max modified time if synced_at not present (legacy compat)
+        const lastFile = batch[batch.length - 1];
+        currentSince = lastFile.synced_at || lastFile.modified;
+        logger.info(`  Retrieved ${batch.length} files... (Total: ${allFiles.length})`);
+      } else {
+        hasMore = false;
+      }
     }
     
-    return response;
+    return { files: allFiles, hasMore: false };
   }
 
   /**
