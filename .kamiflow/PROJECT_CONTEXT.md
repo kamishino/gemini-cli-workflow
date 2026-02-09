@@ -12,9 +12,9 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Restored `kami sync` markers and tuned AI behavior in `GEMINI.md` (Task 129).
-- **Current Focus:** Running `kami sync` to finalize the restoration.
-- **Next Step:** Run `kami sync`.
+- **Last Completed Action:** Implemented Weighted Scoring Matrix for Synthesis Engine (Task 132).
+- **Current Focus:** Testing the upgraded Synthesis Engine or initiating Swarm Pilot.
+- **Next Step:** Run a test idea or start Swarm.
 
 ## 3. Knowledge Map (Directory Guide)
 

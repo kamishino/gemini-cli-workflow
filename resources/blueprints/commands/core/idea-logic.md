@@ -241,6 +241,11 @@ Ask probing questions across these dimensions (informed by Phase 0 groups):
 - Extract key insights from diagnostic responses
 - Refine understanding of core problem and constraints
 
+**Step 4.5: Historical Reference Check (The Historian)**
+1. **Search:** `grep -r "[Keywords]" {{KAMI_WORKSPACE}}archive/`
+2. **Analyze:** If matches found, read `Value Delivered` and `Lessons Learned`.
+3. **Synthesize:** Add findings to "Diagnostic Insights" section of the S1 file.
+
 **Step 5: Generate 3 Refined Options**
 Create **exactly 3 distinct approaches** informed by diagnostic insights:
 
@@ -248,13 +253,17 @@ Create **exactly 3 distinct approaches** informed by diagnostic insights:
 - **Option B:** The "Balanced" approach (features vs. complexity trade-off)
 - **Option C:** The "Ambitious" approach (full-featured, higher complexity)
 
-**Step 6: Apply Star Ratings (⭐) + MoSCoW Priority**
-Rate each option on **4 criteria** (1-5 stars), using diagnostic insights:
+**Step 6: Apply Weighted Scoring Matrix (The Actuary)**
 
-- **Market Pain:** (X/5⭐) How badly is this needed?
-- **Technical Feasibility:** (X/5⭐) Can we build this in 2 weeks?
-- **Stack Alignment:** (X/5⭐) Does it fit our tech stack?
-- **Profit Potential:** (X/5⭐) Will this make money?
+Calculate Star Ratings (1-5⭐) using this logic:
+
+- **Market Pain:** 1 star for every "Must Have" user story (Max 5).
+- **Technical Feasibility:** Start at 5⭐. Subtract 1 star for each:
+  - New library/tech required.
+  - Touching Legacy Code (>6 months old).
+  - High complexity (>3 files modified).
+- **Stack Alignment:** 5⭐ if using standard stack. Subtract 2⭐ if introducing new language/framework.
+- **Profit Potential:** (Market Pain + Feasibility) / 2.
 
 **MoSCoW Classification (NEW in v2.39):**
 
@@ -264,6 +273,8 @@ Rate each option on **4 criteria** (1-5 stars), using diagnostic insights:
 | **Should Have** | Important but not blocking | Workarounds exist, high value  |
 | **Could Have**  | Nice-to-have               | Time permitting, low risk      |
 | **Won't Have**  | Explicitly out of scope    | Deferred to future iteration   |
+
+**Constraint:** Option A (Safe & Fast) MUST NOT contain any "Could Have" features. Focus on "Must Have" and minimal high-value "Should Have".
 
 **Apply MoSCoW to each option's features:**
 

@@ -8,6 +8,8 @@
 ## 🏁 Strategic Achievements (Value Delivered)
 *This section is updated automatically after every Sync/SuperLazy session.*
 
+- ✅ 2026-02-09 Task 132: synthesis-scoring-upgrade - Implemented Weighted Scoring Matrix for objective Star Ratings.
+- ✅ 2026-02-09 Task 131: synthesis-engine-upgrade - Added Historical Reference Check and strict MoSCoW rules to Idea Logic.
 - ✅ 2026-02-09 Task 129: gemini-restoration-tuning - Restored kami sync capability and injected behavioral traits into Constitution.
 - ✅ 2026-02-09 Task 128: gemini-constitution-refactor - Refactored GEMINI.md into an active Strategic Constitution.
 - ✅ 2026-02-09 Task 127: self-correcting-constitution - Implemented auto-learning for recurring errors in GEMINI.md and templates.
