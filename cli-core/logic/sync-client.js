@@ -28,9 +28,10 @@ class SyncClient {
    * @param {string} projectId
    * @param {Array<{path: string, checksum: string, modified: number, size: number, content: string}>} files
    * @param {Array<string>} deletions
+   * @param {Object} metadata - Optional project metadata (name, gitRepo)
    * @returns {Promise<{synced: number, deleted: number, conflicts: Array}>}
    */
-  async pushFiles(projectId, files, deletions = []) {
+  async pushFiles(projectId, files, deletions = [], metadata = null) {
     const response = await this.request("POST", `/v1/projects/${projectId}/sync`, {
       files: files.map(f => ({
         path: f.path,
@@ -39,7 +40,8 @@ class SyncClient {
         size: f.size,
         content: Buffer.from(f.content).toString("base64")
       })),
-      deletions
+      deletions,
+      metadata
     });
     return response;
   }

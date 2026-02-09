@@ -71,10 +71,12 @@ class SyncManager {
     
     logger.info(`Uploading ${files.length} file(s)...`);
     
+    const metadata = await this.getProjectMetadata();
     const result = await this.client.pushFiles(
       this.config.projectId,
       files,
-      []
+      [],
+      metadata
     );
     
     // Update state
@@ -174,6 +176,29 @@ class SyncManager {
       pendingFiles: pendingFiles.length,
       files: pendingFiles.map(f => ({ path: f.path, size: f.size }))
     };
+  }
+
+  /**
+   * Get project metadata from package.json
+   */
+  async getProjectMetadata() {
+    const pkgPath = path.join(this.projectRoot, "package.json");
+    let name = path.basename(this.projectRoot);
+    let gitRepo = "";
+
+    if (await fs.pathExists(pkgPath)) {
+      try {
+        const pkg = await fs.readJson(pkgPath);
+        if (pkg.name) name = pkg.name;
+        if (pkg.repository?.url) {
+          gitRepo = pkg.repository.url.replace(/^git\+/, "").replace(/\.git$/, "");
+        }
+      } catch (e) {
+        // Fallback to defaults
+      }
+    }
+
+    return { name, gitRepo };
   }
 
   /**

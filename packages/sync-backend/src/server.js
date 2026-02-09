@@ -3,6 +3,8 @@ const helmet = require("helmet");
 const cors = require("cors");
 const compression = require("compression");
 const rateLimit = require("express-rate-limit");
+const basicAuth = require("express-basic-auth");
+const path = require("path");
 require("dotenv").config();
 
 const db = require("./database");
@@ -11,10 +13,24 @@ const auth = require("./middleware/auth");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Setup View Engine
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
 // Middleware
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: false, // Allow inline styles/scripts for simple dashboard
+}));
 app.use(compression());
 app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ extended: true }));
+
+// Basic Auth for Dashboard
+const dashboardAuth = basicAuth({
+  users: { [process.env.DASHBOARD_USER || "admin"]: process.env.DASHBOARD_PASS || "admin" },
+  challenge: true,
+  realm: "KamiFlow Dashboard",
+});
 
 // CORS
 const corsOptions = {
@@ -41,11 +57,23 @@ app.get("/health", (req, res) => {
   });
 });
 
+// Dashboard Routes
+app.get("/dashboard", dashboardAuth, (req, res) => {
+  const projects = db.getAllProjects();
+  res.render("dashboard", { projects });
+});
+
+app.post("/dashboard/delete/:projectId", dashboardAuth, (req, res) => {
+  const { projectId } = req.params;
+  db.deleteProject(projectId);
+  res.redirect("/dashboard");
+});
+
 // API Routes
 app.post("/v1/projects/:projectId/sync", auth, async (req, res) => {
   try {
     const { projectId } = req.params;
-    const { files, deletions } = req.body;
+    const { files, deletions, metadata } = req.body;
 
     if (!Array.isArray(files)) {
       return res.status(400).json({ error: "Invalid files array" });
@@ -66,6 +94,11 @@ app.post("/v1/projects/:projectId/sync", auth, async (req, res) => {
         db.deleteFile(projectId, filePath);
         deleted++;
       }
+    }
+
+    // Process metadata
+    if (metadata && metadata.name) {
+      db.upsertProject(projectId, metadata.name, metadata.gitRepo || "");
     }
 
     res.json({ synced, deleted, conflicts: [] });

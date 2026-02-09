@@ -29,10 +29,46 @@ db.exec(`
     UNIQUE(project_id, path)
   );
 
+  CREATE TABLE IF NOT EXISTS projects (
+    project_id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    git_repo TEXT,
+    last_sync_at INTEGER NOT NULL,
+    file_count INTEGER DEFAULT 0,
+    total_size INTEGER DEFAULT 0
+  );
+
   CREATE INDEX IF NOT EXISTS idx_project_id ON files(project_id);
   CREATE INDEX IF NOT EXISTS idx_modified ON files(modified);
   CREATE INDEX IF NOT EXISTS idx_synced_at ON files(synced_at);
 `);
+
+/**
+ * Upsert project metadata
+ */
+function upsertProject(projectId, name, gitRepo) {
+  const stats = getProjectStats(projectId);
+  const stmt = db.prepare(`
+    INSERT INTO projects (project_id, name, git_repo, last_sync_at, file_count, total_size)
+    VALUES (?, ?, ?, ?, ?, ?)
+    ON CONFLICT(project_id)
+    DO UPDATE SET
+      name = excluded.name,
+      git_repo = excluded.git_repo,
+      last_sync_at = excluded.last_sync_at,
+      file_count = excluded.file_count,
+      total_size = excluded.total_size
+  `);
+
+  stmt.run(projectId, name, gitRepo, Date.now(), stats.fileCount, stats.totalSize);
+}
+
+/**
+ * Get all projects
+ */
+function getAllProjects() {
+  return db.prepare("SELECT * FROM projects ORDER BY last_sync_at DESC").all();
+}
 
 /**
  * Upsert file
@@ -75,6 +111,7 @@ function getProjectStats(projectId) {
   const stmt = db.prepare(`
     SELECT 
       COUNT(*) as fileCount,
+      SUM(size) as totalSize,
       MAX(synced_at) as lastSync
     FROM files
     WHERE project_id = ?
@@ -83,6 +120,7 @@ function getProjectStats(projectId) {
   const result = stmt.get(projectId);
   return {
     fileCount: result.fileCount || 0,
+    totalSize: result.totalSize || 0,
     lastSync: result.lastSync || null,
   };
 }
@@ -103,12 +141,14 @@ function deleteFile(projectId, filePath) {
  * Delete entire project
  */
 function deleteProject(projectId) {
-  const stmt = db.prepare(`
-    DELETE FROM files
-    WHERE project_id = ?
-  `);
+  const deleteFiles = db.prepare("DELETE FROM files WHERE project_id = ?");
+  const deleteProj = db.prepare("DELETE FROM projects WHERE project_id = ?");
+  
+  const result = db.transaction(() => {
+    deleteFiles.run(projectId);
+    return deleteProj.run(projectId);
+  })();
 
-  const result = stmt.run(projectId);
   return result.changes;
 }
 
@@ -118,4 +158,6 @@ module.exports = {
   getProjectStats,
   deleteFile,
   deleteProject,
+  upsertProject,
+  getAllProjects,
 };
