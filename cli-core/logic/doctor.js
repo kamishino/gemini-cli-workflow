@@ -160,10 +160,10 @@ async function checkSymlinkCapability() {
 async function checkDocsHealth() {
   const cwd = process.cwd();
   const docsToVerify = [
-    ".kamiflow/docs/GETTING_STARTED.md",
-    ".kamiflow/docs/overview.md",
+    "resources/docs/GETTING_STARTED.md",
+    "resources/docs/overview.md",
     ".kamiflow/ROADMAP.md",
-    ".kamiflow/docs/TROUBLESHOOTING.md"
+    "resources/docs/TROUBLESHOOTING.md"
   ];
 
   console.log(chalk.gray("Knowledge Base:"));
@@ -181,7 +181,7 @@ async function checkDocsHealth() {
   if (fs.existsSync(commandsPath)) {
     const folders = fs.readdirSync(commandsPath).filter(f => f.startsWith('p-'));
     for (const folder of folders) {
-      const docPath = `.kamiflow/docs/plugins/${folder}.md`;
+      const docPath = `resources/docs/plugins/${folder}.md`;
       if (!(await fs.pathExists(path.join(cwd, docPath)))) {
         console.log(chalk.yellow(`  ⚠️  Missing guide for plugin [${folder}]: ${docPath}`));
         missing++;

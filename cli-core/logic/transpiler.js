@@ -327,6 +327,7 @@ class Transpiler {
    * Controlled by transpile.includeDocs in .kamirc.json (default: false for clients)
    */
   async syncDocumentation() {
+    return; // Disabled to prevent redundancy - Users should use resources/docs/ directly
     await this.init();
 
     // Check if docs sync is enabled in config
