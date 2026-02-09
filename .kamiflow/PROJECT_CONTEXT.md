@@ -12,8 +12,8 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during `/kamiflow:ops:sync`.
 
-- **Last Completed Action:** Implemented Self-Correcting Constitution mechanism (Task 127).
-- **Current Focus:** Testing the new self-learning flow or initiating Swarm Pilot.
+- **Last Completed Action:** Refactored GEMINI.md into 'Strategic Constitution' format (Task 128).
+- **Current Focus:** Testing the new Constitution compliance or initiating Swarm Pilot.
 - **Next Step:** Run a test task or start Swarm.
 
 ## 3. Knowledge Map (Directory Guide)
