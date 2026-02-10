@@ -1,3 +1,16 @@
+## [v2.47.0] - 2026-02-10
+
+### 🚀 Features
+
+- feat(integration): implemented AntiGravity IDE bridge via .agent/workflows (kamiflow, release, sync)
+- feat(infrastructure): implemented Dockefile and Compose support for Sync Backend
+- feat(devops): added Portainer support for container management
+
+### 🔧 Improvements
+
+- improvement(quality): enforced strict markdownlint rules on blueprints
+- improvement(docs): fixed MD040 code block language tags in all blueprint files
+
 ## [v2.38.1] - 2026-02-01
 
 ### 🔧 Improvements
