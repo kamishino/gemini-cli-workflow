@@ -14,14 +14,12 @@ RUN npm ci --only=production
 # Copy application code
 COPY src ./src
 
-# Create data directory
-RUN mkdir -p /data /app/logs
-
-# Run database migrations
-RUN node src/migrate.js || true
+# Create data directory and set permissions
+RUN mkdir -p /data /app/logs && chown -R node:node /data /app/logs
 
 EXPOSE 3000
 
 USER node
 
+# Start server (migrations will run at startup in server.js or database.js)
 CMD ["node", "src/server.js"]

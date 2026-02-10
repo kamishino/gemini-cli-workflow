@@ -15,6 +15,9 @@ RUN npm install --production
 # Set working directory
 WORKDIR /tmp/gemini-cli-workflow/packages/sync-backend
 
+# Create data directory and ensure permissions
+RUN mkdir -p /data /app/logs
+
 # Expose port
 EXPOSE 3030
 
