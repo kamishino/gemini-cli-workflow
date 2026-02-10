@@ -2,21 +2,26 @@ version: '3.8'
 
 services:
   kamiflow-sync:
-    image: ghcr.io/kamishino/kamiflow-sync-backend:latest
+    build:
+      context: https://github.com/kamishino/gemini-cli-workflow.git#main
+      dockerfile: packages/sync-backend/Dockerfile
     container_name: kamiflow-sync
     restart: unless-stopped
     ports:
-      - "3030:3030"
+      - "${HOST_PORT:-3030}:3030"
     environment:
       - NODE_ENV=production
       - PORT=3030
       - API_KEY=${API_KEY}
+      - DASHBOARD_USER=${DASHBOARD_USER:-admin}
+      - DASHBOARD_PASS=${DASHBOARD_PASS:-admin}
       - DB_PATH=/data/kamiflow-sync.db
-      - MAX_FILE_SIZE=10485760
-      - RATE_LIMIT_WINDOW_MS=900000
-      - RATE_LIMIT_MAX_REQUESTS=100
-      - CORS_ORIGINS=*
-      - LOG_LEVEL=info
+      - MAX_FILE_SIZE=${MAX_FILE_SIZE:-10485760}
+      - MAX_FILES_PER_PROJECT=${MAX_FILES_PER_PROJECT:-10000}
+      - RATE_LIMIT_WINDOW_MS=${RATE_LIMIT_WINDOW_MS:-900000}
+      - RATE_LIMIT_MAX_REQUESTS=${RATE_LIMIT_MAX_REQUESTS:-100}
+      - CORS_ORIGINS=${CORS_ORIGINS:-*}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
     volumes:
       - kamiflow_data:/data
       - kamiflow_logs:/app/logs
