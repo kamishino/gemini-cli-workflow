@@ -2,7 +2,7 @@
 name: save-context-logic
 type: PARTIAL
 description: [KamiFlow] Export session intelligence to {{KAMI_WORKSPACE}}PROJECT_CONTEXT.md for cross-machine context recovery (v2.0 Enhanced).
-group: management
+group: ops
 order: 30
 ---
 

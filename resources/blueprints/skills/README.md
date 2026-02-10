@@ -32,27 +32,29 @@ description: Use this skill when [trigger]. It helps with [purpose].
 # Skill Title
 
 ## Workflow
+
 1. First step...
 2. Second step...
 
 ## References
+
 - Link to relevant docs
 ```
 
 ### Required Fields
 
-| Field | Description |
-|-------|-------------|
-| `name` | Unique identifier (must match directory name) |
+| Field         | Description                                                |
+| ------------- | ---------------------------------------------------------- |
+| `name`        | Unique identifier (must match directory name)              |
 | `description` | When Gemini should activate this skill (trigger condition) |
 
 ### Optional Directories
 
-| Directory | Purpose |
-|-----------|---------|
-| `scripts/` | Executable scripts the skill can run |
-| `references/` | Static documentation for context |
-| `assets/` | Templates, examples, or other resources |
+| Directory     | Purpose                                 |
+| ------------- | --------------------------------------- |
+| `scripts/`    | Executable scripts the skill can run    |
+| `references/` | Static documentation for context        |
+| `assets/`     | Templates, examples, or other resources |
 
 ---
 
@@ -69,6 +71,7 @@ kami transpile
 ```
 
 **Flow:**
+
 ```
 resources/skills/[skill-name]/  →  .gemini/skills/[skill-name]/
          (source)                        (generated)
@@ -78,11 +81,11 @@ resources/skills/[skill-name]/  →  .gemini/skills/[skill-name]/
 
 ## 📋 Available Skills
 
-| Skill | Description | Status |
-|-------|-------------|--------|
-| `kamiflow-sniper-assist` | Guide through IDEA→SPEC→BUILD workflow | ✅ Active |
-| `kamiflow-tdd` | Enforce TDD patterns in specifications | 🚧 Planned |
-| `kamiflow-validation` | Run 3-phase validation loop | 🚧 Planned |
+| Skill                    | Description                            | Status     |
+| ------------------------ | -------------------------------------- | ---------- |
+| `kamiflow-sniper-assist` | Guide through IDEA→SPEC→BUILD workflow | ✅ Active  |
+| `kamiflow-tdd`           | Enforce TDD patterns in specifications | 🚧 Planned |
+| `kamiflow-validation`    | Run 3-phase validation loop            | 🚧 Planned |
 
 ---
 
@@ -119,5 +122,4 @@ Then move the generated skill from `.gemini/skills/` to `resources/skills/`.
 
 - [Gemini CLI Skills Documentation](https://geminicli.com/docs/cli/skills/)
 - [Creating Agent Skills Guide](https://geminicli.com/docs/cli/creating-skills)
-- [KamiFlow SSOT Rules](../blueprints/rules/local/std-resource.md)
-
+- [KamiFlow SSOT Rules](../blueprints/rules/local/std-resource-core.md)

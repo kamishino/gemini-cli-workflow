@@ -2,7 +2,7 @@
 name: bootstrap-logic
 type: PARTIAL
 description: [KamiFlow] Bootstrap KamiFlow in a project - creates a local .gemini/ configuration from the master template.
-group: management
+group: ops
 order: 40
 ---
 

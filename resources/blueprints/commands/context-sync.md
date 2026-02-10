@@ -2,6 +2,7 @@
 name: context-sync
 type: PARTIAL
 description: [KamiFlow] Pre-execution context synchronization mandate.
+group: shared
 order: 10
 ---
 
@@ -23,6 +24,7 @@ order: 10
 `{{KAMI_RULES_GEMINI}}main-context-intelligence-core.md`
 
 **Golden Rules:**
+
 - `PROJECT_CONTEXT` & `ROADMAP` = High-frequency RAM (Update on every task).
 - `GEMINI.md` = System Constitution (Update only on system-level changes).
 
@@ -40,14 +42,14 @@ Ensure all context updates are saved to git-tracked files to maintain identical 
 
 ### 3.1 The Shard Map (SSOT)
 
-| Shard ID | Domain | Included Rules (Pattern) |
-| :--- | :--- | :--- |
-| **GLOBAL** | Mandatory | \`main-\`, \`flow-factory-\`, \`std-id-\`, \`std-anti-hallucination-\` |
-| **#UI** | Design/UX | \`std-ui-\`, \`web-design-guidelines\` |
-| **#Sync** | Multi-device | \`flow-sync-\`, \`sync-backend\` docs |
-| **#Logic** | Architecture | \`std-blueprint-\`, \`std-atomic-\` |
-| **#Rules** | Governance | \`std-markdown-\`, \`std-placeholder-\` |
-| **#CLI** | Interface | \`std-command-\`, \`cli-ux-\` |
+| Shard ID   | Domain       | Included Rules (Pattern)                                               |
+| :--------- | :----------- | :--------------------------------------------------------------------- |
+| **GLOBAL** | Mandatory    | \`main-\`, \`flow-factory-\`, \`std-id-\`, \`std-anti-hallucination-\` |
+| **#UI**    | Design/UX    | \`std-ui-\`, \`web-design-guidelines\`                                 |
+| **#Sync**  | Multi-device | \`flow-sync-\`, \`sync-backend\` docs                                  |
+| **#Logic** | Architecture | \`std-blueprint-\`, \`std-atomic-\`                                    |
+| **#Rules** | Governance   | \`std-markdown-\`, \`std-placeholder-\`                                |
+| **#CLI**   | Interface    | \`std-command-\`, \`cli-ux-\`                                          |
 
 ### 3.2 Sharding Mandate
 

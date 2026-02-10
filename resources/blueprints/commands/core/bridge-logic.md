@@ -2,7 +2,7 @@
 name: bridge-logic
 type: PARTIAL
 description: [KamiFlow] Generate a 'Context Package' prompt for external AI Editors (Windsurf/Cursor).
-group: bridge
+group: sniper
 order: 10
 ---
 

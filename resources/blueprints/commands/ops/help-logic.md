@@ -2,7 +2,7 @@
 name: help-logic
 type: PARTIAL
 description: [KamiFlow] Interactive help system for commands and Sniper Model phases.
-group: management
+group: ops
 order: 20
 ---
 

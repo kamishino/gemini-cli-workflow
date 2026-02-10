@@ -2,7 +2,7 @@
 name: doc-audit-logic
 type: PARTIAL
 description: [KamiFlow] Intelligent Documentation Auditor - Scan and heal documentation rot.
-group: management
+group: ops
 order: 50
 ---
 

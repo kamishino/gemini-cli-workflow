@@ -14,16 +14,10 @@ These commands form the backbone of the **Sniper Model**, KamiFlow's rigorous 3-
 
 | Command | Goal |
 | :--- | :--- |
+| `/kamiflow:core:bridge` | **[KamiFlow] Generate a 'Context Package' prompt for external AI Editors (Windsurf/Cursor).** |
 | `/kamiflow:core:idea` | **[KamiFlow Sniper] Generate refined idea through diagnostic interview and synthesis (Step 1: Two-Phase Interactive).** |
 | `/kamiflow:core:spec` | **[KamiFlow Sniper] Create detailed specification with Schema-First approach (Step 2: Lock 1 & 2).** |
 | `/kamiflow:core:build` | **[KamiFlow Sniper] Generate implementation task list with Legacy Awareness (Step 3: Lock 3).** |
-
-
-### 🌉 The Bridge (IDE Integration)
-
-| Command | Goal |
-| :--- | :--- |
-| `/kamiflow:core:bridge` | **[KamiFlow] Generate a 'Context Package' prompt for external AI Editors (Windsurf/Cursor).** |
 
 <!-- KAMI_COMMAND_LIST_END -->
 

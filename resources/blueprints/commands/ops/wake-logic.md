@@ -2,7 +2,7 @@
 name: wake-logic
 type: PARTIAL
 description: [KamiFlow] Wake up and reload project context to eliminate session amnesia.
-group: management
+group: ops
 order: 10
 ---
 

@@ -251,16 +251,10 @@ The **Management Commands** (`/kamiflow:ops:roadmap` and `/kamiflow:ops:save-con
 
 | Command | Goal |
 | :--- | :--- |
+| `/kamiflow:core:bridge` | **[KamiFlow] Generate a 'Context Package' prompt for external AI Editors (Windsurf/Cursor).** |
 | `/kamiflow:core:idea` | **[KamiFlow Sniper] Generate refined idea through diagnostic interview and synthesis (Step 1: Two-Phase Interactive).** |
 | `/kamiflow:core:spec` | **[KamiFlow Sniper] Create detailed specification with Schema-First approach (Step 2: Lock 1 & 2).** |
 | `/kamiflow:core:build` | **[KamiFlow Sniper] Generate implementation task list with Legacy Awareness (Step 3: Lock 3).** |
-
-
-### 🌉 The Bridge (IDE Integration)
-
-| Command | Goal |
-| :--- | :--- |
-| `/kamiflow:core:bridge` | **[KamiFlow] Generate a 'Context Package' prompt for external AI Editors (Windsurf/Cursor).** |
 
 
 ### 🚀 Auto-Pilot (Automation)
@@ -277,15 +271,21 @@ The **Management Commands** (`/kamiflow:ops:roadmap` and `/kamiflow:ops:save-con
 | `/kamiflow:dev:supersaiyan` | **[KamiFlow] Meta-Automation - Manage cycles of Saiyan execution.** |
 
 
-### 🧠 Management (Operations)
+### 🧠 Operations (Management)
 
 | Command | Goal |
 | :--- | :--- |
+| `/kamiflow:ops:sync` | **[KamiFlow] Harmonized Sync: Read logs + Strategic Roadmap Update.** |
 | `/kamiflow:ops:wake` | **[KamiFlow] Wake up and reload project context to eliminate session amnesia.** |
 | `/kamiflow:ops:help` | **[KamiFlow] Interactive help system for commands and Sniper Model phases.** |
+| `/kamiflow:ops:resume` | **[KamiFlow] Resume workflow from last checkpoint without losing context** |
+| `/kamiflow:ops:roadmap` | **[KamiFlow] Strategic Roadmap Aggregation Engine (v2.0 Enhanced - Incremental Updates & Cross-Machine Consistency).** |
 | `/kamiflow:ops:save-context` | **[KamiFlow] Export session intelligence to ./.kamiflow/PROJECT_CONTEXT.md for cross-machine context recovery (v2.0 Enhanced).** |
+| `/kamiflow:ops:tour` | **[KamiFlow] Guided tour for new projects to explain the evolved ecosystem.** |
+| `/kamiflow:ops:advice` | **[KamiFlow] Strategic Expert Advisor - Provides context-aware system and UX directions.** |
 | `/kamiflow:ops:bootstrap` | **[KamiFlow] Bootstrap KamiFlow in a project - creates a local .gemini/ configuration from the master template.** |
 | `/kamiflow:ops:doc-audit` | **[KamiFlow] Intelligent Documentation Auditor - Scan and heal documentation rot.** |
+| `/kamiflow:ops:insights` | **[KamiFlow] Display categorized strategic patterns from the project knowledge base.** |
 
 
 ### 🧩 Agents (Plugin)
