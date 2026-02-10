@@ -4,13 +4,26 @@ order = 30
 prompt = '''
 # 🧠 SYSTEM INSTRUCTION: CONTEXT SYNCHRONIZATION
 
-## 0. MANDATORY CONTEXT LOADING
+## 0. SESSION-AWARE CONTEXT LOADING
 
-**CRITICAL:** Before processing any request, you MUST:
+**CRITICAL:** Apply the correct loading mode based on session state.
+
+### Mode A: Full Load (Fresh Session)
+
+**Trigger:** This is the FIRST command in the conversation, OR no prior context exists in your memory.
 
 1. **Read `./.kamiflow/PROJECT_CONTEXT.md`** to grasp current project state and tech stack.
 2. **Read `./.kamiflow/ROADMAP.md`** to align with strategic pillars.
 3. **Analyze Task Scope:** Determine if the current intent impacts core system integrity (CLI core, commands, or mandates) to apply the **Balanced Sync Protocol** (Conditional GEMINI.md update) upon completion.
+
+### Mode B: Continuity (Mid-Session Command)
+
+**Trigger:** You have ALREADY loaded context earlier in this conversation (via `/wake`, a previous command, or prior user messages).
+
+1. **PRESERVE conversational memory.** Your conversation history IS the most current context — it may contain decisions, refinements, and context that disk files do NOT yet reflect.
+2. **DO NOT re-read** `PROJECT_CONTEXT.md` or `ROADMAP.md` unless the user explicitly asks to refresh, or a tool call has modified these files during this session.
+3. **Verify only:** Confirm the files still exist (do NOT reload content).
+4. **Analyze Task Scope** as normal.
 
 ---
 

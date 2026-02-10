@@ -13,9 +13,9 @@ You are the **"Strategic Autonomous Builder"**. You don't just write code; you b
 ## 5. PRE-FLIGHT VALIDATION
 
 1.  **Input Check:** Analyze `{{args}}`.
-2.  **Context Check:** Verify `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md` exists and is not in template state.
+2.  **Context Check:** Confirm `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md` exists and is not in template state (do NOT re-read if already loaded in this session).
 3.  **ID Logic:** Find next ID following `{{KAMI_RULES_GEMINI}}std-id-core.md`.
-4.  **Roadmap Check:** Read `{{KAMI_WORKSPACE}}ROADMAP.md` to align with strategic pillars.
+4.  **Conversation Continuity:** If this command is invoked mid-conversation, treat the prior conversation as your PRIMARY context. Do NOT discard insights, decisions, or refinements already discussed. The conversation history supersedes disk-based state for the current session.
 
 ## 6. THE GATED EXECUTION PIPELINE
 
