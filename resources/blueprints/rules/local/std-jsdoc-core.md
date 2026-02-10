@@ -1,3 +1,11 @@
+---
+name: std-jsdoc-core
+type: RULE
+description: JSDoc standards and conventions for the codebase.
+group: local
+order: 20
+---
+
 # JSDoc Standards for KamiFlow
 
 This document defines JSDoc conventions for consistent API documentation across the KamiFlow codebase.
@@ -17,10 +25,10 @@ This document defines JSDoc conventions for consistent API documentation across 
 ```javascript
 /**
  * Brief one-line description of the function
- * 
+ *
  * Optional longer description that provides context,
  * explains behavior, and documents edge cases.
- * 
+ *
  * @param {Type} paramName - Parameter description
  * @param {Type} [optionalParam] - Optional parameter description
  * @param {Type} [paramWithDefault=defaultValue] - Parameter with default
@@ -30,7 +38,7 @@ This document defines JSDoc conventions for consistent API documentation across 
  * const result = functionName(param1, param2);
  * console.log(result); // Expected output
  */
-function functionName(paramName, optionalParam, paramWithDefault = 'default') {
+function functionName(paramName, optionalParam, paramWithDefault = "default") {
   // implementation
 }
 ```
@@ -40,6 +48,7 @@ function functionName(paramName, optionalParam, paramWithDefault = 'default') {
 ## Type Definitions
 
 ### Primitive Types
+
 - `{string}` - String values
 - `{number}` - Numeric values
 - `{boolean}` - Boolean values
@@ -47,6 +56,7 @@ function functionName(paramName, optionalParam, paramWithDefault = 'default') {
 - `{undefined}` - Undefined value
 
 ### Complex Types
+
 - `{Array}` - Generic array
 - `{Array<string>}` - Array of strings
 - `{Object}` - Generic object
@@ -55,6 +65,7 @@ function functionName(paramName, optionalParam, paramWithDefault = 'default') {
 - `{Promise<string>}` - Promise resolving to string
 
 ### Custom Types
+
 Use `@typedef` for complex structures:
 
 ```javascript
@@ -77,6 +88,7 @@ async function loadConfig(options) {
 ```
 
 ### Union Types
+
 ```javascript
 /**
  * @param {string|number} id - User ID (string or number)
@@ -85,6 +97,7 @@ async function loadConfig(options) {
 ```
 
 ### Nullable Types
+
 ```javascript
 /**
  * @param {?string} value - String or null
@@ -97,13 +110,14 @@ async function loadConfig(options) {
 ## Class Documentation
 
 ### Class Definition
+
 ```javascript
 /**
  * Manages configuration loading and merging
- * 
+ *
  * This class handles the 3-layer configuration cascade:
  * Default → Global → Local with validation and caching.
- * 
+ *
  * @class
  * @example
  * const config = new ConfigManager('/path/to/project');
@@ -121,13 +135,14 @@ class ConfigManager {
 ```
 
 ### Method Documentation
+
 ```javascript
 /**
  * Get configuration value by key
- * 
+ *
  * Supports dot notation for nested keys (e.g., 'plugins.seed.minFeasibility').
  * Returns undefined if key doesn't exist.
- * 
+ *
  * @param {string} key - Configuration key
  * @returns {Promise<*>} Configuration value or undefined
  * @example
@@ -181,14 +196,15 @@ function processItems(items, callback) {
 ## Examples
 
 ### Good Example ✅
+
 ```javascript
 /**
  * Sanitize file path to prevent directory traversal
- * 
+ *
  * Normalizes the path and checks for '..' sequences that could
  * allow escaping the base directory. Optionally restricts paths
  * to within a specified base directory.
- * 
+ *
  * @param {string} userPath - User-provided path to sanitize
  * @param {string} [basePath=null] - Optional base directory restriction
  * @returns {string} Sanitized path
@@ -204,6 +220,7 @@ function sanitizePath(userPath, basePath = null) {
 ```
 
 ### Bad Example ❌
+
 ```javascript
 // No JSDoc at all
 function sanitizePath(userPath, basePath) {
@@ -226,6 +243,7 @@ function sanitizePath(userPath, basePath) {
 ## IDE Integration
 
 ### VSCode Settings
+
 Add to `.vscode/settings.json`:
 
 ```json
@@ -237,6 +255,7 @@ Add to `.vscode/settings.json`:
 ```
 
 ### Type Checking
+
 Enable type checking without TypeScript:
 
 ```javascript
@@ -257,6 +276,7 @@ jsdoc -c jsdoc.json
 ```
 
 Sample `jsdoc.json`:
+
 ```json
 {
   "source": {
@@ -275,6 +295,7 @@ Sample `jsdoc.json`:
 ## Special Tags
 
 ### Deprecated
+
 ```javascript
 /**
  * Old function - use newFunction() instead
@@ -283,6 +304,7 @@ Sample `jsdoc.json`:
 ```
 
 ### See Also
+
 ```javascript
 /**
  * @see {@link OtherClass}
@@ -291,6 +313,7 @@ Sample `jsdoc.json`:
 ```
 
 ### Since
+
 ```javascript
 /**
  * @since 2.43.2
@@ -298,6 +321,7 @@ Sample `jsdoc.json`:
 ```
 
 ### TODO
+
 ```javascript
 /**
  * @todo Add input validation
@@ -327,5 +351,3 @@ Before committing code, ensure:
 - [ ] Examples provided for non-obvious usage
 - [ ] Complex types defined with `@typedef`
 - [ ] Error conditions documented with `@throws`
-
-

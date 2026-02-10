@@ -13,17 +13,17 @@
 <p align="center"><b>The Orchestrator for Indie Builders using Gemini CLI</b></p>
 
 <p align="center">
-  [ <a href="README.md">🏠 Home</a> ] | [ <a href="resources/docs/GETTING_STARTED.md">🚀 Getting Started</a> ] | [ <a href="resources/docs/POWER_USER_GUIDE.md">⚡ Power User Guide</a> ] | [ <a href="resources/docs/commands/README.md">📖 Command Wiki</a> ]
+  [ <a href="README.md">🏠 Home</a> ] | [ <a href="resources/docs/overview.md">🚀 Getting Started</a> ] | [ <a href="resources/docs/commands/README.md">⚡ Power User Guide</a> ] | [ <a href="resources/docs/commands/README.md">📖 Command Wiki</a> ]
 </p>
 
 ---
 
 ## 📍 Quick Navigator
 
-| 🚀 Start Here                                          | 📖 Knowledge                                         | ⚡ Advanced                                                                                 | 🤝 Community                   |
-| :----------------------------------------------------- | :--------------------------------------------------- | :------------------------------------------------------------------------------------------ | :----------------------------- |
-| [Quick Install](#-quick-install)                       | [Command Wiki](resources/docs/commands/README.md)  | [**Saiyan Mode**](resources/docs/POWER_USER_GUIDE.md#1-devsaiyan-the-executor)            | [Contribution](#-contribution) |
-| [Getting Started](resources/docs/GETTING_STARTED.md) | [Sniper Model](./.gemini/rules/flow-factory-line.md) | [SuperSaiyan Cycle](resources/docs/POWER_USER_GUIDE.md#2-devsupersaiyan-the-orchestrator) | [License](#-license)           |
+| 🚀 Start Here                                 | 📖 Knowledge                                         | ⚡ Advanced                                            | 🤝 Community                   |
+| :-------------------------------------------- | :--------------------------------------------------- | :----------------------------------------------------- | :----------------------------- |
+| [Quick Install](#-quick-install)              | [Command Wiki](resources/docs/commands/README.md)    | [**Saiyan Mode**](resources/docs/commands/README.md)   | [Contribution](#-contribution) |
+| [Getting Started](resources/docs/overview.md) | [Sniper Model](./.gemini/rules/flow-factory-line.md) | [SuperSaiyan Cycle](resources/docs/commands/README.md) | [License](#-license)           |
 
 ---
 
@@ -102,7 +102,7 @@ KamiFlow uses a 3-step fused kernel to ensure implementation accuracy:
 2.  **Spec Phase:** Schema-First technical specification.
 3.  **Build Phase:** Detailed task breakdown with Legacy Code awareness.
 
-🤝 **[Read the Getting Started Guide](resources/docs/GETTING_STARTED.md)**
+🤝 **[Read the Overview](resources/docs/overview.md)**
 
 ---
 
@@ -135,4 +135,3 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 ---
 
 _Built with ❤️ for the 10x Indie Hacker._
-
