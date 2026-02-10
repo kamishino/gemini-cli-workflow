@@ -45,22 +45,38 @@ Read these KamiFlow rules before executing (they are already loaded as global ru
 
 ## Phase 1: S1-IDEA (PLANNING Mode)
 
-**Role:** Critical Chef / Consultant
+**Role:** Consultant & Critical Chef
 
-5. **Diagnostic Interview** — Ask 3-5 probing questions about the idea, informed by project context. Questions should challenge assumptions, clarify scope, and identify risks.
+5. **Diagnostic Interview (The Consultant)**
+   - Analyze user request for ambiguity.
+   - Ask 3-5 probing questions (Root Cause, User Benefit, Tech Constraints, Market Fit).
+   - **STOP & WAIT** for user answers before proceeding definition.
 
-6. **Strategic Synthesis** — Generate 3 distinct approaches:
-   - **Option A:** Conservative / Minimal
-   - **Option B:** Balanced / Recommended ⭐
-   - **Option C:** Ambitious / Full-featured
+6. **Synthesis Engine (The Chef)**
 
-   Rate each with star ratings on: Complexity, Risk, Value, Time.
+   **A. Historical Reference Check:**
+   - Scan `PROJECT_CONTEXT.md` (Legacy Knowledge) and `archive/` for similar past tasks.
+   - Synthesize findings into "Diagnostic Insights".
+
+   **B. Generate 3 Refined Options:**
+   - **Option A (Safe & Fast):** MVP-first, minimal complexity. **NO** "Could Have" features.
+   - **Option B (Balanced):** Recommended trade-off. ⭐
+   - **Option C (Ambitious):** Full-featured, higher complexity.
+
+   **C. MoSCoW Classification:**
+   - Classify _all_ features in _each_ option as **Must/Should/Could/Won't Have**.
+
+   **D. Weighted Scoring Matrix (1-5⭐):**
+   - **Market Pain:** +1 per "Must Have" (Max 5).
+   - **Technical Feasibility:** Start 5. -1 per new lib/legacy touch/high complexity.
+   - **Stack Alignment:** 5 if standard. -2 if new lang/framework.
+   - **Profit Potential:** (Market Pain + Feasibility) / 2.
 
 7. **🚦 STRATEGIC GATE — MANDATORY STOP**
-   - Present options to the user
-   - **WAIT for user to select an option (A/B/C)**
-   - Do NOT proceed until user explicitly approves
-   - Save as `S1-IDEA` artifact in `.kamiflow/tasks/` with the next available ID
+   - Present the 3 Options with Scores and MoSCoW breakdown.
+   - **WAIT for user to select an option (A/B/C)**.
+   - Do NOT proceed until user explicitly approves.
+   - Save as `S1-IDEA` artifact in `.kamiflow/tasks/` including the **Assumption Verification Report**.
 
 ---
 
