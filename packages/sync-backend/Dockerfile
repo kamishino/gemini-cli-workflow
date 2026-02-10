@@ -14,12 +14,13 @@ RUN npm ci --only=production
 # Copy application code
 COPY src ./src
 
-# Create data directory and set permissions
-RUN mkdir -p /data /app/logs && chown -R node:node /data /app/logs
+# Create data directory
+RUN mkdir -p /data /app/logs
 
 EXPOSE 3000
 
-USER node
+# Run as root to avoid volume permission issues on self-hosted installs
+# USER node (Commented out for compatibility)
 
-# Start server (migrations will run at startup in server.js or database.js)
+# Start server
 CMD ["node", "src/server.js"]
