@@ -5,10 +5,17 @@
 
 import { z } from "zod";
 import { InstallerAdapter, ConfigAdapter, WorkflowAdapter } from "../adapters/index.js";
-import { i18n } from "@kamiflow/cli-core";
+import cliCore from "@kamiflow/cli-core";
+const { i18n } = cliCore;
 
-// Force English for consistency (as requested)
-i18n.setLanguage("en");
+// Force English for consistency (as requested) - lazy initialization
+try {
+  if (i18n && typeof i18n.setLanguage === 'function') {
+    i18n.setLanguage("en");
+  }
+} catch (e) {
+  // i18n not initialized yet, will use default
+}
 
 // Schemas for cli-core based tools
 export const InitSchema = z.object({

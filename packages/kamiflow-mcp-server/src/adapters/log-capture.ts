@@ -3,7 +3,8 @@
  * Silences logs on success (as requested)
  */
 
-import { logger } from '@kamiflow/cli-core';
+import cliCore from '@kamiflow/cli-core';
+const { logger } = cliCore;
 
 export interface LogCaptureResult<T> {
   result: T | null;

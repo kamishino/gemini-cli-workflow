@@ -3,7 +3,9 @@
  * Handles project initialization and setup
  */
 
-import { Installer, Doctor, Updater } from '@kamiflow/cli-core';
+import cliCore from '@kamiflow/cli-core';
+const { initializeProject } = cliCore.Installer || cliCore;
+const { Doctor, Updater } = cliCore;
 import { executeWithRetryAndLogs } from './execute-wrapper.js';
 import path from 'path';
 
@@ -16,8 +18,8 @@ export class InstallerAdapter {
     
     const result = await executeWithRetryAndLogs(
       async () => {
-        const installer = new Installer();
-        await installer.initialize(absolutePath, {
+        // Use the function directly (not a class)
+        await initializeProject(absolutePath, {
           mode: options.mode || 'link',
           dev: options.dev || false,
           skipInterview: options.skipInterview || false

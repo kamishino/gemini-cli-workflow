@@ -5,7 +5,7 @@
 
 declare module '@kamiflow/cli-core' {
   // Logger
-  export const logger: {
+  const logger: {
     info: (...args: any[]) => void;
     warn: (...args: any[]) => void;
     error: (...args: any[]) => void;
@@ -16,27 +16,28 @@ declare module '@kamiflow/cli-core' {
   };
 
   // i18n
-  export const i18n: {
+  const i18n: {
     setLanguage: (lang: string) => void;
   };
 
-  // Installer
-  export class Installer {
-    initialize(projectPath: string, options: any): Promise<void>;
-  }
+  // Installer (exports functions, not a class)
+  const Installer: {
+    initializeProject: (projectPath: string, options: any) => Promise<void>;
+    getGeneStorePath: () => string;
+  };
 
   // Doctor
-  export class Doctor {
+  class Doctor {
     run(projectPath: string, options: any): Promise<any>;
   }
 
   // Updater
-  export class Updater {
+  class Updater {
     runUpdate(projectPath: string, options: any): Promise<any>;
   }
 
   // ConfigManager
-  export class ConfigManager {
+  class ConfigManager {
     set(key: string, value: string, isGlobal: boolean): Promise<boolean>;
     get(key: string): Promise<any>;
     list(): Promise<any[]>;
@@ -44,15 +45,30 @@ declare module '@kamiflow/cli-core' {
   }
 
   // Saiyan
-  export class Saiyan {
+  class Saiyan {
     runSaiyanMode(input: string, options: any): Promise<any>;
   }
 
   // SuperSaiyan
-  export class SuperSaiyan {
+  class SuperSaiyan {
     runSuperSaiyan(source?: string): Promise<any>;
   }
 
   // Version
-  export const version: string;
+  const version: string;
+
+  // Default export containing all modules
+  const cliCore: {
+    logger: typeof logger;
+    i18n: typeof i18n;
+    Installer: typeof Installer;
+    Doctor: typeof Doctor;
+    Updater: typeof Updater;
+    ConfigManager: typeof ConfigManager;
+    Saiyan: typeof Saiyan;
+    SuperSaiyan: typeof SuperSaiyan;
+    version: typeof version;
+  };
+
+  export default cliCore;
 }

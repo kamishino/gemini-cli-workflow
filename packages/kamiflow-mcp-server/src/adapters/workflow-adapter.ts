@@ -3,7 +3,8 @@
  * Handles autonomous execution modes
  */
 
-import { Saiyan, SuperSaiyan } from '@kamiflow/cli-core';
+import cliCore from '@kamiflow/cli-core';
+const { Saiyan, SuperSaiyan } = cliCore;
 import { executeWithRetryAndLogs } from './execute-wrapper.js';
 
 export class WorkflowAdapter {

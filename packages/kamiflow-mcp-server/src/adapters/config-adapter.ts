@@ -3,7 +3,8 @@
  * Handles configuration management
  */
 
-import { ConfigManager } from '@kamiflow/cli-core';
+import cliCore from '@kamiflow/cli-core';
+const { ConfigManager } = cliCore;
 import { executeWithRetryAndLogs } from './execute-wrapper.js';
 
 export class ConfigAdapter {
