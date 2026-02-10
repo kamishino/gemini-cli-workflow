@@ -7,7 +7,14 @@ import { z } from "zod";
 import fs from "fs-extra";
 import path from "path";
 import { glob } from "glob";
-import { getTasksPath, getWorkspacePath, getContextPath, getRoadmapPath, getArchivePath } from "../utils/project-discovery.js";
+import { 
+  getTasksPath, 
+  getWorkspacePath, 
+  getContextPath, 
+  getRoadmapPath, 
+  getArchivePath 
+} from "../utils/project-discovery.js";
+import { resolveProject, loadRegistry } from "../utils/project-registry.js";
 import { generateTaskId } from "../utils/id-manager.js";
 import { createSlug, formatDate } from "../utils/string-helpers.js";
 import matter from "gray-matter";
@@ -78,7 +85,26 @@ const ArchiveInputSchema = z.object({
   all: z.boolean().optional().default(false).describe("Archive all completed tasks"),
 });
 
-export function registerTools(server: Server, projectRoot: string): void {
+// Helper to resolve project path from tool arguments
+async function resolveProjectPath(args: any, defaultPath: string): Promise<string> {
+  // If project is specified, use registry to resolve
+  if (args?.project) {
+    const { project } = await resolveProject(args.project);
+    return project.rootPath;
+  }
+  
+  // Try to resolve from CWD or use default
+  const cwd = process.cwd();
+  try {
+    const { project } = await resolveProject(undefined, cwd);
+    return project.rootPath;
+  } catch {
+    // Fallback to default
+    return defaultPath;
+  }
+}
+
+export function registerTools(server: Server, defaultProjectRoot: string): void {
   // List all available tools
   server.setRequestHandler(ListToolsRequestSchema, async () => {
     return {
@@ -212,68 +238,71 @@ export function registerTools(server: Server, projectRoot: string): void {
   server.setRequestHandler(CallToolRequestSchema, async (request) => {
     const { name, arguments: args } = request.params;
 
+    // Resolve project path for this request
+    const projectPath = await resolveProjectPath(args, defaultProjectRoot);
+
     try {
       switch (name) {
         case "kamiflow_idea_create": {
           const parsed = IdeaInputSchema.parse(args);
-          return await handleIdeaCreate(parsed, projectRoot);
+          return await handleIdeaCreate(parsed, projectPath);
         }
         case "kamiflow_spec_create": {
           const parsed = SpecInputSchema.parse(args);
-          return await handleSpecCreate(parsed, projectRoot);
+          return await handleSpecCreate(parsed, projectPath);
         }
         case "kamiflow_build_create": {
           const parsed = BuildInputSchema.parse(args);
-          return await handleBuildCreate(parsed, projectRoot);
+          return await handleBuildCreate(parsed, projectPath);
         }
         case "kamiflow_bridge_export": {
           const parsed = BridgeInputSchema.parse(args);
-          return await handleBridgeExport(parsed, projectRoot);
+          return await handleBridgeExport(parsed, projectPath);
         }
         case "kamiflow_context_load": {
           const parsed = WakeInputSchema.parse(args || {});
-          return await handleContextLoad(parsed, projectRoot);
+          return await handleContextLoad(parsed, projectPath);
         }
         case "kamiflow_context_sync": {
           const parsed = SyncInputSchema.parse(args || {});
-          return await handleContextSync(parsed, projectRoot);
+          return await handleContextSync(parsed, projectPath);
         }
         case "kamiflow_roadmap_update": {
           const parsed = RoadmapInputSchema.parse(args || {});
-          return await handleRoadmapUpdate(parsed, projectRoot);
+          return await handleRoadmapUpdate(parsed, projectPath);
         }
         case "kamiflow_context_save": {
           const parsed = SaveContextInputSchema.parse(args || {});
-          return await handleContextSave(parsed, projectRoot);
+          return await handleContextSave(parsed, projectPath);
         }
         case "kamiflow_saiyan_execute": {
           const parsed = SaiyanInputSchema.parse(args);
-          return await handleSaiyanExecute(parsed, projectRoot);
+          return await handleSaiyanExecute(parsed, projectPath);
         }
         case "kamiflow_task_archive": {
           const parsed = ArchiveInputSchema.parse(args || {});
-          return await handleTaskArchive(parsed, projectRoot);
+          return await handleTaskArchive(parsed, projectPath);
         }
         
         // ==================== CLI-CORE TOOLS ====================
         case "kamiflow_init":
-          return await handleInit(args, projectRoot);
+          return await handleInit(args, projectPath);
         case "kamiflow_doctor":
-          return await handleDoctor(args, projectRoot);
+          return await handleDoctor(args, projectPath);
         case "kamiflow_upgrade":
-          return await handleUpgrade(args, projectRoot);
+          return await handleUpgrade(args, projectPath);
         case "kamiflow_config_set":
-          return await handleConfigSet(args, projectRoot);
+          return await handleConfigSet(args, projectPath);
         case "kamiflow_config_get":
-          return await handleConfigGet(args, projectRoot);
+          return await handleConfigGet(args, projectPath);
         case "kamiflow_config_list":
-          return await handleConfigList(args, projectRoot);
+          return await handleConfigList(args, projectPath);
         case "kamiflow_config_sync":
-          return await handleConfigSync(args, projectRoot);
+          return await handleConfigSync(args, projectPath);
         case "kamiflow_saiyan":
-          return await handleSaiyan(args, projectRoot);
+          return await handleSaiyan(args, projectPath);
         case "kamiflow_supersaiyan":
-          return await handleSuperSaiyan(args, projectRoot);
+          return await handleSuperSaiyan(args, projectPath);
         
         default:
           throw new Error(`Unknown tool: ${name}`);
