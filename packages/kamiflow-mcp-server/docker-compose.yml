@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  # KamiFlow MCP Server
+  kamiflow-mcp:
+    build:
+      context: ../../
+      dockerfile: packages/kamiflow-mcp-server/Dockerfile
+    container_name: kamiflow-mcp-server
+    restart: unless-stopped
+    
+    ports:
+      - "${MCP_PORT:-3030}:3000"
+    
+    environment:
+      - NODE_ENV=production
+      - KAMIFLOW_REGISTRY=/home/node/.kamiflow/projects.json
+      - MCP_API_KEY=${MCP_API_KEY:-changeme}
+      - LOG_LEVEL=${LOG_LEVEL:-error}
+      - TZ=${TZ:-UTC}
+    
+    volumes:
+      # Mount project registry from host (read-only)
+      - type: bind
+        source: ~/.kamiflow/projects.json
+        target: /home/node/.kamiflow/projects.json
+        read_only: true
+      
+      # Mount projects directory (read-write for .kamiflow/)
+      # This will be populated dynamically based on registry
+      - type: bind
+        source: ${PROJECTS_BASE_PATH:-D:/Projects}
+        target: /projects
+    
+    networks:
+      - kamiflow-network
+    
+    labels:
+      # Watchtower labels for auto-update
+      - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.monitor-only=false"
+    
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/health', (r) => process.exit(r.statusCode === 200 ? 0 : 1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Auto-rebuild service (optional)
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: kamiflow-watchtower
+    restart: unless-stopped
+    
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_POLL_INTERVAL=300
+      - WATCHTOWER_LABEL_ENABLE=true
+      - WATCHTOWER_ROLLING_RESTART=true
+      - WATCHTOWER_INCLUDE_STOPPED=true
+      - TZ=${TZ:-UTC}
+    
+    command: --interval 300 kamiflow-mcp
+
+networks:
+  kamiflow-network:
+    driver: bridge
+    name: kamiflow-network
