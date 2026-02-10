@@ -3,8 +3,8 @@ version: '3.8'
 services:
   kamiflow-sync:
     build:
-      context: https://github.com/kamishino/gemini-cli-workflow.git#main
-      dockerfile: packages/sync-backend/Dockerfile
+      context: https://github.com/kamishino/gemini-cli-workflow.git#main:packages/sync-backend
+      dockerfile: Dockerfile
     container_name: kamiflow-sync
     restart: unless-stopped
     ports:

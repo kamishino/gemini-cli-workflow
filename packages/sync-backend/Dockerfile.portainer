@@ -9,11 +9,11 @@ WORKDIR /tmp
 RUN git clone https://github.com/kamishino/gemini-cli-workflow.git
 
 # Install dependencies
-WORKDIR /tmp/gemini-cli-workflow/kamiflow-sync-backend
+WORKDIR /tmp/gemini-cli-workflow/packages/sync-backend
 RUN npm install --production
 
 # Set working directory
-WORKDIR /tmp/gemini-cli-workflow/kamiflow-sync-backend
+WORKDIR /tmp/gemini-cli-workflow/packages/sync-backend
 
 # Expose port
 EXPOSE 3030
