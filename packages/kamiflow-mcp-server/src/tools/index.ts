@@ -11,6 +11,18 @@ import { getTasksPath, getWorkspacePath, getContextPath, getRoadmapPath, getArch
 import { generateTaskId } from "../utils/id-manager.js";
 import { createSlug, formatDate } from "../utils/string-helpers.js";
 import matter from "gray-matter";
+import { 
+  cliCoreToolDefinitions,
+  handleInit,
+  handleDoctor,
+  handleUpgrade,
+  handleConfigSet,
+  handleConfigGet,
+  handleConfigList,
+  handleConfigSync,
+  handleSaiyan,
+  handleSuperSaiyan
+} from "./cli-core-tools.js";
 
 // Tool schemas
 const IdeaInputSchema = z.object({
@@ -188,9 +200,13 @@ export function registerTools(server: Server, projectRoot: string): void {
             },
           },
         },
+        // cli-core based tools
+        ...cliCoreToolDefinitions,
       ],
     };
   });
+
+
 
   // Handle tool calls
   server.setRequestHandler(CallToolRequestSchema, async (request) => {
@@ -238,6 +254,27 @@ export function registerTools(server: Server, projectRoot: string): void {
           const parsed = ArchiveInputSchema.parse(args || {});
           return await handleTaskArchive(parsed, projectRoot);
         }
+        
+        // ==================== CLI-CORE TOOLS ====================
+        case "kamiflow_init":
+          return await handleInit(args, projectRoot);
+        case "kamiflow_doctor":
+          return await handleDoctor(args, projectRoot);
+        case "kamiflow_upgrade":
+          return await handleUpgrade(args, projectRoot);
+        case "kamiflow_config_set":
+          return await handleConfigSet(args, projectRoot);
+        case "kamiflow_config_get":
+          return await handleConfigGet(args, projectRoot);
+        case "kamiflow_config_list":
+          return await handleConfigList(args, projectRoot);
+        case "kamiflow_config_sync":
+          return await handleConfigSync(args, projectRoot);
+        case "kamiflow_saiyan":
+          return await handleSaiyan(args, projectRoot);
+        case "kamiflow_supersaiyan":
+          return await handleSuperSaiyan(args, projectRoot);
+        
         default:
           throw new Error(`Unknown tool: ${name}`);
       }

@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "kamiflow": {
+      "command": "node",
+      "args": [
+        "D:/Tools/gemini-cli-workflow/packages/kamiflow-mcp-server/dist/index.js"
+      ],
+      "env": {
+        "KAMIFLOW_PROJECT_ROOT": "D:/Tools/gemini-cli-workflow"
+      }
+    }
+  }
+}

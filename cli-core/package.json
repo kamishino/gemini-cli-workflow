@@ -1,20 +1,33 @@
 {
-  "name": "gemini-cli-kamiflow",
+  "name": "@kamiflow/cli-core",
   "version": "2.44.6",
   "description": "Professional CLI manager for KamiFlow - The Indie Builder's OS for Gemini CLI",
-  "main": "bin/kami.js",
+  "main": "index.js",
   "bin": {
     "kamiflow": "bin/kami.js",
     "kami": "bin/kami.js",
     "gemini-cli-kamiflow": "bin/kami.js",
     "kamiflow-install": "logic/installer.js"
   },
+  "exports": {
+    ".": "./index.js",
+    "./bin": "./bin/kami.js",
+    "./logic/*": "./logic/*.js",
+    "./utils/*": "./utils/*.js",
+    "./validators/*": "./validators/*.js",
+    "./schemas/*": "./schemas/*.js",
+    "./scripts/*": "./scripts/*.js"
+  },
   "files": [
+    "index.js",
     "bin/",
     "logic/",
+    "utils/",
     "validators/",
     "scripts/",
+    "schemas/",
     "package.json",
+    "default-config.json",
     "../install.ps1",
     "../install.sh",
     "../.gemini/",
