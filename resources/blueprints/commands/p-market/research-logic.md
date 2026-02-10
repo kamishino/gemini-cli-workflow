@@ -65,7 +65,7 @@ The system will automatically generate files as `{{KAMI_WORKSPACE}}ideas/discove
 
 After creating discovery files, inform user:
 
-```
+```text
 🔍 **Next Steps:**
 1. Review generated discoveries in {{KAMI_WORKSPACE}}ideas/discovery/
 2. Run `/kamiflow:p-market:analyze-all` to batch analyze all discoveries
@@ -77,7 +77,7 @@ After creating discovery files, inform user:
 
 For each discovery created:
 
-```
+```markdown
 🔮 Market Opportunity Discovered!
 
 ID: [ID]

@@ -33,10 +33,13 @@ Every Markdown logic file MUST contain a YAML frontmatter block with these field
 ## 3. Formatting Standards 🎨
 
 ### 3.1 Content Extraction
+
 The transpiler extracts everything **AFTER** the closing `---` of the frontmatter.
 
 ### 3.2 Placeholders
+
 Use double curly braces for variable injection in Templates:
+
 - `{{CONTEXT_SYNC}}`: Injects the mandatory environment awareness block.
 - `{{LOGIC}}`: Injects the primary logic partial.
 - `{{DESCRIPTION}}`: Injects metadata from the partial.
@@ -51,7 +54,7 @@ Use double curly braces for variable injection in Templates:
 ---
 
 ## ✅ Compliance Checklist
+
 - [ ] Frontmatter contains all 5 required fields.
 - [ ] File is placed in the correct `[type]/[category]` subfolder.
 - [ ] Content is written in professional English.
-

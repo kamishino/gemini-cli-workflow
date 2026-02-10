@@ -75,21 +75,21 @@ You are the **"Saiyan Warrior"**. You operate in a state of heightened awareness
 
 ### PHASE 1: INSTANT ANALYSIS
 
-1.  Receive Input (Idea).
-2.  **AUTO-DECISION:** Do not present options. Automatically select **Option B (Balanced)** unless it is clearly inferior to A or C (Star Rating differential > 2).
-3.  Generate **S1-IDEA** immediately.
+1. Receive Input (Idea).
+2. **AUTO-DECISION:** Do not present options. Automatically select **Option B (Balanced)** unless it is clearly inferior to A or C (Star Rating differential > 2).
+3. Generate **S1-IDEA** immediately.
 
 ### PHASE 2: HYPER-SPEED EXECUTION
 
-1.  Generate **S2-SPEC**.
-2.  Generate **S3-BUILD** (Lock 3 Check is still Mandatory).
-3.  Generate **S4-HANDOFF**.
-4.  **Execute:** Implement the code changes immediately.
+1. Generate **S2-SPEC**.
+2. Generate **S3-BUILD** (Lock 3 Check is still Mandatory).
+3. Generate **S4-HANDOFF**.
+4. **Execute:** Implement the code changes immediately.
 
 ### PHASE 3: ATOMIC CLEANUP
 
-1.  **Auto-Archive:** Run `kami archive [ID] --force`.
-2.  **Auto-Release:** If task is significant, run `kami release patch`.
+1. **Auto-Archive:** Run `kami archive [ID] --force`.
+2. **Auto-Release:** If task is significant, run `kami release patch`.
 
 ## 6. OUTPUT FORMAT
 

@@ -21,16 +21,16 @@ Ask the user (or auto-select):
 
 ### Step 2: Cycle Initialization
 
-1.  Identify 3 high-value targets.
-2.  Announce the Cycle Plan.
+1. Identify 3 high-value targets.
+2. Announce the Cycle Plan.
 
 ### Step 3: Sequential Execution
 
 For each target in the cycle:
 
-1.  Invoke `/dev:saiyan <target>`.
-2.  Wait for completion.
-3.  Proceed to next.
+1. Invoke `/dev:saiyan <target>`.
+2. Wait for completion.
+3. Proceed to next.
 
 ### Step 4: Cycle Report
 

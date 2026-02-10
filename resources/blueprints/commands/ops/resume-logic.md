@@ -43,7 +43,7 @@ Get-ChildItem -Path "{{KAMI_WORKSPACE}}checkpoints/" -Filter "[ID]-checkpoint-*.
 - Calculate age: `Current Time - Checkpoint Timestamp`
 - If > 7 days → **WARNING:**
 
-  ```
+```yaml
   ⚠️ STALENESS WARNING
 
   Checkpoint is [N] days old. Project context may have changed.
@@ -56,7 +56,7 @@ Get-ChildItem -Path "{{KAMI_WORKSPACE}}checkpoints/" -Filter "[ID]-checkpoint-*.
 
 - If > 30 days → **STRONG WARNING:**
 
-  ```
+```yaml
   🚨 CHECKPOINT VERY OLD (30+ days)
 
   Recommend: Start fresh with /kamiflow:core:idea instead.
@@ -75,7 +75,7 @@ Get-ChildItem -Path "{{KAMI_WORKSPACE}}checkpoints/" -Filter "[ID]-checkpoint-*.
 
 **If any artifact missing:**
 
-```
+```yaml
 🚫 ARTIFACT INTEGRITY ERROR
 
 Missing files:
@@ -95,7 +95,7 @@ C) Cancel resume
 - Compare to `checkpoint.phaseData.projectContext` (if exists)
 - If significant divergence → **WARNING:**
 
-  ```
+```text
   ⚠️ PROJECT STATE CHANGED
 
   Since checkpoint:
@@ -242,7 +242,7 @@ Resume from Phase [checkpoint.nextPhase]? (Y/N)
 
 **Response:**
 
-```
+```text
 ❌ Resume Cancelled
 
 Checkpoint preserved at: {{KAMI_WORKSPACE}}checkpoints/[ID]-checkpoint-[phase].json
@@ -261,7 +261,7 @@ Options:
 
 **Response:**
 
-```
+```yaml
 🚫 CHECKPOINT CORRUPTED
 
 File: [checkpoint path]
@@ -280,7 +280,7 @@ Recommend: Start fresh with /kamiflow:core:idea
 
 **Response:**
 
-```
+```yaml
 ⚠️ ARTIFACT MODIFICATION DETECTED
 
 Files changed after checkpoint:
@@ -310,19 +310,19 @@ C) Cancel resume
 
 ## 7. RECOVERY STRATEGIES
 
-### Called By:
+### Called By
 
 - User manual invocation: `/kamiflow:ops:resume [ID]`
 - `/kamiflow:ops:wake` (auto-resume prompt if checkpoints detected)
 
-### Calls:
+### Calls
 
 - Validation Loop: `{{KAMI_RULES_GEMINI}}flow-validation-core.md` (if resuming at Phase 3B)
 - Reflection Protocol: `{{KAMI_RULES_GEMINI}}flow-reflection-core.md` (if resuming at Phase 4)
 - Error Recovery: `{{KAMI_RULES_GEMINI}}error-recovery-core.md` (if errors occur)
 - Anti-Hallucination: `{{KAMI_RULES_GEMINI}}std-anti-hallucination-core.md` (if resuming before Phase 1)
 
-### Checkpoints Created By:
+### Checkpoints Created By
 
 - `/kamiflow:dev:superlazy` (all 7 phases)
 - `/kamiflow:dev:lazy` (all 7 phases)
@@ -334,7 +334,7 @@ C) Cancel resume
 
 ### Warning - Staleness
 
-```
+```text
 ⚠️ CHECKPOINT STALENESS ([N] days old)
 
 Recommendations applied:
@@ -348,7 +348,7 @@ Proceeding with caution...
 
 ### Error - Cannot Resume
 
-```
+```yaml
 🚫 RESUME FAILED: [Error reason]
 
 Details:
@@ -383,7 +383,7 @@ Need help? Run: /kamiflow:ops:help
 
 **Resume Flow:**
 
-```
+```text
 Discover Checkpoint → Safety Checks → Show Progress → User Confirms
   → Restore Context → Continue Workflow → Save New Checkpoints
 ```

@@ -27,9 +27,9 @@ The user provides a raw idea or concept:
 
 If the input is a file path (e.g., `{{KAMI_WORKSPACE}}ideas/backlog/A7B2-slug.md`):
 
-1.  **Extract Path & ID:** You MUST identify the **Source Idea** and its **Idea ID** (e.g., A7B2).
-2.  **Inherit Vision:** Read the file content and use it as the primary context for the Sniper process.
-3.  **Traceability:** When generating the S1-IDEA file, you MUST use the `--from-idea [ID]` flag in the final command step.
+1. **Extract Path & ID:** You MUST identify the **Source Idea** and its **Idea ID** (e.g., A7B2).
+2. **Inherit Vision:** Read the file content and use it as the primary context for the Sniper process.
+3. **Traceability:** When generating the S1-IDEA file, you MUST use the `--from-idea [ID]` flag in the final command step.
     - Example filename result: `[ID]-S1-IDEA-[slug]_from-A7B2.md`.
 
 ## 5A. ID GENERATION (Session-Based Caching)
@@ -45,7 +45,8 @@ If the input is a file path (e.g., `{{KAMI_WORKSPACE}}ideas/backlog/A7B2-slug.md
    - Skip file scan (performance boost)
 
 2. **Display Cached Mode:**
-   ```
+
+```text
    🔍 Task ID (Cached)
    - Session MAX ID: [cached_max_id]
    - Next Task ID: [next_id]
@@ -71,7 +72,8 @@ Then:
    - `next_id = MAX_ID + 1`
 
 3. **Display Reactive Mode:**
-   ```
+
+```text
    🔍 Task ID Reconnaissance (Reactive Scan)
    - Scanned: {{KAMI_WORKSPACE}}tasks/ and {{KAMI_WORKSPACE}}archive/
    - Max ID found: [MAX_ID]
@@ -121,7 +123,7 @@ For all config options you plan to reference:
 
 **Output Format:**
 
-```
+```yaml
 🔍 ASSUMPTION VERIFICATION REPORT
 
 ✅ Files Verified: [list with paths]
@@ -174,7 +176,7 @@ Cross-check all requirements for logical contradictions:
 
 **Decision Logic:**
 
-```
+```text
 IF conflicts detected:
   - STOP immediately
   - Display 🛑 BLOCKER alert (see output format)
@@ -202,7 +204,7 @@ Analyze the raw idea for common patterns:
 
 **Step 0C.2: Skill Check**
 
-```
+```text
 IF pattern detected:
   1. Check `.gemini/skills/` for matching skill
   2. If skill exists:
@@ -250,6 +252,7 @@ Ask probing questions across these dimensions (informed by Phase 0 groups):
 - Refine understanding of core problem and constraints
 
 **Step 4.5: Historical Reference Check (The Historian)**
+
 1. **Memory Scan:** Read the `## 📚 Strategic Patterns & Legacy Knowledge` section in `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md`.
 2. **Relevance Analysis:** Identify patterns that match the current task's domain (e.g., #Sync, #UI).
 3. **Deep Search:** Run `grep -r "[Keywords]" {{KAMI_WORKSPACE}}archive/` for additional context if needed.
@@ -287,7 +290,7 @@ Calculate Star Ratings (1-5⭐) using this logic:
 
 **Apply MoSCoW to each option's features:**
 
-```
+```text
 Option A (Safe & Fast):
 - [Feature 1]: Must Have
 - [Feature 2]: Should Have
@@ -386,7 +389,7 @@ Run `/kamiflow:core:spec {{KAMI_WORKSPACE}}tasks/[ID]-S1-IDEA-[slug].md` to crea
 
 **MANDATORY GATES — You MUST obey these stops:**
 
-1.  **After Phase 1 (Diagnostic Interview):** You MUST STOP and use `wait_for_user_input`. DO NOT generate options or artifacts yet.
-2.  **After Phase 2 Step 7 (Present Options):** You MUST STOP and use `wait_for_user_input`. Wait for Boss to choose Option A/B/C before generating the S1 file.
+1. **After Phase 1 (Diagnostic Interview):** You MUST STOP and use `wait_for_user_input`. DO NOT generate options or artifacts yet.
+2. **After Phase 2 Step 7 (Present Options):** You MUST STOP and use `wait_for_user_input`. Wait for Boss to choose Option A/B/C before generating the S1 file.
 
 **FAILURE TO STOP at Gates 1 and 2 is a protocol violation.** If you skip a gate, the entire workflow is invalid.

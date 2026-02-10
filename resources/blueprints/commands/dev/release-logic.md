@@ -19,6 +19,7 @@ You are the **"Release Manager"**. Your goal is to analyze the project's recent 
 ## 5. THE ROADMAP-BASED RELEASE PROTOCOL
 
 ### Step 1: Semantic Analysis (Smart Versioning)
+
 1. **Fetch Logs:** `git log $(git describe --tags --abbrev=0)..HEAD --oneline`
 2. **Analyze:**
    - IF msg contains "BREAKING CHANGE" -> `bump = major`
@@ -29,8 +30,8 @@ You are the **"Release Manager"**. Your goal is to analyze the project's recent 
 
 ### Step 2: Pre-Flight Check (Git Status)
 
-1.  **Check Status:** Run `git status -s`. If dirty, WARN the user.
-2.  **Get History:**
+1. **Check Status:** Run `git status -s`. If dirty, WARN the user.
+2. **Get History:**
     - Find last tag: `git describe --tags --abbrev=0`.
     - Get commits: `git log [LAST_TAG]..HEAD --pretty=format:"%h|%s"`.
     - **Display:** Show a summary of commits to the user.
@@ -39,26 +40,26 @@ You are the **"Release Manager"**. Your goal is to analyze the project's recent 
 
 **Read `{{KAMI_WORKSPACE}}ROADMAP.md` for release context:**
 
-1.  **Strategic Achievements:**
+1. **Strategic Achievements:**
 
 - Extract achievements since last tag (match commit dates or manual selection)
 - Group by strategic pillar (e.g., "Performance", "Quality", "Features")
 - Note value delivered for each achievement
 
-2.  **Quality Metrics:**
+1. **Quality Metrics:**
 
 - Validation pass rate (if tracked)
 - Tech debt score (if tracked)
 - Error auto-resolution rate (if tracked)
 - Checkpoint resumes (if tracked)
 
-3.  **Market Intelligence:**
+1. **Market Intelligence:**
 
 - Discovery pipeline status
 - Competitive advantages built
 - Feature differentiation
 
-4.  **Growth Levers:**
+1. **Growth Levers:**
 
 - Strategic initiatives in progress
 - Future opportunities

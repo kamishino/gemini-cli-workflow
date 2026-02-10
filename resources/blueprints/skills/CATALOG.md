@@ -173,7 +173,7 @@ These skills are built specifically for KamiFlow:
 ## 🆕 Contributing
 
 To add a skill to this catalog:
+
 1. Verify compatibility with Gemini CLI
 2. Test with KamiFlow workflow
 3. Submit PR with skill details
-

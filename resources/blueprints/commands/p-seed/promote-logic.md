@@ -32,7 +32,7 @@ Check if the file has a high enough Feasibility score (> 0.7) in its Frontmatter
 
 **If BLOCKED:**
 
-```
+```yaml
 🚫 PROMOTION BLOCKED
 
 Issues Found:
@@ -59,7 +59,7 @@ Run the command:
 
 ### Success Message
 
-```
+```text
 🚀 Idea Promoted to Backlog!
 
 ID: [ID]

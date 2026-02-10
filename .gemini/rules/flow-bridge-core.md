@@ -25,7 +25,7 @@ order: 60
 
 The bridge command now supports three output modes:
 
-```
+```text
 /kamiflow:core:bridge --mode=[full|executor|minimal]
 ```
 
@@ -141,7 +141,7 @@ The bridge command now supports three output modes:
 
 ## 3. 📋 The Handoff Workflow (S4-HANDOFF)
 
-### MANDATORY Contents of Handoff Package (Full Mode):
+### MANDATORY Contents of Handoff Package (Full Mode)
 
 - [ ] **The Objective:** Clear high-level goal.
 - [ ] **Source of Truth:** Links to active S2-SPEC and S3-BUILD.
@@ -149,7 +149,7 @@ The bridge command now supports three output modes:
 - [ ] **The Battle Plan:** Full Task & Subtask list with **Anchor Points**.
 - [ ] **Documentation Contract:** List of files that MUST be updated (README, ROADMAP, etc.).
 
-### FORBIDDEN Actions:
+### FORBIDDEN Actions
 
 - Do NOT refactor unrelated code during implementation.
 - Do NOT create files > 300 lines.
@@ -160,7 +160,7 @@ The bridge command now supports three output modes:
 
 After implementing in the IDE, you MUST run `/kamiflow:ops:sync`.
 
-### AI Integrator Actions:
+### AI Integrator Actions
 
 1. **Log Processing:** Read logs from `./.kamiflow/handoff_logs/`.
 2. **Docs Alignment:** Update `./.kamiflow/PROJECT_CONTEXT.md` and `./.kamiflow/ROADMAP.md` status.
@@ -206,4 +206,3 @@ When `autoDetectMode: true`, the bridge automatically selects:
 - `./.gemini/rules/flow-fast-track-core.md` - Minimal mode integration
 - `./.gemini/rules/flow-factory-line-core.md` - Task classification
 - `@.windsurf/workflows/kamiflow-execute.md` - IDE receiver
-

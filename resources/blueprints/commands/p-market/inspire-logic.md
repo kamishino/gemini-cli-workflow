@@ -88,7 +88,7 @@ The system will automatically generate the file as `{{KAMI_WORKSPACE}}ideas/disc
 
 After creating discovery file:
 
-```
+```text
 🔍 **Next Steps:**
 1. Review innovation in {{KAMI_WORKSPACE}}ideas/discovery/
 2. Run `/kamiflow:p-seed:analyze` for deep 3-persona evaluation
@@ -98,7 +98,7 @@ After creating discovery file:
 
 ## 6. OUTPUT FORMAT
 
-```
+```markdown
 💡 Game-Changer Innovation Generated!
 
 ID: [ID]

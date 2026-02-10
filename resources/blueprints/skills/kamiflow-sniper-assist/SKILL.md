@@ -16,7 +16,7 @@ This skill guides you through the 3-step Sniper Model workflow for turning ideas
 
 ## Workflow Overview
 
-```
+```text
 Phase 0   → Phase 0.5 → Phase 1  → Phase 2  → Phase 3
 Pre-Flight  Assumption   IDEA       SPEC       BUILD
 Check       Verification Interview  Design     Plan
@@ -56,13 +56,16 @@ Check       Verification Interview  Design     Plan
 **Role:** Consultant → Critical Chef
 
 ### Step 1.1: Diagnostic Interview
+
 Ask clarifying questions:
+
 - What is the core problem being solved?
 - Who is the target user?
 - What does success look like?
 - What constraints exist (time, tech, resources)?
 
 ### Step 1.2: Strategic Synthesis
+
 Generate **3 options** with star ratings:
 
 | Option | Approach | Effort | Risk | Rating |
@@ -72,6 +75,7 @@ Generate **3 options** with star ratings:
 | C | [Description] | [Low/Med/High] | [Low/Med/High] | ⭐ |
 
 ### Step 1.3: Strategic Gate
+
 Ask user: "Which option do you want to proceed with? (A/B/C)"
 
 **Output:** `{{KAMI_WORKSPACE}}tasks/[ID]-S1-IDEA-[slug].md`
@@ -83,15 +87,19 @@ Ask user: "Which option do you want to proceed with? (A/B/C)"
 **Role:** Specification Architect
 
 ### 🔒 Lock 1: Context Anchoring
+
 Re-read `PROJECT_CONTEXT.md` to ensure alignment.
 
 ### 🔒 Lock 2: Schema-First
+
 **MANDATORY:** Define data models BEFORE business logic.
 
 ### Step 2.1: User Stories
+
 Define 3-5 concrete user stories with acceptance criteria.
 
 ### Step 2.2: Data Models (Lock 2)
+
 ```typescript
 // Define interfaces, types, schemas FIRST
 interface FeatureName {
@@ -100,9 +108,11 @@ interface FeatureName {
 ```
 
 ### Step 2.3: API Signatures
+
 Define function signatures, endpoints, or component props.
 
 ### Step 2.4: Test Specification (TDD Mandate)
+
 | Test ID | Scenario | Input | Expected | Priority |
 |---------|----------|-------|----------|----------|
 | TC-1 | Happy path | [Valid input] | [Success] | P0 |
@@ -110,6 +120,7 @@ Define function signatures, endpoints, or component props.
 | TC-3 | Error case | [Invalid] | [Error msg] | P1 |
 
 ### Step 2.5: Edge Cases
+
 List at least 3 things that could go wrong.
 
 **Output:** `{{KAMI_WORKSPACE}}tasks/[ID]-S2-SPEC-[slug].md`
@@ -130,6 +141,7 @@ List at least 3 things that could go wrong.
 4. **Determine** execution strategy (sequential vs parallel)
 
 ### Reconnaissance Report Format
+
 ```markdown
 - **Files Analyzed:** [List]
 - **Key Discovery:** [What you found]
@@ -152,7 +164,9 @@ List at least 3 things that could go wrong.
 ```
 
 ### Quality Gate (Task 4.0)
+
 Always include validation tasks:
+
 - Syntax validation (lint, type check)
 - Functional testing
 - Requirement traceability (S2-SPEC criteria check)
@@ -164,7 +178,8 @@ Always include validation tasks:
 ## Handoff
 
 After BUILD is complete, guide user to:
-```
+
+```text
 /kamiflow:core:bridge {{KAMI_WORKSPACE}}tasks/[ID]-S3-BUILD-[slug].md
 ```
 
@@ -178,8 +193,3 @@ This generates the IDE-ready execution prompt.
 - `{{KAMI_RULES_GEMINI}}std-anti-hallucination-core.md` - Verification Protocol
 - `{{KAMI_RULES_GEMINI}}flow-validation-core.md` - Validation Loop
 - `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md` - Current Project State
-
-
-
-
-

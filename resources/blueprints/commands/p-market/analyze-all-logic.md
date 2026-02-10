@@ -86,7 +86,7 @@ Get-ChildItem -Path "{{KAMI_WORKSPACE}}ideas/discovery/" -Filter "*_ai-discovery
 
 **Summary Display:**
 
-```
+```json
 🎯 Market Curation Complete
 
 Discovery Stats:
@@ -114,7 +114,7 @@ Needs Manual Review:
 
 Create/append to `{{KAMI_WORKSPACE}}market_curation.log`:
 
-```
+```markdown
 [YYYY-MM-DD HH:MM:SS] Market Curation Run
 - Scanned: [N] discoveries
 - Analyzed: [P] new
@@ -129,7 +129,7 @@ Create/append to `{{KAMI_WORKSPACE}}market_curation.log`:
 
 After curation complete:
 
-```
+```text
 🔍 **Next Steps:**
 1. Review promoted ideas in {{KAMI_WORKSPACE}}ideas/backlog/
 2. For ideas needing review, check {{KAMI_WORKSPACE}}ideas/discovery/
@@ -185,7 +185,7 @@ Discovery files tagged with `supersaiyan-candidate: true` in frontmatter are pri
 
 ## 8. OUTPUT FORMAT
 
-```
+```markdown
 🎯 Market Curation Complete
 
 📊 Statistics:

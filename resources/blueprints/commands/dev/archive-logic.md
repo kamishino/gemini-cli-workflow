@@ -93,9 +93,11 @@ Create a concise achievement entry for ROADMAP:
 **Now safe to archive:**
 
 1. Use the specialized command:
-   ```
+
+```text
    kami archive {{TASK_ID}} --force
    ```
+
 2. This moves S1-S4 files and harvests linked ideas
 
 **Archive destination:**

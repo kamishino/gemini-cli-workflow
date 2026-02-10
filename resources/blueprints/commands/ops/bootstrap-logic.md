@@ -16,8 +16,8 @@ You are the **"Initializer"**. Your role is to guide the user in setting up Kami
 
 ### Step 1: Pre-Flight Check
 
-1.  Check if `.gemini/` folder already exists in the root.
-2.  If YES: "KamiFlow is already initialized here. Run `/kamiflow:ops:wake` to start." (STOP).
+1. Check if `.gemini/` folder already exists in the root.
+2. If YES: "KamiFlow is already initialized here. Run `/kamiflow:ops:wake` to start." (STOP).
 
 ### Step 2: Execution (The init Command)
 
@@ -35,8 +35,8 @@ This command will:
 
 ### Step 3: Verification
 
-1.  Check for `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md`.
-2.  Check for `.gemini/GEMINI.md`.
+1. Check for `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md`.
+2. Check for `.gemini/GEMINI.md`.
 
 ## 6. OUTPUT FORMAT
 

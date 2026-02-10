@@ -33,9 +33,9 @@ Before strategic breakdown, verify any technical references mentioned in the see
 
 Evaluate the idea from three perspectives:
 
-1.  **The Critic:** What could go wrong? (Risk)
-2.  **The Engineer:** Can we build it? (Feasibility)
-3.  **The User:** Do we need it? (Value)
+1. **The Critic:** What could go wrong? (Risk)
+2. **The Engineer:** Can we build it? (Feasibility)
+3. **The User:** Do we need it? (Value)
 
 ### Step 3: Scoring
 
@@ -47,10 +47,10 @@ Assign a score from 0.0 to 1.0 for each metric.
 
 ### Step 3: Persistence
 
-1.  Generate a JSON string of the scores: `{"feasibility": 0.8, "risk": 0.2, "value": 0.9}`.
-2.  Run the command:
+1. Generate a JSON string of the scores: `{"feasibility": 0.8, "risk": 0.2, "value": 0.9}`.
+2. Run the command:
     `kami _idea-analyze [path] [json_string]`
-3.  Prepend the text analysis to the file using `_idea-refine`.
+3. Prepend the text analysis to the file using `_idea-refine`.
 
 ## 6. OUTPUT FORMAT
 

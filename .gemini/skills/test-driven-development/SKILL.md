@@ -21,12 +21,14 @@ Write the test first. Watch it fail. Write minimal code to pass.
 ## When to Use
 
 **Always:**
+
 - New features
 - Bug fixes
 - Refactoring
 - Behavior changes
 
 **Exceptions (ask your human partner):**
+
 - Throwaway prototypes
 - Generated code
 - Configuration files
@@ -35,13 +37,14 @@ Thinking "skip TDD just this once"? Stop. That's rationalization.
 
 ## The Iron Law
 
-```
+```text
 NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
 ```
 
 Write code before the test? Delete it. Start over.
 
 **No exceptions:**
+
 - Don't keep it as "reference"
 - Don't "adapt" it while writing tests
 - Don't look at it
@@ -56,6 +59,7 @@ Implement fresh from tests. Period.
 Write one minimal test showing what should happen.
 
 **Good Example:**
+
 ```typescript
 test('retries failed operations 3 times', async () => {
   let attempts = 0;
@@ -71,9 +75,11 @@ test('retries failed operations 3 times', async () => {
   expect(attempts).toBe(3);
 });
 ```
+
 Clear name, tests real behavior, one thing.
 
 **Bad Example:**
+
 ```typescript
 test('retry works', async () => {
   const mock = jest.fn()
@@ -84,9 +90,11 @@ test('retry works', async () => {
   expect(mock).toHaveBeenCalledTimes(3);
 });
 ```
+
 Vague name, tests mock not code.
 
 **Requirements:**
+
 - One behavior
 - Clear name
 - Real code (no mocks unless unavoidable)
@@ -100,6 +108,7 @@ npm test path/to/test.test.ts
 ```
 
 Confirm:
+
 - Test fails (not errors)
 - Failure message is expected
 - Fails because feature missing (not typos)
@@ -126,6 +135,7 @@ npm test path/to/test.test.ts
 ```
 
 Confirm:
+
 - Test passes
 - Other tests still pass
 - Output pristine (no errors, warnings)
@@ -137,6 +147,7 @@ Confirm:
 ### REFACTOR - Clean Up
 
 After green only:
+
 - Remove duplication
 - Improve names
 - Extract helpers
@@ -205,10 +216,9 @@ This skill aligns with KamiFlow protocols:
 
 ## Final Rule
 
-```
+```text
 Production code → test exists and failed first
 Otherwise → not TDD
 ```
 
 No exceptions without your human partner's permission.
-

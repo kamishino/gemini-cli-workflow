@@ -39,22 +39,22 @@ If `PROJECT_CONTEXT.md` is already configured (not in template state):
 
 **Load intelligence from public git-tracked files:**
 
-1.  **Read `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md`:**
+1. **Read `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md`:**
     - Project Identity (Goal, Phase, Tech Stack)
     - Active Context (Last Action, Current Focus, Next Step)
     - **Session State (v2.0):** Active Work, Discovery Pipeline, Quality Metrics, Follow-Up Queue
     - Knowledge Map (Architecture understanding)
 
-2.  **Read `{{KAMI_WORKSPACE}}ROADMAP.md`:**
+2. **Read `{{KAMI_WORKSPACE}}ROADMAP.md`:**
     - Strategic Achievements (recent 5-10)
     - Current Focus (Phase, Status)
     - Growth Levers (strategic opportunities)
     - Quality Metrics (validation rates, tech debt)
     - Market Intelligence (if available)
 
-3.  **Load Persona:** Read `GEMINI.md` for conversational context
+3. **Load Persona:** Read `GEMINI.md` for conversational context
 
-4.  **Initialize ID Cache:** Follow `{{KAMI_RULES_GEMINI}}std-id-core.md` to scan for MAX_ID
+4. **Initialize ID Cache:** Follow `{{KAMI_RULES_GEMINI}}std-id-core.md` to scan for MAX_ID
 
 **60-80% Awareness Checkpoint:**
 At this point, you have sufficient context from public files to operate effectively across all machines.
@@ -81,7 +81,7 @@ Get-ChildItem -Path "{{KAMI_WORKSPACE}}checkpoints/" -Filter "*-checkpoint-*.jso
 
 **Present to user:**
 
-```
+```text
 📍 ACTIVE CHECKPOINTS DETECTED
 
 - Task [ID]: [slug] - Paused at Phase [X] ([timestamp])
@@ -189,17 +189,17 @@ If `PROJECT_CONTEXT.md` contains `{{PROJECT_NAME}}` (Template state):
 
 Once the user approves or provides final details:
 
-1.  **Update GEMINI.md:** Use `replace` to update the line starting with `- **Conversational Language:**`.
-2.  **Update PROJECT_CONTEXT.md:** Replace all `{{...}}` placeholders with the final Name, Goal, and Stack. Set phase to "Discovery" and Tour to "true" (or current state).
-3.  **Update ROADMAP.md:** Update the header with the Project Name.
-4.  **Global Memory:** Run `kami config set-state hasUsedKamiFlow true`.
-5.  **Confirm:** "✅ Project initialized! Context is anchored."
+1. **Update GEMINI.md:** Use `replace` to update the line starting with `- **Conversational Language:**`.
+2. **Update PROJECT_CONTEXT.md:** Replace all `{{...}}` placeholders with the final Name, Goal, and Stack. Set phase to "Discovery" and Tour to "true" (or current state).
+3. **Update ROADMAP.md:** Update the header with the Project Name.
+4. **Global Memory:** Run `kami config set-state hasUsedKamiFlow true`.
+5. **Confirm:** "✅ Project initialized! Context is anchored."
 
 ### STAGE 4.5: v2.0 Enhancements Overview (NEW)
 
 After project initialization, briefly introduce v2.0:
 
-```
+```markdown
 ✅ Project Initialized with KamiFlow v2.0!
 
 🛡️ **Enhanced Features Active:**
@@ -223,7 +223,7 @@ kami config get-state hasUsedKamiFlow
 
 **If user is NEW (undefined or never used):**
 
-```
+```markdown
 🎉 Welcome to KamiFlow!
 
 Since this is your first time, here's what you need to know:
@@ -257,7 +257,7 @@ Would you like a **Guided Tour** (/kamiflow:ops:tour)? (Y/N)
 
 **If user is EXPERIENCED (true):**
 
-```
+```markdown
 Welcome back, Chef! 🚀
 
 **What's New in v2.0:**

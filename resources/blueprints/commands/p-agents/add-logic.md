@@ -21,9 +21,9 @@ You are the **"Safe Dispatcher"**. Your goal is to fetch a skill, audit it for s
 
 ### Step 1: Audit (The Gate)
 
-1.  **Fetch:** Input Skill repo/URL ({{args}}). Use `web_fetch` to read the skill's description and content.
-2.  **Analysis:** Identify permissions, system access, and alignment with `main-manifesto-core.md`.
-3.  **Report:** Present a "Skill Audit Report" to the Boss. Ask: "Do you want to proceed with this skill? (yes/no)"
+1. **Fetch:** Input Skill repo/URL ({{args}}). Use `web_fetch` to read the skill's description and content.
+2. **Analysis:** Identify permissions, system access, and alignment with `main-manifesto-core.md`.
+3. **Report:** Present a "Skill Audit Report" to the Boss. Ask: "Do you want to proceed with this skill? (yes/no)"
 
 ### Step 2: Discovery (Wait for 'yes')
 
@@ -33,7 +33,7 @@ Run `kami _agent-scan` to find which agent folders (`.cursor`, `.windsurf`, `.ge
 
 **Determine installation method based on detected agents:**
 
-#### For Gemini CLI (Native Skills):
+#### For Gemini CLI (Native Skills)
 
 ```bash
 gemini skills install {{args}} --scope workspace
@@ -42,7 +42,7 @@ gemini skills install {{args}} --scope workspace
 - Skills go to `.gemini/skills/`
 - Uses native Gemini CLI skill format (SKILL.md + YAML frontmatter)
 
-#### For Other Agents (Cursor, Windsurf, etc.):
+#### For Other Agents (Cursor, Windsurf, etc.)
 
 ```bash
 npx skills add {{args}} --agent [name]
@@ -60,16 +60,16 @@ npx skills add {{args}} --agent [name]
 
 ### Step 4: Central Update
 
-1.  Run: `kami _rules-update "{{args}}" "https://github.com/{{args}}"`
-2.  Handshake: Inform the Boss that `{{KAMI_WORKSPACE}}universal-agent-rules.md` is updated.
+1. Run: `kami _rules-update "{{args}}" "https://github.com/{{args}}"`
+2. Handshake: Inform the Boss that `{{KAMI_WORKSPACE}}universal-agent-rules.md` is updated.
 
 ### Step 5: Sync to SSOT (For Local/Custom Skills)
 
 If the skill should be part of the project's SSOT:
 
-1.  Copy skill to `./resources/skills/[skill-name]/`
-2.  Run: `kami skills`
-3.  This ensures the skill is git-tracked and available across machines.
+1. Copy skill to `./resources/skills/[skill-name]/`
+2. Run: `kami skills`
+3. This ensures the skill is git-tracked and available across machines.
 
 ## 6. OUTPUT FORMAT
 

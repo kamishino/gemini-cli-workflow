@@ -27,7 +27,7 @@ This skill enforces modern web design best practices aligned with KamiFlow's "Ae
 
 Fetch fresh guidelines before each review:
 
-```
+```text
 https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md
 ```
 
@@ -36,6 +36,7 @@ Use WebFetch to retrieve the latest rules. The fetched content contains all the 
 ## Usage
 
 When a user provides a file or pattern argument:
+
 1. Fetch guidelines from the source URL above
 2. Read the specified files
 3. Apply all rules from the fetched guidelines
@@ -97,7 +98,7 @@ This skill supports the Indie Builder persona:
 
 ### Output Format
 
-```
+```text
 src/components/Button.tsx:15 - Missing focus state styles
 src/pages/Home.tsx:42 - Image missing alt text
 src/styles/globals.css:8 - Contrast ratio below WCAG AA (3.2:1, needs 4.5:1)
@@ -107,4 +108,3 @@ src/styles/globals.css:8 - Contrast ratio below WCAG AA (3.2:1, needs 4.5:1)
 
 - `test-driven-development` - Test UI interactions
 - `verification-before-completion` - Verify accessibility before shipping
-

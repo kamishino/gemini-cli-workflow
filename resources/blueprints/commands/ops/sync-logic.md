@@ -14,8 +14,8 @@ You are the **"Strategic Integrator"**. Your goal is to synchronize project stat
 
 ### Step 1: Context Sync
 
-1.  **Scan Logs:** Read all files in `{{KAMI_WORKSPACE}}handoff_logs/`.
-2.  **Ingest Reality:** Update `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md` based on log findings (Status, Last Action, Next Step).
+1. **Scan Logs:** Read all files in `{{KAMI_WORKSPACE}}handoff_logs/`.
+2. **Ingest Reality:** Update `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md` based on log findings (Status, Last Action, Next Step).
 
 ### Step 1.5: IDE Work Validation (v2.0 Enhancement)
 
@@ -29,7 +29,7 @@ You are the **"Strategic Integrator"**. Your goal is to synchronize project stat
 
 **If validation missing:**
 
-```
+```yaml
 ⚠️ WARNING: Validation Not Run
 
 Handoff log: [filename]
@@ -44,7 +44,7 @@ Proceed with sync? (Y/N)
 
 **If validation FAILED/BLOCKED:**
 
-```
+```yaml
 🚨 ERROR: Validation Blocked
 
 Handoff log: [filename]
@@ -64,7 +64,7 @@ Cannot proceed with sync.
 
 **If validation PASSED:**
 
-```
+```text
 ✅ Validation Confirmed
 
 Handoff log: [filename]
@@ -83,7 +83,7 @@ Proceeding with sync...
 
 **If reflection missing:**
 
-```
+```text
 ⚠️ WARNING: Reflection Not Documented
 
 Handoff log lacks strategic reflection.
@@ -104,7 +104,7 @@ Proceed anyway? (Y/N)
 
 3. **Suggest recovery action:**
 
-```
+```yaml
 🔧 ERROR RECOVERY NEEDED
 
 Error Classification: Level [1/2/3]
@@ -122,11 +122,11 @@ Action: [Specific recovery steps]
 
 ### Step 2: Strategic Roadmap Update
 
-1.  **Analyze History:** Scan `{{KAMI_WORKSPACE}}tasks/` and `{{KAMI_WORKSPACE}}archive/` for value extraction.
-2.  **Extract Reflections:** Read strategic reflections from handoff logs for insights.
-3.  **Execution:** Run the Roadmap Engine tool.
+1. **Analyze History:** Scan `{{KAMI_WORKSPACE}}tasks/` and `{{KAMI_WORKSPACE}}archive/` for value extraction.
+2. **Extract Reflections:** Read strategic reflections from handoff logs for insights.
+3. **Execution:** Run the Roadmap Engine tool.
     - Command: `kami roadmap`
-4.  **Refinement:** Read the generated `{{KAMI_WORKSPACE}}ROADMAP.md` and replace the placeholders:
+4. **Refinement:** Read the generated `{{KAMI_WORKSPACE}}ROADMAP.md` and replace the placeholders:
     - `{{ACHIEVEMENTS}}`: Summarize 3-4 major value pillars (include value delivered from reflections).
     - `{{GROWTH_LEVERS}}`: Suggest 3 fresh strategic growth ideas (consider follow-up tasks from reflections).
 
@@ -134,7 +134,7 @@ Action: [Specific recovery steps]
 
 ### Success (All Validated)
 
-```
+```markdown
 ✅ SYNC COMPLETE
 
 **Summary:**
@@ -157,7 +157,7 @@ Action: [Specific recovery steps]
 
 ### Warning (Validation Issues)
 
-```
+```markdown
 ⚠️ SYNC COMPLETED WITH WARNINGS
 
 **Issues Found:**
@@ -178,7 +178,7 @@ Action: [Specific recovery steps]
 
 ### Error (Cannot Sync)
 
-```
+```markdown
 🚫 SYNC FAILED
 
 **Blocking Issues:**

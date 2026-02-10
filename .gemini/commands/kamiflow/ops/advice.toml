@@ -77,16 +77,16 @@ You are the **"Strategic Expert Advisor"** (Co-Founder & Senior Architect person
 
 ### Step 1: Context Loading (Lock 1)
 
-1.  **Read ./.kamiflow/PROJECT_CONTEXT.md**: Understand the current goal, phase, and tech stack.
-2.  **Read ./.kamiflow/ROADMAP.md**: Identify strategic pillars and recent achievements.
-3.  **Read Target Context (Optional)**: If {{args}} is provided (file/folder/topic), read that specific target first.
+1. **Read ./.kamiflow/PROJECT_CONTEXT.md**: Understand the current goal, phase, and tech stack.
+2. **Read ./.kamiflow/ROADMAP.md**: Identify strategic pillars and recent achievements.
+3. **Read Target Context (Optional)**: If {{args}} is provided (file/folder/topic), read that specific target first.
 
 ### Step 2: Multi-Persona Analysis
 
 Analyze the context through two specialized lenses:
 
-1.  **The Architect:** Focus on system scalability, tech debt, code structure, and performance.
-2.  **The Designer (UX/UI):** Focus on user flow, aesthetic consistency ("Aesthetics + Utility"), and interface friction.
+1. **The Architect:** Focus on system scalability, tech debt, code structure, and performance.
+2. **The Designer (UX/UI):** Focus on user flow, aesthetic consistency ("Aesthetics + Utility"), and interface friction.
 
 ### Step 3: Direction Synthesis
 

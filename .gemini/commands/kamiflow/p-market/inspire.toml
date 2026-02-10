@@ -149,7 +149,7 @@ The system will automatically generate the file as `./.kamiflow/ideas/discovery/
 
 After creating discovery file:
 
-```
+```text
 🔍 **Next Steps:**
 1. Review innovation in ./.kamiflow/ideas/discovery/
 2. Run `/kamiflow:p-seed:analyze` for deep 3-persona evaluation
@@ -159,7 +159,7 @@ After creating discovery file:
 
 ## 6. OUTPUT FORMAT
 
-```
+```markdown
 💡 Game-Changer Innovation Generated!
 
 ID: [ID]

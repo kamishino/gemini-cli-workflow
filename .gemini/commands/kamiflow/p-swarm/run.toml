@@ -79,8 +79,8 @@ Analyze the user's multi-intent request (e.g., "Implement X and also research tr
 
 ### Step 2: Threading Plan
 
-1.  Read `./.kamiflow/registry.md` to identify appropriate specialized agents.
-2.  Assign intents to agents (e.g., `executor` for code, `scout` for research).
+1. Read `./.kamiflow/registry.md` to identify appropriate specialized agents.
+2. Assign intents to agents (e.g., `executor` for code, `scout` for research).
 
 ### Step 3: Execution
 

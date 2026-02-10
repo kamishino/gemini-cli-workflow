@@ -147,7 +147,7 @@ You must begin your output with a summary of what you found during the reconnais
 
 During Lock 3 Reconnaissance, also check for applicable skills:
 
-```
+```text
 IF task involves a common pattern (TDD, auth, API, etc.):
   1. Check `.gemini/skills/` for matching skill
   2. If skill exists → Reference in task description

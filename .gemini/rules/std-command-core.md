@@ -17,12 +17,15 @@ order: 100
 To maximize the reasoning and tool-calling capabilities of Gemini CLI, all command definitions MUST follow the **Prompt-Only** standard.
 
 ### 🚫 Forbidden Pattern
+
 Do NOT use `[[steps]]` for complex logic. It makes commands rigid and hard to debug.
 
 ### ✅ Recommended Pattern
+
 Define the entire logic, tool instructions, and expected outcomes inside a single `prompt` block.
 
 **Example Structure:**
+
 ```toml
 description = "Summarize the current file"
 group = "utility"
@@ -55,11 +58,13 @@ When executing `run_shell_command` on **Windows**, you MUST prioritize **PowerSh
 | Search Text | `grep "text" file` | `Select-String -Pattern "text" -Path file` |
 
 ### ⚠️ Critical Note on Shell Separators
+
 PowerShell does NOT support `&&` for command chaining in older versions. Use `;` or run commands sequentially in separate tool calls if possible.
 
 ---
 
 ## ✅ 3. Validation Checklist
+
 - [ ] Command is a `.toml` file.
 - [ ] No `[[steps]]` used for core logic.
 - [ ] Shell commands use PowerShell syntax (if on Windows).

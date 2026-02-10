@@ -13,6 +13,7 @@ order: 220
 ---
 
 ## 1. 🛑 NON-NEGOTIABLES
+
 - **NO Anchored Paths:** Never use hardcoded strings like `./.gemini/rules/` or `{{KAMI_WORKSPACE}}` inside Blueprints.
 - **Token Usage:** Always use the approved infrastructure tokens.
 - **Transparency:** Use tokens that clearly identify the target infrastructure (Gemini vs KamiFlow).
@@ -27,19 +28,20 @@ order: 220
 ## 3. 🏗️ EXAMPLES
 
 ### ❌ WRONG (Anchored Path)
+
 `Follow instructions in @./.gemini/rules/std-id-core.md`
 `Update file at {{KAMI_WORKSPACE}}PROJECT_CONTEXT.md`
 
 ### ✅ CORRECT (Standard Tokens)
+
 `Follow instructions in {{KAMI_RULES_GEMINI}}std-id-core.md`
 `Update file at {{KAMI_WORKSPACE}}PROJECT_CONTEXT.md`
 
 ---
 
 ## 4. 🛡️ SOFT-STRICT ENFORCEMENT
+
 While this rule is "Soft Strict" (AI makes mistakes), consistently ignoring it will lead to path corruption and build failures. If you see a raw anchored path, proactively refactor it to use the appropriate Token.
 
 ---
 **Status:** Dogfooding Active ✅
-
-

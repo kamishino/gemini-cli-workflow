@@ -20,7 +20,7 @@ Random fixes waste time and create new bugs. Quick patches mask underlying issue
 
 ## The Iron Law
 
-```
+```text
 NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST
 ```
 
@@ -29,6 +29,7 @@ If you haven't completed Phase 1, you cannot propose fixes.
 ## When to Use
 
 Use for ANY technical issue:
+
 - Test failures
 - Bugs in production
 - Unexpected behavior
@@ -37,6 +38,7 @@ Use for ANY technical issue:
 - Integration issues
 
 **Use this ESPECIALLY when:**
+
 - Under time pressure (emergencies make guessing tempting)
 - "Just one quick fix" seems obvious
 - You've already tried multiple fixes
@@ -44,6 +46,7 @@ Use for ANY technical issue:
 - You don't fully understand the issue
 
 **Don't skip when:**
+
 - Issue seems simple (simple bugs have root causes too)
 - You're in a hurry (rushing guarantees rework)
 - Manager wants it fixed NOW (systematic is faster than thrashing)
@@ -78,7 +81,7 @@ You MUST complete each phase before proceeding to the next.
 
    **WHEN system has multiple components:**
 
-   ```
+```text
    For EACH component boundary:
      - Log what data enters component
      - Log what data exits component
@@ -189,6 +192,7 @@ You MUST complete each phase before proceeding to the next.
 ## Red Flags - STOP and Follow Process
 
 If you catch yourself thinking:
+
 - "Quick fix for now, investigate later"
 - "Just try changing X and see if it works"
 - "Add multiple changes, run tests"
@@ -234,7 +238,7 @@ This skill aligns with KamiFlow protocols:
 
 ### Integration with Error Recovery Protocol
 
-```
+```text
 Systematic Debugging Phase 4 → KamiFlow Error Recovery
 
 Fix attempt 1-2: Self-Healing (Level 1)
@@ -245,8 +249,8 @@ Fix attempt 4+:  Escalation (Level 3) - architectural discussion required
 ## Real-World Impact
 
 From debugging sessions:
+
 - Systematic approach: 15-30 minutes to fix
 - Random fixes approach: 2-3 hours of thrashing
 - First-time fix rate: 95% vs 40%
 - New bugs introduced: Near zero vs common
-

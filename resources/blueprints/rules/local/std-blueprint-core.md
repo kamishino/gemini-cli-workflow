@@ -79,7 +79,7 @@ Step 2 Step 3 (can run in parallel)
 ↓
 Step 4 (Integration Test)
 
-```
+```markdown
 
 ## Tasks
 
@@ -127,7 +127,7 @@ Step 4 (Integration Test)
 
 ### Execution Order Algorithm
 
-```
+```text
 1. Find all tasks with DEPENDS: none → Start Set
 2. Execute Start Set
 3. For each completed task:

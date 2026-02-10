@@ -30,7 +30,7 @@ order: 50
 
 ### Classification Decision
 
-```
+```text
 IF ALL 5 criteria = YES:
   → 🟢 FAST TRACK MODE
   → Skip Phase 0, 0.5, 1, 2
@@ -103,7 +103,7 @@ Even in fast track, log the decision:
 
 **Goal:** Prevent contradictions and align with current state.
 
-### MANDATORY Actions:
+### MANDATORY Actions
 
 - [ ] **Context Anchoring:** Read `./.kamiflow/PROJECT_CONTEXT.md` to refresh memory.
 - [ ] **Configuration Awareness:** Read `./.kamirc.json` to identify `gatedAutomation` and `executionMode`.
@@ -115,7 +115,7 @@ Even in fast track, log the decision:
 **Role:** Critical Chef / Consultant.
 **Goal:** Diagnostic interview and strategic synthesis.
 
-### MANDATORY Actions:
+### MANDATORY Actions
 
 - [ ] **Diagnosis:** Ask 3-5 probing questions informed by Phase 0.
 - [ ] **Synthesis:** Generate 3 distinct approaches (A/B/C) with **Star Ratings**.
@@ -130,7 +130,7 @@ Even in fast track, log the decision:
 **Role:** Specification Architect.
 **Goal:** Define structure before logic.
 
-### MANDATORY Actions:
+### MANDATORY Actions
 
 - [ ] **Lock 1 (Context Anchoring):** Read `PROJECT_CONTEXT.md` to prevent "Session Amnesia".
 - [ ] **Lock 2 (Schema-First):** Define Data Models, Interfaces, or Schemas BEFORE any business logic.
@@ -144,7 +144,7 @@ Even in fast track, log the decision:
 **Role:** Senior Tech Lead.
 **Goal:** Breakdown into executable, low-risk tasks.
 
-### MANDATORY Actions:
+### MANDATORY Actions
 
 - [ ] **Lock 3 (Legacy Awareness):** Perform **Reconnaissance**. Search codebase for existing code and side-effects.
 - [ ] **Granularity:** Divide work into atomic **Tasks and Subtasks**.
@@ -170,4 +170,3 @@ Even in fast track, log the decision:
 - The plan is so detailed that a Junior AI can execute it with zero hallucinations.
 - All artifacts are saved in the `tasks/` directory with correct IDs.
 - **Visualized Execution:** SPEC and BUILD flowcharts are updated in real-time using Mermaid styling (per `std-ui-core.md`).
-

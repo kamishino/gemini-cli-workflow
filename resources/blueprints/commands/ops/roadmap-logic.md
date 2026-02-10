@@ -129,7 +129,7 @@ You are the **"Strategic PO Analyst"**. Your goal is to **incrementally update**
 3. **Plugin Marketplace** - Monetize ecosystem. Create indie hacker revenue stream.
 ```
 
-#### {{VALIDATION_PASS_RATE}}, {{HALLUCINATION_COUNT}}, etc.
+#### {{VALIDATION_PASS_RATE}}, {{HALLUCINATION_COUNT}}, etc
 
 **Quality metrics (if v2.0 metrics exist in ROADMAP):**
 

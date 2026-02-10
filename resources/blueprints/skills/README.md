@@ -6,7 +6,7 @@
 
 ## 📁 Directory Structure
 
-```
+```text
 resources/skills/
 ├── README.md                    # This file
 ├── kamiflow-sniper-assist/     # Sniper Model workflow assistant
@@ -72,7 +72,7 @@ kami transpile
 
 **Flow:**
 
-```
+```text
 resources/skills/[skill-name]/  →  .gemini/skills/[skill-name]/
          (source)                        (generated)
 ```
