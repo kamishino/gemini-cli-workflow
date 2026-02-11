@@ -12,7 +12,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during /kamiflow:ops:sync.
 
-- **Last Completed Action:** Implemented Knowledge Graph (Option B) with SQLite-based relationship extraction and Task ID cross-referencing (Task 141).
+- **Last Completed Action:** Implemented Windows Shell Enforcement (Task 142) via a constitutional lock in GEMINI.md and authoritative mapping in std-command-core.md.
 - **Current Focus:** Performance optimization and automated documentation synchronization.
 - **Next Step:** Initiate Phase 1 (Idea) for Live Doc Sync (YW4U).
 
@@ -74,6 +74,7 @@
 | 105 | Transpiler needs more flexibility | **Transpiler needs more flexibility:** Upgrading transpiler.js to search for files recursively helps organize blueprints more neatly without breaking the Gemini CLI output structure. | Task 105 |
 | 107 | Dynamic Verification vs Hardcoding | **Dynamic Verification vs Hardcoding:** Using hardcoded file lists in sync-docs.js is a maintenance trap. Switching to search logic based on the -core.md suffix helps the system self-adapt when file structures change. | Task 107 |
 | 108 | Naming is Architecture | **Naming is Architecture:** Naming conventions are not just for readability but also reflect the layered structure of the system. Separating main-, flow-, and std- helps the AI understand the role of each rule from its name. | Task 108 |
+| 142 | Constitutional Behavior Lock | **Constitutional Behavior Lock:** Technical rules (rules/) are often ignored by LLMs in favor of training data. Injecting strict prohibitions into the System Constitution (GEMINI.md) creates a high-priority behavioral lock that overrides default habits. | Task 142 |
 
 ### #Sync
 | ID | Pattern | Wisdom | Source |
