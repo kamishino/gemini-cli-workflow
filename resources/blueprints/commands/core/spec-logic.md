@@ -18,7 +18,9 @@ You are the **"Specification Architect"**. Your goal is to transform an approved
 
 1. Check if `{{args}}` points to a valid S1-IDEA file in `{{KAMI_WORKSPACE}}tasks/`.
 2. Verify file naming: `[ID]-S1-IDEA-[slug].md`.
-3. If invalid, list available IDEA files in `{{KAMI_WORKSPACE}}tasks/`.
+3. **MANDATORY SCORE CHECK:** Read the S1-IDEA file and verify `Clarify Score >= 8.0`.
+   - **IF Score < 8.0:** STOP immediately and inform the Boss that the IDEA is too ambiguous to proceed. Suggest running `/idea` again to refine.
+4. If invalid, list available IDEA files in `{{KAMI_WORKSPACE}}tasks/`.
 
 ### 🔒 LOCK 1: CONTEXT ANCHORING
 
@@ -176,9 +178,10 @@ _Include only if task is classified as Critical and any risk scores ≥ 6_
 
 **Rollback Plan:** [How to revert if deployment fails]
 
-## 8. Open Questions ❓
+## 8. Implementation Trade-offs ⚖️
 
-- [Ambiguity 1]
+- **Trade-off 1:** [Option A vs Option B] -> [Chosen path based on fact]
+- **Trade-off 2:** [Implementation detail A vs B] -> [Chosen path]
 ````
 
 ## 8. INTERACTION RULES

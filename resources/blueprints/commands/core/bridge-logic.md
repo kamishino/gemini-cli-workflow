@@ -53,6 +53,7 @@ The generated file MUST be a self-contained "Prompt" for the IDE AI.
 
 - **BUILD Plan:** {{KAMI_WORKSPACE}}tasks/[ID]-S3-BUILD-[slug].md
 - **Specification:** {{KAMI_WORKSPACE}}tasks/[ID]-S2-SPEC-[slug].md
+- **Confidence Level:** [X.X]/10 (Inherited from Phase 1)
 
 ## 3. Mandatory Constraints 🛡️
 

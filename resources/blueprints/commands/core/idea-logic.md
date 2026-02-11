@@ -339,6 +339,7 @@ Once user confirms, generate the IDEA file with the chosen option.
 **Type:** IDEA
 **Slug:** [slug]
 **Status:** APPROVED
+**Clarify Score:** [X.X]/10
 **Chosen Option:** [Option A/B/C]
 [**From Idea:** [Original ID]] (Optional, if from backlog)
 
