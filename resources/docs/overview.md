@@ -251,6 +251,7 @@ The **Management Commands** (`/kamiflow:ops:roadmap` and `/kamiflow:ops:save-con
 
 | Command | Goal |
 | :--- | :--- |
+| `/kamiflow:dev:flow` | **[KamiFlow Pilot] Unified Flow Orchestrator - Integrates Idea, Spec, Build, and Execution/Handoff in a single gated stream.** |
 | `/kamiflow:core:bridge` | **[KamiFlow] Generate a 'Context Package' prompt for external AI Editors (Windsurf/Cursor).** |
 | `/kamiflow:core:idea` | **[KamiFlow Sniper] Generate refined idea through diagnostic interview and synthesis (Step 1: Two-Phase Interactive).** |
 | `/kamiflow:core:spec` | **[KamiFlow Sniper] Create detailed specification with Schema-First approach (Step 2: Lock 1 & 2).** |

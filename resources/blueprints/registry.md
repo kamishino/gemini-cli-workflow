@@ -34,7 +34,13 @@
   - resources/blueprints/commands/context-sync.md
   - resources/blueprints/commands/core/bridge-logic.md
 
-## Dev Tools (Autopilot)
+### Unified Flow Command (Pilot)
+
+- **Target:** .gemini/commands/kamiflow/dev/flow.toml
+- **Shell:** gemini-shell.md
+- **Partials:**
+  - resources/blueprints/commands/context-sync.md
+  - resources/blueprints/commands/dev/flow-logic.md
 
 ### Lazy Mode
 
