@@ -1004,38 +1004,39 @@ program.on("command:*", (operands) => {
 (async () => {
   try {
     await initI18n();
-    program.command("_insights", { hidden: true })
+program
+  .command("_insights", { hidden: true })
   .description("Internal: Display categorized strategic patterns from Memory Bank")
   .option("-c, --category <category>", "Filter by category")
   .option("-t, --task <taskId>", "Show knowledge graph for a specific task")
   .action(async (options) => {
-    const InsightManager = require('../logic/insight-manager');
+    const InsightManager = require("../logic/insight-manager");
     const insightManager = new InsightManager(process.cwd());
-    
+
     if (options.task) {
       await insightManager.displayGraph(options.task);
       return;
     }
 
-    const fs = require('fs-extra');
-    const path = require('upath');
-    const { EnvironmentManager } = require('../logic/env-manager');
+    const fs = require("fs-extra");
+    const path = require("upath");
+    const { EnvironmentManager } = require("../logic/env-manager");
     const env = new EnvironmentManager();
     const workspaceRoot = await env.getAbsoluteWorkspacePath();
-    const contextPath = path.join(workspaceRoot, 'PROJECT_CONTEXT.md');
-    
+    const contextPath = path.join(workspaceRoot, "PROJECT_CONTEXT.md");
+
     if (!fs.existsSync(contextPath)) {
       console.log("❌ Memory Bank not found.");
       return;
     }
-    
-    const content = await fs.readFile(contextPath, 'utf8');
+
+    const content = await fs.readFile(contextPath, "utf8");
     const header = "## 📚 Project Wisdom: Strategic Patterns";
     if (!content.includes(header)) {
       console.log("💭 No strategic patterns harvested yet.");
       return;
     }
-    
+
     const wisdomSection = content.split(header)[1];
     if (options.category) {
       const categoryHeader = `### #${options.category}`;
@@ -1043,10 +1044,55 @@ program.on("command:*", (operands) => {
         console.log(`💭 No patterns found for category #${options.category}`);
         return;
       }
-      const categoryContent = wisdomSection.split(categoryHeader)[1].split('###')[0];
-      console.log(`# 📚 Project Wisdom: #${options.category}\n${categoryContent.trim()}`);
+      const categoryContent =
+        wisdomSection.split(categoryHeader)[1].split("###")[0];
+      console.log(
+        `# 📚 Project Wisdom: #${options.category}\n${categoryContent.trim()}`,
+      );
     } else {
-      console.log(`# 📚 Project Wisdom: Strategic Patterns\n${wisdomSection.trim()}`);
+      console.log(
+        `# 📚 Project Wisdom: Strategic Patterns\n${wisdomSection.trim()}`,
+      );
+    }
+  });
+
+program
+  .command("_workflow", { hidden: true })
+  .description("Internal: Manage Sniper Model workflow state and artifacts")
+  .option("--init <taskId>", "Initialize a new task state")
+  .option("--slug <slug>", "Slug for the task")
+  .option("--save <phase>", "Save an artifact for a specific phase (IDEA, SPEC, BUILD, HANDOFF)")
+  .option("--content <content>", "Markdown content of the artifact")
+  .option("--score <score>", "Clarify Score for this task")
+  .option("--status <taskId>", "Get the current status of a task")
+  .action(async (options) => {
+    const WorkflowEngine = require("../logic/workflow-engine");
+    const engine = new WorkflowEngine(process.cwd());
+
+    try {
+      if (options.init) {
+        const result = await engine.initTask(options.init, options.slug || "new-task");
+        console.log(JSON.stringify(result));
+      } else if (options.save) {
+        const result = await engine.saveArtifact({
+          taskId: options.save.split("-")[0], // If passed as ID-PHASE
+          phase: options.save,
+          slug: options.slug,
+          content: options.content,
+          score: parseFloat(options.score || "0"),
+        });
+        console.log(chalk.green(`✅ Artifact saved: ${result.path}`));
+      } else if (options.status) {
+        const state = await engine.getTaskState(options.status);
+        if (state) {
+          console.log(JSON.stringify(state, null, 2));
+        } else {
+          console.log(chalk.yellow(`Task ${options.status} not found.`));
+        }
+      }
+    } catch (error) {
+      console.error(chalk.red(`❌ Workflow Error: ${error.message}`));
+      process.exit(1);
     }
   });
 

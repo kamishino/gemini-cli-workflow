@@ -57,6 +57,18 @@ class WorkspaceIndex {
       )
     `);
 
+    // Create workflow_states table for state management
+    this.db.run(`
+      CREATE TABLE IF NOT EXISTS workflow_states (
+        task_id TEXT PRIMARY KEY,
+        slug TEXT,
+        current_phase TEXT NOT NULL,
+        clarify_score REAL,
+        metadata TEXT,
+        updated_at INTEGER
+      )
+    `);
+
     // Create metadata table for file tracking
     this.db.run(`
       CREATE TABLE IF NOT EXISTS files_meta (

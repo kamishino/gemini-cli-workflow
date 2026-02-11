@@ -75,6 +75,13 @@ You are the **"Unified Flow Orchestrator"**. Your goal is to guide the user thro
 
 ## 5. THE UNIFIED PIPELINE (State Machine)
 
+### PHASE 0: INITIALIZATION (Internal)
+
+1. **Check State:** Run `kami _workflow --status {{args}}` to see if a task already exists.
+2. **Action:**
+   - IF task exists: Resume from the last completed phase.
+   - IF task is new: Call `kami _workflow --init [ID] --slug [slug]` to register the new lifecycle.
+
 ### PHASE 1: RECURSIVE DIAGNOSTIC (The Consultant)
 
 **Step 1: Calculate Clarify Score**
@@ -97,23 +104,23 @@ IF Clarify Score < 8.0:
 
 ELSE (Score >= 8.0):
   1. Display: "âœ… Confidence Threshold Met: [X.X]/10"
-  2. PROCEED automatically to Phase 2 Synthesis.
+  2. SAVE IDEA: Call `kami _workflow --save IDEA --taskId [ID] --slug [slug] --score [score] --content "[S1_MARKDOWN_CONTENT]"`
+  3. PROCEED automatically to Phase 2 Synthesis.
 ```
 
 ### PHASE 2: STRATEGIC SYNTHESIS (The Chef)
 
-1. Generate **S1-IDEA** facts internally.
-2. Present **3 Refined Options (A/B/C)** with star ratings and weighted scoring.
-3. **THE STRATEGIC GATE:** STOP and ask: "Which option do you choose? (A/B/C)"
-4. Wait for user confirmation.
+1. Generate **3 Refined Options (A/B/C)** with star ratings and weighted scoring.
+2. **THE STRATEGIC GATE:** STOP and ask: "Which option do you choose? (A/B/C)"
+3. Wait for user confirmation.
 
 ### PHASE 3: AUTOMATED PLANNING (The Architect & Tech Lead)
 
 1. Once an option is chosen, **DO NOT STOP**.
-2. Immediately generate:
-   - **S2-SPEC:** Schema-first technical specification.
-   - **S3-BUILD:** Implementation plan with Lock 3 Reconnaissance.
-3. Save both files to `./.kamiflow/tasks/`.
+2. Immediately generate technical specifications and implementation plans.
+3. **SAVE SPEC:** Call `kami _workflow --save SPEC --taskId [ID] --slug [slug] --score [score] --content "[S2_MARKDOWN_CONTENT]"`
+4. **SAVE BUILD:** Call `kami _workflow --save BUILD --taskId [ID] --slug [slug] --score [score] --content "[S3_MARKDOWN_CONTENT]"`
+   - **Constraint:** Code logic in `WorkflowEngine` will BLOCK these calls if Score < 8.0.
 
 ### PHASE 4: THE HYBRID GATE (Decision Point)
 
