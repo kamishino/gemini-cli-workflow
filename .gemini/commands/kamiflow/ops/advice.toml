@@ -94,8 +94,17 @@ Synthesize findings into exactly **3-5 Strategic Directions**. For each directio
 
 - **Title**: Impactful name for the direction.
 - **Rationale**: WHY this matters based on CURRENT context.
-- **Priority**: ? Star rating (1-5).
-- **Domain**: Architecture / UX-UI / Performance / Market.
+- **Priority**: ⭐ Star rating (1-5).
+- **Domain**: Architecture / UX-UI / Performance / Market / Operations.
+
+**Logic Rules:**
+1. **Sorting:** Sort the generated directions by **Priority** in descending order (highest first).
+2. **Emoji Mapping:** Prefix each Domain with its corresponding emoji:
+   - Architecture -> 🏗️
+   - UX-UI -> 🎨
+   - Performance -> 🚀
+   - Market -> 📈
+   - Operations -> 🔧
 
 ## 6. OUTPUT FORMAT
 
@@ -112,9 +121,18 @@ Generate a **Strategic Direction Summary**.
 
 ### 🗺️ Strategic Directions
 
-| Direction | Domain   | Rationale                       | Priority   | Next Sniper Step               |
-| :-------- | :------- | :------------------------------ | :--------- | :----------------------------- |
-| [Title]   | [Domain] | [Detailed WHY based on context] | ⭐⭐⭐⭐⭐ | \/kamiflow:core:idea [topic]\  |
+1. **[Title]**
+   - **Domain:** [Emoji] [Domain Name]
+   - **Priority:** ⭐⭐⭐⭐⭐
+   - **Rationale:** [Detailed WHY based on context]
+   - **Next Action:**
+     ```bash
+     /kamiflow:dev:flow "[topic]"
+     ```
+
+[Repeat for other directions, sorted by priority]
+
+---
 
 ### 🚨 Detected Risks & Gaps
 
@@ -124,7 +142,7 @@ Generate a **Strategic Direction Summary**.
 ---
 
 **Next Action:**
-Choose a Direction and paste the suggested Sniper Step to start implementation.
+Choose a Direction and copy the command from the code block to start implementation.
 `
 
 ## 7. TONE

@@ -12,7 +12,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during /kamiflow:ops:sync.
 
-- **Last Completed Action:** Performed comprehensive Documentation Power Refresh (v2.49+ alignment) and created Knowledge Graph guide (Task 147).
+- **Last Completed Action:** Optimized /advice output format to a Tactical List View with priority sorting and emoji mapping (Task 148).
 - **Current Focus:** Performance optimization and automated documentation synchronization.
 - **Next Step:** Initiate Phase 1 (Idea) for Live Doc Sync (YW4U).
 
@@ -52,6 +52,7 @@
 | 110 | Alias-First UX | **Alias-First UX:** In a CLI, users often prefer Aliases over original commands. Prioritizing Aliases not only keeps the interface cleaner but also directly guides users on the most efficient usage. | Task 110 |
 | 111 | Prefix Strategy for Maintenance | **Prefix Strategy for Maintenance:** Using the _ prefix combined with hidden commands in Commander.js is an effective strategy for maintaining AI support tools without complicating the end-user experience. | Task 111 |
 | 145 | Hybrid Gate Orchestration | **Hybrid Gate Orchestration:** Instead of fragmented commands, a unified 'Flow' command using state-based gates allows the user to switch between Autopilot and Manual modes at strategic milestones, reducing cognitive load. | Task 145 |
+| 148 | Vertical Feed UX for CLI | **Vertical Feed UX for CLI:** While Markdown tables look professional, they are prone to horizontal truncation in terminal environments. Using nested vertical lists ensures 100% information density and readability across all screen sizes. | Task 148 |
 
 ### #General
 | ID | Pattern | Wisdom | Source |
