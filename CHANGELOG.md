@@ -1,3 +1,16 @@
+
+## [v2.51.0] - 2026-02-11
+
+### 🚀 Features
+- feat(logic): implement Resilient Knowledge Graph with Self-healing and TDD (Task 154) (bc24070)
+- feat(logic): implement Global Fallback for Knowledge Graph portability (Task 152) (0deef1f)
+- feat(ui): implement Hybrid Knowledge Graph Visualization (Task 151) (80e7c9f)
+- feat(logic): upgrade Knowledge Graph to v2.0 with Native SQLite FTS5 (Task 150) (e324876)
+- feat(logic): implement WorkflowEngine for state-driven orchestration (Task 149) (20b66f8)
+
+### 🐛 Fixes
+- fix(ui): resolve node not found error in Knowledge Graph visualization (Task 153) (fcf63ad)
+
 ## [v2.47.0] - 2026-02-10
 
 ### 🚀 Features
