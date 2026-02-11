@@ -106,6 +106,7 @@ program
   .alias("init")
   .description("Initialize KamiFlow in a project directory")
   .option("-m, --mode <mode>", "Integration mode: link, submodule, or standalone", "link")
+  .option("-p, --preset <preset>", "Project preset: basic or full", "basic")
   .option("-d, --dev", "Enable contributor mode with symbolic links", false)
   .option("--skip-interview", "Skip interactive questions and use defaults")
   .action(async (targetPath, options) => {

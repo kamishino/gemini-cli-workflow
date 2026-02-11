@@ -2,6 +2,8 @@ const logger = require("../utils/logger");
 const fs = require("fs-extra");
 const path = require('upath');
 const { execa } = require("execa");
+const minimatch = require("minimatch");
+const presets = require("../presets.json");
 const { getCache, setCache, shouldCheck } = require("../utils/update-cache");
 const packageJson = require("../../package.json");
 const { LayeredResolver } = require("./layered-resolver");
@@ -125,7 +127,19 @@ async function updateStandaloneMode(projectPath, options = {}) {
     return false;
   }
 
-  logger.info(`Syncing standalone project files${force ? ' (FORCE MODE)' : ''}...`);
+  // Detect current preset
+  let currentPreset = "full";
+  const configPath = path.join(projectPath, ".kamirc.json");
+  if (await fs.pathExists(configPath)) {
+    try {
+      const config = await fs.readJson(configPath);
+      currentPreset = config.preset || "full";
+    } catch (e) {
+      currentPreset = "full";
+    }
+  }
+
+  logger.info(`Syncing standalone project files (Preset: ${currentPreset.toUpperCase()})${force ? ' [FORCE]' : ''}...`);
 
   const protectedFiles = [
     'GEMINI.md', 
@@ -134,20 +148,39 @@ async function updateStandaloneMode(projectPath, options = {}) {
     '.kamirc.json'
   ];
 
+  const isPathInPreset = (relPath, presetKey) => {
+    const preset = presets[presetKey];
+    if (!preset || !preset.patterns) return true;
+    const normalizedPath = relPath.replace(/\\/g, "/");
+    return preset.patterns.some(pattern => {
+      if (pattern === "**") return true;
+      return minimatch(normalizedPath, pattern);
+    });
+  };
+
   const walkAndSync = async (src, dest) => {
     const items = await fs.readdir(src);
     for (const item of items) {
       const srcPath = path.join(src, item);
       const destPath = path.join(dest, item);
       const stat = await fs.stat(srcPath);
-      const relative = path.relative(sourceDist, srcPath);
+      const relative = path.relative(sourceDist, srcPath).replace(/\\/g, "/");
 
       if (stat.isDirectory()) {
+        // Only enter directories that are part of the preset or contain files that are
+        if (relative !== "." && !isPathInPreset(relative, currentPreset) && !isPathInPreset(relative + "/*", currentPreset)) {
+            continue;
+        }
         await fs.ensureDir(destPath);
         await walkAndSync(srcPath, destPath);
       } else {
         const exists = await fs.pathExists(destPath);
         
+        // 0. Filter by Preset
+        if (!isPathInPreset(relative, currentPreset)) {
+            continue;
+        }
+
         // 1. Documentation & Whitelist: Always update
         const isDoc = relative.includes('.kamiflow/docs/');
         if (isDoc) {
@@ -161,21 +194,12 @@ async function updateStandaloneMode(projectPath, options = {}) {
           continue;
         }
 
-        // 3. Special Case: .kamirc.example.json
+        // 3. Special Case: .kamirc.example.json (Always skip in projects)
         if (relative === '.kamirc.example.json') {
-          const destActual = path.join(projectPath, '.kamirc.json');
-          if (await fs.pathExists(destActual)) {
-            if (await fs.pathExists(destPath)) {
-              await fs.remove(destPath);
-              logger.warn(`Cleaned up redundant .kamirc.example.json`);
-            }
-            continue;
+          if (exists) {
+            await fs.remove(destPath);
+            logger.warn(`Cleaned up redundant .kamirc.example.json`);
           }
-          
-          // If actual missing, seed the actual and the example
-          await fs.copy(srcPath, destActual);
-          await fs.copy(srcPath, destPath);
-          logger.success(`Seeded missing .kamirc.json and updated ${relative}`);
           continue;
         }
 

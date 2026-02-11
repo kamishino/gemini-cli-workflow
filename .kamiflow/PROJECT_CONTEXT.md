@@ -12,7 +12,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during /kamiflow:ops:sync.
 
-- **Last Completed Action:** Implemented Pilot Unified Flow command (/flow) integrating the complete Sniper lifecycle with hybrid gates (Task 145).
+- **Last Completed Action:** Implemented Manifest-driven Project Presets (Basic/Full) and safe ignore appending in Task 146.
 - **Current Focus:** Performance optimization and automated documentation synchronization.
 - **Next Step:** Initiate Phase 1 (Idea) for Live Doc Sync (YW4U).
 
@@ -69,6 +69,7 @@
 | 141 | Logic | **Logic:** Relational indexing in SQLite enables graph-like queries and relationship tracking without a dedicated graph database, preserving SSOT. | Task 141 |
 | 143 | Recursive Diagnostic Discipline | **Recursive Diagnostic Discipline:** Forcing an AI to self-assess its understanding (Clarify Score) before designing a solution prevents "Overconfident Hallucination". Listing Ambiguity Nodes provides a clear feedback loop for the user. | Task 143 |
 | 144 | Cross-Phase Logic Anchoring | **Cross-Phase Logic Anchoring:** Logic should not be stateless between phases. By enforcing Score checks at S2 and Drift Detection at S3, the system ensures that the implementation plan remains anchored to the original facts agreed upon in Phase 1. | Task 144 |
+| 146 | Manifest-Driven Preset Architecture | **Manifest-Driven Preset Architecture:** Managing project features through a central JSON manifest allows for safe, filtered installations and upgrades without hardcoding complex logic, improving maintainability. | Task 146 |
 
 ### #Rules
 | ID | Pattern | Wisdom | Source |

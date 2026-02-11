@@ -10,6 +10,8 @@ const path = require('upath');
 const os = require("os");
 const chalk = require("chalk");
 const { execSync } = require("child_process");
+const minimatch = require("minimatch");
+const presets = require("../presets.json");
 
 const KAMIFLOW_REPO = "https://github.com/kamishino/gemini-cli-workflow.git";
 const INSTALL_DIR = path.join(os.homedir(), ".kami-flow");
@@ -124,6 +126,23 @@ function showSuccess() {
 
 const { EnvironmentManager } = require("./env-manager");
 const { LayeredResolver } = require("./layered-resolver");
+const inquirer = require("inquirer").default || require("inquirer");
+
+/**
+ * Helper to check if a path matches preset patterns
+ */
+function isPathInPreset(relPath, presetKey) {
+  const preset = presets[presetKey];
+  if (!preset || !preset.patterns) return true;
+  
+  // Normalize path for matching
+  const normalizedPath = relPath.replace(/\\/g, "/");
+  
+  return preset.patterns.some(pattern => {
+    if (pattern === "**") return true;
+    return minimatch(normalizedPath, pattern);
+  });
+}
 
 /**
  * --- PART 2: PROJECT INITIALIZER (New Logic) ---
@@ -145,9 +164,27 @@ async function initializeProject(cwd, options = {}) {
     return { success: true, message: "Already initialized." };
   }
 
+  // 2. Select Preset
+  let selectedPreset = options.preset || "basic";
+  if (!options.skipInterview && !options.preset) {
+    const { preset } = await inquirer.prompt([
+      {
+        type: "list",
+        name: "preset",
+        message: "Choose KamiFlow Preset:",
+        choices: [
+          { name: chalk.cyan("Basic") + " (Core Sniper Flow only)", value: "basic" },
+          { name: chalk.green("Full") + " (Complete Suite: Plugins, Swarm, Sync)", value: "full" }
+        ],
+        default: "basic"
+      }
+    ]);
+    selectedPreset = preset;
+  }
+
   const modeText = isDevMode
     ? chalk.magenta("Contributor Mode")
-    : chalk.green("Standard Mode");
+    : chalk.green(`Standard Mode (${selectedPreset.toUpperCase()})`);
   console.log(chalk.cyan(`🚀 Initializing KamiFlow (${modeText})...`));
 
   try {
@@ -198,11 +235,16 @@ async function initializeProject(cwd, options = {}) {
       fs.cpSync(sourceDist, cwd, {
         recursive: true,
         filter: (src) => {
-          const relative = path.relative(sourceDist, src);
+          const relative = path.relative(sourceDist, src).replace(/\\/g, "/");
           const basename = path.basename(src);
 
           // Basic excludes
           if (basename === ".git" || basename === "node_modules") return false;
+          
+          // Filter by Preset
+          if (relative !== "." && !isPathInPreset(relative, selectedPreset)) {
+            return false;
+          }
 
           // Protected core files: Skip if already exists in destination
           if (protectedFiles.includes(relative)) {
@@ -213,27 +255,24 @@ async function initializeProject(cwd, options = {}) {
             }
           }
 
-          // Special case: kamirc.json vs example
-          if (relative === ".kamirc.example.json") {
-            const destActual = path.join(cwd, ".kamirc.json");
-            if (fs.existsSync(destActual)) {
-              // Actual exists, cleanup example if it was there and skip copy
-              const destExample = path.join(cwd, ".kamirc.example.json");
-              if (fs.existsSync(destExample)) {
-                fs.removeSync(destExample);
-                console.log(
-                  chalk.gray("   🧹 Cleaned up redundant .kamirc.example.json"),
-                );
-              }
-              return false;
-            }
+          // Skip example config
+          if (relative === ".kamirc.example.json") return false;
 
-            // If actual MISSING, seed both the actual and the latest example
-            fs.copySync(src, destActual);
-            console.log(
-              chalk.cyan("   🌱 Seeded new .kamirc.json from template"),
-            );
-            return true;
+          // Seed .kamirc.json if missing
+          if (relative === ".kamirc.json") {
+            const destPath = path.join(cwd, relative);
+            if (fs.existsSync(destPath)) return false;
+            
+            // Inject preset choice into config
+            try {
+                const config = fs.readJsonSync(src);
+                config.preset = selectedPreset;
+                fs.writeJsonSync(destPath, config, { spaces: 2 });
+                console.log(chalk.cyan(`   🌱 Seeded .kamirc.json (${selectedPreset})`));
+                return false; // Already handled manually
+            } catch (e) {
+                return true;
+            }
           }
 
           return true;
@@ -242,14 +281,7 @@ async function initializeProject(cwd, options = {}) {
     }
 
     // 4. Create necessary empty dirs (Only private data placeholders)
-    const workspaceDirs = [
-      "tasks",
-      "archive",
-      "ideas/draft",
-      "ideas/discovery",
-      "ideas/backlog",
-      "handoff_logs",
-    ];
+    const workspaceDirs = presets[selectedPreset].folders || ["tasks", "archive"];
 
     for (const dir of workspaceDirs) {
       const d = path.join(workspaceRoot, dir);
@@ -280,8 +312,19 @@ async function initializeProject(cwd, options = {}) {
       index.close();
     }
 
-    // 7. Update .gitignore
-    updateGitIgnore(cwd);
+    // 7. Update ignore files
+    updateIgnoreFile(cwd, ".gitignore", [
+      ".gemini/tmp",
+      ".kamiflow/agents/",
+      ".kamiflow/.index/",
+      ".kamiflow/.sync/",
+    ]);
+    
+    updateIgnoreFile(cwd, ".geminiignore", [
+      ".kamiflow/",
+      "node_modules/",
+      "dist/",
+    ]);
 
     return { success: true, message: "KamiFlow initialized successfully!" };
   } catch (error) {
@@ -290,33 +333,33 @@ async function initializeProject(cwd, options = {}) {
   }
 }
 
-function updateGitIgnore(cwd) {
-  const gitIgnorePath = path.join(cwd, ".gitignore");
-  const rules = [
-    ".gemini/tmp",
-    ".kamiflow/agents/",
-    ".kamiflow/.index/",
-    ".kamiflow/.sync/",
-  ];
-
+function updateIgnoreFile(cwd, fileName, rules) {
+  const ignorePath = path.join(cwd, fileName);
   let content = "";
-  if (fs.existsSync(gitIgnorePath)) {
-    content = fs.readFileSync(gitIgnorePath, "utf8");
+  
+  if (fs.existsSync(ignorePath)) {
+    content = fs.readFileSync(ignorePath, "utf8");
   }
 
   let updated = false;
+  const lines = content.split("\n").map(l => l.trim());
+  
+  const header = `\n# --- KamiFlow: ${fileName} ---`;
+  if (!content.includes(header.trim())) {
+    content = content.endsWith("\n") ? content + header : content + "\n" + header;
+    updated = true;
+  }
+
   for (const rule of rules) {
-    if (!content.includes(rule)) {
-      content = content.endsWith("\n")
-        ? `${content}${rule}\n`
-        : `${content}\n${rule}\n`;
+    if (!lines.includes(rule)) {
+      content = content.endsWith("\n") ? `${content}${rule}\n` : `${content}\n${rule}\n`;
       updated = true;
     }
   }
 
   if (updated) {
-    console.log(chalk.gray("🛡️  Updating .gitignore..."));
-    fs.writeFileSync(gitIgnorePath, content);
+    console.log(chalk.gray(`🛡️  Updating ${fileName}...`));
+    fs.writeFileSync(ignorePath, content);
   }
 }
 

@@ -1,0 +1,29 @@
+{
+  "basic": {
+    "name": "Basic (Core Sniper Flow)",
+    "description": "Essential Sniper Model flow only. No plugins or skills.",
+    "patterns": [
+      ".gemini/commands/kamiflow/core/**",
+      ".gemini/commands/kamiflow/ops/**",
+      ".gemini/commands/kamiflow/dev/flow.toml",
+      ".gemini/commands/kamiflow/dev/superlazy.toml",
+      ".gemini/commands/kamiflow/dev/archive.toml",
+      ".gemini/commands/kamiflow/dev/revise.toml",
+      ".gemini/rules/**",
+      ".gemini/skills/kamiflow-sniper-assist/**",
+      ".windsurf/**",
+      "GEMINI.md",
+      ".kamiflow/PROJECT_CONTEXT.md",
+      ".kamiflow/ROADMAP.md"
+    ],
+    "folders": ["tasks", "archive"],
+    "sync_setup": false
+  },
+  "full": {
+    "name": "Full (The Indie Builder Suite)",
+    "description": "Complete ecosystem: Plugins, Swarm, all Skills, and Sync Backend.",
+    "patterns": ["**"],
+    "folders": ["tasks", "archive", "ideas/draft", "ideas/discovery", "ideas/backlog", "handoff_logs"],
+    "sync_setup": true
+  }
+}
