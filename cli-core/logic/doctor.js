@@ -284,6 +284,33 @@ async function checkLegacyBackups() {
   }
 }
 
+/**
+ * Check Knowledge Graph integrity
+ */
+async function checkKnowledgeGraph() {
+  const { WorkspaceIndex } = require("./workspace-index");
+  const index = new WorkspaceIndex(process.cwd());
+  
+  console.log(chalk.gray("Knowledge Graph:"));
+  try {
+    await index.initialize();
+    const broken = await index.detectBrokenPaths();
+    
+    if (broken.length > 0) {
+      console.log(chalk.yellow(`  ⚠️  Found ${broken.length} broken link(s) in Knowledge Graph`));
+      console.log(chalk.gray("  → Run 'kami doctor --fix' to heal paths via checksum."));
+      return false;
+    }
+    console.log(chalk.green("  ✓ Knowledge Graph integrity is verified"));
+    return true;
+  } catch (e) {
+    console.log(chalk.red(`  ❌ Failed to verify Knowledge Graph: ${e.message}`));
+    return false;
+  } finally {
+    index.close();
+  }
+}
+
 async function runDoctor(options = {}) {
   console.log(chalk.cyan("Running system health checks...\n"));
 
@@ -297,6 +324,7 @@ async function runDoctor(options = {}) {
   await checkDocsHealth(); console.log();
   await checkTomlConfig(); console.log();
   await checkLegacyBackups(); console.log();
+  await checkKnowledgeGraph(); console.log();
   const projectHealthy = await checkCurrentProject();
 
   console.log();

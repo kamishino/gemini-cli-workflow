@@ -199,6 +199,34 @@ async function cleanupLegacyBackups(issue, projectPath) {
   return fixed === issue.count;
 }
 
+async function detectBrokenGraphPaths(projectPath) {
+  const { WorkspaceIndex } = require("./workspace-index");
+  const index = new WorkspaceIndex(projectPath);
+  try {
+    await index.initialize();
+    const broken = await index.detectBrokenPaths();
+    return broken.length > 0 ? [{ type: "BROKEN_GRAPH_PATHS", count: broken.length, details: broken }] : [];
+  } catch (e) {
+    return [];
+  } finally {
+    index.close();
+  }
+}
+
+async function repairGraphPaths(issue, projectPath) {
+  const { WorkspaceIndex } = require("./workspace-index");
+  const index = new WorkspaceIndex(projectPath);
+  try {
+    await index.initialize();
+    const healed = await index.healPaths();
+    return healed > 0;
+  } catch (e) {
+    return false;
+  } finally {
+    index.close();
+  }
+}
+
 async function healProject(projectPath, options = {}) {
   console.log(chalk.cyan("\n🔧 KamiFlow Self-Healing Engine\n"));
 
@@ -217,8 +245,9 @@ async function healProject(projectPath, options = {}) {
   const portalIssues = await detectBrokenPortals(projectPath);
   const fileIssues = await detectMissingFiles(projectPath);
   const backupIssues = await detectLegacyBackups(projectPath);
+  const graphIssues = await detectBrokenGraphPaths(projectPath);
 
-  const allIssues = [...portalIssues, ...fileIssues, ...backupIssues];
+  const allIssues = [...portalIssues, ...fileIssues, ...backupIssues, ...graphIssues];
 
   if (allIssues.length === 0) {
     console.log(chalk.green("✓ No issues detected. Project is healthy!\n"));
@@ -268,6 +297,9 @@ async function healProject(projectPath, options = {}) {
         break;
       case "LEGACY_BACKUPS":
         success = await cleanupLegacyBackups(issue, projectPath);
+        break;
+      case "BROKEN_GRAPH_PATHS":
+        success = await repairGraphPaths(issue, projectPath);
         break;
       default:
         console.log(chalk.yellow(`[HEALER] Skipping unknown issue type: ${issue.type}`));

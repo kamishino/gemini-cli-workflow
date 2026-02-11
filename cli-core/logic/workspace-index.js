@@ -188,7 +188,7 @@ class WorkspaceIndex {
             for (const targetId of targets) {
               if (targetId !== sourceId) {
                 this.addRelationship(sourceId, targetId, "references", {
-                  path: file.relativePath,
+                  path: path.join(".kamiflow", category, file.relativePath).replace(/\\/g, "/"),
                 });
               }
             }
@@ -650,6 +650,89 @@ class WorkspaceIndex {
     });
 
     return { nodes: Array.from(nodesMap.values()), links };
+  }
+
+  /**
+   * Find a file on disk by its checksum
+   */
+  async findFileByChecksum(checksum) {
+    const categories = ["archive", "ideas", "tasks"];
+    for (const cat of categories) {
+      const dirPath = path.join(this.projectRoot, ".kamiflow", cat);
+      if (!(await fs.pathExists(dirPath))) continue;
+      
+      const files = await this.walkDirectory(dirPath, ".md");
+      for (const file of files) {
+        if (this.calculateChecksum(file.absolutePath) === checksum) {
+          return file.relativePath;
+        }
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Detect Knowledge Graph relationships with missing file paths
+   */
+  async detectBrokenPaths() {
+    const broken = [];
+    if (this.isNative) {
+      const rels = this.db.prepare("SELECT id, source_id, metadata FROM relationships").all();
+      for (const rel of rels) {
+        const metadata = JSON.parse(rel.metadata || "{}");
+        if (metadata.path) {
+          const fullPath = path.join(this.projectRoot, metadata.path);
+          if (!fs.existsSync(fullPath)) {
+            broken.push({ id: rel.id, taskId: rel.source_id, path: metadata.path });
+          }
+        }
+      }
+    }
+    return broken;
+  }
+
+  /**
+   * Heal broken file paths in relationships and metadata
+   */
+  async healPaths() {
+    logger.info("🩺 Starting Knowledge Graph Self-Healing...");
+    let healedCount = 0;
+
+    if (this.isNative) {
+      const rels = await this.detectBrokenPaths();
+      for (const rel of rels) {
+        // Path is broken, try healing via checksum
+        const fileId = this.generateFileId(rel.path);
+        const checksum = this.db.prepare("SELECT checksum FROM files_meta WHERE file_id = ?").get(fileId)?.checksum;
+        
+        if (checksum) {
+          const newPath = await this.findFileByChecksum(checksum);
+          if (newPath) {
+            // Update relationship
+            const metadata = this.db.prepare("SELECT metadata FROM relationships WHERE id = ?").get(rel.id);
+            const metaObj = JSON.parse(metadata.metadata || "{}");
+            metaObj.path = newPath;
+            
+            this.db.prepare("UPDATE relationships SET metadata = ? WHERE id = ?").run(JSON.stringify(metaObj), rel.id);
+            
+            // Update files_meta (optional but good for consistency)
+            const newFileId = this.generateFileId(newPath);
+            this.db.prepare("UPDATE files_meta SET file_path = ?, file_id = ? WHERE checksum = ?").run(newPath, newFileId, checksum);
+            
+            healedCount++;
+            logger.debug(`[Healer] Restored relationship ${rel.id} path to: ${newPath}`);
+          }
+        }
+      }
+    }
+    
+    if (healedCount > 0) {
+      await this.save();
+      logger.success(`✓ Healed ${healedCount} broken paths in Knowledge Graph.`);
+    } else {
+      logger.info("✓ Knowledge Graph paths are consistent.");
+    }
+    return healedCount;
   }
 
   /**

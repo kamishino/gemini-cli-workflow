@@ -36,12 +36,24 @@ class InsightManager {
 
     // Knowledge Graph: Extract relationships
     await this.index.initialize();
+    
+    // 1. Standard references
     const relatedTasks = this.extractRelationships(content);
     for (const targetId of relatedTasks) {
         if (targetId !== taskId) {
-            this.index.addRelationship(taskId, targetId, 'references', { source_folder: taskFolder });
+            this.index.addRelationship(taskId, targetId, 'references', { path: path.relative(this.projectRoot, path.join(taskPath, handoffFile)) });
         }
     }
+
+    // 2. Strategic Lineage (IDEA -> IDEA)
+    const lineageMatch = content.match(/(?:Parent|From Idea):\s*.*?(\d{3})/i);
+    if (lineageMatch) {
+        const targetId = lineageMatch[1];
+        if (targetId !== taskId) {
+            this.index.addRelationship(taskId, targetId, 'lineage', { weight: 2.0, path: path.relative(this.projectRoot, path.join(taskPath, handoffFile)) });
+        }
+    }
+
     await this.index.save();
 
     const lessonsMatch = content.match(/## .*?(?:Lessons Learned|Strategic Reflection)[\s\S]*?(?=##|$)/i);
@@ -178,9 +190,12 @@ class InsightManager {
           neighbors.forEach(n => {
               const nodeLabel = `T${n.node}[Task ${n.node}]`;
               if (n.direction === 'out') {
-                  console.log(`    T${taskId} -->|${n.rel_type}| ${nodeLabel}`);
+                  const arrow = n.rel_type === 'lineage' ? "===>" : "-->";
+                  console.log(`    T${taskId} ${arrow}|${n.rel_type}| ${nodeLabel}`);
+                  if (n.rel_type === 'lineage') console.log(`    style ${nodeLabel} fill:#ff6,stroke:#333,stroke-width:2px`);
               } else {
-                  console.log(`    ${nodeLabel} -->|${n.rel_type}| T${taskId}`);
+                  const arrow = n.rel_type === 'lineage' ? "===>" : "-->";
+                  console.log(`    ${nodeLabel} ${arrow}|${n.rel_type}| T${taskId}`);
               }
           });
           console.log("```\n");

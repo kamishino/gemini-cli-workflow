@@ -12,7 +12,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during /kamiflow:ops:sync.
 
-- **Last Completed Action:** Fixed Knowledge Graph visualization bug (node not found) by unifying Task IDs and implementing ghost node protection (Task 153).
+- **Last Completed Action:** Implemented Resilient Knowledge Graph with SHA256 Self-healing, Strategic Lineage (IDEA -> IDEA), and integrity TDD in /doctor (Task 154).
 - **Current Focus:** Performance optimization and automated documentation synchronization.
 - **Next Step:** Initiate Phase 1 (Idea) for Live Doc Sync (YW4U).
 
@@ -74,6 +74,7 @@
 | 149 | State-Driven Orchestration | **State-Driven Orchestration:** Moving workflow state management from Prompt-based (probabilistic) to Code-based (deterministic) using a WorkflowEngine ensures project portability and 100% adherence to discipline gates like Clarify Score. | Task 149 |
 | 150 | Native SQLite Performance | **Native SQLite Performance:** Leveraging the built-in node:sqlite module in Node.js 22 provides 10x faster indexing and enables advanced FTS5 features (BM25 ranking, synonyms) while remaining 100% offline and dependency-free. | Task 150 |
 | 152 | Global Resource Fallback | **Global Resource Fallback:** For features that depend on non-code assets (templates, icons), implementing a search logic that falls back from Project Local to Global Core ensures portability across different project presets without duplicating files. | Task 152 |
+| 154 | Self-Healing Knowledge Architecture | **Self-Healing Knowledge Architecture:** Using file checksums (SHA256) to track moved or renamed artifacts allows the Knowledge Graph to repair itself automatically during system health checks, preventing "Information Rot" and preserving project lineage. | Task 154 |
 
 ### #Rules
 | ID | Pattern | Wisdom | Source |
