@@ -12,7 +12,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during /kamiflow:ops:sync.
 
-- **Last Completed Action:** Upgraded Knowledge Graph to v2.0 with Native SQLite FTS5 and Synonym-Aware Search (Task 150).
+- **Last Completed Action:** Implemented Hybrid Knowledge Graph Visualization (Mermaid + Interactive HTML) in .kamiflow/knowledge-graphs/ (Task 151).
 - **Current Focus:** Performance optimization and automated documentation synchronization.
 - **Next Step:** Initiate Phase 1 (Idea) for Live Doc Sync (YW4U).
 
@@ -92,4 +92,5 @@
 | ID | Pattern | Wisdom | Source |
 | :--- | :--- | :--- | :--- |
 | 137 | Aesthetics | **Aesthetics:** Keeping the Knowledge Base in PROJECT_CONTEXT.md makes it a living document for both AI and Humans. | Task 137 |
+| 151 | Hybrid Knowledge UX | **Hybrid Knowledge UX:** Combining Mermaid (for instant terminal context) with Interactive HTML (for deep project-wide exploration) provides the perfect balance between focus and scale, minimizing AI token costs while maximizing insight. | Task 151 |
 

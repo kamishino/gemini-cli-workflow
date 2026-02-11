@@ -1,4 +1,2 @@
-!.kamiflow/archive/
-!.kamiflow/ideas/
-!.kamiflow/tasks/
-!.kamiflow/handoff_logs/
+# KamiFlow Knowledge Graphs
+.kamiflow/knowledge-graphs/

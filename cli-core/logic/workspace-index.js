@@ -587,6 +587,36 @@ class WorkspaceIndex {
   }
 
   /**
+   * Export entire graph data for visualization
+   */
+  exportGraphData() {
+    let nodes = [];
+    let links = [];
+
+    if (this.isNative) {
+      // 1. Get Nodes from files_meta
+      const nodeRows = this.db.prepare("SELECT file_id as id, title as label, category as type FROM files_meta").all();
+      nodes = nodeRows;
+
+      // 2. Get Links from relationships
+      const linkRows = this.db.prepare("SELECT source_id as source, target_id as target, rel_type as type FROM relationships").all();
+      links = linkRows;
+    } else {
+      const nodeR = this.db.exec("SELECT file_id, title, category FROM files_meta")[0];
+      if (nodeR) {
+        nodes = nodeR.values.map(v => ({ id: v[0], label: v[1], type: v[2] }));
+      }
+
+      const linkR = this.db.exec("SELECT source_id, target_id, rel_type FROM relationships")[0];
+      if (linkR) {
+        links = linkR.values.map(v => ({ source: v[0], target: v[1], type: v[2] }));
+      }
+    }
+
+    return { nodes, links };
+  }
+
+  /**
    * Close database connection
    */
   async close() {

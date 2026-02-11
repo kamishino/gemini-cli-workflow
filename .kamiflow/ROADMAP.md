@@ -8,6 +8,7 @@
 ## 🏁 Strategic Achievements (Value Delivered)
 *This section is updated automatically after every Sync/SuperLazy session.*
 
+- ✅ 2026-02-11 Task 151: kg-visualization-hybrid - Implemented Hybrid KG Visualization (Mermaid + Interactive HTML).
 - ✅ 2026-02-11 Task 150: kg-semantic-fts5-upgrade - Upgraded KG to v2.0 with Native FTS5 and Synonym-Aware Search.
 - ✅ 2026-02-11 Task 149: workflow-engine-refactor - Refactored flow orchestrator into a dedicated JS class with SQLite persistence.
 - ✅ 2026-02-11 Task 148: advice-output-optimization - Converted /advice output to a Tactical List View with Priority Sorting.

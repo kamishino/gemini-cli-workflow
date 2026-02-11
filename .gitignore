@@ -277,6 +277,7 @@ $RECYCLE.BIN/
 .kamiflow/ideas/
 .kamiflow/tasks/
 .kamiflow/handoff_logs/
+.kamiflow/knowledge-graphs/
 .kamiflow/.sync/
 .kamiflow/.index/
 .gemini/tmp/

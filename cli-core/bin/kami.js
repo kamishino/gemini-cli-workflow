@@ -1011,12 +1011,25 @@ program
   .description("Internal: Display categorized strategic patterns from Memory Bank")
   .option("-c, --category <category>", "Filter by category")
   .option("-t, --task <taskId>", "Show knowledge graph for a specific task")
+  .option("-v, --visualize", "Generate Mermaid diagram for task relationships")
+  .option("-e, --export", "Export full knowledge graph to interactive HTML")
   .action(async (options) => {
     const InsightManager = require("../logic/insight-manager");
     const insightManager = new InsightManager(process.cwd());
 
+    if (options.export) {
+      try {
+        const filePath = await insightManager.exportHTMLGraph();
+        console.log(chalk.green(`\n✨ Knowledge Graph exported to: ${filePath}`));
+        console.log(chalk.gray(`   Open this file in your browser to explore the interactive map.\n`));
+      } catch (error) {
+        console.error(chalk.red(`\n❌ Export failed: ${error.message}\n`));
+      }
+      return;
+    }
+
     if (options.task) {
-      await insightManager.displayGraph(options.task);
+      await insightManager.displayGraph(options.task, { visualize: options.visualize });
       return;
     }
 

@@ -159,7 +159,7 @@ class InsightManager {
   /**
    * Display related tasks from the Knowledge Graph
    */
-  async displayGraph(taskId) {
+  async displayGraph(taskId, options = {}) {
       await this.index.initialize();
       const neighbors = this.index.getNeighbors(taskId);
       
@@ -168,11 +168,55 @@ class InsightManager {
           return;
       }
 
+      if (options.visualize) {
+          console.log(chalk.cyan(`\n📊 Knowledge Graph (Mermaid): Task ${taskId}`));
+          console.log("```mermaid");
+          console.log("graph TD");
+          console.log(`    T${taskId}[Task ${taskId}]`);
+          console.log(`    style T${taskId} fill:#f96,stroke:#333,stroke-width:4px`);
+          
+          neighbors.forEach(n => {
+              const nodeLabel = `T${n.node}[Task ${n.node}]`;
+              if (n.direction === 'out') {
+                  console.log(`    T${taskId} -->|${n.rel_type}| ${nodeLabel}`);
+              } else {
+                  console.log(`    ${nodeLabel} -->|${n.rel_type}| T${taskId}`);
+              }
+          });
+          console.log("```\n");
+          return;
+      }
+
       console.log(chalk.cyan(`\n🔄 Knowledge Graph: Related to Task ${taskId}`));
       neighbors.forEach(n => {
           const direction = n.direction === 'out' ? '→' : '←';
           console.log(chalk.gray(`   ${direction} [Task ${n.node}] (${n.rel_type})`));
       });
+  }
+
+  /**
+   * Export the entire Knowledge Graph to an interactive HTML file
+   */
+  async exportHTMLGraph() {
+      await this.index.initialize();
+      const data = this.index.exportGraphData();
+      const workspaceRoot = await this.envManager.getAbsoluteWorkspacePath();
+      const exportDir = path.join(workspaceRoot, 'knowledge-graphs');
+      const exportPath = path.join(exportDir, 'index.html');
+      
+      const templatePath = path.join(this.projectRoot, 'resources/templates/knowledge-map.html');
+      if (!fs.existsSync(templatePath)) {
+          throw new Error("Visualization template not found at " + templatePath);
+      }
+
+      await fs.ensureDir(exportDir);
+      let template = await fs.readFile(templatePath, 'utf8');
+      
+      // Inject data
+      const html = template.replace('JSON_DATA_PLACEHOLDER', JSON.stringify(data));
+      await fs.writeFile(exportPath, html);
+
+      return path.relative(this.projectRoot, exportPath);
   }
 }
 module.exports = InsightManager;
