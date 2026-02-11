@@ -12,7 +12,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during /kamiflow:ops:sync.
 
-- **Last Completed Action:** Implemented Global Fallback mechanism for Knowledge Graph visualization, ensuring portability across Standalone and Basic projects (Task 152).
+- **Last Completed Action:** Fixed Knowledge Graph visualization bug (node not found) by unifying Task IDs and implementing ghost node protection (Task 153).
 - **Current Focus:** Performance optimization and automated documentation synchronization.
 - **Next Step:** Initiate Phase 1 (Idea) for Live Doc Sync (YW4U).
 

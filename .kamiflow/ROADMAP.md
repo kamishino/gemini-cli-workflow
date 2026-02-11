@@ -8,6 +8,7 @@
 ## 🏁 Strategic Achievements (Value Delivered)
 *This section is updated automatically after every Sync/SuperLazy session.*
 
+- ✅ 2026-02-11 Task 153: kg-id-unification-fix - Resolved 'node not found' error in KG visualization via ID unification.
 - ✅ 2026-02-11 Task 152: kg-portability-enhancement - Implemented Global Fallback for KG templates to support Standalone projects.
 - ✅ 2026-02-11 Task 151: kg-visualization-hybrid - Implemented Hybrid KG Visualization (Mermaid + Interactive HTML).
 - ✅ 2026-02-11 Task 150: kg-semantic-fts5-upgrade - Upgraded KG to v2.0 with Native FTS5 and Synonym-Aware Search.

@@ -590,30 +590,66 @@ class WorkspaceIndex {
    * Export entire graph data for visualization
    */
   exportGraphData() {
-    let nodes = [];
+    const nodesMap = new Map();
     let links = [];
+
+    const processFiles = (rows) => {
+      rows.forEach((row) => {
+        // Extract Task ID (e.g. 075) from path
+        const taskIdMatch = row.file_path ? row.file_path.match(/_(\d{3})_/) : null;
+        const id = taskIdMatch ? taskIdMatch[1] : row.id;
+
+        if (!nodesMap.has(id)) {
+          nodesMap.set(id, {
+            id: id,
+            label: taskIdMatch ? `Task ${id}: ${row.label}` : row.label,
+            type: row.type,
+            path: row.file_path,
+          });
+        }
+      });
+    };
 
     if (this.isNative) {
       // 1. Get Nodes from files_meta
-      const nodeRows = this.db.prepare("SELECT file_id as id, title as label, category as type FROM files_meta").all();
-      nodes = nodeRows;
+      const nodeRows = this.db
+        .prepare("SELECT file_id as id, title as label, category as type, file_path FROM files_meta")
+        .all();
+      processFiles(nodeRows);
 
       // 2. Get Links from relationships
-      const linkRows = this.db.prepare("SELECT source_id as source, target_id as target, rel_type as type FROM relationships").all();
-      links = linkRows;
+      links = this.db
+        .prepare("SELECT source_id as source, target_id as target, rel_type as type FROM relationships")
+        .all();
     } else {
-      const nodeR = this.db.exec("SELECT file_id, title, category FROM files_meta")[0];
+      const nodeR = this.db.exec("SELECT file_id, title, category, file_path FROM files_meta")[0];
       if (nodeR) {
-        nodes = nodeR.values.map(v => ({ id: v[0], label: v[1], type: v[2] }));
+        const rows = nodeR.values.map((v) => ({
+          id: v[0],
+          label: v[1],
+          type: v[2],
+          file_path: v[3],
+        }));
+        processFiles(rows);
       }
 
       const linkR = this.db.exec("SELECT source_id, target_id, rel_type FROM relationships")[0];
       if (linkR) {
-        links = linkR.values.map(v => ({ source: v[0], target: v[1], type: v[2] }));
+        links = linkR.values.map((v) => ({ source: v[0], target: v[1], type: v[2] }));
       }
     }
 
-    return { nodes, links };
+    // 3. Ensure all link endpoints exist as nodes (Ghost Node Protection)
+    links.forEach((link) => {
+      if (!nodesMap.has(link.source)) {
+        nodesMap.set(link.source, { id: link.source, label: `Task ${link.source}`, type: "ghost" });
+      }
+      if (!nodesMap.has(link.target)) {
+        nodesMap.set(link.target, { id: link.target, label: `Task ${link.target}`, type: "ghost" });
+      }
+    });
+
+    return { nodes: Array.from(nodesMap.values()), links };
   }
 
   /**
