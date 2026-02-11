@@ -557,13 +557,13 @@ program
     });
   });
 
-// Search Command
 program
   .command("search-workspace [query]")
   .alias("search")
   .description("Search workspace files (ideas, tasks, archives)")
   .option("-c, --category <category>", "Filter by category: ideas, tasks, archive")
   .option("-l, --limit <limit>", "Maximum results to show", "20")
+  .option("-s, --synonyms <synonyms>", "Comma-separated list of synonyms for query expansion")
   .option("--rebuild", "Rebuild index before searching")
   .option("--stats", "Show index statistics")
   .action(async (query, options) => {
@@ -604,12 +604,14 @@ program
           return;
         }
         
+        const synonyms = options.synonyms ? options.synonyms.split(",").map(s => s.trim()) : [];
         const results = await index.search(query, {
           category: options.category,
-          limit: parseInt(options.limit)
+          limit: parseInt(options.limit),
+          synonyms
         });
         
-        console.log(chalk.cyan(`\n🔍 Searching workspace for: "${query}"\n`));
+        console.log(chalk.cyan(`\n🔍 Searching workspace for: "${query}"${synonyms.length > 0 ? ` (expanded: ${synonyms.join(", ")})` : ""}\n`));
         
         if (results.results.length === 0) {
           console.log(chalk.yellow("No results found.\n"));

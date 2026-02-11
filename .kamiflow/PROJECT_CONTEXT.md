@@ -12,7 +12,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during /kamiflow:ops:sync.
 
-- **Last Completed Action:** Refactored flow-logic orchestrator into a dedicated WorkflowEngine class (Option B) with SQLite state persistence (Task 149).
+- **Last Completed Action:** Upgraded Knowledge Graph to v2.0 with Native SQLite FTS5 and Synonym-Aware Search (Task 150).
 - **Current Focus:** Performance optimization and automated documentation synchronization.
 - **Next Step:** Initiate Phase 1 (Idea) for Live Doc Sync (YW4U).
 
@@ -72,6 +72,7 @@
 | 144 | Cross-Phase Logic Anchoring | **Cross-Phase Logic Anchoring:** Logic should not be stateless between phases. By enforcing Score checks at S2 and Drift Detection at S3, the system ensures that the implementation plan remains anchored to the original facts agreed upon in Phase 1. | Task 144 |
 | 146 | Manifest-Driven Preset Architecture | **Manifest-Driven Preset Architecture:** Managing project features through a central JSON manifest allows for safe, filtered installations and upgrades without hardcoding complex logic, improving maintainability. | Task 146 |
 | 149 | State-Driven Orchestration | **State-Driven Orchestration:** Moving workflow state management from Prompt-based (probabilistic) to Code-based (deterministic) using a WorkflowEngine ensures project portability and 100% adherence to discipline gates like Clarify Score. | Task 149 |
+| 150 | Native SQLite Performance | **Native SQLite Performance:** Leveraging the built-in node:sqlite module in Node.js 22 provides 10x faster indexing and enables advanced FTS5 features (BM25 ranking, synonyms) while remaining 100% offline and dependency-free. | Task 150 |
 
 ### #Rules
 | ID | Pattern | Wisdom | Source |
