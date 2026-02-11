@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="#"><img src="https://img.shields.io/badge/version-v2.44.4?style=for-the-badge" alt="Version"></a>
+  <a href="#"><img src="https://img.shields.io/badge/version-v2.49.0?style=for-the-badge" alt="Version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-2196f3?style=for-the-badge" alt="License"></a>
   <a href="#"><img src="https://img.shields.io/badge/Designed_by-Kami_with_❤️-ff69b4?style=for-the-badge" alt="Designed by"></a>
   <a href="#"><img src="https://img.shields.io/badge/Powered_by-Gemini_AI-ff9800?style=for-the-badge" alt="Powered by"></a>
@@ -50,13 +50,15 @@
 
 ## ✨ Key Features
 
-- **🎯 Sniper Model Workflow:** A 3-step fused kernel (Idea → Spec → Build) with 3-Layer Logic Locks.
-- **🛡️ v2.0 Enhanced Stability:** Anti-hallucination guards (Phase 0.5), 3-phase validation loop, strategic reflection, and auto error recovery (80% self-healing).
+- **🎯 Sniper Model Workflow:** A 3-step fused kernel (Idea → Spec → Build) with **Recursive Clarify Score** and **Logic Drift Detection**.
+- **🛡️ v2.49+ High Discipline:** Hard-gated specifications, automatic code-fact verification, and system-level constitutional locks.
+- **🧠 Relational Knowledge Graph:** Persistent SQLite-based project lineage and wisdom tracking for deep context recovery.
+- **🚀 Unified Flow Orchestrator:** A single command (`/flow`) to manage the entire Sniper lifecycle from diagnostic to execution.
 - **⚡ Saiyan Automation Suite:** "God Mode" automation (`/dev:saiyan`) for autonomous execution and batch processing.
 - **🐝 Sub-Agent Swarm:** Multi-threaded parallel execution with concurrency locks and specialized agent registry.
 - **💡 Idea Sandbox (The Lab):** A safe space to "draft" and "analyze" raw ideas using multiple AI personas.
 - **🛠️ Self-Healing Core:** Proactive system doctor and automated repair mechanisms.
-- **🚀 Smart Installer:** Frictionless installation with auto-NVM detection for Windows, MacOS, and Linux.
+- **🚀 Smart Installer:** Frictionless installation with Basic/Full presets and safe ignore appending.
 
 ---
 
@@ -84,8 +86,9 @@ _This will automatically setup the `kamiflow` (alias `kami`) global command._
 
 | Role           | Command                   | Goal                                                             |
 | :------------- | :------------------------ | :--------------------------------------------------------------- |
-| **Strategy**   | `/kamiflow:core:idea`     | Refine a raw idea into a battle plan.                            |
-| **Recovery**   | `/kamiflow:ops:wake`      | Reload project memory at session start.                          |
+| **Strategy**   | `/kamiflow:dev:flow`     | **[v2.49]** Orchestrate the entire lifecycle in one go. |
+| **Lineage**    | `_insights --task`       | **[v2.49]** Query the project's Knowledge Graph.         |
+| **Recovery**   | `/kamiflow:ops:wake`      | Reload project memory at session start.                  |
 | **Fast-Track** | `/kamiflow:dev:superlazy` | **[v2.0]** Auto-generate artifacts with validation & reflection. |
 | **God Mode**   | `/kamiflow:dev:saiyan`    | **[v2.0]** Fully autonomous execution with auto error recovery.  |
 | **Resume**     | `/kamiflow:ops:resume`    | **[v2.0]** Resume interrupted workflows from checkpoints.        |

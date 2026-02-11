@@ -24,6 +24,10 @@ Automation tools for high-speed execution.
 Machine-level operations via the `kamiflow` command.
 - `init`, `config`, `doctor`, `sync`, `archive`
 
+### [🧠 Intelligence Guides](../guides/KNOWLEDGE_GRAPH.md)
+Deep dive into KamiFlow's relational brain and lineage tracking.
+- `Knowledge Graph`, `Lineage`, `Insights`
+
 ### [⚙️ Configuration](../CONFIGURATION.md)
 How to customize KamiFlow's behavior.
 - Layers, Keys, and `.kamirc.json`

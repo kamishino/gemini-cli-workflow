@@ -12,6 +12,7 @@ graph TD
     Start((User Idea))
 
     subgraph Sniper_Phase [🎯 Sniper Model: 3-Step Fused Kernel]
+        Flow[/"/kamiflow:dev:flow"/]
         Idea[/"/kamiflow:core:idea"/]
         Spec[/"/kamiflow:core:spec"/]
         Build[/"/kamiflow:core:build"/]
@@ -60,7 +61,11 @@ graph TD
 
     %% Flow
     %% Sniper Path (Primary)
-    Start --> Idea
+    Start --> Flow
+    Flow --> Idea
+    Flow --> Spec
+    Flow --> Build
+
     Idea --> Lock1
     Lock1 --> Spec
     Spec --> Lock2
@@ -111,6 +116,7 @@ graph TD
     style Lazy fill:#f6f,stroke:#333,stroke-width:2px
     style SuperLazy fill:#f66,stroke:#333,stroke-width:2px
     style AutoCode fill:#6f6,stroke:#333,stroke-width:2px
+    style Flow fill:#f96,stroke:#333,stroke-width:4px
     style Idea fill:#ff6,stroke:#333,stroke-width:3px
     style Spec fill:#6ff,stroke:#333,stroke-width:3px
     style Build fill:#f6f,stroke:#333,stroke-width:3px
@@ -123,112 +129,58 @@ graph TD
     style MindSparks fill:#fff,stroke:#333,stroke-dasharray: 5 5
 ```
 
-## �️ v2.0 Enhancements: Stability & Anti-Hallucination
+## 🛡️ v2.49+ Enhancements: Discipline & Intelligence
 
-KamiFlow v2.0 introduces **5 critical enhancements** for accuracy and resilience:
+KamiFlow v2.49+ introduces high-priority behavioral locks to ensure the AI remains an **Architect**, not just a coder.
 
-### 1. Phase 0.5: Assumption Verification
+### 1. Clarify Score & Recursive Diagnostic
 
-**What:** Verifies files/functions/dependencies BEFORE planning
+**What:** AI self-assesses its understanding (0-10) before planning.
 
-**Why:** Prevents 80%+ hallucinations by catching invalid assumptions early
+**Why:** Prevents "Overconfident Hallucinations" where AI guesses the root cause.
 
-**When:** Auto-runs in `/kamiflow:core:idea` and `/kamiflow:dev:superlazy`
+**Threshold:** If Score < 8.0, AI is **FORBIDDEN** from solutioning and MUST ask deeper questions.
 
-**Example Output:**
+**Ambiguity Nodes:** AI lists specific files or logic points it finds unclear, providing a feedback loop for the user.
 
-```
-�📍 ASSUMPTION VERIFICATION
+### 2. Confidence Chain & Hard Gates
 
-✅ Files Verified: src/utils/helper.js, config/database.json
-✅ Functions Verified: processData() at line 42
-⚠️ Assumptions: Database schema not verified (will check during Spec)
-🚫 Hallucination Risks: None detected
-```
+**What:** Each phase verifies the "Confidence" of its predecessor.
 
-### 2. Validation Loop (3-Phase)
+**Why:** Ensures facts agreed upon in Phase 1 are not lost or ignored during Phase 2 or 3.
 
-**What:** Automatic syntax + functional + traceability validation after implementation
+**Hard Gate:** `/kamiflow:core:spec` will refuse to run if the parent IDEA has a Clarify Score < 8.0.
 
-**Why:** Catches 90%+ errors before shipping, prevents broken code from reaching production
+### 3. Logic Drift Detection
 
-**When:** Auto-runs after Phase 3A (implementation complete)
+**What:** Real-time verification of Specs against actual Codebase during implementation planning (Phase 3).
 
-**Phases:**
+**Why:** Detects when a technical plan becomes "out of sync" with reality (e.g., a function mentioned in Spec was deleted).
 
-- **Phase A (BLOCKING):** Syntax validation (TOML, linting, type checks)
-- **Phase B (BLOCKING):** Functional validation (unit tests, smoke tests)
-- **Phase C (WARNING):** Requirement traceability (>70% S2-SPEC coverage)
+**Action:** AI triggers an "Emergency Brake" and suggests `/kamiflow:dev:revise`.
 
-**Self-Healing:** 80% of syntax errors auto-fixed (TOML escapes, missing imports, formatting)
+### 4. Unified Flow Orchestration (/flow)
 
-### 3. Strategic Reflection
+**What:** A single entry point that manages the entire S1-S4 lifecycle.
 
-**What:** Quality gate + structured reflection captured in Phase 4
+**Why:** Reduces command fatigue and context fragmentation.
 
-**Why:** Lessons learned and tech debt are documented, not lost to chat history
+**Hybrid Gates:** Allows the user to toggle between Native Autopilot and IDE Handoff at strategic milestones.
 
-**When:** Every `/kamiflow:dev:superlazy` completion
+### 5. Knowledge Graph & Project Lineage
 
-**Reflection Template:**
+**What:** A relational SQLite-based index of Task relationships and Wisdom patterns.
 
-- **Value Delivered:** 1-sentence impact statement
-- **Technical Debt:** None/Minor/Significant + payback plan
-- **Lessons Learned:** What went well, what could improve
-- **Follow-up Tasks:** Dependencies or improvements identified
-
-### 4. Error Recovery (3-Level)
-
-**What:** Smart error classification with auto-healing and guided recovery
-
-**Why:** 80% of errors resolve without user intervention, saving time and frustration
-
-**When:** Any workflow error triggers classification and recovery
-
-**Levels:**
-
-- **Level 1 (80%):** Self-Healing → TOML syntax, missing imports, formatting → Auto-fixed
-- **Level 2 (15%):** User Assist → Test failures, conflicts → Guided recovery with options
-- **Level 3 (5%):** Escalation → Hallucinations, scope creep → `/kamiflow:dev:revise` emergency brake
-
-### 5. Progress Checkpoints
-
-**What:** Resume interrupted workflows without losing context
-
-**Why:** Long workflows (>30 min) can be paused/resumed seamlessly
-
-**When:** 7 automatic checkpoints throughout workflow (Phase 0 → complete)
-
-**Usage:**
-
-```bash
-# Automatic detection on wake
-/kamiflow:ops:wake
-# → Detects active checkpoint
-# → "Resume Task 042? (Y/N)"
-
-# Manual resume
-/kamiflow:ops:resume 042
-```
-
-**Checkpoint Locations:**
-
-- Phase 0: Logical Guard complete
-- Phase 0.5: Assumption Verification complete
-- Phase 1: Diagnostic Interview complete
-- Phase 2: Strategic Synthesis complete
-- Phase 3A: Planning complete
-- Phase 3B: Validation complete
-- Phase 4: Work complete
+**Why:** Enables AI to "remember" why a change was made 3 months ago by tracing the graph of dependencies.
 
 ---
 
-## 📊 v2.0 Impact Summary
+## 📊 v2.49 Impact Summary
 
-| Metric                | v1.x   | v2.0      | Improvement             |
+| Metric                | v1.x   | v2.49+    | Improvement             |
 | --------------------- | ------ | --------- | ----------------------- |
-| Hallucination Rate    | ~20%   | <5%       | 80% reduction           |
-| Validation Pass Rate  | ~70%   | >90%      | First-attempt success   |
+| Hallucination Rate    | ~20%   | <2%       | 90% reduction           |
+| Validation Pass Rate  | ~70%   | >95%      | First-attempt success   |
 | Error Auto-Resolution | 0%     | >80%      | Self-healing capability |
 | Workflow Resumability | No     | Yes       | 7 checkpoints           |
 | Quality Documentation | Manual | Automated | Reflection templates    |
@@ -337,5 +289,3 @@ The **Management Commands** (`/kamiflow:ops:roadmap` and `/kamiflow:ops:save-con
 | `kamiflow resume` | **Resume workflow from last checkpoint.** |
 
 <!-- KAMI_COMMAND_LIST_END -->
-
-

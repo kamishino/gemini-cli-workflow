@@ -29,12 +29,17 @@ The **`kamiflow`** (alias **`kami`**) command is used for machine-level operatio
 > **Goal:** Initialize a project with the KamiFlow ecosystem.
 
 ### 📋 Options for Speed
+- `--preset <basic|full>`: Choose the installation scale.
+  - **Basic:** Core Sniper Flow only (No plugins, minimal skills).
+  - **Full:** Complete suite including Plugins, Swarm, and Sync.
 - `--skip-interview`: Skip all onboarding questions and use default templates.
-- **Note:** This command now performs a **Template Copy**, creating a standalone `.gemini/` configuration folder in your project.
+- **Safety:** This command **Appends** rules to `.gitignore` and `.geminiignore` instead of overwriting them.
+- **Standalone:** It performs a **Template Copy**, creating a standalone `.gemini/` configuration folder in your project.
 
 ### 🚀 Fast Track
 ```bash
-kami init --skip-interview
+# Quick basic setup
+kami init --preset basic --skip-interview
 ```
 
 ---

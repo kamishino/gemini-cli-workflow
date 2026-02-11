@@ -25,6 +25,19 @@ Automation tools for high-speed building, archiving, and release management.
 
 ---
 
+## /kamiflow:dev:flow
+> **Goal:** Unified Flow Orchestrator - One command to manage the entire lifecycle.
+
+### 🧠 Logic & Thinking (CoT)
+1. **Orchestration:** It merges `/idea`, `/spec`, and `/build` into a single interaction loop.
+2. **Continuity:** It maintains 100% context between phases, ensuring no facts are lost during transitions.
+3. **Hybrid Gate:** At the end of planning, it asks:
+   - **Proceed:** Execute implementation immediately (Native).
+   - **Amend:** Go back and adjust facts/plan.
+   - **Handoff:** Create a package for external IDE AI.
+
+---
+
 ## /kamiflow:dev:lazy
 > **Goal:** Auto-generate S1-S4 artifacts using the Sniper Model with a mandatory Diagnostic Gate.
 

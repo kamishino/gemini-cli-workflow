@@ -79,14 +79,17 @@ Run this at the start of every session:
 
 ### 🧠 Logic & Thinking (CoT)
 1. **Pre-Flight:** Checks if `.gemini/` already exists.
-2. **Template Copy:** Executes `kami init` to copy the master configuration template into your project's root.
-3. **Independence:** The copied configuration is **standalone**. You can edit rules and commands without affecting the global core.
+2. **Preset Selection:** Allows choosing between **Basic** (minimal) or **Full** (complete suite) via `kami init --preset`.
+3. **Template Copy:** Executes `kami init` to copy the master configuration template into your project's root.
+4. **Independence:** The copied configuration is **standalone**. You can edit rules and commands without affecting the global core.
 
 ### 🛠️ Practical Usage
 ```bash
-/kamiflow:ops:bootstrap
-# Or simply run:
+# Follow prompts to choose preset
 kami init
+
+# Or force a preset
+kami init --preset basic
 ```
 
 ---
