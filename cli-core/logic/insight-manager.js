@@ -204,9 +204,19 @@ class InsightManager {
       const exportDir = path.join(workspaceRoot, 'knowledge-graphs');
       const exportPath = path.join(exportDir, 'index.html');
       
-      const templatePath = path.join(this.projectRoot, 'resources/templates/knowledge-map.html');
-      if (!fs.existsSync(templatePath)) {
-          throw new Error("Visualization template not found at " + templatePath);
+      // Smart Template Resolution
+      const localTemplate = path.join(this.projectRoot, 'resources/templates/knowledge-map.html');
+      const globalTemplate = path.join(__dirname, '../../resources/templates/knowledge-map.html');
+      
+      let templatePath = null;
+      if (fs.existsSync(localTemplate)) {
+          templatePath = localTemplate;
+      } else if (fs.existsSync(globalTemplate)) {
+          templatePath = globalTemplate;
+      }
+
+      if (!templatePath) {
+          throw new Error("Visualization template not found locally or globally.");
       }
 
       await fs.ensureDir(exportDir);
