@@ -2,11 +2,13 @@ const fs = require('fs-extra');
 const path = require('upath');
 const chalk = require('chalk');
 const { EnvironmentManager } = require('./env-manager');
+const { WorkspaceIndex } = require('./workspace-index');
 
 class InsightManager {
   constructor(projectRoot = process.cwd()) {
     this.projectRoot = projectRoot;
     this.envManager = new EnvironmentManager(projectRoot);
+    this.index = new WorkspaceIndex(projectRoot);
   }
 
   async getPaths() {
@@ -31,6 +33,17 @@ class InsightManager {
     if (!handoffFile) return [];
     
     const content = await fs.readFile(path.join(taskPath, handoffFile), 'utf8');
+
+    // Knowledge Graph: Extract relationships
+    await this.index.initialize();
+    const relatedTasks = this.extractRelationships(content);
+    for (const targetId of relatedTasks) {
+        if (targetId !== taskId) {
+            this.index.addRelationship(taskId, targetId, 'references', { source_folder: taskFolder });
+        }
+    }
+    await this.index.save();
+
     const lessonsMatch = content.match(/## .*?(?:Lessons Learned|Strategic Reflection)[\s\S]*?(?=##|$)/i);
     if (!lessonsMatch) return [];
     
@@ -132,6 +145,34 @@ class InsightManager {
     });
 
     await fs.writeFile(paths.context, preSection.trim() + "\n\n" + sectionHeader + "\n" + newWisdomSection);
+  }
+
+  /**
+   * Extract Task IDs from content using Regex
+   */
+  extractRelationships(content) {
+      const taskRegex = /\bTask\s+(\d{3})\b/gi;
+      const matches = [...content.matchAll(taskRegex)];
+      return [...new Set(matches.map(m => m[1]))];
+  }
+
+  /**
+   * Display related tasks from the Knowledge Graph
+   */
+  async displayGraph(taskId) {
+      await this.index.initialize();
+      const neighbors = this.index.getNeighbors(taskId);
+      
+      if (neighbors.length === 0) {
+          console.log(chalk.gray(`\n💭 No graph relationships found for Task ${taskId}.`));
+          return;
+      }
+
+      console.log(chalk.cyan(`\n🔄 Knowledge Graph: Related to Task ${taskId}`));
+      neighbors.forEach(n => {
+          const direction = n.direction === 'out' ? '→' : '←';
+          console.log(chalk.gray(`   ${direction} [Task ${n.node}] (${n.rel_type})`));
+      });
   }
 }
 module.exports = InsightManager;

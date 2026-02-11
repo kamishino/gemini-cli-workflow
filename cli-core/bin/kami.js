@@ -577,13 +577,14 @@ program
           const stats = index.getStats();
           console.log(chalk.cyan("\n📊 Workspace Index Statistics\n"));
           console.log(chalk.gray("Total files:"), chalk.white(stats.totalFiles));
+          console.log(chalk.gray("Knowledge Graph:"), chalk.white(`${stats.totalRelationships} relationships`));
           console.log(chalk.gray("Total size:"), chalk.white(`${(stats.totalSize / 1024 / 1024).toFixed(2)} MB`));
           console.log(chalk.gray("Last indexed:"), chalk.white(stats.lastIndexed ? stats.lastIndexed.toLocaleString() : "Never"));
           
-          if (stats.byCategory && Object.keys(stats.byCategory).length > 0) {
+          if (stats.byCategory && stats.byCategory.length > 0) {
             console.log(chalk.gray("\nBy category:"));
-            Object.entries(stats.byCategory).forEach(([cat, data]) => {
-              console.log(chalk.gray(`  ${cat}:`), chalk.white(`${data.count} files, ${(data.size / 1024).toFixed(1)} KB`));
+            stats.byCategory.forEach((data) => {
+              console.log(chalk.gray(`  ${data.category}:`), chalk.white(`${data.count} files, ${(data.size / 1024).toFixed(1)} KB`));
             });
           }
           console.log();
@@ -1002,10 +1003,19 @@ program.on("command:*", (operands) => {
 (async () => {
   try {
     await initI18n();
-    program          .command("_insights", { hidden: true })
+    program.command("_insights", { hidden: true })
   .description("Internal: Display categorized strategic patterns from Memory Bank")
   .option("-c, --category <category>", "Filter by category")
+  .option("-t, --task <taskId>", "Show knowledge graph for a specific task")
   .action(async (options) => {
+    const InsightManager = require('../logic/insight-manager');
+    const insightManager = new InsightManager(process.cwd());
+    
+    if (options.task) {
+      await insightManager.displayGraph(options.task);
+      return;
+    }
+
     const fs = require('fs-extra');
     const path = require('upath');
     const { EnvironmentManager } = require('../logic/env-manager');

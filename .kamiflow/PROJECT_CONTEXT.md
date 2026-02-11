@@ -12,7 +12,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during /kamiflow:ops:sync.
 
-- **Last Completed Action:** Implemented Context Sharding (Task 139) and standardized blueprint indexing.
+- **Last Completed Action:** Implemented Knowledge Graph (Option B) with SQLite-based relationship extraction and Task ID cross-referencing (Task 141).
 - **Current Focus:** Performance optimization and automated documentation synchronization.
 - **Next Step:** Initiate Phase 1 (Idea) for Live Doc Sync (YW4U).
 
@@ -65,6 +65,7 @@
 | 131 | Logic | **Logic:** Stricter MoSCoW rules prevent scope creep in MVP options. | Task 131 |
 | 137 | Logic | **Logic:** Using single-quoted heredocs in PowerShell avoids accidental interpolation. | Task 137 |
 | 137 | Pattern | **Pattern:** Category headers in Markdown can be easily parsed using simple split/regex logic without a heavy DB. | Task 137 |
+| 141 | Logic | **Logic:** Relational indexing in SQLite enables graph-like queries and relationship tracking without a dedicated graph database, preserving SSOT. | Task 141 |
 
 ### #Rules
 | ID | Pattern | Wisdom | Source |

@@ -44,6 +44,19 @@ class WorkspaceIndex {
       )
     `);
 
+    // Create relationships table for Knowledge Graph
+    this.db.run(`
+      CREATE TABLE IF NOT EXISTS relationships (
+        id TEXT PRIMARY KEY,
+        source_id TEXT NOT NULL,
+        target_id TEXT NOT NULL,
+        rel_type TEXT NOT NULL,
+        weight REAL DEFAULT 1.0,
+        metadata TEXT,
+        created_at INTEGER
+      )
+    `);
+
     // Create metadata table for file tracking
     this.db.run(`
       CREATE TABLE IF NOT EXISTS files_meta (
@@ -114,6 +127,25 @@ class WorkspaceIndex {
           const { title, content, metadata } = this.extractContent(
             file.absolutePath,
           );
+
+          // Extract relationships if in archive
+          if (category === "archive") {
+            const taskIdMatch = file.relativePath.match(/_(\d{3})_/);
+            if (taskIdMatch) {
+              const sourceId = taskIdMatch[1];
+              const taskRegex = /\bTask\s+(\d{3})\b/gi;
+              const rawContent = fs.readFileSync(file.absolutePath, "utf8");
+              const matches = [...rawContent.matchAll(taskRegex)];
+              const targets = [...new Set(matches.map(m => m[1]))];
+              
+              for (const targetId of targets) {
+                if (targetId !== sourceId) {
+                  this.addRelationship(sourceId, targetId, "references", { path: file.relativePath });
+                }
+              }
+            }
+          }
+
           const stats = fs.statSync(file.absolutePath);
           const projectId = this.getProjectId();
 
@@ -244,6 +276,7 @@ class WorkspaceIndex {
     // Clear existing data
     this.db.run("DELETE FROM files_search");
     this.db.run("DELETE FROM files_meta");
+    this.db.run("DELETE FROM relationships");
 
     // Reindex all categories
     const categories = ["archive", "ideas", "tasks"];
@@ -291,12 +324,63 @@ class WorkspaceIndex {
         size: row[2],
       })) || [];
 
+    const totalRelationshipsResult = this.db.exec(
+      "SELECT COUNT(*) as count FROM relationships",
+    )[0];
+    const totalRelationships = totalRelationshipsResult?.values[0]?.[0] || 0;
+
     return {
       totalFiles,
       totalSize,
       lastIndexed: lastIndexed ? new Date(parseInt(lastIndexed)) : null,
       byCategory,
+      totalRelationships,
     };
+  }
+
+  /**
+   * Add or update a relationship in the Knowledge Graph
+   */
+  addRelationship(source, target, type, metadata = {}) {
+    const id = crypto
+      .createHash("md5")
+      .update(`${source}:${target}:${type}`)
+      .digest("hex");
+    
+    this.db.run(
+      `INSERT OR REPLACE INTO relationships (id, source_id, target_id, rel_type, weight, metadata, created_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      [
+        id,
+        source,
+        target,
+        type,
+        1.0,
+        JSON.stringify(metadata),
+        Date.now()
+      ]
+    );
+  }
+
+  /**
+   * Get neighboring nodes in the graph
+   */
+  getNeighbors(nodeId) {
+    const sql = `
+      SELECT target_id as node, rel_type, 'out' as direction FROM relationships WHERE source_id = ?
+      UNION
+      SELECT source_id as node, rel_type, 'in' as direction FROM relationships WHERE target_id = ?
+    `;
+    
+    const results = this.db.exec(sql, [nodeId, nodeId]);
+    const rows = results[0]?.values || [];
+    const columns = results[0]?.columns || [];
+
+    return rows.map(row => {
+      const obj = {};
+      columns.forEach((col, idx) => obj[col] = row[idx]);
+      return obj;
+    });
   }
 
   /**
