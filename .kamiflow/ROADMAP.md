@@ -23,7 +23,7 @@
 
 ---
 
-## v2.0 Quality Metrics
+## � v2.0 Quality Metrics
 
 *Auto-tracked by validation loop and reflection reports:*
 
@@ -35,7 +35,7 @@
 
 ---
 
-## 📅 Timeline & Detailed Progress
+## �📅 Timeline & Detailed Progress
 
 ### ✅ Completed
 - [x] **v1.0 Core:** Initial setup.
@@ -44,9 +44,11 @@
 - [x] **Archived:** 2026-02-12_156_fact-check-gate-enforcement
 - [x] **Archived:** 2026-02-12_155_memory-fusion-upgrade
 - [x] **Archived:** 2026-02-11_154_kg-tdd-self-healing
-
----
-**Note:** Task history > 5 items is moved to `.kamiflow/ROADMAP_HISTORY.md`.
+- [x] **Archived:** 2026-02-11_153_kg-id-unification-fix
+- [x] **Archived:** 2026-02-11_152_kg-portability-enhancement
+- [x] **Archived:** 2026-02-11_151_kg-visualization-hybrid
+- [x] **Archived:** 2026-02-11_150_kg-semantic-fts5-upgrade
+- [x] **Archived:** 2026-02-11_149_workflow-engine-refactor
 
 ### 🚧 In Progress
 - [ ] **Active:** 159-159-BUILD-codebase-improvement-orchestration.md
