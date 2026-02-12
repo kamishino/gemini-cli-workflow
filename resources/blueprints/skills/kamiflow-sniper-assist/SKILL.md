@@ -40,12 +40,12 @@ Check       Verification Interview  Design     Plan
 
 **CRITICAL:** Verify before you plan:
 
-| Check | Tool | Action if Failed |
-|-------|------|------------------|
-| File paths exist | `find_by_name` | Report hallucination risk |
-| Functions exist | `grep_search` | Confirm signature before referencing |
-| Dependencies installed | Read `package.json` | Add to task list if missing |
-| Config options valid | Read `.kamirc.json` | Use defaults if invalid |
+| Check                  | Tool                | Action if Failed                     |
+| ---------------------- | ------------------- | ------------------------------------ |
+| File paths exist       | `find_by_name`      | Report hallucination risk            |
+| Functions exist        | `grep_search`       | Confirm signature before referencing |
+| Dependencies installed | Read `package.json` | Add to task list if missing          |
+| Config options valid   | Read `.kamirc.json` | Use defaults if invalid              |
 
 **Output:** Verification Report (PASS/WARN/FAIL for each check)
 
@@ -68,11 +68,11 @@ Ask clarifying questions:
 
 Generate **3 options** with star ratings:
 
-| Option | Approach | Effort | Risk | Rating |
-|--------|----------|--------|------|--------|
-| A | [Description] | [Low/Med/High] | [Low/Med/High] | ⭐⭐⭐ |
-| B | [Description] | [Low/Med/High] | [Low/Med/High] | ⭐⭐ |
-| C | [Description] | [Low/Med/High] | [Low/Med/High] | ⭐ |
+| Option | Approach      | Effort         | Risk           | Rating |
+| ------ | ------------- | -------------- | -------------- | ------ |
+| A      | [Description] | [Low/Med/High] | [Low/Med/High] | ⭐⭐⭐ |
+| B      | [Description] | [Low/Med/High] | [Low/Med/High] | ⭐⭐   |
+| C      | [Description] | [Low/Med/High] | [Low/Med/High] | ⭐     |
 
 ### Step 1.3: Strategic Gate
 
@@ -113,11 +113,11 @@ Define function signatures, endpoints, or component props.
 
 ### Step 2.4: Test Specification (TDD Mandate)
 
-| Test ID | Scenario | Input | Expected | Priority |
-|---------|----------|-------|----------|----------|
-| TC-1 | Happy path | [Valid input] | [Success] | P0 |
-| TC-2 | Edge case | [Boundary] | [Handled] | P1 |
-| TC-3 | Error case | [Invalid] | [Error msg] | P1 |
+| Test ID | Scenario   | Input         | Expected    | Priority |
+| ------- | ---------- | ------------- | ----------- | -------- |
+| TC-1    | Happy path | [Valid input] | [Success]   | P0       |
+| TC-2    | Edge case  | [Boundary]    | [Handled]   | P1       |
+| TC-3    | Error case | [Invalid]     | [Error msg] | P1       |
 
 ### Step 2.5: Edge Cases
 

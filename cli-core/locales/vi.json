@@ -3,13 +3,13 @@
   "cli.hint.tryHelp": "Hãy thử 'kami help' để xem các lệnh khả dụng",
   "cli.success.complete": "{{action}} hoàn tất!",
   "cli.info.nextSteps": "Các bước tiếp theo:",
-  
+
   "installer.success.aliasAdded": "Đã thêm alias 'kami' vào {{file}}",
   "installer.error.gitMissing": "Chưa cài đặt Git. Vui lòng cài Git từ https://git-scm.com/",
   "installer.error.nodeVersion": "Phiên bản Node.js phải >= 16. Hiện tại: {{version}}",
   "installer.info.targetDir": "Thư mục đích: {{path}}",
   "installer.info.updating": "Đang cập nhật bản cài đặt hiện tại...",
-  
+
   "doctor.error.nodeVersionLow": "Yêu cầu Node.js 16+",
   "doctor.success.nodeCompatible": "Phiên bản Node.js tương thích",
   "doctor.success.geminiFound": "Đã tìm thấy Gemini CLI và hoạt động tốt",
@@ -18,30 +18,30 @@
   "doctor.success.gitFound": "Đã tìm thấy Git",
   "doctor.success.allHealthy": "Tất cả hệ thống hoạt động tốt!",
   "doctor.warn.issuesDetected": "Phát hiện một số vấn đề. Xem chi tiết ở trên.",
-  
+
   "config.success.valueSet": "Đã đặt {{key}} = {{value}} ({{scope}})",
   "config.success.syncComplete": "Đã đồng bộ cấu hình. Thêm {{count}} khóa còn thiếu.",
   "config.success.upToDate": "Cấu hình dự án đã được cập nhật.",
   "config.warn.orphanedKeys": "Tìm thấy {{count}} khóa lỗi thời không có trong schema hiện tại:",
   "config.info.orphanedNote": "(Các khóa này được giữ lại nhưng bị hệ thống bỏ qua)",
   "config.info.noConfig": "Không tìm thấy cấu hình.",
-  
+
   "updater.info.checking": "Đang kiểm tra cập nhật...",
   "updater.success.upToDate": "Bạn đang sử dụng phiên bản mới nhất.",
   "updater.info.updateAvailable": "Có bản cập nhật: {{current}} → {{latest}}",
   "updater.error.updateFailed": "Cập nhật thất bại: {{error}}",
-  
+
   "archivist.info.archiving": "Đang lưu trữ task: {{id}}",
   "archivist.success.archived": "Đã lưu trữ: {{path}}",
   "archivist.error.notFound": "Không tìm thấy task: {{id}}",
-  
+
   "transpiler.info.syncing": "Đang đồng bộ tài liệu...",
   "transpiler.success.complete": "Hoàn thành chuyển đổi",
   "transpiler.error.missingMetadata": "QUAN TRỌNG: Thiếu metadata trong {{file}}: {{fields}}",
-  
+
   "validator.success.allValid": "Tất cả {{count}} file TOML đều hợp lệ!",
   "validator.error.invalidFiles": "Tìm thấy {{count}} file TOML không hợp lệ.",
-  
+
   "common.error": "Lỗi: {{message}}",
   "common.warning": "Cảnh báo: {{message}}",
   "common.info": "Thông tin: {{message}}",

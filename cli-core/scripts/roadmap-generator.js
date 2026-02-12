@@ -1,3 +1,4 @@
+/* eslint-disable no-process-exit */
 const fs = require("fs-extra");
 const path = require("upath");
 const chalk = require("chalk");
@@ -20,7 +21,9 @@ async function main() {
     // 1. Get Context
     const contextContent = await fs.readFile(CONTEXT_PATH, "utf8");
     const phaseMatch = contextContent.match(/Current Phase:\s*(.*)/);
-    const activeTaskMatch = contextContent.match(/Last Completed Action:\s*(.*)/);
+    const activeTaskMatch = contextContent.match(
+      /Last Completed Action:\s*(.*)/,
+    );
 
     const currentPhase = phaseMatch ? phaseMatch[1].trim() : "Unknown";
     const lastAction = activeTaskMatch ? activeTaskMatch[1].trim() : "N/A";
@@ -69,7 +72,9 @@ async function main() {
 
     roadmapContent += `\n### 🚧 In Progress\n`;
     if (fs.existsSync(TASKS_DIR)) {
-      const activeTasks = fs.readdirSync(TASKS_DIR).filter((f) => f.endsWith(".md"));
+      const activeTasks = fs
+        .readdirSync(TASKS_DIR)
+        .filter((f) => f.endsWith(".md"));
       activeTasks.forEach((t) => {
         roadmapContent += `- [ ] **Active:** ${t}\n`;
       });
@@ -84,7 +89,9 @@ async function main() {
     roadmapContent += `- **Efficiency:** Strategic alignment.\n`;
 
     await fs.writeFile(ROADMAP_PATH, roadmapContent);
-    console.log(chalk.green(`✅ RoadMap updated successfully at: ${ROADMAP_PATH}`));
+    console.log(
+      chalk.green(`✅ RoadMap updated successfully at: ${ROADMAP_PATH}`),
+    );
   } catch (error) {
     console.error(chalk.red(`❌ Roadmap Generation Error: ${error.message}`));
     process.exit(1);

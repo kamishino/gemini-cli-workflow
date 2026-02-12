@@ -23,7 +23,14 @@
     "name": "Full (The Indie Builder Suite)",
     "description": "Complete ecosystem: Plugins, Swarm, all Skills, and Sync Backend.",
     "patterns": ["**"],
-    "folders": ["tasks", "archive", "ideas/draft", "ideas/discovery", "ideas/backlog", "handoff_logs"],
+    "folders": [
+      "tasks",
+      "archive",
+      "ideas/draft",
+      "ideas/discovery",
+      "ideas/backlog",
+      "handoff_logs"
+    ],
     "sync_setup": true
   }
 }

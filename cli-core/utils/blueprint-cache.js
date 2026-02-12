@@ -3,9 +3,9 @@
  * Provides in-memory caching for blueprint files to improve transpiler performance
  */
 
-const fs = require('fs-extra');
-const path = require('upath');
-const crypto = require('crypto');
+const fs = require("fs-extra");
+const path = require("upath");
+const crypto = require("crypto");
 
 class BlueprintCache {
   constructor(options = {}) {
@@ -26,13 +26,14 @@ class BlueprintCache {
     try {
       const stats = await fs.stat(filePath);
       const mtime = stats.mtime.getTime();
-      const hash = crypto.createHash('md5')
+      const hash = crypto
+        .createHash("md5")
         .update(`${filePath}:${mtime}`)
-        .digest('hex');
+        .digest("hex");
       return hash;
     } catch (error) {
       // If file doesn't exist or can't be read, return path-based key
-      return crypto.createHash('md5').update(filePath).digest('hex');
+      return crypto.createHash("md5").update(filePath).digest("hex");
     }
   }
 
@@ -82,7 +83,7 @@ class BlueprintCache {
     this.cache.set(key, {
       data,
       timestamp: Date.now(),
-      filePath
+      filePath,
     });
   }
 
@@ -93,14 +94,14 @@ class BlueprintCache {
    */
   async has(filePath) {
     if (!this.enabled) return false;
-    
+
     const key = await this.generateKey(filePath);
     const entry = this.cache.get(key);
-    
+
     if (!entry) return false;
-    
+
     // Check expiration
-    return (Date.now() - entry.timestamp) <= this.maxAge;
+    return Date.now() - entry.timestamp <= this.maxAge;
   }
 
   /**
@@ -127,7 +128,7 @@ class BlueprintCache {
    */
   getStats() {
     const total = this.hits + this.misses;
-    const hitRate = total > 0 ? (this.hits / total * 100).toFixed(2) : 0;
+    const hitRate = total > 0 ? ((this.hits / total) * 100).toFixed(2) : 0;
 
     return {
       size: this.cache.size,
@@ -135,7 +136,7 @@ class BlueprintCache {
       hits: this.hits,
       misses: this.misses,
       hitRate: `${hitRate}%`,
-      enabled: this.enabled
+      enabled: this.enabled,
     };
   }
 
@@ -167,7 +168,7 @@ class BlueprintCache {
       }
     }
 
-    toDelete.forEach(key => this.cache.delete(key));
+    toDelete.forEach((key) => this.cache.delete(key));
     return toDelete.length;
   }
 }
@@ -177,5 +178,5 @@ const globalCache = new BlueprintCache();
 
 module.exports = {
   BlueprintCache,
-  globalCache
+  globalCache,
 };

@@ -54,6 +54,7 @@ This updates `.gemini/` with v2.0 protocols. **Optional but recommended** for fu
 ### Step 3: Test v2.0 Features
 
 Run a simple task with `/kamiflow:dev:superlazy` to experience:
+
 - Assumption verification (Phase 0.5)
 - Validation loop (Phase 3B)
 - Strategic reflection (Phase 4)
@@ -65,16 +66,18 @@ Run a simple task with `/kamiflow:dev:superlazy` to experience:
 ### 1. Assumption Verification (Phase 0.5)
 
 **What happens:**
+
 - Before creating S1-IDEA, KamiFlow verifies all referenced files/functions exist
 - Uses grep search to confirm function signatures
 - Checks dependencies in package.json
 - Flags potential hallucination risks
 
 **What you'll see:**
+
 ```
 📍 ASSUMPTION VERIFICATION
 
-✅ Files Verified: 
+✅ Files Verified:
   - src/utils/helper.js (exists)
   - config/database.json (exists)
 
@@ -90,6 +93,7 @@ Recommendation: Safe to proceed
 ```
 
 **Impact:**
+
 - 80% reduction in hallucinations
 - Fewer "file not found" errors during implementation
 - Higher confidence in generated plans
@@ -99,12 +103,14 @@ Recommendation: Safe to proceed
 ### 2. Validation Loop (Phase 3B)
 
 **What happens:**
+
 - After implementation completes (Phase 3A), automatic validation runs
 - 3 phases: Syntax (A) → Functional (B) → Traceability (C)
 - Auto-healing attempts for common errors
 - Gate decision: PASS / RETRY / BLOCK
 
 **What you'll see:**
+
 ```
 🛡️ VALIDATION LOOP: Phase A (Syntax)
 
@@ -144,6 +150,7 @@ Proceeding to Phase 4 (Strategic Reflection)
 ```
 
 **Impact:**
+
 - 90%+ first-attempt validation success
 - 80% of errors auto-fixed
 - Fewer broken builds
@@ -153,12 +160,14 @@ Proceeding to Phase 4 (Strategic Reflection)
 ### 3. Strategic Reflection (Phase 4)
 
 **What happens:**
+
 - At workflow completion, you're prompted for structured reflection
 - Captures value delivered, tech debt, lessons learned
 - Updates ROADMAP.md and PROJECT_CONTEXT.md
 - Preserves insights for future reference
 
 **What you'll see:**
+
 ```
 📝 STRATEGIC REFLECTION
 
@@ -186,6 +195,7 @@ Please answer:
 ```
 
 **Impact:**
+
 - Knowledge preserved, not lost to chat history
 - Tech debt visible and tracked
 - Continuous improvement feedback loop
@@ -195,6 +205,7 @@ Please answer:
 ### 4. Error Recovery (3-Level)
 
 **What happens:**
+
 - Errors automatically classified by severity
 - Level 1 (80%): Auto-fixed without user intervention
 - Level 2 (15%): Guided recovery with options
@@ -203,6 +214,7 @@ Please answer:
 **What you'll see:**
 
 **Level 1 (Self-Healing):**
+
 ```
 ⚠️ Error Detected: TOML syntax error
 Error Type: Level 1 (Self-Healing)
@@ -217,6 +229,7 @@ Continuing workflow...
 ```
 
 **Level 2 (User Assist):**
+
 ```
 ⚠️ Error Detected: Test failure
 Error Type: Level 2 (User Assist)
@@ -234,6 +247,7 @@ Which option? (1/2/3)
 ```
 
 **Level 3 (Escalation):**
+
 ```
 🚨 Critical Issue Detected
 Error Type: Level 3 (Escalation)
@@ -251,6 +265,7 @@ Cannot proceed with current plan.
 ```
 
 **Impact:**
+
 - 80% errors resolved without user action
 - Faster workflow completion
 - Clear guidance for complex issues
@@ -260,11 +275,13 @@ Cannot proceed with current plan.
 ### 5. Progress Checkpoints
 
 **What happens:**
+
 - Workflow state automatically saved at 7 key phases
 - If interrupted, resume from last checkpoint
 - Context fully restored (no manual re-entry)
 
 **Checkpoint Locations:**
+
 - Phase 0: Logical Guard complete
 - Phase 0.5: Assumption Verification complete
 - Phase 1: Diagnostic Interview complete
@@ -276,6 +293,7 @@ Cannot proceed with current plan.
 **What you'll see:**
 
 **On Wake (if checkpoint exists):**
+
 ```
 📍 ACTIVE CHECKPOINTS DETECTED
 
@@ -288,6 +306,7 @@ If N → Continue with normal wake
 ```
 
 **Manual Resume:**
+
 ```bash
 /kamiflow:ops:resume 042
 
@@ -309,6 +328,7 @@ Ready to continue from Phase 2...
 ```
 
 **Impact:**
+
 - No progress lost from interruptions
 - Resume multi-hour workflows easily
 - Flexible work sessions
@@ -386,6 +406,7 @@ Level 1 errors self-heal automatically. Level 2 errors give you options. Don't p
 7. **Done:** Roadmap updated, context saved, insights preserved
 
 **If interrupted at any point:**
+
 ```bash
 /kamiflow:ops:wake
 # → Resume Task 042? (Y)
@@ -411,5 +432,3 @@ Level 1 errors self-heal automatically. Level 2 errors give you options. Don't p
 - **Emergency brake:** `/kamiflow:dev:revise [ID]`
 
 Welcome to KamiFlow v2.0 - more stable, more reliable, more powerful! 🚀
-
-

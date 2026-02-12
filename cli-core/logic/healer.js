@@ -1,20 +1,25 @@
+/* eslint-disable no-empty */
 const chalk = require("chalk");
 const fs = require("fs-extra");
-const path = require('upath');
+const path = require("upath");
 const { getGeneStorePath } = require("./installer");
 
 async function detectBrokenPortals(projectPath) {
   const issues = [];
   const portals = [
     { name: ".gemini", path: path.join(projectPath, ".gemini") },
-    { name: ".windsurf", path: path.join(projectPath, ".windsurf") }
+    { name: ".windsurf", path: path.join(projectPath, ".windsurf") },
   ];
 
   for (const portal of portals) {
     const exists = await fs.pathExists(portal.path);
 
     if (!exists) {
-      issues.push({ type: "MISSING_PORTAL", portal: portal.name, path: portal.path });
+      issues.push({
+        type: "MISSING_PORTAL",
+        portal: portal.name,
+        path: portal.path,
+      });
       continue;
     }
 
@@ -34,7 +39,12 @@ async function detectBrokenPortals(projectPath) {
         }
       }
     } catch (error) {
-      issues.push({ type: "ACCESS_ERROR", portal: portal.name, path: portal.path, error: error.message });
+      issues.push({
+        type: "ACCESS_ERROR",
+        portal: portal.name,
+        path: portal.path,
+        error: error.message,
+      });
     }
   }
 
@@ -45,8 +55,14 @@ async function detectMissingFiles(projectPath) {
   const issues = [];
   const requiredFiles = [
     { name: "GEMINI.md", path: path.join(projectPath, "GEMINI.md") },
-    { name: "PROJECT_CONTEXT.md", path: path.join(projectPath, ".kamiflow", "PROJECT_CONTEXT.md") },
-    { name: "ROADMAP.md", path: path.join(projectPath, ".kamiflow", "ROADMAP.md") },
+    {
+      name: "PROJECT_CONTEXT.md",
+      path: path.join(projectPath, ".kamiflow", "PROJECT_CONTEXT.md"),
+    },
+    {
+      name: "ROADMAP.md",
+      path: path.join(projectPath, ".kamiflow", "ROADMAP.md"),
+    },
   ];
 
   for (const file of requiredFiles) {
@@ -68,7 +84,9 @@ async function repairBrokenSymlink(issue, geneStorePath, projectPath) {
     const submodulePath = path.join(projectPath, ".kami-flow");
     const hasSubmodule = await fs.pathExists(submodulePath);
 
-    const sourcePath = hasSubmodule ? path.join(submodulePath, issue.portal) : path.join(geneStorePath, issue.portal);
+    const sourcePath = hasSubmodule
+      ? path.join(submodulePath, issue.portal)
+      : path.join(geneStorePath, issue.portal);
 
     if (!(await fs.pathExists(sourcePath))) {
       console.log(chalk.red(`[HEALER] ✗ Source not found: ${sourcePath}`));
@@ -96,7 +114,9 @@ async function restoreMissingPortal(issue, geneStorePath, projectPath) {
     const submodulePath = path.join(projectPath, ".kami-flow");
     const hasSubmodule = await fs.pathExists(submodulePath);
 
-    const sourcePath = hasSubmodule ? path.join(submodulePath, issue.portal) : path.join(geneStorePath, issue.portal);
+    const sourcePath = hasSubmodule
+      ? path.join(submodulePath, issue.portal)
+      : path.join(geneStorePath, issue.portal);
 
     if (!(await fs.pathExists(sourcePath))) {
       console.log(chalk.red(`[HEALER] ✗ Source not found: ${sourcePath}`));
@@ -110,13 +130,19 @@ async function restoreMissingPortal(issue, geneStorePath, projectPath) {
 
     try {
       await fs.symlink(sourcePath, issue.path, type);
-      console.log(chalk.green(`[HEALER] ✓ Portal restored via symlink: ${issue.portal}`));
+      console.log(
+        chalk.green(`[HEALER] ✓ Portal restored via symlink: ${issue.portal}`),
+      );
       return true;
     } catch (symlinkError) {
       if (symlinkError.code === "EPERM") {
-        console.log(chalk.yellow("[HEALER] Symlink failed, using copy fallback..."));
+        console.log(
+          chalk.yellow("[HEALER] Symlink failed, using copy fallback..."),
+        );
         await fs.copy(sourcePath, issue.path);
-        console.log(chalk.green(`[HEALER] ✓ Portal restored via copy: ${issue.portal}`));
+        console.log(
+          chalk.green(`[HEALER] ✓ Portal restored via copy: ${issue.portal}`),
+        );
         return true;
       }
       throw symlinkError;
@@ -127,14 +153,21 @@ async function restoreMissingPortal(issue, geneStorePath, projectPath) {
   }
 }
 
-async function restoreMissingFile(issue, geneStorePath, projectPath, projectName) {
+async function restoreMissingFile(
+  issue,
+  geneStorePath,
+  projectPath,
+  projectName,
+) {
   console.log(chalk.cyan(`[HEALER] Restoring missing file: ${issue.file}`));
 
   try {
     const submodulePath = path.join(projectPath, ".kami-flow");
     const hasSubmodule = await fs.pathExists(submodulePath);
 
-    const templatesPath = hasSubmodule ? path.join(submodulePath, "docs", "templates") : path.join(geneStorePath, "docs", "templates");
+    const templatesPath = hasSubmodule
+      ? path.join(submodulePath, "docs", "templates")
+      : path.join(geneStorePath, "docs", "templates");
 
     let templateFile;
     if (issue.file === "GEMINI.md") {
@@ -151,7 +184,10 @@ async function restoreMissingFile(issue, geneStorePath, projectPath, projectName
     let content = await fs.readFile(templateFile, "utf8");
 
     if (issue.file === "PROJECT_CONTEXT.md") {
-      content = content.replace(/\[Project Name\]/g, projectName || "My Project");
+      content = content.replace(
+        /\[Project Name\]/g,
+        projectName || "My Project",
+      );
     }
 
     await fs.writeFile(issue.path, content, "utf8");
@@ -165,23 +201,25 @@ async function restoreMissingFile(issue, geneStorePath, projectPath, projectName
 
 async function detectLegacyBackups(projectPath) {
   const issues = [];
-  const glob = require('glob');
-  const pattern = path.join(projectPath, '.gemini/commands/**/*.bak');
-  
+  const glob = require("glob");
+  const pattern = path.join(projectPath, ".gemini/commands/**/*.bak");
+
   try {
     const files = glob.sync(pattern);
     if (files.length > 0) {
       issues.push({ type: "LEGACY_BACKUPS", count: files.length, files });
     }
   } catch (e) {}
-  
+
   return issues;
 }
 
 async function cleanupLegacyBackups(issue, projectPath) {
-  console.log(chalk.cyan(`[HEALER] Cleaning up ${issue.count} legacy backup(s)...`));
-  const { backupFile } = require('../utils/fs-vault');
-  
+  console.log(
+    chalk.cyan(`[HEALER] Cleaning up ${issue.count} legacy backup(s)...`),
+  );
+  const { backupFile } = require("../utils/fs-vault");
+
   let fixed = 0;
   for (const file of issue.files) {
     try {
@@ -193,7 +231,9 @@ async function cleanupLegacyBackups(issue, projectPath) {
         fixed++;
       }
     } catch (e) {
-      console.log(chalk.yellow(`   ⚠️  Failed to migrate: ${path.basename(file)}`));
+      console.log(
+        chalk.yellow(`   ⚠️  Failed to migrate: ${path.basename(file)}`),
+      );
     }
   }
   return fixed === issue.count;
@@ -205,7 +245,9 @@ async function detectBrokenGraphPaths(projectPath) {
   try {
     await index.initialize();
     const broken = await index.detectBrokenPaths();
-    return broken.length > 0 ? [{ type: "BROKEN_GRAPH_PATHS", count: broken.length, details: broken }] : [];
+    return broken.length > 0
+      ? [{ type: "BROKEN_GRAPH_PATHS", count: broken.length, details: broken }]
+      : [];
   } catch (e) {
     return [];
   } finally {
@@ -230,7 +272,7 @@ async function repairGraphPaths(issue, projectPath) {
 async function healProject(projectPath, options = {}) {
   console.log(chalk.cyan("\n🔧 KamiFlow Self-Healing Engine\n"));
 
-  const inquirer = (await import('inquirer')).default;
+  const inquirer = (await import("inquirer")).default;
 
   const geneStorePath = getGeneStorePath();
 
@@ -247,7 +289,12 @@ async function healProject(projectPath, options = {}) {
   const backupIssues = await detectLegacyBackups(projectPath);
   const graphIssues = await detectBrokenGraphPaths(projectPath);
 
-  const allIssues = [...portalIssues, ...fileIssues, ...backupIssues, ...graphIssues];
+  const allIssues = [
+    ...portalIssues,
+    ...fileIssues,
+    ...backupIssues,
+    ...graphIssues,
+  ];
 
   if (allIssues.length === 0) {
     console.log(chalk.green("✓ No issues detected. Project is healthy!\n"));
@@ -256,7 +303,11 @@ async function healProject(projectPath, options = {}) {
 
   console.log(chalk.yellow(`Found ${allIssues.length} issue(s):\n`));
   allIssues.forEach((issue, idx) => {
-    console.log(chalk.yellow(`  ${idx + 1}. ${issue.type}: ${issue.portal || issue.file || (issue.count + ' files')}`));
+    console.log(
+      chalk.yellow(
+        `  ${idx + 1}. ${issue.type}: ${issue.portal || issue.file || issue.count + " files"}`,
+      ),
+    );
   });
   console.log();
 
@@ -293,7 +344,12 @@ async function healProject(projectPath, options = {}) {
         success = await restoreMissingPortal(issue, geneStorePath, projectPath);
         break;
       case "MISSING_FILE":
-        success = await restoreMissingFile(issue, geneStorePath, projectPath, projectName);
+        success = await restoreMissingFile(
+          issue,
+          geneStorePath,
+          projectPath,
+          projectName,
+        );
         break;
       case "LEGACY_BACKUPS":
         success = await cleanupLegacyBackups(issue, projectPath);
@@ -302,7 +358,9 @@ async function healProject(projectPath, options = {}) {
         success = await repairGraphPaths(issue, projectPath);
         break;
       default:
-        console.log(chalk.yellow(`[HEALER] Skipping unknown issue type: ${issue.type}`));
+        console.log(
+          chalk.yellow(`[HEALER] Skipping unknown issue type: ${issue.type}`),
+        );
     }
 
     if (success) {
@@ -324,3 +382,4 @@ async function healProject(projectPath, options = {}) {
 }
 
 module.exports = { healProject, detectBrokenPortals, detectMissingFiles };
+

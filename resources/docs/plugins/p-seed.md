@@ -22,21 +22,21 @@ The **Seed Hub** is a specialized incubator for raw ideas. It ensures quality co
 
 ## 🛠️ Commands
 
-| Command | Action | Goal |
-| :--- | :--- | :--- |
-| `/kamiflow:p-seed:draft` | **Sow** | Start an interview and create a draft with Hash ID. |
-| `/kamiflow:p-seed:analyze`| **Incubate**| Score feasibility and provide strategic feedback. |
-| `/kamiflow:p-seed:promote`| **Harvest** | Move quality ideas to the backlog (Quality Gate: 0.7). |
+| Command                    | Action       | Goal                                                   |
+| :------------------------- | :----------- | :----------------------------------------------------- |
+| `/kamiflow:p-seed:draft`   | **Sow**      | Start an interview and create a draft with Hash ID.    |
+| `/kamiflow:p-seed:analyze` | **Incubate** | Score feasibility and provide strategic feedback.      |
+| `/kamiflow:p-seed:promote` | **Harvest**  | Move quality ideas to the backlog (Quality Gate: 0.7). |
 
 ---
 
 ## 🛡️ The Quality Gate
+
 By default, ideas must score above **0.7** in Feasibility to be promoted. This threshold can be adjusted in your configuration. To bypass the gate, use the `--force` flag.
 
 ---
 
 ## 📁 Storage Structure
+
 - `ideas/draft/`: Initial sparks and unpolished concepts.
 - `ideas/backlog/`: High-quality, verified ideas ready for implementation.
-
-

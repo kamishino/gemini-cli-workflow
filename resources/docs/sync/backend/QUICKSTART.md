@@ -81,6 +81,7 @@ sync.yourdomain.com {
 ```
 
 **DNS Setup:**
+
 - Add an `A` record pointing to your server IP
 - Wait 5-10 minutes for DNS propagation
 
@@ -119,6 +120,7 @@ docker compose logs -f
 ```
 
 Expected output:
+
 ```
 ✓ Container kamiflow-sync   Started
 ✓ Container kamiflow-caddy  Started
@@ -137,6 +139,7 @@ curl http://localhost/health
 ```
 
 If using a domain:
+
 ```bash
 curl https://sync.yourdomain.com/health
 ```
@@ -156,6 +159,7 @@ kami sync setup
 ```
 
 When prompted:
+
 1. Select: **"I already have a backend running"**
 2. Enter backend URL:
    - With domain: `https://sync.yourdomain.com`
@@ -176,6 +180,7 @@ kami sync-db push
 ```
 
 Expected output:
+
 ```
 ✅ Synced 97 file(s).
 ```
@@ -230,12 +235,14 @@ sudo ufw status
 ### Port 80/443 Already in Use
 
 Check what's using the port:
+
 ```bash
 sudo lsof -i :80
 sudo lsof -i :443
 ```
 
 If Apache/Nginx is running, stop it:
+
 ```bash
 sudo systemctl stop apache2  # or nginx
 sudo systemctl disable apache2
@@ -244,11 +251,13 @@ sudo systemctl disable apache2
 ### Container Won't Start
 
 Check logs:
+
 ```bash
 docker compose logs kamiflow-sync
 ```
 
 Common issues:
+
 - API_KEY not set in `.env`
 - Port conflicts
 - Insufficient permissions on `./data` directory
@@ -256,11 +265,13 @@ Common issues:
 ### Can't Connect from CLI
 
 1. Check if backend is accessible:
+
    ```bash
    curl -I http://YOUR_SERVER_IP/health
    ```
 
 2. Verify API key matches:
+
    ```bash
    grep API_KEY .env
    ```
@@ -273,6 +284,7 @@ Common issues:
 ### Database Locked
 
 If you see "database is locked" errors:
+
 ```bash
 docker compose down
 rm data/*.db-wal data/*.db-shm
@@ -284,6 +296,7 @@ docker compose up -d
 ## Security Hardening
 
 1. **Change SSH port** (optional):
+
    ```bash
    sudo nano /etc/ssh/sshd_config
    # Change Port 22 to Port 2222
@@ -291,12 +304,14 @@ docker compose up -d
    ```
 
 2. **Disable password authentication**:
+
    ```bash
    sudo nano /etc/ssh/sshd_config
    # Set: PasswordAuthentication no
    ```
 
 3. **Set up fail2ban**:
+
    ```bash
    sudo apt install fail2ban -y
    sudo systemctl enable fail2ban
@@ -321,12 +336,12 @@ docker compose up -d
 
 ### Provider Recommendations
 
-| Provider | Plan | Cost | Link |
-|----------|------|------|------|
-| Hetzner | CX11 | €4.15/mo | hetzner.com |
-| Vultr | Basic | $6/mo | vultr.com |
-| DigitalOcean | Droplet | $6/mo | digitalocean.com |
-| Linode | Nanode | $5/mo | linode.com |
+| Provider     | Plan    | Cost     | Link             |
+| ------------ | ------- | -------- | ---------------- |
+| Hetzner      | CX11    | €4.15/mo | hetzner.com      |
+| Vultr        | Basic   | $6/mo    | vultr.com        |
+| DigitalOcean | Droplet | $6/mo    | digitalocean.com |
+| Linode       | Nanode  | $5/mo    | linode.com       |
 
 ---
 
@@ -337,6 +352,7 @@ docker compose up -d
 ✅ First sync completed
 
 **Now you can:**
+
 - Run `kami sync-db push` after creating new tasks/ideas
 - Run `kami sync-db pull` to download from other devices
 - Set up automatic backups (cron job)
@@ -349,5 +365,3 @@ docker compose up -d
 - 📖 Full docs: [README.md](README.md)
 - 🐛 Issues: https://github.com/kamishino/gemini-cli-workflow/issues
 - 💬 Discussions: https://github.com/kamishino/gemini-cli-workflow/discussions
-
-

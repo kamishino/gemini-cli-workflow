@@ -48,4 +48,3 @@ Use the `_idea-create` command. The system will automatically generate a unique 
 Confirm the creation and display the generated ID (from the tool output).
 
 "🌱 Seed planted! ID: [ID] | File: {{KAMI_WORKSPACE}}ideas/draft/[ID]-[slug].md"
-

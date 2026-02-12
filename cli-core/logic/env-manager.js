@@ -7,7 +7,10 @@ class EnvironmentManager {
     const absoluteRoot = path.resolve(projectRoot);
 
     // If called from inside cli-core, the project root is one level up
-    if (absoluteRoot.endsWith("cli-core") || absoluteRoot.endsWith("cli-core" + path.sep)) {
+    if (
+      absoluteRoot.endsWith("cli-core") ||
+      absoluteRoot.endsWith("cli-core" + path.sep)
+    ) {
       this.projectRoot = path.dirname(absoluteRoot);
     } else {
       this.projectRoot = absoluteRoot;
@@ -74,7 +77,9 @@ class EnvironmentManager {
    */
   async getOutputTargets() {
     const config = await this.getEnvConfig();
-    return config.outputTargets.map((target) => path.resolve(this.projectRoot, target));
+    return config.outputTargets.map((target) =>
+      path.resolve(this.projectRoot, target),
+    );
   }
 }
 

@@ -1,9 +1,10 @@
+/* eslint-disable no-process-exit */
 /**
  * Benchmark Runner for KamiFlow Performance Testing
  */
 
-const chalk = require('chalk');
-const path = require('upath');
+const chalk = require("chalk");
+const path = require("upath");
 
 class BenchmarkRunner {
   constructor() {
@@ -52,13 +53,17 @@ class BenchmarkRunner {
       avg: avg.toFixed(2),
       min: min.toFixed(2),
       max: max.toFixed(2),
-      median: median.toFixed(2)
+      median: median.toFixed(2),
     };
 
     this.results.push(result);
 
     console.log(chalk.green(`   ✓ Average: ${result.avg}ms`));
-    console.log(chalk.gray(`   Min: ${result.min}ms | Max: ${result.max}ms | Median: ${result.median}ms`));
+    console.log(
+      chalk.gray(
+        `   Min: ${result.min}ms | Max: ${result.max}ms | Median: ${result.median}ms`,
+      ),
+    );
     if (errors > 0) {
       console.log(chalk.yellow(`   ⚠️  Errors: ${errors}`));
     }
@@ -70,23 +75,25 @@ class BenchmarkRunner {
    * Print summary report
    */
   printSummary() {
-    console.log(chalk.cyan('\n' + '='.repeat(60)));
-    console.log(chalk.cyan.bold('  BENCHMARK SUMMARY'));
-    console.log(chalk.cyan('='.repeat(60)));
+    console.log(chalk.cyan("\n" + "=".repeat(60)));
+    console.log(chalk.cyan.bold("  BENCHMARK SUMMARY"));
+    console.log(chalk.cyan("=".repeat(60)));
     console.log();
 
     if (this.results.length === 0) {
-      console.log(chalk.yellow('No benchmarks completed.'));
+      console.log(chalk.yellow("No benchmarks completed."));
       return;
     }
 
-    console.table(this.results.map(r => ({
-      Benchmark: r.name,
-      'Avg (ms)': r.avg,
-      'Min (ms)': r.min,
-      'Max (ms)': r.max,
-      Iterations: r.iterations
-    })));
+    console.table(
+      this.results.map((r) => ({
+        Benchmark: r.name,
+        "Avg (ms)": r.avg,
+        "Min (ms)": r.min,
+        "Max (ms)": r.max,
+        Iterations: r.iterations,
+      })),
+    );
 
     console.log();
   }
@@ -97,11 +104,18 @@ class BenchmarkRunner {
   compare(baseline, current) {
     if (!baseline || !current) return;
 
-    const improvement = ((baseline.avg - current.avg) / baseline.avg * 100).toFixed(2);
+    const improvement = (
+      ((baseline.avg - current.avg) / baseline.avg) *
+      100
+    ).toFixed(2);
     const color = improvement > 0 ? chalk.green : chalk.red;
-    const symbol = improvement > 0 ? '↓' : '↑';
+    const symbol = improvement > 0 ? "↓" : "↑";
 
-    console.log(color(`\n${symbol} ${Math.abs(improvement)}% ${improvement > 0 ? 'faster' : 'slower'} than baseline`));
+    console.log(
+      color(
+        `\n${symbol} ${Math.abs(improvement)}% ${improvement > 0 ? "faster" : "slower"} than baseline`,
+      ),
+    );
   }
 }
 
@@ -112,15 +126,15 @@ if (require.main === module) {
 
     try {
       // Load benchmark suites
-      const configBench = require('./config-loading.bench');
-      const transpilerBench = require('./transpiler.bench');
+      const configBench = require("./config-loading.bench");
+      const transpilerBench = require("./transpiler.bench");
 
       await configBench(runner);
       await transpilerBench(runner);
 
       runner.printSummary();
     } catch (error) {
-      console.error(chalk.red('Benchmark failed:'), error.message);
+      console.error(chalk.red("Benchmark failed:"), error.message);
       process.exit(1);
     }
   })();

@@ -22,11 +22,11 @@ order: 50
 
 | #   | Criterion                     | Fast Track? |
 | --- | ----------------------------- | ----------- |
-| 1   | Single file affected?         | ✅ Yes       |
-| 2   | < 50 lines of change?         | ✅ Yes       |
-| 3   | No API/schema changes?        | ✅ Yes       |
-| 4   | No security implications?     | ✅ Yes       |
-| 5   | No cross-module dependencies? | ✅ Yes       |
+| 1   | Single file affected?         | ✅ Yes      |
+| 2   | < 50 lines of change?         | ✅ Yes      |
+| 3   | No API/schema changes?        | ✅ Yes      |
+| 4   | No security implications?     | ✅ Yes      |
+| 5   | No cross-module dependencies? | ✅ Yes      |
 
 ### Classification Decision
 

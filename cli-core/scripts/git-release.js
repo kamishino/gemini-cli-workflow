@@ -1,3 +1,4 @@
+/* eslint-disable no-process-exit */
 const { execSync } = require("child_process");
 const path = require("upath");
 const chalk = require("chalk");
@@ -27,8 +28,14 @@ async function main() {
     // 2. Post-Bump Polishing (Double Check)
     log("Performing Atomic Polish (Roadmap & Docs)...");
     try {
-      execSync("node scripts/roadmap-generator.js", { cwd: path.dirname(__dirname), stdio: "inherit" });
-      execSync("node scripts/sync-docs.js", { cwd: path.dirname(__dirname), stdio: "inherit" });
+      execSync("node scripts/roadmap-generator.js", {
+        cwd: path.dirname(__dirname),
+        stdio: "inherit",
+      });
+      execSync("node scripts/sync-docs.js", {
+        cwd: path.dirname(__dirname),
+        stdio: "inherit",
+      });
     } catch (e) {
       log("Polishing failed, but continuing with release...", "warning");
     }
@@ -43,7 +50,11 @@ async function main() {
     // Check if the current commit is already a release commit (made by npm version)
     let shouldAmend = false;
     try {
-      const lastCommitMsg = execSync("git log -1 --pretty=%s", { cwd: PROJECT_ROOT }).toString().trim();
+      const lastCommitMsg = execSync("git log -1 --pretty=%s", {
+        cwd: PROJECT_ROOT,
+      })
+        .toString()
+        .trim();
       // If npm version created a commit, it might look like the version number
       if (lastCommitMsg === version || lastCommitMsg === `v${version}`) {
         shouldAmend = true;
@@ -54,10 +65,16 @@ async function main() {
 
     if (shouldAmend) {
       log(`Amending release commit: "${commitMsg}"...`);
-      execSync(`git commit --amend -m "${commitMsg}"`, { cwd: PROJECT_ROOT, stdio: "inherit" });
+      execSync(`git commit --amend -m "${commitMsg}"`, {
+        cwd: PROJECT_ROOT,
+        stdio: "inherit",
+      });
     } else {
       log(`Creating release commit: "${commitMsg}"...`);
-      execSync(`git commit -m "${commitMsg}"`, { cwd: PROJECT_ROOT, stdio: "inherit" });
+      execSync(`git commit -m "${commitMsg}"`, {
+        cwd: PROJECT_ROOT,
+        stdio: "inherit",
+      });
     }
 
     // 5. Create tag
@@ -74,7 +91,10 @@ async function main() {
     if (version.startsWith("2.")) {
       const annotationMsg = `v${version} - KamiFlow v2.0 Series (Enhanced Stability & Anti-Hallucination)`;
       try {
-        execSync(`git tag -a ${tagName} -m "${annotationMsg}" -f`, { cwd: PROJECT_ROOT, stdio: "inherit" });
+        execSync(`git tag -a ${tagName} -m "${annotationMsg}" -f`, {
+          cwd: PROJECT_ROOT,
+          stdio: "inherit",
+        });
         log("Tagged as v2.0 series release", "success");
       } catch (e) {
         // Fallback to lightweight tag

@@ -40,13 +40,13 @@ You are the **"Strategic Autonomous Builder"**. You don't just write code; you b
 2. **Summary:** Display the **S3-BUILD Tasks** to the user.
 3. **Prompt:** Use `wait_for_user_input` to ask: "Plan ready. [Summary]. Proceed? (Yes/Amend)"
 4. **Branching Logic:**
-    - **IF User says 'Amend' / 'Change' / 'No':**
-      - Ask: "What needs to be adjusted?" (Wait for input).
-      - Action: Update S1/S2 based on feedback.
-      - **CRITICAL:** Re-run S3-BUILD generation to ensure consistency.
-      - Loop: Return to step 2 (Display Summary & Prompt).
-    - **IF User says 'Yes' / 'Proceed':**
-      - Proceed to Phase 3.1 (Execution).
+   - **IF User says 'Amend' / 'Change' / 'No':**
+     - Ask: "What needs to be adjusted?" (Wait for input).
+     - Action: Update S1/S2 based on feedback.
+     - **CRITICAL:** Re-run S3-BUILD generation to ensure consistency.
+     - Loop: Return to step 2 (Display Summary & Prompt).
+   - **IF User says 'Yes' / 'Proceed':**
+     - Proceed to Phase 3.1 (Execution).
 
 ### PHASE 3.1: PARALLEL EXECUTION PROTOCOL (NEW)
 
@@ -144,8 +144,8 @@ Prepare the commit message but **DO NOT COMMIT YET**. Move to Phase 5.
 
 1. **Verify:** `PROJECT_CONTEXT.md` and `ROADMAP.md` are updated.
 2. **Execute:**
-    - `git add .`
-    - `git commit -m "[message]"`
+   - `git add .`
+   - `git commit -m "[message]"`
 
 ### PHASE 6: RELEASE PROMPT (OPTIONAL)
 

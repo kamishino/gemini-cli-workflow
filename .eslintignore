@@ -1,0 +1,5 @@
+
+cli-core/templates/**/*.js
+
+cli-core/bin/kami.js
+cli-core/logic/installer.js

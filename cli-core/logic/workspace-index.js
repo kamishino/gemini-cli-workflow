@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 const fs = require("fs-extra");
 const path = require("upath");
 const logger = require("../utils/logger");
@@ -15,7 +16,7 @@ class WorkspaceIndex extends EventEmitter {
     this.dbPath = path.join(projectRoot, ".kamiflow/.index/workspace.db");
     this.db = null;
     this.isNative = false;
-    
+
     try {
       this.sqlite = require("node:sqlite");
       this.isNative = true;
@@ -33,7 +34,7 @@ class WorkspaceIndex extends EventEmitter {
 
     if (this.isNative) {
       this.db = new this.sqlite.DatabaseSync(this.dbPath);
-      
+
       // Enable WAL mode for performance
       this.db.exec("PRAGMA journal_mode = WAL");
 
@@ -62,7 +63,9 @@ class WorkspaceIndex extends EventEmitter {
           )
         `);
       } catch (e) {
-        logger.warn("FTS5 not supported by native driver, falling back to standard search.");
+        logger.warn(
+          "FTS5 not supported by native driver, falling back to standard search.",
+        );
       }
 
       // Create relationships table for Knowledge Graph
@@ -128,11 +131,21 @@ class WorkspaceIndex extends EventEmitter {
         this.db = new SQL.Database();
       }
       // ... existing legacy init code (simplified for brevity)
-      this.db.run("CREATE TABLE IF NOT EXISTS files_search (file_id TEXT PRIMARY KEY, project_id TEXT NOT NULL, category TEXT, file_path TEXT, title TEXT, content TEXT, metadata TEXT)");
-      this.db.run("CREATE TABLE IF NOT EXISTS relationships (id TEXT PRIMARY KEY, source_id TEXT NOT NULL, target_id TEXT NOT NULL, rel_type TEXT NOT NULL, weight REAL DEFAULT 1.0, metadata TEXT, created_at INTEGER)");
-      this.db.run("CREATE TABLE IF NOT EXISTS workflow_states (task_id TEXT PRIMARY KEY, slug TEXT, current_phase TEXT NOT NULL, clarify_score REAL, metadata TEXT, updated_at INTEGER)");
-      this.db.run("CREATE TABLE IF NOT EXISTS files_meta (file_id TEXT PRIMARY KEY, project_id TEXT NOT NULL, category TEXT NOT NULL, file_path TEXT NOT NULL, title TEXT, created_at INTEGER, modified_at INTEGER, size_bytes INTEGER, checksum TEXT)");
-      this.db.run("CREATE TABLE IF NOT EXISTS index_stats (key TEXT PRIMARY KEY, value TEXT, updated_at INTEGER)");
+      this.db.run(
+        "CREATE TABLE IF NOT EXISTS files_search (file_id TEXT PRIMARY KEY, project_id TEXT NOT NULL, category TEXT, file_path TEXT, title TEXT, content TEXT, metadata TEXT)",
+      );
+      this.db.run(
+        "CREATE TABLE IF NOT EXISTS relationships (id TEXT PRIMARY KEY, source_id TEXT NOT NULL, target_id TEXT NOT NULL, rel_type TEXT NOT NULL, weight REAL DEFAULT 1.0, metadata TEXT, created_at INTEGER)",
+      );
+      this.db.run(
+        "CREATE TABLE IF NOT EXISTS workflow_states (task_id TEXT PRIMARY KEY, slug TEXT, current_phase TEXT NOT NULL, clarify_score REAL, metadata TEXT, updated_at INTEGER)",
+      );
+      this.db.run(
+        "CREATE TABLE IF NOT EXISTS files_meta (file_id TEXT PRIMARY KEY, project_id TEXT NOT NULL, category TEXT NOT NULL, file_path TEXT NOT NULL, title TEXT, created_at INTEGER, modified_at INTEGER, size_bytes INTEGER, checksum TEXT)",
+      );
+      this.db.run(
+        "CREATE TABLE IF NOT EXISTS index_stats (key TEXT PRIMARY KEY, value TEXT, updated_at INTEGER)",
+      );
     }
   }
 
@@ -159,7 +172,9 @@ class WorkspaceIndex extends EventEmitter {
         // Check if file needs reindexing
         let existing = null;
         if (this.isNative) {
-          const stmt = this.db.prepare("SELECT checksum FROM files_meta WHERE file_id = ?");
+          const stmt = this.db.prepare(
+            "SELECT checksum FROM files_meta WHERE file_id = ?",
+          );
           existing = stmt.get(fileId)?.checksum;
         } else {
           existing = this.db.exec(
@@ -190,7 +205,9 @@ class WorkspaceIndex extends EventEmitter {
             for (const targetId of targets) {
               if (targetId !== sourceId) {
                 this.addRelationship(sourceId, targetId, "references", {
-                  path: path.join(".kamiflow", category, file.relativePath).replace(/\\/g, "/"),
+                  path: path
+                    .join(".kamiflow", category, file.relativePath)
+                    .replace(/\\/g, "/"),
                 });
               }
             }
@@ -206,14 +223,14 @@ class WorkspaceIndex extends EventEmitter {
           category,
           path: file.relativePath,
           absolutePath: file.absolutePath,
-          checksum
+          checksum,
         });
 
         if (this.isNative) {
           // Standard Search
           const stmtSearch = this.db.prepare(
             `INSERT OR REPLACE INTO files_search (file_id, project_id, category, file_path, title, content, metadata)
-             VALUES (?, ?, ?, ?, ?, ?, ?)`
+             VALUES (?, ?, ?, ?, ?, ?, ?)`,
           );
           stmtSearch.run(
             fileId,
@@ -222,21 +239,16 @@ class WorkspaceIndex extends EventEmitter {
             file.relativePath,
             title,
             content,
-            JSON.stringify(metadata)
+            JSON.stringify(metadata),
           );
 
           // FTS5
           try {
             const stmtFts = this.db.prepare(
               `INSERT OR REPLACE INTO files_fts (file_id, title, content, metadata)
-               VALUES (?, ?, ?, ?)`
+               VALUES (?, ?, ?, ?)`,
             );
-            stmtFts.run(
-              fileId,
-              title,
-              content,
-              JSON.stringify(metadata)
-            );
+            stmtFts.run(fileId, title, content, JSON.stringify(metadata));
           } catch (e) {
             // FTS might not exist
           }
@@ -244,7 +256,7 @@ class WorkspaceIndex extends EventEmitter {
           // Meta
           const stmtMeta = this.db.prepare(
             `INSERT OR REPLACE INTO files_meta (file_id, project_id, category, file_path, title, created_at, modified_at, size_bytes, checksum)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
           );
           stmtMeta.run(
             fileId,
@@ -255,7 +267,7 @@ class WorkspaceIndex extends EventEmitter {
             Math.floor(stats.birthtimeMs),
             Math.floor(stats.mtimeMs),
             stats.size,
-            checksum
+            checksum,
           );
         } else {
           this.db.run(
@@ -306,7 +318,13 @@ class WorkspaceIndex extends EventEmitter {
    * Search across indexed files
    */
   async search(query, options = {}) {
-    const { category = null, projectId = null, limit = 20, offset = 0, synonyms = [] } = options;
+    const {
+      category = null,
+      projectId = null,
+      limit = 20,
+      offset = 0,
+      synonyms = [],
+    } = options;
 
     const startTime = Date.now();
     let results = [];
@@ -315,7 +333,7 @@ class WorkspaceIndex extends EventEmitter {
       // Build FTS5 query
       let ftsQuery = query;
       if (synonyms.length > 0) {
-        ftsQuery = `("${query}" OR ${synonyms.map(s => `"${s}"`).join(" OR ")})`;
+        ftsQuery = `("${query}" OR ${synonyms.map((s) => `"${s}"`).join(" OR ")})`;
       }
 
       try {
@@ -346,7 +364,7 @@ class WorkspaceIndex extends EventEmitter {
 
         const stmt = this.db.prepare(sql);
         const rows = stmt.all(...params);
-        results = rows.map(row => ({
+        results = rows.map((row) => ({
           fileId: row.file_id,
           category: row.category,
           filePath: row.file_path,
@@ -354,7 +372,7 @@ class WorkspaceIndex extends EventEmitter {
           snippet: row.snippet,
           score: -row.rank, // Lower rank is better in FTS5
           modified: new Date(row.modified_at),
-          size: row.size_bytes
+          size: row.size_bytes,
         }));
       } catch (e) {
         logger.debug("FTS search failed, falling back to LIKE: " + e.message);
@@ -392,7 +410,7 @@ class WorkspaceIndex extends EventEmitter {
       if (this.isNative) {
         const stmt = this.db.prepare(sql);
         const rows = stmt.all(...params);
-        results = rows.map(row => ({
+        results = rows.map((row) => ({
           fileId: row.file_id,
           category: row.category,
           filePath: row.file_path,
@@ -400,7 +418,7 @@ class WorkspaceIndex extends EventEmitter {
           snippet: row.snippet,
           score: 1.0,
           modified: new Date(row.modified_at),
-          size: row.size_bytes
+          size: row.size_bytes,
         }));
       } else {
         const r = this.db.exec(sql, params);
@@ -408,7 +426,9 @@ class WorkspaceIndex extends EventEmitter {
         const columns = r[0]?.columns || [];
         results = rows.map((row) => {
           const obj = {};
-          columns.forEach((col, idx) => { obj[col] = row[idx]; });
+          columns.forEach((col, idx) => {
+            obj[col] = row[idx];
+          });
           return {
             fileId: obj.file_id,
             category: obj.category,
@@ -427,7 +447,7 @@ class WorkspaceIndex extends EventEmitter {
 
     // Auto-linking Logic (if rank is strong)
     if (this.isNative && results.length > 0 && query && !options.skipAutoLink) {
-        this.performAutoLink(query, results);
+      this.performAutoLink(query, results);
     }
 
     return {
@@ -448,7 +468,9 @@ class WorkspaceIndex extends EventEmitter {
       this.db.exec("DELETE FROM files_search");
       this.db.exec("DELETE FROM files_meta");
       this.db.exec("DELETE FROM relationships");
-      try { this.db.exec("DELETE FROM files_fts"); } catch (e) {}
+      try {
+        this.db.exec("DELETE FROM files_fts");
+      } catch (e) {}
     } else {
       this.db.run("DELETE FROM files_search");
       this.db.run("DELETE FROM files_meta");
@@ -481,23 +503,41 @@ class WorkspaceIndex extends EventEmitter {
     let totalRelationships = 0;
 
     if (this.isNative) {
-      totalFiles = this.db.prepare("SELECT COUNT(*) as count FROM files_meta").get().count;
-      totalSize = this.db.prepare("SELECT SUM(size_bytes) as size FROM files_meta").get().size || 0;
-      lastIndexed = this.db.prepare("SELECT value FROM index_stats WHERE key = 'last_indexed'").get()?.value;
-      byCategory = this.db.prepare(`
+      totalFiles = this.db
+        .prepare("SELECT COUNT(*) as count FROM files_meta")
+        .get().count;
+      totalSize =
+        this.db.prepare("SELECT SUM(size_bytes) as size FROM files_meta").get()
+          .size || 0;
+      lastIndexed = this.db
+        .prepare("SELECT value FROM index_stats WHERE key = 'last_indexed'")
+        .get()?.value;
+      byCategory = this.db
+        .prepare(
+          `
         SELECT category, COUNT(*) as count, SUM(size_bytes) as size
         FROM files_meta
         GROUP BY category
-      `).all();
-      totalRelationships = this.db.prepare("SELECT COUNT(*) as count FROM relationships").get().count;
+      `,
+        )
+        .all();
+      totalRelationships = this.db
+        .prepare("SELECT COUNT(*) as count FROM relationships")
+        .get().count;
     } else {
-      const totalFilesResult = this.db.exec("SELECT COUNT(*) as count FROM files_meta")[0];
+      const totalFilesResult = this.db.exec(
+        "SELECT COUNT(*) as count FROM files_meta",
+      )[0];
       totalFiles = totalFilesResult?.values[0]?.[0] || 0;
 
-      const totalSizeResult = this.db.exec("SELECT SUM(size_bytes) as size FROM files_meta")[0];
+      const totalSizeResult = this.db.exec(
+        "SELECT SUM(size_bytes) as size FROM files_meta",
+      )[0];
       totalSize = totalSizeResult?.values[0]?.[0] || 0;
 
-      const lastIndexedResult = this.db.exec("SELECT value FROM index_stats WHERE key = 'last_indexed'")[0];
+      const lastIndexedResult = this.db.exec(
+        "SELECT value FROM index_stats WHERE key = 'last_indexed'",
+      )[0];
       lastIndexed = lastIndexedResult?.values[0]?.[0];
 
       const byCategoryResult = this.db.exec(`
@@ -505,13 +545,16 @@ class WorkspaceIndex extends EventEmitter {
         FROM files_meta
         GROUP BY category
       `)[0];
-      byCategory = byCategoryResult?.values.map((row) => ({
-        category: row[0],
-        count: row[1],
-        size: row[2],
-      })) || [];
+      byCategory =
+        byCategoryResult?.values.map((row) => ({
+          category: row[0],
+          count: row[1],
+          size: row[2],
+        })) || [];
 
-      const totalRelationshipsResult = this.db.exec("SELECT COUNT(*) as count FROM relationships")[0];
+      const totalRelationshipsResult = this.db.exec(
+        "SELECT COUNT(*) as count FROM relationships",
+      )[0];
       totalRelationships = totalRelationshipsResult?.values[0]?.[0] || 0;
     }
 
@@ -532,18 +575,26 @@ class WorkspaceIndex extends EventEmitter {
       .createHash("md5")
       .update(`${source}:${target}:${type}`)
       .digest("hex");
-    
+
     if (this.isNative) {
       const stmt = this.db.prepare(
         `INSERT OR REPLACE INTO relationships (id, source_id, target_id, rel_type, weight, metadata, created_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?)`
+         VALUES (?, ?, ?, ?, ?, ?, ?)`,
       );
-      stmt.run(id, source, target, type, 1.0, JSON.stringify(metadata), Date.now());
+      stmt.run(
+        id,
+        source,
+        target,
+        type,
+        1.0,
+        JSON.stringify(metadata),
+        Date.now(),
+      );
     } else {
       this.db.run(
         `INSERT OR REPLACE INTO relationships (id, source_id, target_id, rel_type, weight, metadata, created_at)
          VALUES (?, ?, ?, ?, ?, ?, ?)`,
-        [id, source, target, type, 1.0, JSON.stringify(metadata), Date.now()]
+        [id, source, target, type, 1.0, JSON.stringify(metadata), Date.now()],
       );
     }
   }
@@ -554,16 +605,18 @@ class WorkspaceIndex extends EventEmitter {
   performAutoLink(query, results) {
     // If we have a very strong match (negative rank in FTS5 is better)
     // rank < -10.0 is usually a very strong match in BM25
-    const topMatches = results.filter(r => r.score > 10.0).slice(0, 3);
-    
+    const topMatches = results.filter((r) => r.score > 10.0).slice(0, 3);
+
     for (const match of topMatches) {
       const taskIdMatch = match.filePath.match(/(\d{3})/);
       if (taskIdMatch) {
         const targetId = taskIdMatch[1];
-        // We don't have the sourceTaskId here easily, 
+        // We don't have the sourceTaskId here easily,
         // but we can log it for the AI to handle or use a session-based ID.
         // For now, let's just log the high-confidence similarity.
-        logger.debug(`[Graph] High similarity detected between query "${query}" and Task ${targetId} (Score: ${match.score.toFixed(2)})`);
+        logger.debug(
+          `[Graph] High similarity detected between query "${query}" and Task ${targetId} (Score: ${match.score.toFixed(2)})`,
+        );
       }
     }
   }
@@ -577,7 +630,7 @@ class WorkspaceIndex extends EventEmitter {
       UNION
       SELECT source_id as node, rel_type, 'in' as direction FROM relationships WHERE target_id = ?
     `;
-    
+
     let rows = [];
     let columns = [];
 
@@ -589,9 +642,9 @@ class WorkspaceIndex extends EventEmitter {
       const results = this.db.exec(sql, [nodeId, nodeId]);
       rows = results[0]?.values || [];
       columns = results[0]?.columns || [];
-      return rows.map(row => {
+      return rows.map((row) => {
         const obj = {};
-        columns.forEach((col, idx) => obj[col] = row[idx]);
+        columns.forEach((col, idx) => (obj[col] = row[idx]));
         return obj;
       });
     }
@@ -607,7 +660,9 @@ class WorkspaceIndex extends EventEmitter {
     const processFiles = (rows) => {
       rows.forEach((row) => {
         // Extract Task ID (e.g. 075) from path
-        const taskIdMatch = row.file_path ? row.file_path.match(/_(\d{3})_/) : null;
+        const taskIdMatch = row.file_path
+          ? row.file_path.match(/_(\d{3})_/)
+          : null;
         const id = taskIdMatch ? taskIdMatch[1] : row.id;
 
         if (!nodesMap.has(id)) {
@@ -624,16 +679,22 @@ class WorkspaceIndex extends EventEmitter {
     if (this.isNative) {
       // 1. Get Nodes from files_meta
       const nodeRows = this.db
-        .prepare("SELECT file_id as id, title as label, category as type, file_path FROM files_meta")
+        .prepare(
+          "SELECT file_id as id, title as label, category as type, file_path FROM files_meta",
+        )
         .all();
       processFiles(nodeRows);
 
       // 2. Get Links from relationships
       links = this.db
-        .prepare("SELECT source_id as source, target_id as target, rel_type as type FROM relationships")
+        .prepare(
+          "SELECT source_id as source, target_id as target, rel_type as type FROM relationships",
+        )
         .all();
     } else {
-      const nodeR = this.db.exec("SELECT file_id, title, category, file_path FROM files_meta")[0];
+      const nodeR = this.db.exec(
+        "SELECT file_id, title, category, file_path FROM files_meta",
+      )[0];
       if (nodeR) {
         const rows = nodeR.values.map((v) => ({
           id: v[0],
@@ -644,19 +705,33 @@ class WorkspaceIndex extends EventEmitter {
         processFiles(rows);
       }
 
-      const linkR = this.db.exec("SELECT source_id, target_id, rel_type FROM relationships")[0];
+      const linkR = this.db.exec(
+        "SELECT source_id, target_id, rel_type FROM relationships",
+      )[0];
       if (linkR) {
-        links = linkR.values.map((v) => ({ source: v[0], target: v[1], type: v[2] }));
+        links = linkR.values.map((v) => ({
+          source: v[0],
+          target: v[1],
+          type: v[2],
+        }));
       }
     }
 
     // 3. Ensure all link endpoints exist as nodes (Ghost Node Protection)
     links.forEach((link) => {
       if (!nodesMap.has(link.source)) {
-        nodesMap.set(link.source, { id: link.source, label: `Task ${link.source}`, type: "ghost" });
+        nodesMap.set(link.source, {
+          id: link.source,
+          label: `Task ${link.source}`,
+          type: "ghost",
+        });
       }
       if (!nodesMap.has(link.target)) {
-        nodesMap.set(link.target, { id: link.target, label: `Task ${link.target}`, type: "ghost" });
+        nodesMap.set(link.target, {
+          id: link.target,
+          label: `Task ${link.target}`,
+          type: "ghost",
+        });
       }
     });
 
@@ -671,7 +746,7 @@ class WorkspaceIndex extends EventEmitter {
     for (const cat of categories) {
       const dirPath = path.join(this.projectRoot, ".kamiflow", cat);
       if (!(await fs.pathExists(dirPath))) continue;
-      
+
       const files = await this.walkDirectory(dirPath, ".md");
       for (const file of files) {
         if (this.calculateChecksum(file.absolutePath) === checksum) {
@@ -688,13 +763,19 @@ class WorkspaceIndex extends EventEmitter {
   async detectBrokenPaths() {
     const broken = [];
     if (this.isNative) {
-      const rels = this.db.prepare("SELECT id, source_id, metadata FROM relationships").all();
+      const rels = this.db
+        .prepare("SELECT id, source_id, metadata FROM relationships")
+        .all();
       for (const rel of rels) {
         const metadata = JSON.parse(rel.metadata || "{}");
         if (metadata.path) {
           const fullPath = path.join(this.projectRoot, metadata.path);
           if (!fs.existsSync(fullPath)) {
-            broken.push({ id: rel.id, taskId: rel.source_id, path: metadata.path });
+            broken.push({
+              id: rel.id,
+              taskId: rel.source_id,
+              path: metadata.path,
+            });
           }
         }
       }
@@ -714,32 +795,46 @@ class WorkspaceIndex extends EventEmitter {
       for (const rel of rels) {
         // Path is broken, try healing via checksum
         const fileId = this.generateFileId(rel.path);
-        const checksum = this.db.prepare("SELECT checksum FROM files_meta WHERE file_id = ?").get(fileId)?.checksum;
-        
+        const checksum = this.db
+          .prepare("SELECT checksum FROM files_meta WHERE file_id = ?")
+          .get(fileId)?.checksum;
+
         if (checksum) {
           const newPath = await this.findFileByChecksum(checksum);
           if (newPath) {
             // Update relationship
-            const metadata = this.db.prepare("SELECT metadata FROM relationships WHERE id = ?").get(rel.id);
+            const metadata = this.db
+              .prepare("SELECT metadata FROM relationships WHERE id = ?")
+              .get(rel.id);
             const metaObj = JSON.parse(metadata.metadata || "{}");
             metaObj.path = newPath;
-            
-            this.db.prepare("UPDATE relationships SET metadata = ? WHERE id = ?").run(JSON.stringify(metaObj), rel.id);
-            
+
+            this.db
+              .prepare("UPDATE relationships SET metadata = ? WHERE id = ?")
+              .run(JSON.stringify(metaObj), rel.id);
+
             // Update files_meta (optional but good for consistency)
             const newFileId = this.generateFileId(newPath);
-            this.db.prepare("UPDATE files_meta SET file_path = ?, file_id = ? WHERE checksum = ?").run(newPath, newFileId, checksum);
-            
+            this.db
+              .prepare(
+                "UPDATE files_meta SET file_path = ?, file_id = ? WHERE checksum = ?",
+              )
+              .run(newPath, newFileId, checksum);
+
             healedCount++;
-            logger.debug(`[Healer] Restored relationship ${rel.id} path to: ${newPath}`);
+            logger.debug(
+              `[Healer] Restored relationship ${rel.id} path to: ${newPath}`,
+            );
           }
         }
       }
     }
-    
+
     if (healedCount > 0) {
       await this.save();
-      logger.success(`✓ Healed ${healedCount} broken paths in Knowledge Graph.`);
+      logger.success(
+        `✓ Healed ${healedCount} broken paths in Knowledge Graph.`,
+      );
     } else {
       logger.info("✓ Knowledge Graph paths are consistent.");
     }
@@ -767,7 +862,7 @@ class WorkspaceIndex extends EventEmitter {
   async save() {
     if (this.db) {
       if (this.isNative) {
-        // Native automatically saves to file in most cases, 
+        // Native automatically saves to file in most cases,
         // but WAL mode benefits from checkpointing or just closing.
       } else {
         const data = this.db.export();
@@ -892,7 +987,7 @@ class WorkspaceIndex extends EventEmitter {
     if (this.isNative) {
       const stmt = this.db.prepare(
         `INSERT OR REPLACE INTO index_stats (key, value, updated_at)
-         VALUES (?, ?, ?)`
+         VALUES (?, ?, ?)`,
       );
       stmt.run(key, value.toString(), Date.now());
     } else {
@@ -908,3 +1003,4 @@ class WorkspaceIndex extends EventEmitter {
 }
 
 module.exports = { WorkspaceIndex };
+

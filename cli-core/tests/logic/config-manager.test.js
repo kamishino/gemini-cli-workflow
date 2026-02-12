@@ -77,7 +77,10 @@ describe("ConfigManager", () => {
 
     it("should resolve nested key with dot notation", () => {
       const obj = { plugins: { seed: { minFeasibility: 0.7 } } };
-      const result = configManager.resolveValue(obj, "plugins.seed.minFeasibility");
+      const result = configManager.resolveValue(
+        obj,
+        "plugins.seed.minFeasibility",
+      );
       expect(result).toBe(0.7);
     });
 
@@ -89,7 +92,10 @@ describe("ConfigManager", () => {
 
     it("should return undefined for missing nested key", () => {
       const obj = { plugins: {} };
-      const result = configManager.resolveValue(obj, "plugins.seed.minFeasibility");
+      const result = configManager.resolveValue(
+        obj,
+        "plugins.seed.minFeasibility",
+      );
       expect(result).toBeUndefined();
     });
   });
@@ -143,7 +149,10 @@ describe("ConfigManager", () => {
       const localConfig = { maxRetries: 5 };
 
       fs.pathExists.mockResolvedValue(true);
-      fs.readJson.mockResolvedValueOnce(defaultConfig).mockResolvedValueOnce(globalConfig).mockResolvedValueOnce(localConfig);
+      fs.readJson
+        .mockResolvedValueOnce(defaultConfig)
+        .mockResolvedValueOnce(globalConfig)
+        .mockResolvedValueOnce(localConfig);
 
       const result = await configManager.loadAll();
 
@@ -167,7 +176,10 @@ describe("ConfigManager", () => {
       const localConfig = { "seed.minFeasibility": 0.9 };
 
       fs.pathExists.mockResolvedValue(true);
-      fs.readJson.mockResolvedValueOnce({}).mockResolvedValueOnce({}).mockResolvedValueOnce(localConfig);
+      fs.readJson
+        .mockResolvedValueOnce({})
+        .mockResolvedValueOnce({})
+        .mockResolvedValueOnce(localConfig);
 
       const result = await configManager.loadAll();
 
@@ -213,7 +225,11 @@ describe("ConfigManager", () => {
       const result = await configManager.set("language", "vietnamese", false);
 
       expect(result).toBe(true);
-      expect(fs.writeJson).toHaveBeenCalledWith(configManager.paths.local, expect.objectContaining({ language: "vietnamese" }), { spaces: 2 });
+      expect(fs.writeJson).toHaveBeenCalledWith(
+        configManager.paths.local,
+        expect.objectContaining({ language: "vietnamese" }),
+        { spaces: 2 },
+      );
     });
 
     it("should set global config value when global flag is true", async () => {
@@ -226,7 +242,11 @@ describe("ConfigManager", () => {
 
       expect(result).toBe(true);
       expect(fs.ensureDir).toHaveBeenCalled();
-      expect(fs.writeJson).toHaveBeenCalledWith(configManager.paths.global, expect.objectContaining({ language: "vietnamese" }), { spaces: 2 });
+      expect(fs.writeJson).toHaveBeenCalledWith(
+        configManager.paths.global,
+        expect.objectContaining({ language: "vietnamese" }),
+        { spaces: 2 },
+      );
     });
 
     it("should support nested key setting with dot notation", async () => {
@@ -270,7 +290,9 @@ describe("ConfigManager", () => {
       const defaultConfig = mockConfig();
 
       fs.pathExists.mockResolvedValue(true);
-      fs.readJson.mockResolvedValueOnce(defaultConfig).mockResolvedValueOnce(localConfig);
+      fs.readJson
+        .mockResolvedValueOnce(defaultConfig)
+        .mockResolvedValueOnce(localConfig);
       fs.writeJson.mockResolvedValue(undefined);
 
       const report = await configManager.syncLocalConfig();
@@ -290,7 +312,9 @@ describe("ConfigManager", () => {
       const defaultConfig = mockConfig();
 
       fs.pathExists.mockResolvedValue(true);
-      fs.readJson.mockResolvedValueOnce(defaultConfig).mockResolvedValueOnce(localConfig);
+      fs.readJson
+        .mockResolvedValueOnce(defaultConfig)
+        .mockResolvedValueOnce(localConfig);
       fs.writeJson.mockResolvedValue(undefined);
 
       const report = await configManager.syncLocalConfig();
@@ -304,7 +328,9 @@ describe("ConfigManager", () => {
       const defaultConfig = mockConfig();
 
       fs.pathExists.mockResolvedValue(true);
-      fs.readJson.mockResolvedValueOnce(defaultConfig).mockResolvedValueOnce(localConfig);
+      fs.readJson
+        .mockResolvedValueOnce(defaultConfig)
+        .mockResolvedValueOnce(localConfig);
       fs.writeJson.mockResolvedValue(undefined);
 
       await configManager.syncLocalConfig();
@@ -327,7 +353,10 @@ describe("ConfigManager", () => {
       const localConfig = { maxRetries: 5 };
 
       fs.pathExists.mockResolvedValue(true);
-      fs.readJson.mockResolvedValueOnce(defaultConfig).mockResolvedValueOnce(globalConfig).mockResolvedValueOnce(localConfig);
+      fs.readJson
+        .mockResolvedValueOnce(defaultConfig)
+        .mockResolvedValueOnce(globalConfig)
+        .mockResolvedValueOnce(localConfig);
 
       const result = await configManager.list();
 
@@ -365,9 +394,13 @@ describe("ConfigManager", () => {
       const result = await configManager.setGlobalState("cached_max_id", 105);
 
       expect(result).toBe(true);
-      expect(fs.writeJson).toHaveBeenCalledWith(expect.stringContaining("update-cache.json"), expect.objectContaining({ cached_max_id: 105 }), {
-        spaces: 2,
-      });
+      expect(fs.writeJson).toHaveBeenCalledWith(
+        expect.stringContaining("update-cache.json"),
+        expect.objectContaining({ cached_max_id: 105 }),
+        {
+          spaces: 2,
+        },
+      );
     });
   });
 });

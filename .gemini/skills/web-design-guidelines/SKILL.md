@@ -83,11 +83,11 @@ While the full guidelines should be fetched, these are the core principles:
 
 This skill supports the Indie Builder persona:
 
-| Principle | KamiFlow Alignment |
-|-----------|-------------------|
+| Principle                | KamiFlow Alignment          |
+| ------------------------ | --------------------------- |
 | **Aesthetics + Utility** | Beautiful AND functional UI |
-| **Ship Fast** | Guidelines prevent rework |
-| **Professional** | Modern, polished interfaces |
+| **Ship Fast**            | Guidelines prevent rework   |
+| **Professional**         | Modern, polished interfaces |
 
 ### When to Use
 

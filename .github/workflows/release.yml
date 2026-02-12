@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - "v*.*.*"
 
 jobs:
   create-release:
@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -21,9 +21,9 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: 'cli-core/package-lock.json'
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: "cli-core/package-lock.json"
 
       - name: Install dependencies
         working-directory: ./cli-core
@@ -59,17 +59,17 @@ jobs:
           release_name: Release ${{ github.ref_name }}
           body: |
             ## Changes in this Release
-            
+
             ${{ steps.changelog.outputs.changelog }}
-            
+
             ## Installation
-            
+
             ```bash
             npm install -g gemini-cli-kamiflow@${{ github.ref_name }}
             ```
-            
+
             ## Full Changelog
-            
+
             See the [full changelog](https://github.com/${{ github.repository }}/compare/${{ steps.previous-tag.outputs.tag }}...${{ github.ref_name }})
           draft: false
           prerelease: ${{ contains(github.ref_name, '-') }}
@@ -81,7 +81,7 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -89,10 +89,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
-          cache: 'npm'
-          cache-dependency-path: 'cli-core/package-lock.json'
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+          cache: "npm"
+          cache-dependency-path: "cli-core/package-lock.json"
 
       - name: Install dependencies
         working-directory: ./cli-core
@@ -115,7 +115,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -123,9 +123,9 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: 'cli-core/package-lock.json'
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: "cli-core/package-lock.json"
 
       - name: Install dependencies
         working-directory: ./cli-core

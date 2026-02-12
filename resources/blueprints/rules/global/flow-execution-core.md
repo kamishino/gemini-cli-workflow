@@ -7,7 +7,7 @@ order: 130
 ---
 
 # 🤖 Protocol: Automated Execution (The Validator Loop)
->
+
 > **Goal:** Ensure code quality and Git hygiene during autonomous execution (`/superlazy`).
 
 ## 🛠 The Execution Loop: Execute → Validate → Heal → Report
@@ -46,9 +46,9 @@ If **CRITICAL** errors are found, the AI:
 
 1. Analyzes the error log (line numbers, error type).
 2. Applies a targeted fix using the **Self-Healing Library**:
-    - **Regex Fix:** Check for double-escaped slashes (e.g., `///`).
-    - **Prototype Fix:** Ensure class methods weren't accidentally deleted during a `replace` call.
-    - **Import Fix:** Verify all `require()` statements are present for new logic.
+   - **Regex Fix:** Check for double-escaped slashes (e.g., `///`).
+   - **Prototype Fix:** Ensure class methods weren't accidentally deleted during a `replace` call.
+   - **Import Fix:** Verify all `require()` statements are present for new logic.
 3. **Tip:** Use triple-single-quotes (`'''`) for TOML prompts.
 
 ### 5. Strategic Atomic Exit (Native Mode Only)

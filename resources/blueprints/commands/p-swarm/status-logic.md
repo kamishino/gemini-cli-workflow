@@ -29,4 +29,3 @@ Determine if any folders are currently locked and which agents are active.
 ## 7. TONE
 
 - Professional, analytical, and alert.
-

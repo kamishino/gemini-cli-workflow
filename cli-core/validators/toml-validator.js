@@ -67,7 +67,9 @@ async function validateTomlFiles(targetPath, options = { verbose: true }) {
   }
 
   if (options.verbose) {
-    console.log(chalk.cyan(`Checking ${files.length} TOML files in: ${targetPath}`));
+    console.log(
+      chalk.cyan(`Checking ${files.length} TOML files in: ${targetPath}`),
+    );
   }
 
   let validCount = 0;
@@ -77,7 +79,8 @@ async function validateTomlFiles(targetPath, options = { verbose: true }) {
   for (const file of files) {
     const result = validateTomlFile(file);
     if (result.valid) {
-      if (options.verbose) console.log(chalk.green(`✅ ${path.basename(file)} is valid.`));
+      if (options.verbose)
+        console.log(chalk.green(`✅ ${path.basename(file)} is valid.`));
       validCount++;
     } else {
       if (options.verbose) {

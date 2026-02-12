@@ -22,14 +22,14 @@ order: 240
 
 Always use the `Logger` singleton:
 
-| Method | Use Case | Icon | Color |
-| :--- | :--- | :---: | :--- |
-| `header(text)` | Major process start | N/A | Cyan Separator |
-| `info(text)` | General progress | ℹ️ | Blue |
-| `success(text)`| Task completed | ✅ | Green |
-| `warn(text)` | Non-blocking issue | ⚠️ | Yellow |
-| `error(text)` | Blocking failure | ❌ | Red (Bold) |
-| `hint(text)` | Sub-details/Paths | N/A | Gray |
+| Method          | Use Case            | Icon | Color          |
+| :-------------- | :------------------ | :--: | :------------- |
+| `header(text)`  | Major process start | N/A  | Cyan Separator |
+| `info(text)`    | General progress    |  ℹ️  | Blue           |
+| `success(text)` | Task completed      |  ✅  | Green          |
+| `warn(text)`    | Non-blocking issue  |  ⚠️  | Yellow         |
+| `error(text)`   | Blocking failure    |  ❌  | Red (Bold)     |
+| `hint(text)`    | Sub-details/Paths   | N/A  | Gray           |
 
 ## 3. 🛡️ ERROR HANDLING
 

@@ -1,8 +1,8 @@
-const fs = require('fs-extra');
-const path = require('upath');
-const os = require('os');
+const fs = require("fs-extra");
+const path = require("upath");
+const os = require("os");
 
-const CACHE_FILE = path.join(os.homedir(), '.kami-flow', 'update-cache.json');
+const CACHE_FILE = path.join(os.homedir(), ".kami-flow", "update-cache.json");
 const CHECK_INTERVAL = 24 * 60 * 60 * 1000; // 24 hours
 
 async function getCache() {
@@ -26,7 +26,7 @@ async function updateCache(data) {
 async function shouldCheck() {
   const cache = await getCache();
   if (!cache || !cache.lastChecked) return true;
-  return (Date.now() - cache.lastChecked) > CHECK_INTERVAL;
+  return Date.now() - cache.lastChecked > CHECK_INTERVAL;
 }
 
 module.exports = { getCache, updateCache, shouldCheck };

@@ -129,7 +129,9 @@ class FileWatcher extends EventEmitter {
           }
         }
       } catch (error) {
-        logger.debug(`Error checking changes in ${currentDir}: ${error.message}`);
+        logger.debug(
+          `Error checking changes in ${currentDir}: ${error.message}`,
+        );
       }
     };
 

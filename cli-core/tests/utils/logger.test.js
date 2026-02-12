@@ -37,7 +37,9 @@ describe("Logger", () => {
 
       expect(consoleSpy.log).toHaveBeenCalledTimes(3);
       expect(consoleSpy.log).toHaveBeenCalledWith(expect.stringContaining("="));
-      expect(consoleSpy.log).toHaveBeenCalledWith(expect.stringContaining("Test Header"));
+      expect(consoleSpy.log).toHaveBeenCalledWith(
+        expect.stringContaining("Test Header"),
+      );
     });
   });
 
@@ -45,8 +47,12 @@ describe("Logger", () => {
     it("should print info message with icon", () => {
       logger.info("Information message");
 
-      expect(consoleSpy.log).toHaveBeenCalledWith(expect.stringContaining("ℹ️"));
-      expect(consoleSpy.log).toHaveBeenCalledWith(expect.stringContaining("Information message"));
+      expect(consoleSpy.log).toHaveBeenCalledWith(
+        expect.stringContaining("ℹ️"),
+      );
+      expect(consoleSpy.log).toHaveBeenCalledWith(
+        expect.stringContaining("Information message"),
+      );
     });
   });
 
@@ -54,8 +60,12 @@ describe("Logger", () => {
     it("should print success message with checkmark", () => {
       logger.success("Operation successful");
 
-      expect(consoleSpy.log).toHaveBeenCalledWith(expect.stringContaining("✅"));
-      expect(consoleSpy.log).toHaveBeenCalledWith(expect.stringContaining("Operation successful"));
+      expect(consoleSpy.log).toHaveBeenCalledWith(
+        expect.stringContaining("✅"),
+      );
+      expect(consoleSpy.log).toHaveBeenCalledWith(
+        expect.stringContaining("Operation successful"),
+      );
     });
   });
 
@@ -63,8 +73,12 @@ describe("Logger", () => {
     it("should print warning message with icon", () => {
       logger.warn("Warning message");
 
-      expect(consoleSpy.log).toHaveBeenCalledWith(expect.stringContaining("⚠️"));
-      expect(consoleSpy.log).toHaveBeenCalledWith(expect.stringContaining("Warning message"));
+      expect(consoleSpy.log).toHaveBeenCalledWith(
+        expect.stringContaining("⚠️"),
+      );
+      expect(consoleSpy.log).toHaveBeenCalledWith(
+        expect.stringContaining("Warning message"),
+      );
     });
   });
 
@@ -72,8 +86,12 @@ describe("Logger", () => {
     it("should print error message", () => {
       logger.error("Error occurred");
 
-      expect(consoleSpy.error).toHaveBeenCalledWith(expect.stringContaining("❌"));
-      expect(consoleSpy.error).toHaveBeenCalledWith(expect.stringContaining("Error: Error occurred"));
+      expect(consoleSpy.error).toHaveBeenCalledWith(
+        expect.stringContaining("❌"),
+      );
+      expect(consoleSpy.error).toHaveBeenCalledWith(
+        expect.stringContaining("Error: Error occurred"),
+      );
     });
 
     it("should not print stack trace when KAMI_DEBUG is false", () => {
@@ -117,8 +135,12 @@ describe("Logger", () => {
 
       debugLogger.debug("Debug message");
 
-      expect(consoleSpy.log).toHaveBeenCalledWith(expect.stringContaining("[DEBUG]"));
-      expect(consoleSpy.log).toHaveBeenCalledWith(expect.stringContaining("Debug message"));
+      expect(consoleSpy.log).toHaveBeenCalledWith(
+        expect.stringContaining("[DEBUG]"),
+      );
+      expect(consoleSpy.log).toHaveBeenCalledWith(
+        expect.stringContaining("Debug message"),
+      );
     });
   });
 
@@ -126,7 +148,9 @@ describe("Logger", () => {
     it("should print hint message in gray", () => {
       logger.hint("Hint text");
 
-      expect(consoleSpy.log).toHaveBeenCalledWith(expect.stringContaining("Hint text"));
+      expect(consoleSpy.log).toHaveBeenCalledWith(
+        expect.stringContaining("Hint text"),
+      );
     });
   });
 
@@ -196,9 +220,15 @@ describe("SummaryReporter", () => {
     it("should print summary header with duration", () => {
       reporter.print();
 
-      expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining("📊 SUMMARY:"));
-      expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining("Test Summary"));
-      expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining("Completed in"));
+      expect(consoleSpy).toHaveBeenCalledWith(
+        expect.stringContaining("📊 SUMMARY:"),
+      );
+      expect(consoleSpy).toHaveBeenCalledWith(
+        expect.stringContaining("Test Summary"),
+      );
+      expect(consoleSpy).toHaveBeenCalledWith(
+        expect.stringContaining("Completed in"),
+      );
     });
 
     it("should print table when results exist", () => {
@@ -211,7 +241,9 @@ describe("SummaryReporter", () => {
     it("should print no tasks message when results are empty", () => {
       reporter.print();
 
-      expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining("No tasks processed"));
+      expect(consoleSpy).toHaveBeenCalledWith(
+        expect.stringContaining("No tasks processed"),
+      );
     });
 
     it("should sort errors before successes", () => {
@@ -250,7 +282,9 @@ describe("SummaryReporter", () => {
       setTimeout(() => {
         reporter.print();
 
-        const durationCall = consoleSpy.mock.calls.find((call) => call[0].includes("Completed in"));
+        const durationCall = consoleSpy.mock.calls.find((call) =>
+          call[0].includes("Completed in"),
+        );
         expect(durationCall).toBeDefined();
         expect(durationCall[0]).toMatch(/\d+\.\d{2}s/);
         done();

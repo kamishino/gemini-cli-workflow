@@ -1,9 +1,9 @@
-const fs = require('fs-extra');
-const path = require('upath');
-const chalk = require('chalk');
-const inquirer = require('inquirer').default || require('inquirer');
-const { EnvironmentManager } = require('./env-manager');
-const InsightManager = require('./insight-manager');
+const fs = require("fs-extra");
+const path = require("upath");
+const chalk = require("chalk");
+const inquirer = require("inquirer").default || require("inquirer");
+const { EnvironmentManager } = require("./env-manager");
+const InsightManager = require("./insight-manager");
 
 /**
  * Extract Linked Idea ID from filename suffix (_from-ID)
@@ -16,17 +16,17 @@ function extractIdeaIdFromFilename(fileName) {
 async function runArchivist(options = {}) {
   const envManager = new EnvironmentManager();
   const workspaceRoot = await envManager.getAbsoluteWorkspacePath();
-  
-  const tasksDir = path.join(workspaceRoot, 'tasks');
-  const archiveDir = path.join(workspaceRoot, 'archive');
-  const backlogDir = path.join(workspaceRoot, 'ideas/backlog');
+
+  const tasksDir = path.join(workspaceRoot, "tasks");
+  const archiveDir = path.join(workspaceRoot, "archive");
+  const backlogDir = path.join(workspaceRoot, "ideas/backlog");
 
   if (!fs.existsSync(tasksDir)) {
     console.log(chalk.yellow("No tasks directory found."));
     return;
   }
 
-  const files = fs.readdirSync(tasksDir).filter(f => f.endsWith('.md'));
+  const files = fs.readdirSync(tasksDir).filter((f) => f.endsWith(".md"));
 
   if (files.length === 0) {
     console.log(chalk.green("Workspace is already clean!"));
@@ -35,8 +35,10 @@ async function runArchivist(options = {}) {
 
   // Group files by ID
   const tasks = {};
-  files.forEach(file => {
-    const match = file.match(/^(\d{3})-(S\d)-(BRIEF|PRD|TASK|IDEA|SPEC|BUILD|HANDOFF)-(.*)\.md$/);
+  files.forEach((file) => {
+    const match = file.match(
+      /^(\d{3})-(S\d)-(BRIEF|PRD|TASK|IDEA|SPEC|BUILD|HANDOFF)-(.*)\.md$/,
+    );
     if (match) {
       const id = match[1];
       const slug = match[4];
@@ -59,7 +61,9 @@ async function runArchivist(options = {}) {
     if (tasks[options.targetId]) {
       selectedIds = [options.targetId];
     } else {
-      console.log(chalk.red(`❌ Task ID ${options.targetId} not found in tasks folder.`));
+      console.log(
+        chalk.red(`❌ Task ID ${options.targetId} not found in tasks folder.`),
+      );
       return;
     }
   } else if (options.all) {
@@ -68,14 +72,14 @@ async function runArchivist(options = {}) {
     // Interactive Mode
     const answers = await inquirer.prompt([
       {
-        type: 'checkbox',
-        name: 'selectedIds',
-        message: 'Select tasks to archive:',
-        choices: taskIds.map(id => ({
+        type: "checkbox",
+        name: "selectedIds",
+        message: "Select tasks to archive:",
+        choices: taskIds.map((id) => ({
           name: `ID: ${id} (${tasks[id].slug})`,
-          value: id
-        }))
-      }
+          value: id,
+        })),
+      },
     ]);
     selectedIds = answers.selectedIds;
   }
@@ -89,16 +93,16 @@ async function runArchivist(options = {}) {
   if (!options.force) {
     const { confirm } = await inquirer.prompt([
       {
-        type: 'confirm',
-        name: 'confirm',
+        type: "confirm",
+        name: "confirm",
         message: `Archive ${selectedIds.length} task(s)?`,
-        default: true
-      }
+        default: true,
+      },
     ]);
     if (!confirm) return;
   }
 
-  const dateStr = new Date().toISOString().split('T')[0];
+  const dateStr = new Date().toISOString().split("T")[0];
 
   for (const id of selectedIds) {
     const task = tasks[id];
@@ -112,7 +116,7 @@ async function runArchivist(options = {}) {
 
     for (const file of task.files) {
       const filePath = path.join(tasksDir, file);
-      
+
       const ideaId = extractIdeaIdFromFilename(file);
       if (ideaId) linkedIdeaIds.add(ideaId);
 
@@ -124,21 +128,36 @@ async function runArchivist(options = {}) {
     if (fs.existsSync(backlogDir)) {
       const backlogFiles = fs.readdirSync(backlogDir);
       for (const ideaId of linkedIdeaIds) {
-        const matchingFile = backlogFiles.find(f => f.startsWith(ideaId));
+        const matchingFile = backlogFiles.find((f) => f.startsWith(ideaId));
         if (matchingFile) {
           const absoluteIdeaPath = path.join(backlogDir, matchingFile);
-          
+
           // Update status to implemented
           try {
-            let ideaContent = await fs.readFile(absoluteIdeaPath, 'utf8');
-            ideaContent = ideaContent.replace(/status:\s*backlog/i, 'status: implemented');
+            let ideaContent = await fs.readFile(absoluteIdeaPath, "utf8");
+            ideaContent = ideaContent.replace(
+              /status:\s*backlog/i,
+              "status: implemented",
+            );
             await fs.writeFile(absoluteIdeaPath, ideaContent);
 
             // Move to the task archive folder
-            await fs.move(absoluteIdeaPath, path.join(targetPath, matchingFile), { overwrite: true });
-            console.log(chalk.cyan(`  ✓ Linked Idea harvested (Suffix Model): ${matchingFile}`));
+            await fs.move(
+              absoluteIdeaPath,
+              path.join(targetPath, matchingFile),
+              { overwrite: true },
+            );
+            console.log(
+              chalk.cyan(
+                `  ✓ Linked Idea harvested (Suffix Model): ${matchingFile}`,
+              ),
+            );
           } catch (e) {
-            console.log(chalk.yellow(`  ⚠️  Failed to process linked idea ${ideaId}: ${e.message}`));
+            console.log(
+              chalk.yellow(
+                `  ⚠️  Failed to process linked idea ${ideaId}: ${e.message}`,
+              ),
+            );
           }
         }
       }
@@ -152,7 +171,11 @@ async function runArchivist(options = {}) {
         await insightManager.syncToContext(insights);
       }
     } catch (e) {
-      console.log(chalk.yellow(`  ⚠️  Insight Engine: Failed to harvest wisdom for Task ${id}: ${e.message}`));
+      console.log(
+        chalk.yellow(
+          `  ⚠️  Insight Engine: Failed to harvest wisdom for Task ${id}: ${e.message}`,
+        ),
+      );
     }
     // -------------------------------------------
 

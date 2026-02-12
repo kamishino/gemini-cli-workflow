@@ -86,6 +86,7 @@ curl https://sync.yourdomain.com/health
 ```
 
 Expected response:
+
 ```json
 {
   "status": "ok",
@@ -151,13 +152,13 @@ kami sync-db push
 
 ## API Endpoints
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/health` | Health check (no auth) |
-| `POST` | `/v1/projects/:id/sync` | Upload files |
-| `GET` | `/v1/projects/:id/files` | Download files |
-| `GET` | `/v1/projects/:id/status` | Get sync status |
-| `DELETE` | `/v1/projects/:id` | Delete project data |
+| Method   | Endpoint                  | Description            |
+| -------- | ------------------------- | ---------------------- |
+| `GET`    | `/health`                 | Health check (no auth) |
+| `POST`   | `/v1/projects/:id/sync`   | Upload files           |
+| `GET`    | `/v1/projects/:id/files`  | Download files         |
+| `GET`    | `/v1/projects/:id/status` | Get sync status        |
+| `DELETE` | `/v1/projects/:id`        | Delete project data    |
 
 All `/v1/*` endpoints require `Authorization: Bearer <API_KEY>` header.
 
@@ -167,14 +168,14 @@ All `/v1/*` endpoints require `Authorization: Bearer <API_KEY>` header.
 
 ### Environment Variables
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `PORT` | `3000` | Server port |
-| `API_KEY` | *required* | Bearer token for authentication |
-| `DB_PATH` | `/data/kamiflow-sync.db` | SQLite database path |
-| `MAX_FILE_SIZE` | `10485760` | Max file size (10MB) |
-| `RATE_LIMIT_MAX_REQUESTS` | `100` | Max requests per window |
-| `CORS_ORIGINS` | `*` | CORS allowed origins |
+| Variable                  | Default                  | Description                     |
+| ------------------------- | ------------------------ | ------------------------------- |
+| `PORT`                    | `3000`                   | Server port                     |
+| `API_KEY`                 | _required_               | Bearer token for authentication |
+| `DB_PATH`                 | `/data/kamiflow-sync.db` | SQLite database path            |
+| `MAX_FILE_SIZE`           | `10485760`               | Max file size (10MB)            |
+| `RATE_LIMIT_MAX_REQUESTS` | `100`                    | Max requests per window         |
+| `CORS_ORIGINS`            | `*`                      | CORS allowed origins            |
 
 ### Docker Volumes
 
@@ -333,6 +334,7 @@ rm -rf data/ logs/
 - **Total**: ~$6-12/month
 
 **Recommended VPS Providers:**
+
 - DigitalOcean: Droplet ($6/month)
 - Linode: Nanode ($5/month)
 - Vultr: Cloud Compute ($6/month)
@@ -351,5 +353,3 @@ rm -rf data/ logs/
 ## License
 
 MIT License - see [LICENSE](LICENSE) file for details.
-
-

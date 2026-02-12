@@ -21,7 +21,10 @@ class CredentialManager {
   constructor(projectRoot) {
     this.projectRoot = projectRoot;
     this.projectId = this.getProjectId();
-    this.fallbackPath = path.join(projectRoot, ".kamiflow/.sync/credentials.enc");
+    this.fallbackPath = path.join(
+      projectRoot,
+      ".kamiflow/.sync/credentials.enc",
+    );
   }
 
   /**
@@ -29,7 +32,7 @@ class CredentialManager {
    */
   getProjectId() {
     const configPath = path.join(this.projectRoot, ".kamirc.json");
-    
+
     if (fs.existsSync(configPath)) {
       try {
         const config = fs.readJsonSync(configPath);
@@ -40,7 +43,7 @@ class CredentialManager {
         logger.debug(`Failed to read project ID: ${error.message}`);
       }
     }
-    
+
     // Generate new project ID
     return crypto.randomBytes(16).toString("hex");
   }
@@ -145,18 +148,18 @@ class CredentialManager {
       const masterKey = this.getMasterKey();
       const iv = crypto.randomBytes(16);
       const cipher = crypto.createCipheriv("aes-256-cbc", masterKey, iv);
-      
+
       let encrypted = cipher.update(apiKey, "utf8", "hex");
       encrypted += cipher.final("hex");
-      
+
       const data = {
         iv: iv.toString("hex"),
-        encrypted: encrypted
+        encrypted: encrypted,
       };
-      
+
       await fs.ensureDir(path.dirname(this.fallbackPath));
       await fs.writeJson(this.fallbackPath, data);
-      
+
       return { method: "encrypted-file", success: true };
     } catch (error) {
       throw new Error(`Failed to store credentials: ${error.message}`);
@@ -168,18 +171,18 @@ class CredentialManager {
    */
   async getApiKeyFallback() {
     try {
-      if (!await fs.pathExists(this.fallbackPath)) {
+      if (!(await fs.pathExists(this.fallbackPath))) {
         return null;
       }
-      
+
       const data = await fs.readJson(this.fallbackPath);
       const masterKey = this.getMasterKey();
       const iv = Buffer.from(data.iv, "hex");
       const decipher = crypto.createDecipheriv("aes-256-cbc", masterKey, iv);
-      
+
       let decrypted = decipher.update(data.encrypted, "hex", "utf8");
       decrypted += decipher.final("utf8");
-      
+
       return decrypted;
     } catch (error) {
       logger.warn(`Failed to decrypt credentials: ${error.message}`);
@@ -232,7 +235,7 @@ class CredentialManager {
       storageMethod: await this.getStorageMethod(),
       hasCredentials: await this.hasCredentials(),
       keytarAvailable: !!keytar,
-      fallbackPath: this.fallbackPath
+      fallbackPath: this.fallbackPath,
     };
   }
 }

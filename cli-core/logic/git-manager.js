@@ -1,7 +1,7 @@
 const { execa } = require("execa");
 const chalk = require("chalk");
 const fs = require("fs-extra");
-const path = require('upath');
+const path = require("upath");
 
 async function isGitRepo(targetPath) {
   try {
@@ -39,7 +39,12 @@ async function removeSubmodule(targetPath, submodulePath) {
       cwd: targetPath,
     });
     await execa("git", ["rm", "-f", submodulePath], { cwd: targetPath });
-    const gitModulesPath = path.join(targetPath, ".git", "modules", submodulePath);
+    const gitModulesPath = path.join(
+      targetPath,
+      ".git",
+      "modules",
+      submodulePath,
+    );
     await fs.remove(gitModulesPath);
     return true;
   } catch (error) {
@@ -88,5 +93,5 @@ module.exports = {
   removeSubmodule,
   cloneRepo,
   getRemoteUrl,
-  getFileStatus
+  getFileStatus,
 };

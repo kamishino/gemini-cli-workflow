@@ -21,8 +21,12 @@ async function backupFile(filePath) {
       const absoluteFilePath = path.resolve(sanitizedPath);
 
       // Security: Ensure file is within project bounds (case-insensitive on Windows)
-      const fileCompare = process.platform === "win32" ? absoluteFilePath.toLowerCase() : absoluteFilePath;
-      const rootCompare = process.platform === "win32" ? projectRoot.toLowerCase() : projectRoot;
+      const fileCompare =
+        process.platform === "win32"
+          ? absoluteFilePath.toLowerCase()
+          : absoluteFilePath;
+      const rootCompare =
+        process.platform === "win32" ? projectRoot.toLowerCase() : projectRoot;
 
       if (!fileCompare.startsWith(rootCompare)) {
         logger.warn(`Backup attempt outside project: ${filePath}`);
@@ -33,7 +37,9 @@ async function backupFile(filePath) {
       const stats = await fs.stat(absoluteFilePath);
       const maxFileSize = 50 * 1024 * 1024;
       if (stats.size > maxFileSize) {
-        logger.warn(`File too large for backup: ${filePath} (${stats.size} bytes, max ${maxFileSize})`);
+        logger.warn(
+          `File too large for backup: ${filePath} (${stats.size} bytes, max ${maxFileSize})`,
+        );
         return null;
       }
       const { ConfigManager } = require("../logic/config-manager");
@@ -41,7 +47,11 @@ async function backupFile(filePath) {
       const maxBackups = (await config.get("maxBackups")) || 5;
 
       const relativePath = path.relative(projectRoot, absoluteFilePath);
-      const backupBaseDir = path.join(projectRoot, ".kamiflow/.backup", path.dirname(relativePath));
+      const backupBaseDir = path.join(
+        projectRoot,
+        ".kamiflow/.backup",
+        path.dirname(relativePath),
+      );
       const filename = path.basename(absoluteFilePath);
 
       await fs.ensureDir(backupBaseDir);
@@ -61,9 +71,16 @@ async function backupFile(filePath) {
 
       // Create new backup with millisecond precision for concurrency safety
       const now = new Date();
-      const timestamp = now.toISOString().replace(/[:.]/g, "-").replace("T", "_").split("Z")[0];
+      const timestamp = now
+        .toISOString()
+        .replace(/[:.]/g, "-")
+        .replace("T", "_")
+        .split("Z")[0];
       const ms = now.getMilliseconds().toString().padStart(3, "0");
-      const backupPath = path.join(backupBaseDir, `${filename}_${timestamp}_${ms}`);
+      const backupPath = path.join(
+        backupBaseDir,
+        `${filename}_${timestamp}_${ms}`,
+      );
 
       await fs.copy(absoluteFilePath, backupPath, { overwrite: true });
 
@@ -94,14 +111,18 @@ async function safeWrite(filePath, content, options = {}) {
     // Security: Check content size to prevent DoS
     const contentSize = Buffer.byteLength(content, "utf8");
     if (contentSize > maxSize) {
-      logger.error(`Content too large for ${filePath}: ${contentSize} bytes (max ${maxSize})`);
+      logger.error(
+        `Content too large for ${filePath}: ${contentSize} bytes (max ${maxSize})`,
+      );
       return false;
     }
 
     // Security: Ensure write location is within project bounds (case-insensitive on Windows)
     const absolutePath = path.resolve(filePath);
-    const pathCompare = process.platform === "win32" ? absolutePath.toLowerCase() : absolutePath;
-    const rootCompare = process.platform === "win32" ? projectRoot.toLowerCase() : projectRoot;
+    const pathCompare =
+      process.platform === "win32" ? absolutePath.toLowerCase() : absolutePath;
+    const rootCompare =
+      process.platform === "win32" ? projectRoot.toLowerCase() : projectRoot;
 
     if (!pathCompare.startsWith(rootCompare)) {
       logger.error(`Write attempt outside project: ${filePath}`);

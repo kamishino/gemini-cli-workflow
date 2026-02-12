@@ -86,9 +86,9 @@ _This will automatically setup the `kamiflow` (alias `kami`) global command._
 
 | Role           | Command                   | Goal                                                             |
 | :------------- | :------------------------ | :--------------------------------------------------------------- |
-| **Strategy**   | `/kamiflow:dev:flow`     | **[v2.49]** Orchestrate the entire lifecycle in one go. |
-| **Lineage**    | `_insights --task`       | **[v2.49]** Query the project's Knowledge Graph.         |
-| **Recovery**   | `/kamiflow:ops:wake`      | Reload project memory at session start.                  |
+| **Strategy**   | `/kamiflow:dev:flow`      | **[v2.49]** Orchestrate the entire lifecycle in one go.          |
+| **Lineage**    | `_insights --task`        | **[v2.49]** Query the project's Knowledge Graph.                 |
+| **Recovery**   | `/kamiflow:ops:wake`      | Reload project memory at session start.                          |
 | **Fast-Track** | `/kamiflow:dev:superlazy` | **[v2.0]** Auto-generate artifacts with validation & reflection. |
 | **God Mode**   | `/kamiflow:dev:saiyan`    | **[v2.0]** Fully autonomous execution with auto error recovery.  |
 | **Resume**     | `/kamiflow:ops:resume`    | **[v2.0]** Resume interrupted workflows from checkpoints.        |

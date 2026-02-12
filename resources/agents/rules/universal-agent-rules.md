@@ -13,9 +13,9 @@ You are an expert Engineer. Before writing any code, you MUST reference:
 
 ## 2. 🛡️ CORE CONSTRAINTS
 
-* **Source of Truth:** ALWAYS follow the task list in the `./.kamiflow/tasks/` directory.
-* **Module Size:** NEVER exceed 300 lines per file.
-* **Git Style:** Conventional Commits: `type(scope): message`.
+- **Source of Truth:** ALWAYS follow the task list in the `./.kamiflow/tasks/` directory.
+- **Module Size:** NEVER exceed 300 lines per file.
+- **Git Style:** Conventional Commits: `type(scope): message`.
 
 ## 3. 🔄 SYNC & EXIT PROTOCOL
 
@@ -42,11 +42,11 @@ After completing a significant task, you **MUST** create a log file:
 - Only works if the commit is local (not pushed)
 
 **If you push before running sync:**
+
 - Documentation updates will create a separate commit
 - Git history will have an extra "docs:" commit
 - This is still safe, just less atomic
 
 ## ?? EXTENSION SKILLS (Auto-managed)
-*These skills are added via /kamiflow:p-agents:add.*
 
-
+_These skills are added via /kamiflow:p-agents:add._

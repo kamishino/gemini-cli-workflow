@@ -1,5 +1,5 @@
-const logger = require('../utils/logger');
-const { EnvironmentManager } = require('./env-manager');
+const logger = require("../utils/logger");
+const { EnvironmentManager } = require("./env-manager");
 
 /**
  * The Saiyan Engine
@@ -8,9 +8,9 @@ const { EnvironmentManager } = require('./env-manager');
 async function runSaiyanMode(taskInput, options = {}) {
   const env = new EnvironmentManager();
   const config = {
-    strategy: options.strategy || 'BALANCED',
+    strategy: options.strategy || "BALANCED",
     maxRetries: options.maxRetries || 3,
-    autoArchive: true
+    autoArchive: true,
   };
 
   logger.header("SAIYAN MODE ACTIVATED");
@@ -19,12 +19,11 @@ async function runSaiyanMode(taskInput, options = {}) {
 
   try {
     logger.info("Saiyan Logic: Auto-approving plan...");
-    await new Promise(r => setTimeout(r, 1000));
-    
-    logger.success("Plan Approved (Option B: Balanced).");
-    
-    return { success: true, message: "Saiyan execution simulation complete." };
+    await new Promise((r) => setTimeout(r, 1000));
 
+    logger.success("Plan Approved (Option B: Balanced).");
+
+    return { success: true, message: "Saiyan execution simulation complete." };
   } catch (error) {
     logger.error("Saiyan Defeated", error);
     return { success: false, error: error.message };

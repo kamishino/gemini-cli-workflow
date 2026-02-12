@@ -2,7 +2,8 @@ const Database = require("better-sqlite3");
 const path = require("path");
 const fs = require("fs");
 
-const DB_PATH = process.env.DB_PATH || path.join(__dirname, "../data/kamiflow-sync.db");
+const DB_PATH =
+  process.env.DB_PATH || path.join(__dirname, "../data/kamiflow-sync.db");
 
 // Ensure data directory exists
 const dbDir = path.dirname(DB_PATH);
@@ -60,7 +61,14 @@ function upsertProject(projectId, name, gitRepo) {
       total_size = excluded.total_size
   `);
 
-  stmt.run(projectId, name, gitRepo, Date.now(), stats.fileCount, stats.totalSize);
+  stmt.run(
+    projectId,
+    name,
+    gitRepo,
+    Date.now(),
+    stats.fileCount,
+    stats.totalSize,
+  );
 }
 
 /**
@@ -143,7 +151,7 @@ function deleteFile(projectId, filePath) {
 function deleteProject(projectId) {
   const deleteFiles = db.prepare("DELETE FROM files WHERE project_id = ?");
   const deleteProj = db.prepare("DELETE FROM projects WHERE project_id = ?");
-  
+
   const result = db.transaction(() => {
     deleteFiles.run(projectId);
     return deleteProj.run(projectId);

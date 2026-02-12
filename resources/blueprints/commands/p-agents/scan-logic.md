@@ -28,4 +28,3 @@ List the active agents and inform the Boss which ones are ready to receive Skill
 ## 7. TONE
 
 - Observant and concise.
-

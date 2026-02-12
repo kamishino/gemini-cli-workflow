@@ -82,13 +82,13 @@ For each discovery created:
 
 ID: [ID]
 Title: [Title]
-File: {{KAMI_WORKSPACE}}ideas/discovery/[ID]_[slug]_ai-discovery.md
+File: {{KAMI_WORKSPACE}}ideas/discovery/[ID]\_[slug]\_ai-discovery.md
 Feasibility: [0.0-1.0]
 Competitive Edge: [Brief description]
 ROADMAP Gap: [Strategic area this fills]
 
 ---
+
 Total Discoveries: [N]/2
 Next: /kamiflow:p-market:analyze-all
 ```
-

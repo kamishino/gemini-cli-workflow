@@ -3,13 +3,13 @@
  * Creates new KamiFlow plugin projects from templates
  */
 
-const fs = require('fs-extra');
-const path = require('upath');
-const logger = require('./logger');
+const fs = require("fs-extra");
+const path = require("upath");
+const logger = require("./logger");
 
 class PluginGenerator {
   constructor() {
-    this.templateDir = path.join(__dirname, '../templates/plugin-template');
+    this.templateDir = path.join(__dirname, "../templates/plugin-template");
   }
 
   /**
@@ -20,28 +20,30 @@ class PluginGenerator {
   async generate(options) {
     const {
       name,
-      description = 'A KamiFlow plugin',
-      author = 'Your Name',
-      license = 'MIT',
-      category = 'utility',
+      description = "A KamiFlow plugin",
+      author = "Your Name",
+      license = "MIT",
+      category = "utility",
       outputDir = process.cwd(),
       capabilities = {
         commands: true,
         rules: false,
         hooks: false,
-        config: true
+        config: true,
       },
-      homepage = '',
-      repository = ''
+      homepage = "",
+      repository = "",
     } = options;
 
     if (!name) {
-      throw new Error('Plugin name is required');
+      throw new Error("Plugin name is required");
     }
 
     // Validate plugin name
     if (!/^[a-z0-9-]+$/.test(name)) {
-      throw new Error('Plugin name must contain only lowercase letters, numbers, and hyphens');
+      throw new Error(
+        "Plugin name must contain only lowercase letters, numbers, and hyphens",
+      );
     }
 
     const pluginDir = path.join(outputDir, name);
@@ -55,10 +57,10 @@ class PluginGenerator {
 
     // Create plugin directory structure
     await fs.ensureDir(pluginDir);
-    await fs.ensureDir(path.join(pluginDir, 'scripts'));
-    await fs.ensureDir(path.join(pluginDir, 'commands'));
-    await fs.ensureDir(path.join(pluginDir, 'rules'));
-    await fs.ensureDir(path.join(pluginDir, 'tests'));
+    await fs.ensureDir(path.join(pluginDir, "scripts"));
+    await fs.ensureDir(path.join(pluginDir, "commands"));
+    await fs.ensureDir(path.join(pluginDir, "rules"));
+    await fs.ensureDir(path.join(pluginDir, "tests"));
 
     // Prepare template variables
     const className = this.toPascalCase(name);
@@ -74,16 +76,16 @@ class PluginGenerator {
       HAS_HOOKS: capabilities.hooks.toString(),
       HAS_CONFIG: capabilities.config.toString(),
       HOMEPAGE_URL: homepage || `https://github.com/${author}/${name}`,
-      REPOSITORY_URL: repository || `https://github.com/${author}/${name}.git`
+      REPOSITORY_URL: repository || `https://github.com/${author}/${name}.git`,
     };
 
     // Copy and process template files
     const templateFiles = [
-      'kamiflow-plugin.json',
-      'index.js',
-      'README.md',
-      'package.json',
-      'scripts/post-install.js'
+      "kamiflow-plugin.json",
+      "index.js",
+      "README.md",
+      "package.json",
+      "scripts/post-install.js",
     ];
 
     for (const file of templateFiles) {
@@ -91,11 +93,11 @@ class PluginGenerator {
       const targetPath = path.join(pluginDir, file);
 
       if (await fs.pathExists(sourcePath)) {
-        let content = await fs.readFile(sourcePath, 'utf8');
-        
+        let content = await fs.readFile(sourcePath, "utf8");
+
         // Replace template variables
         for (const [key, value] of Object.entries(variables)) {
-          const regex = new RegExp(`{{${key}}}`, 'g');
+          const regex = new RegExp(`{{${key}}}`, "g");
           content = content.replace(regex, value);
         }
 
@@ -105,21 +107,21 @@ class PluginGenerator {
 
     // Create empty test file
     await fs.writeFile(
-      path.join(pluginDir, 'tests', `${name}.test.js`),
-      this.generateTestTemplate(name, className)
+      path.join(pluginDir, "tests", `${name}.test.js`),
+      this.generateTestTemplate(name, className),
     );
 
     // Create .gitignore
     await fs.writeFile(
-      path.join(pluginDir, '.gitignore'),
-      `node_modules/\n.DS_Store\n*.log\ncoverage/\n.env\n`
+      path.join(pluginDir, ".gitignore"),
+      `node_modules/\n.DS_Store\n*.log\ncoverage/\n.env\n`,
     );
 
     logger.success(`Plugin generated at: ${pluginDir}`);
-    logger.info('Next steps:');
+    logger.info("Next steps:");
     logger.info(`  cd ${name}`);
-    logger.info('  npm install');
-    logger.info('  kamiflow plugin install --source local .');
+    logger.info("  npm install");
+    logger.info("  kamiflow plugin install --source local .");
 
     return pluginDir;
   }
@@ -131,9 +133,9 @@ class PluginGenerator {
    */
   toPascalCase(str) {
     return str
-      .split('-')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join('');
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join("");
   }
 
   /**
@@ -212,15 +214,15 @@ describe('${className}', () => {
    */
   static getCategories() {
     return [
-      'workflow',
-      'integration',
-      'utility',
-      'analysis',
-      'automation',
-      'devops',
-      'testing',
-      'documentation',
-      'other'
+      "workflow",
+      "integration",
+      "utility",
+      "analysis",
+      "automation",
+      "devops",
+      "testing",
+      "documentation",
+      "other",
     ];
   }
 }

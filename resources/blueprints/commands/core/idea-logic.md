@@ -30,7 +30,7 @@ If the input is a file path (e.g., `{{KAMI_WORKSPACE}}ideas/backlog/A7B2-slug.md
 1. **Extract Path & ID:** You MUST identify the **Source Idea** and its **Idea ID** (e.g., A7B2).
 2. **Inherit Vision:** Read the file content and use it as the primary context for the Sniper process.
 3. **Traceability:** When generating the S1-IDEA file, you MUST use the `--from-idea [ID]` flag in the final command step.
-    - Example filename result: `[ID]-S1-IDEA-[slug]_from-A7B2.md`.
+   - Example filename result: `[ID]-S1-IDEA-[slug]_from-A7B2.md`.
 
 ## 5A. ID GENERATION (Session-Based Caching)
 
@@ -50,7 +50,7 @@ If the input is a file path (e.g., `{{KAMI_WORKSPACE}}ideas/backlog/A7B2-slug.md
    🔍 Task ID (Cached)
    - Session MAX ID: [cached_max_id]
    - Next Task ID: [next_id]
-   ```
+```
 
 **Mode 2: Reactive Scan - Triggered by User**
 If user says any of these (in {{CONVERSATIONAL_LANGUAGE}}):
@@ -79,7 +79,7 @@ Then:
    - Max ID found: [MAX_ID]
    - Next Task ID: [next_id]
    - Cache updated ✅
-   ```
+```
 
 **Fallback:** If no cache exists (user didn't run `/wake`), execute Global Scan once and cache the result.
 
@@ -226,15 +226,18 @@ If no matching skill exists but pattern is common:
 
 **Step 1: Calculate Clarify Score**
 Analyze the Raw Idea and current Project Context to determine your understanding level (0-10):
+
 - **Requirements Coverage:** Do I know exactly WHAT needs to be done?
 - **Technical Anchoring:** Do I know exactly WHERE (files/functions) to change?
 - **Context Alignment:** Does this fit our ROADMAP and PROJECT_CONTEXT goals?
 
 **Step 1.5: Memory Recall (The Historian)**
+
 - **Action:** Run `kami _recall "{{args}}"` to fetch summarized lessons from the archive.
 - **Synthesize:** Incorporate these memories into your diagnosis to avoid repeating past mistakes.
 
 **Step 2: Confidence Threshold Check**
+
 ```text
 IF Clarify Score < 8.0:
   1. LIST AMBIGUITY NODES:

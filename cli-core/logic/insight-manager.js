@@ -1,8 +1,8 @@
-const fs = require('fs-extra');
-const path = require('upath');
-const chalk = require('chalk');
-const { EnvironmentManager } = require('./env-manager');
-const { WorkspaceIndex } = require('./workspace-index');
+const fs = require("fs-extra");
+const path = require("upath");
+const chalk = require("chalk");
+const { EnvironmentManager } = require("./env-manager");
+const { WorkspaceIndex } = require("./workspace-index");
 
 class InsightManager {
   constructor(projectRoot = process.cwd()) {
@@ -14,9 +14,9 @@ class InsightManager {
   async getPaths() {
     const workspaceRoot = await this.envManager.getAbsoluteWorkspacePath();
     return {
-      archive: path.join(workspaceRoot, 'archive'),
-      context: path.join(workspaceRoot, 'PROJECT_CONTEXT.md'),
-      root: workspaceRoot
+      archive: path.join(workspaceRoot, "archive"),
+      context: path.join(workspaceRoot, "PROJECT_CONTEXT.md"),
+      root: workspaceRoot,
     };
   }
 
@@ -24,224 +24,326 @@ class InsightManager {
     const paths = await this.getPaths();
     if (!fs.existsSync(paths.archive)) return [];
     const archiveFolders = await fs.readdir(paths.archive);
-    const taskFolder = archiveFolders.find(f => f.includes(`_${taskId}_`));
+    const taskFolder = archiveFolders.find((f) => f.includes(`_${taskId}_`));
     if (!taskFolder) return [];
-    
+
     const taskPath = path.join(paths.archive, taskFolder);
     const files = await fs.readdir(taskPath);
-    const handoffFile = files.find(f => f.includes('-S4-HANDOFF-') || f.endsWith('-reflection.md') || f === 'reflection.md');
+    const handoffFile = files.find(
+      (f) =>
+        f.includes("-S4-HANDOFF-") ||
+        f.endsWith("-reflection.md") ||
+        f === "reflection.md",
+    );
     if (!handoffFile) return [];
-    
-    const content = await fs.readFile(path.join(taskPath, handoffFile), 'utf8');
+
+    const content = await fs.readFile(path.join(taskPath, handoffFile), "utf8");
 
     // Knowledge Graph: Extract relationships
     await this.index.initialize();
-    
+
     // 1. Standard references
     const relatedTasks = this.extractRelationships(content);
     for (const targetId of relatedTasks) {
-        if (targetId !== taskId) {
-            this.index.addRelationship(taskId, targetId, 'references', { path: path.relative(this.projectRoot, path.join(taskPath, handoffFile)) });
-        }
+      if (targetId !== taskId) {
+        this.index.addRelationship(taskId, targetId, "references", {
+          path: path.relative(
+            this.projectRoot,
+            path.join(taskPath, handoffFile),
+          ),
+        });
+      }
     }
 
     // 2. Strategic Lineage (IDEA -> IDEA)
     const lineageMatch = content.match(/(?:Parent|From Idea):\s*.*?(\d{3})/i);
     if (lineageMatch) {
-        const targetId = lineageMatch[1];
-        if (targetId !== taskId) {
-            this.index.addRelationship(taskId, targetId, 'lineage', { weight: 2.0, path: path.relative(this.projectRoot, path.join(taskPath, handoffFile)) });
-        }
+      const targetId = lineageMatch[1];
+      if (targetId !== taskId) {
+        this.index.addRelationship(taskId, targetId, "lineage", {
+          weight: 2.0,
+          path: path.relative(
+            this.projectRoot,
+            path.join(taskPath, handoffFile),
+          ),
+        });
+      }
     }
 
     await this.index.save();
 
-    const lessonsMatch = content.match(/## .*?(?:Lessons Learned|Strategic Reflection)[\s\S]*?(?=##|$)/i);
+    const lessonsMatch = content.match(
+      /## .*?(?:Lessons Learned|Strategic Reflection)[\s\S]*?(?=##|$)/i,
+    );
     if (!lessonsMatch) return [];
-    
+
     const lessonsContent = lessonsMatch[0];
     const insights = [];
-    
+
     // Strategy 1: Bullet points
-    const lines = lessonsContent.split('\n').filter(l => l.trim().startsWith('-') || l.trim().startsWith('*'));
+    const lines = lessonsContent
+      .split("\n")
+      .filter((l) => l.trim().startsWith("-") || l.trim().startsWith("*"));
     for (const line of lines) {
-      let cleanLine = line.trim().replace(/^[*-]\s*/, '').trim();
-      cleanLine = cleanLine.replace(/^[*-]\s*/, '').trim(); 
-      if (cleanLine.length < 10 || cleanLine.toLowerCase().includes("lessons learned")) continue;
+      let cleanLine = line
+        .trim()
+        .replace(/^[*-]\s*/, "")
+        .trim();
+      cleanLine = cleanLine.replace(/^[*-]\s*/, "").trim();
+      if (
+        cleanLine.length < 10 ||
+        cleanLine.toLowerCase().includes("lessons learned")
+      )
+        continue;
 
       const labelMatch = cleanLine.match(/^\*\*([^*:]+):\*\*\s*(.*)/i);
-      let label = labelMatch ? labelMatch[1].trim() : cleanLine.split(':')[0].replace(/\*\*/g, '').trim();
-      let wisdom = labelMatch ? `**${label}:** ${labelMatch[2].trim()}` : cleanLine;
-      
-      insights.push({ id: taskId, category: this.deduceCategory(taskFolder, wisdom), pattern: this.cleanLabel(label), wisdom: wisdom });
+      let label = labelMatch
+        ? labelMatch[1].trim()
+        : cleanLine.split(":")[0].replace(/\*\*/g, "").trim();
+      let wisdom = labelMatch
+        ? `**${label}:** ${labelMatch[2].trim()}`
+        : cleanLine;
+
+      insights.push({
+        id: taskId,
+        category: this.deduceCategory(taskFolder, wisdom),
+        pattern: this.cleanLabel(label),
+        wisdom: wisdom,
+      });
     }
 
     // Strategy 2: Key Insight headers
-    const keyInsightMatches = lessonsContent.match(/\*\*Key Insight(?:\s*#\d+)?:\s*(.*?)\*\*\n(.*?)(?=\n\n|\n##|$)/gi);
+    const keyInsightMatches = lessonsContent.match(
+      /\*\*Key Insight(?:\s*#\d+)?:\s*(.*?)\*\*\n(.*?)(?=\n\n|\n##|$)/gi,
+    );
     if (keyInsightMatches) {
-        keyInsightMatches.forEach(m => {
-            const mParts = m.match(/\*\*Key Insight(?:\s*#\d+)?:\s*(.*?)\*\*\n(.*)/i);
-            if (mParts) {
-                const label = mParts[1].trim();
-                const wisdom = mParts[2].trim();
-                insights.push({ id: taskId, category: this.deduceCategory(taskFolder, wisdom), pattern: this.cleanLabel(label), wisdom: `**${label}:** ${wisdom}` });
-            }
-        });
+      keyInsightMatches.forEach((m) => {
+        const mParts = m.match(
+          /\*\*Key Insight(?:\s*#\d+)?:\s*(.*?)\*\*\n(.*)/i,
+        );
+        if (mParts) {
+          const label = mParts[1].trim();
+          const wisdom = mParts[2].trim();
+          insights.push({
+            id: taskId,
+            category: this.deduceCategory(taskFolder, wisdom),
+            pattern: this.cleanLabel(label),
+            wisdom: `**${label}:** ${wisdom}`,
+          });
+        }
+      });
     }
 
     return insights;
   }
 
   cleanLabel(label) {
-      let clean = label.replace(/\*\*/g, '').replace(/\*/g, '').replace(/Key Insight(?:\s*#\d+)?:\s*/i, '').replace(/:$/, '').trim();
-      if (clean.length > 60) clean = clean.substring(0, 60) + '...';
-      return clean;
+    let clean = label
+      .replace(/\*\*/g, "")
+      .replace(/\*/g, "")
+      .replace(/Key Insight(?:\s*#\d+)?:\s*/i, "")
+      .replace(/:$/, "")
+      .trim();
+    if (clean.length > 60) clean = clean.substring(0, 60) + "...";
+    return clean;
   }
 
   deduceCategory(taskFolder, text) {
-      let category = 'General';
-      const textToScan = (taskFolder + " " + text).toLowerCase();
-      if (textToScan.includes('sync')) category = 'Sync';
-      else if (textToScan.includes('ui') || textToScan.includes('design') || textToScan.includes('aesthetics')) category = 'UI';
-      else if (textToScan.includes('config')) category = 'Config';
-      else if (textToScan.includes('logic')) category = 'Logic';
-      else if (textToScan.includes('rule') || textToScan.includes('manifesto') || textToScan.includes('blueprint')) category = 'Rules';
-      else if (textToScan.includes('cli') || textToScan.includes('command')) category = 'CLI';
-      return category;
+    let category = "General";
+    const textToScan = (taskFolder + " " + text).toLowerCase();
+    if (textToScan.includes("sync")) category = "Sync";
+    else if (
+      textToScan.includes("ui") ||
+      textToScan.includes("design") ||
+      textToScan.includes("aesthetics")
+    )
+      category = "UI";
+    else if (textToScan.includes("config")) category = "Config";
+    else if (textToScan.includes("logic")) category = "Logic";
+    else if (
+      textToScan.includes("rule") ||
+      textToScan.includes("manifesto") ||
+      textToScan.includes("blueprint")
+    )
+      category = "Rules";
+    else if (textToScan.includes("cli") || textToScan.includes("command"))
+      category = "CLI";
+    return category;
   }
 
   async syncToContext(insights) {
     if (!insights || insights.length === 0) return;
     const paths = await this.getPaths();
-    if (!await fs.pathExists(paths.context)) return;
-    
-    let content = await fs.readFile(paths.context, 'utf8');
-    const sectionHeader = '## ?? Project Wisdom: Strategic Patterns';
-    if (!content.includes(sectionHeader)) { content += `\n\n${sectionHeader}\n`; }
+    if (!(await fs.pathExists(paths.context))) return;
+
+    let content = await fs.readFile(paths.context, "utf8");
+    const sectionHeader = "## ?? Project Wisdom: Strategic Patterns";
+    if (!content.includes(sectionHeader)) {
+      content += `\n\n${sectionHeader}\n`;
+    }
 
     const parts = content.split(sectionHeader);
     let preSection = parts[0];
     let wisdomSection = parts[1] || "";
 
     const categoryTableMap = {};
-    const tableHeader = '| ID | Pattern | Wisdom | Source |';
-    const tableSeparator = '| :--- | :--- | :--- | :--- |';
+    const tableHeader = "| ID | Pattern | Wisdom | Source |";
+    const tableSeparator = "| :--- | :--- | :--- | :--- |";
 
-    const catBlocks = wisdomSection.split('### #');
-    catBlocks.forEach(block => {
-        if (!block.trim()) return;
-        const lines = block.trim().split('\n');
-        const category = lines[0].trim();
-        categoryTableMap[category] = lines.slice(1).filter(l => l.trim().startsWith('|') && !l.includes('ID | Pattern') && !l.includes(':---'));
+    const catBlocks = wisdomSection.split("### #");
+    catBlocks.forEach((block) => {
+      if (!block.trim()) return;
+      const lines = block.trim().split("\n");
+      const category = lines[0].trim();
+      categoryTableMap[category] = lines
+        .slice(1)
+        .filter(
+          (l) =>
+            l.trim().startsWith("|") &&
+            !l.includes("ID | Pattern") &&
+            !l.includes(":---"),
+        );
     });
 
     for (const insight of insights) {
-        if (!categoryTableMap[insight.category]) categoryTableMap[insight.category] = [];
-        const safePattern = insight.pattern.replace(/\|/g, '\\|');
-        const safeWisdom = insight.wisdom.replace(/\|/g, '\\|').replace(/\n/g, '<br>');
-        
-        // Skip duplicate entries or near-empty ones
-        if (safePattern.length < 3) continue;
-        
-        const duplicateKey = `| ${insight.id} | ${safePattern.substring(0, 20)}`;
-        if (!categoryTableMap[insight.category].some(r => r.includes(duplicateKey))) {
-            categoryTableMap[insight.category].push(`| ${insight.id} | ${safePattern} | ${safeWisdom} | Task ${insight.id} |`);
-        }
+      if (!categoryTableMap[insight.category])
+        categoryTableMap[insight.category] = [];
+      const safePattern = insight.pattern.replace(/\|/g, "\\|");
+      const safeWisdom = insight.wisdom
+        .replace(/\|/g, "\\|")
+        .replace(/\n/g, "<br>");
+
+      // Skip duplicate entries or near-empty ones
+      if (safePattern.length < 3) continue;
+
+      const duplicateKey = `| ${insight.id} | ${safePattern.substring(0, 20)}`;
+      if (
+        !categoryTableMap[insight.category].some((r) =>
+          r.includes(duplicateKey),
+        )
+      ) {
+        categoryTableMap[insight.category].push(
+          `| ${insight.id} | ${safePattern} | ${safeWisdom} | Task ${insight.id} |`,
+        );
+      }
     }
 
     let newWisdomSection = "";
-    Object.keys(categoryTableMap).sort().forEach(cat => {
+    Object.keys(categoryTableMap)
+      .sort()
+      .forEach((cat) => {
         if (categoryTableMap[cat].length > 0) {
-            newWisdomSection += `\n### #${cat}\n${tableHeader}\n${tableSeparator}\n${categoryTableMap[cat].join('\n')}\n`;
+          newWisdomSection += `\n### #${cat}\n${tableHeader}\n${tableSeparator}\n${categoryTableMap[cat].join("\n")}\n`;
         }
-    });
+      });
 
-    await fs.writeFile(paths.context, preSection.trim() + "\n\n" + sectionHeader + "\n" + newWisdomSection);
+    await fs.writeFile(
+      paths.context,
+      preSection.trim() + "\n\n" + sectionHeader + "\n" + newWisdomSection,
+    );
   }
 
   /**
    * Extract Task IDs from content using Regex
    */
   extractRelationships(content) {
-      const taskRegex = /\bTask\s+(\d{3})\b/gi;
-      const matches = [...content.matchAll(taskRegex)];
-      return [...new Set(matches.map(m => m[1]))];
+    const taskRegex = /\bTask\s+(\d{3})\b/gi;
+    const matches = [...content.matchAll(taskRegex)];
+    return [...new Set(matches.map((m) => m[1]))];
   }
 
   /**
    * Display related tasks from the Knowledge Graph
    */
   async displayGraph(taskId, options = {}) {
-      await this.index.initialize();
-      const neighbors = this.index.getNeighbors(taskId);
-      
-      if (neighbors.length === 0) {
-          console.log(chalk.gray(`\n💭 No graph relationships found for Task ${taskId}.`));
-          return;
-      }
+    await this.index.initialize();
+    const neighbors = this.index.getNeighbors(taskId);
 
-      if (options.visualize) {
-          console.log(chalk.cyan(`\n📊 Knowledge Graph (Mermaid): Task ${taskId}`));
-          console.log("```mermaid");
-          console.log("graph TD");
-          console.log(`    T${taskId}[Task ${taskId}]`);
-          console.log(`    style T${taskId} fill:#f96,stroke:#333,stroke-width:4px`);
-          
-          neighbors.forEach(n => {
-              const nodeLabel = `T${n.node}[Task ${n.node}]`;
-              if (n.direction === 'out') {
-                  const arrow = n.rel_type === 'lineage' ? "===>" : "-->";
-                  console.log(`    T${taskId} ${arrow}|${n.rel_type}| ${nodeLabel}`);
-                  if (n.rel_type === 'lineage') console.log(`    style ${nodeLabel} fill:#ff6,stroke:#333,stroke-width:2px`);
-              } else {
-                  const arrow = n.rel_type === 'lineage' ? "===>" : "-->";
-                  console.log(`    ${nodeLabel} ${arrow}|${n.rel_type}| T${taskId}`);
-              }
-          });
-          console.log("```\n");
-          return;
-      }
+    if (neighbors.length === 0) {
+      console.log(
+        chalk.gray(`\n💭 No graph relationships found for Task ${taskId}.`),
+      );
+      return;
+    }
 
-      console.log(chalk.cyan(`\n🔄 Knowledge Graph: Related to Task ${taskId}`));
-      neighbors.forEach(n => {
-          const direction = n.direction === 'out' ? '→' : '←';
-          console.log(chalk.gray(`   ${direction} [Task ${n.node}] (${n.rel_type})`));
+    if (options.visualize) {
+      console.log(chalk.cyan(`\n📊 Knowledge Graph (Mermaid): Task ${taskId}`));
+      console.log("```mermaid");
+      console.log("graph TD");
+      console.log(`    T${taskId}[Task ${taskId}]`);
+      console.log(
+        `    style T${taskId} fill:#f96,stroke:#333,stroke-width:4px`,
+      );
+
+      neighbors.forEach((n) => {
+        const nodeLabel = `T${n.node}[Task ${n.node}]`;
+        if (n.direction === "out") {
+          const arrow = n.rel_type === "lineage" ? "===>" : "-->";
+          console.log(`    T${taskId} ${arrow}|${n.rel_type}| ${nodeLabel}`);
+          if (n.rel_type === "lineage")
+            console.log(
+              `    style ${nodeLabel} fill:#ff6,stroke:#333,stroke-width:2px`,
+            );
+        } else {
+          const arrow = n.rel_type === "lineage" ? "===>" : "-->";
+          console.log(`    ${nodeLabel} ${arrow}|${n.rel_type}| T${taskId}`);
+        }
       });
+      console.log("```\n");
+      return;
+    }
+
+    console.log(chalk.cyan(`\n🔄 Knowledge Graph: Related to Task ${taskId}`));
+    neighbors.forEach((n) => {
+      const direction = n.direction === "out" ? "→" : "←";
+      console.log(
+        chalk.gray(`   ${direction} [Task ${n.node}] (${n.rel_type})`),
+      );
+    });
   }
 
   /**
    * Export the entire Knowledge Graph to an interactive HTML file
    */
   async exportHTMLGraph() {
-      await this.index.initialize();
-      const data = this.index.exportGraphData();
-      const workspaceRoot = await this.envManager.getAbsoluteWorkspacePath();
-      const exportDir = path.join(workspaceRoot, 'knowledge-graphs');
-      const exportPath = path.join(exportDir, 'index.html');
-      
-      // Smart Template Resolution
-      const localTemplate = path.join(this.projectRoot, 'resources/templates/knowledge-map.html');
-      const globalTemplate = path.join(__dirname, '../../resources/templates/knowledge-map.html');
-      
-      let templatePath = null;
-      if (fs.existsSync(localTemplate)) {
-          templatePath = localTemplate;
-      } else if (fs.existsSync(globalTemplate)) {
-          templatePath = globalTemplate;
-      }
+    await this.index.initialize();
+    const data = this.index.exportGraphData();
+    const workspaceRoot = await this.envManager.getAbsoluteWorkspacePath();
+    const exportDir = path.join(workspaceRoot, "knowledge-graphs");
+    const exportPath = path.join(exportDir, "index.html");
 
-      if (!templatePath) {
-          throw new Error("Visualization template not found locally or globally.");
-      }
+    // Smart Template Resolution
+    const localTemplate = path.join(
+      this.projectRoot,
+      "resources/templates/knowledge-map.html",
+    );
+    const globalTemplate = path.join(
+      __dirname,
+      "../../resources/templates/knowledge-map.html",
+    );
 
-      await fs.ensureDir(exportDir);
-      let template = await fs.readFile(templatePath, 'utf8');
-      
-      // Inject data
-      const html = template.replace('JSON_DATA_PLACEHOLDER', JSON.stringify(data));
-      await fs.writeFile(exportPath, html);
+    let templatePath = null;
+    if (fs.existsSync(localTemplate)) {
+      templatePath = localTemplate;
+    } else if (fs.existsSync(globalTemplate)) {
+      templatePath = globalTemplate;
+    }
 
-      return path.relative(this.projectRoot, exportPath);
+    if (!templatePath) {
+      throw new Error("Visualization template not found locally or globally.");
+    }
+
+    await fs.ensureDir(exportDir);
+    let template = await fs.readFile(templatePath, "utf8");
+
+    // Inject data
+    const html = template.replace(
+      "JSON_DATA_PLACEHOLDER",
+      JSON.stringify(data),
+    );
+    await fs.writeFile(exportPath, html);
+
+    return path.relative(this.projectRoot, exportPath);
   }
 }
 module.exports = InsightManager;

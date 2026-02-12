@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable no-process-exit */
 
 /**
  * KamiFlow Universal Installer & Project Initializer
@@ -6,7 +7,7 @@
  */
 
 const fs = require("fs-extra");
-const path = require('upath');
+const path = require("upath");
 const os = require("os");
 const chalk = require("chalk");
 const { execSync } = require("child_process");
@@ -21,9 +22,13 @@ const INSTALL_DIR = path.join(os.homedir(), ".kami-flow");
  */
 
 async function runInstaller() {
-  console.log(chalk.cyan("\n========================================================"));
+  console.log(
+    chalk.cyan("\n========================================================"),
+  );
   console.log(chalk.cyan("  🌊 KamiFlow Universal Installer"));
-  console.log(chalk.cyan("========================================================\n"));
+  console.log(
+    chalk.cyan("========================================================\n"),
+  );
 
   try {
     // 1. Environment Check
@@ -60,7 +65,9 @@ function checkPrerequisites() {
     try {
       execSync("git --version", { stdio: "ignore" });
     } catch (e) {
-      throw new Error("Git is not installed. Please install Git from https://git-scm.com/");
+      throw new Error(
+        "Git is not installed. Please install Git from https://git-scm.com/",
+      );
     }
 
     console.log(chalk.green("Ready!"));
@@ -72,7 +79,9 @@ function checkPrerequisites() {
 
 function prepareInstallDir() {
   if (fs.existsSync(INSTALL_DIR)) {
-    console.log(chalk.yellow(`⚠️  Installation directory already exists: ${INSTALL_DIR}`));
+    console.log(
+      chalk.yellow(`⚠️  Installation directory already exists: ${INSTALL_DIR}`),
+    );
     console.log(chalk.gray("   Updating existing installation..."));
   } else {
     console.log(chalk.gray(`📂 Target directory: ${INSTALL_DIR}`));
@@ -87,11 +96,15 @@ function cloneRepo() {
     } catch (e) {
       console.log(chalk.yellow("   Pull failed, attempting fresh clone..."));
       fs.removeSync(INSTALL_DIR);
-      execSync(`git clone ${KAMIFLOW_REPO} "${INSTALL_DIR}"`, { stdio: "inherit" });
+      execSync(`git clone ${KAMIFLOW_REPO} "${INSTALL_DIR}"`, {
+        stdio: "inherit",
+      });
     }
   } else {
     console.log("📡 Cloning repository...");
-    execSync(`git clone ${KAMIFLOW_REPO} "${INSTALL_DIR}"`, { stdio: "inherit" });
+    execSync(`git clone ${KAMIFLOW_REPO} "${INSTALL_DIR}"`, {
+      stdio: "inherit",
+    });
   }
 }
 
@@ -99,7 +112,7 @@ function installAndLink() {
   console.log("📦 Installing dependencies and linking CLI...");
   // We need devDependencies (like cross-env) to run the build script
   execSync("npm install", { cwd: INSTALL_DIR, stdio: "inherit" });
-  
+
   console.log(chalk.yellow("🏗️  Building distribution artifacts..."));
   execSync("npm run build", { cwd: INSTALL_DIR, stdio: "inherit" });
 
@@ -112,16 +125,24 @@ function showSuccess() {
   const isGlobal = cliRoot.toLowerCase().includes(".kami-flow");
 
   console.log(chalk.green("\n✨ KamiFlow installed successfully!\n"));
-  
+
   if (!isGlobal) {
     console.log(chalk.yellow("🚀 Local Clone Detected"));
-    console.log(chalk.gray("   To use this local version as your global 'kami' command, run:"));
+    console.log(
+      chalk.gray(
+        "   To use this local version as your global 'kami' command, run:",
+      ),
+    );
     console.log(chalk.cyan("   npm link\n"));
   }
 
   console.log(chalk.white("You can now run:"));
-  console.log(chalk.cyan("  kami doctor  ") + chalk.gray("- To check your environment"));
-  console.log(chalk.cyan("  kami init    ") + chalk.gray("- To set up a new project\n"));
+  console.log(
+    chalk.cyan("  kami doctor  ") + chalk.gray("- To check your environment"),
+  );
+  console.log(
+    chalk.cyan("  kami init    ") + chalk.gray("- To set up a new project\n"),
+  );
 }
 
 const { EnvironmentManager } = require("./env-manager");
@@ -134,11 +155,11 @@ const inquirer = require("inquirer").default || require("inquirer");
 function isPathInPreset(relPath, presetKey) {
   const preset = presets[presetKey];
   if (!preset || !preset.patterns) return true;
-  
+
   // Normalize path for matching
   const normalizedPath = relPath.replace(/\\/g, "/");
-  
-  return preset.patterns.some(pattern => {
+
+  return preset.patterns.some((pattern) => {
     if (pattern === "**") return true;
     return minimatch(normalizedPath, pattern);
   });
@@ -173,11 +194,18 @@ async function initializeProject(cwd, options = {}) {
         name: "preset",
         message: "Choose KamiFlow Preset:",
         choices: [
-          { name: chalk.cyan("Basic") + " (Core Sniper Flow only)", value: "basic" },
-          { name: chalk.green("Full") + " (Complete Suite: Plugins, Swarm, Sync)", value: "full" }
+          {
+            name: chalk.cyan("Basic") + " (Core Sniper Flow only)",
+            value: "basic",
+          },
+          {
+            name:
+              chalk.green("Full") + " (Complete Suite: Plugins, Swarm, Sync)",
+            value: "full",
+          },
         ],
-        default: "basic"
-      }
+        default: "basic",
+      },
     ]);
     selectedPreset = preset;
   }
@@ -240,7 +268,7 @@ async function initializeProject(cwd, options = {}) {
 
           // Basic excludes
           if (basename === ".git" || basename === "node_modules") return false;
-          
+
           // Filter by Preset
           if (relative !== "." && !isPathInPreset(relative, selectedPreset)) {
             return false;
@@ -262,16 +290,18 @@ async function initializeProject(cwd, options = {}) {
           if (relative === ".kamirc.json") {
             const destPath = path.join(cwd, relative);
             if (fs.existsSync(destPath)) return false;
-            
+
             // Inject preset choice into config
             try {
-                const config = fs.readJsonSync(src);
-                config.preset = selectedPreset;
-                fs.writeJsonSync(destPath, config, { spaces: 2 });
-                console.log(chalk.cyan(`   🌱 Seeded .kamirc.json (${selectedPreset})`));
-                return false; // Already handled manually
+              const config = fs.readJsonSync(src);
+              config.preset = selectedPreset;
+              fs.writeJsonSync(destPath, config, { spaces: 2 });
+              console.log(
+                chalk.cyan(`   🌱 Seeded .kamirc.json (${selectedPreset})`),
+              );
+              return false; // Already handled manually
             } catch (e) {
-                return true;
+              return true;
             }
           }
 
@@ -281,7 +311,10 @@ async function initializeProject(cwd, options = {}) {
     }
 
     // 4. Create necessary empty dirs (Only private data placeholders)
-    const workspaceDirs = presets[selectedPreset].folders || ["tasks", "archive"];
+    const workspaceDirs = presets[selectedPreset].folders || [
+      "tasks",
+      "archive",
+    ];
 
     for (const dir of workspaceDirs) {
       const d = path.join(workspaceRoot, dir);
@@ -319,7 +352,7 @@ async function initializeProject(cwd, options = {}) {
       ".kamiflow/.index/",
       ".kamiflow/.sync/",
     ]);
-    
+
     updateIgnoreFile(cwd, ".geminiignore", [
       ".kamiflow/",
       "node_modules/",
@@ -336,23 +369,27 @@ async function initializeProject(cwd, options = {}) {
 function updateIgnoreFile(cwd, fileName, rules) {
   const ignorePath = path.join(cwd, fileName);
   let content = "";
-  
+
   if (fs.existsSync(ignorePath)) {
     content = fs.readFileSync(ignorePath, "utf8");
   }
 
   let updated = false;
-  const lines = content.split("\n").map(l => l.trim());
-  
+  const lines = content.split("\n").map((l) => l.trim());
+
   const header = `\n# --- KamiFlow: ${fileName} ---`;
   if (!content.includes(header.trim())) {
-    content = content.endsWith("\n") ? content + header : content + "\n" + header;
+    content = content.endsWith("\n")
+      ? content + header
+      : content + "\n" + header;
     updated = true;
   }
 
   for (const rule of rules) {
     if (!lines.includes(rule)) {
-      content = content.endsWith("\n") ? `${content}${rule}\n` : `${content}\n${rule}\n`;
+      content = content.endsWith("\n")
+        ? `${content}${rule}\n`
+        : `${content}\n${rule}\n`;
       updated = true;
     }
   }
@@ -364,19 +401,12 @@ function updateIgnoreFile(cwd, fileName, rules) {
 }
 
 function getGeneStorePath() {
-
   return INSTALL_DIR;
-
 }
-
-
 
 if (require.main === module) {
-
   runInstaller();
-
 }
 
-
-
 module.exports = { initializeProject, getGeneStorePath };
+

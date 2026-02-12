@@ -115,7 +115,11 @@ class ConfigManager {
     const output = { ...target };
     for (const key in source) {
       if (source[key] instanceof Object && !Array.isArray(source[key])) {
-        if (key in target && target[key] instanceof Object && !Array.isArray(target[key])) {
+        if (
+          key in target &&
+          target[key] instanceof Object &&
+          !Array.isArray(target[key])
+        ) {
           output[key] = this.deepMerge(target[key], source[key]);
         } else {
           output[key] = source[key];
@@ -166,7 +170,9 @@ class ConfigManager {
     if (!result.success) {
       logger.warn("Configuration validation issues found:");
       result.error.issues.forEach((issue) => {
-        logger.hint(`${issue.path.join(".")}: ${issue.message} (Using default)`);
+        logger.hint(
+          `${issue.path.join(".")}: ${issue.message} (Using default)`,
+        );
       });
       // Fallback: merge raw input with Zod's default output
       finalConfig = ConfigSchema.parse({}); // Get defaults
@@ -196,7 +202,11 @@ class ConfigManager {
     let current = obj;
 
     for (const k of keys) {
-      if (!(k in current) || typeof current[k] !== "object" || Array.isArray(current[k])) {
+      if (
+        !(k in current) ||
+        typeof current[k] !== "object" ||
+        Array.isArray(current[k])
+      ) {
         current[k] = {};
       }
       current = current[k];
@@ -264,9 +274,12 @@ class ConfigManager {
     const config = await this.loadAll();
 
     // Reuse cached layer data to avoid re-reading files
-    const defaultData = this.layerCache?.default || (await this.loadLayer(this.paths.default));
-    const globalData = this.layerCache?.global || (await this.loadLayer(this.paths.global));
-    const localData = this.layerCache?.local || (await this.loadLayer(this.paths.local));
+    const defaultData =
+      this.layerCache?.default || (await this.loadLayer(this.paths.default));
+    const globalData =
+      this.layerCache?.global || (await this.loadLayer(this.paths.global));
+    const localData =
+      this.layerCache?.local || (await this.loadLayer(this.paths.local));
 
     const allKeys = this.getFlattenedKeys(ConfigSchema);
 
@@ -275,8 +288,10 @@ class ConfigManager {
 
       let source = "Schema";
       if (this.resolveValue(localData, key) !== undefined) source = "Local";
-      else if (this.resolveValue(globalData, key) !== undefined) source = "Global";
-      else if (this.resolveValue(defaultData, key) !== undefined) source = "System";
+      else if (this.resolveValue(globalData, key) !== undefined)
+        source = "Global";
+      else if (this.resolveValue(defaultData, key) !== undefined)
+        source = "System";
 
       return {
         Key: key,
@@ -299,10 +314,20 @@ class ConfigManager {
 
       if (subSchema instanceof z.ZodObject) {
         keys = keys.concat(this.getFlattenedKeys(subSchema, fullKey));
-      } else if (subSchema instanceof z.ZodDefault && subSchema._def.innerType instanceof z.ZodObject) {
-        keys = keys.concat(this.getFlattenedKeys(subSchema._def.innerType, fullKey));
-      } else if (subSchema instanceof z.ZodOptional && subSchema._def.innerType instanceof z.ZodObject) {
-        keys = keys.concat(this.getFlattenedKeys(subSchema._def.innerType, fullKey));
+      } else if (
+        subSchema instanceof z.ZodDefault &&
+        subSchema._def.innerType instanceof z.ZodObject
+      ) {
+        keys = keys.concat(
+          this.getFlattenedKeys(subSchema._def.innerType, fullKey),
+        );
+      } else if (
+        subSchema instanceof z.ZodOptional &&
+        subSchema._def.innerType instanceof z.ZodObject
+      ) {
+        keys = keys.concat(
+          this.getFlattenedKeys(subSchema._def.innerType, fullKey),
+        );
       } else {
         keys.push(fullKey);
       }
@@ -316,7 +341,11 @@ class ConfigManager {
   flattenObject(obj, prefix = "") {
     return Object.keys(obj).reduce((acc, key) => {
       const fullKey = prefix ? `${prefix}.${key}` : key;
-      if (obj[key] !== null && typeof obj[key] === "object" && !Array.isArray(obj[key])) {
+      if (
+        obj[key] !== null &&
+        typeof obj[key] === "object" &&
+        !Array.isArray(obj[key])
+      ) {
         Object.assign(acc, this.flattenObject(obj[key], fullKey));
       } else {
         acc[fullKey] = obj[key];
@@ -383,7 +412,10 @@ class ConfigManager {
 
         // Unpack Default/Optional
         let inner = schema;
-        while (inner instanceof z.ZodDefault || inner instanceof z.ZodOptional) {
+        while (
+          inner instanceof z.ZodDefault ||
+          inner instanceof z.ZodOptional
+        ) {
           inner = inner._def.innerType;
         }
 

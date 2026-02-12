@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable no-process-exit */
 
 const { Command } = require("commander");
 const chalk = require("chalk");
@@ -34,7 +35,10 @@ async function execute(title, action) {
 // Get version from package.json
 const packageJson = require("../package.json");
 
-program.name("kamiflow").description("KamiFlow CLI - The Orchestrator for Indie Builders").version(packageJson.version);
+program
+  .name("kamiflow")
+  .description("KamiFlow CLI - The Orchestrator for Indie Builders")
+  .version(packageJson.version);
 
 // --- CLI UX Alignment (Task 110 & 111) ---
 const isDev = process.env.KAMI_ENV === "development";
@@ -43,24 +47,59 @@ const CATEGORIES = {
   project: {
     title: "ðŸ“ PROJECT MANAGEMENT",
     color: chalk.green,
-    commands: ["init-project", "check-health", "upgrade-core", "sync-rules", "show-info", "check-config", "manage-config", "archive-task", "search-workspace", "sync-db", "resume-workflow", "update-roadmap"],
+    commands: [
+      "init-project",
+      "check-health",
+      "upgrade-core",
+      "sync-rules",
+      "show-info",
+      "check-config",
+      "manage-config",
+      "archive-task",
+      "search-workspace",
+      "sync-db",
+      "resume-workflow",
+      "update-roadmap",
+    ],
   },
   automation: {
     title: "ðŸ¤– AUTOMATION & SWARM",
     color: chalk.magenta,
-    commands: ["run-saiyan", "run-batch", "check-swarm", "lock-swarm", "unlock-swarm"],
+    commands: [
+      "run-saiyan",
+      "run-batch",
+      "check-swarm",
+      "lock-swarm",
+      "unlock-swarm",
+    ],
   },
   maintenance: {
     title: "ðŸ”§ MAINTENANCE (MASTER REPO)",
     color: chalk.red,
-    commands: ["clean-rules", "audit-docs", "sync-docs", "build-agents", "sync-skills", "_agent-scan", "_idea-create", "_idea-refine", "_idea-promote", "_idea-analyze", "_rules-update"],
+    commands: [
+      "clean-rules",
+      "audit-docs",
+      "sync-docs",
+      "build-agents",
+      "sync-skills",
+      "_agent-scan",
+      "_idea-create",
+      "_idea-refine",
+      "_idea-promote",
+      "_idea-analyze",
+      "_rules-update",
+    ],
     hidden: !isDev,
   },
 };
 
 program.configureHelp({
   formatHelp: (cmd, helper) => {
-    const header = chalk.bold.cyan(`\nKamiFlow CLI v${packageJson.version}`) + " - " + chalk.italic(cmd.description()) + "\n";
+    const header =
+      chalk.bold.cyan(`\nKamiFlow CLI v${packageJson.version}`) +
+      " - " +
+      chalk.italic(cmd.description()) +
+      "\n";
     const usage = `\n${chalk.yellow("Usage:")} ${helper.commandUsage(cmd)}\n`;
 
     let sections = [header, usage];
@@ -69,41 +108,57 @@ program.configureHelp({
       const group = CATEGORIES[key];
       if (group.hidden) continue;
 
-      const groupCommands = cmd.commands.filter((c) => group.commands.includes(c.name()));
+      const groupCommands = cmd.commands.filter((c) =>
+        group.commands.includes(c.name()),
+      );
       if (groupCommands.length === 0) continue;
 
       let groupOutput = `\n${group.color(chalk.bold(group.title))}\n`;
-      groupCommands.sort((a, b) => {
-        return group.commands.indexOf(a.name()) - group.commands.indexOf(b.name());
-      }).forEach((c) => {
-        if (c.name().startsWith("_")) return;
+      groupCommands
+        .sort((a, b) => {
+          return (
+            group.commands.indexOf(a.name()) - group.commands.indexOf(b.name())
+          );
+        })
+        .forEach((c) => {
+          if (c.name().startsWith("_")) return;
 
-        const alias = c.alias();
-        const name = c.name();
-        const desc = c.description();
+          const alias = c.alias();
+          const name = c.name();
+          const desc = c.description();
 
-        const col1 = alias ? chalk.cyan(alias) : chalk.cyan(name);
-        const col2 = alias ? chalk.gray(`[${name}]`) : "";
-        
-        groupOutput += `  ${col1.padEnd(25)} ${col2.padEnd(25)} ${desc}\n`;
-      });
+          const col1 = alias ? chalk.cyan(alias) : chalk.cyan(name);
+          const col2 = alias ? chalk.gray(`[${name}]`) : "";
+
+          groupOutput += `  ${col1.padEnd(25)} ${col2.padEnd(25)} ${desc}\n`;
+        });
       sections.push(groupOutput);
     }
 
     const optionsList = helper.visibleOptions(cmd);
     if (optionsList.length > 0) {
-      const options = `\n${chalk.yellow("Options:")}\n` + optionsList.map(o => `  ${helper.optionTerm(o).padEnd(25)} ${helper.optionDescription(o)}`).join('\n') + '\n';
+      const options =
+        `\n${chalk.yellow("Options:")}\n` +
+        optionsList
+          .map(
+            (o) =>
+              `  ${helper.optionTerm(o).padEnd(25)} ${helper.optionDescription(o)}`,
+          )
+          .join("\n") +
+        "\n";
       sections.push(options);
     }
 
     return sections.join("");
-  }
+  },
 });
 
 // Load dynamic commands from commands/ directory
 const commandsPath = path.join(__dirname, "../commands");
 if (fs.existsSync(commandsPath)) {
-  const commandFiles = fs.readdirSync(commandsPath).filter(f => f.endsWith(".js"));
+  const commandFiles = fs
+    .readdirSync(commandsPath)
+    .filter((f) => f.endsWith(".js"));
   for (const file of commandFiles) {
     try {
       const cmdModule = require(path.join(commandsPath, file));
@@ -114,15 +169,15 @@ if (fs.existsSync(commandsPath)) {
       if (cmdModule.alias) cmd.alias(cmdModule.alias);
 
       if (cmdModule.options) {
-        cmdModule.options.forEach(opt => {
+        cmdModule.options.forEach((opt) => {
           cmd.option(opt.flags, opt.description, opt.defaultValue);
         });
       }
 
       cmd.action(async (args, options) => {
         // Handle case where no args are passed but options are
-        const actualArgs = typeof args === 'string' ? args : null;
-        const actualOptions = typeof args === 'object' ? args : options;
+        const actualArgs = typeof args === "string" ? args : null;
+        const actualOptions = typeof args === "object" ? args : options;
 
         await execute(cmdModule.header || null, async () => {
           await cmdModule.action(actualOptions, actualArgs);
@@ -139,7 +194,11 @@ program
   .command("init-project [path]")
   .alias("init")
   .description("Initialize KamiFlow in a project directory")
-  .option("-m, --mode <mode>", "Integration mode: link, submodule, or standalone", "link")
+  .option(
+    "-m, --mode <mode>",
+    "Integration mode: link, submodule, or standalone",
+    "link",
+  )
   .option("-p, --preset <preset>", "Project preset: basic or full", "basic")
   .option("-d, --dev", "Enable contributor mode with symbolic links", false)
   .option("--skip-interview", "Skip interactive questions and use defaults")
@@ -161,7 +220,11 @@ program
   .command("upgrade-core")
   .alias("upgrade")
   .description("Update KamiFlow to the latest version")
-  .option("-f, --force", "Force overwrite existing files (Standalone mode)", false)
+  .option(
+    "-f, --force",
+    "Force overwrite existing files (Standalone mode)",
+    false,
+  )
   .action(async (options) => {
     await execute(null, async () => {
       const projectPath = process.cwd();
@@ -191,12 +254,14 @@ program
 program
   .command("clean-rules")
   .alias("wipe")
-  .description("Internal: Surgical cleanup of transpiled rules directory to prevent system redundancy")
+  .description(
+    "Internal: Surgical cleanup of transpiled rules directory to prevent system redundancy",
+  )
   .action(async () => {
     await execute("Surgical Clean", async () => {
       const paths = [
         path.join(process.cwd(), ".gemini/rules"),
-        path.join(process.cwd(), "dist/.gemini/rules")
+        path.join(process.cwd(), "dist/.gemini/rules"),
       ];
 
       for (const p of paths) {
@@ -231,7 +296,11 @@ program
   .command("check-config")
   .alias("validate")
   .description("Validate configuration files (TOML)")
-  .option("-p, --path <path>", "Path to directory or file to validate", ".gemini/commands/kamiflow")
+  .option(
+    "-p, --path <path>",
+    "Path to directory or file to validate",
+    ".gemini/commands/kamiflow",
+  )
   .action(async (options) => {
     await execute("KamiFlow Configuration Validator", async () => {
       const { validateTomlFiles } = require("../validators/toml-validator");
@@ -266,7 +335,9 @@ program
 const configFlow = program
   .command("manage-config")
   .alias("config")
-  .description("Manage project configuration. Common keys: language, strategy, maxRetries.");
+  .description(
+    "Manage project configuration. Common keys: language, strategy, maxRetries.",
+  );
 
 configFlow
   .command("set <key> <value>")
@@ -278,7 +349,9 @@ configFlow
       const config = new ConfigManager();
       const success = await config.set(key, value, options.global);
       if (success) {
-        logger.success(`Set ${key} = ${value} (${options.global ? "Global" : "Local"})`);
+        logger.success(
+          `Set ${key} = ${value} (${options.global ? "Global" : "Local"})`,
+        );
       }
     });
   });
@@ -297,7 +370,9 @@ configFlow
 
 configFlow
   .command("sync")
-  .description("Synchronize local configuration with latest system defaults (adds missing keys)")
+  .description(
+    "Synchronize local configuration with latest system defaults (adds missing keys)",
+  )
   .action(async () => {
     await execute(null, async () => {
       const { ConfigManager } = require("../logic/config-manager");
@@ -306,16 +381,28 @@ configFlow
 
       if (report.success) {
         if (report.added.length > 0) {
-          logger.success(`Synchronized configuration. Added ${report.added.length} missing key(s).`);
+          logger.success(
+            `Synchronized configuration. Added ${report.added.length} missing key(s).`,
+          );
           report.added.forEach((key) => logger.hint(`   [+] ${key}`));
         } else {
           logger.success("Project configuration is already up to date.");
         }
 
         if (report.orphaned.length > 0) {
-          console.log(chalk.yellow(`\nâš ï¸  Found ${report.orphaned.length} orphaned key(s) not in current schema:`));
-          report.orphaned.forEach((key) => console.log(chalk.gray(`   [-] ${key}`)));
-          console.log(chalk.gray("   (These keys are preserved but ignored by the system)\n"));
+          console.log(
+            chalk.yellow(
+              `\nâš ï¸  Found ${report.orphaned.length} orphaned key(s) not in current schema:`,
+            ),
+          );
+          report.orphaned.forEach((key) =>
+            console.log(chalk.gray(`   [-] ${key}`)),
+          );
+          console.log(
+            chalk.gray(
+              "   (These keys are preserved but ignored by the system)\n",
+            ),
+          );
         }
       }
     });
@@ -394,7 +481,10 @@ program
     await execute(null, async () => {
       logger.info("Generating roadmap structure...\n");
       const execa = require("execa");
-      const scriptPath = path.join(__dirname, "../scripts/roadmap-generator.js");
+      const scriptPath = path.join(
+        __dirname,
+        "../scripts/roadmap-generator.js",
+      );
       await execa("node", [scriptPath], { stdio: "inherit" });
     });
   });
@@ -406,8 +496,16 @@ program
   .description("Resume an interrupted workflow from the last checkpoint")
   .action(async () => {
     console.log(chalk.cyan("\nðŸ“ Workflow Resurrector:\n"));
-    console.log(chalk.white("This is an AI-Logic command that requires Gemini's reasoning engine."));
-    console.log(chalk.gray("ðŸ‘‰ Please use:"), chalk.yellow("/kamiflow:ops:resume [id]"), chalk.gray("inside Gemini CLI.\n"));
+    console.log(
+      chalk.white(
+        "This is an AI-Logic command that requires Gemini's reasoning engine.",
+      ),
+    );
+    console.log(
+      chalk.gray("ðŸ‘‰ Please use:"),
+      chalk.yellow("/kamiflow:ops:resume [id]"),
+      chalk.gray("inside Gemini CLI.\n"),
+    );
   });
 
 // Strategic Expert Advisor command
@@ -417,8 +515,16 @@ program
   .description("Get strategic directions and UX/UI advice from the AI Advisor")
   .action(async () => {
     console.log(chalk.cyan("\nðŸ§­ Strategic Expert Advisor:\n"));
-    console.log(chalk.white("This is an AI-Logic command that requires Gemini's reasoning engine."));
-    console.log(chalk.gray("ðŸ‘‰ Please use:"), chalk.yellow("/kamiflow:ops:advice [target]"), chalk.gray("inside Gemini CLI.\n"));      
+    console.log(
+      chalk.white(
+        "This is an AI-Logic command that requires Gemini's reasoning engine.",
+      ),
+    );
+    console.log(
+      chalk.gray("ðŸ‘‰ Please use:"),
+      chalk.yellow("/kamiflow:ops:advice [target]"),
+      chalk.gray("inside Gemini CLI.\n"),
+    );
   });
 
 // Sync Agents command
@@ -433,7 +539,9 @@ program
       const transpiler = new Transpiler(process.cwd());
       const chronicler = new Chronicler(process.cwd());
 
-      await transpiler.runFromRegistry(path.join(transpiler.blueprintDir, "registry.md"));
+      await transpiler.runFromRegistry(
+        path.join(transpiler.blueprintDir, "registry.md"),
+      );
 
       // Auto-sync docs after transpilation
       await chronicler.syncDocs();
@@ -536,7 +644,12 @@ program
     });
   });
 
-const { isLocked, acquireLock, releaseLock, getSwarmStatus } = require("../logic/swarm-dispatcher");
+const {
+  isLocked,
+  acquireLock,
+  releaseLock,
+  getSwarmStatus,
+} = require("../logic/swarm-dispatcher");
 
 /**
  * --- SWARM COMMANDS ---
@@ -582,9 +695,15 @@ program
   .command("search-workspace [query]")
   .alias("search")
   .description("Search workspace files (ideas, tasks, archives)")
-  .option("-c, --category <category>", "Filter by category: ideas, tasks, archive")
+  .option(
+    "-c, --category <category>",
+    "Filter by category: ideas, tasks, archive",
+  )
   .option("-l, --limit <limit>", "Maximum results to show", "20")
-  .option("-s, --synonyms <synonyms>", "Comma-separated list of synonyms for query expansion")
+  .option(
+    "-s, --synonyms <synonyms>",
+    "Comma-separated list of synonyms for query expansion",
+  )
   .option("--rebuild", "Rebuild index before searching")
   .option("--stats", "Show index statistics")
   .action(async (query, options) => {
@@ -598,15 +717,34 @@ program
         if (options.stats) {
           const stats = index.getStats();
           console.log(chalk.cyan("\nðŸ“Š Workspace Index Statistics\n"));
-          console.log(chalk.gray("Total files:"), chalk.white(stats.totalFiles));
-          console.log(chalk.gray("Knowledge Graph:"), chalk.white(`${stats.totalRelationships} relationships`));
-          console.log(chalk.gray("Total size:"), chalk.white(`${(stats.totalSize / 1024 / 1024).toFixed(2)} MB`));
-          console.log(chalk.gray("Last indexed:"), chalk.white(stats.lastIndexed ? stats.lastIndexed.toLocaleString() : "Never"));       
+          console.log(
+            chalk.gray("Total files:"),
+            chalk.white(stats.totalFiles),
+          );
+          console.log(
+            chalk.gray("Knowledge Graph:"),
+            chalk.white(`${stats.totalRelationships} relationships`),
+          );
+          console.log(
+            chalk.gray("Total size:"),
+            chalk.white(`${(stats.totalSize / 1024 / 1024).toFixed(2)} MB`),
+          );
+          console.log(
+            chalk.gray("Last indexed:"),
+            chalk.white(
+              stats.lastIndexed ? stats.lastIndexed.toLocaleString() : "Never",
+            ),
+          );
 
           if (stats.byCategory && stats.byCategory.length > 0) {
             console.log(chalk.gray("\nBy category:"));
             stats.byCategory.forEach((data) => {
-              console.log(chalk.gray(`  ${data.category}:`), chalk.white(`${data.count} files, ${(data.size / 1024).toFixed(1)} KB`));   
+              console.log(
+                chalk.gray(`  ${data.category}:`),
+                chalk.white(
+                  `${data.count} files, ${(data.size / 1024).toFixed(1)} KB`,
+                ),
+              );
             });
           }
           console.log();
@@ -621,18 +759,28 @@ program
         }
 
         if (!query) {
-          console.log(chalk.yellow("No search query provided. Use --stats or --rebuild, or provide a query.\n"));
+          console.log(
+            chalk.yellow(
+              "No search query provided. Use --stats or --rebuild, or provide a query.\n",
+            ),
+          );
           return;
         }
 
-        const synonyms = options.synonyms ? options.synonyms.split(",").map(s => s.trim()) : [];
+        const synonyms = options.synonyms
+          ? options.synonyms.split(",").map((s) => s.trim())
+          : [];
         const results = await index.search(query, {
           category: options.category,
           limit: parseInt(options.limit),
-          synonyms
+          synonyms,
         });
 
-        console.log(chalk.cyan(`\nðŸ” Searching workspace for: "${query}"${synonyms.length > 0 ? ` (expanded: ${synonyms.join(", ")})` : ""}\n`));
+        console.log(
+          chalk.cyan(
+            `\nðŸ” Searching workspace for: "${query}"${synonyms.length > 0 ? ` (expanded: ${synonyms.join(", ")})` : ""}\n`,
+          ),
+        );
 
         if (results.results.length === 0) {
           console.log(chalk.yellow("No results found.\n"));
@@ -643,14 +791,25 @@ program
           console.log(chalk.white(`${idx + 1}. `) + chalk.cyan(result.title));
           console.log(chalk.gray(`   ${result.category}/${result.filePath}`));
           if (result.snippet) {
-            console.log(chalk.gray(`   ${result.snippet.replace(/<mark>/g, chalk.yellow("<mark>")).replace(/<\/mark>/g, "</mark>")}`));  
+            console.log(
+              chalk.gray(
+                `   ${result.snippet.replace(/<mark>/g, chalk.yellow("<mark>")).replace(/<\/mark>/g, "</mark>")}`,
+              ),
+            );
           }
-          console.log(chalk.gray(`   Score: ${result.score.toFixed(2)} | Modified: ${result.modified.toLocaleDateString()}`));
+          console.log(
+            chalk.gray(
+              `   Score: ${result.score.toFixed(2)} | Modified: ${result.modified.toLocaleDateString()}`,
+            ),
+          );
           console.log();
         });
 
-        console.log(chalk.gray(`Found ${results.results.length} results in ${results.took}\n`));
-
+        console.log(
+          chalk.gray(
+            `Found ${results.results.length} results in ${results.took}\n`,
+          ),
+        );
       } finally {
         index.close();
       }
@@ -956,7 +1115,9 @@ syncDbFlow
 
       let customContent = null;
       if (strategy === "manual") {
-        console.log(chalk.gray("\nðŸ“ Opening editor for manual resolution..."));
+        console.log(
+          chalk.gray("\nðŸ“ Opening editor for manual resolution..."),
+        );
         console.log(
           chalk.gray(
             "(Feature requires external editor - showing content instead)\n",
@@ -995,7 +1156,11 @@ program
   .command("run-saiyan [input]")
   .alias("saiyan")
   .description("Execute a task with autonomous decision making")
-  .option("-s, --strategy <strategy>", "Execution strategy: BALANCED, FAST, AMBITIOUS", "BALANCED")
+  .option(
+    "-s, --strategy <strategy>",
+    "Execution strategy: BALANCED, FAST, AMBITIOUS",
+    "BALANCED",
+  )
   .action(async (input, options) => {
     await execute("Saiyan Mode Engaged", async () => {
       const { runSaiyanMode } = require("../logic/saiyan");
@@ -1027,129 +1192,157 @@ program.on("command:*", (operands) => {
 (async () => {
   try {
     await initI18n();
-program
-  .command("_recall <query>", { hidden: true })
-  .description("Internal: Generate summarized memory recall from archive (used by Gemini CLI)")
-  .option("-c, --category <category>", "Context category for synonym expansion", "logic")
-  .action(async (query, options) => {
-    await execute(null, async () => {
-      const { MemoryManager } = require("../logic/memory-manager");
-      const memoryManager = new MemoryManager(process.cwd());
-      const recall = await memoryManager.generateRecall(query, options);
-      console.log(recall);
-    });
-  });
-
-program
-  .command("_insights", { hidden: true })
-  .description("Internal: Display categorized strategic patterns from Memory Bank")
-  .option("-c, --category <category>", "Filter by category")
-  .option("-t, --task <taskId>", "Show knowledge graph for a specific task")
-  .option("-v, --visualize", "Generate Mermaid diagram for task relationships")
-  .option("-e, --export", "Export full knowledge graph to interactive HTML")
-  .action(async (options) => {
-    const InsightManager = require("../logic/insight-manager");
-    const insightManager = new InsightManager(process.cwd());
-
-    if (options.export) {
-      try {
-        const filePath = await insightManager.exportHTMLGraph();
-        console.log(chalk.green(`\nâœ¨ Knowledge Graph exported to: ${filePath}`));
-        console.log(chalk.gray(`   Open this file in your browser to explore the interactive map.\n`));
-      } catch (error) {
-        console.error(chalk.red(`\nâŒ Export failed: ${error.message}\n`));
-      }
-      return;
-    }
-
-    if (options.task) {
-      await insightManager.displayGraph(options.task, { visualize: options.visualize });
-      return;
-    }
-
-    const fs = require("fs-extra");
-    const path = require("upath");
-    const { EnvironmentManager } = require("../logic/env-manager");
-    const env = new EnvironmentManager();
-    const workspaceRoot = await env.getAbsoluteWorkspacePath();
-    const contextPath = path.join(workspaceRoot, "PROJECT_CONTEXT.md");
-
-    if (!fs.existsSync(contextPath)) {
-      console.log("âŒ Memory Bank not found.");
-      return;
-    }
-
-    const content = await fs.readFile(contextPath, "utf8");
-    const header = "## ðŸ“š Project Wisdom: Strategic Patterns";
-    if (!content.includes(header)) {
-      console.log("ðŸ’­ No strategic patterns harvested yet.");
-      return;
-    }
-
-    const wisdomSection = content.split(header)[1];
-    if (options.category) {
-      const categoryHeader = `### #${options.category}`;
-      if (!wisdomSection.includes(categoryHeader)) {
-        console.log(`ðŸ’­ No patterns found for category #${options.category}`);
-        return;
-      }
-      const categoryContent =
-        wisdomSection.split(categoryHeader)[1].split("###")[0];
-      console.log(
-        `# ðŸ“š Project Wisdom: #${options.category}\n${categoryContent.trim()}`,
-      );
-    } else {
-      console.log(
-        `# ðŸ“š Project Wisdom: Strategic Patterns\n${wisdomSection.trim()}`,
-      );
-    }
-  });
-
-program
-  .command("_workflow", { hidden: true })
-  .description("Internal: Manage Sniper Model workflow state and artifacts")
-  .option("--init <taskId>", "Initialize a new task state")
-  .option("--slug <slug>", "Slug for the task")
-  .option("--save <phase>", "Save an artifact for a specific phase (IDEA, SPEC, BUILD, HANDOFF)")
-  .option("--content <content>", "Markdown content of the artifact")
-  .option("--score <score>", "Clarify Score for this task")
-  .option("--status <taskId>", "Get the current status of a task")
-  .option("--register-only", "Register artifact in DB without writing file")
-  .action(async (options) => {
-    const WorkflowEngine = require("../logic/workflow-engine");
-    const engine = new WorkflowEngine(process.cwd());
-
-    try {
-      if (options.init) {
-        const result = await engine.initTask(options.init, options.slug || "new-task");
-        console.log(JSON.stringify(result));
-      } else if (options.save) {
-        const parts = options.save.split("-");
-        const taskId = parts.length > 1 ? parts[0] : options.init; // Use provided ID or current task
-        const phase = parts.length > 1 ? parts[1] : options.save;
-
-        const result = await engine.saveArtifact({
-          taskId: taskId,
-          phase: phase,
-          slug: options.slug,
-          content: options.content,
-          score: parseFloat(options.score || "0"),
-          registerOnly: options.registerOnly,
+    program
+      .command("_recall <query>", { hidden: true })
+      .description(
+        "Internal: Generate summarized memory recall from archive (used by Gemini CLI)",
+      )
+      .option(
+        "-c, --category <category>",
+        "Context category for synonym expansion",
+        "logic",
+      )
+      .action(async (query, options) => {
+        await execute(null, async () => {
+          const { MemoryManager } = require("../logic/memory-manager");
+          const memoryManager = new MemoryManager(process.cwd());
+          const recall = await memoryManager.generateRecall(query, options);
+          console.log(recall);
         });
-        console.log(chalk.green(`âœ… Artifact registered: ${result.path}`));
-      } else if (options.status) {
-        const state = await engine.getTaskState(options.status);
-        if (state) {
-          console.log(JSON.stringify(state, null, 2));
-        } else {
-          console.log(chalk.yellow(`Task ${options.status} not found.`));
+      });
+
+    program
+      .command("_insights", { hidden: true })
+      .description(
+        "Internal: Display categorized strategic patterns from Memory Bank",
+      )
+      .option("-c, --category <category>", "Filter by category")
+      .option("-t, --task <taskId>", "Show knowledge graph for a specific task")
+      .option(
+        "-v, --visualize",
+        "Generate Mermaid diagram for task relationships",
+      )
+      .option("-e, --export", "Export full knowledge graph to interactive HTML")
+      .action(async (options) => {
+        const InsightManager = require("../logic/insight-manager");
+        const insightManager = new InsightManager(process.cwd());
+
+        if (options.export) {
+          try {
+            const filePath = await insightManager.exportHTMLGraph();
+            console.log(
+              chalk.green(`\nâœ¨ Knowledge Graph exported to: ${filePath}`),
+            );
+            console.log(
+              chalk.gray(
+                `   Open this file in your browser to explore the interactive map.\n`,
+              ),
+            );
+          } catch (error) {
+            console.error(chalk.red(`\nâŒ Export failed: ${error.message}\n`));
+          }
+          return;
         }
-      }
-    } catch (error) {
-      console.error(chalk.red(`âŒ Workflow Error: ${error.message}`));
-      process.exit(1);
-    }
-  });
+
+        if (options.task) {
+          await insightManager.displayGraph(options.task, {
+            visualize: options.visualize,
+          });
+          return;
+        }
+
+        const fs = require("fs-extra");
+        const path = require("upath");
+        const { EnvironmentManager } = require("../logic/env-manager");
+        const env = new EnvironmentManager();
+        const workspaceRoot = await env.getAbsoluteWorkspacePath();
+        const contextPath = path.join(workspaceRoot, "PROJECT_CONTEXT.md");
+
+        if (!fs.existsSync(contextPath)) {
+          console.log("âŒ Memory Bank not found.");
+          return;
+        }
+
+        const content = await fs.readFile(contextPath, "utf8");
+        const header = "## ðŸ“š Project Wisdom: Strategic Patterns";
+        if (!content.includes(header)) {
+          console.log("ðŸ’­ No strategic patterns harvested yet.");
+          return;
+        }
+
+        const wisdomSection = content.split(header)[1];
+        if (options.category) {
+          const categoryHeader = `### #${options.category}`;
+          if (!wisdomSection.includes(categoryHeader)) {
+            console.log(
+              `ðŸ’­ No patterns found for category #${options.category}`,
+            );
+            return;
+          }
+          const categoryContent = wisdomSection
+            .split(categoryHeader)[1]
+            .split("###")[0];
+          console.log(
+            `# ðŸ“š Project Wisdom: #${options.category}\n${categoryContent.trim()}`,
+          );
+        } else {
+          console.log(
+            `# ðŸ“š Project Wisdom: Strategic Patterns\n${wisdomSection.trim()}`,
+          );
+        }
+      });
+
+    program
+      .command("_workflow", { hidden: true })
+      .description("Internal: Manage Sniper Model workflow state and artifacts")
+      .option("--init <taskId>", "Initialize a new task state")
+      .option("--slug <slug>", "Slug for the task")
+      .option(
+        "--save <phase>",
+        "Save an artifact for a specific phase (IDEA, SPEC, BUILD, HANDOFF)",
+      )
+      .option("--content <content>", "Markdown content of the artifact")
+      .option("--score <score>", "Clarify Score for this task")
+      .option("--status <taskId>", "Get the current status of a task")
+      .option("--register-only", "Register artifact in DB without writing file")
+      .action(async (options) => {
+        const WorkflowEngine = require("../logic/workflow-engine");
+        const engine = new WorkflowEngine(process.cwd());
+
+        try {
+          if (options.init) {
+            const result = await engine.initTask(
+              options.init,
+              options.slug || "new-task",
+            );
+            console.log(JSON.stringify(result));
+          } else if (options.save) {
+            const parts = options.save.split("-");
+            const taskId = parts.length > 1 ? parts[0] : options.init; // Use provided ID or current task
+            const phase = parts.length > 1 ? parts[1] : options.save;
+
+            const result = await engine.saveArtifact({
+              taskId: taskId,
+              phase: phase,
+              slug: options.slug,
+              content: options.content,
+              score: parseFloat(options.score || "0"),
+              registerOnly: options.registerOnly,
+            });
+            console.log(chalk.green(`âœ… Artifact registered: ${result.path}`));
+          } else if (options.status) {
+            const state = await engine.getTaskState(options.status);
+            if (state) {
+              console.log(JSON.stringify(state, null, 2));
+            } else {
+              console.log(chalk.yellow(`Task ${options.status} not found.`));
+            }
+          }
+        } catch (error) {
+          console.error(chalk.red(`âŒ Workflow Error: ${error.message}`));
+          process.exit(1);
+        }
+      });
 
     program.parse(process.argv);
   } catch (error) {
@@ -1160,3 +1353,4 @@ program
     process.exit(1);
   }
 })();
+

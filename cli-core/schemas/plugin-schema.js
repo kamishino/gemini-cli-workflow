@@ -3,7 +3,7 @@
  * Defines structure for KamiFlow plugins and marketplace entries
  */
 
-const { z } = require('zod');
+const { z } = require("zod");
 
 /**
  * Plugin manifest schema
@@ -13,66 +13,75 @@ const PluginManifestSchema = z.object({
   version: z.string().regex(/^\d+\.\d+\.\d+$/),
   description: z.string().min(10).max(500),
   author: z.string().min(1).max(100),
-  license: z.string().default('MIT'),
+  license: z.string().default("MIT"),
   homepage: z.string().url().optional(),
-  repository: z.object({
-    type: z.enum(['git']),
-    url: z.string().url()
-  }).optional(),
+  repository: z
+    .object({
+      type: z.enum(["git"]),
+      url: z.string().url(),
+    })
+    .optional(),
   keywords: z.array(z.string()).max(10).default([]),
   category: z.enum([
-    'workflow',
-    'integration',
-    'utility',
-    'analysis',
-    'automation',
-    'devops',
-    'testing',
-    'documentation',
-    'other'
+    "workflow",
+    "integration",
+    "utility",
+    "analysis",
+    "automation",
+    "devops",
+    "testing",
+    "documentation",
+    "other",
   ]),
-  
+
   // Plugin capabilities
-  capabilities: z.object({
-    commands: z.boolean().default(false),
-    rules: z.boolean().default(false),
-    hooks: z.boolean().default(false),
-    config: z.boolean().default(false)
-  }).default({}),
-  
+  capabilities: z
+    .object({
+      commands: z.boolean().default(false),
+      rules: z.boolean().default(false),
+      hooks: z.boolean().default(false),
+      config: z.boolean().default(false),
+    })
+    .default({}),
+
   // Compatibility
   engines: z.object({
     kamiflow: z.string().regex(/^[><=~^]*\d+\.\d+\.\d+$/),
-    node: z.string().regex(/^[><=~^]*\d+\.\d+/).optional()
+    node: z
+      .string()
+      .regex(/^[><=~^]*\d+\.\d+/)
+      .optional(),
   }),
-  
+
   // Dependencies
   dependencies: z.record(z.string()).optional(),
   peerDependencies: z.record(z.string()).optional(),
-  
+
   // Plugin entry points
-  main: z.string().default('index.js'),
+  main: z.string().default("index.js"),
   commands: z.array(z.string()).optional(),
   rules: z.array(z.string()).optional(),
-  
+
   // Lifecycle hooks
-  hooks: z.object({
-    preInstall: z.string().optional(),
-    postInstall: z.string().optional(),
-    preUninstall: z.string().optional(),
-    postUninstall: z.string().optional()
-  }).optional(),
-  
+  hooks: z
+    .object({
+      preInstall: z.string().optional(),
+      postInstall: z.string().optional(),
+      preUninstall: z.string().optional(),
+      postUninstall: z.string().optional(),
+    })
+    .optional(),
+
   // Configuration schema
   configSchema: z.record(z.any()).optional(),
-  
+
   // Metadata
   tags: z.array(z.string()).max(20).default([]),
   icon: z.string().optional(),
   screenshots: z.array(z.string().url()).max(5).optional(),
-  
+
   // Private flag
-  private: z.boolean().default(false)
+  private: z.boolean().default(false),
 });
 
 /**
@@ -87,32 +96,40 @@ const PluginRegistryEntrySchema = PluginManifestSchema.extend({
   rating: z.number().min(0).max(5).optional(),
   verified: z.boolean().default(false),
   deprecated: z.boolean().default(false),
-  
+
   // Versions history
-  versions: z.array(z.object({
-    version: z.string(),
-    published: z.string().datetime(),
-    deprecated: z.boolean().default(false)
-  })).optional(),
-  
+  versions: z
+    .array(
+      z.object({
+        version: z.string(),
+        published: z.string().datetime(),
+        deprecated: z.boolean().default(false),
+      }),
+    )
+    .optional(),
+
   // Maintainers
-  maintainers: z.array(z.object({
-    name: z.string(),
-    email: z.string().email().optional()
-  })).optional()
+  maintainers: z
+    .array(
+      z.object({
+        name: z.string(),
+        email: z.string().email().optional(),
+      }),
+    )
+    .optional(),
 });
 
 /**
  * Plugin installation config
  */
 const PluginInstallConfigSchema = z.object({
-  source: z.enum(['registry', 'git', 'local', 'npm']),
+  source: z.enum(["registry", "git", "local", "npm"]),
   identifier: z.string(),
   version: z.string().optional(),
   enabled: z.boolean().default(true),
   config: z.record(z.any()).optional(),
   installedAt: z.string().datetime(),
-  updatedAt: z.string().datetime().optional()
+  updatedAt: z.string().datetime().optional(),
 });
 
 /**
@@ -127,10 +144,10 @@ function validatePluginManifest(manifest) {
   } catch (error) {
     return {
       valid: false,
-      errors: error.errors.map(e => ({
-        path: e.path.join('.'),
-        message: e.message
-      }))
+      errors: error.errors.map((e) => ({
+        path: e.path.join("."),
+        message: e.message,
+      })),
     };
   }
 }
@@ -147,10 +164,10 @@ function validateRegistryEntry(entry) {
   } catch (error) {
     return {
       valid: false,
-      errors: error.errors.map(e => ({
-        path: e.path.join('.'),
-        message: e.message
-      }))
+      errors: error.errors.map((e) => ({
+        path: e.path.join("."),
+        message: e.message,
+      })),
     };
   }
 }
@@ -167,10 +184,10 @@ function validateInstallConfig(config) {
   } catch (error) {
     return {
       valid: false,
-      errors: error.errors.map(e => ({
-        path: e.path.join('.'),
-        message: e.message
-      }))
+      errors: error.errors.map((e) => ({
+        path: e.path.join("."),
+        message: e.message,
+      })),
     };
   }
 }
@@ -188,7 +205,7 @@ function checkVersionCompatibility(required, current) {
     return {
       major: parseInt(match[1], 10),
       minor: parseInt(match[2], 10),
-      patch: parseInt(match[3], 10)
+      patch: parseInt(match[3], 10),
     };
   };
 
@@ -198,31 +215,44 @@ function checkVersionCompatibility(required, current) {
   if (!reqVer || !curVer) return false;
 
   // Handle operators
-  if (required.startsWith('>=')) {
+  if (required.startsWith(">=")) {
     return (
       curVer.major > reqVer.major ||
       (curVer.major === reqVer.major && curVer.minor > reqVer.minor) ||
-      (curVer.major === reqVer.major && curVer.minor === reqVer.minor && curVer.patch >= reqVer.patch)
+      (curVer.major === reqVer.major &&
+        curVer.minor === reqVer.minor &&
+        curVer.patch >= reqVer.patch)
     );
-  } else if (required.startsWith('>')) {
+  } else if (required.startsWith(">")) {
     return (
       curVer.major > reqVer.major ||
       (curVer.major === reqVer.major && curVer.minor > reqVer.minor) ||
-      (curVer.major === reqVer.major && curVer.minor === reqVer.minor && curVer.patch > reqVer.patch)
+      (curVer.major === reqVer.major &&
+        curVer.minor === reqVer.minor &&
+        curVer.patch > reqVer.patch)
     );
-  } else if (required.startsWith('~')) {
+  } else if (required.startsWith("~")) {
     // ~1.2.3 means >=1.2.3 <1.3.0
-    return curVer.major === reqVer.major && curVer.minor === reqVer.minor && curVer.patch >= reqVer.patch;
-  } else if (required.startsWith('^')) {
+    return (
+      curVer.major === reqVer.major &&
+      curVer.minor === reqVer.minor &&
+      curVer.patch >= reqVer.patch
+    );
+  } else if (required.startsWith("^")) {
     // ^1.2.3 means >=1.2.3 <2.0.0
-    return curVer.major === reqVer.major && (
-      curVer.minor > reqVer.minor ||
-      (curVer.minor === reqVer.minor && curVer.patch >= reqVer.patch)
+    return (
+      curVer.major === reqVer.major &&
+      (curVer.minor > reqVer.minor ||
+        (curVer.minor === reqVer.minor && curVer.patch >= reqVer.patch))
     );
   }
 
   // Exact match
-  return curVer.major === reqVer.major && curVer.minor === reqVer.minor && curVer.patch === reqVer.patch;
+  return (
+    curVer.major === reqVer.major &&
+    curVer.minor === reqVer.minor &&
+    curVer.patch === reqVer.patch
+  );
 }
 
 module.exports = {
@@ -232,5 +262,5 @@ module.exports = {
   validatePluginManifest,
   validateRegistryEntry,
   validateInstallConfig,
-  checkVersionCompatibility
+  checkVersionCompatibility,
 };

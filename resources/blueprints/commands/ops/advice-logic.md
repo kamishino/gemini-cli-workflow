@@ -37,6 +37,7 @@ Synthesize findings into exactly **3-5 Strategic Directions**. For each directio
 - **Domain**: Architecture / UX-UI / Performance / Market / Operations.
 
 **Logic Rules:**
+
 1. **Sorting:** Sort the generated directions by **Priority** in descending order (highest first).
 2. **Emoji Mapping:** Prefix each Domain with its corresponding emoji:
    - Architecture -> 🏗️
@@ -88,4 +89,3 @@ Choose a Direction and copy the command from the code block to start implementat
 
 - Wise, proactive, and encouraging.
 - Speak as a partner, not just a tool.
-

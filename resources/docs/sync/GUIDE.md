@@ -9,6 +9,7 @@ Complete documentation for KamiFlow's local-first workspace synchronization syst
 KamiFlow Database Sync (`sync-db`) keeps your private workspace data (`.kamiflow/archive`, `.kamiflow/ideas`, `.kamiflow/tasks`) synchronized across devices while keeping them off GitHub.
 
 **Features:**
+
 - 🔍 **Local Search** - Fast full-text search across all files
 - 🔄 **Manual Sync** - Push/pull on demand
 - 🤖 **Auto-Sync** - Background daemon watches for changes
@@ -60,6 +61,7 @@ kami sync setup
 ```
 
 You'll be prompted to:
+
 1. **Choose deployment**: Existing backend, Cloudflare, or self-hosted
 2. **Enter backend URL**: e.g., `https://sync.yourdomain.com`
 3. **Enter API key**: Your secure 64-character key
@@ -162,12 +164,12 @@ kami sync-db resolve <conflict-id>
 
 **Resolution Strategies:**
 
-| Strategy | Description |
-|----------|-------------|
-| `keep-local` | Keep your local version |
-| `keep-remote` | Keep the remote version |
-| `merge` | Attempt automatic 3-way merge |
-| `manual` | Edit manually (shows both versions) |
+| Strategy      | Description                         |
+| ------------- | ----------------------------------- |
+| `keep-local`  | Keep your local version             |
+| `keep-remote` | Keep the remote version             |
+| `merge`       | Attempt automatic 3-way merge       |
+| `manual`      | Edit manually (shows both versions) |
 
 **How Conflicts Work:**
 
@@ -520,5 +522,3 @@ A: `kami sync-db delete-remote --confirm`
 ---
 
 **Happy syncing! 🔄**
-
-

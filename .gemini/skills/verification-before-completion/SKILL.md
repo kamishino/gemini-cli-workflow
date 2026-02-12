@@ -44,15 +44,15 @@ Skip any step = lying, not verifying
 
 ## Common Failures
 
-| Claim | Requires | Not Sufficient |
-|-------|----------|----------------|
-| Tests pass | Test command output: 0 failures | Previous run, "should pass" |
-| Linter clean | Linter output: 0 errors | Partial check, extrapolation |
-| Build succeeds | Build command: exit 0 | Linter passing, logs look good |
-| Bug fixed | Test original symptom: passes | Code changed, assumed fixed |
-| Regression test works | Red-green cycle verified | Test passes once |
-| Agent completed | VCS diff shows changes | Agent reports "success" |
-| Requirements met | Line-by-line checklist | Tests passing |
+| Claim                 | Requires                        | Not Sufficient                 |
+| --------------------- | ------------------------------- | ------------------------------ |
+| Tests pass            | Test command output: 0 failures | Previous run, "should pass"    |
+| Linter clean          | Linter output: 0 errors         | Partial check, extrapolation   |
+| Build succeeds        | Build command: exit 0           | Linter passing, logs look good |
+| Bug fixed             | Test original symptom: passes   | Code changed, assumed fixed    |
+| Regression test works | Red-green cycle verified        | Test passes once               |
+| Agent completed       | VCS diff shows changes          | Agent reports "success"        |
+| Requirements met      | Line-by-line checklist          | Tests passing                  |
 
 ## Red Flags - STOP
 
@@ -67,16 +67,16 @@ Skip any step = lying, not verifying
 
 ## Rationalization Prevention
 
-| Excuse | Reality |
-|--------|---------|
-| "Should work now" | RUN the verification |
-| "I'm confident" | Confidence ≠ evidence |
-| "Just this once" | No exceptions |
-| "Linter passed" | Linter ≠ compiler |
-| "Agent said success" | Verify independently |
-| "I'm tired" | Exhaustion ≠ excuse |
-| "Partial check is enough" | Partial proves nothing |
-| "Different words so rule doesn't apply" | Spirit over letter |
+| Excuse                                  | Reality                |
+| --------------------------------------- | ---------------------- |
+| "Should work now"                       | RUN the verification   |
+| "I'm confident"                         | Confidence ≠ evidence  |
+| "Just this once"                        | No exceptions          |
+| "Linter passed"                         | Linter ≠ compiler      |
+| "Agent said success"                    | Verify independently   |
+| "I'm tired"                             | Exhaustion ≠ excuse    |
+| "Partial check is enough"               | Partial proves nothing |
+| "Different words so rule doesn't apply" | Spirit over letter     |
 
 ## Key Patterns
 
@@ -147,12 +147,12 @@ From failure analysis:
 
 This skill directly supports KamiFlow protocols:
 
-| KamiFlow Protocol | Verification Alignment |
-|-------------------|------------------------|
-| **Phase 4 Quality Gates** | Gate function = quality gate |
-| **Anti-Hallucination** | Evidence-first prevents false claims |
-| **3-Phase Validation** | Extends syntax/functional/traceability checks |
-| **Error Recovery** | Failed verification triggers recovery protocol |
+| KamiFlow Protocol         | Verification Alignment                         |
+| ------------------------- | ---------------------------------------------- |
+| **Phase 4 Quality Gates** | Gate function = quality gate                   |
+| **Anti-Hallucination**    | Evidence-first prevents false claims           |
+| **3-Phase Validation**    | Extends syntax/functional/traceability checks  |
+| **Error Recovery**        | Failed verification triggers recovery protocol |
 
 ### Integration with S4-HANDOFF
 

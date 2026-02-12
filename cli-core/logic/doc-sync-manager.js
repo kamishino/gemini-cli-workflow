@@ -11,7 +11,7 @@ class DocSyncManager {
   constructor(projectRoot = process.cwd()) {
     this.projectRoot = projectRoot;
     this.commandsRoot = path.join(projectRoot, ".gemini/commands/kamiflow");
-    
+
     this.wikiFiles = {
       sniper: path.join(projectRoot, "resources/docs/commands/core.md"),
       bridge: path.join(projectRoot, "resources/docs/commands/core.md"),
@@ -38,10 +38,10 @@ class DocSyncManager {
   async sync() {
     try {
       const reporter = logger.createReporter("Documentation Sync");
-      
+
       // 1. Discover Commands
       const commandMap = await this.discoverCommands();
-      
+
       // 2. Add CLI Commands
       commandMap.push(...this.getCliCommands());
 
@@ -50,10 +50,10 @@ class DocSyncManager {
 
       // 4. Determine Groups
       const pluginGroups = commandMap
-        .filter(c => c.folder && c.folder.startsWith("p-"))
-        .map(c => c.folder)
+        .filter((c) => c.folder && c.folder.startsWith("p-"))
+        .map((c) => c.folder)
         .filter((v, i, a) => a.indexOf(v) === i);
-      
+
       const finalOrder = [
         ...this.groupOrder.filter((g) => g !== "terminal"),
         ...pluginGroups,
@@ -68,8 +68,14 @@ class DocSyncManager {
         { file: this.wikiFiles.terminal, groups: ["terminal"] },
         { file: this.wikiFiles.global, groups: finalOrder },
         { file: path.join(this.projectRoot, "GEMINI.md"), groups: finalOrder },
-        { file: path.join(this.projectRoot, "resources/templates/gemini.md"), groups: finalOrder },
-        { file: path.join(this.projectRoot, "resources/docs/overview.md"), groups: finalOrder },
+        {
+          file: path.join(this.projectRoot, "resources/templates/gemini.md"),
+          groups: finalOrder,
+        },
+        {
+          file: path.join(this.projectRoot, "resources/docs/overview.md"),
+          groups: finalOrder,
+        },
       ];
 
       for (const target of targetMap) {
@@ -111,7 +117,9 @@ class DocSyncManager {
       const files = fs.readdirSync(catDir).filter((f) => f.endsWith(".toml"));
       for (const file of files) {
         const filePath = path.join(catDir, file);
-        const content = fs.readFileSync(filePath, "utf8").replace(/^\uFEFF/, "");
+        const content = fs
+          .readFileSync(filePath, "utf8")
+          .replace(/^\uFEFF/, "");
         const parsed = toml.parse(content);
         const cmdName = file.replace(".toml", "");
 
@@ -130,14 +138,62 @@ class DocSyncManager {
 
   getCliCommands() {
     return [
-      { fullCommand: "kamiflow init", name: "init", group: "terminal", order: 10, description: "Initialize a project with KamiFlow." },
-      { fullCommand: "kamiflow doctor", name: "doctor", group: "terminal", order: 20, description: "Check project health." },
-      { fullCommand: "kamiflow sync", name: "sync", group: "terminal", order: 30, description: "Synchronize command documentation." },
-      { fullCommand: "kamiflow archive", name: "archive", group: "terminal", order: 40, description: "Archive completed tasks." },
-      { fullCommand: "kamiflow config", name: "config", group: "terminal", order: 50, description: "Manage persistent project settings." },
-      { fullCommand: "kamiflow upgrade", name: "upgrade", group: "terminal", order: 60, description: "Update KamiFlow to the latest version." },
-      { fullCommand: "kamiflow info", name: "info", group: "terminal", order: 70, description: "Display core location and version." },
-      { fullCommand: "kamiflow resume", name: "resume", group: "terminal", order: 75, description: "Resume workflow from last checkpoint." },
+      {
+        fullCommand: "kamiflow init",
+        name: "init",
+        group: "terminal",
+        order: 10,
+        description: "Initialize a project with KamiFlow.",
+      },
+      {
+        fullCommand: "kamiflow doctor",
+        name: "doctor",
+        group: "terminal",
+        order: 20,
+        description: "Check project health.",
+      },
+      {
+        fullCommand: "kamiflow sync",
+        name: "sync",
+        group: "terminal",
+        order: 30,
+        description: "Synchronize command documentation.",
+      },
+      {
+        fullCommand: "kamiflow archive",
+        name: "archive",
+        group: "terminal",
+        order: 40,
+        description: "Archive completed tasks.",
+      },
+      {
+        fullCommand: "kamiflow config",
+        name: "config",
+        group: "terminal",
+        order: 50,
+        description: "Manage persistent project settings.",
+      },
+      {
+        fullCommand: "kamiflow upgrade",
+        name: "upgrade",
+        group: "terminal",
+        order: 60,
+        description: "Update KamiFlow to the latest version.",
+      },
+      {
+        fullCommand: "kamiflow info",
+        name: "info",
+        group: "terminal",
+        order: 70,
+        description: "Display core location and version.",
+      },
+      {
+        fullCommand: "kamiflow resume",
+        name: "resume",
+        group: "terminal",
+        order: 75,
+        description: "Resume workflow from last checkpoint.",
+      },
     ];
   }
 
@@ -150,7 +206,7 @@ class DocSyncManager {
     let found = false;
     for (const p of searchPaths) {
       if (fs.existsSync(p)) {
-        const files = fs.readdirSync(p).filter(f => f.endsWith("-core.md"));
+        const files = fs.readdirSync(p).filter((f) => f.endsWith("-core.md"));
         if (files.length > 0) found = true;
       }
     }
@@ -159,7 +215,11 @@ class DocSyncManager {
 
   formatPluginTitle(folderName) {
     if (folderName === "p-seed") return "🌱 The Seed Hub (Plugin)";
-    const name = folderName.replace("p-", "").split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+    const name = folderName
+      .replace("p-", "")
+      .split("-")
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(" ");
     return `🧩 ${name} (Plugin)`;
   }
 
@@ -179,7 +239,9 @@ class DocSyncManager {
 `;
 
     groupCommands.forEach((cmd) => {
-      const safeCommand = cmd.fullCommand.replace(/`/g, "\\`").replace(/\$/g, "\\$");
+      const safeCommand = cmd.fullCommand
+        .replace(/`/g, "\\`")
+        .replace(/\$/g, "\\$");
       md += `| \`${safeCommand}\` | **${cmd.description}** |\n`;
     });
 
@@ -192,13 +254,17 @@ class DocSyncManager {
     const markerStart = "<!-- KAMI_COMMAND_LIST_START -->";
     const markerEnd = "<!-- KAMI_COMMAND_LIST_END -->";
 
-    if (content.indexOf(markerStart) !== -1 && content.indexOf(markerEnd) !== -1) {
+    if (
+      content.indexOf(markerStart) !== -1 &&
+      content.indexOf(markerEnd) !== -1
+    ) {
       const parts = content.split(markerStart);
       const pre = parts[0];
       const rest = parts[1].split(markerEnd);
       const post = rest[1];
 
-      const finalContent = pre + markerStart + "\n" + newContent + markerEnd + post;
+      const finalContent =
+        pre + markerStart + "\n" + newContent + markerEnd + post;
       if (finalContent !== content) {
         fs.writeFileSync(file, finalContent);
         return true;

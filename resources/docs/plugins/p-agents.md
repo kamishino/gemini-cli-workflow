@@ -68,6 +68,7 @@ See: [Gemini CLI Skills Docs](https://googlegemini.github.io/gemini-cli/docs/cli
 ### Installation Methods
 
 **Method A: Gemini CLI Native (Recommended)**
+
 ```bash
 # Install from GitHub
 gemini /skills install <github-url>
@@ -77,6 +78,7 @@ gemini /skills install vercel-labs/agent-skills/skills/react-best-practices
 ```
 
 **Method B: KamiFlow Add Command**
+
 ```bash
 # Fetch, audit, and install
 /kamiflow:p-agents:add vercel-labs/agent-skills/skills/react-best-practices
@@ -85,6 +87,7 @@ gemini /skills install vercel-labs/agent-skills/skills/react-best-practices
 ### 🛡️ Safe Audit Protocol
 
 Before any external skill is installed, KamiFlow performs a **Safety Audit**:
+
 1. **Fetch:** Reads the skill's source code directly from GitHub
 2. **Analyze:** Identifies required permissions and potential system risks
 3. **Report:** Presents a detailed report for approval
@@ -102,11 +105,11 @@ Before any external skill is installed, KamiFlow performs a **Safety Audit**:
 
 ## 🛠️ Commands
 
-| Command | Action | Goal |
-| :--- | :--- | :--- |
-| `/kamiflow:p-agents:scan` | **Scout** | Find active agent directories in the project |
-| `/kamiflow:p-agents:add`  | **Install** | Fetch, audit, and install a skill to agents |
-| `/kamiflow:p-agents:list` | **Inventory** | List all installed extension skills |
+| Command                   | Action        | Goal                                         |
+| :------------------------ | :------------ | :------------------------------------------- |
+| `/kamiflow:p-agents:scan` | **Scout**     | Find active agent directories in the project |
+| `/kamiflow:p-agents:add`  | **Install**   | Fetch, audit, and install a skill to agents  |
+| `/kamiflow:p-agents:list` | **Inventory** | List all installed extension skills          |
 
 ### Terminal Commands
 
@@ -131,5 +134,3 @@ Before any external skill is installed, KamiFlow performs a **Safety Audit**:
 - [Gemini CLI Skills Documentation](https://googlegemini.github.io/gemini-cli/docs/cli/skills/)
 - [Awesome Agent Skills](https://github.com/VoltAgent/awesome-agent-skills) - 200+ curated skills
 - [skills.sh](https://skills.sh/) - Community skill registry
-
-

@@ -1,3 +1,4 @@
+/* eslint-disable no-process-exit */
 /**
  * Database migration script
  * Run migrations on container startup

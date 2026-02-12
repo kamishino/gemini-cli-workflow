@@ -2,52 +2,52 @@
  * Test Fixtures and Mock Data Generators
  */
 
-const path = require('upath');
-const os = require('os');
+const path = require("upath");
+const os = require("os");
 
 /**
  * Generate mock configuration data
  */
 function mockConfig(overrides = {}) {
   return {
-    language: 'english',
-    strategy: 'BALANCED',
+    language: "english",
+    strategy: "BALANCED",
     maxRetries: 3,
     maxBackups: 5,
     gatedAutomation: true,
-    executionMode: 'Implementer',
-    currentEnv: 'development',
+    executionMode: "Implementer",
+    currentEnv: "development",
     environments: {
       development: {
-        workspaceRoot: './.kamiflow',
-        outputTargets: ['.']
+        workspaceRoot: "./.kamiflow",
+        outputTargets: ["."],
       },
       production: {
-        workspaceRoot: './.kamiflow',
-        outputTargets: ['dist']
-      }
+        workspaceRoot: "./.kamiflow",
+        outputTargets: ["dist"],
+      },
     },
     plugins: {
       seed: {
-        minFeasibility: 0.7
-      }
+        minFeasibility: 0.7,
+      },
     },
-    ...overrides
+    ...overrides,
   };
 }
 
 /**
  * Generate mock project paths
  */
-function mockProjectPaths(projectRoot = '/test/project') {
+function mockProjectPaths(projectRoot = "/test/project") {
   return {
     projectRoot,
-    defaultConfig: path.join(__dirname, '../../default-config.json'),
-    globalConfig: path.join(os.homedir(), '.kami-flow', '.kamirc.json'),
-    localConfig: path.join(projectRoot, '.kamirc.json'),
-    workspaceRoot: path.join(projectRoot, '.kamiflow'),
-    geminiDir: path.join(projectRoot, '.gemini'),
-    commandsDir: path.join(projectRoot, '.gemini/commands/kamiflow')
+    defaultConfig: path.join(__dirname, "../../default-config.json"),
+    globalConfig: path.join(os.homedir(), ".kami-flow", ".kamirc.json"),
+    localConfig: path.join(projectRoot, ".kamirc.json"),
+    workspaceRoot: path.join(projectRoot, ".kamiflow"),
+    geminiDir: path.join(projectRoot, ".gemini"),
+    commandsDir: path.join(projectRoot, ".gemini/commands/kamiflow"),
   };
 }
 
@@ -56,13 +56,13 @@ function mockProjectPaths(projectRoot = '/test/project') {
  */
 function mockBlueprint(overrides = {}) {
   return {
-    name: 'test-command',
-    type: 'command',
-    description: 'Test command description',
-    group: 'core',
+    name: "test-command",
+    type: "command",
+    description: "Test command description",
+    group: "core",
     order: 10,
-    content: '# Test Blueprint\n\nThis is test content.',
-    ...overrides
+    content: "# Test Blueprint\n\nThis is test content.",
+    ...overrides,
   };
 }
 
@@ -86,7 +86,7 @@ function mockRegistry() {
  * Generate mock TOML content
  */
 function mockToml(options = {}) {
-  const { description = 'Test command', group = 'core', order = 10 } = options;
+  const { description = "Test command", group = "core", order = 10 } = options;
   return `description = "${description}"
 group = "${group}"
 order = ${order}
@@ -102,10 +102,10 @@ This is a test prompt.
  */
 function mockEnvVars(overrides = {}) {
   return {
-    KAMI_ENV: 'test',
-    NODE_ENV: 'test',
-    KAMI_DEBUG: 'false',
-    ...overrides
+    KAMI_ENV: "test",
+    NODE_ENV: "test",
+    KAMI_DEBUG: "false",
+    ...overrides,
   };
 }
 
@@ -114,31 +114,31 @@ function mockEnvVars(overrides = {}) {
  */
 function createTestStructure() {
   return {
-    '.kamiflow': {
-      'PROJECT_CONTEXT.md': '# Test Context',
-      'ROADMAP.md': '# Test Roadmap',
+    ".kamiflow": {
+      "PROJECT_CONTEXT.md": "# Test Context",
+      "ROADMAP.md": "# Test Roadmap",
       tasks: {},
       archive: {},
-      ideas: {}
+      ideas: {},
     },
-    '.gemini': {
+    ".gemini": {
       commands: {
         kamiflow: {
           core: {},
           dev: {},
-          ops: {}
-        }
+          ops: {},
+        },
       },
       rules: {},
-      skills: {}
+      skills: {},
     },
     resources: {
       blueprints: {
         commands: {},
-        rules: {}
+        rules: {},
       },
-      templates: {}
-    }
+      templates: {},
+    },
   };
 }
 
@@ -149,5 +149,5 @@ module.exports = {
   mockRegistry,
   mockToml,
   mockEnvVars,
-  createTestStructure
+  createTestStructure,
 };

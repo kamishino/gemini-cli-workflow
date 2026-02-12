@@ -195,7 +195,10 @@ describe("EnvironmentManager", () => {
 
     it("should handle nested paths correctly", async () => {
       mockConfigManager.get.mockResolvedValue({
-        development: { workspaceRoot: ".kamiflow/nested", outputTargets: ["."] },
+        development: {
+          workspaceRoot: ".kamiflow/nested",
+          outputTargets: ["."],
+        },
       });
 
       const result = await envManager.getWorkspacePrefix();
@@ -234,7 +237,10 @@ describe("EnvironmentManager", () => {
     it("should return array of absolute output paths", async () => {
       process.env.KAMI_ENV = "development";
       mockConfigManager.get.mockResolvedValue({
-        development: { workspaceRoot: "./.kamiflow", outputTargets: [".", "dist"] },
+        development: {
+          workspaceRoot: "./.kamiflow",
+          outputTargets: [".", "dist"],
+        },
       });
 
       const result = await envManager.getOutputTargets();
@@ -248,7 +254,10 @@ describe("EnvironmentManager", () => {
     it("should resolve relative output targets", async () => {
       process.env.KAMI_ENV = "production";
       mockConfigManager.get.mockResolvedValue({
-        production: { workspaceRoot: "./.kamiflow", outputTargets: ["dist", "build/output"] },
+        production: {
+          workspaceRoot: "./.kamiflow",
+          outputTargets: ["dist", "build/output"],
+        },
       });
 
       const result = await envManager.getOutputTargets();

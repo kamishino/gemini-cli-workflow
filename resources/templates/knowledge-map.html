@@ -1,60 +1,112 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-  <title>KamiFlow Knowledge Map</title>
-  <script src="https://unpkg.com/force-graph"></script>
-  <style>
-    body { margin: 0; background-color: #0d1117; color: #c9d1d9; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; }
-    #graph { width: 100vw; height: 100vh; }
-    .header { position: absolute; top: 20px; left: 20px; z-index: 10; pointer-events: none; }
-    .controls { position: absolute; bottom: 20px; right: 20px; z-index: 10; background: rgba(22, 27, 34, 0.8); padding: 10px; border-radius: 6px; border: 1px solid #30363d; }
-    h1 { margin: 0; font-size: 24px; color: #58a6ff; }
-    .legend { margin-top: 10px; font-size: 12px; }
-    .legend-item { display: inline-block; margin-right: 15px; }
-    .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; }
-  </style>
-</head>
-<body>
-  <div class="header">
-    <h1>🌊 KamiFlow Knowledge Map</h1>
-    <div class="legend">
-      <div class="legend-item"><span class="dot" style="background: #58a6ff;"></span> Task</div>
-      <div class="legend-item"><span class="dot" style="background: #79c0ff;"></span> Idea</div>
-      <div class="legend-item"><span class="dot" style="background: #d2a8ff;"></span> Pattern</div>
-      <div class="legend-item"><span class="dot" style="background: #8b949e;"></span> Meta</div>
+  <head>
+    <title>KamiFlow Knowledge Map</title>
+    <script src="https://unpkg.com/force-graph"></script>
+    <style>
+      body {
+        margin: 0;
+        background-color: #0d1117;
+        color: #c9d1d9;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+          sans-serif;
+      }
+      #graph {
+        width: 100vw;
+        height: 100vh;
+      }
+      .header {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 10;
+        pointer-events: none;
+      }
+      .controls {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        z-index: 10;
+        background: rgba(22, 27, 34, 0.8);
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #30363d;
+      }
+      h1 {
+        margin: 0;
+        font-size: 24px;
+        color: #58a6ff;
+      }
+      .legend {
+        margin-top: 10px;
+        font-size: 12px;
+      }
+      .legend-item {
+        display: inline-block;
+        margin-right: 15px;
+      }
+      .dot {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>🌊 KamiFlow Knowledge Map</h1>
+      <div class="legend">
+        <div class="legend-item">
+          <span class="dot" style="background: #58a6ff"></span> Task
+        </div>
+        <div class="legend-item">
+          <span class="dot" style="background: #79c0ff"></span> Idea
+        </div>
+        <div class="legend-item">
+          <span class="dot" style="background: #d2a8ff"></span> Pattern
+        </div>
+        <div class="legend-item">
+          <span class="dot" style="background: #8b949e"></span> Meta
+        </div>
+      </div>
     </div>
-  </div>
-  <div id="graph"></div>
-  <div class="controls">
-    Scroll to Zoom | Drag to Pan | Click to Focus
-  </div>
+    <div id="graph"></div>
+    <div class="controls">Scroll to Zoom | Drag to Pan | Click to Focus</div>
 
-  <script>
-    const gData = JSON_DATA_PLACEHOLDER;
+    <script>
+      const gData = JSON_DATA_PLACEHOLDER;
 
-    const Graph = ForceGraph()
-      (document.getElementById('graph'))
+      const Graph = ForceGraph()(document.getElementById("graph"))
         .graphData(gData)
-        .nodeId('id')
-        .nodeLabel(node => `[${node.id}] ${node.label || node.id}`)
-        .nodeAutoColorBy('type')
+        .nodeId("id")
+        .nodeLabel((node) => `[${node.id}] ${node.label || node.id}`)
+        .nodeAutoColorBy("type")
         .linkDirectionalArrowLength(3.5)
         .linkDirectionalArrowRelPos(1)
         .linkCurvature(0.25)
-        .linkWidth(link => link.type === 'lineage' ? 4 : 1)
-        .linkColor(link => link.type === 'lineage' ? '#ff6' : '#30363d')
+        .linkWidth((link) => (link.type === "lineage" ? 4 : 1))
+        .linkColor((link) => (link.type === "lineage" ? "#ff6" : "#30363d"))
         .nodeCanvasObject((node, ctx, globalScale) => {
           const label = node.label || node.id;
-          const fontSize = 12/globalScale;
+          const fontSize = 12 / globalScale;
           ctx.font = `${fontSize}px Sans-Serif`;
           const textWidth = ctx.measureText(label).width;
-          const bckgDimensions = [textWidth, fontSize].map(n => n + fontSize * 0.2);
+          const bckgDimensions = [textWidth, fontSize].map(
+            (n) => n + fontSize * 0.2,
+          );
 
-          ctx.fillStyle = 'rgba(13, 17, 23, 0.8)';
-          ctx.fillRect(node.x - bckgDimensions[0] / 2, node.y - bckgDimensions[1] / 2, ...bckgDimensions);
+          ctx.fillStyle = "rgba(13, 17, 23, 0.8)";
+          ctx.fillRect(
+            node.x - bckgDimensions[0] / 2,
+            node.y - bckgDimensions[1] / 2,
+            ...bckgDimensions,
+          );
 
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
           ctx.fillStyle = node.color;
           ctx.fillText(label, node.x, node.y);
 
@@ -63,12 +115,17 @@
         .nodePointerAreaPaint((node, color, ctx) => {
           ctx.fillStyle = color;
           const bckgDimensions = node.__bckgDimensions;
-          bckgDimensions && ctx.fillRect(node.x - bckgDimensions[0] / 2, node.y - bckgDimensions[1] / 2, ...bckgDimensions);
+          bckgDimensions &&
+            ctx.fillRect(
+              node.x - bckgDimensions[0] / 2,
+              node.y - bckgDimensions[1] / 2,
+              ...bckgDimensions,
+            );
         })
-        .onNodeClick(node => {
+        .onNodeClick((node) => {
           Graph.centerAt(node.x, node.y, 1000);
           Graph.zoom(4, 1000);
         });
-  </script>
-</body>
+    </script>
+  </body>
 </html>

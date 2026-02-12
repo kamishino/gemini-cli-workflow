@@ -49,7 +49,7 @@ Assign a score from 0.0 to 1.0 for each metric.
 
 1. Generate a JSON string of the scores: `{"feasibility": 0.8, "risk": 0.2, "value": 0.9}`.
 2. Run the command:
-    `kami _idea-analyze [path] [json_string]`
+   `kami _idea-analyze [path] [json_string]`
 3. Prepend the text analysis to the file using `_idea-refine`.
 
 ## 6. OUTPUT FORMAT
@@ -79,4 +79,3 @@ Display the scores, assumption status, and the analysis summary.
 
 [Ready to Promote | Needs Research | Not Feasible]
 ```
-

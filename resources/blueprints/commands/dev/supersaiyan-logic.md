@@ -57,4 +57,3 @@ Summarize the achievements of the cycle.
 
 - This command delegates work to the `saiyan` agent.
 - Stop after 1 Cycle (3 Tasks) to allow the user to review.
-

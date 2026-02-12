@@ -61,17 +61,17 @@ Write one minimal test showing what should happen.
 **Good Example:**
 
 ```typescript
-test('retries failed operations 3 times', async () => {
+test("retries failed operations 3 times", async () => {
   let attempts = 0;
   const operation = () => {
     attempts++;
-    if (attempts < 3) throw new Error('fail');
-    return 'success';
+    if (attempts < 3) throw new Error("fail");
+    return "success";
   };
 
   const result = await retryOperation(operation);
 
-  expect(result).toBe('success');
+  expect(result).toBe("success");
   expect(attempts).toBe(3);
 });
 ```
@@ -81,11 +81,12 @@ Clear name, tests real behavior, one thing.
 **Bad Example:**
 
 ```typescript
-test('retry works', async () => {
-  const mock = jest.fn()
+test("retry works", async () => {
+  const mock = jest
+    .fn()
     .mockRejectedValueOnce(new Error())
     .mockRejectedValueOnce(new Error())
-    .mockResolvedValueOnce('success');
+    .mockResolvedValueOnce("success");
   await retryOperation(mock);
   expect(mock).toHaveBeenCalledTimes(3);
 });
@@ -160,21 +161,21 @@ Next failing test for next feature.
 
 ## Good Tests
 
-| Quality | Good | Bad |
-|---------|------|-----|
-| **Minimal** | One thing. "and" in name? Split it. | `test('validates email and domain and whitespace')` |
-| **Clear** | Name describes behavior | `test('test1')` |
-| **Shows intent** | Demonstrates desired API | Obscures what code should do |
+| Quality          | Good                                | Bad                                                 |
+| ---------------- | ----------------------------------- | --------------------------------------------------- |
+| **Minimal**      | One thing. "and" in name? Split it. | `test('validates email and domain and whitespace')` |
+| **Clear**        | Name describes behavior             | `test('test1')`                                     |
+| **Shows intent** | Demonstrates desired API            | Obscures what code should do                        |
 
 ## Common Rationalizations
 
-| Excuse | Reality |
-|--------|---------|
-| "Too simple to test" | Simple code breaks. Test takes 30 seconds. |
-| "I'll test after" | Tests passing immediately prove nothing. |
-| "Already manually tested" | Ad-hoc ≠ systematic. No record, can't re-run. |
+| Excuse                         | Reality                                                       |
+| ------------------------------ | ------------------------------------------------------------- |
+| "Too simple to test"           | Simple code breaks. Test takes 30 seconds.                    |
+| "I'll test after"              | Tests passing immediately prove nothing.                      |
+| "Already manually tested"      | Ad-hoc ≠ systematic. No record, can't re-run.                 |
 | "Deleting X hours is wasteful" | Sunk cost fallacy. Keeping unverified code is technical debt. |
-| "TDD will slow me down" | TDD faster than debugging. Pragmatic = test-first. |
+| "TDD will slow me down"        | TDD faster than debugging. Pragmatic = test-first.            |
 
 ## Red Flags - STOP and Start Over
 
@@ -207,12 +208,12 @@ Can't check all boxes? You skipped TDD. Start over.
 
 This skill aligns with KamiFlow protocols:
 
-| KamiFlow Protocol | TDD Alignment |
-|-------------------|---------------|
-| **Phase 4 Validation** | TDD's verification checklist extends validation |
-| **Lock 3 (Legacy Awareness)** | Tests prevent regression in existing code |
-| **Error Recovery** | Failing tests guide debugging |
-| **Anti-Hallucination** | Tests prove code works, not assumptions |
+| KamiFlow Protocol             | TDD Alignment                                   |
+| ----------------------------- | ----------------------------------------------- |
+| **Phase 4 Validation**        | TDD's verification checklist extends validation |
+| **Lock 3 (Legacy Awareness)** | Tests prevent regression in existing code       |
+| **Error Recovery**            | Failing tests guide debugging                   |
+| **Anti-Hallucination**        | Tests prove code works, not assumptions         |
 
 ## Final Rule
 

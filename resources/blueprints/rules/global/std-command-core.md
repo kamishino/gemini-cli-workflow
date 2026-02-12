@@ -31,7 +31,7 @@ description = "Summarize the current file"
 group = "utility"
 order = 10
 prompt = '''
-You are the "Summarizer". 
+You are the "Summarizer".
 
 1. **Context:** Read the current file using `read_file`.
 2. **Analysis:** Summarize the main points into a 3-bullet list.
@@ -47,15 +47,15 @@ When executing `run_shell_command` on **Windows**, you MUST prioritize **PowerSh
 
 ### 🔄 Command Mapping Table
 
-| Task | Bash (Unix) | PowerShell (win32) | Notes |
-| :--- | :--- | :--- | :--- |
-| Create Directory | `mkdir -p folder` | `New-Item -ItemType Directory -Force -Path folder` | |
-| Create File | `touch file.md` | `New-Item -ItemType File -Force -Path file.md` | |
-| Delete File/Folder | `rm -rf path` | `Remove-Item -Path path -Force -Recurse` | **NEVER use -rf** |
-| Copy | `cp -r src dest` | `Copy-Item -Path src -Destination dest -Recurse -Force` | |
-| Move | `mv src dest` | `Move-Item -Path src -Destination dest -Force` | |
-| List Files | `ls -la` | `Get-ChildItem -Force` | |
-| Search Text | `grep "text" file` | `Select-String -Pattern "text" -Path file` | **NEVER use grep** |
+| Task               | Bash (Unix)        | PowerShell (win32)                                      | Notes              |
+| :----------------- | :----------------- | :------------------------------------------------------ | :----------------- |
+| Create Directory   | `mkdir -p folder`  | `New-Item -ItemType Directory -Force -Path folder`      |                    |
+| Create File        | `touch file.md`    | `New-Item -ItemType File -Force -Path file.md`          |                    |
+| Delete File/Folder | `rm -rf path`      | `Remove-Item -Path path -Force -Recurse`                | **NEVER use -rf**  |
+| Copy               | `cp -r src dest`   | `Copy-Item -Path src -Destination dest -Recurse -Force` |                    |
+| Move               | `mv src dest`      | `Move-Item -Path src -Destination dest -Force`          |                    |
+| List Files         | `ls -la`           | `Get-ChildItem -Force`                                  |                    |
+| Search Text        | `grep "text" file` | `Select-String -Pattern "text" -Path file`              | **NEVER use grep** |
 
 ### 🚫 FORBIDDEN ON WINDOWS (win32)
 

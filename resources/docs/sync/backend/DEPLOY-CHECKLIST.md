@@ -22,6 +22,7 @@ openssl rand -hex 32
 ```
 
 **Save this key securely!** You'll need it for:
+
 1. Portainer environment variable
 2. KamiFlow CLI setup
 
@@ -38,7 +39,7 @@ openssl rand -hex 32
 3. **Paste this in Web editor**:
 
 ```yaml
-version: '3.8'
+version: "3.8"
 
 services:
   kamiflow-sync:
@@ -134,6 +135,7 @@ kami sync setup
 ```
 
 **Enter:**
+
 - Deployment: "I already have a backend running"
 - Backend URL: `https://sync.yourdomain.com`
 - API Key: `<your-api-key>`
@@ -160,11 +162,13 @@ kami sync-db push
 ## 🔧 Common Issues
 
 ### Container Won't Start
+
 - Check Portainer logs
 - Verify API_KEY is set
 - Ensure port 3030 is not used
 
 ### Can't Access Domain
+
 ```bash
 # Test NGINX config
 sudo nginx -t
@@ -177,6 +181,7 @@ curl http://SERVER_IP:3030/health
 ```
 
 ### SSL Issues
+
 - Verify DNS is pointing to correct IP
 - Wait 5-10 minutes for DNS propagation
 - Check CloudPanel → SSL/TLS → Renew
@@ -186,12 +191,15 @@ curl http://SERVER_IP:3030/health
 ## 📊 Post-Deployment
 
 ### Monitor Container:
+
 - **Portainer** → **Containers** → **kamiflow-sync** → **Stats**
 
 ### View Logs:
+
 - **Portainer** → **Containers** → **kamiflow-sync** → **Logs**
 
 ### Backup:
+
 - **Portainer** → **Volumes** → **kamiflow_data** → Download `.db` file
 
 ---
@@ -200,5 +208,3 @@ curl http://SERVER_IP:3030/health
 
 - Guide: `PORTAINER-SETUP.md`
 - Issues: https://github.com/kamishino/gemini-cli-workflow/issues
-
-

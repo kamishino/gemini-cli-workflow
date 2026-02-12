@@ -5,7 +5,7 @@ const logger = require("../utils/logger");
 /**
  * LayeredResolver - Implements Local > Global > Defaults hierarchy
  * for commands, rules, and skills.
- * 
+ *
  * Layer Priority:
  * 1. LOCAL   → .kamiflow/agents/.gemini/  (project-specific overrides)
  * 2. GLOBAL  → dist/.gemini/              (installed KamiFlow)
@@ -15,7 +15,7 @@ class LayeredResolver {
   constructor(projectRoot, cliRoot = null) {
     this.projectRoot = projectRoot;
     this.cliRoot = cliRoot || path.resolve(__dirname, "../../");
-    
+
     // Layer paths
     this.layers = {
       local: path.join(projectRoot, ".kamiflow/agents/.gemini"),
@@ -104,14 +104,14 @@ class LayeredResolver {
    */
   async walkDir(dir, extension = null) {
     const results = [];
-    
+
     const walk = async (currentDir, prefix = "") => {
       const items = await fs.readdir(currentDir);
       for (const item of items) {
         const fullPath = path.join(currentDir, item);
         const relativePath = prefix ? path.join(prefix, item) : item;
         const stat = await fs.stat(fullPath);
-        
+
         if (stat.isDirectory()) {
           await walk(fullPath, relativePath);
         } else if (!extension || item.endsWith(extension)) {
@@ -134,12 +134,16 @@ class LayeredResolver {
     const stats = { synced: 0, overrides: 0 };
 
     const files = await this.resolveDirectory(category);
-    
+
     for (const file of files) {
-      const destPath = path.join(this.projectRoot, ".gemini", file.relativePath);
+      const destPath = path.join(
+        this.projectRoot,
+        ".gemini",
+        file.relativePath,
+      );
       await fs.ensureDir(path.dirname(destPath));
       await fs.copy(file.absolutePath, destPath);
-      
+
       stats.synced++;
       if (file.source === "local") {
         stats.overrides++;
@@ -216,7 +220,9 @@ remove \`.kamiflow/agents/\` from your \`.gitignore\`.
       await fs.writeFile(readmePath, readme);
     }
 
-    logger.hint("Created local override structure at .kamiflow/agents/.gemini/");
+    logger.hint(
+      "Created local override structure at .kamiflow/agents/.gemini/",
+    );
   }
 
   /**
@@ -234,7 +240,7 @@ remove \`.kamiflow/agents/\` from your \`.gitignore\`.
       const localFiles = await this.walkDir(localDir);
       for (const file of localFiles) {
         if (file === ".gitkeep") continue;
-        
+
         const localPath = path.join(localDir, file);
         const globalPath = path.join(this.layers.global, category, file);
 

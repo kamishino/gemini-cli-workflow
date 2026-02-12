@@ -1,7 +1,7 @@
 packages:
-  - 'cli-core'
+  - "cli-core"
   # Dashboard is deprecated as of v2.39 - moved to _archived/
   # - 'dashboard'
 
   # Independent packages (not in workspace):
-  - 'packages/sync-backend'
+  - "packages/sync-backend"

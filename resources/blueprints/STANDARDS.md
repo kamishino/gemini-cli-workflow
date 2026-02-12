@@ -18,13 +18,13 @@ All master logic MUST be stored in `resources/blueprints/`.
 
 Every Markdown logic file MUST contain a YAML frontmatter block with these fields:
 
-| Field | Description | Example |
-| :--- | :--- | :--- |
-| `name` | Unique identifier | `idea-logic` |
-| `type` | Logic type | `PARTIAL` |
-| `description`| Help text for CLI | `[Sniper Step 1] Diagnostic Interview` |
-| `group` | Category name | `sniper` |
-| `order` | Display priority | `10` |
+| Field         | Description       | Example                                |
+| :------------ | :---------------- | :------------------------------------- |
+| `name`        | Unique identifier | `idea-logic`                           |
+| `type`        | Logic type        | `PARTIAL`                              |
+| `description` | Help text for CLI | `[Sniper Step 1] Diagnostic Interview` |
+| `group`       | Category name     | `sniper`                               |
+| `order`       | Display priority  | `10`                                   |
 
 **Rule:** If any field is missing, the `kami transpile` command will abort to prevent system drift.
 

@@ -52,7 +52,7 @@ Get-ChildItem -Path "{{KAMI_WORKSPACE}}checkpoints/" -Filter "[ID]-checkpoint-*.
   - Re-verify assumptions with Phase 0.5 if resuming before Phase 2
 
   Proceed with resume? (Y/N)
-  ```
+```
 
 - If > 30 days → **STRONG WARNING:**
 
@@ -62,7 +62,7 @@ Get-ChildItem -Path "{{KAMI_WORKSPACE}}checkpoints/" -Filter "[ID]-checkpoint-*.
   Recommend: Start fresh with /kamiflow:core:idea instead.
 
   Force resume anyway? (Y/N)
-  ```
+```
 
 **Check 2: Artifact Integrity**
 
@@ -104,7 +104,7 @@ C) Cancel resume
 
   Resume may be inconsistent with current project direction.
   Continue? (Y/N)
-  ```
+```
 
 ---
 

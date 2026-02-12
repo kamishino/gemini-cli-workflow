@@ -116,10 +116,12 @@ Create/append to `{{KAMI_WORKSPACE}}market_curation.log`:
 
 ```markdown
 [YYYY-MM-DD HH:MM:SS] Market Curation Run
+
 - Scanned: [N] discoveries
 - Analyzed: [P] new
 - Promoted: [Q] to backlog
 - Needs Review: [R]
+
 ---
 ```
 
@@ -189,22 +191,25 @@ Discovery files tagged with `supersaiyan-candidate: true` in frontmatter are pri
 🎯 Market Curation Complete
 
 📊 Statistics:
+
 - Discoveries Scanned: [N]
 - Newly Analyzed: [P]
 - Auto-Promoted: [Q] → Backlog ready for KamiFlow!
 - Needs Review: [R] → Manual decision required
 
 ✅ Auto-Promoted to Backlog:
+
 1. [ID]_[slug] - [Title]
    Feasibility: [0.X] | Risk: [0.X]
-   Location: {{KAMI_WORKSPACE}}ideas/backlog/[ID]_[slug]_ai-discovery.md
+   Location: {{KAMI_WORKSPACE}}ideas/backlog/[ID]_[slug]\_ai-discovery.md
 
 ⚠️ Needs Manual Review:
-1. [ID]_[slug] - [Title]
+
+1. [ID]\_[slug] - [Title]
    Reason: [Low feasibility (0.X) / High risk (0.X) / Hallucination risk]
    Action: Review and improve, or discard
 
 ---
+
 Next: Review backlog → `/kamiflow:core:idea` on best ideas
 ```
-

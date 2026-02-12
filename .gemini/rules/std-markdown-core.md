@@ -22,12 +22,12 @@ order: 120
 
 Only use approved placeholders:
 
-| Placeholder | Purpose | Transpiled Result |
-| :--- | :--- | :--- |
-| `./.kamiflow/` | Core folder path | `./.kamiflow/` |
-| `./.gemini/rules/` | Behavioral rules path | `./.gemini/rules/` |
-| `{{ PROJECT_NAME }}`| Project identity | (From config) |
-| `{{ DATE }}` | Timestamping | (Current Date) |
+| Placeholder          | Purpose               | Transpiled Result  |
+| :------------------- | :-------------------- | :----------------- |
+| `./.kamiflow/`       | Core folder path      | `./.kamiflow/`     |
+| `./.gemini/rules/`   | Behavioral rules path | `./.gemini/rules/` |
+| `{{ PROJECT_NAME }}` | Project identity      | (From config)      |
+| `{{ DATE }}`         | Timestamping          | (Current Date)     |
 
 ## 3. 🏗️ PATH ANCHORING (SSOT)
 

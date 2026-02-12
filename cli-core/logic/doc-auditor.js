@@ -1,22 +1,24 @@
-const fs = require('fs-extra');
-const path = require('upath');
-const chalk = require('chalk');
-const { execSync } = require('child_process');
+/* eslint-disable no-useless-escape */
+/* eslint-disable node/no-unsupported-features/es-syntax */
+const fs = require("fs-extra");
+const path = require("upath");
+const chalk = require("chalk");
+const { execSync } = require("child_process");
 
 async function runDocAudit(options = {}) {
   console.log(chalk.cyan("\n🔍 Starting Documentation Audit..."));
 
-  const inquirer = (await import('inquirer')).default;
+  const inquirer = (await import("inquirer")).default;
 
   const rootDir = process.cwd();
-  const docsDir = path.join(rootDir, '.kamiflow/docs');
-  const readmePath = path.join(rootDir, 'README.md');
-  const geminiPath = path.join(rootDir, 'GEMINI.md');
+  const docsDir = path.join(rootDir, ".kamiflow/docs");
+  const readmePath = path.join(rootDir, "README.md");
+  const geminiPath = path.join(rootDir, "GEMINI.md");
 
   // 1. Collect Files
   const filesToScan = [readmePath, geminiPath];
   if (fs.existsSync(docsDir)) {
-    const docFiles = getAllFiles(docsDir, ['.md']);
+    const docFiles = getAllFiles(docsDir, [".md"]);
     filesToScan.push(...docFiles);
   }
 
@@ -43,8 +45,10 @@ async function runDocAudit(options = {}) {
   }
 
   console.log(chalk.yellow(`\n⚠️  Found ${issues.length} issues:`));
-  issues.forEach(issue => {
-    console.log(`- ${chalk.bold(path.relative(rootDir, issue.file))}: ${issue.message} ${chalk.gray(issue.location || '')}`);
+  issues.forEach((issue) => {
+    console.log(
+      `- ${chalk.bold(path.relative(rootDir, issue.file))}: ${issue.message} ${chalk.gray(issue.location || "")}`,
+    );
   });
 
   // 5. Healing
@@ -53,11 +57,11 @@ async function runDocAudit(options = {}) {
   } else if (!options.dryRun) {
     const { fix } = await inquirer.prompt([
       {
-        type: 'confirm',
-        name: 'fix',
-        message: 'Do you want to attempt automatic fixes?',
-        default: false
-      }
+        type: "confirm",
+        name: "fix",
+        message: "Do you want to attempt automatic fixes?",
+        default: false,
+      },
     ]);
     if (fix) {
       await applyFixes(issues, options, rootDir);
@@ -68,13 +72,13 @@ async function runDocAudit(options = {}) {
 function getAllFiles(dir, extensions) {
   let results = [];
   const list = fs.readdirSync(dir);
-  list.forEach(file => {
+  list.forEach((file) => {
     const filePath = path.join(dir, file);
     const stat = fs.statSync(filePath);
     if (stat && stat.isDirectory()) {
       results = results.concat(getAllFiles(filePath, extensions));
     } else {
-      if (extensions.some(ext => file.endsWith(ext))) {
+      if (extensions.some((ext) => file.endsWith(ext))) {
         results.push(filePath);
       }
     }
@@ -83,10 +87,10 @@ function getAllFiles(dir, extensions) {
 }
 
 function checkFileLinks(filePath, rootDir) {
-  const content = fs.readFileSync(filePath, 'utf8');
+  const content = fs.readFileSync(filePath, "utf8");
   const issues = [];
-  const lines = content.split('\n');
-  
+  const lines = content.split("\n");
+
   // Regex for Markdown links: [text](url)
   const linkRegex = /\ \[([^\\\]]+)\]\(([^)]+)\)/g;
 
@@ -95,17 +99,25 @@ function checkFileLinks(filePath, rootDir) {
     while ((match = linkRegex.exec(line)) !== null) {
       const url = match[2];
       // Skip external links, anchors only, and mailto
-      if (url.startsWith('http') || url.startsWith('#') || url.startsWith('mailto:')) continue;
+      if (
+        url.startsWith("http") ||
+        url.startsWith("#") ||
+        url.startsWith("mailto:")
+      )
+        continue;
 
       try {
-        const absolutePath = path.resolve(path.dirname(filePath), url.split('#')[0]);
+        const absolutePath = path.resolve(
+          path.dirname(filePath),
+          url.split("#")[0],
+        );
         if (!fs.existsSync(absolutePath)) {
           issues.push({
             file: filePath,
-            type: 'DEAD_LINK',
+            type: "DEAD_LINK",
             message: `Dead link: ${url}`,
             location: `Line ${index + 1}`,
-            fixable: false // Complex to fix automatically without search
+            fixable: false, // Complex to fix automatically without search
           });
         }
       } catch (e) {
@@ -120,22 +132,22 @@ function checkFileLinks(filePath, rootDir) {
 function checkVersionDrift(rootDir) {
   const issues = [];
   try {
-    const packageJsonPath = path.join(rootDir, 'cli-core/package.json');
+    const packageJsonPath = path.join(rootDir, "cli-core/package.json");
     if (!fs.existsSync(packageJsonPath)) return [];
 
-    const pkg = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+    const pkg = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
     const realVersion = pkg.version;
 
     // Check README badge
-    const readmePath = path.join(rootDir, 'README.md');
+    const readmePath = path.join(rootDir, "README.md");
     if (fs.existsSync(readmePath)) {
-      const content = fs.readFileSync(readmePath, 'utf8');
+      const content = fs.readFileSync(readmePath, "utf8");
       if (!content.includes(realVersion)) {
         issues.push({
           file: readmePath,
-          type: 'VERSION_MISMATCH',
+          type: "VERSION_MISMATCH",
           message: `Version mismatch. Real: ${realVersion}, Docs seem outdated.`,
-          fixable: true
+          fixable: true,
         });
       }
     }
@@ -147,20 +159,22 @@ function checkVersionDrift(rootDir) {
 
 async function applyFixes(issues, options, rootDir) {
   console.log(chalk.cyan("\n🩹 Applying fixes..."));
-  
-  const fixableIssues = issues.filter(i => i.fixable);
-  
+
+  const fixableIssues = issues.filter((i) => i.fixable);
+
   if (fixableIssues.length === 0) {
     console.log(chalk.yellow("No automatically fixable issues found."));
     return;
   }
 
   // Version/Command Drift -> Run Sync
-  if (issues.some(i => i.type === 'VERSION_MISMATCH')) {
-    console.log(chalk.gray("Running 'kami sync' to fix version/command drift..."));
+  if (issues.some((i) => i.type === "VERSION_MISMATCH")) {
+    console.log(
+      chalk.gray("Running 'kami sync' to fix version/command drift..."),
+    );
     try {
-      execSync('node cli-core/scripts/sync-version.js', { stdio: 'inherit' });
-      execSync('node cli-core/scripts/sync-docs.js', { stdio: 'inherit' });
+      execSync("node cli-core/scripts/sync-version.js", { stdio: "inherit" });
+      execSync("node cli-core/scripts/sync-docs.js", { stdio: "inherit" });
       console.log(chalk.green("✓ Sync complete."));
     } catch (e) {
       console.log(chalk.red("✗ Sync failed."));
@@ -171,3 +185,4 @@ async function applyFixes(issues, options, rootDir) {
 }
 
 module.exports = { runDocAudit };
+

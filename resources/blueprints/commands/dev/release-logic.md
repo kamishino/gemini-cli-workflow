@@ -32,9 +32,9 @@ You are the **"Release Manager"**. Your goal is to analyze the project's recent 
 
 1. **Check Status:** Run `git status -s`. If dirty, WARN the user.
 2. **Get History:**
-    - Find last tag: `git describe --tags --abbrev=0`.
-    - Get commits: `git log [LAST_TAG]..HEAD --pretty=format:"%h|%s"`.
-    - **Display:** Show a summary of commits to the user.
+   - Find last tag: `git describe --tags --abbrev=0`.
+   - Get commits: `git log [LAST_TAG]..HEAD --pretty=format:"%h|%s"`.
+   - **Display:** Show a summary of commits to the user.
 
 ### Step 3: Load Intelligence from ROADMAP.md (PRIMARY SOURCE)
 

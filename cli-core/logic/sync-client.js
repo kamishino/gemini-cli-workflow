@@ -32,17 +32,21 @@ class SyncClient {
    * @returns {Promise<{synced: number, deleted: number, conflicts: Array}>}
    */
   async pushFiles(projectId, files, deletions = [], metadata = null) {
-    const response = await this.request("POST", `/v1/projects/${projectId}/sync`, {
-      files: files.map(f => ({
-        path: f.path,
-        checksum: f.checksum,
-        modified: f.modified,
-        size: f.size,
-        content: Buffer.from(f.content).toString("base64")
-      })),
-      deletions,
-      metadata
-    });
+    const response = await this.request(
+      "POST",
+      `/v1/projects/${projectId}/sync`,
+      {
+        files: files.map((f) => ({
+          path: f.path,
+          checksum: f.checksum,
+          modified: f.modified,
+          size: f.size,
+          content: Buffer.from(f.content).toString("base64"),
+        })),
+        deletions,
+        metadata,
+      },
+    );
     return response;
   }
 
@@ -56,21 +60,21 @@ class SyncClient {
     let allFiles = [];
     let hasMore = true;
     let currentSince = sinceTimestamp;
-    
+
     logger.info(`Starting sync pull...`);
 
     while (hasMore) {
       const response = await this.request(
         "GET",
-        `/v1/projects/${projectId}/files?since=${currentSince}&limit=100`
+        `/v1/projects/${projectId}/files?since=${currentSince}&limit=100`,
       );
-      
+
       let batch = response.files || [];
-      
+
       // Decode base64 content
-      batch = batch.map(f => ({
+      batch = batch.map((f) => ({
         ...f,
-        content: Buffer.from(f.content || "", "base64").toString("utf8")
+        content: Buffer.from(f.content || "", "base64").toString("utf8"),
       }));
 
       allFiles = allFiles.concat(batch);
@@ -81,12 +85,14 @@ class SyncClient {
         // Fallback to max modified time if synced_at not present (legacy compat)
         const lastFile = batch[batch.length - 1];
         currentSince = lastFile.synced_at || lastFile.modified;
-        logger.info(`  Retrieved ${batch.length} files... (Total: ${allFiles.length})`);
+        logger.info(
+          `  Retrieved ${batch.length} files... (Total: ${allFiles.length})`,
+        );
       } else {
         hasMore = false;
       }
     }
-    
+
     return { files: allFiles, hasMore: false };
   }
 
@@ -96,7 +102,10 @@ class SyncClient {
    * @returns {Promise<{lastSync: number, fileCount: number}>}
    */
   async getProjectStatus(projectId) {
-    const response = await this.request("GET", `/v1/projects/${projectId}/status`);
+    const response = await this.request(
+      "GET",
+      `/v1/projects/${projectId}/status`,
+    );
     return response;
   }
 
@@ -132,7 +141,7 @@ class SyncClient {
           "Content-Type": "application/json",
           "User-Agent": "KamiFlow-Sync/1.0",
         },
-        timeout: this.timeout
+        timeout: this.timeout,
       };
 
       // Add authentication

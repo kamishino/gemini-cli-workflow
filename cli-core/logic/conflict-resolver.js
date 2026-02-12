@@ -15,7 +15,12 @@ class ConflictResolver {
   /**
    * Detect and store conflicts
    */
-  async detectConflict(filePath, localContent, remoteContent, baseContent = null) {
+  async detectConflict(
+    filePath,
+    localContent,
+    remoteContent,
+    baseContent = null,
+  ) {
     const conflictId = this.generateConflictId(filePath);
     const conflictPath = path.join(this.conflictsDir, `${conflictId}.json`);
 
@@ -112,7 +117,11 @@ class ConflictResolver {
     }
 
     // Write resolved content to file
-    const filePath = path.join(this.projectRoot, ".kamiflow", conflict.filePath);
+    const filePath = path.join(
+      this.projectRoot,
+      ".kamiflow",
+      conflict.filePath,
+    );
     await fs.writeFile(filePath, resolvedContent);
 
     // Mark conflict as resolved
@@ -150,7 +159,11 @@ class ConflictResolver {
       j = 0,
       k = 0;
 
-    while (i < localLines.length || j < remoteLines.length || k < baseLines.length) {
+    while (
+      i < localLines.length ||
+      j < remoteLines.length ||
+      k < baseLines.length
+    ) {
       const localLine = localLines[i] || "";
       const remoteLine = remoteLines[j] || "";
       const baseLine = baseLines[k] || "";

@@ -53,13 +53,19 @@ class SyncDaemon {
     // Start file watcher
     this.watcher = new FileWatcher(
       this.projectRoot,
-      config.categories || ["archive", "ideas", "tasks"]
+      config.categories || ["archive", "ideas", "tasks"],
     );
 
     // Listen for file changes
-    this.watcher.on("created", (data) => this.handleFileChange("created", data));
-    this.watcher.on("modified", (data) => this.handleFileChange("modified", data));
-    this.watcher.on("deleted", (data) => this.handleFileChange("deleted", data));
+    this.watcher.on("created", (data) =>
+      this.handleFileChange("created", data),
+    );
+    this.watcher.on("modified", (data) =>
+      this.handleFileChange("modified", data),
+    );
+    this.watcher.on("deleted", (data) =>
+      this.handleFileChange("deleted", data),
+    );
 
     await this.watcher.start();
 

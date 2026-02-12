@@ -1,3 +1,4 @@
+/* eslint-disable no-process-exit */
 const fs = require("fs");
 const path = require("upath");
 const execa = require("execa");
@@ -33,12 +34,21 @@ async function main() {
     // 2. Update README.md
     if (fs.existsSync(README_PATH)) {
       let readme = fs.readFileSync(README_PATH, "utf8");
-      readme = readme.replace(/(Version:\s*v?)\d+\.\d+\.\d+[-\w.]*/g, `$1${newVersion}`);
+      readme = readme.replace(
+        /(Version:\s*v?)\d+\.\d+\.\d+[-\w.]*/g,
+        `$1${newVersion}`,
+      );
       readme = readme.replace(/v\d+\.\d+\.\d+[-\w.]*/g, `v${newVersion}`);
       readme = readme.replace(/#v\d+\.\d+\.\d+[-\w.]*/g, `#v${newVersion}`);
-      readme = readme.replace(/tags\/v\d+\.\d+\.\d+[-\w.]*/g, `tags/v${newVersion}`);
+      readme = readme.replace(
+        /tags\/v\d+\.\d+\.\d+[-\w.]*/g,
+        `tags/v${newVersion}`,
+      );
       // v2.0 enhancement: Handle "KamiFlow v2.36.0" pattern
-      readme = readme.replace(/(KamiFlow\s+v?)\d+\.\d+\.\d+/gi, `$1${newVersion}`);
+      readme = readme.replace(
+        /(KamiFlow\s+v?)\d+\.\d+\.\d+/gi,
+        `$1${newVersion}`,
+      );
       readme = readme.replace(/(version-v?)\d+\.\d+\.\d+/gi, `$1${newVersion}`);
       fs.writeFileSync(README_PATH, readme);
       log(`Updated README.md`, "success");
@@ -47,8 +57,14 @@ async function main() {
     // 3. Update PROJECT_CONTEXT.md
     if (fs.existsSync(CONTEXT_PATH)) {
       let context = fs.readFileSync(CONTEXT_PATH, "utf8");
-      context = context.replace(/(Template v?)\d+\.\d+\.\d+[-\w.]*/g, `$1${newVersion}`);
-      context = context.replace(/(Version:?\s*)\d+\.\d+\.\d+[-\w.]*/g, `$1${newVersion}`);
+      context = context.replace(
+        /(Template v?)\d+\.\d+\.\d+[-\w.]*/g,
+        `$1${newVersion}`,
+      );
+      context = context.replace(
+        /(Version:?\s*)\d+\.\d+\.\d+[-\w.]*/g,
+        `$1${newVersion}`,
+      );
       fs.writeFileSync(CONTEXT_PATH, context);
       log(`Updated PROJECT_CONTEXT.md`, "success");
     }
@@ -56,7 +72,10 @@ async function main() {
     // 4. Update bin/kami.js
     if (fs.existsSync(BIN_PATH)) {
       let binContent = fs.readFileSync(BIN_PATH, "utf8");
-      binContent = binContent.replace(/\.version\(['"](.*?)['"]\)/, `.version('${newVersion}')`);
+      binContent = binContent.replace(
+        /\.version\(['"](.*?)['"]\)/,
+        `.version('${newVersion}')`,
+      );
       fs.writeFileSync(BIN_PATH, binContent);
       log(`Updated bin/kami.js`, "success");
     }
@@ -81,7 +100,11 @@ async function generateChangelog(newVersion) {
     }
 
     const range = lastTag ? `${lastTag}..HEAD` : "HEAD";
-    const { stdout: commitsRaw } = await execa("git", ["log", range, "--pretty=format:%h|%s|%an"]);
+    const { stdout: commitsRaw } = await execa("git", [
+      "log",
+      range,
+      "--pretty=format:%h|%s|%an",
+    ]);
 
     if (!commitsRaw) {
       log("No new commits found.", "info");
@@ -98,7 +121,9 @@ async function generateChangelog(newVersion) {
     commits.forEach((c) => {
       if (c.subject.match(/^chore(release):/)) return;
       if (c.subject.match(/^\d+\.\d+\.\d+/)) return;
-      const match = c.subject.match(/^(feat|fix|chore|docs|refactor|test)(\(.*\))?: (.*)$/);
+      const match = c.subject.match(
+        /^(feat|fix|chore|docs|refactor|test)(\(.*\))?: (.*)$/,
+      );
       if (match) {
         const type = match[1];
         if (groups[type]) groups[type].push(c);
@@ -155,14 +180,18 @@ async function generateChangelog(newVersion) {
     if (fs.existsSync(CHANGELOG_PATH)) {
       currentContent = fs.readFileSync(CHANGELOG_PATH, "utf8");
     } else {
-      currentContent = "# Changelog\nAll notable changes to this project will be documented in this file.\n";
+      currentContent =
+        "# Changelog\nAll notable changes to this project will be documented in this file.\n";
     }
 
     const titleRegex = /# Changelog\n.*?\n/s;
     const hasTitle = titleRegex.test(currentContent);
 
     if (hasTitle) {
-      const newContent = currentContent.replace(/(# Changelog\n.*?\n)/s, `$1${md}`);
+      const newContent = currentContent.replace(
+        /(# Changelog\n.*?\n)/s,
+        `$1${md}`,
+      );
       fs.writeFileSync(CHANGELOG_PATH, newContent);
     } else {
       fs.writeFileSync(CHANGELOG_PATH, md + currentContent);

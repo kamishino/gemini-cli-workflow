@@ -80,7 +80,6 @@ Step 2 Step 3 (can run in parallel)
 Step 4 (Integration Test)
 
 ```markdown
-
 ## Tasks
 
 - [ ] **Step 1: Create auth module scaffold**
@@ -179,11 +178,11 @@ Legend:
 
 ## Options
 
-| Option | Description | Ratings | Confidence |
-| ------ | ----------- | ------- | ---------- |
-| A      | Safe & Fast | ⭐⭐⭐⭐    | 🟢 HIGH     |
-| B      | Balanced    | ⭐⭐⭐⭐    | 🟡 MEDIUM   |
-| C      | Ambitious   | ⭐⭐⭐⭐⭐   | 🔴 LOW      |
+| Option | Description | Ratings    | Confidence |
+| ------ | ----------- | ---------- | ---------- |
+| A      | Safe & Fast | ⭐⭐⭐⭐   | 🟢 HIGH    |
+| B      | Balanced    | ⭐⭐⭐⭐   | 🟡 MEDIUM  |
+| C      | Ambitious   | ⭐⭐⭐⭐⭐ | 🔴 LOW     |
 
 ## Selected: [Option]
 

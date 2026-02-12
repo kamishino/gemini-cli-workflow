@@ -1,5 +1,5 @@
-const chalk = require('chalk');
-const cardRenderer = require('./card-renderer');
+const chalk = require("chalk");
+const cardRenderer = require("./card-renderer");
 
 /**
  * Professional Logger for KamiFlow
@@ -7,7 +7,7 @@ const cardRenderer = require('./card-renderer');
  */
 class Logger {
   constructor() {
-    this.isDebug = process.env.KAMI_DEBUG === 'true';
+    this.isDebug = process.env.KAMI_DEBUG === "true";
   }
 
   /**
@@ -21,9 +21,13 @@ class Logger {
    * Print a brand-consistent header with separator
    */
   header(text) {
-    console.log(chalk.cyan(`\n========================================================`));
+    console.log(
+      chalk.cyan(`\n========================================================`),
+    );
     console.log(chalk.cyan.bold(`  ${text}`));
-    console.log(chalk.cyan(`========================================================\n`));
+    console.log(
+      chalk.cyan(`========================================================\n`),
+    );
   }
 
   /**
@@ -91,23 +95,26 @@ class SummaryReporter {
     this.startTime = Date.now();
   }
 
-  push(name, status, message = '') {
+  push(name, status, message = "") {
     this.results.push({
       Item: name,
-      Status: status === 'SUCCESS' ? chalk.green('✅ SUCCESS') : chalk.red('❌ ERROR'),
+      Status:
+        status === "SUCCESS"
+          ? chalk.green("✅ SUCCESS")
+          : chalk.red("❌ ERROR"),
       Details: message,
-      _rawStatus: status // Internal key for sorting
+      _rawStatus: status, // Internal key for sorting
     });
   }
 
   print() {
     const duration = ((Date.now() - this.startTime) / 1000).toFixed(2);
-    
+
     // Sort results: 1. Errors first, 2. Details (Path) A-Z, 3. Item A-Z
     const sortedResults = [...this.results].sort((a, b) => {
       // Priority 1: Errors first
       if (a._rawStatus !== b._rawStatus) {
-        return a._rawStatus === 'ERROR' ? -1 : 1;
+        return a._rawStatus === "ERROR" ? -1 : 1;
       }
 
       // Priority 2: Alphabetical by Details (Path)
@@ -126,7 +133,7 @@ class SummaryReporter {
 
     console.log(chalk.cyan(`\n📊 SUMMARY: ${this.title}`));
     console.log(chalk.gray(`   Completed in ${duration}s\n`));
-    
+
     if (displayResults.length > 0) {
       console.table(displayResults);
     } else {

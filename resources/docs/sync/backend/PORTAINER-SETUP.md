@@ -3,6 +3,7 @@
 Deploy KamiFlow Sync Backend using Portainer with CloudPanel reverse proxy.
 
 **Configuration:**
+
 - Domain: `sync.yourdomain.com`
 - Port: `3030`
 - GitHub: `https://github.com/kamishino/gemini-cli-workflow`
@@ -27,6 +28,7 @@ openssl rand -hex 32
 ```
 
 Save this key - you'll need it for:
+
 1. Portainer environment variables
 2. KamiFlow CLI setup
 
@@ -45,6 +47,7 @@ Example output: `a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef12345
    - Build method: **Git Repository**
 
 3. **Configure Git Repository**:
+
    ```
    Repository URL: https://github.com/kamishino/gemini-cli-workflow
    Repository reference: refs/heads/main
@@ -114,6 +117,7 @@ volumes:
 ### Option B: Pre-built Image (Recommended for Production)
 
 1. **Build image locally** (or use GitHub Actions):
+
    ```bash
    cd packages/sync-backend
    docker build -t kamiflow-sync:latest -f Dockerfile.portainer .
@@ -125,9 +129,10 @@ volumes:
    - Upload `kamiflow-sync.tar.gz`
 
 3. **Create Stack** with simplified config:
+
    ```yaml
-   version: '3.8'
-   
+   version: "3.8"
+
    services:
      kamiflow-sync:
        image: kamiflow-sync:latest
@@ -147,7 +152,7 @@ volumes:
          - LOG_LEVEL=info
        volumes:
          - kamiflow_data:/data
-   
+
    volumes:
      kamiflow_data:
        driver: local
@@ -164,19 +169,22 @@ volumes:
 3. Click on the container → **Logs** tab
 
 4. You should see:
+
    ```
    KamiFlow Sync Backend running on port 3030
    Environment: production
    ```
 
 5. Test health endpoint:
+
    ```bash
    curl http://YOUR_SERVER_IP:3030/health
    ```
 
    Expected response:
+
    ```json
-   {"status":"ok","version":"1.0.0","uptime":12.34}
+   { "status": "ok", "version": "1.0.0", "uptime": 12.34 }
    ```
 
 ---
@@ -190,6 +198,7 @@ volumes:
 2. Navigate to **Domains** → **Add Domain**
 
 3. Configure:
+
    ```
    Domain Name: sync.yourdomain.com
    Document Root: /home/cloudpanel/htdocs/sync.yourdomain.com
@@ -216,12 +225,12 @@ location / {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header X-Forwarded-Proto $scheme;
     proxy_cache_bypass $http_upgrade;
-    
+
     # Timeouts
     proxy_connect_timeout 60s;
     proxy_send_timeout 60s;
     proxy_read_timeout 60s;
-    
+
     # Buffer sizes
     proxy_buffer_size 4k;
     proxy_buffers 8 4k;
@@ -256,8 +265,9 @@ curl https://sync.yourdomain.com/health
 ```
 
 Expected response:
+
 ```json
-{"status":"ok","version":"1.0.0","uptime":123.45}
+{ "status": "ok", "version": "1.0.0", "uptime": 123.45 }
 ```
 
 ### Test with Authentication
@@ -282,6 +292,7 @@ kami sync setup
 ```
 
 **Enter when prompted:**
+
 1. **Deployment option**: "I already have a backend running"
 2. **Backend URL**: `https://sync.yourdomain.com`
 3. **API Key**: `<your-api-key-from-step-1>`
@@ -362,9 +373,11 @@ Add a cron job in CloudPanel:
 ### Container Won't Start
 
 **Check logs in Portainer:**
+
 1. **Containers** → **kamiflow-sync** → **Logs**
 
 Common issues:
+
 - `API_KEY` not set in environment variables
 - Port 3030 already in use
 - Volume mount permissions
@@ -372,6 +385,7 @@ Common issues:
 ### Can't Access via Domain
 
 **Check reverse proxy:**
+
 ```bash
 # SSH into server
 sudo nginx -t
@@ -379,11 +393,13 @@ sudo systemctl status nginx
 ```
 
 **Check DNS:**
+
 ```bash
 nslookup sync.yourdomain.com
 ```
 
 **Check CloudPanel logs:**
+
 ```bash
 tail -f /var/log/nginx/error.log
 ```
@@ -397,11 +413,13 @@ tail -f /var/log/nginx/error.log
 ### API Key Not Working
 
 Verify environment variable in Portainer:
+
 1. **Containers** → **kamiflow-sync** → **Inspect**
 2. Scroll to **Env** section
 3. Confirm `API_KEY` is set correctly
 
 Update if needed:
+
 1. **Stacks** → **kamiflow-sync-backend** → **Editor**
 2. Update `API_KEY` in environment variables
 3. Click **Update the stack**
@@ -436,6 +454,7 @@ curl https://sync.yourdomain.com/health
 ### 1. Firewall (via CloudPanel)
 
 Ensure only necessary ports are open:
+
 - 22 (SSH)
 - 80 (HTTP)
 - 443 (HTTPS)
@@ -450,6 +469,7 @@ Ensure only necessary ports are open:
 ### 3. Regular Updates
 
 Enable auto-updates in Portainer:
+
 1. **Stacks** → **sync-backend** → **Settings**
 2. Enable **Automatic updates**
 3. Set schedule (e.g., weekly)
@@ -465,12 +485,13 @@ Update environment variables in Portainer:
 ```yaml
 environment:
   - RATE_LIMIT_MAX_REQUESTS=500
-  - MAX_FILE_SIZE=52428800  # 50MB
+  - MAX_FILE_SIZE=52428800 # 50MB
 ```
 
 ### Database Optimization
 
 Access container shell via Portainer:
+
 1. **Containers** → **kamiflow-sync** → **Console**
 2. Run:
    ```bash
@@ -497,13 +518,11 @@ Access container shell via Portainer:
 
 ## Quick Reference
 
-| Task | Command/Location |
-|------|------------------|
-| View logs | Portainer → Containers → kamiflow-sync → Logs |
-| Restart | Portainer → Containers → kamiflow-sync → Restart |
-| Update | Portainer → Stacks → Pull and redeploy |
-| Backup | Portainer → Volumes → kamiflow_data → Download |
-| SSL Renew | CloudPanel → Domains → SSL/TLS → Renew |
-| Health Check | `curl https://sync.yourdomain.com/health` |
-
-
+| Task         | Command/Location                                 |
+| ------------ | ------------------------------------------------ |
+| View logs    | Portainer → Containers → kamiflow-sync → Logs    |
+| Restart      | Portainer → Containers → kamiflow-sync → Restart |
+| Update       | Portainer → Stacks → Pull and redeploy           |
+| Backup       | Portainer → Volumes → kamiflow_data → Download   |
+| SSL Renew    | CloudPanel → Domains → SSL/TLS → Renew           |
+| Health Check | `curl https://sync.yourdomain.com/health`        |

@@ -27,7 +27,10 @@ async function setupSync(projectRoot, options = {}) {
         message: "Choose deployment option:",
         choices: [
           { name: "I already have a backend running", value: "existing" },
-          { name: "Help me deploy to Cloudflare (guided setup)", value: "cloudflare" },
+          {
+            name: "Help me deploy to Cloudflare (guided setup)",
+            value: "cloudflare",
+          },
           { name: "Help me set up self-hosted (Docker)", value: "selfhosted" },
         ],
       },
@@ -92,8 +95,14 @@ async function setupSync(projectRoot, options = {}) {
       name: "syncMode",
       message: "Sync mode:",
       choices: [
-        { name: "Manual (use 'kami sync' when you want to sync)", value: "manual" },
-        { name: "On-Command (sync after 'kami archive', etc.)", value: "on-command" },
+        {
+          name: "Manual (use 'kami sync' when you want to sync)",
+          value: "manual",
+        },
+        {
+          name: "On-Command (sync after 'kami archive', etc.)",
+          value: "on-command",
+        },
       ],
     },
   ]);
@@ -118,8 +127,14 @@ async function setupSync(projectRoot, options = {}) {
   console.log(chalk.green("\n✅ Sync configured successfully!"));
   console.log(chalk.gray(`   • Backend: ${backend}`));
   console.log(chalk.gray(`   • Mode: ${syncMode}`));
-  console.log(chalk.gray(`   • Credentials: ${result.method === "keychain" ? "OS Keychain" : "Encrypted File"}`));
-  console.log(chalk.gray("\nRun 'kami sync-db push' to upload your first backup.\n"));
+  console.log(
+    chalk.gray(
+      `   • Credentials: ${result.method === "keychain" ? "OS Keychain" : "Encrypted File"}`,
+    ),
+  );
+  console.log(
+    chalk.gray("\nRun 'kami sync-db push' to upload your first backup.\n"),
+  );
 }
 
 /**
@@ -129,9 +144,15 @@ async function guidedCloudflareSetup() {
   console.log(chalk.cyan("\n📖 Guided Cloudflare Setup\n"));
   console.log("Follow these steps to deploy your sync backend:\n");
   console.log("1. Clone the backend repository:");
-  console.log(chalk.gray("   git clone https://github.com/kamishino/gemini-cli-workflow.git\n"));
+  console.log(
+    chalk.gray(
+      "   git clone https://github.com/kamishino/gemini-cli-workflow.git\n",
+    ),
+  );
   console.log("2. Follow the setup guide:");
-  console.log(chalk.gray("   See: resources/docs/sync/backend/README.md#cloudflare\n"));
+  console.log(
+    chalk.gray("   See: resources/docs/sync/backend/README.md#cloudflare\n"),
+  );
   console.log("3. Return here and run:");
   console.log(chalk.cyan("   kami sync-db setup\n"));
 }
@@ -145,7 +166,9 @@ async function guidedSelfHostedSetup() {
   console.log("1. Use the included backend in this repository:");
   console.log(chalk.gray("   cd packages/sync-backend/\n"));
   console.log("2. Follow the Docker Compose guide:");
-  console.log(chalk.gray("   See: resources/docs/sync/backend/README.md#self-hosted\n"));
+  console.log(
+    chalk.gray("   See: resources/docs/sync/backend/README.md#self-hosted\n"),
+  );
   console.log("3. Return here and run:");
   console.log(chalk.cyan("   kami sync-db setup\n"));
 }
@@ -161,7 +184,9 @@ async function updateApiKey(projectRoot) {
 
   const backend = await configManager.get("sync.backend");
   if (!backend) {
-    console.log(chalk.red("Sync not configured. Run 'kami sync-db setup' first.\n"));
+    console.log(
+      chalk.red("Sync not configured. Run 'kami sync-db setup' first.\n"),
+    );
     return;
   }
 
@@ -189,7 +214,11 @@ async function updateApiKey(projectRoot) {
   // Update credentials
   const result = await credentialManager.updateApiKey(apiKeyInput);
   console.log(chalk.green("✅ API key updated successfully!"));
-  console.log(chalk.gray(`   • Storage: ${result.method === "keychain" ? "OS Keychain" : "Encrypted File"}\n`));
+  console.log(
+    chalk.gray(
+      `   • Storage: ${result.method === "keychain" ? "OS Keychain" : "Encrypted File"}\n`,
+    ),
+  );
 }
 
 module.exports = { setupSync, updateApiKey };

@@ -82,4 +82,3 @@ Summary of the installation and safety audit results, including:
 ## 7. TONE
 
 - Professional, safety-conscious, and helpful.
-

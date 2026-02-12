@@ -18,23 +18,31 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 // Middleware
-app.use(helmet({
-  contentSecurityPolicy: false, // Allow inline styles/scripts for simple dashboard
-}));
+app.use(
+  helmet({
+    contentSecurityPolicy: false, // Allow inline styles/scripts for simple dashboard
+  }),
+);
 app.use(compression());
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 // Basic Auth for Dashboard
 const dashboardAuth = basicAuth({
-  users: { [process.env.DASHBOARD_USER || "admin"]: process.env.DASHBOARD_PASS || "admin" },
+  users: {
+    [process.env.DASHBOARD_USER || "admin"]:
+      process.env.DASHBOARD_PASS || "admin",
+  },
   challenge: true,
   realm: "KamiFlow Dashboard",
 });
 
 // CORS
 const corsOptions = {
-  origin: process.env.CORS_ORIGINS === "*" ? "*" : process.env.CORS_ORIGINS?.split(","),
+  origin:
+    process.env.CORS_ORIGINS === "*"
+      ? "*"
+      : process.env.CORS_ORIGINS?.split(","),
   methods: ["GET", "POST", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
@@ -84,7 +92,14 @@ app.post("/v1/projects/:projectId/sync", auth, async (req, res) => {
 
     // Process file uploads
     for (const file of files) {
-      db.upsertFile(projectId, file.path, file.content, file.checksum, file.modified, file.size);
+      db.upsertFile(
+        projectId,
+        file.path,
+        file.content,
+        file.checksum,
+        file.modified,
+        file.size,
+      );
       synced++;
     }
 
@@ -118,13 +133,13 @@ app.get("/v1/projects/:projectId/files", auth, async (req, res) => {
     const hasMore = files.length === limit;
 
     res.json({
-      files: files.map(f => ({
+      files: files.map((f) => ({
         path: f.path,
         content: f.content,
         checksum: f.checksum,
         modified: f.modified,
         size: f.size,
-        synced_at: f.synced_at // Expose for pagination cursor
+        synced_at: f.synced_at, // Expose for pagination cursor
       })),
       hasMore,
     });

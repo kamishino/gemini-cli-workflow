@@ -31,6 +31,7 @@ Foundation Rules:
 ### 1.2 Task Classification System
 
 #### 🟢 Lightweight Tasks
+
 - **Examples:** Few-line modifications, simple bug fixes, config checks
 - **Reasoning Policy:** Shortest path, no deep brainstorming
 - **Execution Flow:**
@@ -39,6 +40,7 @@ Foundation Rules:
   3. Report (1-2 sentences, no templates)
 
 #### 🟡 Standard Tasks
+
 - **Examples:** Multi-file changes, API endpoint implementation, component creation
 - **Reasoning Policy:** Concise analysis + 3-7 item to-do list
 - **Execution Flow:**
@@ -48,6 +50,7 @@ Foundation Rules:
   4. Summarize: "What changed, in which files, to what extent"
 
 #### 🔴 Critical Tasks
+
 - **Examples:** Authentication, DB schema, infrastructure config, production changes
 - **Reasoning Policy:** Impact analysis + risk assessment + Plan presentation
 - **Execution Flow:**
@@ -113,8 +116,9 @@ graph LR
 ```
 
 **Checkpoint Locations:**
+
 - Phase 0: Logical Guard complete
-- Phase 0.5: Assumption Verification complete  
+- Phase 0.5: Assumption Verification complete
 - Phase 1: Diagnostic Interview complete
 - Phase 2: Strategic Synthesis complete (S1-IDEA created)
 - Phase 3A: Planning complete (S2-SPEC created)
@@ -123,15 +127,15 @@ graph LR
 
 ### 2.3 Command Classification
 
-| Command | Flow Type | Approval Gates |
-|---------|-----------|----------------|
-| `/kamiflow:core:idea` | Interview → Options | Phase 1, Phase 2 |
-| `/kamiflow:core:spec` | Spec Generation | Pre-flight validation |
-| `/kamiflow:core:build` | Plan Generation | Codebase reconnaissance |
-| `/kamiflow:dev:lazy` | Full Sniper (Gated) | Phase 1, Phase 2, Phase 3B |
-| `/kamiflow:dev:superlazy` | Auto-Synthesis | Phase 1 (brief), Auto Phase 2 |
-| `/kamiflow:dev:saiyan` | Balanced Auto-Mode | Option B default, minimal gates |
-| `/kamiflow:dev:supersaiyan` | God Mode | Cycle-based oversight |
+| Command                     | Flow Type           | Approval Gates                  |
+| --------------------------- | ------------------- | ------------------------------- |
+| `/kamiflow:core:idea`       | Interview → Options | Phase 1, Phase 2                |
+| `/kamiflow:core:spec`       | Spec Generation     | Pre-flight validation           |
+| `/kamiflow:core:build`      | Plan Generation     | Codebase reconnaissance         |
+| `/kamiflow:dev:lazy`        | Full Sniper (Gated) | Phase 1, Phase 2, Phase 3B      |
+| `/kamiflow:dev:superlazy`   | Auto-Synthesis      | Phase 1 (brief), Auto Phase 2   |
+| `/kamiflow:dev:saiyan`      | Balanced Auto-Mode  | Option B default, minimal gates |
+| `/kamiflow:dev:supersaiyan` | God Mode            | Cycle-based oversight           |
 
 ### 2.4 State Persistence
 
@@ -145,7 +149,7 @@ graph LR
 # Private Session State (Optional)
 .kamiflow-private/
   ├── S1-IDEA-042.md          # Phase 2 checkpoint
-  ├── S2-SPEC-042.md          # Phase 3A checkpoint  
+  ├── S2-SPEC-042.md          # Phase 3A checkpoint
   ├── S3-BUILD-042.md         # Phase 3B checkpoint
   └── S4-BRIDGE-042.md        # Phase 4 checkpoint
 
@@ -159,43 +163,44 @@ graph LR
 
 ### 3.1 Planning & State Management
 
-| Aspect | Cascade | KamiFlow |
-|--------|---------|----------|
-| **Planning Tool** | `update_plan` (inline TODO list) | S1/S2/S3/S4 artifact files |
-| **State Storage** | Session memory (ephemeral) | Git-tracked + private checkpoints |
-| **Resume-ability** | ❌ Full re-run needed | ✅ Resume from any phase |
-| **Cross-Machine Sync** | ❌ Session-bound | ✅ ROADMAP.md syncs globally |
-| **Plan Visibility** | IDE sidebar only | Markdown files (reviewable) |
+| Aspect                 | Cascade                          | KamiFlow                          |
+| ---------------------- | -------------------------------- | --------------------------------- |
+| **Planning Tool**      | `update_plan` (inline TODO list) | S1/S2/S3/S4 artifact files        |
+| **State Storage**      | Session memory (ephemeral)       | Git-tracked + private checkpoints |
+| **Resume-ability**     | ❌ Full re-run needed            | ✅ Resume from any phase          |
+| **Cross-Machine Sync** | ❌ Session-bound                 | ✅ ROADMAP.md syncs globally      |
+| **Plan Visibility**    | IDE sidebar only                 | Markdown files (reviewable)       |
 
 ### 3.2 Task Classification Mapping
 
-| Cascade | KamiFlow Equivalent | Notes |
-|---------|---------------------|-------|
-| 🟢 Lightweight | `/kamiflow:dev:saiyan` (quick fixes) | Auto-mode, Option B default |
-| 🟡 Standard | `/kamiflow:dev:lazy` (gated full workflow) | 3-7 checkpoints |
-| 🔴 Critical | `/kamiflow:dev:superlazy` (strategic build) | Full Sniper with validation |
+| Cascade        | KamiFlow Equivalent                         | Notes                       |
+| -------------- | ------------------------------------------- | --------------------------- |
+| 🟢 Lightweight | `/kamiflow:dev:saiyan` (quick fixes)        | Auto-mode, Option B default |
+| 🟡 Standard    | `/kamiflow:dev:lazy` (gated full workflow)  | 3-7 checkpoints             |
+| 🔴 Critical    | `/kamiflow:dev:superlazy` (strategic build) | Full Sniper with validation |
 
 ### 3.3 Approval Gates
 
-| Feature | Cascade | KamiFlow |
-|---------|---------|----------|
-| **When Required** | 🔴 Critical tasks only | Every Phase 1, Phase 2, Phase 3B |
-| **Mechanism** | Present plan → wait for approval | Interactive interview + options |
-| **Bypass Option** | ❌ No bypass | ✅ `/saiyan` auto-selects Option B |
-| **Context Loading** | Auto (IDE metadata) | Explicit `context-sync.md` injection |
+| Feature             | Cascade                          | KamiFlow                             |
+| ------------------- | -------------------------------- | ------------------------------------ |
+| **When Required**   | 🔴 Critical tasks only           | Every Phase 1, Phase 2, Phase 3B     |
+| **Mechanism**       | Present plan → wait for approval | Interactive interview + options      |
+| **Bypass Option**   | ❌ No bypass                     | ✅ `/saiyan` auto-selects Option B   |
+| **Context Loading** | Auto (IDE metadata)              | Explicit `context-sync.md` injection |
 
 ### 3.4 Error Recovery
 
-| Level | Cascade | KamiFlow |
-|-------|---------|----------|
-| **Level 1 (80%)** | Auto-fix syntax, imports | TOML syntax, missing imports → Auto-fixed |
-| **Level 2 (15%)** | Ask user for guidance | Test failures → Guided recovery with options |
-| **Level 3 (5%)** | Escalate to user review | `/kamiflow:dev:revise` emergency brake |
+| Level             | Cascade                  | KamiFlow                                     |
+| ----------------- | ------------------------ | -------------------------------------------- |
+| **Level 1 (80%)** | Auto-fix syntax, imports | TOML syntax, missing imports → Auto-fixed    |
+| **Level 2 (15%)** | Ask user for guidance    | Test failures → Guided recovery with options |
+| **Level 3 (5%)**  | Escalate to user review  | `/kamiflow:dev:revise` emergency brake       |
 
 ### 3.5 Context Intelligence
 
 ```markdown
 ## Cascade (IDE-Integrated)
+
 ✅ Workspace layout snapshot (file tree)
 ✅ Git status (branch, uncommitted changes)
 ✅ Open files + cursor position
@@ -203,6 +208,7 @@ graph LR
 ❌ No persistent memory across sessions
 
 ## KamiFlow (Git-Tracked)
+
 ✅ 60-80% awareness from public files (v2.0 protocol)
 ✅ ROADMAP.md (strategic context)
 ✅ PROJECT_CONTEXT.md (current state)
@@ -280,38 +286,46 @@ Step 4: Use Cascade for next iteration
 
 Both systems follow similar principles:
 
-| Principle | Cascade Rule | KamiFlow Equivalent |
-|-----------|--------------|---------------------|
-| **No Hallucination** | "Verify before acting" | `anti-hallucination.md` protocol |
-| **Minimal Changes** | "Prefer minimal, focused edits" | `flow-execution.md` → "Surgical edits" |
-| **Test Before Commit** | "Run lint if possible" | `flow-validation.md` → Phase 3B |
-| **Context First** | "Read files before editing" | `context-sync.md` → Mandatory load |
-| **Graceful Degradation** | "Use available tools" | v2.0 → "60-80% from public files" |
+| Principle                | Cascade Rule                    | KamiFlow Equivalent                    |
+| ------------------------ | ------------------------------- | -------------------------------------- |
+| **No Hallucination**     | "Verify before acting"          | `anti-hallucination.md` protocol       |
+| **Minimal Changes**      | "Prefer minimal, focused edits" | `flow-execution.md` → "Surgical edits" |
+| **Test Before Commit**   | "Run lint if possible"          | `flow-validation.md` → Phase 3B        |
+| **Context First**        | "Read files before editing"     | `context-sync.md` → Mandatory load     |
+| **Graceful Degradation** | "Use available tools"           | v2.0 → "60-80% from public files"      |
 
 ---
 
 ## 6. Recommendations
 
 ### For Single-Session Work (< 30 min)
-✅ **Use Cascade**  
+
+✅ **Use Cascade**
+
 - Faster inline planning
 - IDE-integrated context
 - No checkpoint overhead
 
 ### For Multi-Session Work (> 30 min)
-✅ **Use KamiFlow**  
+
+✅ **Use KamiFlow**
+
 - Resume-able checkpoints
 - Git-tracked state
 - Strategic planning (S1/S2/S3)
 
 ### For Collaborative Projects
-✅ **Use KamiFlow**  
+
+✅ **Use KamiFlow**
+
 - ROADMAP.md syncs across team
 - PROJECT_CONTEXT.md is machine-readable
 - Cross-machine consistency
 
 ### For Exploratory Prototyping
-✅ **Use Cascade**  
+
+✅ **Use Cascade**
+
 - Quick experiments
 - Adaptive reasoning
 - No rigid workflow structure
@@ -366,19 +380,22 @@ Use Case:
 Merge `error-recovery.md` (KamiFlow) with Cascade's auto-fix logic:
 
 Level 1 (Auto-Fix):
-  - Cascade: Syntax, imports, formatting
-  - KamiFlow: TOML syntax, missing imports
-  - Unified: Add linting auto-fix, type errors
+
+- Cascade: Syntax, imports, formatting
+- KamiFlow: TOML syntax, missing imports
+- Unified: Add linting auto-fix, type errors
 
 Level 2 (Guided Recovery):
-  - Cascade: Present options to user
-  - KamiFlow: Test failures → recovery strategies
-  - Unified: Add conflict resolution wizard
+
+- Cascade: Present options to user
+- KamiFlow: Test failures → recovery strategies
+- Unified: Add conflict resolution wizard
 
 Level 3 (Escalation):
-  - Cascade: Manual review
-  - KamiFlow: /kamiflow:dev:revise
-  - Unified: Add "Rollback to checkpoint" option
+
+- Cascade: Manual review
+- KamiFlow: /kamiflow:dev:revise
+- Unified: Add "Rollback to checkpoint" option
 ```
 
 ---
@@ -391,12 +408,14 @@ Level 3 (Escalation):
 - **KamiFlow** = Structure, persistence, strategic planning
 
 **Best Practice:**
+
 1. Use **Cascade** for rapid prototyping and quick fixes
 2. Use **KamiFlow** for strategic feature development
 3. Export Cascade state to KamiFlow at session boundaries
 4. Load KamiFlow context (ROADMAP, PROJECT_CONTEXT) into Cascade for continuity
 
 **Next Steps:**
+
 - [ ] Implement `/kamiflow:ops:cascade-sync` command
 - [ ] Add `/kamiflow:dev:cascade-mode` lightweight workflow
 - [ ] Create unified error recovery protocol

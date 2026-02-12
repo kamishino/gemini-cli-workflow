@@ -1,13 +1,16 @@
 # ⚡ SKILL: The Boring Backend (MVP)
+
 Description: A rigid, reliable, production-ready backend setup for Indie Hackers.
 
 ## 1. 🏗️ The Stack (Non-Negotiable)
-*   **Runtime:** Node.js (LTS).
-*   **Framework:** Express.js (v5 preferred) - Optimized for simplicity.
-*   **Database:** `better-sqlite3` (Dev) -> Postgres (Prod). No ORM overdrive, use `Kysely` or raw SQL builder.
-*   **Validation:** `Zod` for EVERYTHING (Env vars, API inputs).
+
+- **Runtime:** Node.js (LTS).
+- **Framework:** Express.js (v5 preferred) - Optimized for simplicity.
+- **Database:** `better-sqlite3` (Dev) -> Postgres (Prod). No ORM overdrive, use `Kysely` or raw SQL builder.
+- **Validation:** `Zod` for EVERYTHING (Env vars, API inputs).
 
 ## 2. 📂 Directory Structure (Feature-Based)
+
 ```text
 src/
 ├── config/         # Env vars (validated by Zod)
@@ -25,9 +28,10 @@ src/
 ## 3. 🛡️ Golden Snippets
 
 ### A. The Setup (Express + Zod)
+
 ```typescript
-import express from 'express';
-import { z } from 'zod';
+import express from "express";
+import { z } from "zod";
 
 const app = express();
 app.use(express.json());
@@ -36,16 +40,17 @@ app.use(express.json());
 const asyncHandler = (fn: Function) => (req, res, next) =>
   Promise.resolve(fn(req, res, next)).catch(next);
 
-app.get('/health', (req, res) => res.json({ status: 'ok' }));
+app.get("/health", (req, res) => res.json({ status: "ok" }));
 
 // Global Error Handler
 app.use((err, req, res, next) => {
   console.error(err);
-  res.status(500).json({ error: 'Internal Server Error' });
+  res.status(500).json({ error: "Internal Server Error" });
 });
 ```
 
 ### B. Env Validation (Fail Fast)
+
 ```typescript
 const EnvSchema = z.object({
   PORT: z.coerce.number().default(3000),
@@ -55,6 +60,7 @@ export const env = EnvSchema.parse(process.env);
 ```
 
 ## 4. 🛑 Anti-Patterns
-*   **NO** Controller Classes. Use simple exported functions.
-*   **NO** Logic in Routes. Routes only unwrap requests and call Services.
-*   **NO** `any` types.
+
+- **NO** Controller Classes. Use simple exported functions.
+- **NO** Logic in Routes. Routes only unwrap requests and call Services.
+- **NO** `any` types.

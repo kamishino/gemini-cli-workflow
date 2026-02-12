@@ -1,6 +1,7 @@
+/* eslint-disable no-undef */
 const logger = require("../utils/logger");
 const fs = require("fs-extra");
-const path = require('upath');
+const path = require("upath");
 const { execa } = require("execa");
 const minimatch = require("minimatch");
 const presets = require("../presets.json");
@@ -9,7 +10,8 @@ const packageJson = require("../../package.json");
 const { LayeredResolver } = require("./layered-resolver");
 
 const KAMIFLOW_REPO = "https://github.com/kamishino/gemini-cli-workflow.git";
-const RAW_PACKAGE_URL = "https://raw.githubusercontent.com/kamishino/gemini-cli-workflow/main/package.json";
+const RAW_PACKAGE_URL =
+  "https://raw.githubusercontent.com/kamishino/gemini-cli-workflow/main/package.json";
 
 /**
  * Detect the mode of the current project
@@ -58,10 +60,14 @@ async function updateSubmodule(projectPath) {
 
   try {
     const submodulePath = ".kami-flow";
-    await execa("git", ["submodule", "update", "--remote", "--merge", submodulePath], {
-      cwd: projectPath,
-      stdio: "inherit",
-    });
+    await execa(
+      "git",
+      ["submodule", "update", "--remote", "--merge", submodulePath],
+      {
+        cwd: projectPath,
+        stdio: "inherit",
+      },
+    );
     logger.success("Submodule updated successfully");
     return true;
   } catch (error) {
@@ -81,7 +87,9 @@ async function updateLinkedMode(projectPath) {
 
   try {
     // 1. Get current HEAD for rollback
-    const { stdout } = await execa("git", ["rev-parse", "HEAD"], { cwd: cliRoot });
+    const { stdout } = await execa("git", ["rev-parse", "HEAD"], {
+      cwd: cliRoot,
+    });
     originalHead = stdout.trim();
 
     // 2. Pull changes
@@ -100,12 +108,16 @@ async function updateLinkedMode(projectPath) {
     return true;
   } catch (error) {
     logger.error(`Update failed: ${error.message}`);
-    
+
     if (originalHead) {
-      logger.warn(`Attempting atomic rollback to ${originalHead.substring(0, 7)}...`);
+      logger.warn(
+        `Attempting atomic rollback to ${originalHead.substring(0, 7)}...`,
+      );
       try {
         await execa("git", ["reset", "--hard", originalHead], { cwd: cliRoot });
-        logger.success("Rollback complete. System restored to previous version.");
+        logger.success(
+          "Rollback complete. System restored to previous version.",
+        );
       } catch (rollbackError) {
         logger.error("Critical: Rollback failed. System may be unstable.");
       }
@@ -123,7 +135,9 @@ async function updateStandaloneMode(projectPath, options = {}) {
   const force = options.force || false;
 
   if (!(await fs.pathExists(sourceDist))) {
-    logger.error("Distribution artifacts missing. Please run 'npm run build' in KamiFlow core.");
+    logger.error(
+      "Distribution artifacts missing. Please run 'npm run build' in KamiFlow core.",
+    );
     return false;
   }
 
@@ -139,20 +153,22 @@ async function updateStandaloneMode(projectPath, options = {}) {
     }
   }
 
-  logger.info(`Syncing standalone project files (Preset: ${currentPreset.toUpperCase()})${force ? ' [FORCE]' : ''}...`);
+  logger.info(
+    `Syncing standalone project files (Preset: ${currentPreset.toUpperCase()})${force ? " [FORCE]" : ""}...`,
+  );
 
   const protectedFiles = [
-    'GEMINI.md', 
-    '.kamiflow/PROJECT_CONTEXT.md', 
-    '.kamiflow/ROADMAP.md',
-    '.kamirc.json'
+    "GEMINI.md",
+    ".kamiflow/PROJECT_CONTEXT.md",
+    ".kamiflow/ROADMAP.md",
+    ".kamirc.json",
   ];
 
   const isPathInPreset = (relPath, presetKey) => {
     const preset = presets[presetKey];
     if (!preset || !preset.patterns) return true;
     const normalizedPath = relPath.replace(/\\/g, "/");
-    return preset.patterns.some(pattern => {
+    return preset.patterns.some((pattern) => {
       if (pattern === "**") return true;
       return minimatch(normalizedPath, pattern);
     });
@@ -168,21 +184,25 @@ async function updateStandaloneMode(projectPath, options = {}) {
 
       if (stat.isDirectory()) {
         // Only enter directories that are part of the preset or contain files that are
-        if (relative !== "." && !isPathInPreset(relative, currentPreset) && !isPathInPreset(relative + "/*", currentPreset)) {
-            continue;
+        if (
+          relative !== "." &&
+          !isPathInPreset(relative, currentPreset) &&
+          !isPathInPreset(relative + "/*", currentPreset)
+        ) {
+          continue;
         }
         await fs.ensureDir(destPath);
         await walkAndSync(srcPath, destPath);
       } else {
         const exists = await fs.pathExists(destPath);
-        
+
         // 0. Filter by Preset
         if (!isPathInPreset(relative, currentPreset)) {
-            continue;
+          continue;
         }
 
         // 1. Documentation & Whitelist: Always update
-        const isDoc = relative.includes('.kamiflow/docs/');
+        const isDoc = relative.includes(".kamiflow/docs/");
         if (isDoc) {
           await fs.copy(srcPath, destPath);
           continue;
@@ -195,7 +215,7 @@ async function updateStandaloneMode(projectPath, options = {}) {
         }
 
         // 3. Special Case: .kamirc.example.json (Always skip in projects)
-        if (relative === '.kamirc.example.json') {
+        if (relative === ".kamirc.example.json") {
           if (exists) {
             await fs.remove(destPath);
             logger.warn(`Cleaned up redundant .kamirc.example.json`);
@@ -207,10 +227,12 @@ async function updateStandaloneMode(projectPath, options = {}) {
         if (exists) {
           if (force) {
             // Backup and overwrite
-            const { backupFile } = require('../utils/fs-vault');
+            const { backupFile } = require("../utils/fs-vault");
             await backupFile(destPath);
             await fs.copy(srcPath, destPath);
-            logger.warn(`Overwritten: ${relative} (Backup moved to .kamiflow/.backup)`);
+            logger.warn(
+              `Overwritten: ${relative} (Backup moved to .kamiflow/.backup)`,
+            );
           } else {
             logger.hint(`Skipped (Exists): ${relative}`);
           }
@@ -307,11 +329,11 @@ async function syncGlobalRules(projectPath) {
     for (const file of files) {
       // Only copy global rules (prefixed with core-, flow-, std- but specifically global tier)
       // Actually, in the flat .gemini/rules, everything is ready for use.
-      // But Task 090 defined 'local' rules as internal. 
+      // But Task 090 defined 'local' rules as internal.
       // We should only copy what's in 'global' subfolder of source blueprints.
-      // Wait, Transpiler already handles this for dist/. 
+      // Wait, Transpiler already handles this for dist/.
       // So if we use sourceDist/.gemini/rules, we are safe.
-      
+
       const sourceFile = path.join(cliRoot, "dist/.gemini/rules", file);
       if (await fs.pathExists(sourceFile)) {
         await fs.copy(sourceFile, path.join(dest, file));
@@ -333,35 +355,42 @@ async function silentCheck() {
   try {
     if (!(await shouldCheck())) return;
 
-    const https = require('https');
-    
-    const getVersion = () => new Promise((resolve, reject) => {
-      const options = {
-        headers: { 'User-Agent': 'KamiFlow-CLI' },
-        timeout: 2000
-      };
-      https.get(RAW_PACKAGE_URL, options, (res) => {
-        let data = '';
-        res.on('data', (chunk) => data += chunk);
-        res.on('end', () => {
-          try {
-            resolve(JSON.parse(data).version);
-          } catch (e) {
-            reject(e);
-          }
-        });
-      }).on('error', reject);
-    });
+    const https = require("https");
+
+    const getVersion = () =>
+      new Promise((resolve, reject) => {
+        const options = {
+          headers: { "User-Agent": "KamiFlow-CLI" },
+          timeout: 2000,
+        };
+        https
+          .get(RAW_PACKAGE_URL, options, (res) => {
+            let data = "";
+            res.on("data", (chunk) => (data += chunk));
+            res.on("end", () => {
+              try {
+                resolve(JSON.parse(data).version);
+              } catch (e) {
+                reject(e);
+              }
+            });
+          })
+          .on("error", reject);
+      });
 
     const latestVersion = await getVersion();
     await updateCache({
       latestVersion,
-      lastChecked: Date.now()
+      lastChecked: Date.now(),
     });
 
     if (latestVersion !== packageJson.version) {
-      console.log(require('chalk').cyan(`\n✨ A new version of KamiFlow is available: ${latestVersion} (Current: ${packageJson.version})`));
-      console.log(require('chalk').gray(`   Run 'kami upgrade' to update.\n`));
+      console.log(
+        require("chalk").cyan(
+          `\n✨ A new version of KamiFlow is available: ${latestVersion} (Current: ${packageJson.version})`,
+        ),
+      );
+      console.log(require("chalk").gray(`   Run 'kami upgrade' to update.\n`));
     }
   } catch (e) {
     // Fail silently
@@ -393,14 +422,16 @@ async function checkModeConflicts(projectPath) {
 
       return {
         hasConflict: true,
-        message: "Mixed mode detected: .kami-flow exists but .gemini links elsewhere",
+        message:
+          "Mixed mode detected: .kami-flow exists but .gemini links elsewhere",
       };
     }
 
     if (hasKamiFlow && !isSymlink) {
       return {
         hasConflict: true,
-        message: "Mode conflict: Both .kami-flow (SUBMODULE) and standalone .gemini exist",
+        message:
+          "Mode conflict: Both .kami-flow (SUBMODULE) and standalone .gemini exist",
       };
     }
 
@@ -418,7 +449,9 @@ async function runUpdate(projectPath, options = {}) {
   if (conflictCheck.hasConflict) {
     logger.error("Mode Conflict Detected");
     logger.warn(conflictCheck.message);
-    logger.hint("Please resolve this manually by choosing one mode (SUBMODULE or STANDALONE).");
+    logger.hint(
+      "Please resolve this manually by choosing one mode (SUBMODULE or STANDALONE).",
+    );
     return { success: false, mode: "CONFLICT" };
   }
 
@@ -452,7 +485,9 @@ async function runUpdate(projectPath, options = {}) {
   if (success) {
     logger.success("Update process finished.");
     if (mode === "STANDALONE" || mode === "LINKED") {
-      logger.hint("Tip: Your local configuration might be outdated. Run 'kami config sync' to add new settings.");
+      logger.hint(
+        "Tip: Your local configuration might be outdated. Run 'kami config sync' to add new settings.",
+      );
     }
   } else {
     logger.error("Update process failed.");
@@ -471,3 +506,4 @@ module.exports = {
   silentCheck,
   checkModeConflicts,
 };
+

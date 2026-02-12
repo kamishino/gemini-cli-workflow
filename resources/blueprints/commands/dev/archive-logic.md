@@ -96,7 +96,7 @@ Create a concise achievement entry for ROADMAP:
 
 ```text
    kami archive {{TASK_ID}} --force
-   ```
+```
 
 2. This moves S1-S4 files and harvests linked ideas
 
@@ -198,4 +198,3 @@ Create a concise achievement entry for ROADMAP:
 - Systematic, value-focused, and preservation-minded
 - Emphasize **intelligence export** over simple file cleanup
 - Transparent about what persists vs. what's archived
-

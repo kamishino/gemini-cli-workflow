@@ -3,6 +3,7 @@
 Thank you for your interest in contributing to KamiFlow! This guide will help you get started.
 
 ## Table of Contents
+
 - [Code of Conduct](#code-of-conduct)
 - [Getting Started](#getting-started)
 - [Development Setup](#development-setup)
@@ -26,7 +27,8 @@ Thank you for your interest in contributing to KamiFlow! This guide will help yo
 ## Getting Started
 
 ### Prerequisites
-- Node.js 16+ 
+
+- Node.js 16+
 - npm 7+
 - Git
 - Gemini CLI (optional for testing commands)
@@ -34,22 +36,26 @@ Thank you for your interest in contributing to KamiFlow! This guide will help yo
 ### Installation
 
 1. **Fork the repository**
+
    ```bash
    # Via GitHub UI, click "Fork" button
    ```
 
 2. **Clone your fork**
+
    ```bash
    git clone https://github.com/YOUR_USERNAME/gemini-cli-workflow.git
    cd gemini-cli-workflow
    ```
 
 3. **Add upstream remote**
+
    ```bash
    git remote add upstream https://github.com/kamishino/gemini-cli-workflow.git
    ```
 
 4. **Install dependencies**
+
    ```bash
    cd cli-core
    npm install
@@ -67,6 +73,7 @@ Thank you for your interest in contributing to KamiFlow! This guide will help yo
 ### Dev Mode vs Production Mode
 
 **Development Mode:**
+
 - Uses `KAMI_ENV=development`
 - Reads blueprints from `resources/blueprints/`
 - Output to project root (`.`)
@@ -74,6 +81,7 @@ Thank you for your interest in contributing to KamiFlow! This guide will help yo
 - Debug logging available
 
 **Production Mode:**
+
 - Uses `KAMI_ENV=production`
 - Transpiles to `dist/` directory
 - Optimized for distribution
@@ -152,6 +160,7 @@ gemini-cli-workflow/
 ### Branching Strategy
 
 1. **Create a feature branch**
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
@@ -167,6 +176,7 @@ gemini-cli-workflow/
 ### Code Style
 
 #### JavaScript
+
 - Use **ES6+** syntax
 - **2 spaces** for indentation
 - **Semicolons** are optional but be consistent
@@ -175,6 +185,7 @@ gemini-cli-workflow/
 - **JSDoc** for all public functions
 
 #### Example
+
 ```javascript
 /**
  * Load configuration with validation
@@ -188,6 +199,7 @@ async function loadConfig(key) {
 ```
 
 #### Naming Conventions
+
 - **Variables:** camelCase (`configManager`)
 - **Functions:** camelCase (`loadConfig`)
 - **Classes:** PascalCase (`ConfigManager`)
@@ -207,6 +219,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/):
 ```
 
 **Types:**
+
 - `feat` - New feature
 - `fix` - Bug fix
 - `docs` - Documentation
@@ -217,6 +230,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/):
 - `perf` - Performance improvements
 
 **Examples:**
+
 ```bash
 feat(transpiler): add blueprint caching system
 
@@ -242,6 +256,7 @@ Fixes #456
 ### Writing Tests
 
 1. **Location:** Place tests in `cli-core/tests/` matching source structure
+
    ```
    cli-core/logic/config-manager.js
    cli-core/tests/logic/config-manager.test.js
@@ -250,10 +265,11 @@ Fixes #456
 2. **Naming:** Use `.test.js` suffix
 
 3. **Structure:**
+
    ```javascript
-   describe('ModuleName', () => {
-     describe('methodName', () => {
-       it('should do something specific', () => {
+   describe("ModuleName", () => {
+     describe("methodName", () => {
+       it("should do something specific", () => {
          // Test implementation
        });
      });
@@ -287,9 +303,10 @@ npm run test:verbose
 ### Test Helpers
 
 Use provided test utilities:
+
 ```javascript
-const { mockConfig, mockProjectPaths } = require('../helpers/fixtures');
-const { createMockFs } = require('../helpers/fs-mock');
+const { mockConfig, mockProjectPaths } = require("../helpers/fixtures");
+const { createMockFs } = require("../helpers/fs-mock");
 ```
 
 ---
@@ -299,6 +316,7 @@ const { createMockFs } = require('../helpers/fs-mock');
 ### JSDoc Requirements
 
 All public functions must have JSDoc:
+
 - Parameter types
 - Return types
 - Examples for complex APIs
@@ -334,21 +352,25 @@ When making significant architectural changes:
 ### Before Submitting
 
 1. **Run tests**
+
    ```bash
    npm test
    ```
 
 2. **Check coverage**
+
    ```bash
    npm run test:coverage
    ```
 
 3. **Validate TOML** (if you changed commands)
+
    ```bash
    npm run validate
    ```
 
 4. **Run benchmarks** (if you changed performance-critical code)
+
    ```bash
    npm run bench
    ```
@@ -361,6 +383,7 @@ When making significant architectural changes:
 ### Pull Request Process
 
 1. **Push your branch**
+
    ```bash
    git push origin feature/your-feature-name
    ```
@@ -373,28 +396,34 @@ When making significant architectural changes:
    - Add screenshots (if UI changes)
 
 3. **PR Template**
+
    ```markdown
    ## Description
+
    Brief description of changes
-   
+
    ## Type of Change
+
    - [ ] Bug fix
    - [ ] New feature
    - [ ] Breaking change
    - [ ] Documentation update
-   
+
    ## Testing
+
    - [ ] Tests pass locally
    - [ ] New tests added
    - [ ] Coverage maintained/improved
-   
+
    ## Checklist
+
    - [ ] Code follows style guidelines
    - [ ] JSDoc added/updated
    - [ ] Documentation updated
    - [ ] No breaking changes (or clearly documented)
-   
+
    ## Related Issues
+
    Fixes #123
    Closes #456
    ```
@@ -434,13 +463,14 @@ When making significant architectural changes:
 
 2. **Use in code:**
    ```javascript
-   const { t } = require('../utils/i18n');
-   logger.info(t('common.success', { message: 'Task complete' }));
+   const { t } = require("../utils/i18n");
+   logger.info(t("common.success", { message: "Task complete" }));
    ```
 
 ### Performance Improvements
 
 1. **Benchmark first**
+
    ```bash
    npm run bench
    ```
@@ -465,6 +495,7 @@ When making significant architectural changes:
 ## Recognition
 
 Contributors will be:
+
 - Listed in CHANGELOG.md
 - Credited in release notes
 - Added to contributors list (if significant contributions)
@@ -478,5 +509,3 @@ By contributing, you agree that your contributions will be licensed under the MI
 ---
 
 **Thank you for contributing to KamiFlow! 🌊**
-
-

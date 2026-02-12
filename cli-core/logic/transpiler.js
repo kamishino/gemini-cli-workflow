@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 const fs = require("fs-extra");
 const path = require("upath");
 const logger = require("../utils/logger");
@@ -620,3 +621,4 @@ class Transpiler {
 }
 
 module.exports = { Transpiler };
+

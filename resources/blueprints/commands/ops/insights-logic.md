@@ -25,7 +25,8 @@ Read \`{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md\`.
 ### Step 3: Knowledge Graph Analysis (G29M)
 
 If the \`--task\` flag is provided:
-1. Call \`kami _insights --task [taskId]\` to retrieve direct relationships.
+
+1. Call \`kami \_insights --task [taskId]\` to retrieve direct relationships.
 2. **Semantic Search:** Analyze the task description and suggest 3-5 synonyms or related technical terms.
 3. Call \`kami search "[description]" --synonyms "[synonyms]"\` to find conceptually related tasks.
 4. Merge results and present a unified "Project Lineage" view.
@@ -42,6 +43,6 @@ If the user provides a category (e.g., \`/kamiflow:ops:insights --category=Sync\
 [Display categorized patterns here]
 
 ---
+
 **Tip:** These patterns are automatically harvested during \`/archive\`.
 ```
-

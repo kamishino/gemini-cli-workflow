@@ -2,8 +2,8 @@
  * File System Mocking Utilities
  */
 
-const fs = require('fs-extra');
-const path = require('upath');
+const fs = require("fs-extra");
+const path = require("upath");
 
 /**
  * Create a mock file system structure
@@ -13,12 +13,12 @@ const path = require('upath');
 async function createMockFs(structure, basePath) {
   for (const [name, content] of Object.entries(structure)) {
     const fullPath = path.join(basePath, name);
-    
-    if (typeof content === 'string') {
+
+    if (typeof content === "string") {
       // It's a file
       await fs.ensureFile(fullPath);
-      await fs.writeFile(fullPath, content, 'utf8');
-    } else if (typeof content === 'object' && content !== null) {
+      await fs.writeFile(fullPath, content, "utf8");
+    } else if (typeof content === "object" && content !== null) {
       // It's a directory
       await fs.ensureDir(fullPath);
       await createMockFs(content, fullPath);
@@ -38,8 +38,8 @@ async function cleanupMockFs(basePath) {
 /**
  * Create a temporary test directory
  */
-async function createTempDir(prefix = 'kamiflow-test-') {
-  const os = require('os');
+async function createTempDir(prefix = "kamiflow-test-") {
+  const os = require("os");
   const tmpDir = path.join(os.tmpdir(), `${prefix}${Date.now()}`);
   await fs.ensureDir(tmpDir);
   return tmpDir;
@@ -50,7 +50,7 @@ async function createTempDir(prefix = 'kamiflow-test-') {
  */
 function createFsMock() {
   const mockFiles = new Map();
-  
+
   return {
     pathExists: jest.fn(async (filePath) => mockFiles.has(filePath)),
     readFile: jest.fn(async (filePath, encoding) => {
@@ -78,7 +78,7 @@ function createFsMock() {
       const content = mockFiles.get(src);
       if (content) mockFiles.set(dest, content);
     }),
-    _mockFiles: mockFiles // Expose for testing
+    _mockFiles: mockFiles, // Expose for testing
   };
 }
 
@@ -86,5 +86,5 @@ module.exports = {
   createMockFs,
   cleanupMockFs,
   createTempDir,
-  createFsMock
+  createFsMock,
 };

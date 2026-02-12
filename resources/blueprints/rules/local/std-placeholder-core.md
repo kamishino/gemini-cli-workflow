@@ -20,10 +20,10 @@ order: 220
 
 ## 2. 🧩 TOKEN MAPPING
 
-| Physical Path | Standard Token | Use Case |
-| :--- | :--- | :--- |
-| `./.gemini/rules/` | `{{KAMI_RULES_GEMINI}}` | Rules, Cross-references, AI directives. |
-| `{{KAMI_WORKSPACE}}` | `{{KAMI_WORKSPACE}}` | Tasks, Archives, Roadmap, Context files. |
+| Physical Path        | Standard Token          | Use Case                                 |
+| :------------------- | :---------------------- | :--------------------------------------- |
+| `./.gemini/rules/`   | `{{KAMI_RULES_GEMINI}}` | Rules, Cross-references, AI directives.  |
+| `{{KAMI_WORKSPACE}}` | `{{KAMI_WORKSPACE}}`    | Tasks, Archives, Roadmap, Context files. |
 
 ## 3. 🏗️ EXAMPLES
 
@@ -44,4 +44,5 @@ order: 220
 While this rule is "Soft Strict" (AI makes mistakes), consistently ignoring it will lead to path corruption and build failures. If you see a raw anchored path, proactively refactor it to use the appropriate Token.
 
 ---
+
 **Status:** Dogfooding Active ✅
