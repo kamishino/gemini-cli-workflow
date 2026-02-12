@@ -12,7 +12,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during /kamiflow:ops:sync.
 
-- **Last Completed Action:** Implemented Hybrid Memory Fusion (FTS5 + Graph) for automated project recall (Task 155).
+- **Last Completed Action:** Enforced manual Fact-Check Gate and Assumed Answer transparency in Sniper Model blueprints (Task 156).
 - **Current Focus:** Performance optimization and automated documentation synchronization.
 - **Next Step:** Initiate Phase 1 (Idea) for Live Doc Sync (YW4U).
 
@@ -76,6 +76,7 @@
 | 152 | Global Resource Fallback | **Global Resource Fallback:** For features that depend on non-code assets (templates, icons), implementing a search logic that falls back from Project Local to Global Core ensures portability across different project presets without duplicating files. | Task 152 |
 | 154 | Self-Healing Knowledge Architecture | **Self-Healing Knowledge Architecture:** Using file checksums (SHA256) to track moved or renamed artifacts allows the Knowledge Graph to repair itself automatically during system health checks, preventing "Information Rot" and preserving project lineage. | Task 154 |
 | 155 | Hybrid Memory Fusion | **Hybrid Memory Fusion:** Combining SQLite FTS5 (BM25) with recursive graph traversal in JavaScript enables "Agentic Recall" that connects semantically distant but relationally close tasks, ensuring architectural consistency over time. | Task 155 |
+| 156 | Fact-Check Gate Discipline | **Fact-Check Gate Discipline:** Enforcing a manual confirmation step (Fact-Check Gate) after Phase 1 regardless of confidence score prevents "AI Logic Drift". Requiring a logic explanation (Assumed Answers) ensures transparency and human-in-the-loop validation. | Task 156 |
 
 ### #Rules
 | ID | Pattern | Wisdom | Source |

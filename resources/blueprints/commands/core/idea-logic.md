@@ -247,8 +247,11 @@ IF Clarify Score < 8.0:
   5. After receiving input, RE-RUN Pre-Flight Check and return to Step 1.
 
 ELSE (Score >= 8.0):
-  1. Display: "âœ… Confidence Threshold Met: [X.X]/10"
-  2. PROCEED to Phase 2 Synthesis.
+  1. Display: "✅ Confidence Threshold Met: [X.X]/10"
+  2. PRESENT: "🎯 Key Facts Identified" (Summarize core requirements and technical anchors)
+  3. EXPLAIN: "🧠 Assumed Answers" (Short explanation of the logic behind the confidence and how ambiguities were resolved)
+  4. STOP: Use `wait_for_user_input` to ask: "I have a clear understanding. Can I proceed to Phase 2 Synthesis? (Yes/Amend)"
+  5. PROCEED to Phase 2 Synthesis (After 'Yes').
 ```
 
 **Step 3: Present and Wait**
