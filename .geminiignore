@@ -1,2 +1,4 @@
-# KamiFlow Knowledge Graphs
-.kamiflow/knowledge-graphs/
+# Ensure Gemini can see these directories
+!/.gemini/
+!/.kamiflow/
+!/.kamirc.json
