@@ -22,30 +22,47 @@ class WorkflowEngine {
    */
   async getTaskState(taskId) {
     await this.index.initialize();
-    const result = this.index.db.exec(
-      "SELECT * FROM workflow_states WHERE task_id = ?",
-      [taskId]
-    )[0];
+    
+    let state = null;
 
-    if (!result || result.values.length === 0) {
-      return null;
+    if (this.index.isNative) {
+      const row = this.index.db.prepare("SELECT * FROM workflow_states WHERE task_id = ?").get(taskId);
+      if (row) {
+        state = {
+          taskId: row.task_id,
+          slug: row.slug,
+          currentPhase: row.current_phase,
+          clarifyScore: row.clarify_score,
+          metadata: row.metadata ? JSON.parse(row.metadata) : {},
+          updatedAt: row.updated_at
+        };
+      }
+    } else {
+      const result = this.index.db.exec(
+        "SELECT * FROM workflow_states WHERE task_id = ?",
+        [taskId]
+      )[0];
+
+      if (result && result.values.length > 0) {
+        const row = result.values[0];
+        const columns = result.columns;
+        const rawState = {};
+        columns.forEach((col, idx) => {
+          rawState[col] = row[idx];
+        });
+
+        state = {
+          taskId: rawState.task_id,
+          slug: rawState.slug,
+          currentPhase: rawState.current_phase,
+          clarifyScore: rawState.clarify_score,
+          metadata: rawState.metadata ? JSON.parse(rawState.metadata) : {},
+          updatedAt: rawState.updated_at
+        };
+      }
     }
 
-    const row = result.values[0];
-    const columns = result.columns;
-    const state = {};
-    columns.forEach((col, idx) => {
-      state[col] = row[idx];
-    });
-
-    return {
-      taskId: state.task_id,
-      slug: state.slug,
-      currentPhase: state.current_phase,
-      clarifyScore: state.clarify_score,
-      metadata: state.metadata ? JSON.parse(state.metadata) : {},
-      updatedAt: state.updated_at
-    };
+    return state;
   }
 
   /**

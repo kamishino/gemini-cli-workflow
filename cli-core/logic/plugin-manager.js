@@ -416,6 +416,18 @@ class PluginManager {
     logger.debug(`Running hook: ${hookScript}`);
     
     try {
+      // Security Confirmation Gate
+      const { confirm } = require("inquirer").default || require("inquirer");
+      const answer = await confirm({
+        message: `Plugin "${path.basename(pluginPath)}" wants to run a script: ${hookScript}. Allow execution?`,
+        default: false
+      });
+
+      if (!answer) {
+        logger.warn(`Execution of ${hookScript} cancelled by user.`);
+        return;
+      }
+
       await execAsync(`node ${scriptPath}`, { cwd: pluginPath });
     } catch (error) {
       logger.error(`Hook failed: ${error.message}`);

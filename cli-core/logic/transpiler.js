@@ -19,8 +19,34 @@ class Transpiler {
     this.workspacePrefix = "./";
     this.isInitialized = false;
 
+    // Blueprint index for O(1) lookup
+    this.blueprintMap = new Map();
+
     // Initialize blueprint cache for performance
     this.cache = new BlueprintCache({ maxAge: 5 * 60 * 1000, maxSize: 50 });
+  }
+
+  /**
+   * Build an index of all blueprints for fast lookup
+   */
+  async indexBlueprints() {
+    if (!fs.existsSync(this.blueprintDir)) return;
+
+    const walk = (dir) => {
+      const items = fs.readdirSync(dir);
+      for (const item of items) {
+        const fullPath = path.join(dir, item);
+        if (fs.statSync(fullPath).isDirectory()) {
+          walk(fullPath);
+        } else if (item.endsWith(".md")) {
+          const name = path.basename(item, ".md");
+          this.blueprintMap.set(name, fullPath);
+        }
+      }
+    };
+
+    walk(this.blueprintDir);
+    logger.debug(`Indexed ${this.blueprintMap.size} blueprints.`);
   }
 
   /**
@@ -28,6 +54,7 @@ class Transpiler {
    */
   async init() {
     if (this.isInitialized) return;
+    await this.indexBlueprints();
     this.targets = await this.envManager.getOutputTargets();
     this.workspacePrefix = await this.envManager.getWorkspacePrefix();
     this.isInitialized = true;
@@ -61,24 +88,9 @@ class Transpiler {
   async loadPartial(name) {
     await this.init();
 
-    const findFile = (dir, fileName) => {
-      if (!fs.existsSync(dir)) return null;
-      const items = fs.readdirSync(dir);
-      for (const item of items) {
-        const fullPath = path.join(dir, item);
-        if (fs.statSync(fullPath).isDirectory()) {
-          const found = findFile(fullPath, fileName);
-          if (found) return found;
-        } else if (item === fileName) {
-          return fullPath;
-        }
-      }
-      return null;
-    };
-
-    const filePath = findFile(this.blueprintDir, `${name}.md`);
+    const filePath = this.blueprintMap.get(name);
     if (!filePath) {
-      throw new Error(`Partial not found: ${name}`);
+      throw new Error(`Partial not found in index: ${name}`);
     }
 
     // Check cache first

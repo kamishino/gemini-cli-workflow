@@ -100,6 +100,40 @@ program.configureHelp({
   }
 });
 
+// Load dynamic commands from commands/ directory
+const commandsPath = path.join(__dirname, "../commands");
+if (fs.existsSync(commandsPath)) {
+  const commandFiles = fs.readdirSync(commandsPath).filter(f => f.endsWith(".js"));
+  for (const file of commandFiles) {
+    try {
+      const cmdModule = require(path.join(commandsPath, file));
+      const cmd = program
+        .command(cmdModule.name)
+        .description(cmdModule.description);
+
+      if (cmdModule.alias) cmd.alias(cmdModule.alias);
+      
+      if (cmdModule.options) {
+        cmdModule.options.forEach(opt => {
+          cmd.option(opt.flags, opt.description, opt.defaultValue);
+        });
+      }
+
+      cmd.action(async (args, options) => {
+        // Handle case where no args are passed but options are
+        const actualArgs = typeof args === 'string' ? args : null;
+        const actualOptions = typeof args === 'object' ? args : options;
+
+        await execute(cmdModule.header || null, async () => {
+          await cmdModule.action(actualOptions, actualArgs);
+        });
+      });
+    } catch (error) {
+      logger.error(`Failed to load command from ${file}: ${error.message}`);
+    }
+  }
+}
+
 // Init command
 program
   .command("init-project [path]")
@@ -119,25 +153,6 @@ program
       console.log(chalk.gray(`  1. cd ${targetPath || "."}`));
       console.log(chalk.gray("  2. gemini"));
       console.log(chalk.gray("  3. /kamiflow:ops:wake\n"));
-    });
-  });
-
-// Doctor command
-program
-  .command("check-health")
-  .alias("doctor")
-  .description("Check system health and KamiFlow configuration")
-  .option("--fix", "Attempt to automatically fix detected issues")
-  .option("--auto-fix", "Bypass confirmation prompts during healing")
-  .action(async (options) => {
-    await execute("KamiFlow System Doctor", async () => {
-      const results = await runDoctor(options);
-      if (results.allHealthy) {
-        logger.success("All systems operational!\n");
-      } else {
-        logger.warn("Some issues detected. See above for details.\n");
-        process.exit(1);
-      }
     });
   });
 
@@ -1108,9 +1123,13 @@ program
         const result = await engine.initTask(options.init, options.slug || "new-task");
         console.log(JSON.stringify(result));
       } else if (options.save) {
+        const parts = options.save.split("-");
+        const taskId = parts.length > 1 ? parts[0] : options.init; // Use provided ID or current task
+        const phase = parts.length > 1 ? parts[1] : options.save;
+
         const result = await engine.saveArtifact({
-          taskId: options.save.split("-")[0], // If passed as ID-PHASE
-          phase: options.save,
+          taskId: taskId,
+          phase: phase,
           slug: options.slug,
           content: options.content,
           score: parseFloat(options.score || "0"),
