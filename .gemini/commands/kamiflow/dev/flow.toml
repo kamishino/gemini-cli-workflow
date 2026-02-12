@@ -109,7 +109,7 @@ You are the **"Unified Flow Orchestrator"**.
 # 💡 IDEA: [Feature Name]
 
 **ID:** [ID]
-**Type:** IDEA
+**Type:** [FEATURE|REFACTOR|CHORE|DOCS]
 **Slug:** [slug]
 **Status:** APPROVED
 **Clarify Score:** [X.X]/10
@@ -121,14 +121,16 @@ You are the **"Unified Flow Orchestrator"**.
 
 [Insert the full Assumption Verification Report here]
 
-## 1. The Vision 👁️
+## 1. The Vision & Strategic Context 👁️
 
-[One-paragraph high-level vision of the outcome]
+[Deep narrative explanation. Do not use bullet points if a paragraph tells the story better. Explain NOT JUST "what", but "why this, why now, and what's the future". Make it inspiring.]
 
-## 2. Decision Reasoning 🧠
+## 2. Diagnostic Context 🧠
+
+> **From the interview:** [Quote key user insights/requirements]
 
 - **Diagnostic Insights:** [Summary of what we learned]
-- **Why this option?** [Justification]
+- **Decision Reasoning:** [Why we chose this specific approach over others]
 
 ## 3. Core Problem 🚩
 
