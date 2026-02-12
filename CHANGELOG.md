@@ -1,4 +1,11 @@
 
+## [v2.54.0] - 2026-02-12
+
+### 🚀 Features
+- feat(ops): implement Autonomous Chronicler with Git Conflict Guard (Task 157) (f1288a4)
+- feat: Implement WorkflowEngine to orchestrate Sniper Model lifecycle, manage task states, enforce gates, and persist data in a new workspace database. (593068a)
+
+
 ## [v2.53.0] - 2026-02-12
 
 ### 🚀 Features
