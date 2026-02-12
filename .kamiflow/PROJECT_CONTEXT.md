@@ -12,7 +12,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during /kamiflow:ops:sync.
 
-- **Last Completed Action:** T?i uu hóa Context thành công (Task 160), gi?m ~5,000 tokens m?i request.
+- **Last Completed Action:** Tái c?u trúc thành công Blueprint Logic sang mô hình Core/Guide (Task 161), gi?m ~10KB/command.
 - **Current Focus:** Performance optimization and automated documentation synchronization.
 - **Next Step:** Initiate Phase 1 (Idea) for Live Doc Sync (YW4U).
 
@@ -64,4 +64,5 @@
 
 ---
 **Tip:** Historical patterns are preserved in `.kamiflow/WISDOM_ARCHIVE.md`.
+
 
