@@ -230,6 +230,10 @@ Analyze the Raw Idea and current Project Context to determine your understanding
 - **Technical Anchoring:** Do I know exactly WHERE (files/functions) to change?
 - **Context Alignment:** Does this fit our ROADMAP and PROJECT_CONTEXT goals?
 
+**Step 1.5: Memory Recall (The Historian)**
+- **Action:** Run `kami _recall "{{args}}"` to fetch summarized lessons from the archive.
+- **Synthesize:** Incorporate these memories into your diagnosis to avoid repeating past mistakes.
+
 **Step 2: Confidence Threshold Check**
 ```text
 IF Clarify Score < 8.0:
@@ -262,9 +266,10 @@ ELSE (Score >= 8.0):
 **Step 4.5: Historical Reference Check (The Historian)**
 
 1. **Memory Scan:** Read the `## 📚 Strategic Patterns & Legacy Knowledge` section in `{{KAMI_WORKSPACE}}PROJECT_CONTEXT.md`.
-2. **Relevance Analysis:** Identify patterns that match the current task's domain (e.g., #Sync, #UI).
-3. **Deep Search:** Run `grep -r "[Keywords]" {{KAMI_WORKSPACE}}archive/` for additional context if needed.
-4. **Synthesize:** Add findings to "Diagnostic Insights" section of the S1 file. Mention specific Task IDs as sources.
+2. **Recall Tool:** Run `kami _recall "{{args}}"` if not already done in Phase 1.
+3. **Relevance Analysis:** Identify patterns that match the current task's domain (e.g., #Sync, #UI).
+4. **Deep Search:** Run `grep -r "[Keywords]" {{KAMI_WORKSPACE}}archive/` for additional context if needed.
+5. **Synthesize:** Add findings to "Diagnostic Insights" section of the S1 file. Mention specific Task IDs as sources.
 
 **Step 5: Generate 3 Refined Options**
 Create **exactly 3 distinct approaches** informed by diagnostic insights:

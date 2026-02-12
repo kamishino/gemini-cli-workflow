@@ -1007,6 +1007,19 @@ program.on("command:*", (operands) => {
   try {
     await initI18n();
 program
+  .command("_recall <query>", { hidden: true })
+  .description("Internal: Generate summarized memory recall from archive (used by Gemini CLI)")
+  .option("-c, --category <category>", "Context category for synonym expansion", "logic")
+  .action(async (query, options) => {
+    await execute(null, async () => {
+      const { MemoryManager } = require("../logic/memory-manager");
+      const memoryManager = new MemoryManager(process.cwd());
+      const recall = await memoryManager.generateRecall(query, options);
+      console.log(recall);
+    });
+  });
+
+program
   .command("_insights", { hidden: true })
   .description("Internal: Display categorized strategic patterns from Memory Bank")
   .option("-c, --category <category>", "Filter by category")
