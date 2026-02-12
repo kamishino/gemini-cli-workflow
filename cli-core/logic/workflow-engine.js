@@ -78,18 +78,15 @@ class WorkflowEngine {
     updatedMetadata.artifacts = updatedMetadata.artifacts || {};
     updatedMetadata.artifacts[phase.toLowerCase()] = path.relative(this.projectRoot, filePath);
 
-    this.index.db.run(
-      `INSERT OR REPLACE INTO workflow_states (task_id, slug, current_phase, clarify_score, metadata, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?)`,
-      [
-        taskId,
-        slug,
-        phase,
-        score,
-        JSON.stringify(updatedMetadata),
-        Date.now()
-      ]
-    );
+    const sql = `INSERT OR REPLACE INTO workflow_states (task_id, slug, current_phase, clarify_score, metadata, updated_at)
+                 VALUES (?, ?, ?, ?, ?, ?)`;
+    const values = [taskId, slug, phase, score, JSON.stringify(updatedMetadata), Date.now()];
+
+    if (this.index.isNative) {
+      this.index.db.prepare(sql).run(...values);
+    } else {
+      this.index.db.run(sql, values);
+    }
 
     await this.index.save();
     
@@ -106,11 +103,16 @@ class WorkflowEngine {
    */
   async initTask(taskId, slug) {
     await this.index.initialize();
-    this.index.db.run(
-      `INSERT OR REPLACE INTO workflow_states (task_id, slug, current_phase, clarify_score, metadata, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?)`,
-      [taskId, slug, 'START', 0, JSON.stringify({ artifacts: {} }), Date.now()]
-    );
+    const sql = `INSERT OR REPLACE INTO workflow_states (task_id, slug, current_phase, clarify_score, metadata, updated_at)
+                 VALUES (?, ?, ?, ?, ?, ?)`;
+    const values = [taskId, slug, 'START', 0, JSON.stringify({ artifacts: {} }), Date.now()];
+
+    if (this.index.isNative) {
+      this.index.db.prepare(sql).run(...values);
+    } else {
+      this.index.db.run(sql, values);
+    }
+    
     await this.index.save();
     return { taskId, slug, phase: 'START' };
   }
