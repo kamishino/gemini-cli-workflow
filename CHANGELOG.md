@@ -1,4 +1,10 @@
 
+## [v2.52.0] - 2026-02-12
+
+### 🚀 Features
+- feat(logic): implement Hybrid Memory Fusion for automated recall (Task 155) (ddb8763)
+
+
 ## [v2.51.0] - 2026-02-11
 
 ### 🚀 Features
