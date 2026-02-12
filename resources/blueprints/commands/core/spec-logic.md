@@ -28,7 +28,8 @@ BEFORE generating the S2-SPEC artifact. The detailed Data Models and Test Specif
 
 ## 7. OUTPUT FORMAT
 - **Target:** `{{KAMI_WORKSPACE}}tasks/[ID]-S2-SPEC-[slug].md`.
-- **MANDATORY:** Output MUST match the detailed S2-SPEC template defined in `g-spec.md`. Do not summarize.
+- **MANDATORY:** You MUST copy and fill the **📄 S2-SPEC MANDATORY TEMPLATE** from `g-spec.md`.
+- **RULE:** DO NOT summarize or omit sections. High-fidelity output is required.
 - Follow the SPEC format (Stories, Models, API, Logic, Risks).
 
 ## 8. INTERACTION RULES

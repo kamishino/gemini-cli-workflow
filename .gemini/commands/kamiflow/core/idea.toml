@@ -88,7 +88,8 @@ BEFORE generating the S1-IDEA artifact. The detailed synthesis protocol and MoSC
 2. **Options:** Generate 3 approaches (A/B/C) with Weighted Scoring and MoSCoW.
 3. **Selection Gate:** STOP and ask user to choose (A/B/C).
 4. **Artifact:** Generate `./.kamiflow/tasks/[ID]-S1-IDEA-[slug].md`.
-   - **MANDATORY:** Output MUST match the detailed S1-IDEA template defined in `g-idea.md`. Do not summarize.
+   - **MANDATORY:** You MUST copy and fill the **📄 S1-IDEA MANDATORY TEMPLATE** from `g-idea.md`. 
+   - **RULE:** DO NOT summarize or omit sections. High-fidelity output is required.
 
 ## 6. INPUT ANALYSIS
 - Handle raw text or file paths (Lineage).

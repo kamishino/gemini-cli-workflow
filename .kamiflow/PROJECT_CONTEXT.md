@@ -12,7 +12,7 @@
 
 > **INTEGRATOR RULE:** Always update all 4 fields (Phase, Last Action, Focus, Next Step) during /kamiflow:ops:sync.
 
-- **Last Completed Action:** Cu?ng ch? d?c Guide (MANDATORY Gate) trong các file logic (Task 165), d?m b?o artifacts luôn d?y d? chi ti?t.
+- **Last Completed Action:** Chu?n hóa artifacts b?ng co ch? Template Injection (Task 166), d?m b?o ch?t lu?ng tri th?c.
 - **Current Focus:** Performance optimization and automated documentation synchronization.
 - **Next Step:** Initiate Phase 1 (Idea) for Live Doc Sync (YW4U).
 
@@ -64,6 +64,7 @@
 
 ---
 **Tip:** Historical patterns are preserved in `.kamiflow/WISDOM_ARCHIVE.md`.
+
 
 
 

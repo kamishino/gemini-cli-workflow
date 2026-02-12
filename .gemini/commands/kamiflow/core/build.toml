@@ -89,7 +89,8 @@ BEFORE generating the S3-BUILD artifact. The Lock 3 Reconnaissance Report and at
 
 ## 7. OUTPUT FORMAT
 - **Target:** `./.kamiflow/tasks/[ID]-S3-BUILD-[slug].md`.
-- **MANDATORY:** Output MUST match the detailed S3-BUILD template defined in `g-build.md`. Do not summarize.
+- **MANDATORY:** You MUST copy and fill the **📄 S3-BUILD MANDATORY TEMPLATE** from `g-build.md`.
+- **RULE:** DO NOT summarize or omit sections. High-fidelity output is required.
 - Include Recon Report, Risk Score, and Task List.
 
 ## 8. INTERACTION RULES

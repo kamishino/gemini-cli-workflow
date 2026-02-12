@@ -31,10 +31,53 @@ order: 11
 - **Weighted Scoring:** Market Pain, Feasibility, Stack Alignment, Profit Potential.
 - **MoSCoW:** Must Have, Should Have, Could Have, Won't Have.
 
-## 5. Output Format (S1-IDEA)
-- Section 0: Verification Report.
-- Section 1: Vision.
-- Section 2: Decision Reasoning.
-- Section 4: MVP Scope Table (MoSCoW).
-- Section 5: Technical Approach.
+---
 
+## 5. 📄 S1-IDEA MANDATORY TEMPLATE
+Copy and fill in this exact template. DO NOT omit any section.
+
+```markdown
+# 💡 IDEA: [Feature Name]
+
+**ID:** [ID]
+**Type:** IDEA
+**Slug:** [slug]
+**Status:** APPROVED
+**Clarify Score:** [X.X]/10
+**Chosen Option:** [Option A/B/C]
+**From Idea:** [Original ID if applicable]
+
+---
+
+## 0. PRE-FLIGHT VERIFICATION 🔍
+[Insert the full Assumption Verification Report here]
+
+## 1. The Vision 👁️
+[One-paragraph high-level vision of the outcome]
+
+## 2. Decision Reasoning 🧠
+- **Diagnostic Insights:** [Summary of what we learned in Phase 1]
+- **Why this option?** [Why we chose this specific approach over others]
+
+## 3. Core Problem 🚩
+[List the pain points this feature solves]
+
+## 4. Key Features (MVP Scope) 🎯
+| Feature | MoSCoW | Notes |
+| :--- | :--- | :--- |
+| [Feature 1] | Must Have | [Why critical] |
+| [Feature 2] | Should Have | [Why important] |
+
+## 5. Technical Approach 🏗️
+[High-level technical strategy]
+
+## 6. Success Criteria ✅
+- [ ] [Measurable outcome 1]
+- [ ] [Measurable outcome 2]
+
+## 7. Estimated Timeline ⏳
+[X days/weeks]
+
+## 8. Next Step 🚀
+Run `/kamiflow:core:spec {{KAMI_WORKSPACE}}tasks/[ID]-S1-IDEA-[slug].md` to create detailed specification.
+```
