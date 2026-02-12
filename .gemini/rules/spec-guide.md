@@ -1,6 +1,6 @@
 ---
 name: spec-guide
-type: PARTIAL
+type: RULE_MODULE
 description: [KamiFlow Sniper] Detailed protocol for Schema-First Specification (S2-SPEC).
 group: sniper
 order: 21
@@ -36,3 +36,4 @@ Sequential steps for technical implementation.
 
 ## 7. Non-Goals & Constraints
 Explicitly list out-of-scope items.
+

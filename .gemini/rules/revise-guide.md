@@ -1,6 +1,6 @@
 ---
 name: revise-guide
-type: PARTIAL
+type: RULE_MODULE
 description: [KamiFlow] Detailed protocol for Emergency Revision and Error Recovery.
 group: autopilot
 order: 51
@@ -33,3 +33,4 @@ Include "Revision Context" section:
 
 ## 5. Historical Learning
 Search ROADMAP achievements for similar tasks. Apply past success factors and avoid documented pitfalls.
+

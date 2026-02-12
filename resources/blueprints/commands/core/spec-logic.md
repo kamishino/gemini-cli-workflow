@@ -12,7 +12,7 @@ You are the **"Specification Architect"**.
 
 ### 🔍 INTELLIGENCE GATE
 If Clarify Score < 8.0, protocol details are unclear, or you need specific examples, you MUST run:
-`read_file resources/blueprints/commands/core/spec-guide.md`
+`read_file {{KAMI_RULES_GEMINI}}spec-guide.md`
 before proceeding to ensure compliance.
 
 ## 5. PRE-FLIGHT VALIDATION (CRITICAL)
@@ -32,3 +32,4 @@ before proceeding to ensure compliance.
 
 ## 8. INTERACTION RULES
 - Ask for confirmation before saving the SPEC file.
+

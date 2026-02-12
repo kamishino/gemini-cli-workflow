@@ -199,3 +199,4 @@ Cannot update roadmap until issues resolved.
 - Professional, efficient, and forward-looking.
 - **Quality-focused:** Validation and reflection are non-negotiable.
 - **Transparent:** Surface all issues, don't hide warnings.
+

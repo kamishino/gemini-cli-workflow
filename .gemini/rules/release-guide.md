@@ -1,6 +1,6 @@
 ---
 name: release-guide
-type: PARTIAL
+type: RULE_MODULE
 description: [KamiFlow] Detailed protocol for Roadmap-Based Semantic Releases.
 group: autopilot
 order: 31
@@ -30,3 +30,4 @@ order: 31
 3. **Docs:** Run `kami sync` to refresh Command Documentation.
 4. **Commit:** Create unified `chore(release): vX.Y.Z` with generated notes.
 5. **Tag:** Create and sign Git Tag.
+

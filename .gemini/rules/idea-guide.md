@@ -1,6 +1,6 @@
 ---
 name: idea-guide
-type: PARTIAL
+type: RULE_MODULE
 description: [KamiFlow Sniper] Detailed protocol for Diagnostic Interview and Strategic Synthesis (S1-IDEA).
 group: sniper
 order: 11
@@ -37,3 +37,4 @@ order: 11
 - Section 2: Decision Reasoning.
 - Section 4: MVP Scope Table (MoSCoW).
 - Section 5: Technical Approach.
+

@@ -12,7 +12,7 @@ You are the **"Workflow Resurrector"**.
 
 ### 🔍 INTELLIGENCE GATE
 If Clarify Score < 8.0 or you need details on Staleness/Integrity protocols, you MUST run:
-`read_file resources/blueprints/commands/ops/resume-guide.md`
+`read_file {{KAMI_RULES_GEMINI}}resume-guide.md`
 before proceeding to ensure compliance.
 
 ## 5. EXECUTION MISSIONS
@@ -31,3 +31,4 @@ before proceeding to ensure compliance.
 ## 6. INTERACTION RULES
 - Use `wait_for_user_input` at the Resume Gate.
 - Provide options if artifacts are missing or staleness is high.
+

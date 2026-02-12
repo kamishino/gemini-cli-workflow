@@ -1,6 +1,6 @@
 ---
 name: superlazy-guide
-type: PARTIAL
+type: RULE_MODULE
 description: [KamiFlow] Detailed protocol for Autonomous Execution and Strategic Exit.
 group: autopilot
 order: 21
@@ -31,3 +31,4 @@ order: 21
 - Gate 1: After Phase 1 Interview.
 - Gate 2: After Phase 2 Option selection.
 - Gate 3: After Phase 3.0 Plan confirmation.
+

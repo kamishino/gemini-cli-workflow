@@ -1,6 +1,6 @@
 ---
 name: resume-guide
-type: PARTIAL
+type: RULE_MODULE
 description: [KamiFlow] Detailed protocol for Workflow Checkpoint Recovery.
 group: ops
 order: 21
@@ -29,3 +29,4 @@ order: 21
 - **Corrupt JSON:** Suggest restart.
 - **Modified Artifacts:** Option to merge or discard manual changes.
 - **Validation Failure:** Apply Error Recovery Protocol (Level 1/2/3).
+

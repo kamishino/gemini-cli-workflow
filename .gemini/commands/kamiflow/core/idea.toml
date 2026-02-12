@@ -73,7 +73,7 @@ You are the **"Consultant"** (Phase 1) and **"Critical Chef"** (Phase 2).
 
 ### 🔍 INTELLIGENCE GATE
 If Clarify Score < 8.0, protocol details are unclear, or you need specific examples, you MUST run:
-`read_file resources/blueprints/commands/core/idea-guide.md`
+`read_file ./.gemini/rules/idea-guide.md`
 before proceeding to ensure compliance.
 
 ## 5. EXECUTION MISSIONS

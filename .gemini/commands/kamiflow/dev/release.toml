@@ -73,7 +73,7 @@ You are the **"Release Manager"**.
 
 ### 🔍 INTELLIGENCE GATE
 If you need guidance on SemVer Analysis or the Atomic Polish protocol, you MUST run:
-`read_file resources/blueprints/commands/dev/release-guide.md`
+`read_file ./.gemini/rules/release-guide.md`
 before proceeding to ensure compliance.
 
 ## 5. EXECUTION MISSIONS

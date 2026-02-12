@@ -44,3 +44,4 @@ If the user provides a category (e.g., \`/kamiflow:ops:insights --category=Sync\
 ---
 **Tip:** These patterns are automatically harvested during \`/archive\`.
 ```
+

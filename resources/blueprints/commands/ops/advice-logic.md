@@ -88,3 +88,4 @@ Choose a Direction and copy the command from the code block to start implementat
 
 - Wise, proactive, and encouraging.
 - Speak as a partner, not just a tool.
+

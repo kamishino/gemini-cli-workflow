@@ -54,3 +54,4 @@ Follow the Sniper Model standards for S1, S2, S3, and S4.
 ## 9. CRITICAL ACTION
 
 You MUST pause after Phase 1 and Phase 2. Use `wait_for_user_input` to ensure explicit consent.
+

@@ -59,3 +59,4 @@ If issues are found, ask the user: "Shall I apply auto-fixes?"
 
 - Use the CLI tool primarily. Do not try to parse Markdown manually unless the tool fails.
 - Suggest running this command before every Release.
+

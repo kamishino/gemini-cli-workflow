@@ -1,6 +1,6 @@
 ---
 name: roadmap-guide
-type: PARTIAL
+type: RULE_MODULE
 description: [KamiFlow] Detailed protocol for Strategic Roadmap Aggregation.
 group: ops
 order: 31
@@ -26,3 +26,4 @@ order: 31
 ## 4. Error Recovery
 - **Missing File:** Run `kami roadmap` to generate initial structure.
 - **Generator Fail:** Create basic sections (Achievements, Focus, Levers) manually.
+

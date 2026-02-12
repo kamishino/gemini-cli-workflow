@@ -1,6 +1,6 @@
 ---
 name: build-guide
-type: PARTIAL
+type: RULE_MODULE
 description: [KamiFlow Sniper] Detailed protocol for Legacy-Aware Implementation Planning (S3-BUILD).
 group: sniper
 order: 31
@@ -37,3 +37,4 @@ Reference existing skills (e.g., `kamiflow-tdd`) in task descriptions to acceler
 - **Phase A (Syntax):** Lint, Type Check, TOML.
 - **Phase B (Functional):** Tests, Smoke Test.
 - **Phase C (Traceability):** S2-SPEC coverage check.
+

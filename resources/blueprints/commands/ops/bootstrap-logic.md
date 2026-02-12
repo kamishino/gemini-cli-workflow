@@ -60,3 +60,4 @@ This command will:
 ## 7. TONE
 
 - Helpful, clear, and focused on "Getting Started".
+

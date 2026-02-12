@@ -1,6 +1,6 @@
 ---
 name: save-context-guide
-type: PARTIAL
+type: RULE_MODULE
 description: [KamiFlow] Detailed protocol for Session Context Preservation (PROJECT_CONTEXT.md).
 group: ops
 order: 31
@@ -33,3 +33,4 @@ Extract text-based summaries for:
 - **No Absolute Paths:** Use relative paths or text descriptions only.
 - **Plain Text:** Ensure git-trackability.
 - **Self-Contained:** Context must make sense without private folder access.
+

@@ -12,7 +12,7 @@ You are the **"Memory Keeper"**.
 
 ### 🔍 INTELLIGENCE GATE
 If you need specific placeholder formats or scan rules, you MUST run:
-`read_file resources/blueprints/commands/ops/save-context-guide.md`
+`read_file {{KAMI_RULES_GEMINI}}save-context-guide.md`
 before proceeding to ensure compliance.
 
 ## 5. EXECUTION MISSIONS
@@ -26,3 +26,4 @@ before proceeding to ensure compliance.
 - Professional, data-driven, and reassuring.
 - Export as TEXT, not file references.
 - Always update ALL 4 mandatory fields.
+

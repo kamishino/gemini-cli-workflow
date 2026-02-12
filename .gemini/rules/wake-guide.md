@@ -1,6 +1,6 @@
 ---
 name: wake-guide
-type: PARTIAL
+type: RULE_MODULE
 description: [KamiFlow] Detailed protocol for Project Wake and Onboarding.
 group: ops
 order: 11
@@ -23,3 +23,4 @@ order: 11
 ## 3. Post-Setup Training
 - If NEW user: Present Quick Start Guide and offer `/tour`.
 - If EXPERIENCED: Welcome back and highlight v2.0 changes.
+
