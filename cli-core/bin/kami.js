@@ -41,17 +41,17 @@ const isDev = process.env.KAMI_ENV === "development";
 
 const CATEGORIES = {
   project: {
-    title: "📁 PROJECT MANAGEMENT",
+    title: "ðŸ“ PROJECT MANAGEMENT",
     color: chalk.green,
     commands: ["init-project", "check-health", "upgrade-core", "sync-rules", "show-info", "check-config", "manage-config", "archive-task", "search-workspace", "sync-db", "resume-workflow", "update-roadmap"],
   },
   automation: {
-    title: "🤖 AUTOMATION & SWARM",
+    title: "ðŸ¤– AUTOMATION & SWARM",
     color: chalk.magenta,
     commands: ["run-saiyan", "run-batch", "check-swarm", "lock-swarm", "unlock-swarm"],
   },
   maintenance: {
-    title: "🔧 MAINTENANCE (MASTER REPO)",
+    title: "ðŸ”§ MAINTENANCE (MASTER REPO)",
     color: chalk.red,
     commands: ["clean-rules", "audit-docs", "sync-docs", "build-agents", "sync-skills", "_agent-scan", "_idea-create", "_idea-refine", "_idea-promote", "_idea-analyze", "_rules-update"],
     hidden: !isDev,
@@ -77,7 +77,7 @@ program.configureHelp({
         return group.commands.indexOf(a.name()) - group.commands.indexOf(b.name());
       }).forEach((c) => {
         if (c.name().startsWith("_")) return;
-        
+
         const alias = c.alias();
         const name = c.name();
         const desc = c.description();
@@ -112,7 +112,7 @@ if (fs.existsSync(commandsPath)) {
         .description(cmdModule.description);
 
       if (cmdModule.alias) cmd.alias(cmdModule.alias);
-      
+
       if (cmdModule.options) {
         cmdModule.options.forEach(opt => {
           cmd.option(opt.flags, opt.description, opt.defaultValue);
@@ -198,7 +198,7 @@ program
         path.join(process.cwd(), ".gemini/rules"),
         path.join(process.cwd(), "dist/.gemini/rules")
       ];
-      
+
       for (const p of paths) {
         if (await fs.pathExists(p)) {
           const files = await fs.readdir(p);
@@ -219,7 +219,7 @@ program
   .description("Display KamiFlow core location and version")
   .action(() => {
     const corePath = path.resolve(__dirname, "..");
-    console.log(chalk.cyan("\n📦 KamiFlow Core Information:\n"));
+    console.log(chalk.cyan("\nðŸ“¦ KamiFlow Core Information:\n"));
     console.log(chalk.gray("Version:"), chalk.white(packageJson.version));
     console.log(chalk.gray("Location:"), chalk.white(corePath));
     console.log(chalk.gray("Bin:"), chalk.white(__filename));
@@ -238,7 +238,7 @@ program
       const targetPath = path.resolve(process.cwd(), options.path);
       const result = await validateTomlFiles(targetPath);
 
-      console.log(chalk.cyan("\n" + "─".repeat(50)));
+      console.log(chalk.cyan("\n" + "â”€".repeat(50)));
       if (result.invalid === 0) {
         logger.success(`All ${result.total} TOML files are valid!\n`);
       } else {
@@ -313,7 +313,7 @@ configFlow
         }
 
         if (report.orphaned.length > 0) {
-          console.log(chalk.yellow(`\n⚠️  Found ${report.orphaned.length} orphaned key(s) not in current schema:`));
+          console.log(chalk.yellow(`\nâš ï¸  Found ${report.orphaned.length} orphaned key(s) not in current schema:`));
           report.orphaned.forEach((key) => console.log(chalk.gray(`   [-] ${key}`)));
           console.log(chalk.gray("   (These keys are preserved but ignored by the system)\n"));
         }
@@ -405,9 +405,9 @@ program
   .alias("resume")
   .description("Resume an interrupted workflow from the last checkpoint")
   .action(async () => {
-    console.log(chalk.cyan("\n📍 Workflow Resurrector:\n"));
+    console.log(chalk.cyan("\nðŸ“ Workflow Resurrector:\n"));
     console.log(chalk.white("This is an AI-Logic command that requires Gemini's reasoning engine."));
-    console.log(chalk.gray("👉 Please use:"), chalk.yellow("/kamiflow:ops:resume [id]"), chalk.gray("inside Gemini CLI.\n"));
+    console.log(chalk.gray("ðŸ‘‰ Please use:"), chalk.yellow("/kamiflow:ops:resume [id]"), chalk.gray("inside Gemini CLI.\n"));
   });
 
 // Strategic Expert Advisor command
@@ -416,9 +416,9 @@ program
   .alias("consult")
   .description("Get strategic directions and UX/UI advice from the AI Advisor")
   .action(async () => {
-    console.log(chalk.cyan("\n🧭 Strategic Expert Advisor:\n"));
+    console.log(chalk.cyan("\nðŸ§­ Strategic Expert Advisor:\n"));
     console.log(chalk.white("This is an AI-Logic command that requires Gemini's reasoning engine."));
-    console.log(chalk.gray("👉 Please use:"), chalk.yellow("/kamiflow:ops:advice [target]"), chalk.gray("inside Gemini CLI.\n"));
+    console.log(chalk.gray("ðŸ‘‰ Please use:"), chalk.yellow("/kamiflow:ops:advice [target]"), chalk.gray("inside Gemini CLI.\n"));      
   });
 
 // Sync Agents command
@@ -432,9 +432,9 @@ program
       const Chronicler = require("../logic/chronicler");
       const transpiler = new Transpiler(process.cwd());
       const chronicler = new Chronicler(process.cwd());
-      
+
       await transpiler.runFromRegistry(path.join(transpiler.blueprintDir, "registry.md"));
-      
+
       // Auto-sync docs after transpilation
       await chronicler.syncDocs();
     });
@@ -591,66 +591,66 @@ program
     await execute(null, async () => {
       const { WorkspaceIndex } = require("../logic/workspace-index");
       const index = new WorkspaceIndex(process.cwd());
-      
+
       try {
         await index.initialize();
-        
+
         if (options.stats) {
           const stats = index.getStats();
-          console.log(chalk.cyan("\n📊 Workspace Index Statistics\n"));
+          console.log(chalk.cyan("\nðŸ“Š Workspace Index Statistics\n"));
           console.log(chalk.gray("Total files:"), chalk.white(stats.totalFiles));
           console.log(chalk.gray("Knowledge Graph:"), chalk.white(`${stats.totalRelationships} relationships`));
           console.log(chalk.gray("Total size:"), chalk.white(`${(stats.totalSize / 1024 / 1024).toFixed(2)} MB`));
-          console.log(chalk.gray("Last indexed:"), chalk.white(stats.lastIndexed ? stats.lastIndexed.toLocaleString() : "Never"));
-          
+          console.log(chalk.gray("Last indexed:"), chalk.white(stats.lastIndexed ? stats.lastIndexed.toLocaleString() : "Never"));       
+
           if (stats.byCategory && stats.byCategory.length > 0) {
             console.log(chalk.gray("\nBy category:"));
             stats.byCategory.forEach((data) => {
-              console.log(chalk.gray(`  ${data.category}:`), chalk.white(`${data.count} files, ${(data.size / 1024).toFixed(1)} KB`));
+              console.log(chalk.gray(`  ${data.category}:`), chalk.white(`${data.count} files, ${(data.size / 1024).toFixed(1)} KB`));   
             });
           }
           console.log();
           return;
         }
-        
+
         if (options.rebuild) {
           console.log(chalk.gray("Rebuilding index..."));
           const stats = await index.rebuild();
-          console.log(chalk.green(`✅ Indexed ${stats.total} files\n`));
+          console.log(chalk.green(`âœ… Indexed ${stats.total} files\n`));
           if (!query) return;
         }
-        
+
         if (!query) {
           console.log(chalk.yellow("No search query provided. Use --stats or --rebuild, or provide a query.\n"));
           return;
         }
-        
+
         const synonyms = options.synonyms ? options.synonyms.split(",").map(s => s.trim()) : [];
         const results = await index.search(query, {
           category: options.category,
           limit: parseInt(options.limit),
           synonyms
         });
-        
-        console.log(chalk.cyan(`\n🔍 Searching workspace for: "${query}"${synonyms.length > 0 ? ` (expanded: ${synonyms.join(", ")})` : ""}\n`));
-        
+
+        console.log(chalk.cyan(`\nðŸ” Searching workspace for: "${query}"${synonyms.length > 0 ? ` (expanded: ${synonyms.join(", ")})` : ""}\n`));
+
         if (results.results.length === 0) {
           console.log(chalk.yellow("No results found.\n"));
           return;
         }
-        
+
         results.results.forEach((result, idx) => {
           console.log(chalk.white(`${idx + 1}. `) + chalk.cyan(result.title));
           console.log(chalk.gray(`   ${result.category}/${result.filePath}`));
           if (result.snippet) {
-            console.log(chalk.gray(`   ${result.snippet.replace(/<mark>/g, chalk.yellow("<mark>")).replace(/<\/mark>/g, "</mark>")}`));
+            console.log(chalk.gray(`   ${result.snippet.replace(/<mark>/g, chalk.yellow("<mark>")).replace(/<\/mark>/g, "</mark>")}`));  
           }
           console.log(chalk.gray(`   Score: ${result.score.toFixed(2)} | Modified: ${result.modified.toLocaleDateString()}`));
           console.log();
         });
-        
+
         console.log(chalk.gray(`Found ${results.results.length} results in ${results.took}\n`));
-        
+
       } finally {
         index.close();
       }
@@ -710,7 +710,7 @@ syncDbFlow
       const manager = new SyncManager(process.cwd());
       const status = await manager.status();
 
-      console.log(chalk.cyan("\n📊 Sync Status\n"));
+      console.log(chalk.cyan("\nðŸ“Š Sync Status\n"));
       console.log(chalk.gray("Backend:"), chalk.white(status.backend));
       console.log(chalk.gray("Project ID:"), chalk.white(status.projectId));
       console.log(chalk.gray("Mode:"), chalk.white(status.mode));
@@ -731,7 +731,7 @@ syncDbFlow
         console.log(chalk.gray("\nFiles to sync:"));
         status.files.slice(0, 5).forEach((f) => {
           console.log(
-            chalk.gray(`  • ${f.path} (${(f.size / 1024).toFixed(1)} KB)`),
+            chalk.gray(`  â€¢ ${f.path} (${(f.size / 1024).toFixed(1)} KB)`),
           );
         });
         if (status.files.length > 5) {
@@ -766,7 +766,7 @@ syncDbFlow
             type: "confirm",
             name: "confirmed",
             message: chalk.yellow(
-              "⚠️  Delete ALL remote data? This cannot be undone.",
+              "âš ï¸  Delete ALL remote data? This cannot be undone.",
             ),
             default: false,
           },
@@ -794,12 +794,12 @@ syncDbFlow
 
       const status = await daemon.getStatus();
       if (status.running) {
-        console.log(chalk.yellow("⚠️  Daemon is already running\n"));
+        console.log(chalk.yellow("âš ï¸  Daemon is already running\n"));
         return;
       }
 
       await daemon.start();
-      console.log(chalk.gray("\n💡 Daemon will sync changes automatically"));
+      console.log(chalk.gray("\nðŸ’¡ Daemon will sync changes automatically"));
       console.log(chalk.gray("   Run 'kami sync-db daemon-stop' to stop\n"));
     });
   });
@@ -831,7 +831,7 @@ syncDbFlow
       const daemon = new SyncDaemon(process.cwd());
       const status = await daemon.getStatus();
 
-      console.log(chalk.cyan("\n🤖 Daemon Status\n"));
+      console.log(chalk.cyan("\nðŸ¤– Daemon Status\n"));
       console.log(
         chalk.gray("Status:"),
         status.running ? chalk.green("Running") : chalk.yellow("Stopped"),
@@ -871,7 +871,7 @@ syncDbFlow
         return;
       }
 
-      console.log(chalk.cyan("\n📋 Daemon Logs\n"));
+      console.log(chalk.cyan("\nðŸ“‹ Daemon Logs\n"));
       logs.forEach((line) => console.log(chalk.gray(line)));
       console.log();
     });
@@ -887,11 +887,11 @@ syncDbFlow
       const conflicts = await resolver.getConflicts();
 
       if (conflicts.length === 0) {
-        console.log(chalk.green("\n✅ No conflicts\n"));
+        console.log(chalk.green("\nâœ… No conflicts\n"));
         return;
       }
 
-      console.log(chalk.yellow(`\n⚠️  ${conflicts.length} Conflict(s)\n`));
+      console.log(chalk.yellow(`\nâš ï¸  ${conflicts.length} Conflict(s)\n`));
 
       conflicts.forEach((conflict, index) => {
         console.log(chalk.white(`${index + 1}. ${conflict.filePath}`));
@@ -924,7 +924,7 @@ syncDbFlow
 
       const conflict = await resolver.getConflict(conflictId);
 
-      console.log(chalk.cyan("\n🔀 Conflict Resolution\n"));
+      console.log(chalk.cyan("\nðŸ”€ Conflict Resolution\n"));
       console.log(chalk.gray("File:"), chalk.white(conflict.filePath));
       console.log(
         chalk.gray("Local checksum:"),
@@ -956,7 +956,7 @@ syncDbFlow
 
       let customContent = null;
       if (strategy === "manual") {
-        console.log(chalk.gray("\n📝 Opening editor for manual resolution..."));
+        console.log(chalk.gray("\nðŸ“ Opening editor for manual resolution..."));
         console.log(
           chalk.gray(
             "(Feature requires external editor - showing content instead)\n",
@@ -985,7 +985,7 @@ syncDbFlow
         customContent,
       );
 
-      console.log(chalk.green(`\n✅ Conflict resolved using: ${strategy}`));
+      console.log(chalk.green(`\nâœ… Conflict resolved using: ${strategy}`));
       console.log(chalk.gray(`   File: ${result.filePath}\n`));
     });
   });
@@ -1054,10 +1054,10 @@ program
     if (options.export) {
       try {
         const filePath = await insightManager.exportHTMLGraph();
-        console.log(chalk.green(`\n✨ Knowledge Graph exported to: ${filePath}`));
+        console.log(chalk.green(`\nâœ¨ Knowledge Graph exported to: ${filePath}`));
         console.log(chalk.gray(`   Open this file in your browser to explore the interactive map.\n`));
       } catch (error) {
-        console.error(chalk.red(`\n❌ Export failed: ${error.message}\n`));
+        console.error(chalk.red(`\nâŒ Export failed: ${error.message}\n`));
       }
       return;
     }
@@ -1075,14 +1075,14 @@ program
     const contextPath = path.join(workspaceRoot, "PROJECT_CONTEXT.md");
 
     if (!fs.existsSync(contextPath)) {
-      console.log("❌ Memory Bank not found.");
+      console.log("âŒ Memory Bank not found.");
       return;
     }
 
     const content = await fs.readFile(contextPath, "utf8");
-    const header = "## 📚 Project Wisdom: Strategic Patterns";
+    const header = "## ðŸ“š Project Wisdom: Strategic Patterns";
     if (!content.includes(header)) {
-      console.log("💭 No strategic patterns harvested yet.");
+      console.log("ðŸ’­ No strategic patterns harvested yet.");
       return;
     }
 
@@ -1090,17 +1090,17 @@ program
     if (options.category) {
       const categoryHeader = `### #${options.category}`;
       if (!wisdomSection.includes(categoryHeader)) {
-        console.log(`💭 No patterns found for category #${options.category}`);
+        console.log(`ðŸ’­ No patterns found for category #${options.category}`);
         return;
       }
       const categoryContent =
         wisdomSection.split(categoryHeader)[1].split("###")[0];
       console.log(
-        `# 📚 Project Wisdom: #${options.category}\n${categoryContent.trim()}`,
+        `# ðŸ“š Project Wisdom: #${options.category}\n${categoryContent.trim()}`,
       );
     } else {
       console.log(
-        `# 📚 Project Wisdom: Strategic Patterns\n${wisdomSection.trim()}`,
+        `# ðŸ“š Project Wisdom: Strategic Patterns\n${wisdomSection.trim()}`,
       );
     }
   });
@@ -1114,6 +1114,7 @@ program
   .option("--content <content>", "Markdown content of the artifact")
   .option("--score <score>", "Clarify Score for this task")
   .option("--status <taskId>", "Get the current status of a task")
+  .option("--register-only", "Register artifact in DB without writing file")
   .action(async (options) => {
     const WorkflowEngine = require("../logic/workflow-engine");
     const engine = new WorkflowEngine(process.cwd());
@@ -1133,8 +1134,9 @@ program
           slug: options.slug,
           content: options.content,
           score: parseFloat(options.score || "0"),
+          registerOnly: options.registerOnly,
         });
-        console.log(chalk.green(`✅ Artifact saved: ${result.path}`));
+        console.log(chalk.green(`âœ… Artifact registered: ${result.path}`));
       } else if (options.status) {
         const state = await engine.getTaskState(options.status);
         if (state) {
@@ -1144,7 +1146,7 @@ program
         }
       }
     } catch (error) {
-      console.error(chalk.red(`❌ Workflow Error: ${error.message}`));
+      console.error(chalk.red(`âŒ Workflow Error: ${error.message}`));
       process.exit(1);
     }
   });
@@ -1158,6 +1160,3 @@ program
     process.exit(1);
   }
 })();
-
-
-
