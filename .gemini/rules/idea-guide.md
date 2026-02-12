@@ -22,6 +22,12 @@ order: 11
 
 ## 3. The Diagnostic Interview (Phase 1)
 
+### 3.1 Scoring Rubric (Clarify Score)
+- **10/10 (Perfect Knowledge):** You have physically read the target files, verified the line numbers, and confirmed no external dependencies are missing.
+- **9.0-9.9 (Strong Concept):** You know *what* to do and *where*, but haven't verified every single line. **Max score for memory-based tasks.**
+- **< 8.0 (Ambiguous):** Missing critical context. Questions required.
+
+### 3.2 Protocol
 - **Goal:** Reach Clarify Score >= 8.0.
 - **Ambiguity Nodes:** Identify gaps in Requirements, Anchoring, or Context.
 - **Probing:** Ask 3-5 deep questions.
@@ -45,7 +51,7 @@ Copy and fill in this exact template. DO NOT omit any section.
 # 💡 IDEA: [Feature Name]
 
 **ID:** [ID]
-**Type:** IDEA
+**Type:** [FEATURE|REFACTOR|CHORE|DOCS]
 **Slug:** [slug]
 **Status:** APPROVED
 **Clarify Score:** [X.X]/10
@@ -58,14 +64,16 @@ Copy and fill in this exact template. DO NOT omit any section.
 
 [Insert the full Assumption Verification Report here]
 
-## 1. The Vision 👁️
+## 1. The Vision & Strategic Context 👁️
 
-[One-paragraph high-level vision of the outcome]
+[Deep narrative explanation. Do not use bullet points if a paragraph tells the story better. Explain NOT JUST "what", but "why this, why now, and what's the future". Make it inspiring.]
 
-## 2. Decision Reasoning 🧠
+## 2. Diagnostic Context 🧠
 
-- **Diagnostic Insights:** [Summary of what we learned in Phase 1]
-- **Why this option?** [Why we chose this specific approach over others]
+> **From the interview:** [Quote key user insights/requirements]
+
+- **Diagnostic Insights:** [Summary of what we learned]
+- **Decision Reasoning:** [Why we chose this specific approach over others]
 
 ## 3. Core Problem 🚩
 
