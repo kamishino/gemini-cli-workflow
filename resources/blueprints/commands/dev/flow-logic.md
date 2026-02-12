@@ -174,6 +174,12 @@ Run Phase 2 (SPEC).
 - **Key Discovery:** [Crucial logic points found]
 - **Side-Effect Risk:** [Low/Medium/High]
 
+### 🧪 TDD Requirement
+- **Status:** [Required / Not Required]
+- **Reason:** [Why?]
+
+---
+
 ## 🎯 RISK & STRATEGY
 - **Risk Score:** [X/30]
 - **Strategy:** [Sequential/Parallel]
