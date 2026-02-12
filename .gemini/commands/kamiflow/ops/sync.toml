@@ -186,10 +186,10 @@ Action: [Specific recovery steps]
 1. **Analyze History:** Scan `./.kamiflow/tasks/` and `./.kamiflow/archive/` for value extraction.
 2. **Extract Reflections:** Read strategic reflections from handoff logs for insights.
 3. **Execution:** Run the Roadmap Engine tool.
-    - Command: `kami roadmap`
+   - Command: `kami roadmap`
 4. **Refinement:** Read the generated `./.kamiflow/ROADMAP.md` and replace the placeholders:
-    - `{{ACHIEVEMENTS}}`: Summarize 3-4 major value pillars (include value delivered from reflections).
-    - `{{GROWTH_LEVERS}}`: Suggest 3 fresh strategic growth ideas (consider follow-up tasks from reflections).
+   - `{{ACHIEVEMENTS}}`: Summarize 3-4 major value pillars (include value delivered from reflections).
+   - `{{GROWTH_LEVERS}}`: Suggest 3 fresh strategic growth ideas (consider follow-up tasks from reflections).
 
 ## 6. OUTPUT FORMAT
 
@@ -199,20 +199,24 @@ Action: [Specific recovery steps]
 ✅ SYNC COMPLETE
 
 **Summary:**
+
 - Handoff Logs Processed: [N]
 - Validation Status: [N] PASS, [M] NEEDS REVIEW, [P] FAILED
 - Roadmap Updated: [X] achievements added
 - Project Context Updated: Active status refreshed
 
 **Validated Sessions:**
+
 - [Log 1]: [slug] - ✅ PASS (Value: [1-sentence])
 - [Log 2]: [slug] - ✅ PASS (Value: [1-sentence])
 
 **Next Actions:**
+
 - [List follow-up tasks from reflections]
 - [List any validation issues requiring review]
 
 **Tech Debt Flagged:**
+
 - [List any "Significant" tech debt from reflections]
 ```
 
@@ -222,18 +226,21 @@ Action: [Specific recovery steps]
 ⚠️ SYNC COMPLETED WITH WARNINGS
 
 **Issues Found:**
+
 - [Log X]: Validation not run (needs manual review)
 - [Log Y]: Reflection missing (lessons not captured)
 - [Log Z]: Technical debt flagged as "Significant"
 
 **Processed Anyway:**
+
 - [N] logs synced
 - [M] marked as "Needs Review"
 
 **Recommendation:**
- Review flagged sessions before proceeding with next task.
+Review flagged sessions before proceeding with next task.
 
 **Flagged Sessions:**
+
 - [Log details with issues]
 ```
 
@@ -243,10 +250,12 @@ Action: [Specific recovery steps]
 🚫 SYNC FAILED
 
 **Blocking Issues:**
+
 - [Log X]: Validation BLOCKED (errors unresolved)
 - [Log Y]: Critical errors in implementation
 
 **Action Required:**
+
 1. Review error details in handoff logs
 2. Fix blocking issues
 3. Re-validate
@@ -261,5 +270,3 @@ Cannot update roadmap until issues resolved.
 - **Quality-focused:** Validation and reflection are non-negotiable.
 - **Transparent:** Surface all issues, don't hide warnings.
 '''
-
-

@@ -20,10 +20,10 @@ order: 220
 
 ## 2. 🧩 TOKEN MAPPING
 
-| Physical Path      | Standard Token     | Use Case                                 |
-| :----------------- | :----------------- | :--------------------------------------- |
-| `./.gemini/rules/` | `./.gemini/rules/` | Rules, Cross-references, AI directives.  |
-| `./.kamiflow/`     | `./.kamiflow/`     | Tasks, Archives, Roadmap, Context files. |
+| Physical Path        | Standard Token          | Use Case                                 |
+| :------------------- | :---------------------- | :--------------------------------------- |
+| `./.gemini/rules/`   | `./.gemini/rules/` | Rules, Cross-references, AI directives.  |
+| `./.kamiflow/` | `./.kamiflow/`    | Tasks, Archives, Roadmap, Context files. |
 
 ## 3. 🏗️ EXAMPLES
 

@@ -101,17 +101,17 @@ If `PROJECT_CONTEXT.md` is already configured (not in template state):
 **Load intelligence from public git-tracked files:**
 
 1. **Read `./.kamiflow/PROJECT_CONTEXT.md`:**
-    - Project Identity (Goal, Phase, Tech Stack)
-    - Active Context (Last Action, Current Focus, Next Step)
-    - **Session State (v2.0):** Active Work, Discovery Pipeline, Quality Metrics, Follow-Up Queue
-    - Knowledge Map (Architecture understanding)
+   - Project Identity (Goal, Phase, Tech Stack)
+   - Active Context (Last Action, Current Focus, Next Step)
+   - **Session State (v2.0):** Active Work, Discovery Pipeline, Quality Metrics, Follow-Up Queue
+   - Knowledge Map (Architecture understanding)
 
 2. **Read `./.kamiflow/ROADMAP.md`:**
-    - Strategic Achievements (recent 5-10)
-    - Current Focus (Phase, Status)
-    - Growth Levers (strategic opportunities)
-    - Quality Metrics (validation rates, tech debt)
-    - Market Intelligence (if available)
+   - Strategic Achievements (recent 5-10)
+   - Current Focus (Phase, Status)
+   - Growth Levers (strategic opportunities)
+   - Quality Metrics (validation rates, tech debt)
+   - Market Intelligence (if available)
 
 3. **Load Persona:** Read `GEMINI.md` for conversational context
 
@@ -322,6 +322,7 @@ Would you like a **Guided Tour** (/kamiflow:ops:tour)? (Y/N)
 Welcome back, Chef! 🚀
 
 **What's New in v2.0:**
+
 - Phase 0.5: Assumption verification (anti-hallucination)
 - 3-Phase validation loop (syntax → functional → traceability)
 - Strategic reflection in Phase 4 (quality gates + tech debt)
@@ -339,5 +340,3 @@ Use `/kamiflow:ops:help` for command reference.
 - **Supportive:** Provide high-quality suggestions to reduce user friction.
 - **Memory-First:** Never act without reading the Context files.
 '''
-
-

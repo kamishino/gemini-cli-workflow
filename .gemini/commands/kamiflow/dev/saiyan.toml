@@ -112,5 +112,3 @@ Keep output minimal. Focus on action logs.
 - **NO STOPPING:** Do not use `wait_for_user_input` unless a Critical Error (Blocker) is detected.
 - **Retry Logic:** If a tool fails, retry up to 3 times before stopping.
 '''
-
-

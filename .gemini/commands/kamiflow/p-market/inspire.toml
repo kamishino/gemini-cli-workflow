@@ -164,9 +164,10 @@ After creating discovery file:
 
 ID: [ID]
 Title: [Title]
-File: ./.kamiflow/ideas/discovery/[ID]_[slug]_ai-discovery.md
+File: ./.kamiflow/ideas/discovery/[ID]\_[slug]\_ai-discovery.md
 
 Impact Assessment:
+
 - Complexity: [1-10]
 - User Impact: [1-10]
 - Wow Factor: [1-10]
@@ -177,6 +178,7 @@ Why Plausible: [1-sentence technical feasibility]
 10x Value: [1-sentence transformation]
 
 ---
+
 Next: /kamiflow:p-seed:analyze [ID]
 ```
 
@@ -184,5 +186,3 @@ Next: /kamiflow:p-seed:analyze [ID]
 
 Present the "Spark" to the Boss and explain the long-term sustainability benefits.
 '''
-
-

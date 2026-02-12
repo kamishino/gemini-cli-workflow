@@ -10,16 +10,16 @@ The **`kamiflow`** (alias **`kami`**) command is used for machine-level operatio
 
 ### 🖥️ Terminal CLI Guide (Flow Suite)
 
-| Command            | Goal                                       |
-| :----------------- | :----------------------------------------- |
-| `kamiflow init`    | **Initialize a project with KamiFlow.**    |
-| `kamiflow doctor`  | **Check project health.**                  |
-| `kamiflow sync`    | **Synchronize command documentation.**     |
-| `kamiflow archive` | **Archive completed tasks.**               |
-| `kamiflow config`  | **Manage persistent project settings.**    |
+| Command | Goal |
+| :--- | :--- |
+| `kamiflow init` | **Initialize a project with KamiFlow.** |
+| `kamiflow doctor` | **Check project health.** |
+| `kamiflow sync` | **Synchronize command documentation.** |
+| `kamiflow archive` | **Archive completed tasks.** |
+| `kamiflow config` | **Manage persistent project settings.** |
 | `kamiflow upgrade` | **Update KamiFlow to the latest version.** |
-| `kamiflow info`    | **Display core location and version.**     |
-| `kamiflow resume`  | **Resume workflow from last checkpoint.**  |
+| `kamiflow info` | **Display core location and version.** |
+| `kamiflow resume` | **Resume workflow from last checkpoint.** |
 
 <!-- KAMI_COMMAND_LIST_END -->
 

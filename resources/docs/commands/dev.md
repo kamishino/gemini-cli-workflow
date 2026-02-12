@@ -10,15 +10,15 @@ Automation tools for high-speed building, archiving, and release management.
 
 ### 🚀 Auto-Pilot (Automation)
 
-| Command                     | Goal                                                                                                                               |
-| :-------------------------- | :--------------------------------------------------------------------------------------------------------------------------------- |
-| `/kamiflow:dev:lazy`        | **[KamiFlow] Auto-generate S1-S4 artifacts using Sniper Model with mandatory Diagnostic Gate.**                                    |
-| `/kamiflow:dev:superlazy`   | **[KamiFlow] Auto-generate S1-S4 artifacts AND execute with Strategic Reflection.**                                                |
-| `/kamiflow:dev:release`     | **[KamiFlow] Smart Release Manager - Generate notes from ROADMAP, analyze git history, automate version bumping (v2.0 Enhanced).** |
-| `/kamiflow:dev:archive`     | **[KamiFlow] Export task value to ROADMAP, then archive artifacts (v2.0 Enhanced - Intelligence Preservation).**                   |
-| `/kamiflow:dev:revise`      | **[KamiFlow] Emergency Brake - Clarify context, resolve hallucinations, and question logic before implementation.**                |
-| `/kamiflow:dev:saiyan`      | **[KamiFlow] Ultimate Automation - Auto-Select Option B + Auto-Execution.**                                                        |
-| `/kamiflow:dev:supersaiyan` | **[KamiFlow] Meta-Automation - Manage cycles of Saiyan execution.**                                                                |
+| Command | Goal |
+| :--- | :--- |
+| `/kamiflow:dev:lazy` | **[KamiFlow] Auto-generate S1-S4 artifacts using Sniper Model with mandatory Diagnostic Gate.** |
+| `/kamiflow:dev:superlazy` | **[KamiFlow] Auto-generate S1-S4 artifacts AND execute with Strategic Reflection.** |
+| `/kamiflow:dev:release` | **[KamiFlow] Smart Release Manager - Generate notes from ROADMAP, analyze git history, automate version bumping (v2.0 Enhanced).** |
+| `/kamiflow:dev:archive` | **[KamiFlow] Export task value to ROADMAP, then archive artifacts (v2.0 Enhanced - Intelligence Preservation).** |
+| `/kamiflow:dev:revise` | **[KamiFlow] Emergency Brake - Clarify context, resolve hallucinations, and question logic before implementation.** |
+| `/kamiflow:dev:saiyan` | **[KamiFlow] Ultimate Automation - Auto-Select Option B + Auto-Execution.** |
+| `/kamiflow:dev:supersaiyan` | **[KamiFlow] Meta-Automation - Manage cycles of Saiyan execution.** |
 
 <!-- KAMI_COMMAND_LIST_END -->
 

@@ -1,4 +1,4 @@
-# Agent Registry
+﻿# Agent Registry
 
 ## Core Flow
 
@@ -264,6 +264,9 @@
 
 ## Rules (Global Modules)
 
+- resources/blueprints/rules/global/guides/idea-guide.md
+- resources/blueprints/rules/global/guides/spec-guide.md
+- resources/blueprints/rules/global/guides/build-guide.md
 - resources/blueprints/rules/global/main-manifesto-core.md
 - resources/blueprints/rules/global/main-tech-stack-core.md
 - resources/blueprints/rules/global/flow-bootstrap-core.md
@@ -296,3 +299,4 @@
 - resources/blueprints/rules/local/std-placeholder-core.md
 - resources/blueprints/rules/local/std-resource-core.md
 - resources/blueprints/rules/local/std-ui-core.md
+
