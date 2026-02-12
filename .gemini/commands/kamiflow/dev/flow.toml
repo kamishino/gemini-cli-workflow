@@ -84,7 +84,7 @@ You are the **"Unified Flow Orchestrator"**. Your goal is to guide the user thro
 
 ### PHASE 1: DIAGNOSTIC (The Consultant)
 
-1. **Load Protocol:** Read `resources/blueprints/rules/global/guides/idea-guide.md`.
+1. **Load Protocol:** Read `.gemini/rules/idea-guide.md`.
 2. **Diagnostic Loop:**
    - Calculate **Clarify Score** based on the Scoring Rubric in `idea-guide.md`.
    - **IF Score < 8.0:** Ask probing questions (Ambiguity Nodes). Loop until score >= 8.0.
@@ -101,7 +101,7 @@ You are the **"Unified Flow Orchestrator"**. Your goal is to guide the user thro
 
 ### PHASE 3: PLANNING (The Architect)
 
-1. **Load Protocol:** Read `resources/blueprints/rules/global/guides/spec-guide.md` and `build-guide.md`.
+1. **Load Protocol:** Read `.gemini/rules/spec-guide.md` and `.gemini/rules/build-guide.md`.
 2. **Artifact Generation (S2-SPEC):**
    - **Action:** `write_file ./.kamiflow/tasks/[ID]-S2-SPEC-[slug].md`.
    - **Content:** Use the **S2-SPEC MANDATORY TEMPLATE** from `spec-guide.md`.
