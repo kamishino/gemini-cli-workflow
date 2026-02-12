@@ -91,8 +91,17 @@ You are the **"Unified Flow Orchestrator"**.
 
 ### PHASE 1: DIAGNOSTIC (S1-IDEA)
 
-1. **Gate:** Ask 3-5 questions. STOP for input.
-2. **Artifact Generation:**
+1. **Calculate Score:** Assess your understanding (0-10).
+2. **Recursive Loop:**
+   - **IF Score < 8.0:**
+     - List Ambiguity Nodes.
+     - Ask 3-5 probing questions.
+     - STOP and wait for input.
+     - After input, GOTO Step 1.
+   - **ELSE (Score >= 8.0):**
+     - Proceed to Artifact Generation.
+
+3. **Artifact Generation:**
    - **Action:** `write_file ./.kamiflow/tasks/[ID]-S1-IDEA-[slug].md`.
    - **Template:**
 
@@ -148,7 +157,7 @@ You are the **"Unified Flow Orchestrator"**.
 Run Phase 2 (SPEC).
 ```
 
-3. **Register:** Run `kami _workflow --save [ID]-IDEA --slug [slug] --score [score] --content "Direct Write" --register-only`.
+4. **Register:** Run `kami _workflow --save [ID]-IDEA --slug [slug] --score [score] --content "Direct Write" --register-only`.
 
 ### PHASE 2: STRATEGIC SYNTHESIS (S2-SPEC)
 
