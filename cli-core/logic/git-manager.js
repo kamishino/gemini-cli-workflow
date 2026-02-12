@@ -67,6 +67,20 @@ async function getRemoteUrl(targetPath) {
   }
 }
 
+/**
+ * Check if a file has uncommitted changes (Dirty status)
+ */
+async function getFileStatus(targetPath, filePath) {
+  try {
+    const { stdout } = await execa("git", ["status", "--porcelain", filePath], {
+      cwd: targetPath,
+    });
+    return stdout.trim(); // Returns empty string if clean, or something like " M path/to/file" if dirty
+  } catch {
+    return ""; // Assume clean or non-git
+  }
+}
+
 module.exports = {
   isGitRepo,
   initGitRepo,
@@ -74,4 +88,5 @@ module.exports = {
   removeSubmodule,
   cloneRepo,
   getRemoteUrl,
+  getFileStatus
 };

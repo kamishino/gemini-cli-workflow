@@ -414,8 +414,14 @@ program
   .action(async () => {
     await execute(null, async () => {
       const { Transpiler } = require("../logic/transpiler");
+      const Chronicler = require("../logic/chronicler");
       const transpiler = new Transpiler(process.cwd());
+      const chronicler = new Chronicler(process.cwd());
+      
       await transpiler.runFromRegistry(path.join(transpiler.blueprintDir, "registry.md"));
+      
+      // Auto-sync docs after transpilation
+      await chronicler.syncDocs();
     });
   });
 

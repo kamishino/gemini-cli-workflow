@@ -44,6 +44,9 @@ You MUST validate all work before marking it complete.
 2.  **Phase B (Functional):** Unit/Integration Tests.
 3.  **Phase C (Traceability):** Verify against S2-SPEC requirements.
 
+### 📚 Self-Healing Documentation (v2.53+)
+KamiFlow now features an **Autonomous Chronicler**. Blueprints and Project Memory are automatically synchronized based on your actions. If you are editing a file, changes are deferred to fragments to prevent conflicts.
+
 ### 🔄 Self-Correction Protocol
 - **Trigger:** Validation failure (Syntax/Functional).
 - **Action:** Analyze error -> Apply Fix -> Retry (Max 3 times).

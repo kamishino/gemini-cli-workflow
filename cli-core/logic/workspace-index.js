@@ -2,13 +2,15 @@ const fs = require("fs-extra");
 const path = require("upath");
 const logger = require("../utils/logger");
 const crypto = require("crypto");
+const { EventEmitter } = require("events");
 
 /**
  * WorkspaceIndex - Native SQLite FTS5 indexer for .kamiflow/ workspace
  * Enables fast full-text search across ideas, tasks, and archives
  */
-class WorkspaceIndex {
+class WorkspaceIndex extends EventEmitter {
   constructor(projectRoot) {
+    super();
     this.projectRoot = projectRoot;
     this.dbPath = path.join(projectRoot, ".kamiflow/.index/workspace.db");
     this.db = null;
@@ -197,6 +199,15 @@ class WorkspaceIndex {
 
         const stats = fs.statSync(file.absolutePath);
         const projectId = this.getProjectId();
+
+        // Emit event for Chronicler
+        this.emit("file:changed", {
+          fileId,
+          category,
+          path: file.relativePath,
+          absolutePath: file.absolutePath,
+          checksum
+        });
 
         if (this.isNative) {
           // Standard Search

@@ -3,6 +3,7 @@ const path = require('upath');
 const chalk = require('chalk');
 const { EnvironmentManager } = require('./env-manager');
 const { WorkspaceIndex } = require('./workspace-index');
+const Chronicler = require('./chronicler');
 
 /**
  * WorkflowEngine - The orchestrator for the Sniper Model lifecycle.
@@ -13,6 +14,7 @@ class WorkflowEngine {
     this.projectRoot = projectRoot;
     this.envManager = new EnvironmentManager(projectRoot);
     this.index = new WorkspaceIndex(projectRoot);
+    this.chronicler = new Chronicler(projectRoot);
   }
 
   /**
@@ -90,6 +92,13 @@ class WorkflowEngine {
 
     await this.index.save();
     
+    // Trigger Chronicler on Handoff (Completion)
+    if (phase === 'HANDOFF') {
+      this.chronicler.onTaskCompleted(taskId).catch(err => {
+        logger.debug(`[WorkflowEngine] Chronicler failed: ${err.message}`);
+      });
+    }
+
     return {
       success: true,
       path: path.relative(this.projectRoot, filePath),
