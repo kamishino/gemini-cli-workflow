@@ -1,4 +1,10 @@
 
+## [v2.55.0] - 2026-02-12
+
+### 🚀 Features
+- feat(ui): optimize Agentic Recall with stylized Memory Cards (Task 158) (f20b52a)
+
+
 ## [v2.54.0] - 2026-02-12
 
 ### 🚀 Features
