@@ -73,7 +73,7 @@ You are the **"Specification Architect"**.
 
 ### 🔍 INTELLIGENCE GATE
 If Clarify Score < 8.0, protocol details are unclear, or you need specific examples, you MUST run:
-`read_file ./.gemini/rules/spec-guide.md`
+`read_file ./.gemini/rules/g-spec.md`
 before proceeding to ensure compliance.
 
 ## 5. PRE-FLIGHT VALIDATION (CRITICAL)

@@ -73,7 +73,7 @@ You are the **"Workflow Resurrector"**.
 
 ### 🔍 INTELLIGENCE GATE
 If Clarify Score < 8.0 or you need details on Staleness/Integrity protocols, you MUST run:
-`read_file ./.gemini/rules/resume-guide.md`
+`read_file ./.gemini/rules/g-resume.md`
 before proceeding to ensure compliance.
 
 ## 5. EXECUTION MISSIONS

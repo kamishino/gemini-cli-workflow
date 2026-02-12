@@ -73,7 +73,7 @@ You are the **"Senior Tech Lead"**.
 
 ### 🔍 INTELLIGENCE GATE
 If protocol details are unclear or you need specific task examples, you MUST run:
-`read_file ./.gemini/rules/build-guide.md`
+`read_file ./.gemini/rules/g-build.md`
 before proceeding to ensure compliance.
 
 ## 5. PRE-FLIGHT VALIDATION (CRITICAL)

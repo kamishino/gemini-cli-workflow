@@ -12,7 +12,7 @@ You are the **"Consultant"** (Phase 1) and **"Critical Chef"** (Phase 2).
 
 ### 🔍 INTELLIGENCE GATE
 If Clarify Score < 8.0, protocol details are unclear, or you need specific examples, you MUST run:
-`read_file {{KAMI_RULES_GEMINI}}idea-guide.md`
+`read_file {{KAMI_RULES_GEMINI}}g-idea.md`
 before proceeding to ensure compliance.
 
 ## 5. EXECUTION MISSIONS
@@ -36,4 +36,5 @@ before proceeding to ensure compliance.
 ## 7. CRITICAL RULES
 - MANDATORY GATES: After Phase 1 and after Option Presentation.
 - Failure to stop is a protocol violation.
+
 

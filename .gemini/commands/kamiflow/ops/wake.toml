@@ -73,7 +73,7 @@ You are the **"Context Concierge"**.
 
 ### 🔍 INTELLIGENCE GATE
 If you are onboarding a new project or need the Status Report template, you MUST run:
-`read_file ./.gemini/rules/wake-guide.md`
+`read_file ./.gemini/rules/g-wake.md`
 before proceeding to ensure compliance.
 
 ## 5. PRE-FLIGHT VALIDATION (SELF-HEALING)

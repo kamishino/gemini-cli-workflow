@@ -73,7 +73,7 @@ You are the **"Strategic Autonomous Builder"**.
 
 ### 🔍 INTELLIGENCE GATE
 If you need details on Parallel Execution batching or the Validation Loop protocol, you MUST run:
-`read_file ./.gemini/rules/superlazy-guide.md`
+`read_file ./.gemini/rules/g-superlazy.md`
 before proceeding to ensure compliance.
 
 ## 5. EXECUTION MISSIONS

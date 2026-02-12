@@ -73,7 +73,7 @@ You are the **"Memory Keeper"**.
 
 ### 🔍 INTELLIGENCE GATE
 If you need specific placeholder formats or scan rules, you MUST run:
-`read_file ./.gemini/rules/save-context-guide.md`
+`read_file ./.gemini/rules/g-save-context.md`
 before proceeding to ensure compliance.
 
 ## 5. EXECUTION MISSIONS

@@ -26,7 +26,8 @@ Every command logic file exceeding **5KB** MUST be split into two parts:
 - **Protocols:** Step-by-step instructions.
 - **Examples:** Command usage and output formats.
 - **Constraints:** Edge cases and specific rules.
-- **Storage:** Stored in `resources/blueprints/rules/global/guides/` to ensure portability to `.gemini/rules/`.
+- **Storage:** Stored in `resources/blueprints/rules/global/guides/` as `[name]-guide.md`.
+- **Smart Aliasing:** The Transpiler automatically renames these to `g-[name].md` in the execution environment to save tokens.
 
 ---
 
@@ -37,7 +38,7 @@ Every **Core Logic** file MUST include the following instruction:
 ```markdown
 ### 🔍 INTELLIGENCE GATE
 If Clarify Score < 8.0, protocol details are unclear, or you need specific examples, you MUST run:
-`read_file ./.gemini/rules/[name]-guide.md`
+`read_file ./.gemini/rules/g-[name].md`
 before proceeding to ensure compliance.
 ```
 
@@ -45,8 +46,8 @@ before proceeding to ensure compliance.
 
 ## 3. Directory Structure
 
-- **Core:** `resources/blueprints/commands/[category]/[name]-logic.md`
+- **Core Source:** `resources/blueprints/commands/[category]/[name]-logic.md`
 - **Guide Source:** `resources/blueprints/rules/global/guides/[name]-guide.md`
-- **Guide Output:** `.gemini/rules/[name]-guide.md` (Flattened by Transpiler)
+- **Guide Execution:** `.gemini/rules/g-[name].md` (Renamed by Transpiler)
 
 **Note:** The Transpiler treats both as Partials. Only the Core is usually included in the main TOML prompt by default to save tokens.

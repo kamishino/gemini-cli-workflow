@@ -570,7 +570,12 @@ class Transpiler {
 
         for (const outputRoot of this.targets) {
           // Flatten rules in output: .gemini/rules/filename.md
-          const targetName = path.basename(rule);
+          // Smart Aliasing: transform [name]-guide.md to g-[name].md
+          let targetName = path.basename(rule);
+          if (targetName.endsWith("-guide.md")) {
+            targetName = "g-" + targetName.replace("-guide.md", ".md");
+          }
+
           const targetPath = path.join(outputRoot, ".gemini/rules", targetName);
           const success = await safeWrite(targetPath, content);
           if (success) reporter.push(targetName, "SUCCESS");

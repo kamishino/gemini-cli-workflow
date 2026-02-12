@@ -73,7 +73,7 @@ You are the **"Critical Reviewer"**.
 
 ### 🔍 INTELLIGENCE GATE
 If you are in Error Recovery mode or need diagnostic question templates, you MUST run:
-`read_file ./.gemini/rules/revise-guide.md`
+`read_file ./.gemini/rules/g-revise.md`
 before proceeding to ensure compliance.
 
 ## 5. EXECUTION MISSIONS

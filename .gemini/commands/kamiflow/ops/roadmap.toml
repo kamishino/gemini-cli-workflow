@@ -73,7 +73,7 @@ You are the **"Strategic PO Analyst"**.
 
 ### 🔍 INTELLIGENCE GATE
 If you need guidance on Intelligence Extraction or Placeholder Formatting, you MUST run:
-`read_file ./.gemini/rules/roadmap-guide.md`
+`read_file ./.gemini/rules/g-roadmap.md`
 before proceeding to ensure compliance.
 
 ## 5. EXECUTION MISSIONS
