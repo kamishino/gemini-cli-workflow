@@ -57,7 +57,6 @@ How to customize KamiFlow's behavior.
 | `/kamiflow:dev:superlazy` | **[KamiFlow] Auto-generate S1-S4 artifacts AND execute with Strategic Reflection.** |
 | `/kamiflow:dev:release` | **[KamiFlow] Smart Release Manager - Generate notes from ROADMAP, analyze git history, automate version bumping (v2.0 Enhanced).** |
 | `/kamiflow:dev:archive` | **[KamiFlow] Export task value to ROADMAP, then archive artifacts (v2.0 Enhanced - Intelligence Preservation).** |
-| `/kamiflow:dev:upgrade` | **[KamiFlow] Update KamiFlow to the latest version.** |
 | `/kamiflow:dev:revise` | **[KamiFlow] Emergency Brake - Clarify context, resolve hallucinations, and question logic before implementation.** |
 | `/kamiflow:dev:saiyan` | **[KamiFlow] Ultimate Automation - Auto-Select Option B + Auto-Execution.** |
 | `/kamiflow:dev:supersaiyan` | **[KamiFlow] Meta-Automation - Manage cycles of Saiyan execution.** |
@@ -73,7 +72,6 @@ How to customize KamiFlow's behavior.
 | `/kamiflow:ops:resume` | **[KamiFlow] Resume workflow from last checkpoint without losing context** |
 | `/kamiflow:ops:roadmap` | **[KamiFlow] Strategic Roadmap Aggregation Engine (v2.0 Enhanced - Incremental Updates & Cross-Machine Consistency).** |
 | `/kamiflow:ops:save-context` | **[KamiFlow] Export session intelligence to ./.kamiflow/PROJECT_CONTEXT.md for cross-machine context recovery (v2.0 Enhanced).** |
-| `/kamiflow:ops:tour` | **[KamiFlow] Guided tour for new projects to explain the evolved ecosystem.** |
 | `/kamiflow:ops:advice` | **[KamiFlow] Strategic Expert Advisor - Provides context-aware system and UX directions.** |
 | `/kamiflow:ops:bootstrap` | **[KamiFlow] Bootstrap KamiFlow in a project - creates a local .gemini/ configuration from the master template.** |
 | `/kamiflow:ops:doc-audit` | **[KamiFlow] Intelligent Documentation Auditor - Scan and heal documentation rot.** |

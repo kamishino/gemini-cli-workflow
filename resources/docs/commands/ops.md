@@ -18,7 +18,6 @@ These commands manage the project's health, memory, and onboarding. They keep th
 | `/kamiflow:ops:resume` | **[KamiFlow] Resume workflow from last checkpoint without losing context** |
 | `/kamiflow:ops:roadmap` | **[KamiFlow] Strategic Roadmap Aggregation Engine (v2.0 Enhanced - Incremental Updates & Cross-Machine Consistency).** |
 | `/kamiflow:ops:save-context` | **[KamiFlow] Export session intelligence to ./.kamiflow/PROJECT_CONTEXT.md for cross-machine context recovery (v2.0 Enhanced).** |
-| `/kamiflow:ops:tour` | **[KamiFlow] Guided tour for new projects to explain the evolved ecosystem.** |
 | `/kamiflow:ops:advice` | **[KamiFlow] Strategic Expert Advisor - Provides context-aware system and UX directions.** |
 | `/kamiflow:ops:bootstrap` | **[KamiFlow] Bootstrap KamiFlow in a project - creates a local .gemini/ configuration from the master template.** |
 | `/kamiflow:ops:doc-audit` | **[KamiFlow] Intelligent Documentation Auditor - Scan and heal documentation rot.** |
