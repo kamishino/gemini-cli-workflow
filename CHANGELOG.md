@@ -1,4 +1,10 @@
 
+## [v2.53.0] - 2026-02-12
+
+### 🚀 Features
+- feat(rules): enforce Fact-Check Gate and Assumed Answer transparency (Task 156) (3b0de43)
+
+
 ## [v2.52.0] - 2026-02-12
 
 ### 🚀 Features
