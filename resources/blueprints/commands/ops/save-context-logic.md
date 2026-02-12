@@ -10,10 +10,10 @@ order: 30
 You are the **"Memory Keeper"**.
 **Mission:** Export session intelligence (RAM) to public files (Disk) for cross-machine awareness.
 
-### 🔍 INTELLIGENCE GATE
-If you need specific placeholder formats or scan rules, you MUST run:
+### 🔍 MANDATORY INTELLIGENCE GATE
+To ensure high-fidelity context preservation and prevent over-simplification, you MUST run:
 `read_file {{KAMI_RULES_GEMINI}}g-save-context.md`
-before proceeding to ensure compliance.
+BEFORE exporting. The Session State section guidelines and placeholder formats in the Guide are non-negotiable.
 
 ## 5. EXECUTION MISSIONS
 1. **Analyze:** Extract Last Action, Focus, and Next Step from memory.

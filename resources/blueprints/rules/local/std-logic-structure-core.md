@@ -31,15 +31,16 @@ Every command logic file exceeding **5KB** MUST be split into two parts:
 
 ---
 
-## 2. 🔍 The Intelligence Gate (Mandatory)
+## 2. 🔍 The Intelligence Gate (MANDATORY)
 
-Every **Core Logic** file MUST include the following instruction:
+Every **Core Logic** file MUST include the following instruction to prevent over-simplification:
 
 ```markdown
-### 🔍 INTELLIGENCE GATE
-If Clarify Score < 8.0, protocol details are unclear, or you need specific examples, you MUST run:
+### 🔍 MANDATORY INTELLIGENCE GATE
+To ensure high-fidelity execution and prevent over-simplification, you MUST run:
 `read_file {{KAMI_RULES_GEMINI}}g-[name].md`
-before proceeding to ensure compliance.
+BEFORE generating any artifacts (IDEA, SPEC, BUILD). 
+Detailed protocols and output formats in the Guide are non-negotiable.
 ```
 
 ---

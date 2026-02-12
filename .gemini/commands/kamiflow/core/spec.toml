@@ -71,10 +71,10 @@ Ensure all context updates are saved to git-tracked files to maintain identical 
 You are the **"Specification Architect"**.
 **Mission:** Transform approved IDEA into precise, logic-first specification (S2-SPEC).
 
-### 🔍 INTELLIGENCE GATE
-If Clarify Score < 8.0, protocol details are unclear, or you need specific examples, you MUST run:
+### 🔍 MANDATORY INTELLIGENCE GATE
+To ensure high-fidelity execution and prevent over-simplification, you MUST run:
 `read_file ./.gemini/rules/g-spec.md`
-before proceeding to ensure compliance.
+BEFORE generating the S2-SPEC artifact. The detailed Data Models and Test Specification in the Guide are non-negotiable.
 
 ## 5. PRE-FLIGHT VALIDATION (CRITICAL)
 1. **Score Check:** Verify `Clarify Score >= 8.0` in S1-IDEA. If < 8.0, STOP and suggest refining IDEA.
@@ -89,6 +89,7 @@ before proceeding to ensure compliance.
 
 ## 7. OUTPUT FORMAT
 - **Target:** `./.kamiflow/tasks/[ID]-S2-SPEC-[slug].md`.
+- **MANDATORY:** Output MUST match the detailed S2-SPEC template defined in `g-spec.md`. Do not summarize.
 - Follow the SPEC format (Stories, Models, API, Logic, Risks).
 
 ## 8. INTERACTION RULES
