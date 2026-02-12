@@ -82,12 +82,19 @@ class WorkflowEngine {
     const tasksDir = path.join(workspaceRoot, 'tasks');
     await fs.ensureDir(tasksDir);
 
-    // 2. Generate Canonical Filename
-    // Format: [ID]-[Phase]-[Type]-[slug].md
-    const phaseType = phase === 'HANDOFF' ? 'HANDOFF' : phase;
-    const fileName = `${taskId}-${phase}-${slug}.md`;
-    const filePath = path.join(tasksDir, fileName);
-
+          // 2. Generate Canonical Filename
+          // Format: [ID]-[Phase]-[Type]-[slug].md
+          // Map phase to artifact type
+          let phaseType = phase; // Default
+          let prefix = phase; // Default for HANDOFF
+    
+          if (phase === 'IDEA') { phaseType = 'IDEA'; prefix = 'S1'; }
+          else if (phase === 'SPEC') { phaseType = 'SPEC'; prefix = 'S2'; }
+          else if (phase === 'BUILD') { phaseType = 'BUILD'; prefix = 'S3'; }
+          else if (phase === 'HANDOFF') { phaseType = 'HANDOFF'; prefix = 'S4'; }
+    
+          const fileName = `${taskId}-${prefix}-${phaseType}-${slug}.md`;
+          const filePath = path.join(tasksDir, fileName);
     // 3. Physical Write
     await fs.writeFile(filePath, content);
 
