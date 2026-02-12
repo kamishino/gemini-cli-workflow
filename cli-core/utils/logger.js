@@ -1,4 +1,5 @@
 const chalk = require('chalk');
+const cardRenderer = require('./card-renderer');
 
 /**
  * Professional Logger for KamiFlow
@@ -7,6 +8,13 @@ const chalk = require('chalk');
 class Logger {
   constructor() {
     this.isDebug = process.env.KAMI_DEBUG === 'true';
+  }
+
+  /**
+   * Render a stylized memory card
+   */
+  card(data, options = {}) {
+    console.log(cardRenderer.renderCard(data, options));
   }
 
   /**

@@ -1,5 +1,6 @@
 const fs = require("fs-extra");
 const path = require("upath");
+const chalk = require("chalk");
 const logger = require("../utils/logger");
 const { WorkspaceIndex } = require("./workspace-index");
 const InsightManager = require("./insight-manager");
@@ -45,7 +46,25 @@ class MemoryManager {
     // 3. Calculate Fusion Scores
     const memoryNodes = await this.calculateFusionScore(query, ftsResponse.results);
     
-    // 4. Synthesize Summary
+    // 4. Render Memory Cards
+    console.log(chalk.cyan.bold(`\n🧠 AGENTIC RECALL: "${query}"\n`));
+    
+    memoryNodes.slice(0, 3).forEach(node => {
+      let color = 'blue';
+      let label = 'REFERENCE';
+      
+      if (node.score > 20) {
+        color = 'red';
+        label = 'LINEAGE';
+      } else if (node.score > 10) {
+        color = 'yellow';
+        label = 'HIGH RELEVANCE';
+      }
+      
+      logger.card(node, { color, label });
+    });
+
+    // 5. Synthesize Summary (Paragraph version)
     return this.synthesizeSummary(query, memoryNodes);
   }
 

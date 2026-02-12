@@ -78,6 +78,7 @@
 | 155 | Hybrid Memory Fusion | **Hybrid Memory Fusion:** Combining SQLite FTS5 (BM25) with recursive graph traversal in JavaScript enables "Agentic Recall" that connects semantically distant but relationally close tasks, ensuring architectural consistency over time. | Task 155 |
 | 156 | Fact-Check Gate Discipline | **Fact-Check Gate Discipline:** Enforcing a manual confirmation step (Fact-Check Gate) after Phase 1 regardless of confidence score prevents "AI Logic Drift". Requiring a logic explanation (Assumed Answers) ensures transparency and human-in-the-loop validation. | Task 156 |
 | 157 | Autonomous Chronicler & Conflict Guard | **Autonomous Chronicler:** An event-driven documentation engine that auto-updates project memory and Wiki files based on user actions. **Conflict Guard** uses Git status to prevent data loss by deferring updates to 'Knowledge Fragments' if files are being edited. | Task 157 |
+| 158 | Stylized CLI UX & Visual Width | **Stylized CLI UX:** Implementing "Memory Cards" with box-drawing and color-coding improves information parsing. **Visual Width Handling:** Calculating visual width (not just string length) is essential for perfect box alignment when using Emojis and Unicode characters in the terminal. | Task 158 |
 
 ### #Rules
 | ID | Pattern | Wisdom | Source |
