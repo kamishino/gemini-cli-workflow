@@ -1,3 +1,31 @@
+## [v2.56.0] - 2026-02-17
+
+### ✨ Features
+
+- **refactor(structure):** restructure project for standard monorepo layout (a9fb364)
+  - Moved `cli-core/` → `packages/kamiflow-cli/` for monorepo standards
+  - Split `resources/` logically into CLI docs, architecture, schemas
+  - Cleaned root directory (install scripts → `.github/scripts/`, Dockerfile → package)
+  - Updated 26 files with 100+ internal path references
+  - Simplified workspace to `packages/*` pattern
+  - No breaking changes (all internal paths)
+
+### 🔧 Maintenance
+
+- **chore:** code review cleanup - remove unused imports and temp files (02eb7e1)
+- **docs:** update README, CI workflows, and add ADR for monorepo refactor (9b20323)
+  - Updated README.md paths for new structure
+  - Fixed GitHub Actions workflows (release.yml, semantic-release.yml)
+  - Created ADR 004: Monorepo Structure Refactor
+
+### 📝 Technical Details
+
+**Files Changed:** 30 files total (+260/-233 lines)  
+**Verification:** ✅ Tests pass (82/82), ✅ Build succeeds, ✅ CI updated  
+**Breaking Changes:** None
+
+---
+
 ## [v2.55.0] - 2026-02-12
 
 ### 🚀 Features
