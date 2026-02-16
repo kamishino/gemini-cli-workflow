@@ -1,86 +1,212 @@
-# Antigravity Kit
+# 🛡️ Antigravity Kit
 
-> AI Guard Rails for structured development with [Antigravity](https://antigravity.google/).
+> AI Guard Rails for [Antigravity](https://antigravity.dev) — portable rules, workflows, and persistent memory for structured development.
 
-Portable rules, workflows, and skills that make AI coding assistants more disciplined — preventing hallucinations, enforcing validation, and following structured development patterns.
-
-## Quick Start
+**Zero config. Zero dependencies. One command.**
 
 ```bash
 npx antigravity-kit init
 ```
 
-This scaffolds into your project:
+---
+
+## What You Get
 
 ```
 your-project/
-├── GEMINI.md                          ← AI system instructions
+├── GEMINI.md                      # AI system instructions
 ├── .gemini/
-│   ├── rules/
-│   │   ├── anti-hallucination.md      ← Prevent AI from inventing things
-│   │   ├── error-recovery.md          ← 3-level retry model
-│   │   ├── validation-loop.md         ← Syntax → Functional → Traceability
-│   │   ├── fast-track.md              ← Bypass for small changes
-│   │   └── reflection.md             ← Quality gate before completion
-│   └── skills/
+│   ├── rules/                     # 5 AI behavior rules
+│   │   ├── anti-hallucination.md
+│   │   ├── validation-loop.md
+│   │   ├── reflection.md
+│   │   ├── error-recovery.md
+│   │   └── fast-track.md
+│   └── skills/                    # Core skills
+│       ├── memory-management/
 │       ├── systematic-debugging/
 │       ├── verification-before-completion/
 │       └── web-design-guidelines/
-└── .agent/
-    └── workflows/
-        ├── develop.md                 ← Full structured dev workflow
-        ├── quick-fix.md               ← Fast track for small fixes
-        ├── review.md                  ← Code review with anti-patterns
-        ├── sync.md                    ← Session sync + unified commit
-        └── release.md                 ← Version bump + changelog
+├── .agent/
+│   └── workflows/                 # 5 development workflows
+│       ├── develop.md
+│       ├── quick-fix.md
+│       ├── review.md
+│       ├── sync.md
+│       └── release.md
+└── .memory/                       # Persistent context (4 files)
+    ├── context.md
+    ├── decisions.md
+    ├── patterns.md
+    └── anti-patterns.md
 ```
 
-## What's Included
+---
 
-### 🛡️ Rules (AI Behavior Guard Rails)
+## Features
 
-| Rule                   | What It Prevents                                                               |
-| :--------------------- | :----------------------------------------------------------------------------- |
-| **Anti-Hallucination** | AI inventing files, functions, dependencies, or config options                 |
-| **Error Recovery**     | Uncontrolled failures — enforces 3-level retry (self-heal → assist → escalate) |
-| **Validation Loop**    | Shipping broken code — enforces syntax → functional → traceability gates       |
-| **Fast Track**         | Over-engineering — lets small changes bypass full ceremony                     |
-| **Reflection**         | Incomplete work — enforces quality gate before task completion                 |
+### 🧠 Persistent Memory
 
-### 🔄 Workflows (Slash Commands)
+AI remembers across sessions — no more repeating context.
 
-| Command      | When to Use                                              |
-| :----------- | :------------------------------------------------------- |
-| `/develop`   | New features, complex changes — full structured pipeline |
-| `/quick-fix` | Typo fixes, config updates, < 50 line changes            |
-| `/review`    | Self-review or reviewing changes before merge            |
-| `/sync`      | End of session — update docs, unified commit             |
-| `/release`   | Version bump, changelog, release commit                  |
+| File               | Type          | Purpose                               |
+| :----------------- | :------------ | :------------------------------------ |
+| `context.md`       | Overwrite     | Current project state                 |
+| `decisions.md`     | Append-only   | Why things are the way they are       |
+| `patterns.md`      | Append/Update | Naming, structure, conventions        |
+| `anti-patterns.md` | Auto-append   | Mistakes learned from repeated errors |
 
-### 🎯 Skills
+Memory is **git-friendly** — commit it, share it with your team, clone it to another machine.
 
-Specialized knowledge modules that Antigravity reads when relevant tasks arise.
+### 🔄 5 Workflows
 
-## Options
+Type these as slash commands in Antigravity:
+
+| Command      | Purpose                                        |
+| :----------- | :--------------------------------------------- |
+| `/develop`   | Full idea-to-ship pipeline with planning gates |
+| `/quick-fix` | Fast track for small, obvious changes          |
+| `/review`    | Code review with anti-pattern detection        |
+| `/sync`      | Update docs, memory, and unified commit        |
+| `/release`   | Version bump and changelog generation          |
+
+**Intent triggers** — You can also say things naturally:
+
+- _"Build a new login page"_ → triggers `/develop`
+- _"Fix the typo in header"_ → triggers `/quick-fix`
+- _"Review my changes"_ → triggers `/review`
+- _"Ship it"_ → triggers `/release`
+
+### 🛡️ 5 Guard Rails
+
+| Rule                   | What It Prevents                                          |
+| :--------------------- | :-------------------------------------------------------- |
+| **Anti-Hallucination** | Ghost files, phantom functions, invented dependencies     |
+| **Validation Loop**    | Unverified code — enforces lint → test → traceability     |
+| **Reflection**         | Shipping without quality gate — forces pre-exit checklist |
+| **Error Recovery**     | Infinite loops — 3-level retry model with escalation      |
+| **Fast Track**         | Over-engineering — bypasses ceremony for small changes    |
+
+### 🔍 Smart Project Detection
+
+After scaffolding, the CLI detects your tech stack and recommends relevant skills:
+
+```
+🔍 Detected: TypeScript + Next.js + Tailwind CSS
+
+💡 Recommended skills (install via skills.sh):
+   npx skills add anthropics/courses/typescript-advanced-types
+   npx skills add anthropics/courses/next-best-practices
+   npx skills add anthropics/courses/tailwind-design-system
+```
+
+Supports 16+ project types: TypeScript, Python, Go, Rust, Next.js, Vite, Nuxt, Vue, Angular, Docker, GitHub Actions, Jest, Vitest, Prisma, Supabase, Tailwind CSS.
+
+---
+
+## Installation
+
+### Quick Start
 
 ```bash
-npx antigravity-kit init           # Interactive scaffolding
-npx antigravity-kit init --force   # Overwrite existing files
+npx antigravity-kit init
 ```
 
-## Customization
+### Options
 
-After scaffolding, customize for your project:
+```bash
+# Standard install
+npx antigravity-kit init
 
-1. **Edit `GEMINI.md`** — Add project-specific behavioral traits, anti-patterns, and rules
-2. **Add rules** — Create new `.gemini/rules/*.md` files for domain-specific guardrails
-3. **Add workflows** — Create new `.agent/workflows/*.md` files for custom processes
-4. **Add skills** — Create new `.gemini/skills/*/SKILL.md` for specialized knowledge
+# Overwrite existing files
+npx antigravity-kit init --force
 
-## Part of KamiFlow
+# Include optional NeuralMemory (graph-based AI memory)
+npx antigravity-kit init --with-neuralmemory
+```
 
-Antigravity Kit is the portable distribution of [KamiFlow](https://github.com/kamishino/gemini-cli-workflow) — an opinionated workflow system for AI-assisted development. While KamiFlow provides a full CLI with 20+ commands, Antigravity Kit gives you just the guard rails — no CLI dependency required.
+### With NeuralMemory (Optional)
+
+For projects that need graph-based semantic memory powered by Neo4j + Gemini:
+
+```bash
+npx antigravity-kit init --with-neuralmemory
+```
+
+This adds:
+
+- `.neuralmemory/mcp-config.json` — MCP server config template
+- `.neuralmemory/README.md` — Setup instructions
+- `.env` — API key placeholders (fill in later)
+
+> **Note:** NeuralMemory is optional. The project works perfectly with just `.memory/` (zero dependencies). NeuralMemory adds graph-based search and semantic memory on top.
+
+---
+
+## How It Works
+
+### Memory Lifecycle
+
+```
+Session Start                      Session End
+     │                                  │
+     ▼                                  ▼
+Read .memory/context.md         Write .memory/context.md
+Read .memory/patterns.md        Append .memory/decisions.md
+Read .memory/anti-patterns.md   Update .memory/patterns.md
+     │                          Auto-append anti-patterns.md
+     ▼                                  │
+  [ Do Work ]  ──────────────────►  [ Commit ]
+```
+
+### Workflow Pipeline (`/develop`)
+
+```
+Context Lock → Diagnostic Interview → Options (A/B/C)
+    → Schema-First Spec → Legacy-Aware Plan
+    → Execute → Validate (lint/test) → Reflect
+    → Update Memory → Commit
+```
+
+### Self-Learning Loop
+
+```
+Error occurs → AI retries (max 3x) → If pattern repeats:
+    → Auto-appended to .memory/anti-patterns.md
+    → AI avoids same mistake in future sessions
+```
+
+---
+
+## Philosophy
+
+| Principle         | What                                        |
+| :---------------- | :------------------------------------------ |
+| **Zero Friction** | One command, no config, no API keys         |
+| **Git-Native**    | Everything is markdown, commit & share      |
+| **AI-Agnostic**   | Works with any AI that reads markdown       |
+| **Memory-First**  | AI that forgets is AI that repeats mistakes |
+| **Opinionated**   | Best practices baked in, not suggested      |
+
+---
+
+## Comparison
+
+|                        | antigravity-kit              | Raw AI | Other frameworks |
+| :--------------------- | :--------------------------- | :----- | :--------------- |
+| Memory across sessions | ✅ `.memory/`                | ❌     | Varies           |
+| Guard rails            | ✅ 5 rules                   | ❌     | Some             |
+| Self-learning          | ✅ Anti-patterns auto-update | ❌     | ❌               |
+| Setup time             | 30 seconds                   | 0      | 10-30 min        |
+| Dependencies           | Zero                         | —      | Python/Neo4j/MCP |
+| Cost                   | Free                         | —      | API calls        |
+
+---
 
 ## License
 
-MIT
+MIT © [KamiFlow](https://github.com/kamishino)
+
+---
+
+_Built for developers who want AI that codes with discipline, not chaos._ 🛡️
