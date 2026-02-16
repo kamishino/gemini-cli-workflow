@@ -1,0 +1,38 @@
+{
+  "name": "antigravity-kit",
+  "version": "1.0.0",
+  "description": "AI Guard Rails for Antigravity — portable rules, workflows, and skills for structured development",
+  "bin": {
+    "antigravity-kit": "./bin/init.js"
+  },
+  "keywords": [
+    "antigravity",
+    "ai",
+    "guard-rails",
+    "workflows",
+    "gemini",
+    "developer-experience"
+  ],
+  "files": [
+    "bin/",
+    "templates/",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "node scripts/sync-templates.js",
+    "prepublishOnly": "npm run build"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "fs-extra": "^11.3.0"
+  },
+  "license": "MIT",
+  "author": "KamiFlow",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kamishino/gemini-cli-workflow"
+  }
+}

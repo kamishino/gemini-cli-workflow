@@ -5,3 +5,4 @@ packages:
 
   # Independent packages (not in workspace):
   - "packages/sync-backend"
+  - "packages/antigravity-kit"
