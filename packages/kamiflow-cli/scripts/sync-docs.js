@@ -2,7 +2,6 @@
 const fs = require("fs-extra");
 const path = require("upath");
 const toml = require("@iarna/toml");
-const chalk = require("chalk");
 const logger = require("../utils/logger");
 
 // Path adjusted for deep structure (packages/kamiflow-cli/scripts/)
