@@ -1,5 +1,5 @@
 packages:
-  - "cli-core"
+  - "packages/*"
   # Dashboard is deprecated as of v2.39 - moved to _archived/
   # - 'dashboard'
 

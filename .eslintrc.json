@@ -1,58 +1,51 @@
 {
-    "env":  {
-                "node":  true,
-                "es2021":  true,
-                "jest":  true
-            },
-    "extends":  [
-                    "eslint:recommended",
-                    "plugin:node/recommended",
-                    "prettier"
-                ],
-    "plugins":  [
-                    "prettier",
-                    "@typescript-eslint"
-                ],
-    "parserOptions":  {
-                          "ecmaVersion":  2022
-                      },
-    "rules":  {
-                  "prettier/prettier":  "off",
-                  "node/no-missing-require":  "off",
-                  "node/no-unpublished-require":  "off",
-                  "node/no-extraneous-require":  "off",
-                  "node/no-unsupported-features/es-syntax":  "off",
-                  "node/no-missing-import":  "off",
-                  "node/no-extraneous-import":  "off",
-                  "node/shebang":  "off",
-                  "no-unused-vars":  "warn",
-                  "no-console":  "off",
-                  "no-process-exit":  "off"
-              },
-    "overrides":  [
-                      {
-                          "files":  [
-                                        "packages/kamiflow-mcp-server/dist/**/*.js",
-                                        "packages/kamiflow-mcp-server/dist/**/*.d.ts"
-                                    ],
-                          "parser":  "@typescript-eslint/parser",
-                          "rules":  {
-                                        "node/no-unsupported-features/es-syntax":  "off",
-                                        "no-undef":  "off",
-                                        "no-unused-vars":  "off"
-                                    }
-                      },
-                      {
-                          "env":  {
-                                      "node":  true
-                                  },
-                          "files":  [
-                                        "cli-core/bin/kami.js",
-                                        "cli-core/logic/installer.js"
-                                    ],
-                          "parserOptions":  {
-                                                "sourceType":  "script"
-                                            }
-                      }
-                  ]
+  "env": {
+    "node": true,
+    "es2021": true,
+    "jest": true
+  },
+  "extends": ["eslint:recommended", "plugin:node/recommended", "prettier"],
+  "plugins": ["prettier", "@typescript-eslint"],
+  "parserOptions": {
+    "ecmaVersion": 2022
+  },
+  "rules": {
+    "prettier/prettier": "off",
+    "node/no-missing-require": "off",
+    "node/no-unpublished-require": "off",
+    "node/no-extraneous-require": "off",
+    "node/no-unsupported-features/es-syntax": "off",
+    "node/no-missing-import": "off",
+    "node/no-extraneous-import": "off",
+    "node/shebang": "off",
+    "no-unused-vars": "warn",
+    "no-console": "off",
+    "no-process-exit": "off"
+  },
+  "overrides": [
+    {
+      "files": [
+        "packages/kamiflow-mcp-server/dist/**/*.js",
+        "packages/kamiflow-mcp-server/dist/**/*.d.ts"
+      ],
+      "parser": "@typescript-eslint/parser",
+      "rules": {
+        "node/no-unsupported-features/es-syntax": "off",
+        "no-undef": "off",
+        "no-unused-vars": "off"
+      }
+    },
+    {
+      "env": {
+        "node": true
+      },
+      "files": [
+        "packages/kamiflow-cli/bin/kami.js",
+        "packages/kamiflow-cli/logic/installer.js"
+      ],
+      "parserOptions": {
+        "sourceType": "script"
+      }
+    }
+  ]
 }
