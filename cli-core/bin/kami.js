@@ -1256,6 +1256,20 @@ hooksFlow
     });
   });
 
+// Performance Benchmarks Dashboard
+program
+  .command("bench-dashboard")
+  .alias("perf")
+  .description("Run benchmarks and display performance dashboard")
+  .option("-c, --compare", "Compare with previous run")
+  .option("-H, --history <count>", "Show benchmark history with trend charts")
+  .action(async (options) => {
+    await execute("Performance Benchmarks", async () => {
+      const { runBenchDashboard } = require("../logic/bench-dashboard");
+      await runBenchDashboard(options);
+    });
+  });
+
 // Unknown command handler with fuzzy matching
 program.on("command:*", (operands) => {
   const unknown = operands[0];

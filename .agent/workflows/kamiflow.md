@@ -37,9 +37,14 @@ Read these KamiFlow rules before executing (they are already loaded as global ru
    - No cross-module dependencies?
 
    **Decision:**
-   - 🟢 ALL 5 = YES → Skip to Phase 3 (S3-BUILD), still apply Lock 3
+   - 🟢 ALL 5 = YES → **Use `/quick-fix` workflow instead** (Fast Track)
    - 🟡 3-4 = YES → Standard Mode (full Sniper Model)
    - 🔴 0-2 = YES → Critical Mode (full ceremony + mandatory approval at each gate)
+
+5. **Quick Health Check** (Optional but recommended):
+   - Run `kamiflow dashboard` to see project health at a glance
+   - Run `kamiflow hooks status` to verify git hooks are active
+   - If this is a first session, suggest `kamiflow tour` for onboarding
 
 ---
 
@@ -138,6 +143,11 @@ Read these KamiFlow rules before executing (they are already loaded as global ru
 
 21. **Self-Healing:** If errors found, analyze → fix → retry (max 3x). Escalate to user if self-healing fails.
 
+22. **Performance Validation** (if code changes affect CLI):
+    - Run `kamiflow perf --compare` to check for regressions
+    - If any benchmark > 10% slower, investigate before proceeding
+    - See `bench-and-validate` skill for decision matrix
+
 ---
 
 ## Phase 6: Reflect
@@ -187,3 +197,12 @@ Read these KamiFlow rules before executing (they are already loaded as global ru
 | Execute            | EXECUTION        | Code Changes         |
 | Validate + Reflect | VERIFICATION     | Walkthrough          |
 | Sync + Commit      | VERIFICATION     | Git Commit           |
+
+## Related Workflows
+
+| Workflow     | When to Use                               |
+| ------------ | ----------------------------------------- |
+| `/quick-fix` | Small, obvious changes (🟢 Fast Track)    |
+| `/review`    | Code review before merge or after changes |
+| `/release`   | Version bump and changelog generation     |
+| `/sync`      | Update project context and unified commit |
