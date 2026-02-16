@@ -10,7 +10,9 @@
  *   .agent/workflows/   — 5 development workflows
  *   .memory/            — 4 persistent context files
  *
- * Then detects project type and recommends skills from skills.sh.
+ * Modes:
+ *   --interactive       — Guided wizard with workflow/feature selection
+ *   (default)           — Install all templates (original behavior)
  */
 
 const fs = require("fs-extra");
@@ -20,7 +22,11 @@ const chalk = require("chalk");
 const TEMPLATES_DIR = path.join(__dirname, "..", "templates");
 const CWD = process.cwd();
 
-// --- Scaffold targets ---
+// Check for flags
+const args = process.argv.slice(2);
+const isInteractive = args.includes("--interactive") || args.includes("-i");
+
+// --- Scaffold targets (for standard init) ---
 
 const TARGETS = [
   {
@@ -466,7 +472,21 @@ async function scaffoldNeuralMemory(cwd, force) {
   return count;
 }
 
-main().catch((err) => {
-  console.error(chalk.red(`\n❌ Error: ${err.message}\n`));
-  process.exit(1);
-});
+// --- Entry point: choose init mode ---
+if (isInteractive) {
+  // Run interactive setup
+  const initInteractive = require("../scripts/init-interactive");
+  initInteractive.run(CWD).catch((error) => {
+    console.error(chalk.red("Installation failed:"), error.message);
+    process.exit(1);
+  });
+} else {
+  // Run standard init
+  main().catch((err) => {
+    console.error(
+      chalk.red(`\n✖ Fatal error during initialization:`),
+      err.message,
+    );
+    process.exit(1);
+  });
+}
