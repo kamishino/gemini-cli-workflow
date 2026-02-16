@@ -1,16 +1,18 @@
 ---
-description: KamiFlow Release - Smart version bump, changelog generation, and release commit
+description: Release - Smart version bump, changelog generation, and release commit
 ---
 
-# KamiFlow Release Workflow
+# /release — Release Workflow
 
-Generates release notes from ROADMAP, analyzes git history, and automates version bumping.
+Analyze git history, generate changelog, bump version, and create release commit.
 
-## References
+**Intent triggers** — This workflow activates when you say things like:
 
-- `.gemini/commands/kamiflow/dev/release.toml` — Original release command logic
-- `.kamiflow/ROADMAP.md` — Source of completed items
-- `package.json` — Version source of truth
+- "Create a new release"
+- "Bump the version"
+- "Generate the changelog"
+- "Prepare for publishing"
+- "Ship it"
 
 ---
 
@@ -18,37 +20,50 @@ Generates release notes from ROADMAP, analyzes git history, and automates versio
 
 // turbo
 
-1. Read `.kamiflow/ROADMAP.md` to identify completed items since last release.
+1. **Load Memory** — Read `.memory/context.md` and `.memory/decisions.md` for release context.
 
-// turbo 2. Read `package.json` to get current version.
+// turbo
 
-// turbo 3. Run `git log --oneline` from last tag to HEAD to analyze recent commits.
+2. **Read `package.json`** to get current version.
 
-4. **Determine version bump type:**
-   - **PATCH** (x.x.X): Bug fixes, documentation, refactors
-   - **MINOR** (x.X.0): New features, new commands, non-breaking additions
-   - **MAJOR** (X.0.0): Breaking changes, architecture overhauls
+// turbo
 
-5. **Generate CHANGELOG entry** with sections:
+3. **Analyze git history** — Run `git log --oneline` from last tag to HEAD.
+
+// turbo
+
+4. **Read CHANGELOG.md** (if exists) to identify completed items since last release.
+
+5. **Determine version bump:**
+
+   | Type              | When                                    | Example       |
+   | ----------------- | --------------------------------------- | ------------- |
+   | **PATCH** (x.x.X) | Bug fixes, docs, refactors              | 1.0.0 → 1.0.1 |
+   | **MINOR** (x.X.0) | New features, non-breaking additions    | 1.0.1 → 1.1.0 |
+   | **MAJOR** (X.0.0) | Breaking changes, architecture overhaul | 1.1.0 → 2.0.0 |
+
+   Present recommendation and **wait for user confirmation**.
+
+6. **Generate CHANGELOG entry** with sections:
    - ✨ Features
    - 🐛 Bug Fixes
    - 🔧 Maintenance
    - 📝 Documentation
    - ⚠️ Breaking Changes (if any)
 
-6. Update `CHANGELOG.md` with the new entry (prepend at top).
+7. **Update files:**
+   - Prepend new entry to `CHANGELOG.md`
+   - Bump version in `package.json`
 
-7. Bump version in `package.json` (root) and `cli-core/package.json` if it exists.
-
-// turbo 8. Run `npm run sync-all` to rebuild with new version.
-
-9. Stage all changes and commit:
+8. **Release commit:**
 
    ```
    release: v{NEW_VERSION}
    ```
 
-10. **Present release summary to user** with:
-    - Old version → New version
-    - Changelog preview
-    - Ask if they want to create a git tag: `git tag v{NEW_VERSION}`
+9. **Present summary to user:**
+   - Old version → New version
+   - Changelog preview
+   - Ask: "Create git tag `v{NEW_VERSION}`?" (user decides)
+
+10. **Update Memory** — Update `.memory/context.md` with new version info.

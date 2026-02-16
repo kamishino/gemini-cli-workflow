@@ -2,130 +2,152 @@
 description: Structured Development - Full idea-to-ship workflow with planning gates
 ---
 
-# Structured Development Workflow
+# /develop — Structured Development Workflow
 
 Transform a raw idea into deployed code through a rigorous, phase-based pipeline.
 
-## Phase 0: Context Lock & Fast Track Classification
+**Intent triggers** — This workflow activates when you say things like:
+
+- "Build a new feature for..."
+- "Add [component] to the project"
+- "I want to implement..."
+- "Create a new module/page/API for..."
+
+---
+
+## Phase 0: Context Lock & Fast Track
 
 // turbo
 
 1. **Load Memory** — Read `.memory/context.md` and `.memory/patterns.md` to restore project context.
 
-2. **Fast Track Classification** — Evaluate the request against 5 criteria:
-   - Single file affected?
-   - < 50 lines of change?
-   - No API/schema changes?
-   - No security implications?
-   - No cross-module dependencies?
+2. **Fast Track Check** — Evaluate against 5 criteria:
 
-   **Decision:**
-   - 🟢 ALL 5 = YES → **Use `/quick-fix` workflow instead**
-   - 🟡 3-4 = YES → Standard Mode (this workflow)
-   - 🔴 0-2 = YES → Critical Mode (mandatory approval at each gate)
+   | #   | Criteria                      | ✅/❌ |
+   | --- | ----------------------------- | ----- |
+   | 1   | Single file affected?         |       |
+   | 2   | < 50 lines of change?         |       |
+   | 3   | No API/schema changes?        |       |
+   | 4   | No security implications?     |       |
+   | 5   | No cross-module dependencies? |       |
+   - 🟢 ALL 5 = YES → **Redirect to `/quick-fix`**
+   - 🟡 3-4 = YES → Standard Mode (continue)
+   - 🔴 0-2 = YES → Critical Mode (extra approval gates)
 
 ---
 
-## Phase 1: Understand (PLANNING Mode)
+## Phase 1: Understand — _PLANNING mode_
 
-3. **Diagnostic Interview**
+3. **Diagnostic Interview (Socratic Dialogue)**
    - Analyze user request for ambiguity.
-   - Ask 3-5 probing questions (Root Cause, User Benefit, Tech Constraints).
-   - **STOP & WAIT** for user answers before proceeding.
+   - Ask 3-5 probing questions:
+     - What is the root cause / motivation?
+     - Who benefits and how?
+     - What technical constraints exist?
+     - Are there similar patterns already in the codebase?
+   - **🛑 STOP & WAIT** for user answers before proceeding.
 
-4. **Generate Options**
-
-   **A. Search for precedent:**
-   - Scan codebase and docs for similar past work.
-
-   **B. Generate 3 Refined Options:**
-   - **Option A (Safe & Fast):** MVP-first, minimal complexity.
-   - **Option B (Balanced):** Recommended trade-off. ⭐
-   - **Option C (Ambitious):** Full-featured, higher complexity.
+4. **Generate 3 Options**
+   - Search codebase and `.memory/decisions.md` for precedent.
+   - Present:
+     - **Option A (Safe):** MVP-first, minimal risk.
+     - **Option B (Balanced):** Recommended trade-off. ⭐
+     - **Option C (Ambitious):** Full-featured, higher complexity.
 
 5. **🚦 STRATEGIC GATE — MANDATORY STOP**
-   - Present the options to the user.
-   - **WAIT for user to select an option.**
-   - Do NOT proceed until user explicitly approves.
+   - Present options to user.
+   - **WAIT for user to select (A/B/C)** before proceeding.
+   - Create an `implementation_plan.md` artifact with the chosen approach.
 
 ---
 
-## Phase 2: Specify (PLANNING Mode)
+## Phase 2: Specify — _PLANNING mode_
 
-**Key Principle:** Schema-First — define data models BEFORE logic.
+**Principle:** Schema-First — define data models BEFORE logic.
 
-6. **Schema-First Design** — Define all data models, interfaces, schemas, and type definitions.
+6. **Schema-First Design** — Define all data models, interfaces, types, and schemas first.
 
-7. **Technical Blueprint** — Document:
+7. **Technical Blueprint** — Document in `implementation_plan.md`:
    - User Stories
    - API Signatures / Function Interfaces
-   - Edge Cases and Error Handling
+   - Edge Cases & Error Handling
    - Integration Points
 
 ---
 
-## Phase 3: Plan (PLANNING Mode)
+## Phase 3: Plan — _PLANNING mode_
 
-**Key Principle:** Legacy Awareness — search codebase before making changes.
+**Principle:** Legacy Awareness — search codebase before making changes.
 
-8. **Reconnaissance** — Search the codebase for existing files, functions, and patterns that relate to the planned changes.
+// turbo
 
-9. **Task Breakdown** — Create atomic, executable task list with:
-   - Specific file paths and anchor points
-   - TDD strategy (write tests first for high-risk changes)
-   - Dependency order
+8. **Reconnaissance** — Search codebase for existing files, functions, and patterns that relate to planned changes. Check `.memory/patterns.md` for project conventions.
 
-10. **Present the plan to user for approval before executing.**
+9. **Task Breakdown** — Create `task.md` artifact with atomic checklist:
+   - Specific file paths and anchor points (function names, line ranges)
+   - Dependency order (what must be built first)
+   - Test strategy (write tests first for high-risk changes)
 
----
-
-## Phase 4: Execute (EXECUTION Mode)
-
-11. Implement code changes following the plan task by task.
-
-12. For high-risk changes: Write test FIRST, verify it FAILS, then implement.
-
-13. After each major subtask, run available validation:
-    - Lint / type check
-    - Run tests
+10. **🚦 GATE — Present plan to user for approval.**
 
 ---
 
-## Phase 5: Validate (VERIFICATION Mode)
+## Phase 4: Execute — _EXECUTION mode_
 
-14. **Phase A — Syntax (BLOCKING):** Run lint, type check.
+11. Implement code changes following `task.md` checklist, task by task.
+    - Mark items `[/]` when starting, `[x]` when complete.
 
-15. **Phase B — Functional (BLOCKING):** Run unit/integration tests.
+12. For high-risk changes: Write test FIRST → verify it FAILS → then implement.
 
-16. **Phase C — Traceability:** Verify requirements coverage.
+// turbo
 
-17. **Self-Healing:** If errors found, analyze → fix → retry (max 3x). Escalate to user if fails.
+13. After each subtask, run validation:
+    - Lint / type check (e.g., `tsc --noEmit`, `npm run lint`)
+    - Run tests (e.g., `npm test`)
 
 ---
 
-## Phase 6: Reflect
+## Phase 5: Validate — _VERIFICATION mode_
 
-18. **Pre-Exit Quality Gate:**
+// turbo
+
+14. **Phase A — Syntax (BLOCKING):** Lint, type check, compile.
+
+// turbo
+
+15. **Phase B — Functional (BLOCKING):** Run unit/integration/smoke tests.
+
+16. **Phase C — Traceability:** Verify requirements from Phase 2 are covered.
+
+17. **Self-Healing:** If errors → analyze → fix → retry (max 3x). Escalate to user if healing fails.
+
+---
+
+## Phase 6: Reflect — _VERIFICATION mode_
+
+18. **Quality Gate Checklist:**
     - [ ] Tests pass
     - [ ] No lint errors
-    - [ ] Documentation updated
+    - [ ] Documentation updated (if applicable)
     - [ ] No unaddressed TODOs
+    - [ ] Module size reasonable (< 300 lines preferred)
 
-19. **Strategic Reflection:**
+19. **Strategic Reflection** — Document in `walkthrough.md`:
     - Value Delivered (1-sentence impact)
-    - Technical Debt Assessment
+    - Technical Debt Assessment (None / Minor / Significant)
     - Lessons Learned
+    - Follow-up Tasks
 
 ---
 
 ## Phase 7: Commit
 
 20. **Update Memory:**
-    - Append decisions to `.memory/decisions.md`
-    - Update `.memory/context.md` with current state
+    - Append key decisions to `.memory/decisions.md`
+    - Overwrite `.memory/context.md` with current project state
     - Update `.memory/patterns.md` if new conventions established
 
-21. Stage all changes and create a unified commit:
+21. Stage all changes and create unified commit:
 
     ```
     feat|fix|chore(scope): description
@@ -140,4 +162,4 @@ Transform a raw idea into deployed code through a rigorous, phase-based pipeline
 | `/quick-fix` | Small, obvious changes (🟢 Fast Track)    |
 | `/review`    | Code review before merge or after changes |
 | `/release`   | Version bump and changelog generation     |
-| `/sync`      | Update project context and unified commit |
+| `/sync`      | Update project docs and unified commit    |

@@ -1,15 +1,18 @@
 ---
-description: KamiFlow Sync - Update project context, roadmap, and create unified commit
+description: Project Sync - Update memory, review session work, and create unified commit
 ---
 
-# KamiFlow Sync Workflow
+# /sync — Project Sync Workflow
 
-Harmonized sync: collect session intelligence, update project docs, and unified commit.
+Collect session intelligence, update memory and docs, and create a unified commit.
 
-## References
+**Intent triggers** — This workflow activates when you say things like:
 
-- `.gemini/commands/kamiflow/ops/sync.toml` — Original sync command logic
-- `.gemini/rules/flow-reflection-core.md` — Reflection protocol
+- "Sync the project"
+- "Save my progress"
+- "Update the docs and commit"
+- "Wrap up this session"
+- "Create a unified commit for today's work"
 
 ---
 
@@ -17,33 +20,35 @@ Harmonized sync: collect session intelligence, update project docs, and unified 
 
 // turbo
 
-1. Read `.kamiflow/PROJECT_CONTEXT.md` to understand current state.
+1. **Load Memory** — Read `.memory/context.md` to understand current state.
 
-// turbo 2. Read `.kamiflow/ROADMAP.md` for current goals.
+// turbo
 
-3. **Review session work** — Identify all changes made in this session:
-   - Run `git status` and `git diff --stat` to see modified files
-   - Identify completed tasks and new artifacts
+2. **Review Session Work** — Identify all changes:
 
-4. **Update PROJECT_CONTEXT.md** with:
-   - Active context changes
-   - New decisions made
-   - Technical debt identified
-   - Any anti-patterns learned
+```
+git status
+git diff --stat
+```
 
-5. **Update ROADMAP.md** with:
-   - Move completed items to Done section
-   - Add any new follow-up tasks discovered
-   - Update progress on in-progress items
+3. **Catalog Changes** — List what was done:
+   - Files created/modified/deleted
+   - Features added or bugs fixed
+   - Decisions made and why
 
-6. **Strategic Reflection** — For each completed task, document:
+4. **Update Memory:**
+   - Overwrite `.memory/context.md` with current project state
+   - Append new decisions to `.memory/decisions.md`
+   - Update `.memory/patterns.md` if new conventions discovered
+   - Auto-append to `.memory/anti-patterns.md` if repeated errors occurred
+
+5. **Strategic Reflection** — For each completed item:
    - Value Delivered (1-sentence)
-   - Technical Debt (None/Minor/Significant)
+   - Technical Debt (None / Minor / Significant)
    - Lessons Learned
+   - Follow-up Tasks (if any)
 
-// turbo 7. Run `npm run sync-all` to rebuild.
-
-8. **Unified Commit** — Stage all changes and commit with descriptive message:
+6. **Unified Commit** — Stage all changes and commit:
 
    ```
    chore(sync): [session summary]
@@ -52,8 +57,7 @@ Harmonized sync: collect session intelligence, update project docs, and unified 
    - [list of completed items]
 
    Updated:
-   - PROJECT_CONTEXT.md
-   - ROADMAP.md
+   - [docs/memory updated]
    ```
 
-9. **Archive** completed task artifacts from `.kamiflow/tasks/` to `.kamiflow/archive/`.
+7. **Done** — Session intelligence saved for next time.

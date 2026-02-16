@@ -1,20 +1,30 @@
 ---
-description: KamiFlow Quick Fix - Fast Track for small, obvious changes (bypasses full Sniper Model)
+description: Quick Fix - Fast track for small, obvious changes (bypasses full workflow)
 ---
 
-# KamiFlow Quick Fix Workflow
+# /quick-fix — Fast Track Workflow
 
-Streamlined workflow for small, safe changes that don't require the full Sniper Model ceremony. Maps to Fast Track Classification (🟢 ALL 5 = YES).
+Streamlined workflow for small, safe changes that don't need full ceremony.
+
+**Intent triggers** — This workflow activates when you say things like:
+
+- "Fix this typo in..."
+- "Update the config to..."
+- "Change the color/text/label..."
+- "Bump the dependency version"
+- "Add a comment to..."
 
 ## When to Use
 
-- Single file affected
-- < 50 lines of change
-- No API/schema changes
-- No security implications
-- No cross-module dependencies
+ALL 5 must be true:
 
-Examples: typo fixes, config updates, comment improvements, dependency bumps, simple refactors.
+- ✅ Single file affected
+- ✅ < 50 lines of change
+- ✅ No API/schema changes
+- ✅ No security implications
+- ✅ No cross-module dependencies
+
+**If ANY fails** → Switch to `/develop` workflow.
 
 ---
 
@@ -22,34 +32,40 @@ Examples: typo fixes, config updates, comment improvements, dependency bumps, si
 
 // turbo
 
-1. Read `.kamiflow/PROJECT_CONTEXT.md` to refresh project context.
+1. **Load Memory** — Read `.memory/context.md` and `.memory/patterns.md`.
 
-2. **Fast Track Validation** — Confirm ALL 5 criteria are met:
-   - [ ] Single file affected
-   - [ ] < 50 lines of change
+2. **Verify Fast Track** — Confirm ALL 5 criteria are met:
+   - [ ] Single file
+   - [ ] < 50 lines
    - [ ] No API/schema changes
    - [ ] No security implications
-   - [ ] No cross-module dependencies
+   - [ ] No cross-module deps
 
-   **If ANY criteria fails:** Switch to full `/kamiflow` workflow instead.
+// turbo
 
-3. **Lock 3: Reconnaissance** — Even for small changes, verify the target exists:
-   - Confirm the file path is real
-   - Check for existing functions/patterns before editing
+3. **Reconnaissance** — Even for small changes, verify:
+   - Target file/function exists
+   - Check `.memory/patterns.md` for project conventions
    - Note any side effects
 
-4. **Implement** — Make the change directly.
+4. **Implement** — Make the change directly. No planning artifact needed.
+
+// turbo
 
 5. **Quick Validate:**
 
-// turbo 5a. Run lint: `npx eslint --no-warn [changed_file]` (if applicable)
+// turbo
 
-// turbo 5b. Run tests: `npm test` (if test suite exists)
+5a. Run lint on changed files (if applicable).
 
-6. **Micro-Commit** — Stage and commit with descriptive message:
+// turbo
+
+5b. Run tests (if test suite exists).
+
+6. **Micro-Commit** — Stage and commit:
 
    ```
-   fix|chore(scope): [description]
+   fix|chore(scope): description
    ```
 
-7. **Done** — No reflection phase needed for Quick Fixes.
+7. **Done** — No reflection phase needed for quick fixes.

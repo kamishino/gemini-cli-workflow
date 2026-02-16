@@ -1,10 +1,18 @@
 ---
-description: Project Sync - Review session work and create unified commit
+description: Project Sync - Update memory, review session work, and create unified commit
 ---
 
-# Project Sync Workflow
+# /sync — Project Sync Workflow
 
-Collect session intelligence, update documentation, and create a unified commit.
+Collect session intelligence, update memory and docs, and create a unified commit.
+
+**Intent triggers** — This workflow activates when you say things like:
+
+- "Sync the project"
+- "Save my progress"
+- "Update the docs and commit"
+- "Wrap up this session"
+- "Create a unified commit for today's work"
 
 ---
 
@@ -14,27 +22,33 @@ Collect session intelligence, update documentation, and create a unified commit.
 
 1. **Load Memory** — Read `.memory/context.md` to understand current state.
 
-2. **Review session work** — Identify all changes made in this session:
-   - Run `git status` and `git diff --stat` to see modified files
-   - Identify completed tasks and new artifacts
+// turbo
 
-3. **Update project docs** with:
-   - Active context changes
-   - New decisions made
-   - Technical debt identified
-   - Any lessons learned
+2. **Review Session Work** — Identify all changes:
+
+```
+git status
+git diff --stat
+```
+
+3. **Catalog Changes** — List what was done:
+   - Files created/modified/deleted
+   - Features added or bugs fixed
+   - Decisions made and why
 
 4. **Update Memory:**
    - Overwrite `.memory/context.md` with current project state
    - Append new decisions to `.memory/decisions.md`
    - Update `.memory/patterns.md` if new conventions discovered
+   - Auto-append to `.memory/anti-patterns.md` if repeated errors occurred
 
-5. **Strategic Reflection** — For each completed task, document:
+5. **Strategic Reflection** — For each completed item:
    - Value Delivered (1-sentence)
-   - Technical Debt (None/Minor/Significant)
+   - Technical Debt (None / Minor / Significant)
    - Lessons Learned
+   - Follow-up Tasks (if any)
 
-6. **Unified Commit** — Stage all changes and commit with descriptive message:
+6. **Unified Commit** — Stage all changes and commit:
 
    ```
    chore(sync): [session summary]
@@ -43,5 +57,7 @@ Collect session intelligence, update documentation, and create a unified commit.
    - [list of completed items]
 
    Updated:
-   - [docs updated]
+   - [docs/memory updated]
    ```
+
+7. **Done** — Session intelligence saved for next time.

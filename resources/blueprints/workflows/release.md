@@ -2,9 +2,17 @@
 description: Release - Smart version bump, changelog generation, and release commit
 ---
 
-# Release Workflow
+# /release — Release Workflow
 
-Generate release notes, analyze git history, and automate version bumping.
+Analyze git history, generate changelog, bump version, and create release commit.
+
+**Intent triggers** — This workflow activates when you say things like:
+
+- "Create a new release"
+- "Bump the version"
+- "Generate the changelog"
+- "Prepare for publishing"
+- "Ship it"
 
 ---
 
@@ -12,37 +20,50 @@ Generate release notes, analyze git history, and automate version bumping.
 
 // turbo
 
-1. **Load Memory** — Read `.memory/context.md` and `.memory/decisions.md`.
+1. **Load Memory** — Read `.memory/context.md` and `.memory/decisions.md` for release context.
 
-// turbo 2. Read project changelog to identify completed items since last release.
+// turbo
 
-// turbo 2. Read `package.json` to get current version.
+2. **Read `package.json`** to get current version.
 
-// turbo 3. Run `git log --oneline` from last tag to HEAD to analyze recent commits.
+// turbo
 
-4. **Determine version bump type:**
-   - **PATCH** (x.x.X): Bug fixes, documentation, refactors
-   - **MINOR** (x.X.0): New features, new commands, non-breaking additions
-   - **MAJOR** (X.0.0): Breaking changes, architecture overhauls
+3. **Analyze git history** — Run `git log --oneline` from last tag to HEAD.
 
-5. **Generate CHANGELOG entry** with sections:
+// turbo
+
+4. **Read CHANGELOG.md** (if exists) to identify completed items since last release.
+
+5. **Determine version bump:**
+
+   | Type              | When                                    | Example       |
+   | ----------------- | --------------------------------------- | ------------- |
+   | **PATCH** (x.x.X) | Bug fixes, docs, refactors              | 1.0.0 → 1.0.1 |
+   | **MINOR** (x.X.0) | New features, non-breaking additions    | 1.0.1 → 1.1.0 |
+   | **MAJOR** (X.0.0) | Breaking changes, architecture overhaul | 1.1.0 → 2.0.0 |
+
+   Present recommendation and **wait for user confirmation**.
+
+6. **Generate CHANGELOG entry** with sections:
    - ✨ Features
    - 🐛 Bug Fixes
    - 🔧 Maintenance
    - 📝 Documentation
    - ⚠️ Breaking Changes (if any)
 
-6. Update `CHANGELOG.md` with the new entry (prepend at top).
+7. **Update files:**
+   - Prepend new entry to `CHANGELOG.md`
+   - Bump version in `package.json`
 
-7. Bump version in `package.json`.
-
-8. Stage all changes and commit:
+8. **Release commit:**
 
    ```
    release: v{NEW_VERSION}
    ```
 
-9. **Present release summary to user** with:
+9. **Present summary to user:**
    - Old version → New version
    - Changelog preview
-   - Ask if they want to create a git tag: `git tag v{NEW_VERSION}`
+   - Ask: "Create git tag `v{NEW_VERSION}`?" (user decides)
+
+10. **Update Memory** — Update `.memory/context.md` with new version info.

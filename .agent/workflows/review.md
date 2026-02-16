@@ -1,79 +1,89 @@
 ---
-description: KamiFlow Review - Structured code review with anti-pattern detection and health validation
+description: Code Review - Structured review with anti-pattern detection and health check
 ---
 
-# KamiFlow Code Review Workflow
+# /review — Code Review Workflow
 
-Examines recent changes for quality, anti-patterns, and project health alignment.
+Examines recent changes for quality, anti-patterns, and project health.
+
+**Intent triggers** — This workflow activates when you say things like:
+
+- "Review my recent changes"
+- "Check the code quality of..."
+- "Is this implementation correct?"
+- "Audit the last commit"
+- "Do a code review before merge"
 
 ## When to Use
 
 - After implementing a feature (self-review)
-- After receiving changes from another agent or developer
+- After receiving changes from another developer
 - Before merging a branch
 - Periodic code health checks
 
 ---
 
-## Steps
+## Steps — _VERIFICATION mode_
 
 // turbo
 
-1. Read `.kamiflow/PROJECT_CONTEXT.md` to understand current state.
+1. **Load Memory** — Read `.memory/context.md`, `.memory/patterns.md`, and `.memory/anti-patterns.md`.
 
-// turbo 2. Get changes to review:
+// turbo
 
-```bash
+2. **Get Changes:**
+
+```
 git diff --stat HEAD~1
 git diff HEAD~1
 ```
 
-Or specify a range: `git diff <base>..<head>`
+Or for a specific range: `git diff <base>..<head>`
 
-3. **Anti-Pattern Scan** — Check each changed file against the Constitution anti-patterns:
-   - [ ] No Unix commands on Windows (use PowerShell equivalents)
+3. **Anti-Pattern Scan** — Check each changed file for:
    - [ ] No hardcoded absolute paths
-   - [ ] No Markdown numbering drift
-   - [ ] No hallucinated file/function references
-   - [ ] Error handling present (try/catch for async, null checks)
-   - [ ] No duplicate logic (check for existing patterns in codebase)
+   - [ ] No hallucinated file/function references (verify they exist)
+   - [ ] Error handling present (try/catch, null checks)
+   - [ ] No duplicate logic (check codebase for existing patterns)
+   - [ ] Platform-compatible commands (PowerShell on Windows)
+   - [ ] Known anti-patterns from `.memory/anti-patterns.md`
 
 4. **Architecture Review:**
-   - Does the change follow existing patterns in the codebase?
+   - Does the change follow patterns in `.memory/patterns.md`?
    - Are new functions/modules properly exported?
-   - Are new files placed in the correct directory?
+   - Are new files in the correct directory?
    - Is naming consistent with project conventions?
+   - Module size reasonable (< 300 lines)?
 
-// turbo 5. **Health Check** — Run project doctor:
+// turbo
 
-```bash
-node cli-core/bin/kami.js doctor
+5. **Run Tests:**
+
+```
+npm test
 ```
 
-// turbo 6. **Test Suite:**
-
-```bash
-cd cli-core && npx jest --verbose
-```
-
-7. **Generate Review Summary:**
+6. **Generate Review Summary** — Present to user:
 
    ```markdown
    ## Code Review Summary
 
    **Files reviewed:** [count]
+   **Lines changed:** +[added] / -[removed]
    **Overall verdict:** ✅ PASS / ⚠️ NEEDS CHANGES / ❌ FAIL
 
    ### Findings
 
-   - 🟢 [What's good]
-   - 🟡 [Suggestions / minor issues]
-   - 🔴 [Must-fix issues]
+   - 🟢 [What's good — patterns followed, clean code]
+   - 🟡 [Suggestions — minor improvements, style]
+   - 🔴 [Must-fix — bugs, anti-patterns, missing error handling]
 
    ### Action Items
 
    - [ ] [Required fix 1]
    - [ ] [Required fix 2]
    ```
+
+7. **Memory Update** — If new anti-patterns found, append to `.memory/anti-patterns.md`.
 
 8. Present review to user and wait for acknowledgment.
