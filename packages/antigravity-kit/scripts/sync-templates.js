@@ -36,10 +36,16 @@ const SYNC_MAP = [
     label: "GEMINI.md",
     isFile: true,
   },
+  {
+    src: path.join(BLUEPRINTS, "memory"),
+    dest: path.join(TEMPLATES, "memory"),
+    label: "memory",
+  },
 ];
 
 // Skills: copy select skills only
 const SKILL_DIRS = [
+  "memory-management",
   "systematic-debugging",
   "verification-before-completion",
   "web-design-guidelines",

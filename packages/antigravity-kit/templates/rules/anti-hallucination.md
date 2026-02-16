@@ -17,6 +17,7 @@ order: 150
 
 ## 2. Assumption Verification (Before Any Code Change)
 
+- **Step 0: Memory Check** — Read `.memory/patterns.md` to verify assumptions about project conventions.
 - **Step 1: File Verification** — Use `list_dir` / `read_file` to confirm file existence.
 - **Step 2: Function Verification** — Use `grep_search` to confirm function signatures.
 - **Step 3: Dependency Verification** — Check `package.json` / `requirements.txt` / equivalent.

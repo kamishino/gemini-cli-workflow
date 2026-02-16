@@ -30,6 +30,14 @@ After passing the quality gate, reflect on:
 - **Follow-up Tasks:** Dependencies or improvement opportunities.
 - **Risk Assessment:** Regression risk level.
 
-## 3. Execution Checklist
+## 3. Memory Update
 
-Quality Gate → Reflection → Update docs → Commit.
+After reflection, persist intelligence:
+
+- Append significant decisions to `.memory/decisions.md`.
+- Update `.memory/context.md` with current project state.
+- Update `.memory/patterns.md` if new conventions were established.
+
+## 4. Execution Checklist
+
+Quality Gate → Reflection → Memory Update → Commit.

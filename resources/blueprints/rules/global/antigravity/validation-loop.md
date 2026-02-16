@@ -30,5 +30,6 @@ order: 80
 ## 4. Self-Correcting Learning Loop
 
 1. **Track:** Maintain session-based error counters (`error_syntax`, `error_import_missing`, etc.).
-2. **Threshold:** If `count(error_type) > 3` → Update project rules to prevent recurrence.
-3. **Notify:** "🧠 I have updated rules to avoid this error in the future."
+2. **Threshold:** If `count(error_type) > 3` → Append to `.memory/anti-patterns.md`.
+3. **Format:** `- **[Category]:** [Instruction to avoid the error]. (Learned [YYYY-MM-DD])`
+4. **Notify:** "🧠 I have updated `.memory/anti-patterns.md` to avoid this error in the future."

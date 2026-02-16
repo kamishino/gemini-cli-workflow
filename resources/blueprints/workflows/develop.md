@@ -10,7 +10,7 @@ Transform a raw idea into deployed code through a rigorous, phase-based pipeline
 
 // turbo
 
-1. Read project documentation to refresh context (README, design docs, etc.).
+1. **Load Memory** — Read `.memory/context.md` and `.memory/patterns.md` to restore project context.
 
 2. **Fast Track Classification** — Evaluate the request against 5 criteria:
    - Single file affected?
@@ -120,7 +120,12 @@ Transform a raw idea into deployed code through a rigorous, phase-based pipeline
 
 ## Phase 7: Commit
 
-20. Stage all changes and create a unified commit:
+20. **Update Memory:**
+    - Append decisions to `.memory/decisions.md`
+    - Update `.memory/context.md` with current state
+    - Update `.memory/patterns.md` if new conventions established
+
+21. Stage all changes and create a unified commit:
 
     ```
     feat|fix|chore(scope): description

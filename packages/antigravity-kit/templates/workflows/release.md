@@ -12,7 +12,9 @@ Generate release notes, analyze git history, and automate version bumping.
 
 // turbo
 
-1. Read project changelog and roadmap to identify completed items since last release.
+1. **Load Memory** — Read `.memory/context.md` and `.memory/decisions.md`.
+
+// turbo 2. Read project changelog to identify completed items since last release.
 
 // turbo 2. Read `package.json` to get current version.
 

@@ -41,6 +41,12 @@ const TARGETS = [
     label: ".agent/workflows/ (5 development workflows)",
     dir: true,
   },
+  {
+    src: "memory",
+    dest: ".memory",
+    label: ".memory/ (persistent context — 4 files)",
+    dir: true,
+  },
 ];
 
 async function main() {

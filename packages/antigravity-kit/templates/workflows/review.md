@@ -19,7 +19,7 @@ Examines recent changes for quality, anti-patterns, and project health.
 
 // turbo
 
-1. Read project documentation to understand current state.
+1. **Load Memory** — Read `.memory/context.md`, `.memory/patterns.md`, and `.memory/anti-patterns.md`.
 
 // turbo 2. Get changes to review:
 

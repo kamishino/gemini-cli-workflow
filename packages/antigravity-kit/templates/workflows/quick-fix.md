@@ -22,7 +22,7 @@ Examples: typo fixes, config updates, comment improvements, dependency bumps, si
 
 // turbo
 
-1. Read project documentation to refresh context.
+1. **Load Memory** — Read `.memory/context.md` and `.memory/patterns.md` to restore context.
 
 2. **Fast Track Validation** — Confirm ALL 5 criteria are met:
    - [ ] Single file affected
