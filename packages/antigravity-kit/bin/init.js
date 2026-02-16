@@ -223,6 +223,7 @@ async function main() {
   }
 
   const force = args.includes("--force") || args.includes("-f");
+  const withNeuralMemory = args.includes("--with-neuralmemory");
 
   console.log(
     chalk.bold.cyan("\n🚀 Antigravity Kit") + " — Scaffolding AI Guard Rails\n",
@@ -269,6 +270,13 @@ async function main() {
 
     console.log(chalk.green(`  ✅  ${target.label}`));
     created++;
+  }
+
+  // --- Phase 1.5: Optional NeuralMemory setup ---
+
+  if (withNeuralMemory) {
+    const nmCreated = await scaffoldNeuralMemory(CWD, force);
+    created += nmCreated;
   }
 
   console.log();
@@ -324,7 +332,138 @@ async function main() {
       chalk.gray("  • Install recommended skills above for your tech stack"),
     );
   }
+  if (withNeuralMemory) {
+    console.log(
+      chalk.gray("  • Fill API keys in .env to activate NeuralMemory"),
+    );
+  }
   console.log(chalk.gray("  • Run with --force to overwrite existing files\n"));
+}
+
+// --- NeuralMemory optional setup ---
+
+const NEURAL_MEMORY_MCP_CONFIG = {
+  mcpServers: {
+    neuralmemory: {
+      command: "uv",
+      args: ["--directory", "<path-to-mcp-neuralmemory>", "run", "main.py"],
+      env: {
+        NEO4J_URI: "bolt://localhost:7687",
+        NEO4J_USER: "neo4j",
+        NEO4J_PASSWORD: "${NEO4J_PASSWORD}",
+        GEMINI_API_KEY: "${GEMINI_API_KEY}",
+      },
+    },
+  },
+};
+
+const NEURAL_MEMORY_ENV = `# NeuralMemory Configuration
+# Fill these in to activate graph-based AI memory
+# See: https://github.com/Hexecu/mcp-neuralmemory
+
+# Required: Google Gemini API key (free tier available)
+# Get yours at: https://aistudio.google.com/apikey
+GEMINI_API_KEY=
+
+# Required: Neo4j database credentials
+# Install Neo4j: https://neo4j.com/download/
+NEO4J_URI=bolt://localhost:7687
+NEO4J_USER=neo4j
+NEO4J_PASSWORD=
+`;
+
+const NEURAL_MEMORY_README = `# 🧠 NeuralMemory Setup
+
+This project is configured for optional NeuralMemory integration.
+
+## Prerequisites
+
+1. **Neo4j** — Install from [neo4j.com/download](https://neo4j.com/download/)
+2. **Python 3.11+** — [python.org](https://python.org)
+3. **uv** — \`pip install uv\` or see [astral.sh/uv](https://astral.sh/uv)
+
+## Setup Steps
+
+\`\`\`bash
+# 1. Clone NeuralMemory
+git clone https://github.com/Hexecu/mcp-neuralmemory.git
+
+# 2. Fill in your API keys
+#    Edit .env in your project root
+
+# 3. Update mcp-config.json
+#    Replace <path-to-mcp-neuralmemory> with the actual path
+
+# 4. Start Neo4j and run
+uv --directory /path/to/mcp-neuralmemory run main.py
+\`\`\`
+
+## MCP Config
+
+Copy the contents of \`mcp-config.json\` into your IDE's MCP settings:
+- **Antigravity**: \`.gemini/settings.json\`
+- **VS Code**: \`.vscode/mcp.json\`
+- **Cursor**: \`.cursor/mcp.json\`
+
+## Without NeuralMemory
+
+The project works perfectly without NeuralMemory.
+\`.memory/\` provides lightweight file-based memory with zero dependencies.
+NeuralMemory adds graph-based search and semantic memory on top.
+`;
+
+async function scaffoldNeuralMemory(cwd, force) {
+  let count = 0;
+
+  const files = [
+    {
+      dest: path.join(".neuralmemory", "mcp-config.json"),
+      content: JSON.stringify(NEURAL_MEMORY_MCP_CONFIG, null, 2) + "\n",
+      label: ".neuralmemory/mcp-config.json (MCP server config)",
+    },
+    {
+      dest: path.join(".neuralmemory", "README.md"),
+      content: NEURAL_MEMORY_README,
+      label: ".neuralmemory/README.md (setup instructions)",
+    },
+    {
+      dest: ".env",
+      content: NEURAL_MEMORY_ENV,
+      label: ".env (API key placeholders)",
+    },
+  ];
+
+  console.log();
+  console.log(
+    chalk.bold.magenta("  🧠 NeuralMemory") + " — Optional Graph Memory\n",
+  );
+
+  for (const file of files) {
+    const destPath = path.join(cwd, file.dest);
+
+    if (fs.existsSync(destPath) && !force) {
+      console.log(chalk.gray(`  ⏭  ${file.label} (already exists)`));
+      continue;
+    }
+
+    await fs.ensureDir(path.dirname(destPath));
+    await fs.writeFile(destPath, file.content, "utf8");
+    console.log(chalk.green(`  ✅  ${file.label}`));
+    count++;
+  }
+
+  // Add .env to .gitignore if not already there
+  const gitignorePath = path.join(cwd, ".gitignore");
+  if (fs.existsSync(gitignorePath)) {
+    const gitignore = await fs.readFile(gitignorePath, "utf8");
+    if (!gitignore.includes(".env")) {
+      await fs.appendFile(gitignorePath, "\n# NeuralMemory secrets\n.env\n");
+      console.log(chalk.green("  ✅  .gitignore (added .env)"));
+      count++;
+    }
+  }
+
+  return count;
 }
 
 main().catch((err) => {
