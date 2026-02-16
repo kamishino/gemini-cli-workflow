@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="resources/docs/assets/banner.png" alt="KamiFlow Banner" width="100%">
+  <img src="packages/kamiflow-cli/docs/assets/banner.png" alt="KamiFlow Banner" width="100%">
 </p>
 
 <p align="center">
@@ -13,17 +13,17 @@
 <p align="center"><b>The Orchestrator for Indie Builders using Gemini CLI</b></p>
 
 <p align="center">
-  [ <a href="README.md">🏠 Home</a> ] | [ <a href="resources/docs/overview.md">🚀 Getting Started</a> ] | [ <a href="resources/docs/commands/README.md">⚡ Power User Guide</a> ] | [ <a href="resources/docs/commands/README.md">📖 Command Wiki</a> ]
+  [ <a href="README.md">🏠 Home</a> ] | [ <a href="packages/kamiflow-cli/docs/overview.md">🚀 Getting Started</a> ] | [ <a href="packages/kamiflow-cli/docs/commands/README.md">⚡ Power User Guide</a> ] | [ <a href="packages/kamiflow-cli/docs/commands/README.md">📖 Command Wiki</a> ]
 </p>
 
 ---
 
 ## 📍 Quick Navigator
 
-| 🚀 Start Here                                 | 📖 Knowledge                                         | ⚡ Advanced                                            | 🤝 Community                   |
-| :-------------------------------------------- | :--------------------------------------------------- | :----------------------------------------------------- | :----------------------------- |
-| [Quick Install](#-quick-install)              | [Command Wiki](resources/docs/commands/README.md)    | [**Saiyan Mode**](resources/docs/commands/README.md)   | [Contribution](#-contribution) |
-| [Getting Started](resources/docs/overview.md) | [Sniper Model](./.gemini/rules/flow-factory-line.md) | [SuperSaiyan Cycle](resources/docs/commands/README.md) | [License](#-license)           |
+| 🚀 Start Here                                             | 📖 Knowledge                                                  | ⚡ Advanced                                                        | 🤝 Community                   |
+| :-------------------------------------------------------- | :------------------------------------------------------------ | :----------------------------------------------------------------- | :----------------------------- |
+| [Quick Install](#-quick-install)                          | [Command Wiki](packages/kamiflow-cli/docs/commands/README.md) | [**Saiyan Mode**](packages/kamiflow-cli/docs/commands/README.md)   | [Contribution](#-contribution) |
+| [Getting Started](packages/kamiflow-cli/docs/overview.md) | [Sniper Model](./.gemini/rules/flow-factory-line.md)          | [SuperSaiyan Cycle](packages/kamiflow-cli/docs/commands/README.md) | [License](#-license)           |
 
 ---
 
@@ -44,7 +44,7 @@
 
 > **Philosophy:** "Aesthetics + Utility". Ship fast, break nothing important.
 
-> **⚠️ Developer Note:** All documentation is now maintained in `resources/docs/`. Please make manual edits there to ensure they are preserved.
+> **⚠️ Developer Note:** Project restructured to standard monorepo. CLI docs in `packages/kamiflow-cli/docs/`, architecture in `docs/architecture/`.
 
 ---
 

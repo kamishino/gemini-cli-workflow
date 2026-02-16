@@ -23,18 +23,18 @@ jobs:
         with:
           node-version: "20"
           cache: "npm"
-          cache-dependency-path: "cli-core/package-lock.json"
+          cache-dependency-path: "packages/kamiflow-cli/package-lock.json"
 
       - name: Install dependencies
-        working-directory: ./cli-core
+        working-directory: ./packages/kamiflow-cli
         run: npm ci
 
       - name: Run tests
-        working-directory: ./cli-core
+        working-directory: ./packages/kamiflow-cli
         run: npm test
 
       - name: Build distribution
-        working-directory: ./cli-core
+        working-directory: ./packages/kamiflow-cli
         run: npm run build
 
       - name: Generate changelog
@@ -99,11 +99,11 @@ jobs:
         run: npm ci
 
       - name: Build package
-        working-directory: ./cli-core
+        working-directory: ./packages/kamiflow-cli
         run: npm run build
 
       - name: Publish to NPM
-        working-directory: ./cli-core
+        working-directory: ./packages/kamiflow-cli
         run: npm publish --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
