@@ -62,6 +62,22 @@ class Logger {
   }
 
   /**
+   * Error log with actionable suggestions
+   * @param {string} text - Error message
+   * @param {string[]} suggestions - Array of suggestion strings
+   */
+  errorWithSuggestion(text, suggestions = []) {
+    console.error(chalk.red.bold(`❌ Error: ${text}`));
+    if (suggestions.length > 0) {
+      console.log(chalk.yellow("\n  💡 Suggestions:"));
+      suggestions.forEach((s) => {
+        console.log(chalk.gray(`     → ${s}`));
+      });
+      console.log();
+    }
+  }
+
+  /**
    * Debug-only log
    */
   debug(text) {

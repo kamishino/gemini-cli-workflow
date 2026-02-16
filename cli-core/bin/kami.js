@@ -1181,10 +1181,134 @@ program
     });
   });
 
-// Unknown command handler
+// Interactive Tour command
+program
+  .command("learn-flow")
+  .alias("tour")
+  .description("Interactive walkthrough of KamiFlow features")
+  .option("-q, --quick", "Show all steps without prompts")
+  .action(async (options) => {
+    await execute(null, async () => {
+      const { runTour } = require("../logic/tour");
+      await runTour(options);
+    });
+  });
+
+// Dashboard command
+program
+  .command("show-dashboard")
+  .alias("dashboard")
+  .description("Display project metrics and health at a glance")
+  .action(async () => {
+    await execute(null, async () => {
+      const { runDashboard } = require("../logic/dashboard");
+      await runDashboard();
+    });
+  });
+
+// Shell completions command
+program
+  .command("generate-completions [shell]")
+  .alias("completions")
+  .description(
+    "Generate shell completion scripts (bash, zsh, fish, powershell)",
+  )
+  .action(async (shell) => {
+    const { runCompletions } = require("../logic/completions");
+    runCompletions(shell);
+  });
+
+// Git Hooks command group
+const hooksFlow = program
+  .command("manage-hooks")
+  .alias("hooks")
+  .description("Manage git hooks for KamiFlow projects");
+
+hooksFlow
+  .command("install")
+  .description("Install KamiFlow git hooks (pre-commit, commit-msg)")
+  .option("-f, --force", "Overwrite existing hooks")
+  .option("--hooks <hooks>", "Comma-separated list of hooks to install")
+  .action(async (options) => {
+    await execute(null, async () => {
+      const { installHooks } = require("../logic/git-hooks");
+      await installHooks(process.cwd(), options);
+    });
+  });
+
+hooksFlow
+  .command("remove")
+  .description("Remove KamiFlow git hooks")
+  .action(async () => {
+    await execute(null, async () => {
+      const { removeHooks } = require("../logic/git-hooks");
+      await removeHooks(process.cwd());
+    });
+  });
+
+hooksFlow
+  .command("status")
+  .description("Show installed git hooks")
+  .action(async () => {
+    await execute(null, async () => {
+      const { statusHooks } = require("../logic/git-hooks");
+      await statusHooks(process.cwd());
+    });
+  });
+
+// Unknown command handler with fuzzy matching
 program.on("command:*", (operands) => {
-  logger.error(t("cli.error.commandNotFound", { command: operands[0] }));
-  logger.hint(t("cli.hint.tryHelp"));
+  const unknown = operands[0];
+  logger.error(t("cli.error.commandNotFound", { command: unknown }));
+
+  // Levenshtein distance for fuzzy matching
+  const levenshtein = (a, b) => {
+    const matrix = Array.from({ length: a.length + 1 }, (_, i) =>
+      Array.from({ length: b.length + 1 }, (_, j) =>
+        i === 0 ? j : j === 0 ? i : 0,
+      ),
+    );
+    for (let i = 1; i <= a.length; i++) {
+      for (let j = 1; j <= b.length; j++) {
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j] + 1,
+          matrix[i][j - 1] + 1,
+          matrix[i - 1][j - 1] + (a[i - 1] !== b[j - 1] ? 1 : 0),
+        );
+      }
+    }
+    return matrix[a.length][b.length];
+  };
+
+  // Collect all command names and aliases
+  const allNames = [];
+  program.commands.forEach((cmd) => {
+    allNames.push(cmd.name());
+    const aliases = cmd.aliases();
+    if (aliases) allNames.push(...aliases);
+  });
+
+  // Find closest matches
+  const scored = allNames
+    .filter((name) => !name.startsWith("_"))
+    .map((name) => ({
+      name,
+      dist: levenshtein(unknown.toLowerCase(), name.toLowerCase()),
+    }))
+    .filter((s) => s.dist <= 3)
+    .sort((a, b) => a.dist - b.dist)
+    .slice(0, 3);
+
+  if (scored.length > 0) {
+    console.log(chalk.yellow("\n  Did you mean?"));
+    scored.forEach((s) => {
+      console.log(chalk.gray("    → ") + chalk.cyan(`kamiflow ${s.name}`));
+    });
+    console.log();
+  } else {
+    logger.hint(t("cli.hint.tryHelp"));
+  }
+
   process.exit(1);
 });
 
@@ -1353,4 +1477,3 @@ program.on("command:*", (operands) => {
     process.exit(1);
   }
 })();
-
