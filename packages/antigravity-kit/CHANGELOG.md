@@ -1,5 +1,56 @@
 # Changelog — @kamishino/antigravity-kit
 
+## [v1.2.0] - 2026-02-19
+
+### ✨ Features
+
+- **feat(cli):** add `agk` CLI router (`bin/index.js`) as the main entry point
+  - Smart default: auto-detects init vs doctor based on `.agent/` presence
+  - Full subcommand routing: init, status, doctor, upgrade, hooks, memory, info, ci
+
+- **feat(cli):** add `agk status` — quick project summary table
+  - Shows workflows, memory, guard rails, git hooks, last memory update
+
+- **feat(cli):** add `agk upgrade` — update installed files from templates
+  - mtime-based diff: only updates outdated files
+  - Never overwrites `.memory/` (user data protected)
+  - `--force` flag to overwrite everything
+
+- **feat(cli):** add `agk memory` — memory management subcommands
+  - `agk memory` / `agk memory status` — file sizes, line counts, last updated
+  - `agk memory show` — print all memory file contents
+  - `agk memory clear` — reset to templates (with confirmation)
+
+- **feat(cli):** add `agk info` — show install details
+  - Package name, version, location, npm link status, Node version
+  - SSOT rules location and workflow count
+
+- **feat(ci):** add `agk ci` — generate GitHub Actions health check
+  - Creates `.github/workflows/ai-health.yml`
+  - Runs `agk doctor` on every push and pull request
+
+- **feat(ux):** add ora spinners to `agk init` scaffold loop
+
+- **feat(dogfood):** add dogfooding detection to `agk doctor`
+  - Shows `🐕 Dogfooding mode detected` banner when run inside source repo
+
+- **feat(dev):** add `DEV_SETUP.md` and `npm run link` / `npm run unlink` scripts
+
+### 🔧 Maintenance
+
+- **fix(ssot):** set `.gemini/rules/` as SSOT for Antigravity guard rails
+  - All commands now check `.gemini/rules/` first, `.agent/rules/` as fallback
+- **chore:** add `ora@5` dependency for spinners
+- **chore:** add `templates/ci/` directory
+
+### 📝 Technical Details
+
+**New Files:** 8 (`bin/index.js`, `scripts/status.js`, `scripts/upgrade.js`, `scripts/memory.js`, `scripts/info.js`, `scripts/ci.js`, `templates/ci/ai-health.yml`, `DEV_SETUP.md`)  
+**Modified Files:** 3 (`bin/init.js`, `scripts/doctor.js`, `package.json`)  
+**Breaking Changes:** None
+
+---
+
 ## [v1.1.0] - 2026-02-19
 
 ### ✨ Features
