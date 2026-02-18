@@ -18,6 +18,7 @@
 const fs = require("fs-extra");
 const path = require("path");
 const chalk = require("chalk");
+const ora = require("ora");
 
 const TEMPLATES_DIR = path.join(__dirname, "..", "templates");
 const CWD = process.cwd();
@@ -254,15 +255,19 @@ async function main() {
   for (const target of TARGETS) {
     const srcPath = path.join(TEMPLATES_DIR, target.src);
     const destPath = path.join(CWD, target.dest);
+    const spinner = ora({ text: target.label, indent: 2 }).start();
 
     if (!fs.existsSync(srcPath)) {
-      console.log(chalk.yellow(`  ⏭  ${target.label} (source not found)`));
+      spinner.warn(`${target.label} ${chalk.gray("(source not found)")}`);
       skipped++;
       continue;
     }
 
     if (fs.existsSync(destPath) && !force) {
-      console.log(chalk.gray(`  ⏭  ${target.label} (already exists)`));
+      spinner.stopAndPersist({
+        symbol: chalk.gray("⏭"),
+        text: chalk.gray(`${target.label} (already exists)`),
+      });
       skipped++;
       continue;
     }
@@ -275,7 +280,7 @@ async function main() {
       await fs.copy(srcPath, destPath, { overwrite: force });
     }
 
-    console.log(chalk.green(`  ✅  ${target.label}`));
+    spinner.succeed(chalk.green(target.label));
     created++;
   }
 

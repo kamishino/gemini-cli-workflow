@@ -35,6 +35,7 @@ ${chalk.bold("USAGE")}
   ${chalk.yellow("agk init -i")}          Interactive setup wizard
   ${chalk.yellow("agk status")}           Quick project summary
   ${chalk.yellow("agk doctor")}           Full health check
+  ${chalk.yellow("agk upgrade")}          Update workflows & rules from templates
   ${chalk.yellow("agk hooks")}            Install git hooks
   ${chalk.yellow("agk --help")}           Show this help
   ${chalk.yellow("agk --version")}        Show version
@@ -92,6 +93,13 @@ async function main() {
     case "doctor": {
       const doctor = require("../scripts/doctor");
       const code = await doctor.run(CWD);
+      process.exit(code);
+      break;
+    }
+
+    case "upgrade": {
+      const upgrade = require("../scripts/upgrade");
+      const code = await upgrade.run(CWD);
       process.exit(code);
       break;
     }
