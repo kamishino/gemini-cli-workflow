@@ -9,7 +9,13 @@
  *   agk init -i      → interactive setup wizard
  *   agk status       → quick project summary
  *   agk doctor       → full health check
+ *   agk upgrade      → update workflows & rules from templates
  *   agk hooks        → install git hooks
+ *   agk ci           → generate GitHub Actions health check
+ *   agk memory       → memory status
+ *   agk memory show  → print all memory files
+ *   agk memory clear → reset memory to templates
+ *   agk info         → show install details
  *   agk --help       → show usage
  *   agk --version    → show version
  */
@@ -67,9 +73,11 @@ ${chalk.bold("EXAMPLES")}
 async function main() {
   switch (command) {
     case undefined: {
-      // Smart default: init if .agent/ not found, doctor if already set up
+      // Smart default: init if not initialized, doctor if already set up
+      // Check both .agent/ (workflows) and .gemini/ (rules) — either means initialized
       const hasAgent = await fs.pathExists(path.join(CWD, ".agent"));
-      if (hasAgent) {
+      const hasGemini = await fs.pathExists(path.join(CWD, ".gemini", "rules"));
+      if (hasAgent || hasGemini) {
         console.log(
           chalk.gray("💡 Project initialized — running health check...\n"),
         );
