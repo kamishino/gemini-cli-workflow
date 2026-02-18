@@ -145,7 +145,12 @@ async function checkMemorySystem(projectDir) {
  * Check guard rails
  */
 async function checkGuardRails(projectDir) {
-  const rulesDir = path.join(projectDir, ".agent", "rules");
+  // Support both .agent/rules/ (standard) and .gemini/rules/ (KamiFlow)
+  const candidateDirs = [
+    { dir: path.join(projectDir, ".agent", "rules"), label: ".agent/rules/" },
+    { dir: path.join(projectDir, ".gemini", "rules"), label: ".gemini/rules/" },
+  ];
+
   const result = {
     category: "Guard Rails",
     level: LEVEL.OK,
@@ -160,10 +165,21 @@ async function checkGuardRails(projectDir) {
   ];
 
   try {
-    const exists = await fs.pathExists(rulesDir);
-    if (!exists) {
+    // Find first existing rules directory
+    let rulesDir = null;
+    let rulesLabel = null;
+    for (const candidate of candidateDirs) {
+      if (await fs.pathExists(candidate.dir)) {
+        rulesDir = candidate.dir;
+        rulesLabel = candidate.label;
+        break;
+      }
+    }
+
+    if (!rulesDir) {
       result.level = LEVEL.WARNING;
-      result.message = ".agent/rules/ directory not found";
+      result.message = "No guard rails directory found";
+      result.details.push("Checked: .agent/rules/, .gemini/rules/");
       result.details.push("Guard rails not configured (optional)");
       return result;
     }
@@ -176,16 +192,16 @@ async function checkGuardRails(projectDir) {
 
     if (rules.length === 0) {
       result.level = LEVEL.WARNING;
-      result.message = "No guard rails found";
+      result.message = `No guard rails found in ${rulesLabel}`;
       result.details.push(
         "Recommended: anti-hallucination.md, error-recovery.md, validation-loop.md",
       );
     } else if (missingRecommended.length > 0) {
       result.level = LEVEL.INFO;
-      result.message = `${rules.length} guard rail(s) found`;
+      result.message = `${rules.length} guard rail(s) found in ${rulesLabel}`;
       result.details.push(`Consider adding: ${missingRecommended.join(", ")}`);
     } else {
-      result.message = `${rules.length} guard rail(s) found`;
+      result.message = `${rules.length} guard rail(s) found in ${rulesLabel}`;
       result.details = rules.map((r) => `  - ${r}`);
     }
   } catch (error) {
