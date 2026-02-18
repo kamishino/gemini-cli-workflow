@@ -23,6 +23,15 @@ const LEVEL = {
 async function run(projectDir) {
   console.log(chalk.bold.cyan("\n🔍 Antigravity Kit Health Check\n"));
 
+  // Detect dogfooding mode (running inside the antigravity-kit source repo)
+  const isDogfooding = await detectDogfooding(projectDir);
+  if (isDogfooding) {
+    console.log(
+      chalk.bold.magenta("🐕 Dogfooding mode detected") +
+        chalk.gray(" (running inside antigravity-kit source)\n"),
+    );
+  }
+
   const results = [];
 
   // Check 1: Workflows
@@ -43,6 +52,39 @@ async function run(projectDir) {
 
   // Return exit code (0 = ok, 1 = warnings, 2 = errors)
   return overallHealth.exitCode;
+}
+
+/**
+ * Detect if running inside the antigravity-kit source repo (dogfooding)
+ */
+async function detectDogfooding(projectDir) {
+  try {
+    const pkgPath = path.join(
+      projectDir,
+      "packages",
+      "antigravity-kit",
+      "package.json",
+    );
+    if (await fs.pathExists(pkgPath)) {
+      const pkg = await fs.readJson(pkgPath);
+      return (
+        pkg.name === "@kamishino/antigravity-kit" ||
+        pkg.name === "antigravity-kit"
+      );
+    }
+    // Also check if we're directly inside the package
+    const localPkg = path.join(projectDir, "package.json");
+    if (await fs.pathExists(localPkg)) {
+      const pkg = await fs.readJson(localPkg);
+      return (
+        pkg.name === "@kamishino/antigravity-kit" ||
+        pkg.name === "antigravity-kit"
+      );
+    }
+  } catch {
+    // ignore
+  }
+  return false;
 }
 
 /**

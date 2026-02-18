@@ -4,7 +4,7 @@
   "description": "AI Guard Rails for Antigravity — portable rules, workflows, and skills for structured development",
   "bin": {
     "antigravity-kit": "./bin/init.js",
-    "agk": "./bin/init.js"
+    "agk": "./bin/index.js"
   },
   "keywords": [
     "antigravity",
@@ -24,7 +24,9 @@
     "build": "node scripts/sync-templates.js",
     "prepublishOnly": "npm run build",
     "doctor": "node bin/doctor.js",
-    "install-hooks": "node scripts/install-hooks.js"
+    "install-hooks": "node scripts/install-hooks.js",
+    "link": "npm link",
+    "unlink": "npm unlink"
   },
   "engines": {
     "node": ">=16.0.0"
