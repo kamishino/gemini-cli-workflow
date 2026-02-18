@@ -37,6 +37,7 @@ ${chalk.bold("USAGE")}
   ${chalk.yellow("agk doctor")}           Full health check
   ${chalk.yellow("agk upgrade")}          Update workflows & rules from templates
   ${chalk.yellow("agk hooks")}            Install git hooks
+  ${chalk.yellow("agk ci")}               Generate GitHub Actions health check
   ${chalk.yellow("agk memory")}           Memory status
   ${chalk.yellow("agk memory show")}      Print all memory files
   ${chalk.yellow("agk memory clear")}     Reset memory to templates
@@ -107,6 +108,13 @@ async function main() {
     case "upgrade": {
       const upgrade = require("../scripts/upgrade");
       const code = await upgrade.run(CWD);
+      process.exit(code);
+      break;
+    }
+
+    case "ci": {
+      const ci = require("../scripts/ci");
+      const code = await ci.run(CWD);
       process.exit(code);
       break;
     }
