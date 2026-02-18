@@ -37,6 +37,10 @@ ${chalk.bold("USAGE")}
   ${chalk.yellow("agk doctor")}           Full health check
   ${chalk.yellow("agk upgrade")}          Update workflows & rules from templates
   ${chalk.yellow("agk hooks")}            Install git hooks
+  ${chalk.yellow("agk memory")}           Memory status
+  ${chalk.yellow("agk memory show")}      Print all memory files
+  ${chalk.yellow("agk memory clear")}     Reset memory to templates
+  ${chalk.yellow("agk info")}             Show install details
   ${chalk.yellow("agk --help")}           Show this help
   ${chalk.yellow("agk --version")}        Show version
 
@@ -52,6 +56,9 @@ ${chalk.bold("EXAMPLES")}
 
   ${chalk.gray("# Enable memory auto-sync")}
   agk hooks
+
+  ${chalk.gray("# Check memory state")}
+  agk memory
 `);
 }
 
@@ -100,6 +107,21 @@ async function main() {
     case "upgrade": {
       const upgrade = require("../scripts/upgrade");
       const code = await upgrade.run(CWD);
+      process.exit(code);
+      break;
+    }
+
+    case "memory": {
+      const memory = require("../scripts/memory");
+      const subcommand = subArgs[0] || "status";
+      const code = await memory.run(CWD, subcommand);
+      process.exit(code);
+      break;
+    }
+
+    case "info": {
+      const info = require("../scripts/info");
+      const code = await info.run(CWD);
       process.exit(code);
       break;
     }
