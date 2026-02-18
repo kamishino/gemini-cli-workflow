@@ -6,6 +6,9 @@ description: Structured Development - Full idea-to-ship workflow with planning g
 
 Transform a raw idea into deployed code through a rigorous, phase-based pipeline.
 
+> **KamiFlow users:** Use `/kamiflow` instead — it's the KamiFlow-native version of this workflow
+> with MoSCoW scoring, weighted matrix, and `.kamiflow/` integration.
+
 **Intent triggers** — This workflow activates when you say things like:
 
 - "Build a new feature for..."
@@ -157,9 +160,12 @@ Transform a raw idea into deployed code through a rigorous, phase-based pipeline
 
 ## Related Workflows
 
-| Workflow     | When to Use                               |
-| ------------ | ----------------------------------------- |
-| `/quick-fix` | Small, obvious changes (🟢 Fast Track)    |
-| `/review`    | Code review before merge or after changes |
-| `/release`   | Version bump and changelog generation     |
-| `/sync`      | Update project docs and unified commit    |
+| Workflow      | When to Use                               |
+| ------------- | ----------------------------------------- |
+| `/kamiflow`   | KamiFlow projects — use this instead      |
+| `/brainstorm` | Phase 0 — ideate before planning          |
+| `/quick-fix`  | Small, obvious changes (🟢 Fast Track)    |
+| `/debug`      | Structured debugging process              |
+| `/review`     | Code review before merge or after changes |
+| `/release`    | Version bump and changelog generation     |
+| `/sync`       | Update project docs and unified commit    |

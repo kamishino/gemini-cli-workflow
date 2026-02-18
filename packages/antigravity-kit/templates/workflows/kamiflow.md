@@ -6,9 +6,6 @@ description: KamiFlow Sniper Model - Full idea-to-ship workflow (S1→S4→Valid
 
 This workflow implements the KamiFlow Sniper Model for AntiGravity IDE — transforming a raw idea into deployed code through a structured pipeline.
 
-> **Non-KamiFlow projects:** Use `/develop` instead — it's the portable version of this workflow
-> without `.kamiflow/` dependencies.
-
 ## References
 
 Read these KamiFlow rules before executing (they are already loaded as global rules):
@@ -203,12 +200,9 @@ Read these KamiFlow rules before executing (they are already loaded as global ru
 
 ## Related Workflows
 
-| Workflow      | When to Use                               |
-| ------------- | ----------------------------------------- |
-| `/develop`    | Non-KamiFlow projects — portable version  |
-| `/brainstorm` | Phase 0 — ideate before planning          |
-| `/quick-fix`  | Small, obvious changes (🟢 Fast Track)    |
-| `/debug`      | Structured debugging process              |
-| `/review`     | Code review before merge or after changes |
-| `/release`    | Version bump and changelog generation     |
-| `/sync`       | Update project context and unified commit |
+| Workflow     | When to Use                               |
+| ------------ | ----------------------------------------- |
+| `/quick-fix` | Small, obvious changes (🟢 Fast Track)    |
+| `/review`    | Code review before merge or after changes |
+| `/release`   | Version bump and changelog generation     |
+| `/sync`      | Update project context and unified commit |
