@@ -1,5 +1,50 @@
 # Changelog — @kamishino/antigravity-kit
 
+## [v1.3.0] - 2026-02-19
+
+### ✨ Features
+
+- **feat(cli):** add `agk memory sync` — cross-PC memory sync via git subtree
+  - `agk memory sync setup <url>` — configure private git remote
+  - `agk memory sync push` — push `.memory/` to remote
+  - `agk memory sync pull` — pull `.memory/` from remote (on new PC)
+  - `agk memory sync status` — show remote + last sync time
+  - Saves `syncRemote` and `lastSync` to `.agent/config.json`
+
+- **feat(workflows):** add `/brainstorm` workflow — Phase 0 ideation
+  - Clarify (3 questions) → Diverge (5-10 ideas) → Rate (Feasibility × Impact) → Recommend (top 3)
+  - Hands off to `/develop` or `/kamiflow`
+
+- **feat(workflows):** add `/wake` workflow — cross-PC context restore
+  - Reads all 4 `.memory/` files and produces a structured session summary
+  - Asks to continue or start new task
+
+- **feat(workflows):** add `/debug` workflow — structured debugging
+  - Reproduce → Isolate → Hypothesize (3 ranked causes) → Fix → Document
+
+- **feat(workflows):** add `kamiflow.md` to agk templates
+  - KamiFlow Sniper Model now scaffolded by `agk init`
+  - Added note: _"Non-KamiFlow projects: use `/develop` instead"_
+
+- **feat(workflows):** cross-reference `develop` ↔ `kamiflow`
+  - `develop.md` notes KamiFlow users should prefer `/kamiflow`
+  - Both workflows now list all 9 workflows in Related Workflows table
+
+### 🔧 Maintenance
+
+- **fix(lint):** remove unused `execSync` import from `memory-sync.js`
+- **fix(lint):** remove unused `desc` destructuring in `memory.js`
+- **chore:** update `agk memory` status footer to mention sync commands
+
+### 📝 Technical Details
+
+**New Files:** 4 (`scripts/memory-sync.js`, `templates/workflows/brainstorm.md`, `templates/workflows/wake.md`, `templates/workflows/debug.md`, `templates/workflows/kamiflow.md`)  
+**Modified Files:** 3 (`scripts/memory.js`, `bin/index.js`, `.agent/workflows/develop.md`, `.agent/workflows/kamiflow.md`)  
+**Breaking Changes:** None  
+**Workflow count:** 9 (brainstorm, wake, develop, kamiflow, quick-fix, debug, review, release, sync)
+
+---
+
 ## [v1.2.0] - 2026-02-19
 
 ### ✨ Features
