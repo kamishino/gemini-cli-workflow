@@ -187,10 +187,10 @@ async function checkMemorySystem(projectDir) {
  * Check guard rails
  */
 async function checkGuardRails(projectDir) {
-  // Support both .agent/rules/ (standard) and .gemini/rules/ (KamiFlow)
+  // .gemini/rules/ is SSOT for Antigravity — check it first
   const candidateDirs = [
-    { dir: path.join(projectDir, ".agent", "rules"), label: ".agent/rules/" },
     { dir: path.join(projectDir, ".gemini", "rules"), label: ".gemini/rules/" },
+    { dir: path.join(projectDir, ".agent", "rules"), label: ".agent/rules/" },
   ];
 
   const result = {

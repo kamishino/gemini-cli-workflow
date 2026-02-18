@@ -105,9 +105,10 @@ async function countMemoryFiles(projectDir) {
 }
 
 async function countGuardRails(projectDir) {
+  // .gemini/rules/ is SSOT for Antigravity
   const candidates = [
-    { dir: path.join(projectDir, ".agent", "rules"), label: ".agent/rules" },
     { dir: path.join(projectDir, ".gemini", "rules"), label: ".gemini/rules" },
+    { dir: path.join(projectDir, ".agent", "rules"), label: ".agent/rules" },
   ];
   try {
     for (const c of candidates) {

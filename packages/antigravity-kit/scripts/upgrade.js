@@ -20,9 +20,9 @@ const UPGRADE_TARGETS = [
   {
     label: "Rules",
     templateDir: "rules",
-    destDir: path.join(".gemini", "rules"),
+    destDir: path.join(".gemini", "rules"), // SSOT for Antigravity
     ext: ".md",
-    altDestDir: path.join(".agent", "rules"),
+    altDestDir: path.join(".agent", "rules"), // fallback only
   },
   {
     label: "Memory templates",
