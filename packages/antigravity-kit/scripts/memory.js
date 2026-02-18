@@ -6,6 +6,10 @@
  *   agk memory status   → show file sizes and last updated
  *   agk memory show     → print all memory file contents
  *   agk memory clear    → reset all memory files (with confirmation)
+ *   agk memory sync     → push .memory/ to private git repo
+ *   agk memory sync setup <url> → configure private remote
+ *   agk memory sync pull → pull .memory/ from remote
+ *   agk memory sync status → show sync status
  */
 
 const fs = require("fs-extra");
@@ -20,7 +24,7 @@ const MEMORY_FILES = [
   { file: "anti-patterns.md", label: "Anti-patterns" },
 ];
 
-async function run(projectDir, subcommand) {
+async function run(projectDir, subcommand, extraArgs) {
   const memoryDir = path.join(projectDir, ".memory");
 
   switch (subcommand) {
@@ -28,6 +32,10 @@ async function run(projectDir, subcommand) {
       return await showMemory(memoryDir);
     case "clear":
       return await clearMemory(memoryDir);
+    case "sync": {
+      const memorySync = require("./memory-sync");
+      return await memorySync.run(projectDir, extraArgs[0] || "auto");
+    }
     case "status":
     default:
       return await statusMemory(memoryDir);
@@ -45,7 +53,7 @@ async function statusMemory(memoryDir) {
     return 1;
   }
 
-  for (const { file, label, desc } of MEMORY_FILES) {
+  for (const { file, label } of MEMORY_FILES) {
     const filePath = path.join(memoryDir, file);
     const exists = await fs.pathExists(filePath);
 
@@ -70,7 +78,11 @@ async function statusMemory(memoryDir) {
   }
 
   console.log();
-  console.log(chalk.gray("  Commands: agk memory show | agk memory clear"));
+  console.log(
+    chalk.gray(
+      "  Commands: agk memory show | agk memory clear | agk memory sync",
+    ),
+  );
   console.log();
   return 0;
 }

@@ -47,6 +47,8 @@ ${chalk.bold("USAGE")}
   ${chalk.yellow("agk memory")}           Memory status
   ${chalk.yellow("agk memory show")}      Print all memory files
   ${chalk.yellow("agk memory clear")}     Reset memory to templates
+  ${chalk.yellow("agk memory sync")}      Push memory to private git repo
+  ${chalk.yellow("agk memory sync pull")} Pull memory from private git repo
   ${chalk.yellow("agk info")}             Show install details
   ${chalk.yellow("agk --help")}           Show this help
   ${chalk.yellow("agk --version")}        Show version
@@ -130,7 +132,7 @@ async function main() {
     case "memory": {
       const memory = require("../scripts/memory");
       const subcommand = subArgs[0] || "status";
-      const code = await memory.run(CWD, subcommand);
+      const code = await memory.run(CWD, subcommand, subArgs.slice(1));
       process.exit(code);
       break;
     }
