@@ -19,6 +19,8 @@ triggers:
     stack trace,
     regression,
   ]
+owns:
+  - .memory/anti-patterns.md
 ---
 
 # 🐛 Debugger Agent

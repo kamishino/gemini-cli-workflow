@@ -46,6 +46,9 @@ async function run(projectDir) {
   // Check 4: Memory Sync
   results.push(await checkMemorySync(projectDir));
 
+  // Check 5: Agent Health
+  results.push(await checkAgents(projectDir));
+
   // Display results
   displayResults(results);
 
@@ -258,6 +261,148 @@ async function checkGuardRails(projectDir) {
   } catch (error) {
     result.level = LEVEL.ERROR;
     result.message = `Failed to check guard rails: ${error.message}`;
+  }
+
+  return result;
+}
+
+/**
+ * Check agents for trigger conflicts and ownership overlaps
+ */
+async function checkAgents(projectDir) {
+  const agentsDir = path.join(projectDir, ".agent", "agents");
+  const result = {
+    category: "Agents",
+    level: LEVEL.OK,
+    message: "",
+    details: [],
+    fix: null,
+  };
+
+  try {
+    if (!(await fs.pathExists(agentsDir))) {
+      result.level = LEVEL.INFO;
+      result.message = "No agents installed";
+      result.fix = "agk upgrade";
+      return result;
+    }
+
+    const files = await fs.readdir(agentsDir);
+    const agentFiles = files.filter((f) => f.endsWith(".md"));
+
+    if (agentFiles.length === 0) {
+      result.level = LEVEL.INFO;
+      result.message = "No agent files found";
+      result.fix = "agk upgrade";
+      return result;
+    }
+
+    // Parse all agents' frontmatter
+    const agents = [];
+    for (const file of agentFiles) {
+      const content = await fs.readFile(path.join(agentsDir, file), "utf8");
+      const fm = parseFrontmatter(content);
+      if (fm) {
+        agents.push({ file, ...fm });
+      }
+    }
+
+    // Detect trigger keyword conflicts
+    const triggerMap = new Map(); // keyword → [agent files]
+    for (const agent of agents) {
+      if (agent.triggers) {
+        for (const trigger of agent.triggers) {
+          const key = trigger.toLowerCase().trim();
+          if (!triggerMap.has(key)) triggerMap.set(key, []);
+          triggerMap.get(key).push(agent.file);
+        }
+      }
+    }
+
+    const conflicts = [];
+    for (const [keyword, owners] of triggerMap) {
+      if (owners.length > 1) {
+        conflicts.push({ keyword, owners });
+      }
+    }
+
+    // Detect ownership overlaps
+    const ownsMap = new Map(); // path → [agent files]
+    for (const agent of agents) {
+      if (agent.owns) {
+        for (const owned of agent.owns) {
+          const key = owned.trim();
+          if (!ownsMap.has(key)) ownsMap.set(key, []);
+          ownsMap.get(key).push(agent.file);
+        }
+      }
+    }
+
+    const ownershipOverlaps = [];
+    for (const [filePath, owners] of ownsMap) {
+      if (owners.length > 1) {
+        ownershipOverlaps.push({ file: filePath, owners });
+      }
+    }
+
+    // Build result
+    result.message = `${agentFiles.length} agent(s) found`;
+
+    if (conflicts.length > 0) {
+      result.level = LEVEL.WARNING;
+      result.message += ` — ${conflicts.length} trigger conflict(s)`;
+      for (const c of conflicts) {
+        result.details.push(
+          `  ⚠️ "${c.keyword}" claimed by: ${c.owners.join(", ")}`,
+        );
+      }
+    }
+
+    if (ownershipOverlaps.length > 0) {
+      if (result.level !== LEVEL.WARNING) result.level = LEVEL.INFO;
+      for (const o of ownershipOverlaps) {
+        result.details.push(`  📝 ${o.file} shared by: ${o.owners.join(", ")}`);
+      }
+    }
+
+    if (conflicts.length === 0 && ownershipOverlaps.length === 0) {
+      result.details = agentFiles.map((f) => `  - ${f}`);
+    }
+  } catch (error) {
+    result.level = LEVEL.ERROR;
+    result.message = `Failed to check agents: ${error.message}`;
+  }
+
+  return result;
+}
+
+/**
+ * Parse YAML frontmatter from a markdown file
+ * Returns { triggers: string[], owns: string[] } or null
+ */
+function parseFrontmatter(content) {
+  const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  if (!match) return null;
+
+  const fm = match[1];
+  const result = { triggers: [], owns: [] };
+
+  // Parse triggers array
+  const triggersMatch = fm.match(/triggers:\s*\[([^\]]+)\]/s);
+  if (triggersMatch) {
+    result.triggers = triggersMatch[1]
+      .split(",")
+      .map((t) => t.trim())
+      .filter(Boolean);
+  }
+
+  // Parse owns array
+  const ownsSection = fm.match(/owns:\s*\n((?:\s+-\s+.+\n?)+)/);
+  if (ownsSection) {
+    result.owns = ownsSection[1]
+      .split("\n")
+      .map((l) => l.replace(/^\s*-\s*/, "").trim())
+      .filter(Boolean);
   }
 
   return result;

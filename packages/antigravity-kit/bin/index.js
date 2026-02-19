@@ -55,6 +55,7 @@ ${chalk.bold("USAGE")}
   ${chalk.yellow("agk memory clear")}     Reset memory to templates
   ${chalk.yellow("agk memory sync")}      Push memory to private git repo
   ${chalk.yellow("agk memory sync pull")} Pull memory from private git repo
+  ${chalk.yellow("agk changelog")}        Show version changelog
   ${chalk.yellow("agk info")}             Show install details
   ${chalk.yellow("agk --help")}           Show this help
   ${chalk.yellow("agk --version")}        Show version
@@ -150,6 +151,13 @@ async function main() {
     case "hooks": {
       const installHooks = require("../scripts/install-hooks");
       const code = await installHooks.run(CWD);
+      process.exit(code);
+      break;
+    }
+
+    case "changelog": {
+      const changelog = require("../scripts/changelog");
+      const code = await changelog.run(CWD, subArgs);
       process.exit(code);
       break;
     }

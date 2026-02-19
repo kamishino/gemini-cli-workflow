@@ -17,6 +17,9 @@ triggers:
     requirements,
     spec,
   ]
+owns:
+  - .memory/context.md
+  - .memory/decisions.md
 ---
 
 # 📋 Planner Agent

@@ -17,6 +17,9 @@ triggers:
     database design,
     schema,
   ]
+owns:
+  - .memory/decisions.md
+  - .memory/patterns.md
 ---
 
 # 🏗️ Architect Agent

@@ -16,6 +16,8 @@ triggers:
     SOLID,
     clean code,
   ]
+owns:
+  - .memory/anti-patterns.md
 ---
 
 # 🔍 Reviewer Agent
