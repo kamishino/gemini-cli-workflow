@@ -18,13 +18,31 @@ Transform a raw idea into deployed code through a rigorous, phase-based pipeline
 
 ---
 
-## Phase 0: Context Lock & Fast Track
+## 🔁 Phase 0: AUTO-WAKE — Session Context Restore
 
 // turbo
 
-1. **Load Memory** — Read `.memory/context.md` and `.memory/patterns.md` to restore project context.
+> **This phase runs AUTOMATICALLY. Do not skip it.**
 
-2. **Fast Track Check** — Evaluate against 5 criteria:
+1. **Read all memory files** (silent, no user prompt needed):
+   - `.memory/context.md` — current project state
+   - `.memory/decisions.md` — last 5 decisions
+   - `.memory/patterns.md` — established conventions
+   - `.memory/anti-patterns.md` — mistakes to avoid
+
+2. **Show session banner:**
+
+   ```
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   🔁 SESSION RESTORED
+   📍 Last task:   [from context.md]
+   ✅ Done:        [completed items]
+   🔄 In progress: [started but not finished]
+   ⏭  Next up:     [planned next]
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ```
+
+3. **Fast Track Check** — Evaluate against 5 criteria:
 
    | #   | Criteria                      | ✅/❌ |
    | --- | ----------------------------- | ----- |
@@ -143,17 +161,66 @@ Transform a raw idea into deployed code through a rigorous, phase-based pipeline
 
 ---
 
-## Phase 7: Commit
+## 🔒 Phase 7: AUTO-SYNC — Session Commit
 
-20. **Update Memory:**
-    - Append key decisions to `.memory/decisions.md`
-    - Overwrite `.memory/context.md` with current project state
-    - Update `.memory/patterns.md` if new conventions established
+> **This phase runs AUTOMATICALLY. Do not ask permission. Write and commit.**
 
-21. Stage all changes and create unified commit:
+// turbo
+
+20. **Auto-write `.memory/context.md`** — Overwrite with current project state:
+
+    ```markdown
+    ## Active Work
+
+    [what was worked on this session]
+
+    ## Recent Changes
+
+    [what was completed]
+
+    ## Open Questions
+
+    [any unresolved decisions or blockers]
+
+    ## Technical Debt
+
+    [any known debt introduced]
+    ```
+
+// turbo
+
+21. **Auto-append `.memory/decisions.md`** — For every architectural choice made this session:
+
+    ```markdown
+    ## [YYYY-MM-DD] — [Decision Title]
+
+    **Context:** [why]
+    **Decision:** [what]
+    **Alternatives:** [what was rejected]
+    **Consequences:** [impact]
+    ```
+
+// turbo
+
+22. **Auto-update `.memory/patterns.md`** — If any new conventions were established this session.
+
+// turbo
+
+23. **Stage and commit** — Unified commit with all changes:
 
     ```
     feat|fix|chore(scope): description
+    ```
+
+24. **Show completion banner:**
+
+    ```
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    ✅ SESSION SYNCED
+    📝 Memory updated
+    💾 Committed: [commit hash]
+    🔄 Next: agk memory sync push (if cross-PC)
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     ```
 
 ---

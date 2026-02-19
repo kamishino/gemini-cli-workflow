@@ -6,6 +6,9 @@ description: KamiFlow Sniper Model - Full idea-to-ship workflow (S1→S4→Valid
 
 This workflow implements the KamiFlow Sniper Model for AntiGravity IDE — transforming a raw idea into deployed code through a structured pipeline.
 
+> **Non-KamiFlow projects:** Use `/develop` instead — it's the portable version of this workflow
+> without `.kamiflow/` dependencies.
+
 ## References
 
 Read these KamiFlow rules before executing (they are already loaded as global rules):
@@ -19,17 +22,32 @@ Read these KamiFlow rules before executing (they are already loaded as global ru
 
 ---
 
-## Phase 0: Context Lock & Fast Track Classification
+## 🔁 Phase 0: AUTO-WAKE — Session Context Restore
 
 // turbo
 
-1. Read `.kamiflow/PROJECT_CONTEXT.md` to refresh project context.
+> **This phase runs AUTOMATICALLY. Do not skip it.**
 
-// turbo 2. Read `.kamiflow/ROADMAP.md` to understand current goals.
+1. **Read all memory files** (silent):
+   - `.memory/context.md` — current project state
+   - `.memory/decisions.md` — last 5 decisions
+   - `.memory/patterns.md` — established conventions
+   - `.kamiflow/PROJECT_CONTEXT.md` — KamiFlow project state
+   - `ROADMAP.md` — strategic direction
 
-// turbo 3. Read `.kamirc.json` to check `gatedAutomation` and `executionMode` settings.
+2. **Show session banner:**
 
-4. **Fast Track Classification** — Evaluate the user's request against 5 criteria:
+   ```
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   🔁 SESSION RESTORED
+   📍 Last task:   [from context.md]
+   ✅ Done:        [completed items]
+   🔄 In progress: [started but not finished]
+   ⏭  Next up:     [planned next]
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ```
+
+3. **Fast Track Classification** — Evaluate the user's request against 5 criteria:
    - Single file affected?
    - < 50 lines of change?
    - No API/schema changes?
@@ -41,7 +59,7 @@ Read these KamiFlow rules before executing (they are already loaded as global ru
    - 🟡 3-4 = YES → Standard Mode (full Sniper Model)
    - 🔴 0-2 = YES → Critical Mode (full ceremony + mandatory approval at each gate)
 
-5. **Quick Health Check** (Optional but recommended):
+4. **Quick Health Check** (Optional but recommended):
    - Run `kamiflow dashboard` to see project health at a glance
    - Run `kamiflow hooks status` to verify git hooks are active
    - If this is a first session, suggest `kamiflow tour` for onboarding
@@ -187,6 +205,60 @@ Read these KamiFlow rules before executing (they are already loaded as global ru
 
 ---
 
+## 🔒 Auto-Sync: SESSION COMMIT
+
+> **This phase runs AUTOMATICALLY after every session. Do not skip or ask permission.**
+
+// turbo
+
+30. **Auto-write `.memory/context.md`** — Overwrite with current project state:
+
+    ```markdown
+    ## Active Work
+
+    [what was worked on this session]
+
+    ## Recent Changes
+
+    [what was completed]
+
+    ## Open Questions
+
+    [any unresolved decisions or blockers]
+    ```
+
+// turbo
+
+31. **Auto-append `.memory/decisions.md`** — For every architectural choice made this session:
+
+    ```markdown
+    ## [YYYY-MM-DD] — [Decision Title]
+
+    **Context:** [why]
+    **Decision:** [what]
+    **Alternatives:** [what was rejected]
+    **Consequences:** [impact]
+    ```
+
+// turbo
+
+32. **Stage and commit** all changes with unified commit:
+
+    ```
+    feat|fix|chore(scope): description
+    ```
+
+33. **Show completion banner:**
+
+    ```
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    ✅ SESSION SYNCED
+    📝 Memory updated (.memory/ + .kamiflow/)
+    💾 Committed: [commit hash]
+    🔄 Next: agk memory sync push (if cross-PC)
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    ```
+
 ## Quick Reference: Mode Mapping
 
 | KamiFlow Phase     | AntiGravity Mode | AntiGravity Artifact |
@@ -200,9 +272,12 @@ Read these KamiFlow rules before executing (they are already loaded as global ru
 
 ## Related Workflows
 
-| Workflow     | When to Use                               |
-| ------------ | ----------------------------------------- |
-| `/quick-fix` | Small, obvious changes (🟢 Fast Track)    |
-| `/review`    | Code review before merge or after changes |
-| `/release`   | Version bump and changelog generation     |
-| `/sync`      | Update project context and unified commit |
+| Workflow      | When to Use                               |
+| ------------- | ----------------------------------------- |
+| `/develop`    | Non-KamiFlow projects — portable version  |
+| `/brainstorm` | Phase 0 — ideate before planning          |
+| `/quick-fix`  | Small, obvious changes (🟢 Fast Track)    |
+| `/debug`      | Structured debugging process              |
+| `/review`     | Code review before merge or after changes |
+| `/release`    | Version bump and changelog generation     |
+| `/sync`       | Update project context and unified commit |
