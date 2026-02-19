@@ -1,11 +1,13 @@
-# 🛡️ Antigravity Kit
+# 🛡️ @kamishino/antigravity-kit
 
 > AI Guard Rails for [Antigravity](https://antigravity.dev) — portable rules, workflows, and persistent memory for structured development.
 
-**Zero config. Zero dependencies. One command.**
+**Zero config. One command. Runs anywhere.**
 
 ```bash
-npx antigravity-kit init
+npx @kamishino/antigravity-kit init
+# or
+agk init
 ```
 
 ---
@@ -14,198 +16,205 @@ npx antigravity-kit init
 
 ```
 your-project/
-├── GEMINI.md                      # AI system instructions
+├── GEMINI.md                      # AI system prompt (loads all rules)
 ├── .gemini/
-│   ├── rules/                     # 5 AI behavior rules
-│   │   ├── anti-hallucination.md
-│   │   ├── validation-loop.md
-│   │   ├── reflection.md
-│   │   ├── error-recovery.md
-│   │   └── fast-track.md
-│   └── skills/                    # Core skills
-│       ├── memory-management/
-│       ├── systematic-debugging/
-│       ├── verification-before-completion/
-│       └── web-design-guidelines/
+│   └── rules/                     # 5 AI behavior guard rails
+│       ├── anti-hallucination.md
+│       ├── validation-loop.md
+│       ├── reflection.md
+│       ├── error-recovery.md
+│       └── fast-track.md
 ├── .agent/
-│   └── workflows/                 # 5 development workflows
-│       ├── develop.md
-│       ├── quick-fix.md
-│       ├── review.md
-│       ├── sync.md
-│       └── release.md
+│   └── workflows/                 # 12 slash-command workflows
+│       ├── develop.md             # Full idea-to-ship pipeline
+│       ├── kamiflow.md            # KamiFlow Sniper Model
+│       ├── quick-fix.md           # Fast track for small changes
+│       ├── brainstorm.md          # Phase 0 ideation
+│       ├── debug.md               # Structured debugging
+│       ├── review.md              # Code review
+│       ├── sync.md                # Session commit
+│       ├── release.md             # Version bump + changelog
+│       ├── wake.md                # Cross-PC context restore
+│       ├── compact.md             # Context window compression
+│       ├── checkpoint.md          # Mid-session save
+│       └── eval.md                # Self-assessment quality gate
 └── .memory/                       # Persistent context (4 files)
-    ├── context.md
-    ├── decisions.md
-    ├── patterns.md
-    └── anti-patterns.md
+    ├── context.md                 # Current project state
+    ├── decisions.md               # Append-only decision log
+    ├── patterns.md                # Code conventions
+    └── anti-patterns.md           # Mistakes to avoid
 ```
 
 ---
 
-## Features
+## `agk` CLI
 
-### 🧠 Persistent Memory
+After installing globally (`npm i -g @kamishino/antigravity-kit`), use the `agk` shorthand:
 
-AI remembers across sessions — no more repeating context.
+```bash
+agk                    # smart default: init or doctor
+agk init               # scaffold AI guard rails
+agk init -i            # interactive setup wizard
+agk status             # quick project overview
+agk doctor             # full health check
+agk upgrade            # update workflows + rules from templates
+agk hooks              # install git hooks (memory auto-sync)
+agk ci                 # generate GitHub Actions health check workflow
+agk info               # show install location, version, node info
+agk memory             # memory status (sizes, line counts, dates)
+agk memory show        # print all memory file contents
+agk memory clear       # reset memory to empty templates
+agk memory sync        # push .memory/ to private git repo
+agk memory sync setup <url>  # configure private remote
+agk memory sync pull   # pull .memory/ from remote (new PC)
+```
 
-| File               | Type          | Purpose                               |
-| :----------------- | :------------ | :------------------------------------ |
-| `context.md`       | Overwrite     | Current project state                 |
-| `decisions.md`     | Append-only   | Why things are the way they are       |
-| `patterns.md`      | Append/Update | Naming, structure, conventions        |
-| `anti-patterns.md` | Auto-append   | Mistakes learned from repeated errors |
+---
 
-Memory is **git-friendly** — commit it, share it with your team, clone it to another machine.
+## 12 Workflows
 
-### 🔄 5 Workflows
+Slash commands for [Antigravity IDE](https://antigravity.dev). All workflows auto-load session context at start and auto-save at end.
 
-Type these as slash commands in Antigravity:
+### Daily Workflow
 
-| Command      | Purpose                                        |
-| :----------- | :--------------------------------------------- |
-| `/develop`   | Full idea-to-ship pipeline with planning gates |
-| `/quick-fix` | Fast track for small, obvious changes          |
-| `/review`    | Code review with anti-pattern detection        |
-| `/sync`      | Update docs, memory, and unified commit        |
-| `/release`   | Version bump and changelog generation          |
+| Command       | Use When                                               |
+| :------------ | :----------------------------------------------------- |
+| `/develop`    | Building a new feature (auto-wake → build → auto-sync) |
+| `/quick-fix`  | Small obvious change, < 50 lines, 1 file               |
+| `/brainstorm` | Have a vague idea, need to clarify before planning     |
+| `/debug`      | Something is broken, need to find root cause           |
 
-**Intent triggers** — You can also say things naturally:
+### Session Management
 
-- _"Build a new login page"_ → triggers `/develop`
-- _"Fix the typo in header"_ → triggers `/quick-fix`
-- _"Review my changes"_ → triggers `/review`
-- _"Ship it"_ → triggers `/release`
+| Command       | Use When                                              |
+| :------------ | :---------------------------------------------------- |
+| `/wake`       | New PC, new session — restore context from `.memory/` |
+| `/checkpoint` | Before a risky change, mid-session save               |
+| `/compact`    | Session getting long, context window filling up       |
+| `/eval`       | Before shipping — self-assessment quality gate        |
 
-### 🛡️ 5 Guard Rails
+### Release + Collaboration
+
+| Command    | Use When                                        |
+| :--------- | :---------------------------------------------- |
+| `/review`  | Before merging — structured code review         |
+| `/sync`    | End of session — update memory + unified commit |
+| `/release` | Shipping — version bump, changelog, tag         |
+
+### Advanced
+
+| Command     | Use When                                                       |
+| :---------- | :------------------------------------------------------------- |
+| `/kamiflow` | KamiFlow projects — full Sniper Model with ROADMAP integration |
+
+---
+
+## Auto-Wake + Auto-Sync
+
+Every workflow (`/develop`, `/kamiflow`) automatically:
+
+**On start (Phase 0 — AUTO-WAKE):**
+
+```
+→ reads all 4 .memory/ files silently
+→ shows SESSION RESTORED banner with last task, done, in-progress, next
+```
+
+**On end (Phase 7 — AUTO-SYNC):**
+
+```
+→ writes .memory/context.md with current state
+→ appends decisions to .memory/decisions.md
+→ stages and commits everything
+→ shows SESSION SYNCED banner
+```
+
+No need to remember `/wake` or `/sync` — they run automatically.
+
+---
+
+## Cross-PC Memory Sync
+
+Keep `.memory/` private and synced across machines using a private git repo:
+
+```bash
+# One-time setup
+agk memory sync setup git@github.com:you/my-project-memory.git
+
+# After each session (push)
+agk memory sync
+
+# On a new PC (pull)
+agk memory sync pull
+```
+
+Uses `git subtree` — no separate clone needed.
+
+---
+
+## Persistent Memory
+
+| File               | Type          | Purpose                                         |
+| :----------------- | :------------ | :---------------------------------------------- |
+| `context.md`       | Overwrite     | Current project state (active work, next steps) |
+| `decisions.md`     | Append-only   | Why things are the way they are                 |
+| `patterns.md`      | Append/Update | Naming, structure, established conventions      |
+| `anti-patterns.md` | Auto-append   | Mistakes learned from repeated errors           |
+
+Memory is **git-friendly** — commit it, share it with your team, `git pull` on another machine.
+
+---
+
+## Guard Rails (5 Rules)
 
 | Rule                   | What It Prevents                                          |
 | :--------------------- | :-------------------------------------------------------- |
 | **Anti-Hallucination** | Ghost files, phantom functions, invented dependencies     |
 | **Validation Loop**    | Unverified code — enforces lint → test → traceability     |
 | **Reflection**         | Shipping without quality gate — forces pre-exit checklist |
-| **Error Recovery**     | Infinite loops — 3-level retry model with escalation      |
-| **Fast Track**         | Over-engineering — bypasses ceremony for small changes    |
-
-### 🔍 Smart Project Detection
-
-After scaffolding, the CLI detects your tech stack and recommends relevant skills:
-
-```
-🔍 Detected: TypeScript + Next.js + Tailwind CSS
-
-💡 Recommended skills (install via skills.sh):
-   npx skills add anthropics/courses/typescript-advanced-types
-   npx skills add anthropics/courses/next-best-practices
-   npx skills add anthropics/courses/tailwind-design-system
-```
-
-Supports 16+ project types: TypeScript, Python, Go, Rust, Next.js, Vite, Nuxt, Vue, Angular, Docker, GitHub Actions, Jest, Vitest, Prisma, Supabase, Tailwind CSS.
+| **Error Recovery**     | Infinite loops — 3-level retry with escalation            |
+| **Fast Track**         | Over-engineering small changes                            |
 
 ---
 
 ## Installation
 
-### Quick Start
+### Global CLI (recommended)
 
 ```bash
-npx antigravity-kit init
+npm install -g @kamishino/antigravity-kit
+agk init
 ```
 
-### Options
+### One-off (npx)
 
 ```bash
-# Standard install
-npx antigravity-kit init
-
-# Overwrite existing files
-npx antigravity-kit init --force
-
-# Include optional NeuralMemory (graph-based AI memory)
-npx antigravity-kit init --with-neuralmemory
+npx @kamishino/antigravity-kit init
 ```
 
-### With NeuralMemory (Optional)
-
-For projects that need graph-based semantic memory powered by Neo4j + Gemini:
+### Interactive setup
 
 ```bash
-npx antigravity-kit init --with-neuralmemory
-```
-
-This adds:
-
-- `.neuralmemory/mcp-config.json` — MCP server config template
-- `.neuralmemory/README.md` — Setup instructions
-- `.env` — API key placeholders (fill in later)
-
-> **Note:** NeuralMemory is optional. The project works perfectly with just `.memory/` (zero dependencies). NeuralMemory adds graph-based search and semantic memory on top.
-
----
-
-## How It Works
-
-### Memory Lifecycle
-
-```
-Session Start                      Session End
-     │                                  │
-     ▼                                  ▼
-Read .memory/context.md         Write .memory/context.md
-Read .memory/patterns.md        Append .memory/decisions.md
-Read .memory/anti-patterns.md   Update .memory/patterns.md
-     │                          Auto-append anti-patterns.md
-     ▼                                  │
-  [ Do Work ]  ──────────────────►  [ Commit ]
-```
-
-### Workflow Pipeline (`/develop`)
-
-```
-Context Lock → Diagnostic Interview → Options (A/B/C)
-    → Schema-First Spec → Legacy-Aware Plan
-    → Execute → Validate (lint/test) → Reflect
-    → Update Memory → Commit
-```
-
-### Self-Learning Loop
-
-```
-Error occurs → AI retries (max 3x) → If pattern repeats:
-    → Auto-appended to .memory/anti-patterns.md
-    → AI avoids same mistake in future sessions
+agk init -i   # choose which components to scaffold
 ```
 
 ---
 
 ## Philosophy
 
-| Principle         | What                                        |
-| :---------------- | :------------------------------------------ |
-| **Zero Friction** | One command, no config, no API keys         |
-| **Git-Native**    | Everything is markdown, commit & share      |
-| **AI-Agnostic**   | Works with any AI that reads markdown       |
-| **Memory-First**  | AI that forgets is AI that repeats mistakes |
-| **Opinionated**   | Best practices baked in, not suggested      |
-
----
-
-## Comparison
-
-|                        | antigravity-kit              | Raw AI | Other frameworks |
-| :--------------------- | :--------------------------- | :----- | :--------------- |
-| Memory across sessions | ✅ `.memory/`                | ❌     | Varies           |
-| Guard rails            | ✅ 5 rules                   | ❌     | Some             |
-| Self-learning          | ✅ Anti-patterns auto-update | ❌     | ❌               |
-| Setup time             | 30 seconds                   | 0      | 10-30 min        |
-| Dependencies           | Zero                         | —      | Python/Neo4j/MCP |
-| Cost                   | Free                         | —      | API calls        |
+| Principle           | What                                            |
+| :------------------ | :---------------------------------------------- |
+| **Zero Friction**   | One command, no config, no API keys             |
+| **Git-Native**      | Everything is markdown — commit, share, diff    |
+| **AI-Agnostic**     | Works with any AI that reads markdown           |
+| **Memory-First**    | AI that forgets is AI that repeats mistakes     |
+| **Auto by Default** | Wake and sync happen automatically, no ceremony |
 
 ---
 
 ## License
 
-MIT © [KamiFlow](https://github.com/kamishino)
+MIT © [kamishino](https://github.com/kamishino)
 
 ---
 
