@@ -1,5 +1,40 @@
 # Changelog — @kamishino/antigravity-kit
 
+## [v1.4.0] - 2026-02-19
+
+### ✨ Features
+
+- **feat(workflows):** Auto-wake + auto-sync in `/develop` and `/kamiflow`
+  - Phase 0 (AUTO-WAKE): reads all `.memory/` files silently, shows SESSION RESTORED banner
+  - Phase 7 (AUTO-SYNC): writes memory files + commits automatically, shows SESSION SYNCED banner
+  - All steps marked `// turbo` — runs without user intervention
+
+- **feat(workflows):** add `/compact` — context window compression
+  - Summarize → persist to `.memory/context.md` → continue fresh
+
+- **feat(workflows):** add `/checkpoint` — mid-session save
+  - Snapshot to `.memory/`, optional WIP commit, continues immediately
+
+- **feat(workflows):** add `/eval` — self-assessment quality gate
+  - Re-read spec vs implementation → score on 4 dimensions → self-correct or escalate
+
+### 📝 Documentation
+
+- **docs:** Full README rewrite for v1.4.0
+  - All 12 workflows documented with when-to-use tables
+  - Full `agk` CLI command reference (14 commands)
+  - Auto-wake/sync behavior explained
+  - Cross-PC memory sync guide
+
+### 📝 Technical Details
+
+**New workflow files:** 3 (`compact.md`, `checkpoint.md`, `eval.md`)  
+**Modified workflows:** 2 (`develop.md`, `kamiflow.md` — auto bookends)  
+**Breaking Changes:** None  
+**Workflow count:** 12
+
+---
+
 ## [v1.3.0] - 2026-02-19
 
 ### ✨ Features
