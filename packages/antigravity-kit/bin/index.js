@@ -15,7 +15,13 @@
  *   agk memory       → memory status
  *   agk memory show  → print all memory files
  *   agk memory clear → reset memory to templates
+ *   agk memory sync            → push .memory/ to private git repo
+ *   agk memory sync setup <url> → configure private remote
+ *   agk memory sync push       → push .memory/
+ *   agk memory sync pull       → pull .memory/ from remote
+ *   agk memory sync status     → show sync status
  *   agk info         → show install details
+ *   agk version      → show version
  *   agk --help       → show usage
  *   agk --version    → show version
  */
@@ -159,7 +165,8 @@ async function main() {
     }
 
     case "--version":
-    case "-v": {
+    case "-v":
+    case "version": {
       console.log(`agk v${version}`);
       process.exit(0);
       break;

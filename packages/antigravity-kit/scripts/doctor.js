@@ -43,6 +43,9 @@ async function run(projectDir) {
   // Check 3: Guard Rails
   results.push(await checkGuardRails(projectDir));
 
+  // Check 4: Memory Sync
+  results.push(await checkMemorySync(projectDir));
+
   // Display results
   displayResults(results);
 
@@ -311,6 +314,52 @@ function displayOverallHealth(health) {
   }
 
   console.log();
+}
+
+/**
+ * Check memory sync configuration
+ */
+async function checkMemorySync(projectDir) {
+  const result = {
+    category: "Memory Sync",
+    level: LEVEL.INFO,
+    message: "",
+    details: [],
+  };
+
+  try {
+    const configPath = path.join(projectDir, ".agent", "config.json");
+    const configExists = await fs.pathExists(configPath);
+
+    if (!configExists) {
+      result.level = LEVEL.INFO;
+      result.message = "Not configured (optional)";
+      result.details.push(
+        "Run `agk memory sync setup <repo-url>` to enable cross-PC memory sync",
+      );
+      return result;
+    }
+
+    const config = await fs.readJson(configPath);
+    const remote = config?.memory?.syncRemote;
+
+    if (remote) {
+      const lastSync = config?.memory?.lastSync;
+      result.level = LEVEL.OK;
+      result.message = `Remote configured${lastSync ? ` (last sync: ${lastSync.split("T")[0]})` : " (never synced)"}`;
+    } else {
+      result.level = LEVEL.INFO;
+      result.message = "Remote not configured (optional)";
+      result.details.push(
+        "Run `agk memory sync setup <repo-url>` to enable cross-PC memory sync",
+      );
+    }
+  } catch {
+    result.level = LEVEL.INFO;
+    result.message = "Not configured (optional)";
+  }
+
+  return result;
 }
 
 module.exports = { run };

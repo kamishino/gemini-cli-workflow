@@ -145,8 +145,7 @@ async function push(projectDir, remote) {
   }).start();
 
   try {
-    // Use git subtree push or a simple git bundle approach
-    // Strategy: treat .memory/ as files to push via git archive + push to remote
+    // Try standard subtree push first
     const result = spawnSync(
       "git",
       ["subtree", "push", "--prefix", MEMORY_DIR, remote, "main"],
@@ -159,16 +158,49 @@ async function push(projectDir, remote) {
       console.log(chalk.gray(`\n  Remote: ${remote}`));
       console.log(chalk.gray(`  Time:   ${new Date().toISOString()}\n`));
       return 0;
-    } else {
-      spinner.fail(chalk.red("Push failed"));
-      console.log(chalk.gray(result.stderr || result.stdout));
-      console.log(
-        chalk.gray(
-          "\n  Tip: First push may need: git subtree push --prefix .memory <remote> main --squash\n",
-        ),
-      );
-      return 1;
     }
+
+    // Detect first-run: subtree not initialized yet
+    const errOutput = result.stderr || result.stdout || "";
+    const isFirstRun =
+      errOutput.includes("ambiguous argument") ||
+      errOutput.includes("unknown revision") ||
+      errOutput.includes("Not a valid object name");
+
+    if (isFirstRun) {
+      spinner.text = "First push detected — initializing subtree...";
+
+      // First-time: attempt subtree add to initialize (result not checked — may fail on empty remote)
+      spawnSync(
+        "git",
+        ["subtree", "add", "--prefix", MEMORY_DIR, remote, "main", "--squash"],
+        { cwd: projectDir, encoding: "utf8", timeout: 30000 },
+      );
+
+      // addResult may fail if remote is empty — that's fine, just push directly
+      const pushResult = spawnSync(
+        "git",
+        ["subtree", "push", "--prefix", MEMORY_DIR, remote, "main", "--squash"],
+        { cwd: projectDir, encoding: "utf8", timeout: 30000 },
+      );
+
+      if (pushResult.status === 0) {
+        spinner.succeed(chalk.green("Memory pushed successfully (first sync)"));
+        await updateLastSync(projectDir);
+        console.log(chalk.gray(`\n  Remote: ${remote}`));
+        console.log(chalk.gray(`  Time:   ${new Date().toISOString()}\n`));
+        return 0;
+      }
+    }
+
+    spinner.fail(chalk.red("Push failed"));
+    console.log(chalk.gray(errOutput));
+    console.log(
+      chalk.gray(
+        "\n  Tip: Ensure the remote repo exists and you have push access.\n",
+      ),
+    );
+    return 1;
   } catch (err) {
     spinner.fail(chalk.red(`Push failed: ${err.message}`));
     return 1;

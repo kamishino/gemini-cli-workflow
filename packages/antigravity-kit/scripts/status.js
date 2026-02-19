@@ -22,14 +22,21 @@ async function run(projectDir) {
   console.log();
 
   // Gather all stats in parallel
-  const [workflows, memory, guardRails, hooksInstalled, lastMemoryUpdate] =
-    await Promise.all([
-      countWorkflows(projectDir),
-      countMemoryFiles(projectDir),
-      countGuardRails(projectDir),
-      checkHooksInstalled(projectDir),
-      getLastMemoryUpdate(projectDir),
-    ]);
+  const [
+    workflows,
+    memory,
+    guardRails,
+    hooksInstalled,
+    lastMemoryUpdate,
+    memorySyncRemote,
+  ] = await Promise.all([
+    countWorkflows(projectDir),
+    countMemoryFiles(projectDir),
+    countGuardRails(projectDir),
+    checkHooksInstalled(projectDir),
+    getLastMemoryUpdate(projectDir),
+    getMemorySyncRemote(projectDir),
+  ]);
 
   // Print status table
   printRow(
@@ -55,6 +62,12 @@ async function run(projectDir) {
     "Git Hooks",
     hooksInstalled ? "installed" : "not installed",
     hooksInstalled,
+  );
+
+  printRow(
+    "Mem Sync",
+    memorySyncRemote ? `configured` : "not configured (agk memory sync setup)",
+    !!memorySyncRemote,
   );
 
   console.log();
@@ -175,6 +188,16 @@ async function detectDogfooding(projectDir) {
     /* ignore */
   }
   return false;
+}
+
+async function getMemorySyncRemote(projectDir) {
+  try {
+    const configPath = path.join(projectDir, ".agent", "config.json");
+    const config = await fs.readJson(configPath);
+    return config?.memory?.syncRemote || null;
+  } catch {
+    return null;
+  }
 }
 
 module.exports = { run };
