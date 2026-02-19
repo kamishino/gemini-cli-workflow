@@ -271,6 +271,12 @@ async function checkGuardRails(projectDir) {
  */
 async function checkAgents(projectDir) {
   const agentsDir = path.join(projectDir, ".agent", "agents");
+  const {
+    parseAllAgents,
+    detectTriggerConflicts,
+    detectOwnershipOverlaps,
+  } = require("../lib/frontmatter");
+
   const result = {
     category: "Agents",
     level: LEVEL.OK,
@@ -297,53 +303,10 @@ async function checkAgents(projectDir) {
       return result;
     }
 
-    // Parse all agents' frontmatter
-    const agents = [];
-    for (const file of agentFiles) {
-      const content = await fs.readFile(path.join(agentsDir, file), "utf8");
-      const fm = parseFrontmatter(content);
-      if (fm) {
-        agents.push({ file, ...fm });
-      }
-    }
-
-    // Detect trigger keyword conflicts
-    const triggerMap = new Map(); // keyword → [agent files]
-    for (const agent of agents) {
-      if (agent.triggers) {
-        for (const trigger of agent.triggers) {
-          const key = trigger.toLowerCase().trim();
-          if (!triggerMap.has(key)) triggerMap.set(key, []);
-          triggerMap.get(key).push(agent.file);
-        }
-      }
-    }
-
-    const conflicts = [];
-    for (const [keyword, owners] of triggerMap) {
-      if (owners.length > 1) {
-        conflicts.push({ keyword, owners });
-      }
-    }
-
-    // Detect ownership overlaps
-    const ownsMap = new Map(); // path → [agent files]
-    for (const agent of agents) {
-      if (agent.owns) {
-        for (const owned of agent.owns) {
-          const key = owned.trim();
-          if (!ownsMap.has(key)) ownsMap.set(key, []);
-          ownsMap.get(key).push(agent.file);
-        }
-      }
-    }
-
-    const ownershipOverlaps = [];
-    for (const [filePath, owners] of ownsMap) {
-      if (owners.length > 1) {
-        ownershipOverlaps.push({ file: filePath, owners });
-      }
-    }
+    // Parse all agents using shared lib
+    const agents = await parseAllAgents(agentsDir);
+    const conflicts = detectTriggerConflicts(agents);
+    const ownershipOverlaps = detectOwnershipOverlaps(agents);
 
     // Build result
     result.message = `${agentFiles.length} agent(s) found`;
@@ -371,38 +334,6 @@ async function checkAgents(projectDir) {
   } catch (error) {
     result.level = LEVEL.ERROR;
     result.message = `Failed to check agents: ${error.message}`;
-  }
-
-  return result;
-}
-
-/**
- * Parse YAML frontmatter from a markdown file
- * Returns { triggers: string[], owns: string[] } or null
- */
-function parseFrontmatter(content) {
-  const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-  if (!match) return null;
-
-  const fm = match[1];
-  const result = { triggers: [], owns: [] };
-
-  // Parse triggers array
-  const triggersMatch = fm.match(/triggers:\s*\[([^\]]+)\]/s);
-  if (triggersMatch) {
-    result.triggers = triggersMatch[1]
-      .split(",")
-      .map((t) => t.trim())
-      .filter(Boolean);
-  }
-
-  // Parse owns array
-  const ownsSection = fm.match(/owns:\s*\n((?:\s+-\s+.+\n?)+)/);
-  if (ownsSection) {
-    result.owns = ownsSection[1]
-      .split("\n")
-      .map((l) => l.replace(/^\s*-\s*/, "").trim())
-      .filter(Boolean);
   }
 
   return result;

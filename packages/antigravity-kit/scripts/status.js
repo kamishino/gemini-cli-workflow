@@ -2,10 +2,18 @@
  * agk status — Quick project summary
  */
 
-const fs = require("fs-extra");
 const path = require("path");
 const chalk = require("chalk");
 const { version, name } = require("../package.json");
+const {
+  countWorkflows,
+  countAgents,
+  checkMemory,
+  checkGuardRails,
+  checkHooks,
+  getSyncRemote,
+  detectDogfooding,
+} = require("../lib/counts");
 
 async function run(projectDir) {
   // Detect dogfooding
@@ -27,16 +35,14 @@ async function run(projectDir) {
     memory,
     guardRails,
     hooksInstalled,
-    lastMemoryUpdate,
     memorySyncRemote,
     agents,
   ] = await Promise.all([
     countWorkflows(projectDir),
-    countMemoryFiles(projectDir),
-    countGuardRails(projectDir),
-    checkHooksInstalled(projectDir),
-    getLastMemoryUpdate(projectDir),
-    getMemorySyncRemote(projectDir),
+    checkMemory(projectDir),
+    checkGuardRails(projectDir),
+    checkHooks(projectDir),
+    getSyncRemote(projectDir),
     countAgents(projectDir),
   ]);
 
@@ -53,8 +59,8 @@ async function run(projectDir) {
   );
   printRow(
     "Memory",
-    memory.total > 0
-      ? `${memory.found}/${memory.total} files${lastMemoryUpdate ? ` — ${lastMemoryUpdate}` : ""}`
+    memory.found > 0
+      ? `${memory.found}/${memory.total} files${memory.freshness ? ` — ${memory.freshness}` : ""}`
       : "not initialized",
     memory.found === memory.total && memory.total > 0,
   );
@@ -78,11 +84,6 @@ async function run(projectDir) {
   );
 
   console.log();
-
-  if (lastMemoryUpdate) {
-    console.log(chalk.gray(`Last memory update: ${lastMemoryUpdate}`));
-  }
-
   console.log();
   return 0;
 }
@@ -91,143 +92,6 @@ function printRow(label, value, ok) {
   const icon = ok ? chalk.green("✅") : chalk.yellow("⚠️ ");
   const paddedLabel = label.padEnd(13);
   console.log(`  ${icon}  ${chalk.bold(paddedLabel)} ${chalk.gray(value)}`);
-}
-
-async function countWorkflows(projectDir) {
-  const dir = path.join(projectDir, ".agent", "workflows");
-  try {
-    if (!(await fs.pathExists(dir))) return { count: 0 };
-    const files = await fs.readdir(dir);
-    return { count: files.filter((f) => f.endsWith(".md")).length };
-  } catch {
-    return { count: 0 };
-  }
-}
-
-async function countMemoryFiles(projectDir) {
-  const dir = path.join(projectDir, ".memory");
-  const expected = [
-    "context.md",
-    "patterns.md",
-    "decisions.md",
-    "anti-patterns.md",
-  ];
-  try {
-    if (!(await fs.pathExists(dir))) return { found: 0, total: 4 };
-    const files = await fs.readdir(dir);
-    return {
-      found: expected.filter((f) => files.includes(f)).length,
-      total: 4,
-    };
-  } catch {
-    return { found: 0, total: 4 };
-  }
-}
-
-async function countGuardRails(projectDir) {
-  // .gemini/rules/ is SSOT for Antigravity
-  const candidates = [
-    { dir: path.join(projectDir, ".gemini", "rules"), label: ".gemini/rules" },
-    { dir: path.join(projectDir, ".agent", "rules"), label: ".agent/rules" },
-  ];
-  try {
-    for (const c of candidates) {
-      if (await fs.pathExists(c.dir)) {
-        const files = await fs.readdir(c.dir);
-        return {
-          count: files.filter((f) => f.endsWith(".md")).length,
-          location: c.label,
-        };
-      }
-    }
-  } catch {
-    /* ignore */
-  }
-  return { count: 0, location: null };
-}
-
-async function checkHooksInstalled(projectDir) {
-  const hookPath = path.join(projectDir, ".git", "hooks", "pre-commit");
-  try {
-    if (!(await fs.pathExists(hookPath))) return false;
-    const content = await fs.readFile(hookPath, "utf8");
-    return content.includes("sync-memory");
-  } catch {
-    return false;
-  }
-}
-
-async function getLastMemoryUpdate(projectDir) {
-  const decisionsPath = path.join(projectDir, ".memory", "decisions.md");
-  try {
-    if (!(await fs.pathExists(decisionsPath))) return null;
-    const stat = await fs.stat(decisionsPath);
-    const mtime = stat.mtime;
-    const now = new Date();
-    const diffMs = now - mtime;
-    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-    const diffMins = Math.floor(diffMs / (1000 * 60));
-
-    if (diffMins < 1) return "just now";
-    if (diffMins < 60) return `${diffMins}m ago`;
-    if (diffHours < 24) return `${diffHours}h ago`;
-    if (diffDays === 1) return "yesterday";
-    if (diffDays < 7) return `${diffDays} days ago`;
-    return mtime.toISOString().split("T")[0];
-  } catch {
-    return null;
-  }
-}
-
-async function countAgents(projectDir) {
-  const dir = path.join(projectDir, ".agent", "agents");
-  try {
-    if (!(await fs.pathExists(dir))) return { count: 0 };
-    const files = await fs.readdir(dir);
-    return { count: files.filter((f) => f.endsWith(".md")).length };
-  } catch {
-    return { count: 0 };
-  }
-}
-
-async function detectDogfooding(projectDir) {
-  try {
-    const pkgPath = path.join(
-      projectDir,
-      "packages",
-      "antigravity-kit",
-      "package.json",
-    );
-    if (await fs.pathExists(pkgPath)) {
-      const pkg = await fs.readJson(pkgPath);
-      return (
-        pkg.name === "@kamishino/antigravity-kit" ||
-        pkg.name === "antigravity-kit"
-      );
-    }
-    const localPkg = path.join(projectDir, "package.json");
-    if (await fs.pathExists(localPkg)) {
-      const pkg = await fs.readJson(localPkg);
-      return (
-        pkg.name === "@kamishino/antigravity-kit" ||
-        pkg.name === "antigravity-kit"
-      );
-    }
-  } catch {
-    /* ignore */
-  }
-  return false;
-}
-
-async function getMemorySyncRemote(projectDir) {
-  try {
-    const configPath = path.join(projectDir, ".agent", "config.json");
-    const config = await fs.readJson(configPath);
-    return config?.memory?.syncRemote || null;
-  } catch {
-    return null;
-  }
 }
 
 module.exports = { run };

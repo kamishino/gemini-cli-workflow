@@ -1,0 +1,40 @@
+name: AGK CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "packages/antigravity-kit/**"
+  pull_request:
+    branches: [main]
+    paths:
+      - "packages/antigravity-kit/**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        working-directory: packages/antigravity-kit
+        run: npm install
+
+      - name: Run tests
+        working-directory: packages/antigravity-kit
+        run: npm test
+
+      - name: Verify CLI commands
+        working-directory: .
+        run: |
+          node packages/antigravity-kit/bin/index.js --version
+          node packages/antigravity-kit/bin/index.js --help

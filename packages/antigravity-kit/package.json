@@ -16,11 +16,13 @@
   ],
   "files": [
     "bin/",
+    "lib/",
     "scripts/",
     "templates/",
     "README.md"
   ],
   "scripts": {
+    "test": "node --test test/*.test.js",
     "build": "node scripts/sync-templates.js",
     "prepublishOnly": "npm run build",
     "doctor": "node bin/doctor.js",
