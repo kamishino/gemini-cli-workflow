@@ -29,6 +29,7 @@ async function run(projectDir) {
     hooksInstalled,
     lastMemoryUpdate,
     memorySyncRemote,
+    agents,
   ] = await Promise.all([
     countWorkflows(projectDir),
     countMemoryFiles(projectDir),
@@ -36,6 +37,7 @@ async function run(projectDir) {
     checkHooksInstalled(projectDir),
     getLastMemoryUpdate(projectDir),
     getMemorySyncRemote(projectDir),
+    countAgents(projectDir),
   ]);
 
   // Print status table
@@ -45,9 +47,14 @@ async function run(projectDir) {
     workflows.count > 0,
   );
   printRow(
+    "Agents",
+    agents.count > 0 ? `${agents.count} installed` : "none (run agk upgrade)",
+    agents.count > 0,
+  );
+  printRow(
     "Memory",
     memory.total > 0
-      ? `${memory.found}/${memory.total} files`
+      ? `${memory.found}/${memory.total} files${lastMemoryUpdate ? ` — ${lastMemoryUpdate}` : ""}`
       : "not initialized",
     memory.found === memory.total && memory.total > 0,
   );
@@ -155,9 +162,32 @@ async function getLastMemoryUpdate(projectDir) {
   try {
     if (!(await fs.pathExists(decisionsPath))) return null;
     const stat = await fs.stat(decisionsPath);
-    return stat.mtime.toISOString().split("T")[0];
+    const mtime = stat.mtime;
+    const now = new Date();
+    const diffMs = now - mtime;
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+    const diffMins = Math.floor(diffMs / (1000 * 60));
+
+    if (diffMins < 1) return "just now";
+    if (diffMins < 60) return `${diffMins}m ago`;
+    if (diffHours < 24) return `${diffHours}h ago`;
+    if (diffDays === 1) return "yesterday";
+    if (diffDays < 7) return `${diffDays} days ago`;
+    return mtime.toISOString().split("T")[0];
   } catch {
     return null;
+  }
+}
+
+async function countAgents(projectDir) {
+  const dir = path.join(projectDir, ".agent", "agents");
+  try {
+    if (!(await fs.pathExists(dir))) return { count: 0 };
+    const files = await fs.readdir(dir);
+    return { count: files.filter((f) => f.endsWith(".md")).length };
+  } catch {
+    return { count: 0 };
   }
 }
 

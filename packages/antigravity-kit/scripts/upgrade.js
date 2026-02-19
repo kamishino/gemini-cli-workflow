@@ -18,6 +18,12 @@ const UPGRADE_TARGETS = [
     ext: ".md",
   },
   {
+    label: "Agents",
+    templateDir: "agents",
+    destDir: path.join(".agent", "agents"),
+    ext: ".md",
+  },
+  {
     label: "Rules",
     templateDir: "rules",
     destDir: path.join(".gemini", "rules"), // SSOT for Antigravity

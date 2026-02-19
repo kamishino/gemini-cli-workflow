@@ -7,7 +7,8 @@
  *   GEMINI.md           — AI system instructions
  *   .gemini/rules/      — 5 portable guard rails
  *   .gemini/skills/     — Core skills (memory-management, debugging, etc.)
- *   .agent/workflows/   — 5 development workflows
+ *   .agent/workflows/   — 12 development workflows
+ *   .agent/agents/      — 4 specialist agents (architect, reviewer, debugger, planner)
  *   .memory/            — 4 persistent context files
  *
  * Modes:
@@ -50,7 +51,14 @@ const TARGETS = [
   {
     src: "workflows",
     dest: path.join(".agent", "workflows"),
-    label: ".agent/workflows/ (5 development workflows)",
+    label: ".agent/workflows/ (12 development workflows)",
+    dir: true,
+  },
+  {
+    src: "agents",
+    dest: path.join(".agent", "agents"),
+    label:
+      ".agent/agents/ (4 specialist agents — architect, reviewer, debugger, planner)",
     dir: true,
   },
   {
@@ -337,6 +345,11 @@ async function main() {
   console.log(
     chalk.gray(
       "  • Use /develop, /quick-fix, /review, /sync, /release workflows",
+    ),
+  );
+  console.log(
+    chalk.gray(
+      "  • Agents auto-activate on keywords — /develop triggers planner, /debug triggers debugger",
     ),
   );
   if (recommendedSkills.length > 0) {
