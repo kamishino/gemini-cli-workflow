@@ -40,19 +40,32 @@ const UPGRADE_TARGETS = [
 ];
 
 async function run(projectDir) {
-  console.log(chalk.bold.cyan("\n⬆️  AGK Upgrade\n"));
-
   const forceAll = process.argv.includes("--force");
+  const verbose =
+    process.argv.includes("--verbose") || process.argv.includes("-v");
+  const dryRun = process.argv.includes("--dry-run");
+
+  if (dryRun) {
+    console.log(
+      chalk.bold.cyan("\n⬆️  AGK Upgrade") + chalk.yellow(" (dry-run)\n"),
+    );
+  } else {
+    console.log(chalk.bold.cyan("\n⬆️  AGK Upgrade\n"));
+  }
+
   let totalUpdated = 0;
   let totalSkipped = 0;
   let totalNew = 0;
+  const fileDetails = []; // for verbose/dry-run output
 
   for (const target of UPGRADE_TARGETS) {
-    const spinner = ora(`Checking ${target.label}...`).start();
+    const spinner = dryRun ? null : ora(`Checking ${target.label}...`).start();
 
     const templateDir = path.join(TEMPLATES_DIR, target.templateDir);
     if (!(await fs.pathExists(templateDir))) {
-      spinner.warn(`${target.label}: no templates found`);
+      if (spinner) spinner.warn(`${target.label}: no templates found`);
+      else
+        console.log(chalk.yellow(`  ⚠  ${target.label}: no templates found`));
       continue;
     }
 
@@ -66,7 +79,14 @@ async function run(projectDir) {
     }
 
     if (!(await fs.pathExists(destDir))) {
-      spinner.info(`${target.label}: not installed (run agk init first)`);
+      if (spinner)
+        spinner.info(`${target.label}: not installed (run agk init first)`);
+      else
+        console.log(
+          chalk.blue(
+            `  ℹ  ${target.label}: not installed (run agk init first)`,
+          ),
+        );
       continue;
     }
 
@@ -84,19 +104,49 @@ async function run(projectDir) {
       // Skip memory files — they contain user data
       if (target.skipIfExists && exists) {
         results.skipped++;
+        if (verbose || dryRun) {
+          fileDetails.push({
+            group: target.label,
+            file,
+            status: "protected",
+            color: chalk.gray,
+          });
+        }
         continue;
       }
 
       if (!exists) {
-        // New file — always install
-        await fs.copy(src, dest);
+        if (!dryRun) await fs.copy(src, dest);
         results.new++;
+        if (verbose || dryRun) {
+          fileDetails.push({
+            group: target.label,
+            file,
+            status: "new",
+            color: chalk.green,
+          });
+        }
       } else if (forceAll || (await isOutdated(src, dest))) {
-        // Outdated — update
-        await fs.copy(src, dest);
+        if (!dryRun) await fs.copy(src, dest);
         results.updated++;
+        if (verbose || dryRun) {
+          fileDetails.push({
+            group: target.label,
+            file,
+            status: "updated",
+            color: chalk.yellow,
+          });
+        }
       } else {
         results.skipped++;
+        if (verbose || dryRun) {
+          fileDetails.push({
+            group: target.label,
+            file,
+            status: "up-to-date",
+            color: chalk.gray,
+          });
+        }
       }
     }
 
@@ -111,29 +161,74 @@ async function run(projectDir) {
     if (results.skipped > 0)
       parts.push(chalk.gray(`${results.skipped} up-to-date`));
 
-    if (results.updated > 0 || results.new > 0) {
+    if (spinner) {
       spinner.succeed(`${target.label}: ${parts.join(", ")}`);
     } else {
-      spinner.succeed(`${target.label}: ${parts.join(", ")}`);
+      console.log(`  ✔  ${target.label}: ${parts.join(", ")}`);
+    }
+  }
+
+  // Verbose / dry-run: show per-file details
+  if ((verbose || dryRun) && fileDetails.length > 0) {
+    console.log();
+    let currentGroup = null;
+    for (const d of fileDetails) {
+      if (d.group !== currentGroup) {
+        currentGroup = d.group;
+        console.log(chalk.bold(`  ${currentGroup}:`));
+      }
+      const icon =
+        d.status === "new"
+          ? "✨"
+          : d.status === "updated"
+            ? "🔄"
+            : d.status === "protected"
+              ? "🔒"
+              : "⏭ ";
+      console.log(
+        `    ${icon}  ${d.color(d.file.padEnd(30))} ${d.color(d.status)}`,
+      );
     }
   }
 
   console.log();
 
-  if (totalUpdated === 0 && totalNew === 0) {
-    console.log(chalk.green("✅ Everything is up to date!"));
+  if (dryRun) {
+    if (totalUpdated === 0 && totalNew === 0) {
+      console.log(
+        chalk.green("✅ Everything is up to date — nothing to change."),
+      );
+    } else {
+      console.log(
+        chalk.yellow(`⚠️  Dry-run:`) +
+          chalk.gray(
+            ` ${totalNew} would be added, ${totalUpdated} would be updated, ${totalSkipped} unchanged`,
+          ),
+      );
+      console.log(chalk.gray("\n  Run `agk upgrade` to apply these changes."));
+    }
   } else {
+    if (totalUpdated === 0 && totalNew === 0) {
+      console.log(chalk.green("✅ Everything is up to date!"));
+    } else {
+      console.log(
+        chalk.green(`✅ Done!`) +
+          chalk.gray(
+            ` ${totalNew} new, ${totalUpdated} updated, ${totalSkipped} unchanged`,
+          ),
+      );
+    }
+  }
+
+  if (!forceAll && totalSkipped > 0 && !dryRun) {
     console.log(
-      chalk.green(`✅ Done!`) +
-        chalk.gray(
-          ` ${totalNew} new, ${totalUpdated} updated, ${totalSkipped} unchanged`,
-        ),
+      chalk.gray("\n  Tip: run `agk upgrade --force` to overwrite all files"),
     );
   }
 
-  if (!forceAll && totalSkipped > 0) {
+  if (!dryRun && !verbose) {
     console.log(
-      chalk.gray("\n  Tip: run `agk upgrade --force` to overwrite all files"),
+      chalk.gray("  Tip: run `agk upgrade --verbose` for per-file details"),
     );
   }
 

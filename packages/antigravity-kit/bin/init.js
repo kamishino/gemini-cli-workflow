@@ -336,33 +336,72 @@ async function main() {
     }
   }
 
-  // --- Phase 3: What's next ---
+  // --- Phase 3: Getting Started banner ---
 
-  console.log(chalk.gray("  What's next:"));
+  const B = chalk.gray;
+  const Y = chalk.yellow;
+  const C = chalk.cyan;
+
+  console.log(B("  ┌─────────────────────────────────────────────────┐"));
   console.log(
-    chalk.gray("  • Edit GEMINI.md to customize AI behavior for your project"),
+    B("  │") +
+      chalk.bold.green("  🚀 Antigravity Kit — Ready!") +
+      B("                      │"),
   );
   console.log(
-    chalk.gray(
-      "  • Use /develop, /quick-fix, /review, /sync, /release workflows",
-    ),
+    B("  │") + B("                                                 │"),
   );
   console.log(
-    chalk.gray(
-      "  • Agents auto-activate on keywords — /develop triggers planner, /debug triggers debugger",
-    ),
+    B("  │") + C("  Try these first:") + B("                               │"),
   );
+  console.log(
+    B("  │") + Y("    /develop   ") + B(" structured dev workflow          │"),
+  );
+  console.log(
+    B("  │") + Y("    /quick-fix ") + B(" fast track for small changes     │"),
+  );
+  console.log(
+    B("  │") + Y("    /debug     ") + B(" systematic debugging             │"),
+  );
+  console.log(
+    B("  │") + Y("    agk status ") + B(" check project health             │"),
+  );
+  console.log(
+    B("  │") + Y("    agk doctor ") + B(" full health check                │"),
+  );
+  console.log(
+    B("  │") + B("                                                 │"),
+  );
+
   if (recommendedSkills.length > 0) {
     console.log(
-      chalk.gray("  • Install recommended skills above for your tech stack"),
+      B("  │") +
+        C("  Recommended skills:") +
+        B("                            │"),
+    );
+    for (const skill of recommendedSkills.slice(0, 2)) {
+      const padded = `    npx skills add ${skill}`;
+      console.log(B("  │") + Y(padded.padEnd(49)) + B("│"));
+    }
+    console.log(
+      B("  │") + B("                                                 │"),
     );
   }
+
   if (withNeuralMemory) {
     console.log(
-      chalk.gray("  • Fill API keys in .env to activate NeuralMemory"),
+      B("  │") + C("  NeuralMemory:") + B(" fill API keys in .env           │"),
+    );
+    console.log(
+      B("  │") + B("                                                 │"),
     );
   }
-  console.log(chalk.gray("  • Run with --force to overwrite existing files\n"));
+
+  console.log(
+    B("  │") + B("  Tip: agk upgrade --force to update templates   │"),
+  );
+  console.log(B("  └─────────────────────────────────────────────────┘"));
+  console.log();
 }
 
 // --- NeuralMemory optional setup ---
