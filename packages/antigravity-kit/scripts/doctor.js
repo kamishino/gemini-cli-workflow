@@ -100,6 +100,7 @@ async function checkWorkflows(projectDir) {
     level: LEVEL.OK,
     message: "",
     details: [],
+    fix: null,
   };
 
   try {
@@ -108,6 +109,7 @@ async function checkWorkflows(projectDir) {
       result.level = LEVEL.ERROR;
       result.message = ".agent/workflows/ directory not found";
       result.details.push("Run `npx antigravity-kit init` to initialize");
+      result.fix = "agk init";
       return result;
     }
 
@@ -142,6 +144,7 @@ async function checkMemorySystem(projectDir) {
     level: LEVEL.OK,
     message: "",
     details: [],
+    fix: null,
   };
 
   const expectedFiles = [
@@ -157,6 +160,7 @@ async function checkMemorySystem(projectDir) {
       result.level = LEVEL.WARNING;
       result.message = ".memory/ directory not found";
       result.details.push("Memory system not initialized (optional)");
+      result.fix = "agk init";
       return result;
     }
 
@@ -201,6 +205,7 @@ async function checkGuardRails(projectDir) {
     level: LEVEL.OK,
     message: "",
     details: [],
+    fix: null,
   };
 
   const recommendedRules = [
@@ -226,6 +231,7 @@ async function checkGuardRails(projectDir) {
       result.message = "No guard rails directory found";
       result.details.push("Checked: .agent/rules/, .gemini/rules/");
       result.details.push("Guard rails not configured (optional)");
+      result.fix = "agk init";
       return result;
     }
 
@@ -265,6 +271,9 @@ function displayResults(results) {
     console.log(
       `${result.level.symbol} ${chalk.bold(result.category)}: ${result.level.color(result.message)}`,
     );
+    if (result.fix) {
+      console.log(chalk.yellow(`     Fix: ${result.fix}`));
+    }
     if (result.details.length > 0) {
       result.details.forEach((detail) => {
         console.log(chalk.gray(detail));
@@ -325,6 +334,7 @@ async function checkMemorySync(projectDir) {
     level: LEVEL.INFO,
     message: "",
     details: [],
+    fix: null,
   };
 
   try {
@@ -337,6 +347,7 @@ async function checkMemorySync(projectDir) {
       result.details.push(
         "Run `agk memory sync setup <repo-url>` to enable cross-PC memory sync",
       );
+      result.fix = "agk memory sync setup <repo-url>";
       return result;
     }
 

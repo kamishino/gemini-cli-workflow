@@ -81,16 +81,13 @@ ${chalk.bold("EXAMPLES")}
 async function main() {
   switch (command) {
     case undefined: {
-      // Smart default: init if not initialized, doctor if already set up
+      // Smart default: init if not initialized, dashboard if already set up
       // Check both .agent/ (workflows) and .gemini/ (rules) — either means initialized
       const hasAgent = await fs.pathExists(path.join(CWD, ".agent"));
       const hasGemini = await fs.pathExists(path.join(CWD, ".gemini", "rules"));
       if (hasAgent || hasGemini) {
-        console.log(
-          chalk.gray("💡 Project initialized — running health check...\n"),
-        );
-        const doctor = require("../scripts/doctor");
-        const code = await doctor.run(CWD);
+        const dashboard = require("../scripts/dashboard");
+        const code = await dashboard.run(CWD);
         process.exit(code);
       } else {
         console.log(chalk.gray("💡 No .agent/ found — running init...\n"));
