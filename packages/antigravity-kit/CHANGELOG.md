@@ -1,5 +1,52 @@
 # Changelog — @kamishino/antigravity-kit
 
+## [v1.5.0] - 2026-02-19
+
+### ✨ Features
+
+- **feat(agents):** 6-agent specialist system with keyword auto-triggers
+  - `architect.md` — architecture, design, refactor (owns decisions + patterns)
+  - `planner.md` — planning, roadmap, breakdown (owns context + decisions)
+  - `debugger.md` — bugs, errors, root cause analysis (owns anti-patterns)
+  - `reviewer.md` — code review, quality checks (owns anti-patterns)
+  - `writer.md` — docs, readme, changelog, jsdoc (owns README + CHANGELOG)
+  - `shipper.md` — release, deploy, publish, version (owns CHANGELOG + package.json)
+  - Each agent has `owns:` metadata for file ownership and `triggers:` for auto-activation
+  - `agk init` scaffolds `.agent/agents/` with all 6 templates
+  - `agk upgrade` keeps agent files up-to-date
+
+- **feat(dashboard):** Smart dashboard as `agk` default
+  - Running `agk` (no args) shows compact status + actionable next steps
+  - Shows workflows, agents, memory freshness, guard rails, hooks, sync status
+
+- **feat(cli):** `agk changelog` — view version history from terminal
+  - `agk changelog` (latest), `agk changelog N` (last N), `agk changelog --all`
+
+- **feat(cli):** `agk upgrade --verbose` — per-file status with icons
+  - ✨ new, 🔄 updated, 🔒 protected (memory), ⏭ up-to-date
+
+- **feat(cli):** `agk upgrade --dry-run` — preview changes without writing files
+
+- **feat(doctor):** Actionable fix commands — each issue shows `Fix: <command>`
+
+- **feat(doctor):** Agent health check — detects trigger keyword conflicts and ownership overlaps
+
+- **feat(init):** Boxed "Getting Started" welcome banner after initialization
+
+- **feat(status):** Memory freshness indicator — relative time ("3h ago", "yesterday")
+
+- **feat(status):** Agent count in status output
+
+### 📝 Technical Details
+
+**New files:** 4 (`dashboard.js`, `changelog.js`, `writer.md`, `shipper.md`)
+**Modified files:** 7 (`index.js`, `init.js`, `upgrade.js`, `status.js`, `doctor.js`, + 4 agent templates)
+**Agent count:** 6
+**CLI commands:** 16 (added `changelog`)
+**Breaking Changes:** None — `agk` default changed from `doctor` to `dashboard` (doctor still available via `agk doctor`)
+
+---
+
 ## [v1.4.0] - 2026-02-19
 
 ### ✨ Features
