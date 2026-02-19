@@ -1,5 +1,24 @@
 # Changelog — @kamishino/antigravity-kit
 
+## [v1.5.1] - 2026-02-19
+
+### 🏗️ Internal Quality
+
+- **refactor:** Extract shared helpers to `lib/counts.js` and `lib/frontmatter.js`
+  - Eliminated ~280 lines of duplication across `status.js`, `dashboard.js`, `doctor.js`
+  - Single source of truth for counting, memory checks, frontmatter parsing
+- **test:** 44 tests across 11 suites (all passing)
+  - Unit tests: frontmatter parsing, conflict detection, relativeTime, countMdFiles
+  - E2E tests: `agk init` scaffolding, `agk upgrade` (dry-run/verbose/memory protection)
+  - Doctor tests: health check flow, fix commands, trigger conflict detection
+- **ci:** GitHub Actions CI pipeline (`agk-ci.yml`)
+  - Tests on Node 18, 20, 22 for PRs and pushes
+- **ci:** Auto-publish to npm on tag push (`agk-publish.yml`)
+- **docs:** 3 Architecture Decision Records (ADRs)
+  - ADR-001: Memory system design (.memory/ flat files)
+  - ADR-002: Agent trigger architecture (keyword-based)
+  - ADR-003: Template-based upgrade strategy (safe-copy)
+
 ## [v1.5.0] - 2026-02-19
 
 ### ✨ Features
