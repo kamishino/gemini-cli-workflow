@@ -56,6 +56,9 @@ ${chalk.bold("USAGE")}
   ${chalk.yellow("agk memory sync")}      Push memory to private git repo
   ${chalk.yellow("agk memory sync pull")} Pull memory from private git repo
   ${chalk.yellow("agk changelog")}        Show version changelog
+  ${chalk.yellow("agk diff")}             Show template drift (modified/missing files)
+  ${chalk.yellow("agk suggest <query>")}  Suggest best agent for a task
+  ${chalk.yellow("agk suggest --git")}    Suggest agent from git changes
   ${chalk.yellow("agk info")}             Show install details
   ${chalk.yellow("agk --help")}           Show this help
   ${chalk.yellow("agk --version")}        Show version
@@ -134,8 +137,13 @@ async function main() {
     }
 
     case "memory": {
-      const memory = require("../scripts/memory");
       const subcommand = subArgs[0] || "status";
+      if (subcommand === "stats") {
+        const memoryStats = require("../scripts/memory-stats");
+        const code = await memoryStats.run(CWD);
+        process.exit(code);
+      }
+      const memory = require("../scripts/memory");
       const code = await memory.run(CWD, subcommand, subArgs.slice(1));
       process.exit(code);
       break;
@@ -158,6 +166,20 @@ async function main() {
     case "changelog": {
       const changelog = require("../scripts/changelog");
       const code = await changelog.run(CWD, subArgs);
+      process.exit(code);
+      break;
+    }
+
+    case "diff": {
+      const diff = require("../scripts/diff");
+      const code = await diff.run(CWD, subArgs);
+      process.exit(code);
+      break;
+    }
+
+    case "suggest": {
+      const suggest = require("../scripts/suggest");
+      const code = await suggest.run(CWD, subArgs);
       process.exit(code);
       break;
     }
