@@ -1,5 +1,37 @@
 # Changelog — @kamishino/antigravity-kit
 
+## [v1.7.0] - 2026-02-20
+
+### ✨ Features
+
+#### `agk scaffold` — Boilerplate Generator
+
+- **`agk scaffold agent <name> [desc]`**: Generate a new agent with YAML frontmatter, identity, rules, and behavior sections.
+- **`agk scaffold workflow <name> [desc]`**: Generate a new workflow with step structure.
+- **`agk scaffold rule <name> [desc]`**: Generate a new rule with Good/Bad examples.
+- Automatically slugifies names (e.g. `"Database Expert"` → `database-expert.md`).
+- Prevents accidental overwrites of existing files.
+
+#### `/scaffold` Workflow — AI-Powered Generation
+
+- New workflow shipped in AGK templates: run `/scaffold` in your IDE chat to have AI generate AND fill in the boilerplate automatically.
+- Chains `agk scaffold` CLI with AI content injection using project context from `.memory/`.
+
+#### Documentation Writer Agent
+
+- New agent template: `documentation-writer.md` — specialist in creating/updating README, CHANGELOG, ADRs, and all project docs.
+- Triggers: `readme`, `docs`, `documentation`, `changelog`, `adr`, `guide`, `tutorial`, `api-docs`.
+
+### 📝 Documentation
+
+- **ADR-004**: Centralized Brain architecture (symlink + git repo strategy)
+- **ADR-005**: Agent Runtime scoring engine (keyword matching vs LLM classification)
+- **ADR-006**: Scaffold Generator design (CLI boilerplate + /scaffold workflow)
+
+### 🐛 Bug Fixes
+
+- **hooks:** Fixed `agk hooks` ENOENT error — added missing `sync-memory.js` template and corrected file path in `install-hooks.js`.
+
 ## [v1.6.0] - 2026-02-20
 
 ### 🚀 Major Features
