@@ -59,6 +59,10 @@ ${chalk.bold("USAGE")}
   ${chalk.yellow("agk diff")}             Show template drift (modified/missing files)
   ${chalk.yellow("agk suggest <query>")}  Suggest best agent for a task
   ${chalk.yellow("agk suggest --git")}    Suggest agent from git changes
+  ${chalk.yellow("agk brain")}            Open Second Brain dashboard
+  ${chalk.yellow("agk brain setup")}      Configure central memory repo
+  ${chalk.yellow("agk brain link")}       Link current project memory to brain
+  ${chalk.yellow("agk brain sync")}       Commit and push brain to GitHub
   ${chalk.yellow("agk info")}             Show install details
   ${chalk.yellow("agk --help")}           Show this help
   ${chalk.yellow("agk --version")}        Show version
@@ -145,6 +149,13 @@ async function main() {
       }
       const memory = require("../scripts/memory");
       const code = await memory.run(CWD, subcommand, subArgs.slice(1));
+      process.exit(code);
+      break;
+    }
+
+    case "brain": {
+      const brain = require("../scripts/brain");
+      const code = await brain.run(CWD, subArgs);
       process.exit(code);
       break;
     }
