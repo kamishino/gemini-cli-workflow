@@ -1,8 +1,48 @@
 # Changelog — @kamishino/antigravity-kit
 
-## [v1.5.1] - 2026-02-19
+## [v1.6.0] - 2026-02-20
 
-### 🏗️ Internal Quality
+### 🚀 Major Features
+
+#### 1. AGK Second Brain (`agk brain`)
+
+A powerful new centralized memory management system for multi-device workflows (Option 3).
+
+- **`agk brain setup <path>`**: Initialize a central git repository for all project memories.
+- **`agk brain link`**: Move current project's `.memory/` to the brain and create a tracked symlink/junction.
+- **`agk brain` (status)**: A unified dashboard showing all linked projects, file sizes, and sync status.
+- **`agk brain sync`**: Auto-commit and push all brain changes to your private cloud repository.
+
+#### 2. Agent Intelligence (`agk suggest`)
+
+An intelligent agent recommendation engine based on context.
+
+- Run `agk suggest "my query"` to find the best agent based on keywords, descriptions, and file ownership.
+- Run `agk suggest` with no arguments to automatically analyze `git diff` and recommend agents for your uncommitted changes.
+
+#### 3. Template Drift Detection (`agk diff`)
+
+Monitor modifications to your installed AGK templates.
+
+- **`agk diff`**: Compares your local `.agent/`, `.gemini/` and `.memory/` templates against the AGK bundles via MD5 hashing.
+- Highlights files that are **identical**, **modified**, **missing**, or **custom**.
+- Supports `--json` output for CI/CD integration.
+
+#### 4. Memory Analytics (`agk memory stats`)
+
+Deep insights into your `.memory/` usage.
+
+- Shows total words, line counts, and last modified dates for all memory files.
+- Displays staleness warnings if memory context hasn't been updated recently.
+- Detects stray or extra files outside the standard memory specification.
+
+### 🐛 Bug Fixes
+
+- **hooks:** Fixed `agk hooks` throwing an ENOENT error due to an unreferenced `sync-memory.js` template.
+- **dashboard:** `agk status` now intelligently detects `.memory/` symlinks and renders a `🧠 linked to Brain` badge without throwing remote config errors.
+- **core:** Improved regex safety in agent trigger keyword matching.
+
+## [v1.5.1] - 2026-02-19
 
 - **refactor:** Extract shared helpers to `lib/counts.js` and `lib/frontmatter.js`
   - Eliminated ~280 lines of duplication across `status.js`, `dashboard.js`, `doctor.js`
