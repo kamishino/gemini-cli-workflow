@@ -285,3 +285,7 @@ $RECYCLE.BIN/
 .backup/
 # Local Project Config
 .kamirc.json
+
+# AGK Brain
+.memory/
+.memory

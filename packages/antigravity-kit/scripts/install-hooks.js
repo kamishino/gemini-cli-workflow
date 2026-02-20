@@ -26,13 +26,13 @@ async function run(projectDir = process.cwd()) {
     await fs.ensureDir(agentHooksDir);
 
     // Copy sync-memory.js to .agent/hooks/
-    const syncMemorySrc = path.join(__dirname, "sync-memory.js");
+    const templateDir = path.join(__dirname, "..", "templates", "hooks");
+    const syncMemorySrc = path.join(templateDir, "sync-memory.js");
     const syncMemoryDest = path.join(agentHooksDir, "sync-memory.js");
     await fs.copy(syncMemorySrc, syncMemoryDest);
     console.log(chalk.gray("  ✓ Copied sync-memory.js to .agent/hooks/"));
 
     // Copy pre-commit hook template
-    const templateDir = path.join(__dirname, "..", "templates", "hooks");
     const preCommitTemplate = path.join(templateDir, "pre-commit");
     const gitHooksDir = path.join(gitDir, "hooks");
     const preCommitDest = path.join(gitHooksDir, "pre-commit");
