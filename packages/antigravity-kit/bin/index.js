@@ -57,6 +57,7 @@ ${chalk.bold("USAGE")}
   ${chalk.yellow("agk memory sync pull")} Pull memory from private git repo
   ${chalk.yellow("agk changelog")}        Show version changelog
   ${chalk.yellow("agk diff")}             Show template drift (modified/missing files)
+  ${chalk.yellow("agk scaffold <type>")}  Generate agent/workflow boilerplate
   ${chalk.yellow("agk suggest <query>")}  Suggest best agent for a task
   ${chalk.yellow("agk suggest --git")}    Suggest agent from git changes
   ${chalk.yellow("agk brain")}            Open Second Brain dashboard
@@ -156,6 +157,13 @@ async function main() {
     case "brain": {
       const brain = require("../scripts/brain");
       const code = await brain.run(CWD, subArgs);
+      process.exit(code);
+      break;
+    }
+
+    case "scaffold": {
+      const scaffold = require("../scripts/scaffold");
+      const code = await scaffold.run(CWD, subArgs);
       process.exit(code);
       break;
     }
