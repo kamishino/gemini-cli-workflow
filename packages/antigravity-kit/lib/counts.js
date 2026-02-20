@@ -66,7 +66,17 @@ async function checkMemory(projectDir) {
       }
     }
 
-    return { found, total: MEMORY_FILES.length, freshness };
+    let isLinkedToBrain = false;
+    try {
+      const realMemoryPath = await fs.realpath(memoryDir);
+      if (realMemoryPath !== path.resolve(memoryDir)) {
+        isLinkedToBrain = true;
+      }
+    } catch (e) {
+      // ignore, likely directory does not exist or access denied
+    }
+
+    return { found, total: MEMORY_FILES.length, freshness, isLinkedToBrain };
   } catch {
     return { found: 0, total: MEMORY_FILES.length, freshness: null };
   }

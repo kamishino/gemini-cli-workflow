@@ -57,11 +57,16 @@ async function run(projectDir) {
     agents.count > 0 ? `${agents.count} installed` : "none (run agk upgrade)",
     agents.count > 0,
   );
-  printRow(
-    "Memory",
+  const memoryText =
     memory.found > 0
       ? `${memory.found}/${memory.total} files${memory.freshness ? ` — ${memory.freshness}` : ""}`
-      : "not initialized",
+      : "not initialized";
+
+  printRow(
+    "Memory",
+    memory.isLinkedToBrain
+      ? `${memoryText}  ${chalk.green("🧠 linked to Brain")}`
+      : memoryText,
     memory.found === memory.total && memory.total > 0,
   );
   printRow(
@@ -77,11 +82,18 @@ async function run(projectDir) {
     hooksInstalled,
   );
 
-  printRow(
-    "Mem Sync",
-    memorySyncRemote ? `configured` : "not configured (agk memory sync setup)",
-    !!memorySyncRemote,
-  );
+  let memSyncMsg = "not configured (agk memory sync setup)";
+  let isMemSyncOk = false;
+
+  if (memorySyncRemote) {
+    memSyncMsg = "configured (local)";
+    isMemSyncOk = true;
+  } else if (memory.isLinkedToBrain) {
+    memSyncMsg = "managed by AGK Brain";
+    isMemSyncOk = true;
+  }
+
+  printRow("Mem Sync", memSyncMsg, isMemSyncOk);
 
   console.log();
   console.log();
