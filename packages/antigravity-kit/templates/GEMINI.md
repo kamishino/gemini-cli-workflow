@@ -33,6 +33,21 @@ Available via slash commands in Antigravity:
 | `/review`    | Structured code review with anti-pattern detection             |
 | `/sync`      | Update project docs and create unified commit                  |
 | `/release`   | Version bump, changelog generation, release commit             |
+| `/scaffold`  | Generate boilerplate and let AI fill in the details            |
+
+## 🤖 Agent Auto-Dispatch
+
+When the user sends a message, silently check the **Agent Registry** below. If any agent's triggers match keywords in the user's message, adopt that agent's Identity, Rules, and Behavior from its file — without requiring an explicit `@mention`.
+
+If multiple agents match, prefer the one with the most trigger matches. If no agent matches, respond as your default self.
+
+<!-- AGK_AGENT_REGISTRY_START -->
+
+| Agent                                        | Triggers | File |
+| :------------------------------------------- | :------- | :--- |
+| _Run `agk agents` to populate this registry_ |          |      |
+
+<!-- AGK_AGENT_REGISTRY_END -->
 
 ## 🛑 Anti-Patterns
 

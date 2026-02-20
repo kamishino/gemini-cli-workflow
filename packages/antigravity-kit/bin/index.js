@@ -161,6 +161,13 @@ async function main() {
       break;
     }
 
+    case "agents": {
+      const agents = require("../scripts/agents");
+      const code = await agents.run(CWD);
+      process.exit(code);
+      break;
+    }
+
     case "scaffold": {
       const scaffold = require("../scripts/scaffold");
       const code = await scaffold.run(CWD, subArgs);
