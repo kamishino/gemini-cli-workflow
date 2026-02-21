@@ -161,6 +161,13 @@ async function main() {
       break;
     }
 
+    case "skills": {
+      const skills = require("../scripts/skills");
+      const code = await skills.run(CWD, subArgs);
+      process.exit(code);
+      break;
+    }
+
     case "agents": {
       const agents = require("../scripts/agents");
       const code = await agents.run(CWD);

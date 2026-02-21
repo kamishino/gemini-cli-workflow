@@ -326,11 +326,11 @@ async function main() {
     if (recommendedSkills.length > 0) {
       console.log(
         chalk.bold("  💡 Recommended skills ") +
-          chalk.gray("(install via skills.sh):") +
+          chalk.gray("(from skills.sh):") +
           "\n",
       );
       for (const skill of recommendedSkills) {
-        console.log(chalk.yellow(`     npx skills add ${skill}`));
+        console.log(chalk.yellow(`     agk skills add ${skill}`));
       }
       console.log();
     }

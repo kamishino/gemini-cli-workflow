@@ -23,6 +23,7 @@ name: ${name}
 description: ${desc}
 triggers: []
 owns: []
+skills: []
 ---
 
 # Identity
