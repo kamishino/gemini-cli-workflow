@@ -25,19 +25,22 @@ your-project/
 │       ├── error-recovery.md
 │       └── fast-track.md
 ├── .agent/
-│   └── workflows/                 # 12 slash-command workflows
-│       ├── develop.md             # Full idea-to-ship pipeline
-│       ├── kamiflow.md            # KamiFlow Sniper Model
-│       ├── quick-fix.md           # Fast track for small changes
-│       ├── brainstorm.md          # Phase 0 ideation
-│       ├── debug.md               # Structured debugging
-│       ├── review.md              # Code review
-│       ├── sync.md                # Session commit
-│       ├── release.md             # Version bump + changelog
-│       ├── wake.md                # Cross-PC context restore
-│       ├── compact.md             # Context window compression
-│       ├── checkpoint.md          # Mid-session save
-│       └── eval.md                # Self-assessment quality gate
+│   ├── agents/                    # 7 specialist AI agents
+│   │   ├── architect.md
+│   │   ├── debugger.md
+│   │   ├── documentation-writer.md
+│   │   ├── planner.md
+│   │   ├── reviewer.md
+│   │   ├── shipper.md
+│   │   └── writer.md
+│   ├── workflows/                 # 13 slash-command workflows
+│   │   ├── develop.md             # Full idea-to-ship pipeline
+│   │   ├── scaffold.md            # AI boilerplate generator
+│   │   ├── quick-fix.md           # Fast track for small changes
+│   │   └── ... (10 more)
+│   └── skills/                    # Installed skills from skills.sh
+│       └── nextjs-best-practices/
+│           └── SKILL.md
 └── .memory/                       # Persistent context (4 files)
     ├── context.md                 # Current project state
     ├── decisions.md               # Append-only decision log
@@ -59,19 +62,28 @@ agk status             # quick project overview
 agk doctor             # full health check
 agk upgrade            # update workflows + rules from templates
 agk hooks              # install git hooks (memory auto-sync)
-agk ci                 # generate GitHub Actions health check workflow
-agk info               # show install location, version, node info
-agk memory             # memory status (sizes, line counts, dates)
-agk memory show        # print all memory file contents
-agk memory clear       # reset memory to empty templates
+agk ci                 # generate GitHub Actions health check
+agk scaffold agent <n> # generate agent boilerplate
+agk scaffold workflow <n>  # generate workflow boilerplate
+agk agents             # register agents in GEMINI.md for Auto-Dispatch
+agk skills add <name>  # install skills from skills.sh
+agk skills list        # list installed skills
+agk suggest <query>    # find the best agent for a task
+agk suggest            # suggest agent from git diff
+agk diff               # detect modified/missing templates
+agk brain              # Second Brain dashboard
+agk brain setup <path> # configure central memory repo
+agk brain link         # link project memory to brain
+agk brain sync         # commit and push brain to GitHub
+agk memory             # memory status
+agk memory show        # print all memory files
 agk memory sync        # push .memory/ to private git repo
-agk memory sync setup <url>  # configure private remote
-agk memory sync pull   # pull .memory/ from remote (new PC)
+agk info               # show install location + version
 ```
 
 ---
 
-## 12 Workflows
+## 13 Workflows
 
 Slash commands for [Antigravity IDE](https://antigravity.dev). All workflows auto-load session context at start and auto-save at end.
 
@@ -106,49 +118,64 @@ Slash commands for [Antigravity IDE](https://antigravity.dev). All workflows aut
 | Command     | Use When                                                       |
 | :---------- | :------------------------------------------------------------- |
 | `/kamiflow` | KamiFlow projects — full Sniper Model with ROADMAP integration |
+| `/scaffold` | Generate boilerplate for agents, workflows, or rules           |
 
 ---
 
-## Auto-Wake + Auto-Sync
+## 7 AI Agents + Auto-Dispatch
 
-Every workflow (`/develop`, `/kamiflow`) automatically:
+AGK ships 7 specialist AI agents that automatically activate based on keywords in your message:
 
-**On start (Phase 0 — AUTO-WAKE):**
+| Agent                    | Triggers (examples)                       |
+| :----------------------- | :---------------------------------------- |
+| **Architect**            | `architecture`, `design`, `refactor`      |
+| **Debugger**             | `bug`, `error`, `crash`, `fix`            |
+| **Documentation Writer** | `readme`, `docs`, `changelog`, `adr`      |
+| **Planner**              | `plan`, `roadmap`, `sprint`, `backlog`    |
+| **Reviewer**             | `review`, `PR`, `code quality`, `SOLID`   |
+| **Shipper**              | `release`, `deploy`, `publish`, `version` |
+| **Writer**               | `docs`, `tutorial`, `guide`, `jsdoc`      |
 
-```
-→ reads all 4 .memory/ files silently
-→ shows SESSION RESTORED banner with last task, done, in-progress, next
-```
-
-**On end (Phase 7 — AUTO-SYNC):**
-
-```
-→ writes .memory/context.md with current state
-→ appends decisions to .memory/decisions.md
-→ stages and commits everything
-→ shows SESSION SYNCED banner
-```
-
-No need to remember `/wake` or `/sync` — they run automatically.
+Run `agk agents` to register all agents in `GEMINI.md`. Auto-Dispatch means the AI will adopt the right agent role without `@mention`.
 
 ---
 
-## Cross-PC Memory Sync
+## Skills (from skills.sh)
 
-Keep `.memory/` private and synced across machines using a private git repo:
+Install community skills to give your agents deep knowledge:
+
+```bash
+# Install a skill
+agk skills add nextjs-best-practices
+
+# List installed skills
+agk skills list
+
+# Link skills to agents (in agent frontmatter)
+skills: ["nextjs-best-practices"]
+```
+
+Browse 150+ skills at [skills.sh](https://skills.sh/).
+
+---
+
+## Second Brain (Cross-PC Memory)
+
+Centralize `.memory/` from all your projects into one git repo:
 
 ```bash
 # One-time setup
-agk memory sync setup git@github.com:you/my-project-memory.git
+agk brain setup ~/second-brain
 
-# After each session (push)
-agk memory sync
+# Link current project
+agk brain link
 
-# On a new PC (pull)
-agk memory sync pull
+# Dashboard: see all linked projects
+agk brain
+
+# Sync to GitHub
+agk brain sync
 ```
-
-Uses `git subtree` — no separate clone needed.
 
 ---
 
