@@ -25,10 +25,16 @@
     "test": "node --test test/*.test.js",
     "build": "node scripts/sync-templates.js",
     "prepublishOnly": "npm run build",
-    "doctor": "node bin/doctor.js",
-    "install-hooks": "node scripts/install-hooks.js",
     "link": "npm link",
-    "unlink": "npm unlink"
+    "unlink": "npm unlink",
+    "agk:init": "agk init",
+    "agk:status": "agk status",
+    "agk:doctor": "agk doctor",
+    "agk:upgrade": "agk upgrade",
+    "agk:hooks": "agk hooks",
+    "agk:agents": "agk agents",
+    "agk:diff": "agk diff",
+    "agk:brain": "agk brain"
   },
   "engines": {
     "node": ">=16.0.0"
