@@ -66,6 +66,7 @@ ${chalk.bold("USAGE")}
   ${chalk.yellow("agk brain setup")}       Configure central memory repo
   ${chalk.yellow("agk brain link")}        Link current project memory to brain
   ${chalk.yellow("agk brain sync")}        Commit and push brain to GitHub
+  ${chalk.yellow("agk brain pull")}        Pull brain from GitHub (new PC)
   ${chalk.yellow("agk info")}              Show install details
   ${chalk.yellow("agk help")}              Show this help
   ${chalk.yellow("agk --version")}         Show version

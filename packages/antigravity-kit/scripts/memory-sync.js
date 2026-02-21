@@ -19,6 +19,20 @@ const CONFIG_FILE = ".agent/config.json";
 const MEMORY_DIR = ".memory";
 
 async function run(projectDir, subcommand = "auto") {
+  // Check if .memory/ is linked to a brain — if so, redirect to brain sync
+  const memoryDir = path.join(projectDir, MEMORY_DIR);
+  try {
+    const stat = await fs.lstat(memoryDir);
+    if (stat.isSymbolicLink()) {
+      console.log(chalk.cyan("\n🧠 Memory is managed by AGK Brain."));
+      console.log(chalk.gray("   Redirecting to: agk brain sync\n"));
+      const brain = require("./brain");
+      return await brain.run(projectDir, ["sync"]);
+    }
+  } catch {
+    // .memory/ doesn't exist — continue normally
+  }
+
   const configPath = path.join(projectDir, CONFIG_FILE);
   const config = await loadConfig(configPath);
   const remote = config?.memory?.syncRemote;

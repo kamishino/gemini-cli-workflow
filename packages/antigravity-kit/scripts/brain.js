@@ -25,6 +25,10 @@ async function run(projectDir, subArgs = []) {
     return await setup(subArgs[1]);
   }
 
+  if (subcommand === "pull") {
+    return await pull(projectDir, brainPath, subArgs[1]);
+  }
+
   // All other commands require brainPath to be set
   if (!brainPath || !(await fs.pathExists(brainPath))) {
     console.log(
@@ -332,4 +336,90 @@ async function sync(brainPath) {
   }
 }
 
-module.exports = { run };
+// --- Pull ---
+async function pull(projectDir, existingBrainPath, remoteUrl) {
+  console.log(chalk.bold.cyan("\n🧠 AGK Brain Pull\n"));
+  const spinner = ora("Pulling brain repository...").start();
+
+  try {
+    if (existingBrainPath && (await fs.pathExists(existingBrainPath))) {
+      // Brain repo exists locally — just git pull
+      spinner.text = "Pulling latest changes...";
+      try {
+        execSync("git pull --rebase origin main", {
+          cwd: existingBrainPath,
+          stdio: "ignore",
+        });
+      } catch {
+        try {
+          execSync("git pull --rebase origin master", {
+            cwd: existingBrainPath,
+            stdio: "ignore",
+          });
+        } catch {
+          // No remote yet, that's OK
+        }
+      }
+      spinner.succeed(chalk.green("Brain updated!"));
+    } else if (remoteUrl) {
+      // No local brain — clone from remote URL
+      const defaultPath = path.join(require("os").homedir(), "agk-brain");
+      spinner.text = `Cloning brain to ${defaultPath}...`;
+      execSync(`git clone ${remoteUrl} "${defaultPath}"`, { stdio: "ignore" });
+      await setGlobalConfig({ brainPath: defaultPath });
+      spinner.succeed(chalk.green(`Brain cloned to ${defaultPath}`));
+    } else {
+      spinner.fail(
+        chalk.red("No brain configured and no remote URL provided."),
+      );
+      console.log(chalk.gray("\n  Usage: agk brain pull <git-remote-url>\n"));
+      return 1;
+    }
+
+    // Re-link the current project if a project dir exists in the brain
+    const config = await getGlobalConfig();
+    const brainPath = config.brainPath;
+    if (brainPath) {
+      const projectName = path.basename(projectDir);
+      const brainProjectDir = path.join(brainPath, projectName);
+      const memoryDir = path.join(projectDir, ".memory");
+
+      if (
+        (await fs.pathExists(brainProjectDir)) &&
+        !(await isLinked(memoryDir))
+      ) {
+        spinner.start("Re-linking .memory/ to brain...");
+        // Remove existing .memory/ and create junction
+        if (await fs.pathExists(memoryDir)) {
+          await fs.remove(memoryDir);
+        }
+        if (process.platform === "win32") {
+          execSync(`cmd /c mklink /J "${memoryDir}" "${brainProjectDir}"`, {
+            stdio: "ignore",
+          });
+        } else {
+          await fs.ensureSymlink(brainProjectDir, memoryDir);
+        }
+        spinner.succeed(chalk.green("Re-linked .memory/ → brain"));
+      }
+    }
+
+    console.log();
+    return 0;
+  } catch (err) {
+    spinner.fail(chalk.red("Pull failed"));
+    console.log(chalk.gray(`  Error: ${err.message}\n`));
+    return 1;
+  }
+}
+
+async function isLinked(filepath) {
+  try {
+    const stat = await fs.lstat(filepath);
+    return stat.isSymbolicLink() || stat.isDirectory();
+  } catch {
+    return false;
+  }
+}
+
+module.exports = { run, isLinked };
