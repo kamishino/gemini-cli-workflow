@@ -1,5 +1,23 @@
 # Changelog — @kamishino/antigravity-kit
 
+## [v1.8.0] - 2026-02-21
+
+### ✨ Features
+
+#### Agent Auto-Dispatch (`agk agents`)
+
+- New CLI command: `agk agents` scans `.agent/agents/*.md`, reads YAML frontmatter, and injects an **Agent Registry** table into `GEMINI.md`.
+- AI assistants now automatically adopt the correct agent role based on trigger keywords in the user's message — no `@mention` required.
+- `GEMINI.md` template updated with Auto-Dispatch instructions and `<!-- AGK_AGENT_REGISTRY -->` markers.
+
+#### Zero-Config Agent Setup
+
+- `agk init` now automatically runs `agk agents` after scaffolding, so GEMINI.md ships with a fully populated Agent Registry out of the box.
+
+### 🔧 Improvements
+
+- Updated npm scripts in `package.json` with `agk:*` shortcuts for all major CLI commands.
+
 ## [v1.7.0] - 2026-02-20
 
 ### ✨ Features
