@@ -1,5 +1,21 @@
 # Changelog — @kamishino/antigravity-kit
 
+## [v1.9.0] - 2026-02-21
+
+### ✨ Features
+
+#### `agk skills` — Community Skills Integration
+
+- **`agk skills add <name>`**: Install skills from [skills.sh](https://skills.sh/) — wraps `npx skills add` under the hood.
+- **`agk skills list`**: Show installed skills with descriptions and Agent→Skill links.
+- Agents can now declare `skills: ["nextjs-best-practices"]` in frontmatter for explicit linkage.
+- `agk init` now suggests `agk skills add` (not `npx skills add`) for detected tech stacks.
+
+### 📝 Documentation
+
+- **README.md**: Major update — added Agents + Auto-Dispatch, Skills, Second Brain, Scaffold sections. Updated file tree and CLI command reference.
+- **ADR-007**: Documents hybrid skill discovery strategy (explicit + auto-detect + fallback).
+
 ## [v1.8.0] - 2026-02-21
 
 ### ✨ Features
