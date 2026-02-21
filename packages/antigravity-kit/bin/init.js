@@ -336,6 +336,14 @@ async function main() {
     }
   }
 
+  // --- Phase 2.5: Auto-register agents in GEMINI.md ---
+  try {
+    const agents = require("../scripts/agents");
+    await agents.run(CWD);
+  } catch (_e) {
+    // Non-fatal: agent registration is a nice-to-have
+  }
+
   // --- Phase 3: Getting Started banner ---
 
   const B = chalk.gray;
