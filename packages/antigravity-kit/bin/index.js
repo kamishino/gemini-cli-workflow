@@ -56,17 +56,19 @@ ${chalk.bold("USAGE")}
   ${chalk.yellow("agk memory sync")}      Push memory to private git repo
   ${chalk.yellow("agk memory sync pull")} Pull memory from private git repo
   ${chalk.yellow("agk changelog")}        Show version changelog
-  ${chalk.yellow("agk diff")}             Show template drift (modified/missing files)
-  ${chalk.yellow("agk scaffold <type>")}  Generate agent/workflow boilerplate
-  ${chalk.yellow("agk suggest <query>")}  Suggest best agent for a task
-  ${chalk.yellow("agk suggest --git")}    Suggest agent from git changes
-  ${chalk.yellow("agk brain")}            Open Second Brain dashboard
-  ${chalk.yellow("agk brain setup")}      Configure central memory repo
-  ${chalk.yellow("agk brain link")}       Link current project memory to brain
-  ${chalk.yellow("agk brain sync")}       Commit and push brain to GitHub
-  ${chalk.yellow("agk info")}             Show install details
-  ${chalk.yellow("agk --help")}           Show this help
-  ${chalk.yellow("agk --version")}        Show version
+  ${chalk.yellow("agk scaffold <type>")}  Generate agent/workflow/rule boilerplate
+  ${chalk.yellow("agk agents")}            Register agents in GEMINI.md (Auto-Dispatch)
+  ${chalk.yellow("agk skills add <n>")}    Install skills from skills.sh
+  ${chalk.yellow("agk skills list")}       List installed skills
+  ${chalk.yellow("agk suggest <query>")}   Suggest best agent for a task
+  ${chalk.yellow("agk suggest --git")}     Suggest agent from git changes
+  ${chalk.yellow("agk brain")}             Open Second Brain dashboard
+  ${chalk.yellow("agk brain setup")}       Configure central memory repo
+  ${chalk.yellow("agk brain link")}        Link current project memory to brain
+  ${chalk.yellow("agk brain sync")}        Commit and push brain to GitHub
+  ${chalk.yellow("agk info")}              Show install details
+  ${chalk.yellow("agk help")}              Show this help
+  ${chalk.yellow("agk --version")}         Show version
 
 ${chalk.bold("EXAMPLES")}
   ${chalk.gray("# First time setup")}
@@ -89,6 +91,14 @@ ${chalk.bold("EXAMPLES")}
 // --- Main (async to support smart default) ---
 async function main() {
   switch (command) {
+    case "help":
+    case "--help":
+    case "-h": {
+      showHelp();
+      process.exit(0);
+      break;
+    }
+
     case undefined: {
       // Smart default: init if not initialized, dashboard if already set up
       // Check both .agent/ (workflows) and .gemini/ (rules) — either means initialized
@@ -214,13 +224,6 @@ async function main() {
       const suggest = require("../scripts/suggest");
       const code = await suggest.run(CWD, subArgs);
       process.exit(code);
-      break;
-    }
-
-    case "--help":
-    case "-h": {
-      showHelp();
-      process.exit(0);
       break;
     }
 
