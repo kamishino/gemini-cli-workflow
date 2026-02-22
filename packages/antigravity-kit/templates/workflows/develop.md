@@ -130,13 +130,23 @@ Transform a raw idea into deployed code through a rigorous, phase-based pipeline
 
 ## Phase 5: Validate — _VERIFICATION mode_
 
+> **Critical:** Never mark a task done without running tests first.
+
 // turbo
 
 14. **Phase A — Syntax (BLOCKING):** Lint, type check, compile.
+    - Node.js: `npm run lint` or `npx tsc --noEmit`
+    - Python: `ruff check .` or `flake8`
 
 // turbo
 
-15. **Phase B — Functional (BLOCKING):** Run unit/integration/smoke tests.
+15. **Phase B — Functional (BLOCKING):** Run tests and verify output.
+    - Auto-detect and run the project's test command:
+      - `node --test` (Node.js native)
+      - `npm test` (Jest/Vitest)
+      - `pytest -v` (Python)
+    - If tests fail → read error → fix → re-run (max 3 retries)
+    - If tests pass → show count: "✅ X/X tests pass"
 
 16. **Phase C — Traceability:** Verify requirements from Phase 2 are covered.
 
