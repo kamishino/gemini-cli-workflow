@@ -20,6 +20,7 @@ const fs = require("fs-extra");
 const path = require("path");
 const chalk = require("chalk");
 const ora = require("ora");
+const { execSync } = require("child_process");
 
 const TEMPLATES_DIR = path.join(__dirname, "..", "templates");
 const CWD = process.cwd();
@@ -312,9 +313,9 @@ async function main() {
     );
   }
 
-  // --- Phase 2: Detect project & recommend skills ---
+  // --- Phase 2: Smart Skill Discovery & Auto-Install ---
 
-  const { detectedTypes, recommendedSkills } = detectProject(CWD);
+  const { detectedTypes } = detectProject(CWD);
 
   if (detectedTypes.length > 0) {
     console.log(
@@ -323,17 +324,62 @@ async function main() {
         "\n",
     );
 
-    if (recommendedSkills.length > 0) {
-      console.log(
-        chalk.bold("  💡 Recommended skills ") +
-          chalk.gray("(from skills.sh):") +
-          "\n",
-      );
-      for (const skill of recommendedSkills) {
-        console.log(chalk.yellow(`     agk skills add ${skill}`));
+    // Dynamic discovery: search skills.sh for each detected tech
+    const discoveredSkills = new Set();
+    const spinner = ora("Searching skills.sh for your stack...").start();
+
+    for (const tech of detectedTypes) {
+      try {
+        const result = execSync(`npx -y skills find ${tech}`, {
+          cwd: CWD,
+          encoding: "utf8",
+          stdio: "pipe",
+          timeout: 15000,
+        });
+        // Parse skill names from output (lines containing skill identifiers)
+        const lines = result.split("\n");
+        for (const line of lines) {
+          // Match skill package names like "owner/repo@skill" or just "skill-name"
+          const match = line.match(
+            /(?:npx skills add\s+)?([\w-]+\/[\w-]+@[\w-]+|[\w-]+\/[\w-]+)/,
+          );
+          if (match) {
+            discoveredSkills.add(match[1]);
+          }
+        }
+      } catch {
+        // Dynamic search failed for this tech — will use static fallback
       }
-      console.log();
     }
+
+    spinner.stop();
+
+    // Fallback: if dynamic search found nothing, use static SKILL_CATALOG
+    if (discoveredSkills.size === 0) {
+      const { recommendedSkills } = detectProject(CWD);
+      for (const skill of recommendedSkills) {
+        discoveredSkills.add(skill);
+      }
+    }
+
+    // Auto-install discovered skills (max 5 to avoid long init times)
+    const skillsToInstall = [...discoveredSkills].slice(0, 5);
+    if (skillsToInstall.length > 0) {
+      console.log(chalk.bold("  📦 Auto-installing skills for your stack:\n"));
+      const skills = require("../scripts/skills");
+      await skills.run(CWD, ["add", ...skillsToInstall]);
+    }
+  }
+
+  // Always install find-skills meta-skill
+  try {
+    const findSkillsDir = path.join(CWD, ".agent", "skills", "find-skills");
+    if (!(await fs.pathExists(findSkillsDir))) {
+      const skills = require("../scripts/skills");
+      await skills.run(CWD, ["add", "find-skills"]);
+    }
+  } catch (_e) {
+    // Non-fatal
   }
 
   // --- Phase 2.5: Auto-register agents in GEMINI.md ---
@@ -342,17 +388,6 @@ async function main() {
     await agents.run(CWD);
   } catch (_e) {
     // Non-fatal: agent registration is a nice-to-have
-  }
-
-  // --- Phase 2.6: Install find-skills (meta-skill for discovering new skills) ---
-  try {
-    const skillsDir = path.join(CWD, ".agent", "skills", "find-skills");
-    if (!(await fs.pathExists(skillsDir))) {
-      const skills = require("../scripts/skills");
-      await skills.run(CWD, ["add", "find-skills"]);
-    }
-  } catch (_e) {
-    // Non-fatal: find-skills is a nice-to-have
   }
 
   // --- Phase 3: Getting Started banner ---
@@ -391,21 +426,6 @@ async function main() {
   console.log(
     B("  │") + B("                                                 │"),
   );
-
-  if (recommendedSkills.length > 0) {
-    console.log(
-      B("  │") +
-        C("  Recommended skills:") +
-        B("                            │"),
-    );
-    for (const skill of recommendedSkills.slice(0, 2)) {
-      const padded = `    npx skills add ${skill}`;
-      console.log(B("  │") + Y(padded.padEnd(49)) + B("│"));
-    }
-    console.log(
-      B("  │") + B("                                                 │"),
-    );
-  }
 
   if (withNeuralMemory) {
     console.log(
