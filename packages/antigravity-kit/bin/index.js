@@ -70,7 +70,8 @@ ${chalk.bold("USAGE")}
   ${chalk.yellow("agk skills list")}       List installed skills
   ${chalk.yellow("agk skills check")}      Check for skill updates
   ${chalk.yellow("agk skills update")}     Update all installed skills
-  ${chalk.yellow("agk suggest <query>")}   Suggest best agent for a task
+  ${chalk.yellow("agk suggest <query>")}    Find the best agent for a task
+  ${chalk.yellow("agk suggest suite")}      Analyze project and recommend suites
   ${chalk.yellow("agk suggest --git")}     Suggest agent from git changes
   ${chalk.yellow("agk brain")}             Open Second Brain dashboard
   ${chalk.yellow("agk brain setup")}       Configure central memory repo
