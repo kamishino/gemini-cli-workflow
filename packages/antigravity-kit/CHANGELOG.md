@@ -1,5 +1,26 @@
 # Changelog — @kamishino/antigravity-kit
 
+## [v2.1.0] - 2026-02-22
+
+### ✨ Features
+
+#### Smart Init — Dynamic Skill Discovery
+
+- `agk init` now searches skills.sh **dynamically** for each detected tech in your project.
+- Auto-installs top 5 matching skills. Falls back to static `SKILL_CATALOG` if offline.
+- `find-skills` meta-skill auto-installed — AI can now discover and install new skills autonomously.
+
+#### Expanded `agk skills` CLI
+
+- `agk skills find <query>` — Search skills.sh by keyword.
+- `agk skills check` — Check installed skills for updates.
+- `agk skills update` — Update all installed skills.
+
+### 🔧 Improvements
+
+- `agk help` updated with all skills subcommands.
+- `agk brain pull` added to help text.
+
 ## [v2.0.0] - 2026-02-22
 
 ### ✨ Features
