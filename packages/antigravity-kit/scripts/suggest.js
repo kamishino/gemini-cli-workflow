@@ -13,6 +13,11 @@ const { execSync } = require("child_process");
 const { suggest, suggestFromFiles } = require("../lib/agent-runtime");
 
 async function run(projectDir, args = []) {
+  // Handle "agk suggest suite" subcommand
+  if (args[0] === "suite") {
+    return await suggestSuites(projectDir);
+  }
+
   const agentsDir = path.join(projectDir, ".agent", "agents");
 
   if (!(await fs.pathExists(agentsDir))) {
@@ -132,6 +137,88 @@ async function run(projectDir, args = []) {
       chalk.gray(`  ... and ${results.length - 3} more. Use --all to see all.`),
     );
     console.log();
+  }
+
+  return 0;
+}
+
+/**
+ * agk suggest suite — Deep project analysis + smart suite recommendations
+ */
+async function suggestSuites(projectDir) {
+  const { analyzeProject } = require("../lib/project-analyzer");
+
+  console.log(chalk.bold.cyan("\n📊 Smart Suite Analysis\n"));
+  console.log(chalk.gray("  Scanning project...\n"));
+
+  const { signals, scores, recommendations } = await analyzeProject(projectDir);
+
+  // Show detected signals
+  if (signals.length > 0) {
+    console.log(chalk.bold("  🔍 Evidence detected:\n"));
+    const byType = {};
+    for (const s of signals) {
+      byType[s.type] = byType[s.type] || [];
+      byType[s.type].push(s.source);
+    }
+    for (const [type, sources] of Object.entries(byType)) {
+      const icon =
+        type === "dependency" ? "📦" : type === "configFile" ? "⚙️" : "📁";
+      console.log(
+        `  ${icon} ${chalk.bold(type)}: ${chalk.gray(sources.join(", "))}`,
+      );
+    }
+    console.log();
+  }
+
+  // Show scored suites
+  if (scores.length > 0) {
+    console.log(chalk.bold("  📊 Suite scores:\n"));
+    for (const entry of scores) {
+      const bar =
+        "█".repeat(Math.ceil(entry.confidence / 10)) +
+        "░".repeat(10 - Math.ceil(entry.confidence / 10));
+      console.log(
+        `  ${chalk.cyan(bar)} ${chalk.bold(entry.suite)} ${chalk.gray(`(${entry.confidence}%)`)}`,
+      );
+    }
+    console.log();
+  }
+
+  // Show recommendations
+  if (recommendations.length > 0) {
+    console.log(chalk.bold("  📦 Recommendations:\n"));
+    for (const rec of recommendations) {
+      if (rec.status === "recommended") {
+        console.log(
+          `  ${chalk.green("✓")} ${chalk.bold(rec.suite)} ${chalk.green(`${rec.confidence}% match`)}`,
+        );
+        console.log(chalk.yellow(`    agk suite add ${rec.suite}`));
+      } else {
+        console.log(
+          `  ${chalk.gray("○")} ${chalk.gray(rec.suite)} ${chalk.gray(`${rec.confidence}% — ${rec.reason}`)}`,
+        );
+      }
+    }
+    console.log();
+
+    // Suggest install command for all recommended suites
+    const toInstall = recommendations
+      .filter((r) => r.status === "recommended")
+      .map((r) => r.suite);
+    if (toInstall.length > 1) {
+      console.log(chalk.bold("  💡 Install all recommended suites:\n"));
+      for (const s of toInstall) {
+        console.log(chalk.yellow(`    agk suite add ${s}`));
+      }
+      console.log();
+    }
+  } else {
+    console.log(
+      chalk.gray(
+        "  No suite matches found. Try `agk suite available` to browse.\n",
+      ),
+    );
   }
 
   return 0;

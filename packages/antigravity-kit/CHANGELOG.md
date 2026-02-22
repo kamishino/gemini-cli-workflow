@@ -1,5 +1,19 @@
 # Changelog — @kamishino/antigravity-kit
 
+## [v2.6.0] - 2026-02-22
+
+### ✨ Features
+
+#### Smart Suite Suggestions Engine
+
+- `agk suggest suite` — deep project analysis with confidence scores and evidence:
+  - Scans `package.json` / `pyproject.toml` dependencies (weight: 3x).
+  - Detects config files (`next.config.js`, `Dockerfile`, etc.) (weight: 2x).
+  - Analyzes directory structure (`src/app`, `prisma/`, `bin/`) (weight: 1x).
+  - Multi-suite recommendations — installs complementary suites (e.g., Fullstack + DevOps).
+  - Subset dedup — skips React when Fullstack is recommended.
+- `agk init` now uses the analyzer for smarter auto-detection.
+
 ## [v2.5.0] - 2026-02-22
 
 ### ✨ Features

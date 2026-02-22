@@ -313,70 +313,72 @@ async function main() {
     );
   }
 
-  // --- Phase 2: Smart Suite & Skill Discovery ---
+  // --- Phase 2: Smart Suite & Skill Discovery (powered by project-analyzer) ---
 
-  const { detectedTypes } = detectProject(CWD);
+  let suitesInstalled = false;
+  try {
+    const { analyzeProject } = require("../lib/project-analyzer");
+    const { signals, recommendations } = await analyzeProject(CWD);
 
-  if (detectedTypes.length > 0) {
-    console.log(
-      chalk.bold("  🔍 Detected: ") +
-        chalk.cyan(detectedTypes.join(" + ")) +
-        "\n",
-    );
+    if (signals.length > 0) {
+      // Show what we detected
+      const depSignals = signals.filter((s) => s.type === "dependency");
+      const configSignals = signals.filter((s) => s.type === "configFile");
+      const dirSignals = signals.filter((s) => s.type === "directory");
 
-    // Phase 2A: Try to match a suite first
-    let suiteInstalled = false;
-    try {
-      const suitesDir = path.join(__dirname, "..", "templates", "suites");
-      const suiteFiles = (await fs.readdir(suitesDir)).filter((f) =>
-        f.endsWith(".json"),
+      const parts = [];
+      if (depSignals.length > 0) parts.push(`${depSignals.length} deps`);
+      if (configSignals.length > 0)
+        parts.push(`${configSignals.length} configs`);
+      if (dirSignals.length > 0) parts.push(`${dirSignals.length} dirs`);
+
+      console.log(
+        chalk.bold("  🔍 Analyzed: ") +
+          chalk.cyan(parts.join(" + ")) +
+          chalk.gray(` (${signals.length} signals)\n`),
       );
 
-      // Score each suite by how many detectors match our detected types
-      const scoredSuites = [];
-      for (const file of suiteFiles) {
-        const suite = await fs.readJson(path.join(suitesDir, file));
-        const suiteDetectors = (suite.detectors || []).map((d) =>
-          d.replace(/\.\*$/, "").toLowerCase(),
-        );
-        let score = 0;
-        for (const tech of detectedTypes) {
-          const techLower = tech.toLowerCase();
-          for (const detector of suiteDetectors) {
-            if (techLower.includes(detector) || detector.includes(techLower)) {
-              score++;
-              break;
-            }
+      // Install recommended suites (multi-suite support)
+      const toInstall = recommendations.filter(
+        (r) => r.status === "recommended",
+      );
+      const skipped = recommendations.filter((r) => r.status === "skipped");
+
+      if (toInstall.length > 0) {
+        for (const rec of toInstall) {
+          console.log(
+            chalk.bold(
+              `  📦 Installing: ${chalk.cyan(rec.suite)} ${chalk.green(`(${rec.confidence}% match)`)}\n`,
+            ),
+          );
+          const suiteModule = require("../scripts/suite");
+          await suiteModule.run(CWD, ["add", rec.suite]);
+        }
+        suitesInstalled = true;
+
+        // Show skipped suites
+        if (skipped.length > 0) {
+          for (const s of skipped) {
+            console.log(chalk.gray(`  ○ ${s.suite} — skipped (${s.reason})`));
           }
-        }
-        if (score > 0) {
-          scoredSuites.push({
-            name: file.replace(".json", ""),
-            displayName: suite.name,
-            score,
-          });
+          console.log();
         }
       }
-
-      // Install the best-matching suite
-      if (scoredSuites.length > 0) {
-        scoredSuites.sort((a, b) => b.score - a.score);
-        const bestSuite = scoredSuites[0];
-        console.log(
-          chalk.bold(
-            `  📦 Best suite match: ${chalk.cyan(bestSuite.displayName)}\n`,
-          ),
-        );
-        const suiteModule = require("../scripts/suite");
-        await suiteModule.run(CWD, ["add", bestSuite.name]);
-        suiteInstalled = true;
-      }
-    } catch {
-      // Suite matching failed — fall through to individual skills
     }
+  } catch {
+    // Analyzer failed — fall through to legacy detection
+  }
 
-    // Phase 2B: Fallback to individual skill discovery if no suite matched
-    if (!suiteInstalled) {
+  // Fallback: legacy detection if analyzer found nothing
+  if (!suitesInstalled) {
+    const { detectedTypes } = detectProject(CWD);
+    if (detectedTypes.length > 0) {
+      console.log(
+        chalk.bold("  🔍 Detected: ") +
+          chalk.cyan(detectedTypes.join(" + ")) +
+          "\n",
+      );
+
       const discoveredSkills = new Set();
       const spinner = ora("Searching skills.sh for your stack...").start();
 
@@ -398,13 +400,12 @@ async function main() {
             }
           }
         } catch {
-          // Dynamic search failed for this tech
+          // Dynamic search failed
         }
       }
 
       spinner.stop();
 
-      // Static fallback
       if (discoveredSkills.size === 0) {
         const { recommendedSkills } = detectProject(CWD);
         for (const skill of recommendedSkills) {
