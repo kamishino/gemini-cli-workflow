@@ -313,7 +313,7 @@ async function main() {
     );
   }
 
-  // --- Phase 2: Smart Skill Discovery & Auto-Install ---
+  // --- Phase 2: Smart Suite & Skill Discovery ---
 
   const { detectedTypes } = detectProject(CWD);
 
@@ -324,50 +324,102 @@ async function main() {
         "\n",
     );
 
-    // Dynamic discovery: search skills.sh for each detected tech
-    const discoveredSkills = new Set();
-    const spinner = ora("Searching skills.sh for your stack...").start();
+    // Phase 2A: Try to match a suite first
+    let suiteInstalled = false;
+    try {
+      const suitesDir = path.join(__dirname, "..", "templates", "suites");
+      const suiteFiles = (await fs.readdir(suitesDir)).filter((f) =>
+        f.endsWith(".json"),
+      );
 
-    for (const tech of detectedTypes) {
-      try {
-        const result = execSync(`npx -y skills find ${tech}`, {
-          cwd: CWD,
-          encoding: "utf8",
-          stdio: "pipe",
-          timeout: 15000,
-        });
-        // Parse skill names from output (lines containing skill identifiers)
-        const lines = result.split("\n");
-        for (const line of lines) {
-          // Match skill package names like "owner/repo@skill" or just "skill-name"
-          const match = line.match(
-            /(?:npx skills add\s+)?([\w-]+\/[\w-]+@[\w-]+|[\w-]+\/[\w-]+)/,
-          );
-          if (match) {
-            discoveredSkills.add(match[1]);
+      // Score each suite by how many detectors match our detected types
+      const scoredSuites = [];
+      for (const file of suiteFiles) {
+        const suite = await fs.readJson(path.join(suitesDir, file));
+        const suiteDetectors = (suite.detectors || []).map((d) =>
+          d.replace(/\.\*$/, "").toLowerCase(),
+        );
+        let score = 0;
+        for (const tech of detectedTypes) {
+          const techLower = tech.toLowerCase();
+          for (const detector of suiteDetectors) {
+            if (techLower.includes(detector) || detector.includes(techLower)) {
+              score++;
+              break;
+            }
           }
         }
-      } catch {
-        // Dynamic search failed for this tech — will use static fallback
+        if (score > 0) {
+          scoredSuites.push({
+            name: file.replace(".json", ""),
+            displayName: suite.name,
+            score,
+          });
+        }
       }
+
+      // Install the best-matching suite
+      if (scoredSuites.length > 0) {
+        scoredSuites.sort((a, b) => b.score - a.score);
+        const bestSuite = scoredSuites[0];
+        console.log(
+          chalk.bold(
+            `  📦 Best suite match: ${chalk.cyan(bestSuite.displayName)}\n`,
+          ),
+        );
+        const suiteModule = require("../scripts/suite");
+        await suiteModule.run(CWD, ["add", bestSuite.name]);
+        suiteInstalled = true;
+      }
+    } catch {
+      // Suite matching failed — fall through to individual skills
     }
 
-    spinner.stop();
+    // Phase 2B: Fallback to individual skill discovery if no suite matched
+    if (!suiteInstalled) {
+      const discoveredSkills = new Set();
+      const spinner = ora("Searching skills.sh for your stack...").start();
 
-    // Fallback: if dynamic search found nothing, use static SKILL_CATALOG
-    if (discoveredSkills.size === 0) {
-      const { recommendedSkills } = detectProject(CWD);
-      for (const skill of recommendedSkills) {
-        discoveredSkills.add(skill);
+      for (const tech of detectedTypes) {
+        try {
+          const result = execSync(`npx -y skills find ${tech}`, {
+            cwd: CWD,
+            encoding: "utf8",
+            stdio: "pipe",
+            timeout: 15000,
+          });
+          const lines = result.split("\n");
+          for (const line of lines) {
+            const match = line.match(
+              /(?:npx skills add\s+)?([\w-]+\/[\w-]+@[\w-]+|[\w-]+\/[\w-]+)/,
+            );
+            if (match) {
+              discoveredSkills.add(match[1]);
+            }
+          }
+        } catch {
+          // Dynamic search failed for this tech
+        }
       }
-    }
 
-    // Auto-install discovered skills (max 5 to avoid long init times)
-    const skillsToInstall = [...discoveredSkills].slice(0, 5);
-    if (skillsToInstall.length > 0) {
-      console.log(chalk.bold("  📦 Auto-installing skills for your stack:\n"));
-      const skills = require("../scripts/skills");
-      await skills.run(CWD, ["add", ...skillsToInstall]);
+      spinner.stop();
+
+      // Static fallback
+      if (discoveredSkills.size === 0) {
+        const { recommendedSkills } = detectProject(CWD);
+        for (const skill of recommendedSkills) {
+          discoveredSkills.add(skill);
+        }
+      }
+
+      const skillsToInstall = [...discoveredSkills].slice(0, 5);
+      if (skillsToInstall.length > 0) {
+        console.log(
+          chalk.bold("  📦 Auto-installing skills for your stack:\n"),
+        );
+        const skills = require("../scripts/skills");
+        await skills.run(CWD, ["add", ...skillsToInstall]);
+      }
     }
   }
 
