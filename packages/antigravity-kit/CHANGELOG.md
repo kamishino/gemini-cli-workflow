@@ -1,5 +1,13 @@
 # Changelog — @kamishino/antigravity-kit
 
+## [v2.3.1] - 2026-02-22
+
+### 🔧 Improvements
+
+- `agk init` now auto-detects and installs the best-matching suite for your project.
+- Suite scoring: each suite's detectors are matched against detected tech stack, highest score wins.
+- Falls back to individual skill discovery only if no suite matches.
+
 ## [v2.3.0] - 2026-02-22
 
 ### ✨ Features
