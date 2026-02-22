@@ -1,5 +1,31 @@
 # Changelog — @kamishino/antigravity-kit
 
+## [v2.8.0] - 2026-02-22
+
+### ✨ Features
+
+#### `agk stats` — Project Intelligence Dashboard
+
+- Visual bar charts for agents, workflows, skills, suites, rules, memory.
+- Status indicators for GEMINI.md, AGENTS.md, Second Brain link.
+- Smart suggestions based on what's missing.
+
+#### Agent Memory System
+
+- `lib/agent-memory.js` — per-agent learning in `.memory/agents/<name>.md`.
+- APIs: `readMemory`, `appendLesson`, `listAgentsWithMemory`, `initAllMemory`.
+- Sections: Patterns Learned, Common Issues, Preferences.
+
+#### Workflow Chaining
+
+- `lib/workflow-chain.js` — session handoff via `.memory/session.md`.
+- `/brainstorm` can auto-feed selected idea into `/develop`.
+- APIs: `writeSession`, `readSession`, `clearSession`, `hasSessionFor`.
+
+### 🔧 Improvements
+
+- Enhanced `/brainstorm` workflow with 3 thinking modes, 3-axis scoring, kill switch, and pre-mortem.
+
 ## [v2.7.0] - 2026-02-22
 
 ### ✨ Features

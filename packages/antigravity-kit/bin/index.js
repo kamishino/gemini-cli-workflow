@@ -212,6 +212,13 @@ async function main() {
       break;
     }
 
+    case "stats": {
+      const stats = require("../scripts/stats");
+      const code = await stats.run(CWD);
+      process.exit(code);
+      break;
+    }
+
     case "info": {
       const info = require("../scripts/info");
       const code = await info.run(CWD);
