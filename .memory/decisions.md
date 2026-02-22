@@ -102,3 +102,10 @@ FORMAT:
 **Context:** `npx -y skills add find-skills` failed — not a standalone npm package.
 **Decision:** Use `npx -y skills add https://github.com/vercel-labs/skills --skill find-skills -y`.
 **Consequences:** find-skills installs correctly during `agk init`.
+
+## [2026-02-23] — Anti-debt mechanisms from Addy Osmani's "80% Problem"
+
+**Context:** Addy's article identified 3 systemic issues with agentic coding: comprehension debt, rubber-stamp reviews, dead code accumulation.
+**Decision:** Implemented 3 mechanisms: Fresh-Context Self-Review (Phase D), Explain Your Code Gate, Dead Code Cleanup. Integrated into `/develop`, `/review`, `/sync` workflows and validation/reflection rules.
+**Alternatives:** External linting tools (rejected — these are process problems, not syntax problems).
+**Consequences:** AI must now self-review, explain, and clean up before any commit. 4-Phase validation model replaces 3-Phase.

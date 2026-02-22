@@ -1,3 +1,32 @@
+## [v2.10.0] - 2026-02-23
+
+### ✨ Features
+
+- **feat(workflows):** Fresh-Context Self-Review — 4-Phase validation model with Phase D: Self-Review (27a88e6)
+  - AI re-reads changed files with critical "reviewer" mindset before commit
+  - Scans for abstraction bloat, dead code, assumption errors, overcomplexity
+  - Added to `/develop` Phase 5 (step 18), `flow-validation-core.md`, and `/review` workflow
+- **feat(workflows):** Explain Your Code Gate — mandatory code explanation before commit (27a88e6)
+  - AI produces what/how/why/edge-cases summary for developer acknowledgment
+  - Added to `/develop` Phase 6 (step 20) and `flow-reflection-core.md` quality gate
+- **feat(workflows):** Dead Code Cleanup — explicit sweep for orphaned code (27a88e6)
+  - Dead Code Sweep step in `/sync` workflow
+  - Bloat & Dead Code Scan in `/review` workflow
+  - Quality Gate checklist item in `/develop` Phase 6
+
+### 📝 Inspiration
+
+- Based on Addy Osmani's ["The 80% Problem in Agentic Coding"](https://addyo.substack.com/p/the-80-problem-in-agentic-coding) (2026-01-29)
+- Combats: comprehension debt, rubber-stamp reviews, dead code accumulation
+
+### 📝 Technical Details
+
+**Files Changed:** 8 files (+96/-31 lines)
+**Verification:** ✅ Tests pass (15/15)
+**Breaking Changes:** None
+
+---
+
 ## [v2.56.0] - 2026-02-17
 
 ### ✨ Features

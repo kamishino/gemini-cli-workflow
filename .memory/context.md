@@ -1,34 +1,36 @@
 ## Active Work
 
-AGK v2.9.0 released. Session focused on Addy Osmani article analysis and implementing improvements inspired by his writings.
+AGK v2.10.0 released. Session focused on implementing anti-debt mechanisms from Addy Osmani's "The 80% Problem in Agentic Coding" article.
 
 ## Recent Changes
 
+### v2.10.0 (2026-02-23)
+
+- **Fresh-Context Self-Review**: 4-Phase validation model (Phase D: Self-Review) in `flow-validation-core.md`, step 18 in `/develop`, scan in `/review`
+- **Explain Your Code Gate**: Step 20 in `/develop` Phase 6, comprehension check in `flow-reflection-core.md`
+- **Dead Code Cleanup**: Sweep step in `/sync`, Bloat & Dead Code Scan in `/review`, checklist item in `/develop`
+
 ### v2.9.0 (2026-02-22)
 
-- **Golden Examples** in `/develop` workflow (Phase 1 options, Phase 2 blueprint, Phase 3 task.md) using collapsible `<details>` tags
-- **Test-Before-Done Enforcement**: validation-loop rule now has auto-detect test command table (Node/Jest/Vitest/Python/Go/Rust), `/develop` Phase 5 with explicit test-run-fix loop, GEMINI.md test commands section
-- **New Rule Templates**: `project-structure.md` and `git-workflow.md` (completing 6/6 Addy Osmani spec areas)
-- **Fixed** find-skills install using full vercel-labs repo URL in `init.js`
+- Golden Examples in `/develop` workflow using collapsible `<details>` tags
+- Test-Before-Done Enforcement across all workflows
+- New Rule Templates: `project-structure.md` and `git-workflow.md` (6/6 Addy Osmani spec areas)
+- Fixed find-skills install using full vercel-labs repo URL
 
-### v2.8.0 (2026-02-22) — Earlier in session
+## Addy Osmani Article Analysis (7 articles)
 
-- `agk stats` dashboard, Agent Memory system, Workflow Chaining lib
-
-## Addy Osmani Article Analysis (5 articles)
-
-1. **"AI coding agents need a manager"** — AGK = orchestration OS, 1:1 maps to KamiFlow's Sniper Model
-2. **"My LLM coding workflow 2026"** — AGK already implements all 8 principles (specs→small chunks→context→verify→commit→rules→test→adapt)
+1. **"AI coding agents need a manager"** — AGK = orchestration OS, maps to KamiFlow Sniper Model
+2. **"My LLM coding workflow 2026"** — AGK implements all 8 principles
 3. **"AI Code Model Evals"** — Led to golden examples feature
-4. **"Automated Decision Logs"** — AGK's `.memory/decisions.md` already covers 100% of the concept
-5. **"The 70% Problem"** — KamiFlow solves the 30% gap by enforcing senior-level process (schema-first, validation loop, strategic gates)
-6. **"14 More Lessons from 14 Years at Google"** — Key takeaways: taste > production speed, trust = latency optimization, ruthless prioritization
+4. **"Automated Decision Logs"** — AGK's `.memory/decisions.md` covers 100% of the concept
+5. **"The 70% Problem"** — KamiFlow solves the 30% gap via senior-level process
+6. **"14 More Lessons from 14 Years at Google"** — taste > production speed, trust = latency optimization
+7. **"The 80% Problem"** — Led to anti-debt mechanisms (self-review, explain gate, dead code cleanup)
 
 ## Open Questions
 
 - Parallel agent management deferred (Antigravity IDE limitation, solo dev doesn't need it)
 - Workflow Variables (`{{topic}}`) and Context Injection deferred (nice-to-have)
-- Workflow Composer killed (over-engineering)
 
 ## Technical Debt
 
