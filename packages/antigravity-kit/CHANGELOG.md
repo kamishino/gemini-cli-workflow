@@ -1,5 +1,26 @@
 # Changelog — @kamishino/antigravity-kit
 
+## [v2.3.0] - 2026-02-22
+
+### ✨ Features
+
+#### Suite System — Bundled Development Environments
+
+A suite packages agents, skills, workflows, and rules into a single installable unit for a specific tech stack.
+
+- `agk suite available` — Browse 4 built-in suites (React, Fullstack, Backend API, CLI Tool).
+- `agk suite add <name>` — One command installs all agents, skills, workflows, and rules for your stack.
+- `agk suite list` — Track which suites are installed.
+
+#### Built-in Suites
+
+| Suite           | Agents                                                | Skills                           | Workflows                                |
+| :-------------- | :---------------------------------------------------- | :------------------------------- | :--------------------------------------- |
+| **React**       | architect, tester, reviewer                           | nextjs, testing                  | develop, test, review                    |
+| **Fullstack**   | architect, database-expert, tester, reviewer, shipper | nextjs, database, testing        | develop, test, review, release           |
+| **Backend API** | architect, database-expert, security-auditor, tester  | database, security, testing, api | develop, test, review, debug             |
+| **CLI Tool**    | architect, tester, documentation-writer, shipper      | testing, nodejs                  | develop, test, review, release, scaffold |
+
 ## [v2.2.0] - 2026-02-22
 
 ### ✨ Features

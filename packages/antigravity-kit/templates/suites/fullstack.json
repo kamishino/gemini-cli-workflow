@@ -1,0 +1,10 @@
+{
+  "name": "Fullstack",
+  "description": "Full-stack web development with database, testing, and deployment",
+  "version": "1.0.0",
+  "detectors": ["prisma/schema.prisma", "next.config.*", "tsconfig.json"],
+  "agents": ["architect", "database-expert", "tester", "reviewer", "shipper"],
+  "skills": ["nextjs-best-practices", "database-design", "testing-patterns"],
+  "workflows": ["develop", "test", "review", "release"],
+  "rules": ["validation-loop", "reflection", "error-recovery"]
+}

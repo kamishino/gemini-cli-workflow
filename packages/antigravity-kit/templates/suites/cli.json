@@ -1,0 +1,10 @@
+{
+  "name": "CLI Tool",
+  "description": "CLI tool development with testing, documentation, and release automation",
+  "version": "1.0.0",
+  "detectors": ["bin/", "commander", "yargs", "meow"],
+  "agents": ["architect", "tester", "documentation-writer", "shipper"],
+  "skills": ["testing-patterns", "nodejs-patterns"],
+  "workflows": ["develop", "test", "review", "release", "scaffold"],
+  "rules": ["validation-loop", "reflection"]
+}

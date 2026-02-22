@@ -1,0 +1,10 @@
+{
+  "name": "React Developer",
+  "description": "Full-stack React/Next.js development with testing and code review",
+  "version": "1.0.0",
+  "detectors": ["next.config.*", "*.jsx", "*.tsx", "react"],
+  "agents": ["architect", "tester", "reviewer"],
+  "skills": ["nextjs-best-practices", "testing-patterns"],
+  "workflows": ["develop", "test", "review"],
+  "rules": ["validation-loop", "reflection"]
+}

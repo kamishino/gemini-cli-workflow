@@ -1,0 +1,21 @@
+{
+  "name": "Backend API",
+  "description": "Backend API development with database, security, and testing",
+  "version": "1.0.0",
+  "detectors": [
+    "prisma/schema.prisma",
+    "src/routes",
+    "src/api",
+    "express",
+    "fastify"
+  ],
+  "agents": ["architect", "database-expert", "security-auditor", "tester"],
+  "skills": [
+    "database-design",
+    "security-practices",
+    "testing-patterns",
+    "api-patterns"
+  ],
+  "workflows": ["develop", "test", "review", "debug"],
+  "rules": ["validation-loop", "anti-hallucination", "error-recovery"]
+}

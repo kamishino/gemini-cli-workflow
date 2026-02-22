@@ -60,6 +60,9 @@ ${chalk.bold("USAGE")}
   ${chalk.yellow("agk agents")}            Register agents + generate AGENTS.md
   ${chalk.yellow("agk agents find <q>")}   Search community agent templates
   ${chalk.yellow("agk agents list")}       List installed agents
+  ${chalk.yellow("agk suite add <name>")}  Install a development suite
+  ${chalk.yellow("agk suite available")}   Show all available suites
+  ${chalk.yellow("agk suite list")}        List installed suites
   ${chalk.yellow("agk skills add <n>")}    Install skills from skills.sh
   ${chalk.yellow("agk skills find <q>")}   Search for skills by keyword
   ${chalk.yellow("agk skills list")}       List installed skills
@@ -194,6 +197,13 @@ async function main() {
     case "scaffold": {
       const scaffold = require("../scripts/scaffold");
       const code = await scaffold.run(CWD, subArgs);
+      process.exit(code);
+      break;
+    }
+
+    case "suite": {
+      const suite = require("../scripts/suite");
+      const code = await suite.run(CWD, subArgs);
       process.exit(code);
       break;
     }
