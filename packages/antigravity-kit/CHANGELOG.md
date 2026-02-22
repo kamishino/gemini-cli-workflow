@@ -1,5 +1,36 @@
 # Changelog — @kamishino/antigravity-kit
 
+## [v2.0.0] - 2026-02-22
+
+### ✨ Features
+
+#### 3 New Specialist Agents (10 total)
+
+- **Security Auditor**: OWASP Top 10, secret detection, vulnerability scanning, auth review.
+- **Database Expert**: Schema-first design, query optimization, migration safety, Prisma support.
+- **Tester**: TDD workflow (Red → Green → Refactor), mocking strategies, coverage analysis.
+
+#### 2 New Workflows (15 total)
+
+- **`/research`**: Structured exploration before coding — compare options, create analysis tables, record decisions.
+- **`/test`**: TDD workflow — write failing tests, implement, refactor, coverage report.
+
+#### `agk brain pull`
+
+- Clone brain repo from remote on a new PC, auto-re-link `.memory/` junction.
+- If brain exists locally, just `git pull --rebase` for latest changes.
+
+#### Smart Memory Sync
+
+- `agk memory sync` now detects if `.memory/` is a symlink/junction to brain repo.
+- Automatically redirects to `agk brain sync` — no more running the wrong sync workflow.
+
+### 🔧 Improvements
+
+- `agk help` is now a valid command (was "Unknown command" before).
+- Help text includes all commands: `agents`, `skills add/list`, `brain pull`.
+- Updated `.memory/` files from v1.2.0 state to current v2.0.0.
+
 ## [v1.9.0] - 2026-02-21
 
 ### ✨ Features

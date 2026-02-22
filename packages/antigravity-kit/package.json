@@ -1,6 +1,6 @@
 {
   "name": "@kamishino/antigravity-kit",
-  "version": "1.9.0",
+  "version": "2.0.0",
   "description": "AI Guard Rails for Antigravity — portable rules, workflows, and skills for structured development",
   "bin": {
     "antigravity-kit": "./bin/init.js",
