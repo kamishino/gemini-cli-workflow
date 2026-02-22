@@ -1,5 +1,31 @@
 # Changelog — @kamishino/antigravity-kit
 
+## [v2.9.0] - 2026-02-22
+
+### ✨ Features
+
+#### Golden Examples in Workflows
+
+- `/develop` Phase 1: Golden for 3-options format (Safe/Balanced/Ambitious)
+- `/develop` Phase 2: Golden for Technical Blueprint (user stories, API, edge cases)
+- `/develop` Phase 3: Golden for task.md checklist format
+- Collapsible `<details>` tags so they don't clutter the workflow
+
+#### Test-Before-Done Enforcement
+
+- `validation-loop.md`: Auto-detect test command table (Node/Jest/Vitest/Python/Go/Rust)
+- `/develop` Phase 5: Explicit test-run-fix loop with retry
+- GEMINI.md: Test commands section with 15/15 mandate
+
+#### New Rule Templates (6/6 Addy Osmani Spec Areas)
+
+- `project-structure.md`: Where source, tests, docs, config live + boundaries
+- `git-workflow.md`: Branch naming, conventional commits, PR rules
+
+### 🐛 Fixes
+
+- `init.js`: Fixed find-skills install using full vercel-labs repo URL
+
 ## [v2.8.0] - 2026-02-22
 
 ### ✨ Features
