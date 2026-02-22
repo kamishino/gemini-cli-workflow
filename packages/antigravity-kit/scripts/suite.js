@@ -25,6 +25,8 @@ async function run(projectDir, args = []) {
   switch (subcommand) {
     case "add":
       return await addSuite(projectDir, args[1]);
+    case "remove":
+      return await removeSuite(projectDir, args[1]);
     case "find":
       return await findSuites(args.slice(1));
     case "create":
@@ -42,11 +44,8 @@ async function run(projectDir, args = []) {
 
 function showUsage() {
   console.log(chalk.yellow("\n  Usage:"));
-  console.log(
-    chalk.gray(
-      "    agk suite add <name>     Install a suite (react, fullstack, backend, cli)",
-    ),
-  );
+  console.log(chalk.gray("    agk suite add <name>      Install a suite"));
+  console.log(chalk.gray("    agk suite remove <name>   Uninstall a suite"));
   console.log(
     chalk.gray("    agk suite find <query>   Search for community suites"),
   );
@@ -275,6 +274,120 @@ async function showAvailable() {
       ),
     );
     console.log(chalk.yellow(`    agk suite add ${name}\n`));
+  }
+
+  return 0;
+}
+
+async function removeSuite(projectDir, suiteName) {
+  if (!suiteName) {
+    console.error(chalk.red("\n❌ Missing suite name."));
+    console.log(chalk.gray("  Usage: agk suite remove <name>\n"));
+    return 1;
+  }
+
+  const configPath = path.join(projectDir, SUITE_CONFIG_FILE);
+  if (!(await fs.pathExists(configPath))) {
+    console.log(chalk.yellow("\n⚠️  No suites installed.\n"));
+    return 1;
+  }
+
+  const config = await fs.readJson(configPath);
+  const idx = config.installed.findIndex((s) => s.name === suiteName);
+
+  if (idx === -1) {
+    console.error(chalk.red(`\n❌ Suite "${suiteName}" is not installed.\n`));
+    return 1;
+  }
+
+  const removed = config.installed[idx];
+  console.log(
+    chalk.bold.cyan(
+      `\n🗑️  Removing "${removed.displayName || suiteName}" Suite\n`,
+    ),
+  );
+
+  // Find suite manifest to know what agents/workflows to clean
+  const suitePath = path.join(SUITES_TEMPLATE_DIR, `${suiteName}.json`);
+  let cleaned = { agents: 0, workflows: 0 };
+
+  if (await fs.pathExists(suitePath)) {
+    const suite = await fs.readJson(suitePath);
+
+    // Find agents used by OTHER installed suites (don't remove shared agents)
+    const otherSuites = config.installed.filter((_, i) => i !== idx);
+    const sharedAgents = new Set();
+    for (const other of otherSuites) {
+      const otherPath = path.join(SUITES_TEMPLATE_DIR, `${other.name}.json`);
+      if (await fs.pathExists(otherPath)) {
+        const otherSuite = await fs.readJson(otherPath);
+        for (const a of otherSuite.agents || []) {
+          sharedAgents.add(a);
+        }
+      }
+    }
+
+    // Remove agents unique to this suite
+    for (const agentName of suite.agents || []) {
+      if (!sharedAgents.has(agentName)) {
+        const agentPath = path.join(
+          projectDir,
+          ".agent",
+          "agents",
+          `${agentName}.md`,
+        );
+        if (await fs.pathExists(agentPath)) {
+          await fs.remove(agentPath);
+          cleaned.agents++;
+        }
+      }
+    }
+
+    // Remove workflows unique to this suite (same logic)
+    const sharedWorkflows = new Set();
+    for (const other of otherSuites) {
+      const otherPath = path.join(SUITES_TEMPLATE_DIR, `${other.name}.json`);
+      if (await fs.pathExists(otherPath)) {
+        const otherSuite = await fs.readJson(otherPath);
+        for (const w of otherSuite.workflows || []) {
+          sharedWorkflows.add(w);
+        }
+      }
+    }
+
+    for (const wfName of suite.workflows || []) {
+      if (!sharedWorkflows.has(wfName)) {
+        const wfPath = path.join(
+          projectDir,
+          ".agent",
+          "workflows",
+          `${wfName}.md`,
+        );
+        if (await fs.pathExists(wfPath)) {
+          await fs.remove(wfPath);
+          cleaned.workflows++;
+        }
+      }
+    }
+  }
+
+  // Remove from config
+  config.installed.splice(idx, 1);
+  await fs.writeJson(configPath, config, { spaces: 2 });
+
+  console.log(
+    chalk.green(`  ✅ Removed "${removed.displayName || suiteName}"`),
+  );
+  console.log(chalk.gray(`  • Agents removed: ${cleaned.agents}`));
+  console.log(chalk.gray(`  • Workflows removed: ${cleaned.workflows}`));
+  console.log(chalk.gray("  • Shared components preserved\n"));
+
+  // Re-register agents
+  try {
+    const agents = require("./agents");
+    await agents.run(projectDir);
+  } catch {
+    // Non-fatal
   }
 
   return 0;

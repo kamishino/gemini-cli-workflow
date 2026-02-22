@@ -49,6 +49,9 @@ async function run(projectDir) {
   // Check 5: Agent Health
   results.push(await checkAgents(projectDir));
 
+  // Check 6: Suite Health
+  results.push(await checkSuites(projectDir));
+
   // Display results
   displayResults(results);
 
@@ -444,6 +447,108 @@ async function checkMemorySync(projectDir) {
   } catch {
     result.level = LEVEL.INFO;
     result.message = "Not configured (optional)";
+  }
+
+  return result;
+}
+/**
+ * Check suite health — installed suites, missing components, suggestions
+ */
+async function checkSuites(projectDir) {
+  const result = {
+    name: "Suites",
+    checks: [],
+  };
+
+  const configPath = path.join(projectDir, ".agent", "suites.json");
+
+  if (!(await fs.pathExists(configPath))) {
+    result.checks.push({
+      level: LEVEL.INFO,
+      message: "No suites installed. Run `agk suite available` to browse.",
+    });
+
+    // Suggest suites based on project
+    try {
+      const { analyzeProject } = require("../lib/project-analyzer");
+      const { recommendations } = await analyzeProject(projectDir);
+      const recommended = recommendations.filter(
+        (r) => r.status === "recommended",
+      );
+      if (recommended.length > 0) {
+        const names = recommended.map((r) => r.suite).join(", ");
+        result.checks.push({
+          level: LEVEL.INFO,
+          message: `Recommended suites for this project: ${names}`,
+        });
+      }
+    } catch {
+      // analyzer not available
+    }
+
+    return result;
+  }
+
+  const config = await fs.readJson(configPath);
+  const installed = config.installed || [];
+
+  if (installed.length === 0) {
+    result.checks.push({
+      level: LEVEL.INFO,
+      message: "No suites installed. Run `agk suite available` to browse.",
+    });
+    return result;
+  }
+
+  result.checks.push({
+    level: LEVEL.OK,
+    message: `${installed.length} suite(s) installed: ${installed.map((s) => s.displayName || s.name).join(", ")}`,
+  });
+
+  // Check each installed suite for missing components
+  const suitesDir = path.join(
+    path.dirname(require.resolve("../package.json")),
+    "templates",
+    "suites",
+  );
+
+  for (const entry of installed) {
+    const suitePath = path.join(suitesDir, `${entry.name}.json`);
+    if (!(await fs.pathExists(suitePath))) continue;
+
+    const suite = await fs.readJson(suitePath);
+
+    // Check missing agents
+    for (const agentName of suite.agents || []) {
+      const agentPath = path.join(
+        projectDir,
+        ".agent",
+        "agents",
+        `${agentName}.md`,
+      );
+      if (!(await fs.pathExists(agentPath))) {
+        result.checks.push({
+          level: LEVEL.WARNING,
+          message: `Suite "${entry.displayName}" missing agent: ${agentName}.md`,
+        });
+      }
+    }
+
+    // Check missing workflows
+    for (const wfName of suite.workflows || []) {
+      const wfPath = path.join(
+        projectDir,
+        ".agent",
+        "workflows",
+        `${wfName}.md`,
+      );
+      if (!(await fs.pathExists(wfPath))) {
+        result.checks.push({
+          level: LEVEL.WARNING,
+          message: `Suite "${entry.displayName}" missing workflow: ${wfName}.md`,
+        });
+      }
+    }
   }
 
   return result;

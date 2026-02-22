@@ -1,5 +1,16 @@
 # Changelog — @kamishino/antigravity-kit
 
+## [v2.7.0] - 2026-02-22
+
+### ✨ Features
+
+- `agk suite remove <name>` — cleanly uninstalls a suite, removes unique agents/workflows, preserves shared components.
+- `agk doctor` now checks suite health: validates installed suites, detects missing agents/workflows, suggests suites for unmatched projects.
+
+### 🧪 Tests
+
+- 8 new unit tests for project-analyzer and suite lifecycle (15 total tests passing).
+
 ## [v2.6.0] - 2026-02-22
 
 ### ✨ Features
