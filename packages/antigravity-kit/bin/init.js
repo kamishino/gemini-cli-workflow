@@ -427,9 +427,24 @@ async function main() {
   // Always install find-skills meta-skill
   try {
     const findSkillsDir = path.join(CWD, ".agent", "skills", "find-skills");
-    if (!(await fs.pathExists(findSkillsDir))) {
-      const skills = require("../scripts/skills");
-      await skills.run(CWD, ["add", "find-skills"]);
+    const findSkillsAlt = path.join(CWD, ".agents", "skills", "find-skills");
+    if (
+      !(await fs.pathExists(findSkillsDir)) &&
+      !(await fs.pathExists(findSkillsAlt))
+    ) {
+      execSync(
+        "npx -y skills add https://github.com/vercel-labs/skills --skill find-skills -y",
+        { cwd: CWD, stdio: "pipe", timeout: 30000 },
+      );
+
+      // Move from .agents/skills to .agent/skills if installed there
+      if (
+        !(await fs.pathExists(findSkillsDir)) &&
+        (await fs.pathExists(findSkillsAlt))
+      ) {
+        await fs.ensureDir(path.join(CWD, ".agent", "skills"));
+        await fs.copy(findSkillsAlt, findSkillsDir);
+      }
     }
   } catch (_e) {
     // Non-fatal
