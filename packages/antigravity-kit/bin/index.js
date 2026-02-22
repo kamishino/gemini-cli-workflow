@@ -61,6 +61,8 @@ ${chalk.bold("USAGE")}
   ${chalk.yellow("agk agents find <q>")}   Search community agent templates
   ${chalk.yellow("agk agents list")}       List installed agents
   ${chalk.yellow("agk suite add <name>")}  Install a development suite
+  ${chalk.yellow("agk suite find <q>")}   Search for community suites
+  ${chalk.yellow("agk suite create <n>")} Export project as a shareable suite
   ${chalk.yellow("agk suite available")}   Show all available suites
   ${chalk.yellow("agk suite list")}        List installed suites
   ${chalk.yellow("agk skills add <n>")}    Install skills from skills.sh

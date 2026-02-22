@@ -1,5 +1,17 @@
 # Changelog — @kamishino/antigravity-kit
 
+## [v2.4.0] - 2026-02-22
+
+### ✨ Features
+
+#### Suite Discovery & Export
+
+- `agk suite find <query>` — Search for community suites across built-in templates, npm, and GitHub.
+- `agk suite create <name>` — Export the current project into a shareable `suite.json` manifest:
+  - Auto-scans agents, skills, workflows, and rules.
+  - Detects dependencies (Next.js, Prisma, Express, etc.) for smart detectors.
+  - Ready to share with team or publish to GitHub.
+
 ## [v2.3.1] - 2026-02-22
 
 ### 🔧 Improvements
