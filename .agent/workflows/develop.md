@@ -226,18 +226,35 @@ Transform a raw idea into deployed code through a rigorous, phase-based pipeline
 
 17. **Self-Healing:** If errors → analyze → fix → retry (max 3x). Escalate to user if healing fails.
 
+18. **🔍 Fresh-Context Self-Review** — Re-read all changed files with a critical "reviewer" mindset:
+    - Scan for **abstraction bloat** (classes where functions suffice, over-engineered patterns)
+    - Scan for **dead code** (unused imports, orphan functions, commented-out blocks)
+    - Scan for **assumption errors** (hardcoded values, missing null checks, wrong defaults)
+    - Scan for **overcomplexity** (could this be simpler? "Couldn't you just...?")
+    - If issues found → fix inline → re-run tests (step 15)
+    - Present brief self-review summary before proceeding
+
 ---
 
 ## Phase 6: Reflect — _VERIFICATION mode_
 
-18. **Quality Gate Checklist:**
+19. **Quality Gate Checklist:**
     - [ ] Tests pass
     - [ ] No lint errors
     - [ ] Documentation updated (if applicable)
     - [ ] No unaddressed TODOs
     - [ ] Module size reasonable (< 300 lines preferred)
+    - [ ] No dead code (unused imports, orphan functions, commented-out blocks)
+    - [ ] Code explanation provided and acknowledged
 
-19. **Strategic Reflection** — Document in `walkthrough.md`:
+20. **🧠 Explain Your Code** — Before committing, produce a concise summary for the developer:
+    - **What changed:** list of files touched with 1-line explanation each
+    - **How it works:** plain-English walkthrough of the core logic flow
+    - **Why this approach:** justification of key design decisions
+    - **Edge cases handled:** what could go wrong and how it's covered
+    - **🛑 STOP & WAIT** — User must acknowledge understanding before proceeding.
+
+21. **Strategic Reflection** — Document in `walkthrough.md`:
     - Value Delivered (1-sentence impact)
     - Technical Debt Assessment (None / Minor / Significant)
     - Lessons Learned
@@ -251,7 +268,7 @@ Transform a raw idea into deployed code through a rigorous, phase-based pipeline
 
 // turbo
 
-20. **Auto-write `.memory/context.md`** — Overwrite with current project state:
+22. **Auto-write `.memory/context.md`** — Overwrite with current project state:
 
     ```markdown
     ## Active Work
@@ -273,7 +290,7 @@ Transform a raw idea into deployed code through a rigorous, phase-based pipeline
 
 // turbo
 
-21. **Auto-append `.memory/decisions.md`** — For every architectural choice made this session:
+23. **Auto-append `.memory/decisions.md`** — For every architectural choice made this session:
 
     ```markdown
     ## [YYYY-MM-DD] — [Decision Title]
@@ -286,17 +303,17 @@ Transform a raw idea into deployed code through a rigorous, phase-based pipeline
 
 // turbo
 
-22. **Auto-update `.memory/patterns.md`** — If any new conventions were established this session.
+24. **Auto-update `.memory/patterns.md`** — If any new conventions were established this session.
 
 // turbo
 
-23. **Stage and commit** — Unified commit with all changes:
+25. **Stage and commit** — Unified commit with all changes:
 
     ```
     feat|fix|chore(scope): description
     ```
 
-24. **Show completion banner:**
+26. **Show completion banner:**
 
     ```
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

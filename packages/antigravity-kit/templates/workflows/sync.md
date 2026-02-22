@@ -42,13 +42,19 @@ git diff --stat
    - Update `.memory/patterns.md` if new conventions discovered
    - Auto-append to `.memory/anti-patterns.md` if repeated errors occurred
 
-5. **Strategic Reflection** — For each completed item:
+5. **🧹 Dead Code Sweep** — Before committing, scan changed files for:
+   - Commented-out code blocks (> 3 lines) → remove
+   - Unused imports → remove
+   - Functions/variables defined but never referenced → remove
+   - If cleaned up → note in commit message
+
+6. **Strategic Reflection** — For each completed item:
    - Value Delivered (1-sentence)
    - Technical Debt (None / Minor / Significant)
    - Lessons Learned
    - Follow-up Tasks (if any)
 
-6. **Unified Commit** — Stage all changes and commit:
+7. **Unified Commit** — Stage all changes and commit:
 
    ```
    chore(sync): [session summary]
@@ -60,4 +66,4 @@ git diff --stat
    - [docs/memory updated]
    ```
 
-7. **Done** — Session intelligence saved for next time.
+8. **Done** — Session intelligence saved for next time.

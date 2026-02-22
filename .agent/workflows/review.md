@@ -55,15 +55,22 @@ Or for a specific range: `git diff <base>..<head>`
    - Is naming consistent with project conventions?
    - Module size reasonable (< 300 lines)?
 
+5. **🔍 Bloat & Dead Code Scan** — For each changed file, check for:
+   - [ ] No unused imports / variables / functions
+   - [ ] No classes that could be simple functions
+   - [ ] No duplicated logic across files
+   - [ ] No commented-out code blocks (> 3 lines)
+   - [ ] Comments explain _why_, not _what_
+
 // turbo
 
-5. **Run Tests:**
+6. **Run Tests:**
 
 ```
 npm test
 ```
 
-6. **Generate Review Summary** — Present to user:
+7. **Generate Review Summary** — Present to user:
 
    ```markdown
    ## Code Review Summary
@@ -84,6 +91,6 @@ npm test
    - [ ] [Required fix 2]
    ```
 
-7. **Memory Update** — If new anti-patterns found, append to `.memory/anti-patterns.md`.
+8. **Memory Update** — If new anti-patterns found, append to `.memory/anti-patterns.md`.
 
-8. Present review to user and wait for acknowledgment.
+9. Present review to user and wait for acknowledgment.

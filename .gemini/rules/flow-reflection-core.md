@@ -20,6 +20,8 @@ is_core: true
 - [ ] Documentation Updated.
 - [ ] No Unaddressed TODOs.
 - [ ] Module Size Limit (< 300 lines).
+- [ ] No Dead Code (unused imports, orphan functions, commented-out blocks).
+- [ ] Code Explanation Provided and Acknowledged.
 - [ ] Git Status Clean.
 
 ## 2. Strategic Reflection Template
