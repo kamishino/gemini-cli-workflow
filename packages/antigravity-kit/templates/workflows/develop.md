@@ -75,6 +75,33 @@ Transform a raw idea into deployed code through a rigorous, phase-based pipeline
      - **Option B (Balanced):** Recommended trade-off. ⭐
      - **Option C (Ambitious):** Full-featured, higher complexity.
 
+   <details><summary>🏆 Golden Example — Options Format</summary>
+
+   ```markdown
+   ### Option A (Safe) — Direct Implementation
+
+   Add the feature inline in the existing module. ~30 lines, no new files.
+
+   - ✅ Fast: 1 hour
+   - ⚠️ Risk: Module grows past 300 lines
+
+   ### Option B (Balanced) ⭐ — Extract + Implement
+
+   Extract shared logic into `lib/utils.js`, then build feature on top.
+
+   - ✅ Clean: Follows existing patterns
+   - ⚠️ Risk: 2-3 hours, needs tests for extracted module
+
+   ### Option C (Ambitious) — Full Redesign
+
+   Refactor the entire module into a plugin system, then add feature as plugin.
+
+   - ✅ Future-proof: Scales to 10+ features
+   - ⚠️ Risk: 1-2 days, may break existing consumers
+   ```
+
+   </details>
+
 5. **🚦 STRATEGIC GATE — MANDATORY STOP**
    - Present options to user.
    - **WAIT for user to select (A/B/C)** before proceeding.
@@ -94,6 +121,37 @@ Transform a raw idea into deployed code through a rigorous, phase-based pipeline
    - Edge Cases & Error Handling
    - Integration Points
 
+   <details><summary>🏆 Golden Example — Technical Blueprint</summary>
+
+   ```markdown
+   ## User Stories
+
+   - As a developer, I want to run `agk stats` so I can see my project setup at a glance.
+
+   ## API / Interfaces
+
+   `async function run(projectDir: string): Promise<number>`
+
+   - Returns: exit code (0 = success)
+   - Side effects: prints dashboard to stdout
+
+   ## Data Model
+
+   stats = { agents: number, workflows: number, skills: number, suites: number }
+
+   ## Edge Cases
+
+   - No .agent/ directory → show "Run agk init first"
+   - Empty suites.json → show 0, suggest `agk suggest suite`
+
+   ## Integration Points
+
+   - Reads: .agent/, .gemini/, .memory/, GEMINI.md, AGENTS.md
+   - Depends on: fs-extra, chalk (existing deps)
+   ```
+
+   </details>
+
 ---
 
 ## Phase 3: Plan — _PLANNING mode_
@@ -108,6 +166,22 @@ Transform a raw idea into deployed code through a rigorous, phase-based pipeline
    - Specific file paths and anchor points (function names, line ranges)
    - Dependency order (what must be built first)
    - Test strategy (write tests first for high-risk changes)
+
+   <details><summary>🏆 Golden Example — task.md</summary>
+
+   ```markdown
+   # Add Stats Dashboard
+
+   - [x] Create `scripts/stats.js` — scan .agent/, .gemini/, .memory/
+   - [x] Wire into CLI router (`bin/index.js` — add "stats" case)
+   - [x] Add visual bar charts for each metric
+   - [x] Add status indicators (GEMINI.md, AGENTS.md, Brain)
+   - [x] Add smart suggestions based on missing items
+   - [ ] Run tests: `node --test`
+   - [ ] Update CHANGELOG.md
+   ```
+
+   </details>
 
 10. **🚦 GATE — Present plan to user for approval.**
 
