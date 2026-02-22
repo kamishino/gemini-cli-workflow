@@ -75,3 +75,30 @@ FORMAT:
 **Decision:** `agk skills add` wraps `npx skills add` from skills.sh. Agents declare `skills: []` in frontmatter. `agk init` auto-suggests skills from project detection.
 **Alternatives:** Custom skill repo (rejected — massive effort), LLM selection (rejected — slow).
 **Consequences:** 150+ community skills available, zero maintenance.
+
+## [2026-02-22] — Golden examples in workflow templates
+
+**Context:** Addy Osmani's AI evals article showed "goldens" anchor AI output quality.
+**Decision:** Added collapsible `<details>` golden examples to `/develop` Phase 1 (options format), Phase 2 (blueprint), Phase 3 (task.md).
+**Alternatives:** Inline examples without collapsible tags (rejected — clutters workflow).
+**Consequences:** AI produces more consistent output anchored to proven formats.
+
+## [2026-02-22] — Test-before-done enforcement across all workflows
+
+**Context:** Addy Osmani's workflow article emphasized tight test-run-fix loops.
+**Decision:** Added auto-detect test command table to `validation-loop.md`, explicit test commands to `/develop` Phase 5, and test commands section to GEMINI.md.
+**Alternatives:** Manual test running (rejected — too easy to skip).
+**Consequences:** AI must run tests before marking any task complete.
+
+## [2026-02-22] — Parallel agent management deferred
+
+**Context:** Addy's "agents need a manager" article describes running 10+ agents in parallel.
+**Decision:** Deferred. Antigravity IDE is single-session. Solo dev = review bottleneck.
+**Alternatives:** Brief Generator + Git Worktrees (feasible but not needed yet).
+**Consequences:** AGK stays focused on sequential orchestration (Sniper Model).
+
+## [2026-02-22] — find-skills install fixed with vercel-labs repo URL
+
+**Context:** `npx -y skills add find-skills` failed — not a standalone npm package.
+**Decision:** Use `npx -y skills add https://github.com/vercel-labs/skills --skill find-skills -y`.
+**Consequences:** find-skills installs correctly during `agk init`.

@@ -1,32 +1,35 @@
-# Project Context
-
-> Current project state snapshot. Overwritten at the end of each session via `/sync`.
-
 ## Active Work
 
-Building `@kamishino/antigravity-kit` — a portable npm package that scaffolds AI guard rails,
-workflows, agents, skills, memory system, and Second Brain into any project. Currently at **v1.9.0**.
-
-The package ships an `agk` CLI with 20+ commands:
-`init`, `status`, `doctor`, `upgrade`, `hooks`, `ci`, `memory`, `scaffold`, `agents`, `skills`,
-`suggest`, `diff`, `brain`, `changelog`, `info`, `help`, `--version`
+AGK v2.9.0 released. Session focused on Addy Osmani article analysis and implementing improvements inspired by his writings.
 
 ## Recent Changes
 
-- **v1.9.0** (2026-02-21) — Skills integration (`agk skills add/list` from skills.sh), hybrid discovery, README major update
-- **v1.8.0** (2026-02-21) — Agent Auto-Dispatch (`agk agents`), zero-config agent setup in `agk init`
-- **v1.7.0** (2026-02-20) — `agk scaffold` boilerplate generator, `/scaffold` workflow, Documentation Writer agent, ADR 4-6
-- **v1.6.0** (2026-02-20) — `agk brain` (Second Brain), `agk suggest`, `agk diff`, `agk memory stats`
+### v2.9.0 (2026-02-22)
 
-## Architecture
+- **Golden Examples** in `/develop` workflow (Phase 1 options, Phase 2 blueprint, Phase 3 task.md) using collapsible `<details>` tags
+- **Test-Before-Done Enforcement**: validation-loop rule now has auto-detect test command table (Node/Jest/Vitest/Python/Go/Rust), `/develop` Phase 5 with explicit test-run-fix loop, GEMINI.md test commands section
+- **New Rule Templates**: `project-structure.md` and `git-workflow.md` (completing 6/6 Addy Osmani spec areas)
+- **Fixed** find-skills install using full vercel-labs repo URL in `init.js`
 
-- 7 agents: architect, debugger, documentation-writer, planner, reviewer, shipper, writer
-- 13 workflows: develop, scaffold, quick-fix, brainstorm, debug, review, sync, release, wake, compact, checkpoint, eval, kamiflow
-- 5 rules: anti-hallucination, validation-loop, reflection, error-recovery, fast-track
-- 7 ADRs: memory-system, agent-triggers, upgrade-strategy, centralized-brain, agent-runtime, scaffold-generator, skills-integration
+### v2.8.0 (2026-02-22) — Earlier in session
+
+- `agk stats` dashboard, Agent Memory system, Workflow Chaining lib
+
+## Addy Osmani Article Analysis (5 articles)
+
+1. **"AI coding agents need a manager"** — AGK = orchestration OS, 1:1 maps to KamiFlow's Sniper Model
+2. **"My LLM coding workflow 2026"** — AGK already implements all 8 principles (specs→small chunks→context→verify→commit→rules→test→adapt)
+3. **"AI Code Model Evals"** — Led to golden examples feature
+4. **"Automated Decision Logs"** — AGK's `.memory/decisions.md` already covers 100% of the concept
+5. **"The 70% Problem"** — KamiFlow solves the 30% gap by enforcing senior-level process (schema-first, validation loop, strategic gates)
+6. **"14 More Lessons from 14 Years at Google"** — Key takeaways: taste > production speed, trust = latency optimization, ruthless prioritization
 
 ## Open Questions
 
-- `agk brain pull` — needs E2E testing on a real second PC
-- `agk skills add` — verify npx skills.sh compatibility on all platforms
-- Should `agk agents` auto-run after `agk scaffold agent`?
+- Parallel agent management deferred (Antigravity IDE limitation, solo dev doesn't need it)
+- Workflow Variables (`{{topic}}`) and Context Injection deferred (nice-to-have)
+- Workflow Composer killed (over-engineering)
+
+## Technical Debt
+
+None introduced this session.
