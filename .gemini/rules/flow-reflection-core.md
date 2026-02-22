@@ -16,6 +16,7 @@ is_core: true
 
 - [ ] Tests Pass (Unit/Integration).
 - [ ] No Lint Errors.
+- [ ] Test Coverage Maintained or Improved (if coverage tool available).
 - [ ] TOML Validation Clean.
 - [ ] Documentation Updated.
 - [ ] No Unaddressed TODOs.

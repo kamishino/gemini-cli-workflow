@@ -59,7 +59,7 @@ Transform a raw idea into deployed code through a rigorous, phase-based pipeline
 
 ## Phase 1: Understand — _PLANNING mode_
 
-3. **Diagnostic Interview (Socratic Dialogue)**
+4. **Diagnostic Interview (Socratic Dialogue)**
    - Analyze user request for ambiguity.
    - Ask 3-5 probing questions:
      - What is the root cause / motivation?
@@ -68,7 +68,7 @@ Transform a raw idea into deployed code through a rigorous, phase-based pipeline
      - Are there similar patterns already in the codebase?
    - **🛑 STOP & WAIT** for user answers before proceeding.
 
-4. **Generate 3 Options**
+5. **Generate 3 Options**
    - Search codebase and `.memory/decisions.md` for precedent.
    - Present:
      - **Option A (Safe):** MVP-first, minimal risk.
@@ -102,7 +102,7 @@ Transform a raw idea into deployed code through a rigorous, phase-based pipeline
 
    </details>
 
-5. **🚦 STRATEGIC GATE — MANDATORY STOP**
+6. **🚦 STRATEGIC GATE — MANDATORY STOP**
    - Present options to user.
    - **WAIT for user to select (A/B/C)** before proceeding.
    - Create an `implementation_plan.md` artifact with the chosen approach.
@@ -113,9 +113,9 @@ Transform a raw idea into deployed code through a rigorous, phase-based pipeline
 
 **Principle:** Schema-First — define data models BEFORE logic.
 
-6. **Schema-First Design** — Define all data models, interfaces, types, and schemas first.
+7. **Schema-First Design** — Define all data models, interfaces, types, and schemas first.
 
-7. **Technical Blueprint** — Document in `implementation_plan.md`:
+8. **Technical Blueprint** — Document in `implementation_plan.md`:
    - User Stories
    - API Signatures / Function Interfaces
    - Edge Cases & Error Handling
@@ -160,43 +160,51 @@ Transform a raw idea into deployed code through a rigorous, phase-based pipeline
 
 // turbo
 
-8. **Reconnaissance** — Search codebase for existing files, functions, and patterns that relate to planned changes. Check `.memory/patterns.md` for project conventions.
+9. **Reconnaissance** — Search codebase for existing files, functions, and patterns that relate to planned changes. Check `.memory/patterns.md` for project conventions.
 
-9. **Task Breakdown** — Create `task.md` artifact with atomic checklist:
-   - Specific file paths and anchor points (function names, line ranges)
-   - Dependency order (what must be built first)
-   - Test strategy (write tests first for high-risk changes)
+10. **🏥 Code Health Pre-Check** — For each target file in the plan, assess AI-readiness:
 
-   <details><summary>🏆 Golden Example — task.md</summary>
+- File size > 300 lines? → Flag for refactor-first
+- Multiple responsibilities / mixed concerns? → Flag for split
+- Deep nesting (> 3 levels)? → Flag for simplification
+- High coupling to other modules? → Flag for careful testing
+- If any file flagged → **recommend refactoring before implementing** and present to user
 
-   ```markdown
-   # Add Stats Dashboard
+11. **Task Breakdown** — Create `task.md` artifact with atomic checklist:
+    - Specific file paths and anchor points (function names, line ranges)
+    - Dependency order (what must be built first)
+    - Test strategy (write tests first for high-risk changes)
 
-   - [x] Create `scripts/stats.js` — scan .agent/, .gemini/, .memory/
-   - [x] Wire into CLI router (`bin/index.js` — add "stats" case)
-   - [x] Add visual bar charts for each metric
-   - [x] Add status indicators (GEMINI.md, AGENTS.md, Brain)
-   - [x] Add smart suggestions based on missing items
-   - [ ] Run tests: `node --test`
-   - [ ] Update CHANGELOG.md
-   ```
+    <details><summary>🏆 Golden Example — task.md</summary>
 
-   </details>
+    ```markdown
+    # Add Stats Dashboard
 
-10. **🚦 GATE — Present plan to user for approval.**
+    - [x] Create `scripts/stats.js` — scan .agent/, .gemini/, .memory/
+    - [x] Wire into CLI router (`bin/index.js` — add "stats" case)
+    - [x] Add visual bar charts for each metric
+    - [x] Add status indicators (GEMINI.md, AGENTS.md, Brain)
+    - [x] Add smart suggestions based on missing items
+    - [ ] Run tests: `node --test`
+    - [ ] Update CHANGELOG.md
+    ```
+
+    </details>
+
+12. **🚦 GATE — Present plan to user for approval.**
 
 ---
 
 ## Phase 4: Execute — _EXECUTION mode_
 
-11. Implement code changes following `task.md` checklist, task by task.
+13. Implement code changes following `task.md` checklist, task by task.
     - Mark items `[/]` when starting, `[x]` when complete.
 
-12. For high-risk changes: Write test FIRST → verify it FAILS → then implement.
+14. For high-risk changes: Write test FIRST → verify it FAILS → then implement.
 
 // turbo
 
-13. After each subtask, run validation:
+15. After each subtask, run validation:
     - Lint / type check (e.g., `tsc --noEmit`, `npm run lint`)
     - Run tests (e.g., `npm test`)
 
@@ -208,53 +216,57 @@ Transform a raw idea into deployed code through a rigorous, phase-based pipeline
 
 // turbo
 
-14. **Phase A — Syntax (BLOCKING):** Lint, type check, compile.
+16. **Phase A — Syntax (BLOCKING):** Lint, type check, compile.
     - Node.js: `npm run lint` or `npx tsc --noEmit`
     - Python: `ruff check .` or `flake8`
 
 // turbo
 
-15. **Phase B — Functional (BLOCKING):** Run tests and verify output.
+17. **Phase B — Functional (BLOCKING):** Run tests and verify output.
     - Auto-detect and run the project's test command:
       - `node --test` (Node.js native)
       - `npm test` (Jest/Vitest)
       - `pytest -v` (Python)
     - If tests fail → read error → fix → re-run (max 3 retries)
     - If tests pass → show count: "✅ X/X tests pass"
+    - **Coverage check (if available):** run `npx c8 --check-coverage` or `pytest --cov`
+      - Coverage must not decrease from baseline
+      - New functions/modules must have corresponding tests
 
-16. **Phase C — Traceability:** Verify requirements from Phase 2 are covered.
+18. **Phase C — Traceability:** Verify requirements from Phase 2 are covered.
 
-17. **Self-Healing:** If errors → analyze → fix → retry (max 3x). Escalate to user if healing fails.
+19. **Self-Healing:** If errors → analyze → fix → retry (max 3x). Escalate to user if healing fails.
 
-18. **🔍 Fresh-Context Self-Review** — Re-read all changed files with a critical "reviewer" mindset:
+20. **🔍 Fresh-Context Self-Review** — Re-read all changed files with a critical "reviewer" mindset:
     - Scan for **abstraction bloat** (classes where functions suffice, over-engineered patterns)
     - Scan for **dead code** (unused imports, orphan functions, commented-out blocks)
     - Scan for **assumption errors** (hardcoded values, missing null checks, wrong defaults)
     - Scan for **overcomplexity** (could this be simpler? "Couldn't you just...?")
-    - If issues found → fix inline → re-run tests (step 15)
+    - If issues found → fix inline → re-run tests (step 17)
     - Present brief self-review summary before proceeding
 
 ---
 
 ## Phase 6: Reflect — _VERIFICATION mode_
 
-19. **Quality Gate Checklist:**
+21. **Quality Gate Checklist:**
     - [ ] Tests pass
     - [ ] No lint errors
+    - [ ] Test coverage maintained or improved (if coverage tool available)
     - [ ] Documentation updated (if applicable)
     - [ ] No unaddressed TODOs
     - [ ] Module size reasonable (< 300 lines preferred)
     - [ ] No dead code (unused imports, orphan functions, commented-out blocks)
     - [ ] Code explanation provided and acknowledged
 
-20. **🧠 Explain Your Code** — Before committing, produce a concise summary for the developer:
+22. **🧠 Explain Your Code** — Before committing, produce a concise summary for the developer:
     - **What changed:** list of files touched with 1-line explanation each
     - **How it works:** plain-English walkthrough of the core logic flow
     - **Why this approach:** justification of key design decisions
     - **Edge cases handled:** what could go wrong and how it's covered
     - **🛑 STOP & WAIT** — User must acknowledge understanding before proceeding.
 
-21. **Strategic Reflection** — Document in `walkthrough.md`:
+23. **Strategic Reflection** — Document in `walkthrough.md`:
     - Value Delivered (1-sentence impact)
     - Technical Debt Assessment (None / Minor / Significant)
     - Lessons Learned
@@ -268,7 +280,7 @@ Transform a raw idea into deployed code through a rigorous, phase-based pipeline
 
 // turbo
 
-22. **Auto-write `.memory/context.md`** — Overwrite with current project state:
+24. **Auto-write `.memory/context.md`** — Overwrite with current project state:
 
     ```markdown
     ## Active Work
@@ -290,7 +302,7 @@ Transform a raw idea into deployed code through a rigorous, phase-based pipeline
 
 // turbo
 
-23. **Auto-append `.memory/decisions.md`** — For every architectural choice made this session:
+25. **Auto-append `.memory/decisions.md`** — For every architectural choice made this session:
 
     ```markdown
     ## [YYYY-MM-DD] — [Decision Title]
@@ -303,17 +315,17 @@ Transform a raw idea into deployed code through a rigorous, phase-based pipeline
 
 // turbo
 
-24. **Auto-update `.memory/patterns.md`** — If any new conventions were established this session.
+26. **Auto-update `.memory/patterns.md`** — If any new conventions were established this session.
 
 // turbo
 
-25. **Stage and commit** — Unified commit with all changes:
+27. **Stage and commit** — Unified commit with all changes:
 
     ```
     feat|fix|chore(scope): description
     ```
 
-26. **Show completion banner:**
+28. **Show completion banner:**
 
     ```
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

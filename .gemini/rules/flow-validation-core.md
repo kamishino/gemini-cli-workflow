@@ -26,13 +26,24 @@ is_core: true
 - **RETRY:** Max 3x with self-healing.
 - **BLOCK:** Escalate to user.
 
-## 3. Gate Status
+## 3. Pre-Flight Check (Code Health Assessment)
+
+Before implementation, assess target files for AI-readiness:
+
+- File size > 300 lines → refactor-first
+- Multiple responsibilities → split before editing
+- Deep nesting (> 3 levels) → simplify first
+- High coupling → extra test coverage required
+
+**Rule:** If any target file fails health check, recommend refactoring before implementing new features.
+
+## 4. Gate Status
 
 - **PASS:** Proceed to reflection.
 - **PASS WITH NOTES:** Document deferred criteria.
 - **BLOCK:** Log error, STOP workflow.
 
-## 4. Self-Correcting Mechanism (The Learning Loop)
+## 5. Self-Correcting Mechanism (The Learning Loop)
 
 ### Logic
 
