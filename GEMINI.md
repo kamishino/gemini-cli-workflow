@@ -198,11 +198,14 @@ If multiple agents match, prefer the one with the most trigger matches. If no ag
 | Agent | Triggers | File |
 |:---|:---|:---|
 | architect | `architecture`, `design`, `structure`, `refactor`, `pattern`, `scalability`, `system`, `module`, `monolith`, `microservice`, `api design`, `database design`, `schema` | `.agent/agents/architect.md` |
+| Database Expert | `"database"`, `"schema"`, `"migration"`, `"query"`, `"SQL"`, `"PostgreSQL"`, `"MySQL"`, `"MongoDB"`, `"Prisma"`, `"index"`, `"join"`, `"table"`, `"ORM"`, `"relation"`, `"normalize"` | `.agent/agents/database-expert.md` |
 | debugger | `bug`, `error`, `broken`, `failing`, `crash`, `exception`, `undefined`, `null`, `unexpected`, `not working`, `fix`, `investigate`, `trace`, `stack trace`, `regression` | `.agent/agents/debugger.md` |
 | Documentation Writer | `"readme"`, `"docs"`, `"documentation"`, `"changelog"`, `"adr"`, `"guide"`, `"tutorial"`, `"api-docs"`, `"jsdoc"`, `"comment"` | `.agent/agents/documentation-writer.md` |
 | planner | `plan`, `roadmap`, `breakdown`, `scope`, `estimate`, `milestone`, `sprint`, `backlog`, `feature`, `epic`, `user story`, `requirements`, `spec` | `.agent/agents/planner.md` |
 | reviewer | `review`, `PR`, `pull request`, `code quality`, `smell`, `debt`, `lint`, `readability`, `naming`, `duplication`, `SOLID`, `clean code` | `.agent/agents/reviewer.md` |
+| Security Auditor | `"security"`, `"vulnerability"`, `"scan"`, `"secret"`, `"auth"`, `"permission"`, `"OWASP"`, `"XSS"`, `"CSRF"`, `"injection"`, `"CVE"`, `"encryption"`, `"token"`, `"password"` | `.agent/agents/security-auditor.md` |
 | shipper | `release`, `deploy`, `publish`, `version`, `bump`, `tag`, `ship`, `npm publish`, `production`, `staging`, `launch` | `.agent/agents/shipper.md` |
+| Tester | `"test"`, `"testing"`, `"coverage"`, `"mock"`, `"fixture"`, `"TDD"`, `"unit test"`, `"integration test"`, `"e2e"`, `"assertion"`, `"expect"`, `"describe"`, `"it"`, `"spec"`, `"jest"`, `"vitest"`, `"playwright"` | `.agent/agents/tester.md` |
 | writer | `docs`, `documentation`, `readme`, `changelog`, `comment`, `jsdoc`, `explain`, `tutorial`, `guide`, `API docs`, `docstring`, `annotate` | `.agent/agents/writer.md` |
 <!-- AGK_AGENT_REGISTRY_END -->
 

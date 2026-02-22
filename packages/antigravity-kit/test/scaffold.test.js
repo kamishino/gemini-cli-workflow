@@ -63,7 +63,7 @@ describe("agk scaffold (E2E)", () => {
 
   it("scaffolds an agent and slugifies the name", async () => {
     const output = runScaffold(
-      `agent "Database Expert" "Postgres Master"`,
+      `agent "Data Pipeline Expert" "ETL Master"`,
       tmpRoot,
     );
     assert.ok(
@@ -75,18 +75,18 @@ describe("agk scaffold (E2E)", () => {
       tmpRoot,
       ".agent",
       "agents",
-      "database-expert.md",
+      "data-pipeline-expert.md",
     );
     assert.ok(await fs.pathExists(expectedFile), "File should be created");
 
     const content = await fs.readFile(expectedFile, "utf8");
-    assert.ok(content.includes("name: Database Expert"), "Frontmatter name");
     assert.ok(
-      content.includes("description: Postgres Master"),
-      "Frontmatter desc",
+      content.includes("name: Data Pipeline Expert"),
+      "Frontmatter name",
     );
+    assert.ok(content.includes("description: ETL Master"), "Frontmatter desc");
     assert.ok(
-      content.includes("You are the Database Expert"),
+      content.includes("You are the Data Pipeline Expert"),
       "Identity block",
     );
   });
