@@ -344,6 +344,17 @@ async function main() {
     // Non-fatal: agent registration is a nice-to-have
   }
 
+  // --- Phase 2.6: Install find-skills (meta-skill for discovering new skills) ---
+  try {
+    const skillsDir = path.join(CWD, ".agent", "skills", "find-skills");
+    if (!(await fs.pathExists(skillsDir))) {
+      const skills = require("../scripts/skills");
+      await skills.run(CWD, ["add", "find-skills"]);
+    }
+  } catch (_e) {
+    // Non-fatal: find-skills is a nice-to-have
+  }
+
   // --- Phase 3: Getting Started banner ---
 
   const B = chalk.gray;

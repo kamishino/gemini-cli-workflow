@@ -14,14 +14,49 @@ async function run(projectDir, args = []) {
   switch (subcommand) {
     case "add":
       return await addSkills(projectDir, args.slice(1));
+    case "find":
+      return await npxPassthrough(projectDir, "find", args.slice(1));
+    case "check":
+      return await npxPassthrough(projectDir, "check", args.slice(1));
+    case "update":
+      return await npxPassthrough(projectDir, "update", args.slice(1));
     case "list":
       return await listSkills(projectDir);
     default:
       console.error(chalk.red(`\n❌ Unknown subcommand: ${subcommand}`));
-      console.log(
-        chalk.yellow("  Usage: agk skills add <name>  |  agk skills list\n"),
-      );
+      showUsage();
       return 1;
+  }
+}
+
+function showUsage() {
+  console.log(chalk.yellow("\n  Usage:"));
+  console.log(
+    chalk.gray("    agk skills add <name>    Install a skill from skills.sh"),
+  );
+  console.log(
+    chalk.gray("    agk skills find <query>  Search for skills by keyword"),
+  );
+  console.log(chalk.gray("    agk skills list          List installed skills"));
+  console.log(
+    chalk.gray("    agk skills check         Check for skill updates"),
+  );
+  console.log(
+    chalk.gray("    agk skills update        Update all installed skills\n"),
+  );
+}
+
+async function npxPassthrough(projectDir, cmd, args) {
+  const query = args.join(" ");
+  try {
+    execSync(`npx -y skills ${cmd} ${query}`, {
+      cwd: projectDir,
+      stdio: "inherit",
+      timeout: 30000,
+    });
+    return 0;
+  } catch {
+    return 1;
   }
 }
 
