@@ -36,6 +36,14 @@ CATEGORIES: Shell, Import, Syntax, Logic, Config, Test, Path, Type
   Always use `path.join(__dirname, ...)` or `process.cwd()` for dynamic resolution.
   (Learned 2026-02-19)
 
-- **[Docs]:** Do NOT leave JSDoc comment blocks outdated when adding new commands.
-  Update the comment block in `bin/index.js` whenever a new command is added to the router.
-  (Learned 2026-02-19)
+- **[Syntax]:** Do NOT double-escape regex in JavaScript template literals.
+  `\s+` not `\\s+` — template literals don't need extra escaping.
+  (Learned 2026-02-20)
+
+- **[Template]:** When adding a new agent/workflow to `templates/`, always also run `agk upgrade`
+  to propagate it to the local `.agent/` directory. Then run `agk agents` to update GEMINI.md.
+  (Learned 2026-02-21)
+
+- **[CLI]:** When adding a new command to the CLI router, always update BOTH:
+  (1) the `case` in `bin/index.js`, AND (2) the `showHelp()` text.
+  (Learned 2026-02-21)

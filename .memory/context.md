@@ -5,28 +5,28 @@
 ## Active Work
 
 Building `@kamishino/antigravity-kit` — a portable npm package that scaffolds AI guard rails,
-workflows, memory system, and skills into any project. Currently at **v1.2.0**.
+workflows, agents, skills, memory system, and Second Brain into any project. Currently at **v1.9.0**.
 
-The package ships an `agk` CLI with 10 commands:
-`init`, `status`, `doctor`, `upgrade`, `hooks`, `ci`, `memory`, `info`, `--help`, `--version`
+The package ships an `agk` CLI with 20+ commands:
+`init`, `status`, `doctor`, `upgrade`, `hooks`, `ci`, `memory`, `scaffold`, `agents`, `skills`,
+`suggest`, `diff`, `brain`, `changelog`, `info`, `help`, `--version`
 
 ## Recent Changes
 
-- **v1.2.0 released** (2026-02-19) — Full AGK CLI: agk router, status, upgrade, memory, info, ci
-- **v1.1.0 released** (2026-02-19) — doctor, init --interactive, git hooks, ora spinners
-- **SSOT fixed** — `.gemini/rules/` is now primary for all commands (doctor, status, upgrade)
-- **Smart default fixed** — checks both `.agent/` AND `.gemini/rules/` before deciding init vs doctor
-- **New workflows** — `/brainstorm` and `/wake` added to `.agent/workflows/` and templates
+- **v1.9.0** (2026-02-21) — Skills integration (`agk skills add/list` from skills.sh), hybrid discovery, README major update
+- **v1.8.0** (2026-02-21) — Agent Auto-Dispatch (`agk agents`), zero-config agent setup in `agk init`
+- **v1.7.0** (2026-02-20) — `agk scaffold` boilerplate generator, `/scaffold` workflow, Documentation Writer agent, ADR 4-6
+- **v1.6.0** (2026-02-20) — `agk brain` (Second Brain), `agk suggest`, `agk diff`, `agk memory stats`
+
+## Architecture
+
+- 7 agents: architect, debugger, documentation-writer, planner, reviewer, shipper, writer
+- 13 workflows: develop, scaffold, quick-fix, brainstorm, debug, review, sync, release, wake, compact, checkpoint, eval, kamiflow
+- 5 rules: anti-hallucination, validation-loop, reflection, error-recovery, fast-track
+- 7 ADRs: memory-system, agent-triggers, upgrade-strategy, centralized-brain, agent-runtime, scaffold-generator, skills-integration
 
 ## Open Questions
 
-- Should `.memory/` be gitignored by default for privacy? (discussed: private repo approach preferred)
-- `agk memory sync` command — push/pull memory to private git repo (planned, not yet built)
-- Should `/develop` and `/kamiflow` cross-reference each other? (planned, not yet done)
-- `kamiflow.md` not yet added to `agk` templates (planned)
-
-## Technical Debt
-
-- `bin/index.js` JSDoc comment was outdated (fixed this session)
-- `.memory/` files were empty templates — never written to (fixed this session via /sync)
-- `agk upgrade` only checks 5 workflows (templates had 5) — now 7 after brainstorm + wake added
+- `agk brain pull` — needs E2E testing on a real second PC
+- `agk skills add` — verify npx skills.sh compatibility on all platforms
+- Should `agk agents` auto-run after `agk scaffold agent`?
