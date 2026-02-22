@@ -248,23 +248,21 @@ When the user sends a message, silently check the **Agent Registry** below. If a
 If multiple agents match, prefer the one with the most trigger matches. If no agent matches, respond as your default self.
 
 <!-- AGK_AGENT_REGISTRY_START -->
-
-| Agent                | Triggers                                                                                                                                                                                                           | File                                    |
-| :------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------- |
-| architect            | `architecture`, `design`, `structure`, `refactor`, `pattern`, `scalability`, `system`, `module`, `monolith`, `microservice`, `api design`, `database design`, `schema`                                             | `.agent/agents/architect.md`            |
-| Database Expert      | `"database"`, `"schema"`, `"migration"`, `"query"`, `"SQL"`, `"PostgreSQL"`, `"MySQL"`, `"MongoDB"`, `"Prisma"`, `"index"`, `"join"`, `"table"`, `"ORM"`, `"relation"`, `"normalize"`                              | `.agent/agents/database-expert.md`      |
-| debugger             | `bug`, `error`, `broken`, `failing`, `crash`, `exception`, `undefined`, `null`, `unexpected`, `not working`, `fix`, `investigate`, `trace`, `stack trace`, `regression`                                            | `.agent/agents/debugger.md`             |
-| DevOps Engineer      | `"devops"`, `"deploy"`, `"docker"`, `"kubernetes"`, `"k8s"`, `"terraform"`, `"ansible"`, `"ci/cd"`, `"pipeline"`, `"staging"`, `"production"`, `"infrastructure"`, `"nginx"`, `"ssl"`, `"monitoring"`              | `.agent/agents/devops-engineer.md`      |
-| Documentation Writer | `"readme"`, `"docs"`, `"documentation"`, `"changelog"`, `"adr"`, `"guide"`, `"tutorial"`, `"api-docs"`, `"jsdoc"`, `"comment"`                                                                                     | `.agent/agents/documentation-writer.md` |
-| Mobile Developer     | `"mobile"`, `"react native"`, `"flutter"`, `"expo"`, `"ios"`, `"android"`, `"app store"`, `"responsive"`, `"touch"`, `"gesture"`, `"navigation"`                                                                   | `.agent/agents/mobile-developer.md`     |
-| planner              | `plan`, `roadmap`, `breakdown`, `scope`, `estimate`, `milestone`, `sprint`, `backlog`, `feature`, `epic`, `user story`, `requirements`, `spec`                                                                     | `.agent/agents/planner.md`              |
-| Python Developer     | `"python"`, `"pip"`, `"poetry"`, `"pytest"`, `"django"`, `"flask"`, `"fastapi"`, `"pandas"`, `"numpy"`, `"venv"`, `"conda"`, `"pydantic"`, `"typing"`                                                              | `.agent/agents/python-developer.md`     |
-| reviewer             | `review`, `PR`, `pull request`, `code quality`, `smell`, `debt`, `lint`, `readability`, `naming`, `duplication`, `SOLID`, `clean code`                                                                             | `.agent/agents/reviewer.md`             |
-| Security Auditor     | `"security"`, `"vulnerability"`, `"scan"`, `"secret"`, `"auth"`, `"permission"`, `"OWASP"`, `"XSS"`, `"CSRF"`, `"injection"`, `"CVE"`, `"encryption"`, `"token"`, `"password"`                                     | `.agent/agents/security-auditor.md`     |
-| shipper              | `release`, `deploy`, `publish`, `version`, `bump`, `tag`, `ship`, `npm publish`, `production`, `staging`, `launch`                                                                                                 | `.agent/agents/shipper.md`              |
-| Tester               | `"test"`, `"testing"`, `"coverage"`, `"mock"`, `"fixture"`, `"TDD"`, `"unit test"`, `"integration test"`, `"e2e"`, `"assertion"`, `"expect"`, `"describe"`, `"it"`, `"spec"`, `"jest"`, `"vitest"`, `"playwright"` | `.agent/agents/tester.md`               |
-| writer               | `docs`, `documentation`, `readme`, `changelog`, `comment`, `jsdoc`, `explain`, `tutorial`, `guide`, `API docs`, `docstring`, `annotate`                                                                            | `.agent/agents/writer.md`               |
-
+| Agent | Triggers | File |
+|:---|:---|:---|
+| architect | `architecture`, `design`, `structure`, `refactor`, `pattern`, `scalability`, `system`, `module`, `monolith`, `microservice`, `api design`, `database design`, `schema` | `.agent/agents/architect.md` |
+| Database Expert | `"database"`, `"schema"`, `"migration"`, `"query"`, `"SQL"`, `"PostgreSQL"`, `"MySQL"`, `"MongoDB"`, `"Prisma"`, `"index"`, `"join"`, `"table"`, `"ORM"`, `"relation"`, `"normalize"` | `.agent/agents/database-expert.md` |
+| debugger | `bug`, `error`, `broken`, `failing`, `crash`, `exception`, `undefined`, `null`, `unexpected`, `not working`, `fix`, `investigate`, `trace`, `stack trace`, `regression` | `.agent/agents/debugger.md` |
+| DevOps Engineer | `"devops"`, `"deploy"`, `"docker"`, `"kubernetes"`, `"k8s"`, `"terraform"`, `"ansible"`, `"ci/cd"`, `"pipeline"`, `"staging"`, `"production"`, `"infrastructure"`, `"nginx"`, `"ssl"`, `"monitoring"` | `.agent/agents/devops-engineer.md` |
+| Documentation Writer | `"readme"`, `"docs"`, `"documentation"`, `"changelog"`, `"adr"`, `"guide"`, `"tutorial"`, `"api-docs"`, `"jsdoc"`, `"comment"` | `.agent/agents/documentation-writer.md` |
+| Mobile Developer | `"mobile"`, `"react native"`, `"flutter"`, `"expo"`, `"ios"`, `"android"`, `"app store"`, `"responsive"`, `"touch"`, `"gesture"`, `"navigation"` | `.agent/agents/mobile-developer.md` |
+| planner | `plan`, `roadmap`, `breakdown`, `scope`, `estimate`, `milestone`, `sprint`, `backlog`, `feature`, `epic`, `user story`, `requirements`, `spec` | `.agent/agents/planner.md` |
+| Python Developer | `"python"`, `"pip"`, `"poetry"`, `"pytest"`, `"django"`, `"flask"`, `"fastapi"`, `"pandas"`, `"numpy"`, `"venv"`, `"conda"`, `"pydantic"`, `"typing"` | `.agent/agents/python-developer.md` |
+| reviewer | `review`, `PR`, `pull request`, `code quality`, `smell`, `debt`, `lint`, `readability`, `naming`, `duplication`, `SOLID`, `clean code` | `.agent/agents/reviewer.md` |
+| Security Auditor | `"security"`, `"vulnerability"`, `"scan"`, `"secret"`, `"auth"`, `"permission"`, `"OWASP"`, `"XSS"`, `"CSRF"`, `"injection"`, `"CVE"`, `"encryption"`, `"token"`, `"password"` | `.agent/agents/security-auditor.md` |
+| shipper | `release`, `deploy`, `publish`, `version`, `bump`, `tag`, `ship`, `npm publish`, `production`, `staging`, `launch` | `.agent/agents/shipper.md` |
+| Tester | `"test"`, `"testing"`, `"coverage"`, `"mock"`, `"fixture"`, `"TDD"`, `"unit test"`, `"integration test"`, `"e2e"`, `"assertion"`, `"expect"`, `"describe"`, `"it"`, `"spec"`, `"jest"`, `"vitest"`, `"playwright"` | `.agent/agents/tester.md` |
+| writer | `docs`, `documentation`, `readme`, `changelog`, `comment`, `jsdoc`, `explain`, `tutorial`, `guide`, `API docs`, `docstring`, `annotate` | `.agent/agents/writer.md` |
 <!-- AGK_AGENT_REGISTRY_END -->
 
 # 🛑 Anti-Patterns & Recurring Mistakes

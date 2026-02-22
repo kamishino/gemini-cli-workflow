@@ -5,6 +5,12 @@
       "displayName": "CLI Tool",
       "version": "1.0.0",
       "installedAt": "2026-02-22T08:36:41.586Z"
+    },
+    {
+      "name": "devops",
+      "displayName": "DevOps",
+      "version": "1.0.0",
+      "installedAt": "2026-02-22T16:35:12.960Z"
     }
   ]
 }
