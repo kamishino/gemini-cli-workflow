@@ -109,3 +109,10 @@ FORMAT:
 **Decision:** Implemented 3 mechanisms: Fresh-Context Self-Review (Phase D), Explain Your Code Gate, Dead Code Cleanup. Integrated into `/develop`, `/review`, `/sync` workflows and validation/reflection rules.
 **Alternatives:** External linting tools (rejected — these are process problems, not syntax problems).
 **Consequences:** AI must now self-review, explain, and clean up before any commit. 4-Phase validation model replaces 3-Phase.
+
+## [2026-02-23] — CodeScene-inspired quality features
+
+**Context:** CodeScene articles showed: AI increases defects 30% in unhealthy code; code coverage prevents regressions; assessing file health before editing is critical.
+**Decision:** Added Code Health Pre-Check (step 10, Phase 3) and Coverage Gate (step 17, Phase 5 + Quality Gate). Integrated into `/develop`, `/review`, `flow-validation-core.md`, `flow-reflection-core.md`.
+**Alternatives:** CodeScene MCP integration (deferred — external tool dependency, AGK must stay portable).
+**Consequences:** AI now checks target file health before editing and verifies test coverage doesn't decrease.
