@@ -1,5 +1,19 @@
 # Changelog — @kamishino/antigravity-kit
 
+## [v2.2.0] - 2026-02-22
+
+### ✨ Features
+
+#### AGENTS.md — Open Standard Support
+
+- `agk agents` now auto-generates `AGENTS.md` following the [open standard](https://agents.md).
+- This file is readable by Copilot, Codex, Jules, Cursor, and other AI tools — making AGK agents cross-IDE portable.
+
+#### Agent Marketplace
+
+- `agk agents find <query>` — Search community agent templates across npm, GitHub, Claude Code Templates, and skills.sh.
+- `agk agents list` — View installed agents with descriptions and linked skills.
+
 ## [v2.1.0] - 2026-02-22
 
 ### ✨ Features

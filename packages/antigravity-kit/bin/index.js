@@ -57,7 +57,9 @@ ${chalk.bold("USAGE")}
   ${chalk.yellow("agk memory sync pull")} Pull memory from private git repo
   ${chalk.yellow("agk changelog")}        Show version changelog
   ${chalk.yellow("agk scaffold <type>")}  Generate agent/workflow/rule boilerplate
-  ${chalk.yellow("agk agents")}            Register agents in GEMINI.md (Auto-Dispatch)
+  ${chalk.yellow("agk agents")}            Register agents + generate AGENTS.md
+  ${chalk.yellow("agk agents find <q>")}   Search community agent templates
+  ${chalk.yellow("agk agents list")}       List installed agents
   ${chalk.yellow("agk skills add <n>")}    Install skills from skills.sh
   ${chalk.yellow("agk skills find <q>")}   Search for skills by keyword
   ${chalk.yellow("agk skills list")}       List installed skills
@@ -184,7 +186,7 @@ async function main() {
 
     case "agents": {
       const agents = require("../scripts/agents");
-      const code = await agents.run(CWD);
+      const code = await agents.run(CWD, subArgs);
       process.exit(code);
       break;
     }
