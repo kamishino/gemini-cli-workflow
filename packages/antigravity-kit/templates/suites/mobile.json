@@ -1,0 +1,22 @@
+{
+  "name": "Mobile",
+  "description": "Mobile app development with React Native/Flutter, testing, and app store deployment",
+  "version": "1.0.0",
+  "detectors": [
+    "app.json",
+    "app.config.*",
+    "react-native",
+    "expo",
+    "*.swift",
+    "*.kt",
+    "flutter"
+  ],
+  "agents": ["mobile-developer", "tester", "reviewer"],
+  "skills": [
+    "react-native-best-practices",
+    "mobile-patterns",
+    "testing-patterns"
+  ],
+  "workflows": ["develop", "test", "review", "deploy-mobile"],
+  "rules": ["validation-loop", "reflection"]
+}

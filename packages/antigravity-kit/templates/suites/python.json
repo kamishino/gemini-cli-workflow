@@ -1,0 +1,17 @@
+{
+  "name": "Python",
+  "description": "Python development with FastAPI/Django, pytest, type checking, and best practices",
+  "version": "1.0.0",
+  "detectors": [
+    "pyproject.toml",
+    "setup.py",
+    "requirements.txt",
+    "*.py",
+    "Pipfile",
+    "poetry.lock"
+  ],
+  "agents": ["python-developer", "architect", "tester", "security-auditor"],
+  "skills": ["python-performance-optimization", "python-testing-patterns"],
+  "workflows": ["develop", "pytest", "review", "debug"],
+  "rules": ["validation-loop", "anti-hallucination", "error-recovery"]
+}

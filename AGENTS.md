@@ -5,15 +5,18 @@
 
 ## Project Agents
 
-This project uses **10 specialized AI agents** managed by [Antigravity Kit](https://github.com/kamishino/gemini-cli-workflow).
+This project uses **13 specialized AI agents** managed by [Antigravity Kit](https://github.com/kamishino/gemini-cli-workflow).
 
 | Agent | Description | Triggers |
 |:---|:---|:---|
 | **architect** | Software architecture and system design specialist | architecture, design, structure, refactor, pattern... |
 | **Database Expert** | Specialized in database design, query optimization, migrations, and data modeling across SQL and NoSQL. | "database", "schema", "migration", "query", "SQL"... |
 | **debugger** | Systematic debugging and root cause analysis specialist | bug, error, broken, failing, crash... |
+| **DevOps Engineer** | Specialized in CI/CD, infrastructure, Docker, Kubernetes, and deployment automation. | "devops", "deploy", "docker", "kubernetes", "k8s"... |
 | **Documentation Writer** | Expert at creating and updating project documentation | "readme", "docs", "documentation", "changelog", "adr"... |
+| **Mobile Developer** | Specialized in React Native, Flutter, and mobile-first development patterns. | "mobile", "react native", "flutter", "expo", "ios"... |
 | **planner** | Strategic planning and task breakdown specialist | plan, roadmap, breakdown, scope, estimate... |
+| **Python Developer** | Specialized in Python development, async patterns, testing, and package management. | "python", "pip", "poetry", "pytest", "django"... |
 | **reviewer** | Code quality and review specialist | review, PR, pull request, code quality, smell... |
 | **Security Auditor** | Specialized in identifying vulnerabilities, enforcing security best practices, and detecting secrets in code. | "security", "vulnerability", "scan", "secret", "auth"... |
 | **shipper** | Release management and deployment specialist | release, deploy, publish, version, bump... |

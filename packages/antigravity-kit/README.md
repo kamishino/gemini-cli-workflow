@@ -1,8 +1,8 @@
 # 🛡️ @kamishino/antigravity-kit
 
-> AI Guard Rails for [Antigravity](https://antigravity.dev) — portable rules, workflows, and persistent memory for structured development.
+> AI Guard Rails for [Antigravity](https://antigravity.dev) — a complete development platform with agents, skills, suites, workflows, and persistent memory.
 
-**Zero config. One command. Runs anywhere.**
+**Zero config. One command. 13 agents. 7 suites. 18 workflows.**
 
 ```bash
 npx @kamishino/antigravity-kit init
@@ -16,143 +16,149 @@ agk init
 
 ```
 your-project/
-├── GEMINI.md                      # AI system prompt (loads all rules)
+├── GEMINI.md                      # AI system prompt (Auto-Dispatch)
+├── AGENTS.md                      # Open standard (cross-IDE portable)
 ├── .gemini/
 │   └── rules/                     # 5 AI behavior guard rails
-│       ├── anti-hallucination.md
-│       ├── validation-loop.md
-│       ├── reflection.md
-│       ├── error-recovery.md
-│       └── fast-track.md
 ├── .agent/
-│   ├── agents/                    # 7 specialist AI agents
-│   │   ├── architect.md
-│   │   ├── debugger.md
-│   │   ├── documentation-writer.md
-│   │   ├── planner.md
-│   │   ├── reviewer.md
-│   │   ├── shipper.md
+│   ├── agents/                    # 13 specialist AI agents
+│   │   ├── architect.md           ├── mobile-developer.md
+│   │   ├── database-expert.md     ├── python-developer.md
+│   │   ├── debugger.md            ├── devops-engineer.md
+│   │   ├── documentation-writer.md├── reviewer.md
+│   │   ├── planner.md             ├── security-auditor.md
+│   │   ├── shipper.md             ├── tester.md
 │   │   └── writer.md
-│   ├── workflows/                 # 13 slash-command workflows
-│   │   ├── develop.md             # Full idea-to-ship pipeline
-│   │   ├── scaffold.md            # AI boilerplate generator
-│   │   ├── quick-fix.md           # Fast track for small changes
-│   │   └── ... (10 more)
-│   └── skills/                    # Installed skills from skills.sh
-│       └── nextjs-best-practices/
-│           └── SKILL.md
+│   ├── workflows/                 # 18 slash-command workflows
+│   ├── skills/                    # Installed skills from skills.sh
+│   └── suites.json                # Installed suite tracking
 └── .memory/                       # Persistent context (4 files)
-    ├── context.md                 # Current project state
-    ├── decisions.md               # Append-only decision log
-    ├── patterns.md                # Code conventions
-    └── anti-patterns.md           # Mistakes to avoid
+    ├── context.md                 ├── patterns.md
+    ├── decisions.md               └── anti-patterns.md
 ```
 
 ---
 
 ## `agk` CLI
 
-After installing globally (`npm i -g @kamishino/antigravity-kit`), use the `agk` shorthand:
-
 ```bash
-agk                    # smart default: init or doctor
-agk init               # scaffold AI guard rails
+# Setup
+agk init               # Smart Init: detect → suite → skills → agents
 agk init -i            # interactive setup wizard
-agk status             # quick project overview
-agk doctor             # full health check
-agk upgrade            # update workflows + rules from templates
-agk hooks              # install git hooks (memory auto-sync)
-agk ci                 # generate GitHub Actions health check
-agk scaffold agent <n> # generate agent boilerplate
-agk scaffold workflow <n>  # generate workflow boilerplate
-agk agents             # register agents in GEMINI.md for Auto-Dispatch
-agk skills add <name>  # install skills from skills.sh
+agk upgrade            # update templates from AGK
+
+# Suites (bundled dev environments)
+agk suite available    # browse 7 built-in suites
+agk suite add react    # install suite: agents + skills + workflows
+agk suite find <q>     # search community suites
+agk suite create <n>   # export project as shareable suite
+agk suite list         # list installed suites
+
+# Agents
+agk agents             # register agents + generate AGENTS.md
+agk agents find <q>    # search community agent templates
+agk agents list        # list installed agents with details
+
+# Skills
+agk skills add <name>  # install from skills.sh
+agk skills find <q>    # search skills by keyword
 agk skills list        # list installed skills
-agk suggest <query>    # find the best agent for a task
-agk suggest            # suggest agent from git diff
-agk diff               # detect modified/missing templates
+agk skills check       # check for updates
+agk skills update      # update all skills
+
+# Memory & Brain
 agk brain              # Second Brain dashboard
 agk brain setup <path> # configure central memory repo
-agk brain link         # link project memory to brain
-agk brain sync         # commit and push brain to GitHub
-agk memory             # memory status
-agk memory show        # print all memory files
-agk memory sync        # push .memory/ to private git repo
-agk info               # show install location + version
+agk brain link         # link project to brain
+agk brain sync         # commit and push brain
+agk brain pull         # pull brain on a new machine
+agk memory sync        # smart sync (redirects to brain if linked)
+
+# Dev Tools
+agk scaffold agent <n> # generate agent boilerplate
+agk scaffold workflow <n>  # generate workflow boilerplate
+agk status             # quick project overview
+agk doctor             # full health check
+agk suggest <query>    # find best agent for a task
+agk info               # show version + location
 ```
 
 ---
 
-## 13 Workflows
+## 7 Suites
 
-Slash commands for [Antigravity IDE](https://antigravity.dev). All workflows auto-load session context at start and auto-save at end.
+One command installs all agents, skills, workflows, and rules for your stack:
 
-### Daily Workflow
+| Suite           | Agents                                          | Workflows                                | For                    |
+| :-------------- | :---------------------------------------------- | :--------------------------------------- | :--------------------- |
+| **React**       | architect, tester, reviewer                     | develop, test, review                    | Next.js / React        |
+| **Fullstack**   | architect, db-expert, tester, reviewer, shipper | develop, test, review, release           | Full-stack web         |
+| **Backend API** | architect, db-expert, security, tester          | develop, test, review, debug             | API servers            |
+| **CLI Tool**    | architect, tester, doc-writer, shipper          | develop, test, review, release, scaffold | CLI apps               |
+| **Mobile**      | mobile-dev, tester, reviewer                    | develop, test, review, deploy-mobile     | React Native / Flutter |
+| **Python**      | python-dev, architect, tester, security         | develop, pytest, review, debug           | FastAPI / Django       |
+| **DevOps**      | devops-eng, architect, security                 | deploy, review, debug                    | Docker / CI/CD         |
 
-| Command       | Use When                                               |
-| :------------ | :----------------------------------------------------- |
-| `/develop`    | Building a new feature (auto-wake → build → auto-sync) |
-| `/quick-fix`  | Small obvious change, < 50 lines, 1 file               |
-| `/brainstorm` | Have a vague idea, need to clarify before planning     |
-| `/debug`      | Something is broken, need to find root cause           |
-
-### Session Management
-
-| Command       | Use When                                              |
-| :------------ | :---------------------------------------------------- |
-| `/wake`       | New PC, new session — restore context from `.memory/` |
-| `/checkpoint` | Before a risky change, mid-session save               |
-| `/compact`    | Session getting long, context window filling up       |
-| `/eval`       | Before shipping — self-assessment quality gate        |
-
-### Release + Collaboration
-
-| Command    | Use When                                        |
-| :--------- | :---------------------------------------------- |
-| `/review`  | Before merging — structured code review         |
-| `/sync`    | End of session — update memory + unified commit |
-| `/release` | Shipping — version bump, changelog, tag         |
-
-### Advanced
-
-| Command     | Use When                                                       |
-| :---------- | :------------------------------------------------------------- |
-| `/kamiflow` | KamiFlow projects — full Sniper Model with ROADMAP integration |
-| `/scaffold` | Generate boilerplate for agents, workflows, or rules           |
+```bash
+agk suite add fullstack  # install everything for full-stack dev
+```
 
 ---
 
-## 7 AI Agents + Auto-Dispatch
+## 13 AI Agents + Auto-Dispatch
 
-AGK ships 7 specialist AI agents that automatically activate based on keywords in your message:
+Agents automatically activate based on keywords — no `@mention` needed:
 
-| Agent                    | Triggers (examples)                       |
-| :----------------------- | :---------------------------------------- |
-| **Architect**            | `architecture`, `design`, `refactor`      |
-| **Debugger**             | `bug`, `error`, `crash`, `fix`            |
-| **Documentation Writer** | `readme`, `docs`, `changelog`, `adr`      |
-| **Planner**              | `plan`, `roadmap`, `sprint`, `backlog`    |
-| **Reviewer**             | `review`, `PR`, `code quality`, `SOLID`   |
-| **Shipper**              | `release`, `deploy`, `publish`, `version` |
-| **Writer**               | `docs`, `tutorial`, `guide`, `jsdoc`      |
+| Agent                    | Triggers (examples)                                |
+| :----------------------- | :------------------------------------------------- |
+| **Architect**            | `architecture`, `design`, `refactor`, `pattern`    |
+| **Database Expert**      | `database`, `schema`, `migration`, `SQL`, `Prisma` |
+| **Debugger**             | `bug`, `error`, `crash`, `fix`, `trace`            |
+| **DevOps Engineer**      | `devops`, `deploy`, `docker`, `k8s`, `CI/CD`       |
+| **Documentation Writer** | `readme`, `docs`, `changelog`, `ADR`               |
+| **Mobile Developer**     | `mobile`, `react native`, `flutter`, `expo`        |
+| **Planner**              | `plan`, `roadmap`, `sprint`, `backlog`             |
+| **Python Developer**     | `python`, `pip`, `pytest`, `django`, `fastapi`     |
+| **Reviewer**             | `review`, `PR`, `code quality`, `SOLID`            |
+| **Security Auditor**     | `security`, `vulnerability`, `OWASP`, `XSS`        |
+| **Shipper**              | `release`, `deploy`, `publish`, `version`          |
+| **Tester**               | `test`, `TDD`, `coverage`, `mock`, `jest`          |
+| **Writer**               | `docs`, `tutorial`, `guide`, `jsdoc`               |
 
-Run `agk agents` to register all agents in `GEMINI.md`. Auto-Dispatch means the AI will adopt the right agent role without `@mention`.
+---
+
+## 18 Workflows
+
+| Command          | Use When                       |
+| :--------------- | :----------------------------- |
+| `/develop`       | Building a new feature         |
+| `/quick-fix`     | Small obvious change           |
+| `/brainstorm`    | Clarify ideas before planning  |
+| `/debug`         | Find root cause of a bug       |
+| `/test`          | TDD: Red → Green → Refactor    |
+| `/pytest`        | Python testing with fixtures   |
+| `/research`      | Explore options before coding  |
+| `/review`        | Structured code review         |
+| `/release`       | Version bump + changelog       |
+| `/deploy`        | Production deployment          |
+| `/deploy-mobile` | App store deployment           |
+| `/scaffold`      | Generate boilerplate           |
+| `/wake`          | Restore context on new session |
+| `/checkpoint`    | Mid-session save               |
+| `/compact`       | Compress long sessions         |
+| `/eval`          | Pre-ship quality gate          |
+| `/sync`          | Update memory + unified commit |
+| `/kamiflow`      | KamiFlow Sniper Model          |
 
 ---
 
 ## Skills (from skills.sh)
 
-Install community skills to give your agents deep knowledge:
-
 ```bash
-# Install a skill
-agk skills add nextjs-best-practices
-
-# List installed skills
-agk skills list
-
-# Link skills to agents (in agent frontmatter)
-skills: ["nextjs-best-practices"]
+agk skills add nextjs-best-practices   # install
+agk skills find react                  # search
+agk skills check                       # check updates
+agk skills update                      # update all
 ```
 
 Browse 150+ skills at [skills.sh](https://skills.sh/).
@@ -161,81 +167,58 @@ Browse 150+ skills at [skills.sh](https://skills.sh/).
 
 ## Second Brain (Cross-PC Memory)
 
-Centralize `.memory/` from all your projects into one git repo:
-
 ```bash
-# One-time setup
-agk brain setup ~/second-brain
-
-# Link current project
-agk brain link
-
-# Dashboard: see all linked projects
-agk brain
-
-# Sync to GitHub
-agk brain sync
+agk brain setup ~/second-brain   # one-time setup
+agk brain link                   # link project
+agk brain sync                   # sync to GitHub
+agk brain pull                   # pull on new machine
 ```
-
----
-
-## Persistent Memory
-
-| File               | Type          | Purpose                                         |
-| :----------------- | :------------ | :---------------------------------------------- |
-| `context.md`       | Overwrite     | Current project state (active work, next steps) |
-| `decisions.md`     | Append-only   | Why things are the way they are                 |
-| `patterns.md`      | Append/Update | Naming, structure, established conventions      |
-| `anti-patterns.md` | Auto-append   | Mistakes learned from repeated errors           |
-
-Memory is **git-friendly** — commit it, share it with your team, `git pull` on another machine.
 
 ---
 
 ## Guard Rails (5 Rules)
 
-| Rule                   | What It Prevents                                          |
-| :--------------------- | :-------------------------------------------------------- |
-| **Anti-Hallucination** | Ghost files, phantom functions, invented dependencies     |
-| **Validation Loop**    | Unverified code — enforces lint → test → traceability     |
-| **Reflection**         | Shipping without quality gate — forces pre-exit checklist |
-| **Error Recovery**     | Infinite loops — 3-level retry with escalation            |
-| **Fast Track**         | Over-engineering small changes                            |
+| Rule                   | What It Prevents               |
+| :--------------------- | :----------------------------- |
+| **Anti-Hallucination** | Ghost files, phantom functions |
+| **Validation Loop**    | Unverified code                |
+| **Reflection**         | Shipping without quality gate  |
+| **Error Recovery**     | Infinite loops                 |
+| **Fast Track**         | Over-engineering small changes |
+
+---
+
+## AGENTS.md (Open Standard)
+
+AGK auto-generates `AGENTS.md` following the [open standard](https://agents.md) — your agent config is readable by Copilot, Codex, Jules, Cursor, and other AI tools.
 
 ---
 
 ## Installation
 
-### Global CLI (recommended)
-
 ```bash
+# Global (recommended)
 npm install -g @kamishino/antigravity-kit
 agk init
-```
 
-### One-off (npx)
-
-```bash
+# One-off
 npx @kamishino/antigravity-kit init
-```
 
-### Interactive setup
-
-```bash
-agk init -i   # choose which components to scaffold
+# Interactive
+agk init -i
 ```
 
 ---
 
 ## Philosophy
 
-| Principle           | What                                            |
-| :------------------ | :---------------------------------------------- |
-| **Zero Friction**   | One command, no config, no API keys             |
-| **Git-Native**      | Everything is markdown — commit, share, diff    |
-| **AI-Agnostic**     | Works with any AI that reads markdown           |
-| **Memory-First**    | AI that forgets is AI that repeats mistakes     |
-| **Auto by Default** | Wake and sync happen automatically, no ceremony |
+| Principle         | What                                         |
+| :---------------- | :------------------------------------------- |
+| **Zero Friction** | One command, no config, no API keys          |
+| **Git-Native**    | Everything is markdown — commit, share, diff |
+| **AI-Agnostic**   | Works with any AI that reads markdown        |
+| **Memory-First**  | AI that forgets is AI that repeats mistakes  |
+| **Suite-Ready**   | One command installs your entire dev stack   |
 
 ---
 

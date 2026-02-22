@@ -1,0 +1,17 @@
+{
+  "name": "DevOps",
+  "description": "DevOps and infrastructure with Docker, CI/CD, deployment automation, and monitoring",
+  "version": "1.0.0",
+  "detectors": [
+    "Dockerfile",
+    "docker-compose.*",
+    ".github/workflows",
+    "*.tf",
+    "ansible",
+    "k8s"
+  ],
+  "agents": ["devops-engineer", "architect", "security-auditor"],
+  "skills": ["docker-expert", "github-actions-templates", "deployment"],
+  "workflows": ["deploy", "review", "debug"],
+  "rules": ["validation-loop", "anti-hallucination", "error-recovery"]
+}

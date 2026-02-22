@@ -1,5 +1,21 @@
 # Changelog — @kamishino/antigravity-kit
 
+## [v2.5.0] - 2026-02-22
+
+### ✨ Features
+
+#### 3 New Suites + Specialized Agents (7 suites, 13 agents, 18 workflows total)
+
+- **Mobile Suite**: Mobile Developer agent + `/deploy-mobile` workflow (React Native, Flutter, Expo).
+- **Python Suite**: Python Developer agent + `/pytest` workflow (FastAPI, Django, type hints).
+- **DevOps Suite**: DevOps Engineer agent + `/deploy` workflow (Docker, K8s, CI/CD).
+
+Each suite bundles specialized agents, skills, workflows, and rules together.
+
+### 📝 Documentation
+
+- Complete README rewrite reflecting all v2.0–v2.5 features.
+
 ## [v2.4.0] - 2026-02-22
 
 ### ✨ Features
