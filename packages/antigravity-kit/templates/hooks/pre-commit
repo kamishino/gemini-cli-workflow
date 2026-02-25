@@ -1,8 +1,9 @@
 #!/bin/sh
 # Antigravity Kit - Memory Auto-sync Hook
+# AGK_HOOK_MARKER — do not remove this line (used by agk hooks remove)
 #
 # Automatically prompts to update .memory/ when significant changes are detected
 # This hook runs before each commit
 
-node .agent/hooks/sync-memory.js || exit 0
+node .agent/hooks/sync-memory.cjs || exit 0
 # Don't block commits if sync fails

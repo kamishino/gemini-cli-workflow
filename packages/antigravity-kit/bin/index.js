@@ -49,6 +49,7 @@ ${chalk.bold("USAGE")}
   ${chalk.yellow("agk doctor")}           Full health check
   ${chalk.yellow("agk upgrade")}          Update workflows & rules from templates
   ${chalk.yellow("agk hooks")}            Install git hooks
+  ${chalk.yellow("agk hooks remove")}     Remove AGK git hooks
   ${chalk.yellow("agk ci")}               Generate GitHub Actions health check
   ${chalk.yellow("agk memory")}           Memory status
   ${chalk.yellow("agk memory show")}      Print all memory files
@@ -95,6 +96,9 @@ ${chalk.bold("EXAMPLES")}
 
   ${chalk.gray("# Enable memory auto-sync")}
   agk hooks
+
+  ${chalk.gray("# Remove AGK hooks")}
+  agk hooks remove
 
   ${chalk.gray("# Check memory state")}
   agk memory
@@ -227,6 +231,12 @@ async function main() {
     }
 
     case "hooks": {
+      const sub = subArgs[0];
+      if (sub === "remove" || sub === "uninstall") {
+        const removeHooks = require("../scripts/remove-hooks");
+        const code = await removeHooks.run(CWD);
+        process.exit(code);
+      }
       const installHooks = require("../scripts/install-hooks");
       const code = await installHooks.run(CWD);
       process.exit(code);

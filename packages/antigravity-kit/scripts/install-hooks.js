@@ -25,12 +25,12 @@ async function run(projectDir = process.cwd()) {
     const agentHooksDir = path.join(projectDir, ".agent", "hooks");
     await fs.ensureDir(agentHooksDir);
 
-    // Copy sync-memory.js to .agent/hooks/
+    // Copy sync-memory.cjs to .agent/hooks/
     const templateDir = path.join(__dirname, "..", "templates", "hooks");
-    const syncMemorySrc = path.join(templateDir, "sync-memory.js");
-    const syncMemoryDest = path.join(agentHooksDir, "sync-memory.js");
+    const syncMemorySrc = path.join(templateDir, "sync-memory.cjs");
+    const syncMemoryDest = path.join(agentHooksDir, "sync-memory.cjs");
     await fs.copy(syncMemorySrc, syncMemoryDest);
-    console.log(chalk.gray("  ✓ Copied sync-memory.js to .agent/hooks/"));
+    console.log(chalk.gray("  ✓ Copied sync-memory.cjs to .agent/hooks/"));
 
     // Copy pre-commit hook template
     const preCommitTemplate = path.join(templateDir, "pre-commit");
@@ -44,7 +44,7 @@ async function run(projectDir = process.cwd()) {
       console.log(chalk.yellow("  ⚠  pre-commit hook already exists"));
       console.log(chalk.gray("     Add this line to your existing hook:"));
       console.log(
-        chalk.cyan("     node .agent/hooks/sync-memory.js || exit 0\n"),
+        chalk.cyan("     node .agent/hooks/sync-memory.cjs || exit 0\n"),
       );
     } else {
       await fs.copy(preCommitTemplate, preCommitDest);
