@@ -1,10 +1,27 @@
 ---
 description: Release - Smart version bump, changelog generation, and release commit
 ---
+<!-- AGK_WORKFLOW_RENDER: id=release; target=antigravity; model=default -->
 
 # /release — Release Workflow
 
 Analyze git history, generate changelog, bump version, and create release commit.
+
+## Runtime Notes
+
+### Runtime Profile: Antigravity
+
+- Primary command surface: `agk` CLI + `.agent/workflows/*.md`.
+- Rule surfaces: `GEMINI.md`, `.gemini/rules/`, and project `AGENTS.md`.
+- Prefer AGK-native diagnostics (`agk status`, `agk doctor`) for validation guidance.
+
+
+### Model Profile: Default
+
+- Balance speed and rigor.
+- Prefer targeted verification before broad suites.
+- Keep outputs clear, concise, and actionable.
+
 
 **Intent triggers** — This workflow activates when you say things like:
 
@@ -13,6 +30,12 @@ Analyze git history, generate changelog, bump version, and create release commit
 - "Generate the changelog"
 - "Prepare for publishing"
 - "Ship it"
+
+## When to Use
+
+- A feature/release commit is already finalized and validated.
+- You need a controlled version bump with changelog traceability.
+- You want release metadata prepared before tagging/publishing.
 
 ---
 
@@ -67,3 +90,13 @@ Analyze git history, generate changelog, bump version, and create release commit
    - Ask: "Create git tag `v{NEW_VERSION}`?" (user decides)
 
 10. **Update Memory** — Update `.memory/context.md` with new version info.
+
+---
+
+## Related Workflows
+
+| Workflow   | When to Use                                              |
+| ---------- | -------------------------------------------------------- |
+| `/review`  | Final quality review before release bump                 |
+| `/sync`    | Record session intelligence after release prep           |
+| `/develop` | Return to implementation when release blockers are found |

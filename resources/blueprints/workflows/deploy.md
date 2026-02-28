@@ -1,7 +1,6 @@
 ---
 description: Deploy - Infrastructure deployment with Docker, CI/CD, and monitoring
 ---
-<!-- AGK_WORKFLOW_RENDER: id=deploy; target=antigravity; model=default -->
 
 # /deploy — Production Deployment Workflow
 
@@ -9,19 +8,9 @@ Deploy applications to production with zero-downtime strategy.
 
 ## Runtime Notes
 
-### Runtime Profile: Antigravity
+{{TARGET_OVERLAY}}
 
-- Primary command surface: `agk` CLI + `.agent/workflows/*.md`.
-- Rule surfaces: `GEMINI.md`, `.gemini/rules/`, and project `AGENTS.md`.
-- Prefer AGK-native diagnostics (`agk status`, `agk doctor`) for validation guidance.
-
-
-### Model Profile: Default
-
-- Balance speed and rigor.
-- Prefer targeted verification before broad suites.
-- Keep outputs clear, concise, and actionable.
-
+{{MODEL_OVERLAY}}
 
 **Intent triggers** — This workflow activates when you say things like:
 

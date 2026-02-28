@@ -1,10 +1,27 @@
 ---
 description: Quick Fix - Fast track for small, obvious changes (bypasses full workflow)
 ---
+<!-- AGK_WORKFLOW_RENDER: id=quick-fix; target=antigravity; model=default -->
 
 # /quick-fix — Fast Track Workflow
 
 Streamlined workflow for small, safe changes that don't need full ceremony.
+
+## Runtime Notes
+
+### Runtime Profile: Antigravity
+
+- Primary command surface: `agk` CLI + `.agent/workflows/*.md`.
+- Rule surfaces: `GEMINI.md`, `.gemini/rules/`, and project `AGENTS.md`.
+- Prefer AGK-native diagnostics (`agk status`, `agk doctor`) for validation guidance.
+
+
+### Model Profile: Default
+
+- Balance speed and rigor.
+- Prefer targeted verification before broad suites.
+- Keep outputs clear, concise, and actionable.
+
 
 **Intent triggers** — This workflow activates when you say things like:
 
@@ -69,3 +86,14 @@ ALL 5 must be true:
    ```
 
 7. **Done** — No reflection phase needed for quick fixes.
+
+---
+
+## Related Workflows
+
+| Workflow      | When to Use                                                   |
+| ------------- | ------------------------------------------------------------- |
+| `/develop`    | Any fast-track criterion fails or change scope grows mid-task |
+| `/review`     | Validate a quick fix before merge                             |
+| `/sync`       | End-of-session memory update and unified commit               |
+| `/checkpoint` | Save context before attempting the quick fix                  |

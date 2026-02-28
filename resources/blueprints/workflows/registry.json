@@ -16,6 +16,36 @@
       "riskMode": "fast"
     },
     {
+      "id": "brainstorm",
+      "source": "brainstorm.md",
+      "category": "planning",
+      "riskMode": "standard"
+    },
+    {
+      "id": "debug",
+      "source": "debug.md",
+      "category": "quality",
+      "riskMode": "standard"
+    },
+    {
+      "id": "test",
+      "source": "test.md",
+      "category": "quality",
+      "riskMode": "standard"
+    },
+    {
+      "id": "pytest",
+      "source": "pytest.md",
+      "category": "quality",
+      "riskMode": "standard"
+    },
+    {
+      "id": "research",
+      "source": "research.md",
+      "category": "planning",
+      "riskMode": "standard"
+    },
+    {
       "id": "release",
       "source": "release.md",
       "category": "ops",
@@ -28,10 +58,58 @@
       "riskMode": "standard"
     },
     {
+      "id": "deploy",
+      "source": "deploy.md",
+      "category": "ops",
+      "riskMode": "critical"
+    },
+    {
+      "id": "deploy-mobile",
+      "source": "deploy-mobile.md",
+      "category": "ops",
+      "riskMode": "critical"
+    },
+    {
+      "id": "scaffold",
+      "source": "scaffold.md",
+      "category": "tooling",
+      "riskMode": "standard"
+    },
+    {
+      "id": "wake",
+      "source": "wake.md",
+      "category": "memory",
+      "riskMode": "standard"
+    },
+    {
+      "id": "checkpoint",
+      "source": "checkpoint.md",
+      "category": "memory",
+      "riskMode": "fast"
+    },
+    {
+      "id": "compact",
+      "source": "compact.md",
+      "category": "memory",
+      "riskMode": "standard"
+    },
+    {
+      "id": "eval",
+      "source": "eval.md",
+      "category": "quality",
+      "riskMode": "standard"
+    },
+    {
       "id": "sync",
       "source": "sync.md",
       "category": "ops",
       "riskMode": "standard"
+    },
+    {
+      "id": "kamiflow",
+      "source": "kamiflow.md",
+      "category": "core",
+      "riskMode": "critical"
     }
   ]
 }

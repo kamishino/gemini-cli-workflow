@@ -1,7 +1,6 @@
 ---
 description: Eval — Self-assessment gate. AI evaluates its own output quality before marking any task complete.
 ---
-<!-- AGK_WORKFLOW_RENDER: id=eval; target=antigravity; model=default -->
 
 # /eval — Self-Assessment Quality Gate
 
@@ -9,19 +8,9 @@ Force the AI to critically evaluate its own work before declaring it done. Catch
 
 ## Runtime Notes
 
-### Runtime Profile: Antigravity
+{{TARGET_OVERLAY}}
 
-- Primary command surface: `agk` CLI + `.agent/workflows/*.md`.
-- Rule surfaces: `GEMINI.md`, `.gemini/rules/`, and project `AGENTS.md`.
-- Prefer AGK-native diagnostics (`agk status`, `agk doctor`) for validation guidance.
-
-
-### Model Profile: Default
-
-- Balance speed and rigor.
-- Prefer targeted verification before broad suites.
-- Keep outputs clear, concise, and actionable.
-
+{{MODEL_OVERLAY}}
 
 **Intent triggers** — This workflow activates when you say things like:
 

@@ -23,10 +23,11 @@
   ],
   "scripts": {
     "test": "node --test test/*.test.js",
-    "build": "node scripts/lint-workflows.js && node scripts/sync-templates.js",
+    "build": "node scripts/lint-workflows.js && node scripts/sync-templates.js && node scripts/check-workflow-drift.js --strict",
     "lint:workflows": "node scripts/lint-workflows.js",
     "render:workflows": "node scripts/render-workflows.js",
     "check:workflow-drift": "node scripts/check-workflow-drift.js",
+    "check:workflow-drift:strict": "node scripts/check-workflow-drift.js --strict",
     "prepublishOnly": "npm run build",
     "link": "npm link",
     "unlink": "npm unlink",

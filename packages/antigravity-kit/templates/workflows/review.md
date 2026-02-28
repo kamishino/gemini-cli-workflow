@@ -1,10 +1,27 @@
 ---
 description: Code Review - Structured review with anti-pattern detection and health check
 ---
+<!-- AGK_WORKFLOW_RENDER: id=review; target=antigravity; model=default -->
 
 # /review — Code Review Workflow
 
 Examines recent changes for quality, anti-patterns, and project health.
+
+## Runtime Notes
+
+### Runtime Profile: Antigravity
+
+- Primary command surface: `agk` CLI + `.agent/workflows/*.md`.
+- Rule surfaces: `GEMINI.md`, `.gemini/rules/`, and project `AGENTS.md`.
+- Prefer AGK-native diagnostics (`agk status`, `agk doctor`) for validation guidance.
+
+
+### Model Profile: Default
+
+- Balance speed and rigor.
+- Prefer targeted verification before broad suites.
+- Keep outputs clear, concise, and actionable.
+
 
 **Intent triggers** — This workflow activates when you say things like:
 
@@ -54,24 +71,16 @@ Or for a specific range: `git diff <base>..<head>`
    - Are new files in the correct directory?
    - Is naming consistent with project conventions?
    - Module size reasonable (< 300 lines)?
-   - Test coverage maintained or improved? (if coverage tool available)
-
-5. **🔍 Bloat & Dead Code Scan** — For each changed file, check for:
-   - [ ] No unused imports / variables / functions
-   - [ ] No classes that could be simple functions
-   - [ ] No duplicated logic across files
-   - [ ] No commented-out code blocks (> 3 lines)
-   - [ ] Comments explain _why_, not _what_
 
 // turbo
 
-6. **Run Tests:**
+5. **Run Tests:**
 
 ```
 npm test
 ```
 
-7. **Generate Review Summary** — Present to user:
+6. **Generate Review Summary** — Present to user:
 
    ```markdown
    ## Code Review Summary
@@ -92,6 +101,17 @@ npm test
    - [ ] [Required fix 2]
    ```
 
-8. **Memory Update** — If new anti-patterns found, append to `.memory/anti-patterns.md`.
+7. **Memory Update** — If new anti-patterns found, append to `.memory/anti-patterns.md`.
 
-9. Present review to user and wait for acknowledgment.
+8. Present review to user and wait for acknowledgment.
+
+---
+
+## Related Workflows
+
+| Workflow     | When to Use                                      |
+| ------------ | ------------------------------------------------ |
+| `/develop`   | Implement required fixes from review findings    |
+| `/debug`     | Investigate failing tests or runtime regressions |
+| `/release`   | Final pre-release quality gate                   |
+| `/quick-fix` | Apply small, isolated fixes discovered in review |

@@ -1,7 +1,6 @@
 ---
 description: KamiFlow Sniper Model - Full idea-to-ship workflow (S1→S4→Validate→Reflect→Sync→Commit)
 ---
-<!-- AGK_WORKFLOW_RENDER: id=kamiflow; target=antigravity; model=default -->
 
 # /kamiflow — KamiFlow Sniper Model Workflow
 
@@ -11,19 +10,9 @@ This workflow implements the KamiFlow Sniper Model for AntiGravity IDE — trans
 
 ## Runtime Notes
 
-### Runtime Profile: Antigravity
+{{TARGET_OVERLAY}}
 
-- Primary command surface: `agk` CLI + `.agent/workflows/*.md`.
-- Rule surfaces: `GEMINI.md`, `.gemini/rules/`, and project `AGENTS.md`.
-- Prefer AGK-native diagnostics (`agk status`, `agk doctor`) for validation guidance.
-
-
-### Model Profile: Default
-
-- Balance speed and rigor.
-- Prefer targeted verification before broad suites.
-- Keep outputs clear, concise, and actionable.
-
+{{MODEL_OVERLAY}}
 
 **Intent triggers** — This workflow activates when you say things like:
 

@@ -1,7 +1,6 @@
 ---
 description: Compact — Compress and summarize long sessions to prevent context loss. Run when the conversation feels long or slow.
 ---
-<!-- AGK_WORKFLOW_RENDER: id=compact; target=antigravity; model=default -->
 
 # /compact — Context Window Management
 
@@ -9,19 +8,9 @@ Compress the current session into a concise summary saved to `.memory/`, then pr
 
 ## Runtime Notes
 
-### Runtime Profile: Antigravity
+{{TARGET_OVERLAY}}
 
-- Primary command surface: `agk` CLI + `.agent/workflows/*.md`.
-- Rule surfaces: `GEMINI.md`, `.gemini/rules/`, and project `AGENTS.md`.
-- Prefer AGK-native diagnostics (`agk status`, `agk doctor`) for validation guidance.
-
-
-### Model Profile: Default
-
-- Balance speed and rigor.
-- Prefer targeted verification before broad suites.
-- Keep outputs clear, concise, and actionable.
-
+{{MODEL_OVERLAY}}
 
 **Intent triggers** — This workflow activates when you say things like:
 

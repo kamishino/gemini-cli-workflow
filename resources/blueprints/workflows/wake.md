@@ -1,7 +1,6 @@
 ---
 description: Wake up — Restore project context after a session break or PC switch. Read .memory/ and resume work.
 ---
-<!-- AGK_WORKFLOW_RENDER: id=wake; target=antigravity; model=default -->
 
 # /wake — Context Restore Workflow
 
@@ -9,19 +8,9 @@ Rebuild full project context from `.memory/` files after a session break, PC swi
 
 ## Runtime Notes
 
-### Runtime Profile: Antigravity
+{{TARGET_OVERLAY}}
 
-- Primary command surface: `agk` CLI + `.agent/workflows/*.md`.
-- Rule surfaces: `GEMINI.md`, `.gemini/rules/`, and project `AGENTS.md`.
-- Prefer AGK-native diagnostics (`agk status`, `agk doctor`) for validation guidance.
-
-
-### Model Profile: Default
-
-- Balance speed and rigor.
-- Prefer targeted verification before broad suites.
-- Keep outputs clear, concise, and actionable.
-
+{{MODEL_OVERLAY}}
 
 **Intent triggers** — This workflow activates when you say things like:
 

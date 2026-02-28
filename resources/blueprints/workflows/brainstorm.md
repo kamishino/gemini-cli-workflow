@@ -1,7 +1,6 @@
 ---
 description: Phase 0 Brainstorm — Generate and rate ideas before planning. Use before /develop or /kamiflow.
 ---
-<!-- AGK_WORKFLOW_RENDER: id=brainstorm; target=antigravity; model=default -->
 
 # /brainstorm — Idea Generation Workflow
 
@@ -9,19 +8,9 @@ Transform a vague idea into a clear, rated shortlist ready for `/develop` or `/k
 
 ## Runtime Notes
 
-### Runtime Profile: Antigravity
+{{TARGET_OVERLAY}}
 
-- Primary command surface: `agk` CLI + `.agent/workflows/*.md`.
-- Rule surfaces: `GEMINI.md`, `.gemini/rules/`, and project `AGENTS.md`.
-- Prefer AGK-native diagnostics (`agk status`, `agk doctor`) for validation guidance.
-
-
-### Model Profile: Default
-
-- Balance speed and rigor.
-- Prefer targeted verification before broad suites.
-- Keep outputs clear, concise, and actionable.
-
+{{MODEL_OVERLAY}}
 
 **Intent triggers** — This workflow activates when you say things like:
 

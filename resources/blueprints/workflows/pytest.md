@@ -1,7 +1,6 @@
 ---
 description: Pytest - Python testing workflow with pytest, fixtures, and coverage
 ---
-<!-- AGK_WORKFLOW_RENDER: id=pytest; target=antigravity; model=default -->
 
 # /pytest — Python Testing Workflow
 
@@ -9,19 +8,9 @@ Structured testing with pytest: write fixtures, parametrize, measure coverage.
 
 ## Runtime Notes
 
-### Runtime Profile: Antigravity
+{{TARGET_OVERLAY}}
 
-- Primary command surface: `agk` CLI + `.agent/workflows/*.md`.
-- Rule surfaces: `GEMINI.md`, `.gemini/rules/`, and project `AGENTS.md`.
-- Prefer AGK-native diagnostics (`agk status`, `agk doctor`) for validation guidance.
-
-
-### Model Profile: Default
-
-- Balance speed and rigor.
-- Prefer targeted verification before broad suites.
-- Keep outputs clear, concise, and actionable.
-
+{{MODEL_OVERLAY}}
 
 **Intent triggers** — This workflow activates when you say things like:
 
