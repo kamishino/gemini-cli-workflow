@@ -145,6 +145,12 @@ describe("agk init (E2E)", () => {
       !(await fs.pathExists(path.join(tmpDir, ".agent", "workflows"))),
       ".agent/workflows should not exist for OpenCode-only target",
     );
+
+    const agentsMd = await fs.readFile(path.join(tmpDir, "AGENTS.md"), "utf8");
+    assert.ok(
+      agentsMd.includes("Target profile: `opencode`"),
+      "AGENTS.md should render OpenCode target profile",
+    );
   });
 
   it("supports combined target (all)", async () => {
@@ -157,6 +163,12 @@ describe("agk init (E2E)", () => {
     assert.ok(
       await fs.pathExists(path.join(tmpDir, ".opencode", "commands")),
       "OpenCode commands should exist for --target all",
+    );
+
+    const agentsMd = await fs.readFile(path.join(tmpDir, "AGENTS.md"), "utf8");
+    assert.ok(
+      agentsMd.includes("Target profile: `hybrid`"),
+      "AGENTS.md should render hybrid profile for --target all",
     );
   });
 });
@@ -300,6 +312,65 @@ describe("agk OpenCode adapters (E2E)", () => {
     assert.ok(
       output.includes("OpenCode Commands") || output.includes("modified"),
       "diff should report OpenCode command drift",
+    );
+  });
+});
+
+describe("agk agents render (E2E)", () => {
+  let tmpDir;
+
+  beforeEach(async () => {
+    tmpDir = path.join(os.tmpdir(), `agk-e2e-agents-${Date.now()}`);
+    await fs.ensureDir(tmpDir);
+    await fs.writeJson(path.join(tmpDir, "package.json"), {
+      name: "test-project",
+      version: "1.0.0",
+    });
+  });
+
+  afterEach(async () => {
+    await fs.remove(tmpDir);
+  });
+
+  it("preserves user AGENTS.md and writes AGENTS.generated.md", async () => {
+    const custom = "# AGENTS.md\n\nCustom user rules.\n";
+    await fs.writeFile(path.join(tmpDir, "AGENTS.md"), custom, "utf8");
+
+    runAgk("agents render --target opencode --model-profile codex", tmpDir);
+
+    const current = await fs.readFile(path.join(tmpDir, "AGENTS.md"), "utf8");
+    assert.equal(current, custom, "Existing AGENTS.md should be preserved");
+
+    const generated = await fs.readFile(
+      path.join(tmpDir, "AGENTS.generated.md"),
+      "utf8",
+    );
+    assert.ok(
+      generated.includes("Target profile: `opencode`"),
+      "Generated AGENTS should include OpenCode target",
+    );
+    assert.ok(
+      generated.includes("Model profile: `codex`"),
+      "Generated AGENTS should include codex model profile",
+    );
+  });
+
+  it("replaces AGENTS.md with --force", async () => {
+    await fs.writeFile(path.join(tmpDir, "AGENTS.md"), "# AGENTS\n\nlegacy\n");
+
+    runAgk(
+      "agents render --target antigravity --model-profile default --force",
+      tmpDir,
+    );
+
+    const current = await fs.readFile(path.join(tmpDir, "AGENTS.md"), "utf8");
+    assert.ok(
+      current.includes("Target profile: `antigravity`"),
+      "Forced render should overwrite AGENTS.md",
+    );
+    assert.ok(
+      current.includes("AGK_MANAGED_FILE"),
+      "Forced render should mark AGENTS.md as managed",
     );
   });
 });

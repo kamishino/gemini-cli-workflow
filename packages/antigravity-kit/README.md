@@ -59,7 +59,8 @@ agk suite create <n>   # export project as shareable suite
 agk suite list         # list installed suites
 
 # Agents
-agk agents             # register agents + generate AGENTS.md
+agk agents             # register agents + refresh AGENTS registry
+agk agents render      # render target/model-aware AGENTS.md
 agk agents find <q>    # search community agent templates
 agk agents list        # list installed agents with details
 
@@ -88,6 +89,7 @@ agk info               # show version + location
 ```
 
 OpenCode command adapters are generated from `templates/workflows/` (single SSOT), so workflow logic stays in one place.
+Use `agk agents render --target opencode --model-profile codex --force` to switch AGENTS.md profile intentionally.
 
 ---
 

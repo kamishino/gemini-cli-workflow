@@ -1,0 +1,182 @@
+const fs = require("fs-extra");
+const path = require("path");
+
+const REGISTRY_START = "<!-- AGK_AGENT_REGISTRY_START -->";
+const REGISTRY_END = "<!-- AGK_AGENT_REGISTRY_END -->";
+const MANAGED_MARKER = "<!-- AGK_MANAGED_FILE -->";
+
+const TEMPLATE_ROOT = path.join(__dirname, "..", "templates", "agents-md");
+
+/**
+ * Read a template file if it exists.
+ * @param {string} filePath
+ * @returns {Promise<string|null>}
+ */
+async function readTemplateIfExists(filePath) {
+  if (!(await fs.pathExists(filePath))) {
+    return null;
+  }
+  return fs.readFile(filePath, "utf8");
+}
+
+/**
+ * Build AGK marker-wrapped registry markdown block.
+ * @param {Array<{name:string,description:string,triggers:string[]}>} agents
+ * @returns {string}
+ */
+function buildRegistryBlock(agents) {
+  const rows =
+    agents.length > 0
+      ? agents.map((agent) => {
+          const triggers =
+            agent.triggers && agent.triggers.length > 0
+              ? `\`${agent.triggers.join("`, `")}\``
+              : "—";
+          return `| ${agent.name} | ${agent.description || "—"} | ${triggers} |`;
+        })
+      : ["| _none_ | No installed `.agent/agents/*.md` found | — |"];
+
+  return [
+    REGISTRY_START,
+    "| Agent | Description | Triggers |",
+    "|:---|:---|:---|",
+    ...rows,
+    REGISTRY_END,
+  ].join("\n");
+}
+
+/**
+ * Replace the managed registry block inside existing AGENTS.md content.
+ * Returns null if no registry markers are found.
+ * @param {string} existing
+ * @param {string} registryBlock
+ * @returns {string|null}
+ */
+function replaceRegistryBlock(existing, registryBlock) {
+  const startIdx = existing.indexOf(REGISTRY_START);
+  const endIdx = existing.indexOf(REGISTRY_END);
+  if (startIdx === -1 || endIdx === -1 || endIdx < startIdx) {
+    return null;
+  }
+
+  return (
+    existing.slice(0, startIdx) +
+    registryBlock +
+    existing.slice(endIdx + REGISTRY_END.length)
+  );
+}
+
+/**
+ * Determine target profile from local project structure.
+ * @param {string} projectDir
+ * @returns {Promise<"antigravity"|"opencode"|"hybrid">}
+ */
+async function detectTargetProfile(projectDir) {
+  const hasAgent = await fs.pathExists(
+    path.join(projectDir, ".agent", "workflows"),
+  );
+  const hasGeminiRules = await fs.pathExists(
+    path.join(projectDir, ".gemini", "rules"),
+  );
+  const hasOpenCode = await fs.pathExists(
+    path.join(projectDir, ".opencode", "commands"),
+  );
+
+  const hasAntigravity = hasAgent || hasGeminiRules;
+  if (hasAntigravity && hasOpenCode) return "hybrid";
+  if (hasOpenCode) return "opencode";
+  return "antigravity";
+}
+
+/**
+ * Normalize requested target profile.
+ * @param {string|undefined|null} value
+ * @returns {"antigravity"|"opencode"|"hybrid"}
+ */
+function normalizeTargetProfile(value) {
+  const normalized = String(value || "")
+    .trim()
+    .toLowerCase();
+  if (["opencode", "open-code", "codex"].includes(normalized)) {
+    return "opencode";
+  }
+  if (["hybrid", "all", "both"].includes(normalized)) {
+    return "hybrid";
+  }
+  return "antigravity";
+}
+
+/**
+ * Render target-aware AGENTS.md content from template fragments.
+ * @param {{
+ *   projectDir: string,
+ *   agents: Array<{name:string,description:string,triggers:string[]}>,
+ *   targetProfile: string,
+ *   modelProfile?: string,
+ * }} params
+ * @returns {Promise<string>}
+ */
+async function renderAgentsMarkdown(params) {
+  const targetProfile = normalizeTargetProfile(params.targetProfile);
+  const modelProfile = (params.modelProfile || "default").trim().toLowerCase();
+
+  const basePath = path.join(TEMPLATE_ROOT, "base.md");
+  const targetPath = path.join(TEMPLATE_ROOT, "targets", `${targetProfile}.md`);
+  const modelPath = path.join(TEMPLATE_ROOT, "models", `${modelProfile}.md`);
+  const fallbackModelPath = path.join(TEMPLATE_ROOT, "models", "default.md");
+
+  const baseTemplate =
+    (await readTemplateIfExists(basePath)) ||
+    "# AGENTS.md\n\n{{AGENT_REGISTRY_BLOCK}}\n\n{{TARGET_SECTION}}\n\n{{MODEL_SECTION}}\n";
+  const targetSection =
+    (await readTemplateIfExists(targetPath)) ||
+    "### Target\n\n- No target-specific template found.\n";
+  const modelSection =
+    (await readTemplateIfExists(modelPath)) ||
+    (await readTemplateIfExists(fallbackModelPath)) ||
+    "### Model\n\n- No model-specific template found.\n";
+
+  const registryBlock = buildRegistryBlock(params.agents || []);
+  const projectName = path.basename(params.projectDir);
+
+  let rendered = baseTemplate;
+  const replacements = {
+    "{{PROJECT_NAME}}": projectName,
+    "{{TARGET_PROFILE}}": targetProfile,
+    "{{MODEL_PROFILE}}": modelProfile,
+    "{{AGENT_REGISTRY_BLOCK}}": registryBlock,
+    "{{TARGET_SECTION}}": targetSection.trimEnd(),
+    "{{MODEL_SECTION}}": modelSection.trimEnd(),
+  };
+
+  for (const [key, value] of Object.entries(replacements)) {
+    rendered = rendered.split(key).join(value);
+  }
+
+  if (!rendered.endsWith("\n")) {
+    rendered += "\n";
+  }
+
+  return rendered;
+}
+
+/**
+ * True when AGENTS.md appears to be generated by AGK renderer.
+ * @param {string} content
+ * @returns {boolean}
+ */
+function isManagedAgentsFile(content) {
+  return content.includes(MANAGED_MARKER);
+}
+
+module.exports = {
+  REGISTRY_START,
+  REGISTRY_END,
+  MANAGED_MARKER,
+  buildRegistryBlock,
+  replaceRegistryBlock,
+  detectTargetProfile,
+  normalizeTargetProfile,
+  renderAgentsMarkdown,
+  isManagedAgentsFile,
+};

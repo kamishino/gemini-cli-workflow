@@ -15,6 +15,7 @@
  *   --interactive       — Guided wizard with workflow/feature selection
  *   --target opencode   — Install standalone OpenCode commands only
  *   --target all        — Install AGK defaults + OpenCode commands
+ *   --model-profile     — AGENTS.md profile overlay (default: default)
  *   (default)           — Install all templates (original behavior)
  */
 
@@ -378,11 +379,25 @@ async function main() {
         chalk.yellow("--target all") +
         "          install both AGK + OpenCode adapters\n",
     );
+    console.log(
+      "    " +
+        chalk.yellow("--model-profile codex") +
+        "  render Codex-aware AGENTS.md overlay\n",
+    );
     process.exit(0);
   }
 
   const force = args.includes("--force") || args.includes("-f");
   const withNeuralMemory = args.includes("--with-neuralmemory");
+  const modelProfile = (getFlagValue(args, "--model-profile") || "default")
+    .trim()
+    .toLowerCase();
+  const agentsTargetProfile =
+    targetConfig.installAntigravity && targetConfig.installOpenCode
+      ? "hybrid"
+      : targetConfig.installOpenCode
+        ? "opencode"
+        : "antigravity";
 
   if (targetConfig.unknownTargets.length > 0) {
     console.log(
@@ -616,9 +631,31 @@ async function main() {
     // --- Phase 2.5: Auto-register agents in GEMINI.md ---
     try {
       const agents = require("../scripts/agents");
-      await agents.run(CWD);
+      await agents.run(CWD, [
+        "register",
+        "--target",
+        agentsTargetProfile,
+        "--model-profile",
+        modelProfile,
+      ]);
     } catch (_e) {
       // Non-fatal: agent registration is a nice-to-have
+    }
+  }
+
+  // OpenCode-only setup still needs AGENTS.md (rules surface for OpenCode)
+  if (!targetConfig.installAntigravity && targetConfig.installOpenCode) {
+    try {
+      const agents = require("../scripts/agents");
+      await agents.run(CWD, [
+        "render",
+        "--target",
+        agentsTargetProfile,
+        "--model-profile",
+        modelProfile,
+      ]);
+    } catch (_e) {
+      // Non-fatal
     }
   }
 
@@ -838,12 +875,31 @@ if (isInteractive) {
 
   // Run interactive setup (antigravity), then optional OpenCode adapters
   const force = cliArgs.includes("--force") || cliArgs.includes("-f");
+  const modelProfile = (getFlagValue(cliArgs, "--model-profile") || "default")
+    .trim()
+    .toLowerCase();
+  const agentsTargetProfile = targetConfig.installOpenCode
+    ? "hybrid"
+    : "antigravity";
   const initInteractive = require("../scripts/init-interactive");
   initInteractive
     .run(CWD)
     .then(async () => {
       if (targetConfig.installOpenCode) {
         await scaffoldOpenCodeCommands(CWD, force);
+      }
+
+      try {
+        const agents = require("../scripts/agents");
+        await agents.run(CWD, [
+          "render",
+          "--target",
+          agentsTargetProfile,
+          "--model-profile",
+          modelProfile,
+        ]);
+      } catch {
+        // Non-fatal
       }
     })
     .catch((error) => {

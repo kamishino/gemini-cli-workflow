@@ -1,10 +1,16 @@
 /**
- * agk agents — Scan, register, find, and manage AI agents
+ * agk agents — Scan, register, find, and render AI agent surfaces
  *
  * Subcommands:
- *   agk agents           → Scan and register agents in GEMINI.md + generate AGENTS.md
- *   agk agents find <q>  → Search community agent templates
- *   agk agents list      → List installed agents
+ *   agk agents                         → Register agents in GEMINI.md + refresh AGENTS.md registry
+ *   agk agents render                  → Render target/model-aware AGENTS.md from SSOT templates
+ *   agk agents find <q>                → Search community agent templates
+ *   agk agents list                    → List installed agents
+ *
+ * Useful flags:
+ *   --target antigravity|opencode|hybrid
+ *   --model-profile <name>
+ *   --force
  */
 
 const fs = require("fs-extra");
@@ -12,180 +18,364 @@ const path = require("path");
 const chalk = require("chalk");
 const { execSync } = require("child_process");
 const { parseFrontmatter } = require("../lib/frontmatter");
+const {
+  REGISTRY_START,
+  REGISTRY_END,
+  buildRegistryBlock,
+  detectTargetProfile,
+  normalizeTargetProfile,
+  renderAgentsMarkdown,
+  replaceRegistryBlock,
+  isManagedAgentsFile,
+} = require("../lib/agents-md");
 
-const REGISTRY_START = "<!-- AGK_AGENT_REGISTRY_START -->";
-const REGISTRY_END = "<!-- AGK_AGENT_REGISTRY_END -->";
+const SUPPORTED_SUBCOMMANDS = new Set(["register", "render", "find", "list"]);
 
-async function run(projectDir, args = []) {
-  const subcommand = args[0] || "register";
-
-  switch (subcommand) {
-    case "register":
-      return await register(projectDir);
-    case "find":
-      return await findAgents(projectDir, args.slice(1));
-    case "list":
-      return await listAgents(projectDir);
-    default:
-      // Treat unknown subcommand as default "register"
-      return await register(projectDir);
+/**
+ * Read flag value supporting `--flag value` and `--flag=value`.
+ */
+function getFlagValue(args, flag) {
+  const directIndex = args.indexOf(flag);
+  if (directIndex !== -1 && args[directIndex + 1]) {
+    return args[directIndex + 1];
   }
+
+  const prefix = `${flag}=`;
+  const withEquals = args.find((arg) => arg.startsWith(prefix));
+  if (withEquals) {
+    return withEquals.slice(prefix.length);
+  }
+
+  return null;
 }
 
-async function register(projectDir) {
+/**
+ * Parse command-line options for agents script.
+ */
+function parseAgentArgs(args = []) {
+  let subcommand = "register";
+  let rest = [...args];
+
+  if (rest[0] && SUPPORTED_SUBCOMMANDS.has(rest[0])) {
+    subcommand = rest[0];
+    rest = rest.slice(1);
+  }
+
+  const targetFlag = getFlagValue(rest, "--target");
+  const modelProfile = (getFlagValue(rest, "--model-profile") || "default")
+    .trim()
+    .toLowerCase();
+
+  const unknownTargets = [];
+  let targetProfile = null;
+  if (targetFlag) {
+    const normalized = normalizeTargetProfile(targetFlag);
+    if (
+      [
+        "antigravity",
+        "agk",
+        "default",
+        "opencode",
+        "open-code",
+        "codex",
+        "hybrid",
+        "all",
+        "both",
+      ].includes(targetFlag.trim().toLowerCase())
+    ) {
+      targetProfile = normalized;
+    } else {
+      unknownTargets.push(targetFlag);
+      targetProfile = normalized;
+    }
+  }
+
+  const positionalArgs = rest.filter((arg, index) => {
+    if (arg.startsWith("--target=")) return false;
+    if (arg.startsWith("--model-profile=")) return false;
+    if (["--force", "-f"].includes(arg)) return false;
+
+    const prev = rest[index - 1];
+    if (prev === "--target" || prev === "--model-profile") return false;
+
+    return !arg.startsWith("--");
+  });
+
+  return {
+    subcommand,
+    targetProfile,
+    modelProfile,
+    force: rest.includes("--force") || rest.includes("-f"),
+    positionalArgs,
+    unknownTargets,
+  };
+}
+
+/**
+ * Scan installed `.agent/agents/*.md` files and parse frontmatter.
+ */
+async function scanInstalledAgents(projectDir, opts = {}) {
+  const { allowMissing = false } = opts;
   const agentsDir = path.join(projectDir, ".agent", "agents");
 
   if (!(await fs.pathExists(agentsDir))) {
-    console.error(
-      chalk.red(
-        "\n❌ No .agent/agents/ directory found. Run `agk init` first.\n",
-      ),
-    );
-    return 1;
+    if (allowMissing) {
+      return [];
+    }
+    throw new Error("No .agent/agents/ directory found. Run `agk init` first.");
   }
 
-  // 1. Scan all agent .md files
-  const files = (await fs.readdir(agentsDir)).filter((f) => f.endsWith(".md"));
-
-  if (files.length === 0) {
-    console.log(chalk.yellow("\n⚠️  No agents found in .agent/agents/\n"));
-    return 0;
-  }
-
-  console.log(chalk.cyan("\n🤖 AGK Agent Registry\n"));
+  const files = (await fs.readdir(agentsDir))
+    .filter((file) => file.endsWith(".md"))
+    .sort();
 
   const agents = [];
   for (const file of files) {
     const content = await fs.readFile(path.join(agentsDir, file), "utf8");
-    const meta = parseFrontmatter(content);
-    if (meta && meta.name) {
-      const triggers = meta.triggers || [];
-      const description = meta.description || "";
-      agents.push({
-        name: meta.name,
-        description,
-        triggers,
-        file: `.agent/agents/${file}`,
-      });
-      const triggerStr = triggers.length > 0 ? triggers.join(", ") : "(none)";
-      console.log(
-        `  ${chalk.green("✓")} ${chalk.bold(meta.name)} — ${chalk.gray(triggerStr)}`,
-      );
-    }
+    const meta = parseFrontmatter(content) || {};
+    const name = meta.name || file.replace(/\.md$/, "");
+    const triggers = Array.isArray(meta.triggers) ? meta.triggers : [];
+    const description = meta.description || "";
+
+    agents.push({
+      name,
+      description,
+      triggers,
+      file: `.agent/agents/${file}`,
+    });
   }
 
-  // 2. Build the registry table for GEMINI.md
-  const tableRows = agents
-    .map((a) => {
-      const triggers =
-        a.triggers.length > 0 ? `\`${a.triggers.join("`, `")}\`` : "—";
-      return `| ${a.name} | ${triggers} | \`${a.file}\` |`;
-    })
-    .join("\n");
+  return agents;
+}
 
-  const registryBlock = [
+/**
+ * Build GEMINI.md registry table block.
+ */
+function buildGeminiRegistryBlock(agents) {
+  const rows =
+    agents.length > 0
+      ? agents
+          .map((agent) => {
+            const triggers =
+              agent.triggers.length > 0
+                ? `\`${agent.triggers.join("`, `")}\``
+                : "—";
+            return `| ${agent.name} | ${triggers} | \`${agent.file}\` |`;
+          })
+          .join("\n")
+      : "| _none_ | — | — |";
+
+  return [
     REGISTRY_START,
     "| Agent | Triggers | File |",
     "|:---|:---|:---|",
-    tableRows,
+    rows,
     REGISTRY_END,
   ].join("\n");
+}
 
-  // 3. Update GEMINI.md
+/**
+ * Update GEMINI.md registry markers if present.
+ */
+async function updateGeminiRegistry(projectDir, agents) {
   const geminiPath = path.join(projectDir, "GEMINI.md");
-  if (await fs.pathExists(geminiPath)) {
-    let geminiContent = await fs.readFile(geminiPath, "utf8");
-    const startIdx = geminiContent.indexOf(REGISTRY_START);
-    const endIdx = geminiContent.indexOf(REGISTRY_END);
-
-    if (startIdx !== -1 && endIdx !== -1) {
-      geminiContent =
-        geminiContent.substring(0, startIdx) +
-        registryBlock +
-        geminiContent.substring(endIdx + REGISTRY_END.length);
-      await fs.writeFile(geminiPath, geminiContent, "utf8");
-    }
+  if (!(await fs.pathExists(geminiPath))) {
+    return false;
   }
 
-  // 4. Generate AGENTS.md (open standard)
-  await generateAgentsMd(projectDir, agents);
+  const geminiContent = await fs.readFile(geminiPath, "utf8");
+  const startIdx = geminiContent.indexOf(REGISTRY_START);
+  const endIdx = geminiContent.indexOf(REGISTRY_END);
+  if (startIdx === -1 || endIdx === -1 || endIdx < startIdx) {
+    return false;
+  }
+
+  const registryBlock = buildGeminiRegistryBlock(agents);
+  const updated =
+    geminiContent.slice(0, startIdx) +
+    registryBlock +
+    geminiContent.slice(endIdx + REGISTRY_END.length);
+
+  await fs.writeFile(geminiPath, updated, "utf8");
+  return true;
+}
+
+/**
+ * Render full AGENTS.md content from templates and write it safely.
+ */
+async function renderAgentsFile(projectDir, options) {
+  const agents = await scanInstalledAgents(projectDir, { allowMissing: true });
+  const targetProfile =
+    options.targetProfile || (await detectTargetProfile(projectDir));
+  const modelProfile = options.modelProfile || "default";
+
+  const rendered = await renderAgentsMarkdown({
+    projectDir,
+    agents,
+    targetProfile,
+    modelProfile,
+  });
+
+  const agentsPath = path.join(projectDir, "AGENTS.md");
+  const generatedPath = path.join(projectDir, "AGENTS.generated.md");
+
+  if (!(await fs.pathExists(agentsPath))) {
+    await fs.writeFile(agentsPath, rendered, "utf8");
+    return { mode: "created", path: agentsPath, targetProfile, modelProfile };
+  }
+
+  const existing = await fs.readFile(agentsPath, "utf8");
+  if (options.force || isManagedAgentsFile(existing)) {
+    await fs.writeFile(agentsPath, rendered, "utf8");
+    return { mode: "updated", path: agentsPath, targetProfile, modelProfile };
+  }
+
+  await fs.writeFile(generatedPath, rendered, "utf8");
+  return {
+    mode: "generated",
+    path: generatedPath,
+    targetProfile,
+    modelProfile,
+  };
+}
+
+/**
+ * Register mode: refresh GEMINI registry and keep AGENTS.md non-destructive.
+ */
+async function register(projectDir, options) {
+  let agents;
+  try {
+    agents = await scanInstalledAgents(projectDir);
+  } catch (error) {
+    console.error(chalk.red(`\n❌ ${error.message}\n`));
+    return 1;
+  }
+
+  console.log(chalk.cyan("\n🤖 AGK Agent Registry\n"));
+  if (agents.length === 0) {
+    console.log(chalk.yellow("  ⚠️  No agents found in .agent/agents/\n"));
+  } else {
+    for (const agent of agents) {
+      const triggerStr =
+        agent.triggers.length > 0 ? agent.triggers.join(", ") : "(none)";
+      console.log(
+        `  ${chalk.green("✓")} ${chalk.bold(agent.name)} — ${chalk.gray(triggerStr)}`,
+      );
+    }
+    console.log();
+  }
+
+  await updateGeminiRegistry(projectDir, agents);
+
+  const agentsPath = path.join(projectDir, "AGENTS.md");
+  const generatedPath = path.join(projectDir, "AGENTS.generated.md");
+  const targetProfile =
+    options.targetProfile || (await detectTargetProfile(projectDir));
+  const modelProfile = options.modelProfile || "default";
+
+  const rendered = await renderAgentsMarkdown({
+    projectDir,
+    agents,
+    targetProfile,
+    modelProfile,
+  });
+
+  if (!(await fs.pathExists(agentsPath))) {
+    await fs.writeFile(agentsPath, rendered, "utf8");
+    console.log(chalk.green("✅ Created AGENTS.md"));
+  } else {
+    const current = await fs.readFile(agentsPath, "utf8");
+
+    if (isManagedAgentsFile(current)) {
+      await fs.writeFile(agentsPath, rendered, "utf8");
+      console.log(chalk.green("✅ Refreshed managed AGENTS.md"));
+    } else {
+      const patched = replaceRegistryBlock(current, buildRegistryBlock(agents));
+      if (patched !== null) {
+        await fs.writeFile(agentsPath, patched, "utf8");
+        console.log(chalk.green("✅ Updated AGENTS.md registry block"));
+      } else {
+        await fs.writeFile(generatedPath, rendered, "utf8");
+        console.log(
+          chalk.yellow(
+            "⚠️  Existing AGENTS.md is user-managed (no AGK markers).",
+          ),
+        );
+        console.log(
+          chalk.gray(
+            `   Wrote generated output to ${path.basename(generatedPath)}`,
+          ),
+        );
+      }
+    }
+  }
 
   console.log(
     chalk.green(`\n✅ Registered ${agents.length} agents in GEMINI.md`),
   );
-  console.log(
-    chalk.gray("   Auto-Dispatch is now active for AI assistants.\n"),
-  );
+  console.log(chalk.gray("   Agent-aware registry is now up to date.\n"));
 
   return 0;
 }
 
-/**
- * Generate AGENTS.md — the open standard for AI coding agents.
- * This file is read by Copilot, Codex, Jules, Cursor, and other AI tools.
- */
-async function generateAgentsMd(projectDir, agents) {
-  const lines = [
-    "# AGENTS.md",
-    "",
-    "> This file follows the [AGENTS.md open standard](https://agents.md) for AI coding agents.",
-    "> It is auto-generated by `agk agents`. Do not edit manually.",
-    "",
-    "## Project Agents",
-    "",
-    `This project uses **${agents.length} specialized AI agents** managed by [Antigravity Kit](https://github.com/kamishino/gemini-cli-workflow).`,
-    "",
-    "| Agent | Description | Triggers |",
-    "|:---|:---|:---|",
-  ];
+async function run(projectDir, args = []) {
+  const parsed = parseAgentArgs(args);
 
-  for (const agent of agents) {
-    const triggers =
-      agent.triggers.length > 0
-        ? agent.triggers.slice(0, 5).join(", ") +
-          (agent.triggers.length > 5 ? "..." : "")
-        : "—";
-    lines.push(`| **${agent.name}** | ${agent.description} | ${triggers} |`);
+  if (parsed.unknownTargets.length > 0) {
+    console.log(
+      chalk.yellow(
+        `\n⚠️  Unknown --target value(s): ${parsed.unknownTargets.join(", ")}`,
+      ),
+    );
+    console.log(
+      chalk.gray("   Supported: antigravity, opencode, hybrid (or all)\n"),
+    );
   }
 
-  lines.push(
-    "",
-    "## Agent Configuration",
-    "",
-    "Agents are defined as Markdown files in `.agent/agents/` with YAML frontmatter:",
-    "",
-    "```yaml",
-    "---",
-    "name: Agent Name",
-    "description: What this agent does",
-    "triggers: [keyword1, keyword2]",
-    "owns: [src/**]",
-    "skills: [skill-name]",
-    "---",
-    "```",
-    "",
-    "## How to Add Agents",
-    "",
-    "```bash",
-    "# Scaffold a new agent",
-    'agk scaffold agent "My Agent" "Description"',
-    "",
-    "# Find community agents",
-    "agk agents find react",
-    "",
-    "# Re-register all agents",
-    "agk agents",
-    "```",
-    "",
-    "## Skills",
-    "",
-    "Agents can declare required skills via the `skills` field.",
-    "Install skills with `agk skills add <name>` from [skills.sh](https://skills.sh).",
-    "",
-  );
+  switch (parsed.subcommand) {
+    case "register":
+      return register(projectDir, {
+        targetProfile: parsed.targetProfile,
+        modelProfile: parsed.modelProfile,
+      });
+    case "render": {
+      const result = await renderAgentsFile(projectDir, {
+        targetProfile: parsed.targetProfile,
+        modelProfile: parsed.modelProfile,
+        force: parsed.force,
+      });
 
-  const agentsMdPath = path.join(projectDir, "AGENTS.md");
-  await fs.writeFile(agentsMdPath, lines.join("\n"), "utf8");
+      console.log(chalk.cyan("\n🧩 AGENTS.md Render\n"));
+      if (result.mode === "created") {
+        console.log(chalk.green(`  ✓ Created ${path.basename(result.path)}`));
+      } else if (result.mode === "updated") {
+        console.log(chalk.green(`  ✓ Updated ${path.basename(result.path)}`));
+      } else {
+        console.log(
+          chalk.yellow(
+            `  ⚠️  Existing AGENTS.md preserved; wrote ${path.basename(result.path)}`,
+          ),
+        );
+        console.log(
+          chalk.gray(
+            "     Use --force to replace AGENTS.md with rendered output.",
+          ),
+        );
+      }
+      console.log(chalk.gray(`  target: ${result.targetProfile}`));
+      console.log(chalk.gray(`  model profile: ${result.modelProfile}\n`));
+      return 0;
+    }
+    case "find":
+      return findAgents(projectDir, parsed.positionalArgs);
+    case "list":
+      return listAgents(projectDir);
+    default:
+      return register(projectDir, {
+        targetProfile: parsed.targetProfile,
+        modelProfile: parsed.modelProfile,
+      });
+  }
 }
 
 /**
@@ -246,7 +436,7 @@ async function findAgents(_projectDir, queryArgs) {
 
   // Source 3: Claude Code Templates
   console.log(chalk.bold("  📋 Claude Code Templates:\n"));
-  console.log(chalk.gray(`  Browse agents at: https://aitmpl.com`));
+  console.log(chalk.gray("  Browse agents at: https://aitmpl.com"));
   console.log(
     chalk.yellow(`  npx claude-code-templates@latest --agent "${query}"`),
   );

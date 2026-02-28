@@ -60,7 +60,8 @@ ${chalk.bold("USAGE")}
   ${chalk.yellow("agk memory sync pull")} Pull memory from private git repo
   ${chalk.yellow("agk changelog")}        Show version changelog
   ${chalk.yellow("agk scaffold <type>")}  Generate agent/workflow/rule boilerplate
-  ${chalk.yellow("agk agents")}            Register agents + generate AGENTS.md
+  ${chalk.yellow("agk agents")}            Register agents + refresh AGENTS registry
+  ${chalk.yellow("agk agents render")}     Render target/model-aware AGENTS.md
   ${chalk.yellow("agk agents find <q>")}   Search community agent templates
   ${chalk.yellow("agk agents list")}       List installed agents
   ${chalk.yellow("agk suite add <name>")}  Install a development suite

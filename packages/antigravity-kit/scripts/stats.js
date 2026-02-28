@@ -124,7 +124,7 @@ async function run(projectDir) {
     `  ${geminiMd ? chalk.green("✓") : chalk.red("✗")} GEMINI.md ${geminiMd ? chalk.gray("(Auto-Dispatch active)") : chalk.yellow("— run agk agents")}`,
   );
   console.log(
-    `  ${agentsMd ? chalk.green("✓") : chalk.red("✗")} AGENTS.md ${agentsMd ? chalk.gray("(open standard)") : chalk.yellow("— run agk agents")}`,
+    `  ${agentsMd ? chalk.green("✓") : chalk.red("✗")} AGENTS.md ${agentsMd ? chalk.gray("(open standard)") : chalk.yellow("— run agk agents render")}`,
   );
   console.log(
     `  ${stats.brainLinked ? chalk.green("✓") : chalk.gray("○")} Second Brain ${stats.brainLinked ? chalk.gray("(linked)") : chalk.gray("— run agk brain link")}`,
