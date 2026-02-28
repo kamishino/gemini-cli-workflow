@@ -289,3 +289,6 @@ $RECYCLE.BIN/
 # AGK Brain
 .memory/
 .memory
+
+# Opencode
+.opencode/
