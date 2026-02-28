@@ -26,6 +26,7 @@
     "build": "node scripts/lint-workflows.js && node scripts/sync-templates.js",
     "lint:workflows": "node scripts/lint-workflows.js",
     "render:workflows": "node scripts/render-workflows.js",
+    "check:workflow-drift": "node scripts/check-workflow-drift.js",
     "prepublishOnly": "npm run build",
     "link": "npm link",
     "unlink": "npm unlink",
