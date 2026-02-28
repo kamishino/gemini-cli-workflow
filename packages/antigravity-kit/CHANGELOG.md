@@ -1,5 +1,35 @@
 # Changelog — @kamishino/antigravity-kit
 
+## [v2.12.0] - 2026-02-28
+
+### ✨ Features
+
+#### Workflow SSOT Adapter Foundation
+
+- Added adapter-aware workflow rendering (`lib/workflow-renderer.js`) with registry-driven outputs, target/model overlays, and managed file markers.
+- Added workflow lint and render tooling (`scripts/lint-workflows.js`, `scripts/render-workflows.js`) for pre-sync validation and explicit rendering.
+- Added drift detection (`lib/workflow-drift.js`, `scripts/check-workflow-drift.js`) with strict mode to block unmanaged or out-of-sync templates.
+
+#### Full Workflow Catalog Migration
+
+- Expanded workflow registry coverage from core-only to all 18 workflows.
+- Added canonical SSOT workflow sources for previously template-only flows, including `brainstorm`, `debug`, `test`, `pytest`, `research`, `deploy`, `deploy-mobile`, `scaffold`, `wake`, `checkpoint`, `compact`, `eval`, and `kamiflow`.
+- Regenerated `templates/workflows/*.md` from blueprints with profile overlays to keep runtime behavior consistent.
+
+### 🐛 Fixes
+
+- OpenCode adapter generation now strips AGK renderer metadata/runtime-note blocks from command outputs to keep `.opencode/commands/*.md` runtime-neutral.
+- AGK CI now watches workflow blueprint changes and runs `npm run build` (including strict drift checks) before tests.
+
+### 🧪 Tests
+
+- Added unit coverage for workflow renderer, workflow linter, and workflow drift checker modules.
+- Added regression coverage for OpenCode command sanitization and adapter E2E behavior.
+
+### ⚠️ Breaking Changes
+
+- None.
+
 ## [v2.11.0] - 2026-02-28
 
 ### ✨ Features
