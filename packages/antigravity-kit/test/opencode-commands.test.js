@@ -26,6 +26,40 @@ describe("opencode-commands", () => {
     assert.ok(parsed.body.includes("# review workflow"));
   });
 
+  it("strips renderer metadata and runtime notes from workflow body", () => {
+    const source = [
+      "---",
+      "description: Develop",
+      "---",
+      "",
+      "<!-- AGK_WORKFLOW_RENDER: id=develop; target=antigravity; model=default -->",
+      "# /develop",
+      "",
+      "## Runtime Notes",
+      "",
+      "### Runtime Profile: Antigravity",
+      "",
+      "- Use agk",
+      "",
+      "### Model Profile: Default",
+      "",
+      "- Be concise",
+      "",
+      "**Intent triggers**",
+      "",
+      "- Build this feature",
+      "",
+      "## Steps",
+      "1. Do the thing",
+    ].join("\n");
+
+    const parsed = parseWorkflowTemplate(source);
+    assert.ok(!parsed.body.includes("AGK_WORKFLOW_RENDER"));
+    assert.ok(!parsed.body.includes("## Runtime Notes"));
+    assert.ok(parsed.body.includes("**Intent triggers**"));
+    assert.ok(parsed.body.includes("## Steps"));
+  });
+
   it("resolves default agent by workflow type", () => {
     assert.equal(resolveOpenCodeAgent("review.md"), "plan");
     assert.equal(resolveOpenCodeAgent("develop.md"), "build");

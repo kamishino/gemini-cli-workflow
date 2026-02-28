@@ -12,6 +12,23 @@ const PLAN_WORKFLOWS = new Set([
 ]);
 
 /**
+ * Remove renderer-specific metadata and runtime notes from workflow body
+ * before converting it into an OpenCode command.
+ * @param {string} body
+ * @returns {string}
+ */
+function sanitizeWorkflowBody(body) {
+  let cleaned = String(body || "");
+  cleaned = cleaned.replace(/<!--\s*AGK_WORKFLOW_RENDER:[^\n]*-->\r?\n?/g, "");
+  cleaned = cleaned.replace(
+    /## Runtime Notes[\s\S]*?(?=\*\*Intent triggers\*\*|##\s+\S)/,
+    "",
+  );
+  cleaned = cleaned.replace(/\n{3,}/g, "\n\n");
+  return cleaned.trimStart();
+}
+
+/**
  * Parse frontmatter + body from a workflow template
  * @param {string} content
  * @returns {{ description: string|null, body: string }}
@@ -29,6 +46,7 @@ function parseWorkflowTemplate(content) {
   } else if (body.startsWith("\n")) {
     body = body.slice(1);
   }
+  body = sanitizeWorkflowBody(body);
 
   const descriptionMatch = frontmatter.match(/^description:\s*(.+)$/m);
   const description = descriptionMatch ? descriptionMatch[1].trim() : null;
@@ -127,4 +145,5 @@ module.exports = {
   loadOpenCodeCommandTemplates,
   parseWorkflowTemplate,
   resolveOpenCodeAgent,
+  sanitizeWorkflowBody,
 };

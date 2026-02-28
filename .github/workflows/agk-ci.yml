@@ -5,10 +5,12 @@ on:
     branches: [main]
     paths:
       - "packages/antigravity-kit/**"
+      - "resources/blueprints/workflows/**"
   pull_request:
     branches: [main]
     paths:
       - "packages/antigravity-kit/**"
+      - "resources/blueprints/workflows/**"
 
 jobs:
   test:
@@ -28,6 +30,10 @@ jobs:
       - name: Install dependencies
         working-directory: packages/antigravity-kit
         run: npm install
+
+      - name: Run build (lint + sync + strict drift)
+        working-directory: packages/antigravity-kit
+        run: npm run build
 
       - name: Run tests
         working-directory: packages/antigravity-kit
