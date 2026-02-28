@@ -190,8 +190,9 @@ async function installComponents(targetDir, config) {
 
   // Create directories
   const agentDir = path.join(targetDir, ".agent");
+  const geminiDir = path.join(targetDir, ".gemini");
   const workflowsDir = path.join(agentDir, "workflows");
-  const rulesDir = path.join(agentDir, "rules");
+  const rulesDir = path.join(geminiDir, "rules");
 
   await fs.ensureDir(workflowsDir);
   await fs.ensureDir(rulesDir);

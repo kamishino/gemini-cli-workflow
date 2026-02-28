@@ -430,7 +430,7 @@ async function findSuites(queryArgs) {
 
   // Source 2: npm search
   try {
-    const result = execSync(`npm search "agk suite ${query}" --json 2>nul`, {
+    const result = execSync(`npm search "agk suite ${query}" --json`, {
       encoding: "utf8",
       timeout: 15000,
       stdio: "pipe",

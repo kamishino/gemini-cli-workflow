@@ -128,7 +128,15 @@ describe("agk init (E2E)", () => {
     const commandFiles = (await fs.readdir(opencodeDir)).filter((f) =>
       f.endsWith(".md"),
     );
-    assert.ok(commandFiles.length >= 10, "Should scaffold command adapters");
+    const workflowTemplatesDir = path.join(AGK_ROOT, "templates", "workflows");
+    const workflowFiles = (await fs.readdir(workflowTemplatesDir)).filter((f) =>
+      f.endsWith(".md"),
+    );
+    assert.equal(
+      commandFiles.length,
+      workflowFiles.length,
+      "OpenCode command count should match workflow template count",
+    );
 
     const sample = await fs.readFile(
       path.join(opencodeDir, commandFiles[0]),

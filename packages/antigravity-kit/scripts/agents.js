@@ -265,7 +265,7 @@ async function register(projectDir, options) {
     console.log();
   }
 
-  await updateGeminiRegistry(projectDir, agents);
+  const geminiUpdated = await updateGeminiRegistry(projectDir, agents);
 
   const agentsPath = path.join(projectDir, "AGENTS.md");
   const generatedPath = path.join(projectDir, "AGENTS.generated.md");
@@ -310,9 +310,22 @@ async function register(projectDir, options) {
     }
   }
 
-  console.log(
-    chalk.green(`\n✅ Registered ${agents.length} agents in GEMINI.md`),
-  );
+  if (geminiUpdated) {
+    console.log(
+      chalk.green(`\n✅ Registered ${agents.length} agents in GEMINI.md`),
+    );
+  } else {
+    console.log(
+      chalk.yellow(
+        "\n⚠️  GEMINI.md registry markers not found — skipped GEMINI update",
+      ),
+    );
+    console.log(
+      chalk.gray(
+        `   Add ${REGISTRY_START} ... ${REGISTRY_END} to enable auto-registry updates.`,
+      ),
+    );
+  }
   console.log(chalk.gray("   Agent-aware registry is now up to date.\n"));
 
   return 0;
@@ -399,7 +412,7 @@ async function findAgents(_projectDir, queryArgs) {
   try {
     console.log(chalk.gray("  Searching npm for agent packages..."));
     const result = execSync(
-      `npm search "claude agent ${query}" --json --long 2>nul`,
+      `npm search "claude agent ${query}" --json --long`,
       {
         encoding: "utf8",
         timeout: 15000,

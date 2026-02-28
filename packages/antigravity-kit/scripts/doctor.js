@@ -104,6 +104,7 @@ async function detectDogfooding(projectDir) {
  */
 async function checkWorkflows(projectDir) {
   const workflowsDir = path.join(projectDir, ".agent", "workflows");
+  const opencodeCommandsDir = path.join(projectDir, ".opencode", "commands");
   const result = {
     category: "Workflows",
     level: LEVEL.OK,
@@ -115,6 +116,21 @@ async function checkWorkflows(projectDir) {
   try {
     const exists = await fs.pathExists(workflowsDir);
     if (!exists) {
+      // OpenCode-only projects may intentionally skip .agent/workflows.
+      if (await fs.pathExists(opencodeCommandsDir)) {
+        result.level = LEVEL.INFO;
+        result.message =
+          "No .agent/workflows/ directory (OpenCode-only setup detected)";
+        result.details.push(
+          "This is valid when using only .opencode/commands.",
+        );
+        result.details.push(
+          "Run `agk init --target all` if you also want Antigravity workflows.",
+        );
+        result.fix = "agk init --target all";
+        return result;
+      }
+
       result.level = LEVEL.ERROR;
       result.message = ".agent/workflows/ directory not found";
       result.details.push("Run `npx antigravity-kit init` to initialize");

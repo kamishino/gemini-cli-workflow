@@ -198,7 +198,8 @@ agk brain pull                   # pull on new machine
 
 ## AGENTS.md (Open Standard)
 
-AGK auto-generates `AGENTS.md` following the [open standard](https://agents.md) — your agent config is readable by Copilot, Codex, Jules, Cursor, and other AI tools.
+AGK renders `AGENTS.md` from SSOT templates via `agk agents render` and keeps agent registry sections fresh via `agk agents`.
+The output follows the [open standard](https://agents.md) so configuration is readable by Copilot, Codex, Jules, Cursor, and other AI tools.
 
 ---
 

@@ -10,6 +10,11 @@
  *   resources/blueprints/workflows/                 →  templates/workflows/
  *   resources/blueprints/skills/ (subset)           →  templates/skills/
  *   resources/blueprints/templates/GEMINI-antigravity.md → templates/GEMINI.md
+ *
+ * IMPORTANT:
+ * - Only SSOT-managed targets are refreshed.
+ * - Other package-owned template directories (agents, suites, hooks, ci, agents-md)
+ *   are preserved to keep structure stable.
  */
 
 const fs = require("fs-extra");
@@ -54,8 +59,8 @@ const SKILL_DIRS = [
 async function main() {
   console.log("🔄 Syncing templates from SSOT blueprints...\n");
 
-  // Clean templates dir
-  await fs.emptyDir(TEMPLATES);
+  // Ensure template root exists (do not wipe whole directory).
+  await fs.ensureDir(TEMPLATES);
 
   for (const item of SYNC_MAP) {
     if (!fs.existsSync(item.src)) {
@@ -65,8 +70,12 @@ async function main() {
 
     if (item.isFile) {
       await fs.ensureDir(path.dirname(item.dest));
+      // Refresh managed target
+      await fs.remove(item.dest);
       await fs.copy(item.src, item.dest);
     } else {
+      // Refresh managed target directory only
+      await fs.remove(item.dest);
       await fs.copy(item.src, item.dest);
     }
 
@@ -76,6 +85,7 @@ async function main() {
   // Copy selected skills
   const skillsSrc = path.join(BLUEPRINTS, "skills");
   const skillsDest = path.join(TEMPLATES, "skills");
+  await fs.remove(skillsDest);
   await fs.ensureDir(skillsDest);
 
   for (const skillDir of SKILL_DIRS) {

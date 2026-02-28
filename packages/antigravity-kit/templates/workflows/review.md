@@ -53,7 +53,8 @@ Or for a specific range: `git diff <base>..<head>`
    - Are new functions/modules properly exported?
    - Are new files in the correct directory?
    - Is naming consistent with project conventions?
-   - Module size reasonable (< 300 lines)?\r\n - Test coverage maintained or improved? (if coverage tool available)
+   - Module size reasonable (< 300 lines)?
+   - Test coverage maintained or improved? (if coverage tool available)
 
 5. **🔍 Bloat & Dead Code Scan** — For each changed file, check for:
    - [ ] No unused imports / variables / functions
