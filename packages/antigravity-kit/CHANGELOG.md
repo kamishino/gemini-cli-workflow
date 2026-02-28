@@ -1,5 +1,41 @@
 # Changelog — @kamishino/antigravity-kit
 
+## [v2.11.0] - 2026-02-28
+
+### ✨ Features
+
+#### Agent-Aware AGENTS.md Rendering (SSOT)
+
+- Added `agk agents render` to generate target/model-aware `AGENTS.md` from template fragments.
+- New AGENTS templates under `templates/agents-md/` with:
+  - shared base instructions,
+  - target overlays (`antigravity`, `opencode`, `hybrid`),
+  - model overlays (`default`, `codex`).
+- Added new renderer library: `lib/agents-md.js`.
+
+#### Safe Registry Updates
+
+- `agk agents` now updates `GEMINI.md` registry and refreshes AGENTS content non-destructively.
+- If `AGENTS.md` is user-managed (no AGK markers), AGK now writes `AGENTS.generated.md` instead of overwriting user rules.
+- Added `--target` and `--model-profile` support to agent rendering/registration flow.
+
+### 🔧 Improvements
+
+- `agk init` now wires AGENTS profile rendering for OpenCode-only and hybrid targets.
+- CLI help and docs updated to reflect new `agk agents render` behavior.
+- Stats hints now point users to `agk agents render` when `AGENTS.md` is missing.
+
+### 🧪 Tests
+
+- Added E2E coverage for:
+  - OpenCode/hybrid AGENTS profile rendering,
+  - preserving custom `AGENTS.md`,
+  - force-replacing managed `AGENTS.md`.
+
+### ⚠️ Breaking Changes
+
+- None.
+
 ## [v2.9.0] - 2026-02-22
 
 ### ✨ Features
