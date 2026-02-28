@@ -15,6 +15,7 @@ async function run(projectDir) {
   const stats = {
     agents: 0,
     workflows: 0,
+    opencodeCommands: 0,
     skills: 0,
     suites: 0,
     rules: 0,
@@ -36,6 +37,15 @@ async function run(projectDir) {
   if (await fs.pathExists(wfDir)) {
     const files = (await fs.readdir(wfDir)).filter((f) => f.endsWith(".md"));
     stats.workflows = files.length;
+  }
+
+  // OpenCode commands
+  const opencodeDir = path.join(projectDir, ".opencode", "commands");
+  if (await fs.pathExists(opencodeDir)) {
+    const files = (await fs.readdir(opencodeDir)).filter((f) =>
+      f.endsWith(".md"),
+    );
+    stats.opencodeCommands = files.length;
   }
 
   // Skills
@@ -91,6 +101,9 @@ async function run(projectDir) {
     `  ${chalk.cyan(bar(stats.workflows))} ${chalk.bold("Workflows")}   ${stats.workflows}`,
   );
   console.log(
+    `  ${chalk.cyan(bar(stats.opencodeCommands))} ${chalk.bold("OpenCode")}    ${stats.opencodeCommands}`,
+  );
+  console.log(
     `  ${chalk.cyan(bar(stats.skills, 10))} ${chalk.bold("Skills")}      ${stats.skills}`,
   );
   console.log(
@@ -128,6 +141,8 @@ async function run(projectDir) {
   // Suggestions
   const suggestions = [];
   if (stats.agents === 0) suggestions.push("agk init");
+  if (stats.opencodeCommands === 0)
+    suggestions.push("agk init --target opencode");
   if (stats.suites === 0) suggestions.push("agk suggest suite");
   if (!stats.brainLinked) suggestions.push("agk brain link");
 

@@ -32,6 +32,8 @@ your-project/
 │   ├── workflows/                 # 18 slash-command workflows
 │   ├── skills/                    # Installed skills from skills.sh
 │   └── suites.json                # Installed suite tracking
+├── .opencode/
+│   └── commands/                  # Optional OpenCode slash commands
 └── .memory/                       # Persistent context (4 files)
     ├── context.md                 ├── patterns.md
     ├── decisions.md               └── anti-patterns.md
@@ -44,6 +46,8 @@ your-project/
 ```bash
 # Setup
 agk init               # Smart Init: detect → suite → skills → agents
+agk init --target opencode # OpenCode-only: scaffold .opencode/commands
+agk init --target all  # AGK defaults + OpenCode command adapters
 agk init -i            # interactive setup wizard
 agk upgrade            # update templates from AGK
 
@@ -82,6 +86,8 @@ agk doctor             # full health check
 agk suggest <query>    # find best agent for a task
 agk info               # show version + location
 ```
+
+OpenCode command adapters are generated from `templates/workflows/` (single SSOT), so workflow logic stays in one place.
 
 ---
 

@@ -9,6 +9,7 @@ const fs = require("fs-extra");
 const path = require("path");
 const chalk = require("chalk");
 const crypto = require("crypto");
+const { loadOpenCodeCommandTemplates } = require("../lib/opencode-commands");
 
 const TEMPLATES_DIR = path.join(__dirname, "..", "templates");
 
@@ -43,6 +44,14 @@ const DIFF_TARGETS = [
     templateDir: "memory",
     destDir: ".memory",
     ext: ".md",
+  },
+  {
+    label: "OpenCode Commands",
+    templateDir: "workflows",
+    destDir: path.join(".opencode", "commands"),
+    ext: ".md",
+    generatedFromWorkflows: true,
+    optional: true,
   },
 ];
 
@@ -79,14 +88,31 @@ async function run(projectDir, args = []) {
       if (await fs.pathExists(altDest)) destDir = altDest;
     }
 
-    const templateFiles = (await fs.readdir(templateDir)).filter((f) =>
-      f.endsWith(target.ext),
-    );
+    if (target.optional && !(await fs.pathExists(destDir))) {
+      continue;
+    }
+
+    let templateEntries = [];
+    if (target.generatedFromWorkflows) {
+      const generated = await loadOpenCodeCommandTemplates(templateDir);
+      templateEntries = generated.map((item) => ({
+        file: item.fileName,
+        content: item.content,
+      }));
+    } else {
+      const templateFiles = (await fs.readdir(templateDir)).filter((f) =>
+        f.endsWith(target.ext),
+      );
+      templateEntries = templateFiles.map((file) => ({
+        file,
+        srcPath: path.join(templateDir, file),
+      }));
+    }
 
     const results = [];
 
-    for (const file of templateFiles) {
-      const srcPath = path.join(templateDir, file);
+    for (const entry of templateEntries) {
+      const file = entry.file;
       const destPath = path.join(destDir, file);
 
       if (!(await fs.pathExists(destPath))) {
@@ -95,7 +121,10 @@ async function run(projectDir, args = []) {
         continue;
       }
 
-      const srcContent = await fs.readFile(srcPath, "utf8");
+      const srcContent =
+        entry.content !== undefined
+          ? entry.content
+          : await fs.readFile(entry.srcPath, "utf8");
       const destContent = await fs.readFile(destPath, "utf8");
       const srcHash = hashContent(srcContent);
       const destHash = hashContent(destContent);
@@ -124,6 +153,7 @@ async function run(projectDir, args = []) {
       const installedFiles = (await fs.readdir(destDir)).filter((f) =>
         f.endsWith(target.ext),
       );
+      const templateFiles = templateEntries.map((entry) => entry.file);
       for (const file of installedFiles) {
         if (!templateFiles.includes(file)) {
           results.push({

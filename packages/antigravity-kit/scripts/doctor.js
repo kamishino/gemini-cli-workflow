@@ -49,7 +49,10 @@ async function run(projectDir) {
   // Check 5: Agent Health
   results.push(await checkAgents(projectDir));
 
-  // Check 6: Suite Health
+  // Check 6: OpenCode command adapters
+  results.push(await checkOpenCodeCommands(projectDir));
+
+  // Check 7: Suite Health
   results.push(await checkSuites(projectDir));
 
   // Display results
@@ -135,6 +138,71 @@ async function checkWorkflows(projectDir) {
   } catch (error) {
     result.level = LEVEL.ERROR;
     result.message = `Failed to check workflows: ${error.message}`;
+  }
+
+  return result;
+}
+
+/**
+ * Check OpenCode command adapters
+ */
+async function checkOpenCodeCommands(projectDir) {
+  const commandsDir = path.join(projectDir, ".opencode", "commands");
+  const workflowTemplates = path.join(
+    __dirname,
+    "..",
+    "templates",
+    "workflows",
+  );
+  const result = {
+    category: "OpenCode Commands",
+    level: LEVEL.INFO,
+    message: "",
+    details: [],
+    fix: null,
+  };
+
+  try {
+    if (!(await fs.pathExists(commandsDir))) {
+      result.message = "Not configured (optional)";
+      result.details.push(
+        "Run `agk init --target opencode` to install .opencode/commands/",
+      );
+      result.fix = "agk init --target opencode";
+      return result;
+    }
+
+    const commandFiles = (await fs.readdir(commandsDir)).filter((f) =>
+      f.endsWith(".md"),
+    );
+
+    if (commandFiles.length === 0) {
+      result.level = LEVEL.WARNING;
+      result.message = "Directory exists but no command files found";
+      result.fix = "agk upgrade";
+      return result;
+    }
+
+    result.level = LEVEL.OK;
+    result.message = `${commandFiles.length} command(s) found`;
+
+    if (await fs.pathExists(workflowTemplates)) {
+      const workflowFiles = (await fs.readdir(workflowTemplates)).filter((f) =>
+        f.endsWith(".md"),
+      );
+      if (commandFiles.length < workflowFiles.length) {
+        result.level = LEVEL.INFO;
+        result.details.push(
+          `Expected ${workflowFiles.length} command(s) from workflow templates`,
+        );
+        result.details.push(
+          "Run `agk upgrade` to sync missing command adapters",
+        );
+      }
+    }
+  } catch (error) {
+    result.level = LEVEL.ERROR;
+    result.message = `Failed to check OpenCode commands: ${error.message}`;
   }
 
   return result;
@@ -456,17 +524,18 @@ async function checkMemorySync(projectDir) {
  */
 async function checkSuites(projectDir) {
   const result = {
-    name: "Suites",
-    checks: [],
+    category: "Suites",
+    level: LEVEL.INFO,
+    message: "",
+    details: [],
+    fix: null,
   };
 
   const configPath = path.join(projectDir, ".agent", "suites.json");
 
   if (!(await fs.pathExists(configPath))) {
-    result.checks.push({
-      level: LEVEL.INFO,
-      message: "No suites installed. Run `agk suite available` to browse.",
-    });
+    result.message = "No suites installed (optional)";
+    result.details.push("Run `agk suite available` to browse.");
 
     // Suggest suites based on project
     try {
@@ -477,10 +546,7 @@ async function checkSuites(projectDir) {
       );
       if (recommended.length > 0) {
         const names = recommended.map((r) => r.suite).join(", ");
-        result.checks.push({
-          level: LEVEL.INFO,
-          message: `Recommended suites for this project: ${names}`,
-        });
+        result.details.push(`Recommended suites for this project: ${names}`);
       }
     } catch {
       // analyzer not available
@@ -493,17 +559,17 @@ async function checkSuites(projectDir) {
   const installed = config.installed || [];
 
   if (installed.length === 0) {
-    result.checks.push({
-      level: LEVEL.INFO,
-      message: "No suites installed. Run `agk suite available` to browse.",
-    });
+    result.message = "No suites installed (optional)";
+    result.details.push("Run `agk suite available` to browse.");
     return result;
   }
 
-  result.checks.push({
-    level: LEVEL.OK,
-    message: `${installed.length} suite(s) installed: ${installed.map((s) => s.displayName || s.name).join(", ")}`,
-  });
+  result.level = LEVEL.OK;
+  result.message = `${installed.length} suite(s) installed`;
+  result.details.push(
+    `Installed: ${installed.map((s) => s.displayName || s.name).join(", ")}`,
+  );
+  let missingCount = 0;
 
   // Check each installed suite for missing components
   const suitesDir = path.join(
@@ -527,10 +593,11 @@ async function checkSuites(projectDir) {
         `${agentName}.md`,
       );
       if (!(await fs.pathExists(agentPath))) {
-        result.checks.push({
-          level: LEVEL.WARNING,
-          message: `Suite "${entry.displayName}" missing agent: ${agentName}.md`,
-        });
+        result.level = LEVEL.WARNING;
+        missingCount++;
+        result.details.push(
+          `Suite "${entry.displayName}" missing agent: ${agentName}.md`,
+        );
       }
     }
 
@@ -543,12 +610,18 @@ async function checkSuites(projectDir) {
         `${wfName}.md`,
       );
       if (!(await fs.pathExists(wfPath))) {
-        result.checks.push({
-          level: LEVEL.WARNING,
-          message: `Suite "${entry.displayName}" missing workflow: ${wfName}.md`,
-        });
+        result.level = LEVEL.WARNING;
+        missingCount++;
+        result.details.push(
+          `Suite "${entry.displayName}" missing workflow: ${wfName}.md`,
+        );
       }
     }
+  }
+
+  if (missingCount > 0) {
+    result.message += ` — ${missingCount} missing component(s)`;
+    result.fix = "agk suite add <suite-name> or agk upgrade";
   }
 
   return result;

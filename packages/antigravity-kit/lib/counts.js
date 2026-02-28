@@ -44,6 +44,13 @@ function countAgents(projectDir) {
 }
 
 /**
+ * Count OpenCode command files in .opencode/commands/
+ */
+function countOpenCodeCommands(projectDir) {
+  return countMdFiles(projectDir, ".opencode", "commands");
+}
+
+/**
  * Check memory system status
  */
 async function checkMemory(projectDir) {
@@ -186,6 +193,7 @@ module.exports = {
   countMdFiles,
   countWorkflows,
   countAgents,
+  countOpenCodeCommands,
   checkMemory,
   checkGuardRails,
   checkHooks,

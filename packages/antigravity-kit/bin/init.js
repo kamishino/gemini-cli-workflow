@@ -13,6 +13,8 @@
  *
  * Modes:
  *   --interactive       — Guided wizard with workflow/feature selection
+ *   --target opencode   — Install standalone OpenCode commands only
+ *   --target all        — Install AGK defaults + OpenCode commands
  *   (default)           — Install all templates (original behavior)
  */
 
@@ -21,13 +23,15 @@ const path = require("path");
 const chalk = require("chalk");
 const ora = require("ora");
 const { execSync } = require("child_process");
+const { loadOpenCodeCommandTemplates } = require("../lib/opencode-commands");
 
 const TEMPLATES_DIR = path.join(__dirname, "..", "templates");
 const CWD = process.cwd();
 
 // Check for flags
-const args = process.argv.slice(2);
-const isInteractive = args.includes("--interactive") || args.includes("-i");
+const cliArgs = process.argv.slice(2);
+const isInteractive =
+  cliArgs.includes("--interactive") || cliArgs.includes("-i");
 
 // --- Scaffold targets (for standard init) ---
 
@@ -224,10 +228,132 @@ function findMarker(cwd, marker) {
   return fs.existsSync(fullPath);
 }
 
+/**
+ * Read flag value supporting both "--flag value" and "--flag=value"
+ */
+function getFlagValue(args, flag) {
+  const directIndex = args.indexOf(flag);
+  if (directIndex !== -1 && args[directIndex + 1]) {
+    return args[directIndex + 1];
+  }
+
+  const equalsPrefix = `${flag}=`;
+  const equalsArg = args.find((arg) => arg.startsWith(equalsPrefix));
+  if (equalsArg) {
+    return equalsArg.slice(equalsPrefix.length);
+  }
+
+  return null;
+}
+
+/**
+ * Parse `--target` for init mode selection.
+ * Supported values: antigravity, opencode, all
+ */
+function parseInitTargets(args) {
+  const requested = new Set();
+  const unknownTargets = [];
+
+  const targetValue = getFlagValue(args, "--target");
+  if (targetValue) {
+    for (const rawItem of targetValue.split(",")) {
+      const item = rawItem.trim().toLowerCase();
+      if (!item) continue;
+
+      if (["all"].includes(item)) {
+        requested.add("all");
+      } else if (["antigravity", "agk", "default"].includes(item)) {
+        requested.add("antigravity");
+      } else if (["opencode", "open-code", "codex"].includes(item)) {
+        requested.add("opencode");
+      } else {
+        unknownTargets.push(item);
+      }
+    }
+  }
+
+  if (args.includes("--opencode")) {
+    requested.add("opencode");
+  }
+
+  // Backward-compatible default: Antigravity only
+  if (requested.size === 0) {
+    return {
+      installAntigravity: true,
+      installOpenCode: false,
+      unknownTargets,
+    };
+  }
+
+  if (requested.has("all")) {
+    return {
+      installAntigravity: true,
+      installOpenCode: true,
+      unknownTargets,
+    };
+  }
+
+  return {
+    installAntigravity: requested.has("antigravity"),
+    installOpenCode: requested.has("opencode"),
+    unknownTargets,
+  };
+}
+
+/**
+ * Scaffold OpenCode command files from workflow templates (SSOT).
+ */
+async function scaffoldOpenCodeCommands(cwd, force) {
+  const workflowsDir = path.join(TEMPLATES_DIR, "workflows");
+  const targetDir = path.join(cwd, ".opencode", "commands");
+  const label = ".opencode/commands/ (OpenCode command adapters)";
+  const spinner = ora({ text: label, indent: 2 }).start();
+
+  if (!(await fs.pathExists(workflowsDir))) {
+    spinner.warn(`${label} ${chalk.gray("(workflow templates not found)")}`);
+    return { created: 0, skipped: 1 };
+  }
+
+  const commands = await loadOpenCodeCommandTemplates(workflowsDir);
+  if (commands.length === 0) {
+    spinner.warn(`${label} ${chalk.gray("(no workflow templates found)")}`);
+    return { created: 0, skipped: 1 };
+  }
+
+  await fs.ensureDir(targetDir);
+
+  let created = 0;
+  let skipped = 0;
+  for (const command of commands) {
+    const destPath = path.join(targetDir, command.fileName);
+    const exists = await fs.pathExists(destPath);
+
+    if (exists && !force) {
+      skipped++;
+      continue;
+    }
+
+    await fs.writeFile(destPath, command.content, "utf8");
+    created++;
+  }
+
+  if (created > 0) {
+    spinner.succeed(chalk.green(`${label} (${created} files)`));
+  } else {
+    spinner.stopAndPersist({
+      symbol: chalk.gray("⏭"),
+      text: chalk.gray(`${label} (already exists)`),
+    });
+  }
+
+  return { created, skipped };
+}
+
 // --- Main ---
 
 async function main() {
   const args = process.argv.slice(2);
+  const targetConfig = parseInitTargets(args);
 
   // Show help only when explicitly requested
   if (args.includes("--help") || args.includes("-h")) {
@@ -236,11 +362,40 @@ async function main() {
     console.log(
       "  Scaffolds portable AI rules, workflows, and skills\n  into your project for structured development.\n",
     );
+    console.log(chalk.bold("  Targets:"));
+    console.log(
+      "    " +
+        chalk.yellow("--target antigravity") +
+        "  default AGK setup (backward compatible)",
+    );
+    console.log(
+      "    " +
+        chalk.yellow("--target opencode") +
+        "     standalone .opencode/commands/",
+    );
+    console.log(
+      "    " +
+        chalk.yellow("--target all") +
+        "          install both AGK + OpenCode adapters\n",
+    );
     process.exit(0);
   }
 
   const force = args.includes("--force") || args.includes("-f");
   const withNeuralMemory = args.includes("--with-neuralmemory");
+
+  if (targetConfig.unknownTargets.length > 0) {
+    console.log(
+      chalk.yellow(
+        `  ⚠️  Unknown --target value(s): ${targetConfig.unknownTargets.join(", ")}`,
+      ),
+    );
+    console.log(
+      chalk.gray(
+        "     Supported targets: antigravity, opencode, all (default: antigravity)\n",
+      ),
+    );
+  }
 
   console.log(
     chalk.bold.cyan("\n🚀 Antigravity Kit") + " — Scaffolding AI Guard Rails\n",
@@ -261,41 +416,49 @@ async function main() {
   let created = 0;
   let skipped = 0;
 
-  for (const target of TARGETS) {
-    const srcPath = path.join(TEMPLATES_DIR, target.src);
-    const destPath = path.join(CWD, target.dest);
-    const spinner = ora({ text: target.label, indent: 2 }).start();
+  if (targetConfig.installAntigravity) {
+    for (const target of TARGETS) {
+      const srcPath = path.join(TEMPLATES_DIR, target.src);
+      const destPath = path.join(CWD, target.dest);
+      const spinner = ora({ text: target.label, indent: 2 }).start();
 
-    if (!fs.existsSync(srcPath)) {
-      spinner.warn(`${target.label} ${chalk.gray("(source not found)")}`);
-      skipped++;
-      continue;
+      if (!fs.existsSync(srcPath)) {
+        spinner.warn(`${target.label} ${chalk.gray("(source not found)")}`);
+        skipped++;
+        continue;
+      }
+
+      if (fs.existsSync(destPath) && !force) {
+        spinner.stopAndPersist({
+          symbol: chalk.gray("⏭"),
+          text: chalk.gray(`${target.label} (already exists)`),
+        });
+        skipped++;
+        continue;
+      }
+
+      if (target.dir) {
+        await fs.ensureDir(destPath);
+        await fs.copy(srcPath, destPath, { overwrite: force });
+      } else {
+        await fs.ensureDir(path.dirname(destPath));
+        await fs.copy(srcPath, destPath, { overwrite: force });
+      }
+
+      spinner.succeed(chalk.green(target.label));
+      created++;
     }
+  }
 
-    if (fs.existsSync(destPath) && !force) {
-      spinner.stopAndPersist({
-        symbol: chalk.gray("⏭"),
-        text: chalk.gray(`${target.label} (already exists)`),
-      });
-      skipped++;
-      continue;
-    }
-
-    if (target.dir) {
-      await fs.ensureDir(destPath);
-      await fs.copy(srcPath, destPath, { overwrite: force });
-    } else {
-      await fs.ensureDir(path.dirname(destPath));
-      await fs.copy(srcPath, destPath, { overwrite: force });
-    }
-
-    spinner.succeed(chalk.green(target.label));
-    created++;
+  if (targetConfig.installOpenCode) {
+    const opencodeResult = await scaffoldOpenCodeCommands(CWD, force);
+    created += opencodeResult.created;
+    skipped += opencodeResult.skipped;
   }
 
   // --- Phase 1.5: Optional NeuralMemory setup ---
 
-  if (withNeuralMemory) {
+  if (withNeuralMemory && targetConfig.installAntigravity) {
     const nmCreated = await scaffoldNeuralMemory(CWD, force);
     created += nmCreated;
   }
@@ -314,148 +477,149 @@ async function main() {
   }
 
   // --- Phase 2: Smart Suite & Skill Discovery (powered by project-analyzer) ---
+  if (targetConfig.installAntigravity) {
+    let suitesInstalled = false;
+    try {
+      const { analyzeProject } = require("../lib/project-analyzer");
+      const { signals, recommendations } = await analyzeProject(CWD);
 
-  let suitesInstalled = false;
-  try {
-    const { analyzeProject } = require("../lib/project-analyzer");
-    const { signals, recommendations } = await analyzeProject(CWD);
+      if (signals.length > 0) {
+        // Show what we detected
+        const depSignals = signals.filter((s) => s.type === "dependency");
+        const configSignals = signals.filter((s) => s.type === "configFile");
+        const dirSignals = signals.filter((s) => s.type === "directory");
 
-    if (signals.length > 0) {
-      // Show what we detected
-      const depSignals = signals.filter((s) => s.type === "dependency");
-      const configSignals = signals.filter((s) => s.type === "configFile");
-      const dirSignals = signals.filter((s) => s.type === "directory");
+        const parts = [];
+        if (depSignals.length > 0) parts.push(`${depSignals.length} deps`);
+        if (configSignals.length > 0)
+          parts.push(`${configSignals.length} configs`);
+        if (dirSignals.length > 0) parts.push(`${dirSignals.length} dirs`);
 
-      const parts = [];
-      if (depSignals.length > 0) parts.push(`${depSignals.length} deps`);
-      if (configSignals.length > 0)
-        parts.push(`${configSignals.length} configs`);
-      if (dirSignals.length > 0) parts.push(`${dirSignals.length} dirs`);
-
-      console.log(
-        chalk.bold("  🔍 Analyzed: ") +
-          chalk.cyan(parts.join(" + ")) +
-          chalk.gray(` (${signals.length} signals)\n`),
-      );
-
-      // Install recommended suites (multi-suite support)
-      const toInstall = recommendations.filter(
-        (r) => r.status === "recommended",
-      );
-      const skipped = recommendations.filter((r) => r.status === "skipped");
-
-      if (toInstall.length > 0) {
-        for (const rec of toInstall) {
-          console.log(
-            chalk.bold(
-              `  📦 Installing: ${chalk.cyan(rec.suite)} ${chalk.green(`(${rec.confidence}% match)`)}\n`,
-            ),
-          );
-          const suiteModule = require("../scripts/suite");
-          await suiteModule.run(CWD, ["add", rec.suite]);
-        }
-        suitesInstalled = true;
-
-        // Show skipped suites
-        if (skipped.length > 0) {
-          for (const s of skipped) {
-            console.log(chalk.gray(`  ○ ${s.suite} — skipped (${s.reason})`));
-          }
-          console.log();
-        }
-      }
-    }
-  } catch {
-    // Analyzer failed — fall through to legacy detection
-  }
-
-  // Fallback: legacy detection if analyzer found nothing
-  if (!suitesInstalled) {
-    const { detectedTypes } = detectProject(CWD);
-    if (detectedTypes.length > 0) {
-      console.log(
-        chalk.bold("  🔍 Detected: ") +
-          chalk.cyan(detectedTypes.join(" + ")) +
-          "\n",
-      );
-
-      const discoveredSkills = new Set();
-      const spinner = ora("Searching skills.sh for your stack...").start();
-
-      for (const tech of detectedTypes) {
-        try {
-          const result = execSync(`npx -y skills find ${tech}`, {
-            cwd: CWD,
-            encoding: "utf8",
-            stdio: "pipe",
-            timeout: 15000,
-          });
-          const lines = result.split("\n");
-          for (const line of lines) {
-            const match = line.match(
-              /(?:npx skills add\s+)?([\w-]+\/[\w-]+@[\w-]+|[\w-]+\/[\w-]+)/,
-            );
-            if (match) {
-              discoveredSkills.add(match[1]);
-            }
-          }
-        } catch {
-          // Dynamic search failed
-        }
-      }
-
-      spinner.stop();
-
-      if (discoveredSkills.size === 0) {
-        const { recommendedSkills } = detectProject(CWD);
-        for (const skill of recommendedSkills) {
-          discoveredSkills.add(skill);
-        }
-      }
-
-      const skillsToInstall = [...discoveredSkills].slice(0, 5);
-      if (skillsToInstall.length > 0) {
         console.log(
-          chalk.bold("  📦 Auto-installing skills for your stack:\n"),
+          chalk.bold("  🔍 Analyzed: ") +
+            chalk.cyan(parts.join(" + ")) +
+            chalk.gray(` (${signals.length} signals)\n`),
         );
-        const skills = require("../scripts/skills");
-        await skills.run(CWD, ["add", ...skillsToInstall]);
+
+        // Install recommended suites (multi-suite support)
+        const toInstall = recommendations.filter(
+          (r) => r.status === "recommended",
+        );
+        const skipped = recommendations.filter((r) => r.status === "skipped");
+
+        if (toInstall.length > 0) {
+          for (const rec of toInstall) {
+            console.log(
+              chalk.bold(
+                `  📦 Installing: ${chalk.cyan(rec.suite)} ${chalk.green(`(${rec.confidence}% match)`)}\n`,
+              ),
+            );
+            const suiteModule = require("../scripts/suite");
+            await suiteModule.run(CWD, ["add", rec.suite]);
+          }
+          suitesInstalled = true;
+
+          // Show skipped suites
+          if (skipped.length > 0) {
+            for (const s of skipped) {
+              console.log(chalk.gray(`  ○ ${s.suite} — skipped (${s.reason})`));
+            }
+            console.log();
+          }
+        }
+      }
+    } catch {
+      // Analyzer failed — fall through to legacy detection
+    }
+
+    // Fallback: legacy detection if analyzer found nothing
+    if (!suitesInstalled) {
+      const { detectedTypes } = detectProject(CWD);
+      if (detectedTypes.length > 0) {
+        console.log(
+          chalk.bold("  🔍 Detected: ") +
+            chalk.cyan(detectedTypes.join(" + ")) +
+            "\n",
+        );
+
+        const discoveredSkills = new Set();
+        const spinner = ora("Searching skills.sh for your stack...").start();
+
+        for (const tech of detectedTypes) {
+          try {
+            const result = execSync(`npx -y skills find ${tech}`, {
+              cwd: CWD,
+              encoding: "utf8",
+              stdio: "pipe",
+              timeout: 15000,
+            });
+            const lines = result.split("\n");
+            for (const line of lines) {
+              const match = line.match(
+                /(?:npx skills add\s+)?([\w-]+\/[\w-]+@[\w-]+|[\w-]+\/[\w-]+)/,
+              );
+              if (match) {
+                discoveredSkills.add(match[1]);
+              }
+            }
+          } catch {
+            // Dynamic search failed
+          }
+        }
+
+        spinner.stop();
+
+        if (discoveredSkills.size === 0) {
+          const { recommendedSkills } = detectProject(CWD);
+          for (const skill of recommendedSkills) {
+            discoveredSkills.add(skill);
+          }
+        }
+
+        const skillsToInstall = [...discoveredSkills].slice(0, 5);
+        if (skillsToInstall.length > 0) {
+          console.log(
+            chalk.bold("  📦 Auto-installing skills for your stack:\n"),
+          );
+          const skills = require("../scripts/skills");
+          await skills.run(CWD, ["add", ...skillsToInstall]);
+        }
       }
     }
-  }
 
-  // Always install find-skills meta-skill
-  try {
-    const findSkillsDir = path.join(CWD, ".agent", "skills", "find-skills");
-    const findSkillsAlt = path.join(CWD, ".agents", "skills", "find-skills");
-    if (
-      !(await fs.pathExists(findSkillsDir)) &&
-      !(await fs.pathExists(findSkillsAlt))
-    ) {
-      execSync(
-        "npx -y skills add https://github.com/vercel-labs/skills --skill find-skills -y",
-        { cwd: CWD, stdio: "pipe", timeout: 30000 },
-      );
-
-      // Move from .agents/skills to .agent/skills if installed there
+    // Always install find-skills meta-skill
+    try {
+      const findSkillsDir = path.join(CWD, ".agent", "skills", "find-skills");
+      const findSkillsAlt = path.join(CWD, ".agents", "skills", "find-skills");
       if (
         !(await fs.pathExists(findSkillsDir)) &&
-        (await fs.pathExists(findSkillsAlt))
+        !(await fs.pathExists(findSkillsAlt))
       ) {
-        await fs.ensureDir(path.join(CWD, ".agent", "skills"));
-        await fs.copy(findSkillsAlt, findSkillsDir);
-      }
-    }
-  } catch (_e) {
-    // Non-fatal
-  }
+        execSync(
+          "npx -y skills add https://github.com/vercel-labs/skills --skill find-skills -y",
+          { cwd: CWD, stdio: "pipe", timeout: 30000 },
+        );
 
-  // --- Phase 2.5: Auto-register agents in GEMINI.md ---
-  try {
-    const agents = require("../scripts/agents");
-    await agents.run(CWD);
-  } catch (_e) {
-    // Non-fatal: agent registration is a nice-to-have
+        // Move from .agents/skills to .agent/skills if installed there
+        if (
+          !(await fs.pathExists(findSkillsDir)) &&
+          (await fs.pathExists(findSkillsAlt))
+        ) {
+          await fs.ensureDir(path.join(CWD, ".agent", "skills"));
+          await fs.copy(findSkillsAlt, findSkillsDir);
+        }
+      }
+    } catch (_e) {
+      // Non-fatal
+    }
+
+    // --- Phase 2.5: Auto-register agents in GEMINI.md ---
+    try {
+      const agents = require("../scripts/agents");
+      await agents.run(CWD);
+    } catch (_e) {
+      // Non-fatal: agent registration is a nice-to-have
+    }
   }
 
   // --- Phase 3: Getting Started banner ---
@@ -485,17 +649,30 @@ async function main() {
   console.log(
     B("  │") + Y("    /debug     ") + B(" systematic debugging             │"),
   );
-  console.log(
-    B("  │") + Y("    agk status ") + B(" check project health             │"),
-  );
-  console.log(
-    B("  │") + Y("    agk doctor ") + B(" full health check                │"),
-  );
+  if (targetConfig.installOpenCode) {
+    console.log(
+      B("  │") +
+        Y("    /help      ") +
+        B(" list OpenCode custom commands      │"),
+    );
+  }
+  if (targetConfig.installAntigravity) {
+    console.log(
+      B("  │") +
+        Y("    agk status ") +
+        B(" check project health             │"),
+    );
+    console.log(
+      B("  │") +
+        Y("    agk doctor ") +
+        B(" full health check                │"),
+    );
+  }
   console.log(
     B("  │") + B("                                                 │"),
   );
 
-  if (withNeuralMemory) {
+  if (withNeuralMemory && targetConfig.installAntigravity) {
     console.log(
       B("  │") + C("  NeuralMemory:") + B(" fill API keys in .env           │"),
     );
@@ -639,12 +816,40 @@ async function scaffoldNeuralMemory(cwd, force) {
 
 // --- Entry point: choose init mode ---
 if (isInteractive) {
-  // Run interactive setup
+  const targetConfig = parseInitTargets(cliArgs);
+  if (targetConfig.installOpenCode && !targetConfig.installAntigravity) {
+    console.log(
+      chalk.yellow(
+        "\n⚠️  Interactive mode is not needed for OpenCode-only setup.",
+      ),
+    );
+    console.log(
+      chalk.gray("   Running standard init with --target opencode.\n"),
+    );
+    main().catch((err) => {
+      console.error(
+        chalk.red(`\n✖ Fatal error during initialization:`),
+        err.message,
+      );
+      process.exit(1);
+    });
+    return;
+  }
+
+  // Run interactive setup (antigravity), then optional OpenCode adapters
+  const force = cliArgs.includes("--force") || cliArgs.includes("-f");
   const initInteractive = require("../scripts/init-interactive");
-  initInteractive.run(CWD).catch((error) => {
-    console.error(chalk.red("Installation failed:"), error.message);
-    process.exit(1);
-  });
+  initInteractive
+    .run(CWD)
+    .then(async () => {
+      if (targetConfig.installOpenCode) {
+        await scaffoldOpenCodeCommands(CWD, force);
+      }
+    })
+    .catch((error) => {
+      console.error(chalk.red("Installation failed:"), error.message);
+      process.exit(1);
+    });
 } else {
   // Run standard init
   main().catch((err) => {

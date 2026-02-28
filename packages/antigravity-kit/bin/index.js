@@ -44,6 +44,8 @@ ${chalk.bold.cyan("agk")} — Antigravity Kit v${version}
 ${chalk.bold("USAGE")}
   ${chalk.yellow("agk")}                  Smart default (init if new, doctor if exists)
   ${chalk.yellow("agk init")}             Scaffold all templates
+  ${chalk.yellow("agk init --target opencode")} Install standalone OpenCode commands
+  ${chalk.yellow("agk init --target all")}      Install AGK + OpenCode adapters
   ${chalk.yellow("agk init -i")}          Interactive setup wizard
   ${chalk.yellow("agk status")}           Quick project summary
   ${chalk.yellow("agk doctor")}           Full health check
@@ -118,10 +120,13 @@ async function main() {
 
     case undefined: {
       // Smart default: init if not initialized, dashboard if already set up
-      // Check both .agent/ (workflows) and .gemini/ (rules) — either means initialized
+      // Check AGK (.agent/.gemini) and OpenCode (.opencode/commands)
       const hasAgent = await fs.pathExists(path.join(CWD, ".agent"));
       const hasGemini = await fs.pathExists(path.join(CWD, ".gemini", "rules"));
-      if (hasAgent || hasGemini) {
+      const hasOpenCode = await fs.pathExists(
+        path.join(CWD, ".opencode", "commands"),
+      );
+      if (hasAgent || hasGemini || hasOpenCode) {
         const dashboard = require("../scripts/dashboard");
         const code = await dashboard.run(CWD);
         process.exit(code);

@@ -40,6 +40,15 @@ async function run(projectDir) {
     workflowsInfo = chalk.green(`${count} workflows`);
   }
 
+  // OpenCode commands
+  const opencodeDir = path.join(projectDir, ".opencode", "commands");
+  let opencodeInfo = chalk.gray("not found");
+  if (await fs.pathExists(opencodeDir)) {
+    const files = await fs.readdir(opencodeDir);
+    const count = files.filter((f) => f.endsWith(".md")).length;
+    opencodeInfo = chalk.green(`${count} commands`);
+  }
+
   // Print table
   printRow("Package", `${name}`);
   printRow("Version", `v${version}`);
@@ -51,6 +60,7 @@ async function run(projectDir) {
   printRow("Node", chalk.gray(nodeVersion));
   printRow("SSOT", rulesInfo);
   printRow("Workflows", workflowsInfo);
+  printRow("OpenCode", opencodeInfo);
 
   console.log();
   return 0;

@@ -10,6 +10,7 @@ const chalk = require("chalk");
 const {
   countWorkflows,
   countAgents,
+  countOpenCodeCommands,
   checkMemory,
   checkGuardRails,
   checkHooks,
@@ -35,15 +36,23 @@ async function run(projectDir) {
   console.log(chalk.gray("  " + "─".repeat(46)));
 
   // ── Status rows ─────────────────────────────────────
-  const [workflows, agents, memory, guardRails, hooksInstalled, syncRemote] =
-    await Promise.all([
-      countWorkflows(projectDir),
-      countAgents(projectDir),
-      checkMemory(projectDir),
-      checkGuardRails(projectDir),
-      checkHooks(projectDir),
-      getSyncRemote(projectDir),
-    ]);
+  const [
+    workflows,
+    agents,
+    opencodeCommands,
+    memory,
+    guardRails,
+    hooksInstalled,
+    syncRemote,
+  ] = await Promise.all([
+    countWorkflows(projectDir),
+    countAgents(projectDir),
+    countOpenCodeCommands(projectDir),
+    checkMemory(projectDir),
+    checkGuardRails(projectDir),
+    checkHooks(projectDir),
+    getSyncRemote(projectDir),
+  ]);
 
   console.log();
   row(
@@ -55,6 +64,11 @@ async function run(projectDir) {
     "Agents",
     agents.count > 0 ? `${agents.count} installed` : "none",
     agents.count > 0,
+  );
+  row(
+    "OpenCode",
+    opencodeCommands.count > 0 ? `${opencodeCommands.count} commands` : "none",
+    opencodeCommands.count > 0,
   );
   row(
     "Memory",
@@ -77,12 +91,20 @@ async function run(projectDir) {
 
   // ── Next Actions ────────────────────────────────────
   const actions = [];
+  const opencodeOnlyProject =
+    opencodeCommands.count > 0 && workflows.count === 0 && agents.count === 0;
 
-  if (workflows.count === 0) {
+  if (workflows.count === 0 && opencodeCommands.count === 0) {
     actions.push({ cmd: "agk init", desc: "scaffold workflows & rules" });
   }
-  if (agents.count === 0) {
+  if (agents.count === 0 && !opencodeOnlyProject) {
     actions.push({ cmd: "agk upgrade", desc: "install specialist agents" });
+  }
+  if (opencodeCommands.count === 0) {
+    actions.push({
+      cmd: "agk init --target opencode",
+      desc: "install OpenCode slash commands",
+    });
   }
   if (!hooksInstalled) {
     actions.push({ cmd: "agk hooks", desc: "install git hooks" });

@@ -1,11 +1,12 @@
 /**
- * agk upgrade — Update installed workflows and rules from templates
+ * agk upgrade — Update installed templates from AGK
  */
 
 const fs = require("fs-extra");
 const path = require("path");
 const chalk = require("chalk");
 const ora = require("ora");
+const { loadOpenCodeCommandTemplates } = require("../lib/opencode-commands");
 
 const TEMPLATES_DIR = path.join(__dirname, "..", "templates");
 
@@ -36,6 +37,14 @@ const UPGRADE_TARGETS = [
     destDir: ".memory",
     ext: ".md",
     skipIfExists: true, // Never overwrite memory — user data
+  },
+  {
+    label: "OpenCode Commands",
+    templateDir: "workflows",
+    destDir: path.join(".opencode", "commands"),
+    ext: ".md",
+    generatedFromWorkflows: true,
+    optional: true,
   },
 ];
 
@@ -79,6 +88,10 @@ async function run(projectDir) {
     }
 
     if (!(await fs.pathExists(destDir))) {
+      if (target.optional) {
+        if (spinner) spinner.stop();
+        continue;
+      }
       if (spinner)
         spinner.info(`${target.label}: not installed (run agk init first)`);
       else
@@ -90,14 +103,28 @@ async function run(projectDir) {
       continue;
     }
 
-    const templateFiles = (await fs.readdir(templateDir)).filter((f) =>
-      f.endsWith(target.ext),
-    );
+    let templateEntries = [];
+    if (target.generatedFromWorkflows) {
+      const generated = await loadOpenCodeCommandTemplates(templateDir);
+      templateEntries = generated.map((item) => ({
+        file: item.fileName,
+        content: item.content,
+      }));
+    } else {
+      const templateFiles = (await fs.readdir(templateDir)).filter((f) =>
+        f.endsWith(target.ext),
+      );
+      templateEntries = templateFiles.map((file) => ({
+        file,
+        srcPath: path.join(templateDir, file),
+      }));
+    }
 
     const results = { updated: 0, skipped: 0, new: 0 };
 
-    for (const file of templateFiles) {
-      const src = path.join(templateDir, file);
+    for (const entry of templateEntries) {
+      const file = entry.file;
+      const src = entry.srcPath;
       const dest = path.join(destDir, file);
       const exists = await fs.pathExists(dest);
 
@@ -116,7 +143,13 @@ async function run(projectDir) {
       }
 
       if (!exists) {
-        if (!dryRun) await fs.copy(src, dest);
+        if (!dryRun) {
+          if (entry.content !== undefined) {
+            await fs.writeFile(dest, entry.content, "utf8");
+          } else {
+            await fs.copy(src, dest);
+          }
+        }
         results.new++;
         if (verbose || dryRun) {
           fileDetails.push({
@@ -126,8 +159,19 @@ async function run(projectDir) {
             color: chalk.green,
           });
         }
-      } else if (forceAll || (await isOutdated(src, dest))) {
-        if (!dryRun) await fs.copy(src, dest);
+      } else if (
+        forceAll ||
+        (entry.content !== undefined
+          ? await isContentOutdated(entry.content, dest)
+          : await isOutdated(src, dest))
+      ) {
+        if (!dryRun) {
+          if (entry.content !== undefined) {
+            await fs.writeFile(dest, entry.content, "utf8");
+          } else {
+            await fs.copy(src, dest);
+          }
+        }
         results.updated++;
         if (verbose || dryRun) {
           fileDetails.push({
@@ -248,6 +292,19 @@ async function isOutdated(src, dest) {
     return srcStat.mtime > destStat.mtime;
   } catch {
     return false;
+  }
+}
+
+/**
+ * Compare generated template content against destination file content
+ */
+async function isContentOutdated(sourceContent, destPath) {
+  try {
+    const destContent = await fs.readFile(destPath, "utf8");
+    const normalize = (value) => value.replace(/\r\n/g, "\n").trim();
+    return normalize(sourceContent) !== normalize(destContent);
+  } catch {
+    return true;
   }
 }
 

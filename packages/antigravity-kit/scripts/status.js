@@ -8,6 +8,7 @@ const { version, name } = require("../package.json");
 const {
   countWorkflows,
   countAgents,
+  countOpenCodeCommands,
   checkMemory,
   checkGuardRails,
   checkHooks,
@@ -37,6 +38,7 @@ async function run(projectDir) {
     hooksInstalled,
     memorySyncRemote,
     agents,
+    opencodeCommands,
   ] = await Promise.all([
     countWorkflows(projectDir),
     checkMemory(projectDir),
@@ -44,6 +46,7 @@ async function run(projectDir) {
     checkHooks(projectDir),
     getSyncRemote(projectDir),
     countAgents(projectDir),
+    countOpenCodeCommands(projectDir),
   ]);
 
   // Print status table
@@ -56,6 +59,13 @@ async function run(projectDir) {
     "Agents",
     agents.count > 0 ? `${agents.count} installed` : "none (run agk upgrade)",
     agents.count > 0,
+  );
+  printRow(
+    "OpenCode",
+    opencodeCommands.count > 0
+      ? `${opencodeCommands.count} commands`
+      : "none (run agk init --target opencode)",
+    opencodeCommands.count > 0,
   );
   const memoryText =
     memory.found > 0

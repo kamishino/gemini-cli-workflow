@@ -30,8 +30,8 @@ function runAgk(cmd, cwd) {
   });
 }
 
-function runInit(cwd) {
-  return execSync(`node "${INIT_JS}"`, {
+function runInit(cwd, args = "") {
+  return execSync(`node "${INIT_JS}" ${args}`, {
     cwd,
     encoding: "utf8",
     timeout: 15000,
@@ -114,6 +114,50 @@ describe("agk init (E2E)", () => {
     // Should not throw
     runInit(tmpDir);
     assert.ok(true, "Second init should not throw");
+  });
+
+  it("supports OpenCode-only target", async () => {
+    runInit(tmpDir, "--target opencode");
+
+    const opencodeDir = path.join(tmpDir, ".opencode", "commands");
+    assert.ok(
+      await fs.pathExists(opencodeDir),
+      ".opencode/commands should exist",
+    );
+
+    const commandFiles = (await fs.readdir(opencodeDir)).filter((f) =>
+      f.endsWith(".md"),
+    );
+    assert.ok(commandFiles.length >= 10, "Should scaffold command adapters");
+
+    const sample = await fs.readFile(
+      path.join(opencodeDir, commandFiles[0]),
+      "utf8",
+    );
+    assert.ok(sample.includes("agent:"), "Generated command should set agent");
+    assert.ok(
+      sample.includes("$ARGUMENTS"),
+      "Generated command should pass slash-command arguments",
+    );
+
+    // OpenCode-only should not scaffold legacy AGK surfaces by default
+    assert.ok(
+      !(await fs.pathExists(path.join(tmpDir, ".agent", "workflows"))),
+      ".agent/workflows should not exist for OpenCode-only target",
+    );
+  });
+
+  it("supports combined target (all)", async () => {
+    runInit(tmpDir, "--target all");
+
+    assert.ok(
+      await fs.pathExists(path.join(tmpDir, ".agent", "workflows")),
+      "AGK workflows should exist for --target all",
+    );
+    assert.ok(
+      await fs.pathExists(path.join(tmpDir, ".opencode", "commands")),
+      "OpenCode commands should exist for --target all",
+    );
   });
 });
 
@@ -205,6 +249,58 @@ describe("agk upgrade (E2E)", () => {
 
     const content = await fs.readFile(contextPath, "utf8");
     assert.equal(content, customContent, "Memory files should be protected");
+  });
+});
+
+describe("agk OpenCode adapters (E2E)", () => {
+  let tmpDir;
+
+  beforeEach(async () => {
+    tmpDir = path.join(os.tmpdir(), `agk-e2e-opencode-${Date.now()}`);
+    await fs.ensureDir(tmpDir);
+    await fs.writeJson(path.join(tmpDir, "package.json"), {
+      name: "test-project",
+      version: "1.0.0",
+    });
+    runInit(tmpDir, "--target opencode");
+  });
+
+  afterEach(async () => {
+    await fs.remove(tmpDir);
+  });
+
+  it("upgrade restores missing OpenCode command files", async () => {
+    const commandsDir = path.join(tmpDir, ".opencode", "commands");
+    const files = (await fs.readdir(commandsDir)).filter((f) =>
+      f.endsWith(".md"),
+    );
+    const removed = files[0];
+    await fs.remove(path.join(commandsDir, removed));
+
+    runAgk("upgrade", tmpDir);
+
+    assert.ok(
+      await fs.pathExists(path.join(commandsDir, removed)),
+      "upgrade should restore missing OpenCode command",
+    );
+  });
+
+  it("diff reports modified OpenCode command files", async () => {
+    const commandsDir = path.join(tmpDir, ".opencode", "commands");
+    const files = (await fs.readdir(commandsDir)).filter((f) =>
+      f.endsWith(".md"),
+    );
+    const firstFile = files[0];
+    await fs.appendFile(
+      path.join(commandsDir, firstFile),
+      "\n# local change\n",
+    );
+
+    const output = runAgk("diff", tmpDir);
+    assert.ok(
+      output.includes("OpenCode Commands") || output.includes("modified"),
+      "diff should report OpenCode command drift",
+    );
   });
 });
 
