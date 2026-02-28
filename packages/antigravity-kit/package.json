@@ -24,6 +24,7 @@
   "scripts": {
     "test": "node --test test/*.test.js",
     "build": "node scripts/sync-templates.js",
+    "render:workflows": "node scripts/render-workflows.js",
     "prepublishOnly": "npm run build",
     "link": "npm link",
     "unlink": "npm unlink",

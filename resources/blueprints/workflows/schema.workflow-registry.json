@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kamiflow.dev/schemas/workflow-registry.json",
+  "title": "KamiFlow Workflow Registry",
+  "type": "object",
+  "required": ["version", "workflows"],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "description": {
+      "type": "string"
+    },
+    "workflows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "source"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "source": {
+            "type": "string",
+            "pattern": "\\.md$"
+          },
+          "output": {
+            "type": "string",
+            "pattern": "\\.md$"
+          },
+          "category": {
+            "type": "string"
+          },
+          "riskMode": {
+            "type": "string",
+            "enum": ["fast", "standard", "critical"]
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

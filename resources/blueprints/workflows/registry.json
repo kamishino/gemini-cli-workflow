@@ -1,0 +1,37 @@
+{
+  "$schema": "./schema.workflow-registry.json",
+  "version": 1,
+  "description": "Canonical workflow registry for adapter-aware rendering",
+  "workflows": [
+    {
+      "id": "develop",
+      "source": "develop.md",
+      "category": "core",
+      "riskMode": "standard"
+    },
+    {
+      "id": "quick-fix",
+      "source": "quick-fix.md",
+      "category": "quick",
+      "riskMode": "fast"
+    },
+    {
+      "id": "release",
+      "source": "release.md",
+      "category": "ops",
+      "riskMode": "critical"
+    },
+    {
+      "id": "review",
+      "source": "review.md",
+      "category": "quality",
+      "riskMode": "standard"
+    },
+    {
+      "id": "sync",
+      "source": "sync.md",
+      "category": "ops",
+      "riskMode": "standard"
+    }
+  ]
+}
