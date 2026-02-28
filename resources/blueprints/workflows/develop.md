@@ -6,12 +6,24 @@ description: Structured Development - Full idea-to-ship workflow with planning g
 
 Transform a raw idea into deployed code through a rigorous, phase-based pipeline.
 
+## Runtime Notes
+
+{{TARGET_OVERLAY}}
+
+{{MODEL_OVERLAY}}
+
 **Intent triggers** — This workflow activates when you say things like:
 
 - "Build a new feature for..."
 - "Add [component] to the project"
 - "I want to implement..."
 - "Create a new module/page/API for..."
+
+## When to Use
+
+- New features with multiple files or cross-module impact.
+- Work requiring explicit planning gates before implementation.
+- Tasks where traceability from idea to commit is required.
 
 ---
 

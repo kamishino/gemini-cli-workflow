@@ -6,6 +6,12 @@ description: Code Review - Structured review with anti-pattern detection and hea
 
 Examines recent changes for quality, anti-patterns, and project health.
 
+## Runtime Notes
+
+{{TARGET_OVERLAY}}
+
+{{MODEL_OVERLAY}}
+
 **Intent triggers** — This workflow activates when you say things like:
 
 - "Review my recent changes"
@@ -87,3 +93,14 @@ npm test
 7. **Memory Update** — If new anti-patterns found, append to `.memory/anti-patterns.md`.
 
 8. Present review to user and wait for acknowledgment.
+
+---
+
+## Related Workflows
+
+| Workflow     | When to Use                                      |
+| ------------ | ------------------------------------------------ |
+| `/develop`   | Implement required fixes from review findings    |
+| `/debug`     | Investigate failing tests or runtime regressions |
+| `/release`   | Final pre-release quality gate                   |
+| `/quick-fix` | Apply small, isolated fixes discovered in review |

@@ -6,6 +6,12 @@ description: Project Sync - Update memory, review session work, and create unifi
 
 Collect session intelligence, update memory and docs, and create a unified commit.
 
+## Runtime Notes
+
+{{TARGET_OVERLAY}}
+
+{{MODEL_OVERLAY}}
+
 **Intent triggers** — This workflow activates when you say things like:
 
 - "Sync the project"
@@ -13,6 +19,12 @@ Collect session intelligence, update memory and docs, and create a unified commi
 - "Update the docs and commit"
 - "Wrap up this session"
 - "Create a unified commit for today's work"
+
+## When to Use
+
+- End of session after implementation/validation is complete.
+- Before switching machine or context and you need memory continuity.
+- When multiple small commits need one clean session-level summary.
 
 ---
 
@@ -61,3 +73,14 @@ git diff --stat
    ```
 
 7. **Done** — Session intelligence saved for next time.
+
+---
+
+## Related Workflows
+
+| Workflow      | When to Use                                        |
+| ------------- | -------------------------------------------------- |
+| `/checkpoint` | Mid-session save before risky operations           |
+| `/compact`    | Compress long context before final sync            |
+| `/release`    | Perform version bump/tag flow after sync if needed |
+| `/wake`       | Restore synced context in a new session            |

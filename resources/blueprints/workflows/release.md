@@ -6,6 +6,12 @@ description: Release - Smart version bump, changelog generation, and release com
 
 Analyze git history, generate changelog, bump version, and create release commit.
 
+## Runtime Notes
+
+{{TARGET_OVERLAY}}
+
+{{MODEL_OVERLAY}}
+
 **Intent triggers** — This workflow activates when you say things like:
 
 - "Create a new release"
@@ -13,6 +19,12 @@ Analyze git history, generate changelog, bump version, and create release commit
 - "Generate the changelog"
 - "Prepare for publishing"
 - "Ship it"
+
+## When to Use
+
+- A feature/release commit is already finalized and validated.
+- You need a controlled version bump with changelog traceability.
+- You want release metadata prepared before tagging/publishing.
 
 ---
 
@@ -67,3 +79,13 @@ Analyze git history, generate changelog, bump version, and create release commit
    - Ask: "Create git tag `v{NEW_VERSION}`?" (user decides)
 
 10. **Update Memory** — Update `.memory/context.md` with new version info.
+
+---
+
+## Related Workflows
+
+| Workflow   | When to Use                                              |
+| ---------- | -------------------------------------------------------- |
+| `/review`  | Final quality review before release bump                 |
+| `/sync`    | Record session intelligence after release prep           |
+| `/develop` | Return to implementation when release blockers are found |

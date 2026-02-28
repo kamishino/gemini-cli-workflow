@@ -92,6 +92,7 @@ OpenCode command adapters are generated from `templates/workflows/` (single SSOT
 Use `agk agents render --target opencode --model-profile codex --force` to switch AGENTS.md profile intentionally.
 Workflow templates are rendered from `resources/blueprints/workflows/` with safe overwrite mode by default.
 Set `AGK_FORCE_WORKFLOW_SYNC=1` when running build to force migration overwrite for legacy workflow files.
+Use `npm run lint:workflows` inside `packages/antigravity-kit` to validate workflow registry and structure before build.
 
 ---
 

@@ -6,6 +6,12 @@ description: Quick Fix - Fast track for small, obvious changes (bypasses full wo
 
 Streamlined workflow for small, safe changes that don't need full ceremony.
 
+## Runtime Notes
+
+{{TARGET_OVERLAY}}
+
+{{MODEL_OVERLAY}}
+
 **Intent triggers** — This workflow activates when you say things like:
 
 - "Fix this typo in..."
@@ -69,3 +75,14 @@ ALL 5 must be true:
    ```
 
 7. **Done** — No reflection phase needed for quick fixes.
+
+---
+
+## Related Workflows
+
+| Workflow      | When to Use                                                   |
+| ------------- | ------------------------------------------------------------- |
+| `/develop`    | Any fast-track criterion fails or change scope grows mid-task |
+| `/review`     | Validate a quick fix before merge                             |
+| `/sync`       | End-of-session memory update and unified commit               |
+| `/checkpoint` | Save context before attempting the quick fix                  |
